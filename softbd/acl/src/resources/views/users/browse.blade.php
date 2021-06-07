@@ -1,0 +1,203 @@
+@extends('core.main')
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-primary custom-bg-gradient-info">
+                        <h3 class="card-title font-weight-bold">User List</h3>
+
+                        <div class="card-tools">
+                            @can('create', \Softbd\Acl\Models\User::class)
+                                <a href="javascript:;"
+                                   class="btn btn-sm btn-outline-primary btn-rounded create-new-button">
+                                    <i class="fas fa-plus-circle"></i> Add new
+                                </a>
+                            @endcan
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="datatable-container">
+                            <table id="dataTable" class="table table-bordered table-striped dataTable">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <x-modal id="view-modal" type="success" xl></x-modal>
+    <x-modal id="edit-add-modal" type="success" xl></x-modal>
+
+    @include('utils.delete-confirm-modal')
+@endsection
+
+@push('css')
+    <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
+@endpush
+
+@push('js')
+    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
+    <script>
+        const INSTITUTE_USER = parseInt('{{ \Softbd\Acl\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
+        const editAddModal = $("#edit-add-modal");
+        const viewModal = $("#view-modal");
+        $(function () {
+            let params = serverSideDatatableFactory({
+                url: '{{ route('admin.users.datatable') }}',
+                order: [[2, "asc"]],
+                columns: [
+                    {
+                        title: "SL#",
+                        data: null,
+                        defaultContent: "SL#",
+                        searchable: false,
+                        orderable: false,
+                        visible: true,
+                    },
+                    {
+                        title: "Name (En)",
+                        data: "name_en",
+                        name: "users.name_en"
+                    },
+                    {
+                        title: "Name (Bn)",
+                        data: "name_bn",
+                        name: "users.name_bn"
+                    },
+                    {
+                        title: "User Type",
+                        data: "user_type_title",
+                        name: "user_types.title"
+                    },
+                    {
+                        title: "Action",
+                        data: "action",
+                        name: "action",
+                        orderable: false,
+                        searchable: false,
+                        visible: true
+                    },
+                ]
+            });
+            const datatable = $('#dataTable').DataTable(params);
+            bindDatatableSearchOnPresEnterOnly(datatable);
+
+            $(document, 'td').on('click', '.delete', function (e) {
+                $('#delete_form')[0].action = $(this).data('action');
+                $('#delete_modal').modal('show');
+            });
+        });
+
+        $(document).on('click', ".dt-view", async function () {
+            let url = $(this).data('url');
+            let response = await $.get(url);
+            viewModal.find('.modal-content').html(response);
+            viewModal.modal('show');
+        });
+
+        $(document).on('click', ".dt-edit", async function () {
+            let response = await $.get($(this).data('url'));
+            editAddModal.find('.modal-content').html(response);
+            initializeSelect2(".select2-ajax-wizard");
+            editAddModal.modal('show');
+            registerValidator(true);
+            if ($(this).hasClass('button-from-view')) {
+                viewModal.modal('hide');
+            }
+        });
+
+        if ($(".create-new-button").length) {
+            $(document).on('click', ".create-new-button", async function () {
+                let url = '{{route('admin.users.create')}}';
+                let response = await $.get(url);
+                editAddModal.find('.modal-content').html(response);
+                initializeSelect2(".select2-ajax-wizard");
+                editAddModal.modal('show');
+                registerValidator(false);
+            });
+        }
+
+        editAddModal.on('hidden.bs.modal', function () {
+            editAddModal.find('.modal-content').empty();
+        });
+        viewModal.on('hidden.bs.modal', function () {
+            viewModal.find('.modal-content').empty();
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.avatar-preview img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $(document).on('change', "#profile_pic", function () {
+            readURL(this);
+        });
+
+        function registerValidator(edit) {
+            $(".edit-add-form").validate({
+                rules: {
+                    name_en: {
+                        required: true
+                    },
+                    name_bn: {
+                        required: true,
+                        pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
+                    },
+                    email: {
+                        required: true
+                    },
+                    user_type_id: {
+                        required: true
+                    },
+                    old_password: {
+                        required: function () {
+                            return !!$('#password').val().length;
+                        },
+                    },
+                    password: {
+                        required: !edit,
+                    },
+                    password_confirmation: {
+                        equalTo: '#password',
+                    },
+                },
+                messages: {
+                    name_bn: {
+                        pattern: "Please fill this field in Bangla."
+                    },
+                },
+                submitHandler: function (htmlForm) {
+                    $('.overlay').show();
+                    let formData = new FormData(htmlForm);
+                    let jForm = $(htmlForm);
+                    $.ajax({
+                        url: jForm.prop('action'),
+                        method: jForm.prop('method'),
+                        data: formData,
+                        enctype: 'multipart/form-data',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                    })
+                        .done(function (responseData) {
+                            toastr.success(responseData.message);
+                        })
+                        .fail(ajaxFailedResponseHandler)
+                        .always(function () {
+                            $('.overlay').hide();
+                        });
+                    return false;
+                }
+            });
+        }
+    </script>
+@endpush

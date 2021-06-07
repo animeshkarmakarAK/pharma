@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'add_button_label' => 'সম্পাদনা করুণ',
+    'edit_button_label' => 'যোগ করুণ',
+    'delete_button_label' => 'মুছুন',
+    'read_button_label' => 'প্রদর্শন',
+    'user_details' => 'ব্যবহারকারির বিস্তারিত',
+    'change_info' => 'তথ্য পরিবর্তন',
+    'bangla' => 'বাংলা',
+    'english' => 'ইংলিশ',
+    'name' => 'নাম',
+    'email' => 'ইমেইল',
+    'photo' =>'ছবি',
+    'phone' => 'ফোন',
+    'photo_change' =>'ছবি পরিবর্তন',
+    'change_photo' =>'ছবি পরিবর্তন করুণ' ,
+    'upload_new_pic' => 'আপলোড নতুন ছবি',
+    'signature' => 'সাক্ষর',
+    'change_password' =>'পাসওয়ার্ড পরিবর্তন',
+    'mobile_number' => 'মোবাইল নাম্বার',
+    'new_password' =>'নতুন পাসওয়ার্ড',
+    'old_password' =>'পুরাতন পাসওয়ার্ড',
+    'confirm_password' => 'কনফার্ম পাসওয়ার্ড',
+    'store' => 'সংরক্ষণ করুণ',
+];
