@@ -15,7 +15,6 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
-        "softbd/acl": "*",
         "softbd/menu-builder": "*",
         "yajra/laravel-datatables-oracle": "^9.15"
     },
@@ -70,13 +69,6 @@
         {
             "type": "path",
             "url": "softbd/menu-builder",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "softbd/acl",
             "options": {
                 "symlink": true
             }

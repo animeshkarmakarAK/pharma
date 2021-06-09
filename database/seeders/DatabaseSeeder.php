@@ -14,8 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            \Softbd\Acl\Seeders\DatabaseSeeder::class
+            RoleTableSeeder::class,
+            RowStatusSeeder::class,
+            UserTypeSeeder::class,
+            \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class
         ]);
-
     }
 }

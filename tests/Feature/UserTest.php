@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Softbd\Acl\Models\User;
+use App\Models\User;
 use Tests\TestCase;
 use Faker\Factory as Faker;
 

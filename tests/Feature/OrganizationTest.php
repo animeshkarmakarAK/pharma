@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
-use Softbd\Acl\Models\User;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
 class OrganizationTest extends TestCase

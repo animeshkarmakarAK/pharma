@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = '';
 
     /**
      * The path to the "home" route for your application.
@@ -74,11 +74,11 @@ class RouteServiceProvider extends ServiceProvider
         $modules = collect(is_array(config('module.list')) ? config('module.list') : []);
 
         $modules->each(function ($module) use ($routeFor) {
-            $routePath = base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . $routeFor .'.php');
+            $routePath = base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . $routeFor . '.php');
 
             Route::middleware($routeFor)
                 ->prefix($routeFor == 'api' ? 'api' : '')
-                ->namespace("Module\\{$module}\\Http\\Controllers")
+                ->namespace($this->namespace)
                 ->group($routePath);
         });
     }

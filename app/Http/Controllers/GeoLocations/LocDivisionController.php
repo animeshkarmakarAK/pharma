@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\GeoLocations;
 
 use App\Helpers\Classes\DatatableHelper;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\LocDivision;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\View\View;
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
-class LocDivisionController extends Controller
+class LocDivisionController extends BaseController
 {
     private const VIEW_PATH = 'geo-locations.loc-divisions.';
 

@@ -7,7 +7,7 @@ use Faker\Factory as Faker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Softbd\Acl\Models\User;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 

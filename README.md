@@ -75,7 +75,7 @@ Just add class ```select2-ajax-wizard``` to enable select2 on your select elemen
 <select class="form-control select2-ajax-wizard"
         name="user_id2"
         id="user_id2"
-        data-model="{{base64_encode(Softbd\Acl\Models\User::class)}}"
+        data-model="{{base64_encode(App\Models\User::class)}}"
         data-label-fields="{name_en} - {institute.title_en}"
         data-depend-on="user_type_id:#user_type_id"
         data-depend-on-optional="user_type_id:#user_type_id"
@@ -97,7 +97,7 @@ This will define which model you want to fetch.
 Model namespace should encode using base64_encode. Otherwise, it won't work.
 
 excepted format
-```data-model="{{base64_encode(Softbd\Acl\Models\User::class)}}"```
+```data-model="{{base64_encode(App\Models\User::class)}}"```
 
 
 ***
@@ -194,7 +194,7 @@ $.ajax({
     url: '{{route('web-api.model-resources')}}',
     data: {
         resource: {
-            model: "{{base64_encode(\Softbd\Acl\Models\User::class)}}",
+            model: "{{base64_encode(\App\Models\User::class)}}",
             columns: 'name_en|institute.title_en|institute.title_bn',
             scopes: 'acl',
         }

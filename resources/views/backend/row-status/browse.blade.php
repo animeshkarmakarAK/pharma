@@ -1,4 +1,4 @@
-@extends('core.main')
+@extends('master::layouts.master')
 @section('content')
     <div class="container-fluid">
         <div class="row">

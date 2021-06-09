@@ -1,1 +1,1 @@
-@extends('root-view::core.main')
+@extends('master::layouts.master')

@@ -3,7 +3,7 @@
 namespace App\Helpers\Classes;
 
 use Illuminate\Support\Facades\Auth;
-use Softbd\Acl\Models\User;
+use App\Models\User;
 
 
 class AuthHelper

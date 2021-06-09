@@ -29151,14 +29151,6 @@ button.toast-close-button {
   padding: 10px;
 }
 
-.content-wrapper {
-  background: #f2f7f8;
-}
-
-.card-header {
-  border-bottom: 1px solid #bcdef5;
-}
-
 .error {
   color: #ff3e57;
 }

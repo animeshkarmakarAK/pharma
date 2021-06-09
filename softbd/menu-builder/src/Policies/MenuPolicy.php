@@ -2,7 +2,7 @@
 
 namespace Softbd\MenuBuilder\Policies;
 
-use Softbd\Acl\Models\User;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Softbd\MenuBuilder\Models\Menu;
 

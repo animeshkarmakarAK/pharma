@@ -2,7 +2,7 @@
 
 namespace Softbd\MenuBuilder\Policies;
 
-use Softbd\Acl\Models\User;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MenuItemPolicy
@@ -47,7 +47,7 @@ class MenuItemPolicy
 
     /**
      * Check if user has an associated permission.
-     * @param \Softbd\Acl\Models\User $user
+     * @param \App\Models\User $user
      * @param object $model
      * @param string $action
      * @return bool

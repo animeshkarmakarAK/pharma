@@ -34,6 +34,12 @@ $(document).ready(function () {
         });
     });
 
+    $('.select2-ajax-wizard').change(function () {
+        if ($(this).parent().hasClass('has-error')) {
+            $(this).valid();
+        }
+    });
+
 
     $('select.select2').each(function () {
         let placeholder = $(this).data('placeholder');
@@ -46,25 +52,51 @@ $(document).ready(function () {
             language: 'bn',
         });
     });
-});
 
-window.initializeSelect2 = function (selector) {
-    $(document).find(selector).each(function () {
+    $(".select2-ajax-wizard").each(function () {
+
         const elm = $(this);
         const formElem = $(this).closest('form');
         const elmNameRefs = (elm.prop('id') || elm.prop('name'));
         const hasId = !!elm.prop('id');
         /**
-         * base64_encode(\Softbd\Acl\Models\User::class)
+         * json_encode(['text' => 'Baker Hasan', 'id' => 1])
          * @type {*|jQuery}
          */
-        const model = elm.data('model');
+        const preselectedOption = elm.data('preselected-option');
 
+        /**
+         * @type {*|jQuery|string}
+         */
+        const placeholder = elm.data('placeholder') || 'Select options';
         /**
          * {name_en} - {institute.title_en}
          * @type {*|jQuery|string}
          */
         const labelFields = elm.data('label-fields') || '';
+
+        /**
+         * name_en|institutes.title_en
+         * @type {string}
+         */
+        let columns = (labelFields.match(/\{([^}]*)\}/g) || [])
+            .join('|')
+            .replaceAll('{', '')
+            .replaceAll('}', '');
+        /**
+         * base64_encode(\App\Models\User::class)
+         * @type {*|jQuery}
+         */
+        const model = elm.data('model');
+
+        if (typeof model === 'undefined' || !model.length) {
+            console.error('Model is empty. NB: ' + elmNameRefs);
+            return false;
+        }
+        if (!columns.length) {
+            console.error('label field is undefined or invalid format. NB: ' + elmNameRefs);
+        }
+
 
         /**
          * user_type_id:#user_type_id|name_en
@@ -79,50 +111,12 @@ window.initializeSelect2 = function (selector) {
         const dependOnOptional = elm.data('depend-on-optional');
 
         /**
-         * json_encode(['name_en' => 'Baker Hasan'])
-         * @type {*|jQuery|{}}
-         */
-        const filters = elm.data('filters') || {};
-
-        /**
-         * acl|bcl
-         * @type {*|jQuery}
-         */
-        const scopes = elm.data('scopes');
-
-        /**
          * #name_en|#name_bn
          * @type {*|jQuery}
          */
         const dependentFields = elm.data('dependent-fields');
 
-        /**
-         * json_encode(['text' => 'Baker Hasan', 'id' => 1])
-         * @type {*|jQuery}
-         */
-        const preselectedOption = elm.data('preselected-option');
 
-        /**
-         * @type {*|jQuery|string}
-         */
-        const placeholder = elm.data('placeholder') || 'Select options';
-
-        /**
-         * name_en|institutes.title_en
-         * @type {string}
-         */
-        let columns = (labelFields.match(/\{([^}]*)\}/g) || [])
-            .join('|')
-            .replaceAll('{', '')
-            .replaceAll('}', '');
-
-        if (typeof model === 'undefined' || !model.length) {
-            console.error('Model is empty. NB: ' + elmNameRefs);
-            return false;
-        }
-        if (!columns.length) {
-            console.error('label field is undefined or invalid format. NB: ' + elmNameRefs);
-        }
 
         elm.select2({
             placeholder,
@@ -133,10 +127,23 @@ window.initializeSelect2 = function (selector) {
             debug: true,
             language: 'bn',
             ajax: {
-                cache: true,
+                cache: false,
                 method: 'post',
                 url: '/web-api/model-resources',
                 data: function (params) {
+                    /**
+                     * json_encode(['name_en' => 'Baker Hasan'])
+                     * @type {*|jQuery|{}}
+                     */
+                    const initialFilters = elm.data('filters') || {};
+
+                    /**
+                     * acl|bcl
+                     * @type {*|jQuery}
+                     */
+                    const scopes = elm.data('scopes');
+
+                    let filters = Object.assign({}, initialFilters);
                     let query = {
                         search: params.term || '',
                         page: params.page || 1
@@ -175,6 +182,7 @@ window.initializeSelect2 = function (selector) {
                         });
                     }
 
+                    console.log(filters);
                     if (typeof dependOnOptional !== 'undefined' && dependOnOptional.length) {
                         let parsedDependOnOptional = dependOnOptional.split('|');
                         parsedDependOnOptional.forEach(function (item) {
@@ -250,8 +258,4 @@ window.initializeSelect2 = function (selector) {
             currTargetElem.find("option[value='" + data.id + "']").attr('selected', false);
         });
     });
-}
-
-$(function () {
-    initializeSelect2(".select2-ajax-wizard");
 });

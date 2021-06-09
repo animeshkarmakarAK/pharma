@@ -3,6 +3,7 @@
 namespace Module\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
 
         $modules->each(function ($module) {
             $langPath = base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'lang');
-            $this->loadTranslationsFrom($langPath, strtolower($module));
+            $this->loadTranslationsFrom($langPath, Str::snake($module));
         });
     }
 
@@ -61,7 +62,6 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         });
-
     }
 
     protected function loadMigrations()

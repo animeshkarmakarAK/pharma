@@ -1,0 +1,113 @@
+<?php
+
+namespace Module\CourseManagement\App\Services;
+
+use App\Helpers\Classes\AuthHelper;
+use App\Helpers\Classes\DatatableHelper;
+use App\Helpers\Classes\FileHandler;
+use Module\CourseManagement\App\Models\Programme;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Validation\Rule;
+
+class ProgrammeService
+{
+
+    public function createProgramme(array $data): Programme
+    {
+        if (!empty($data['logo'])) {
+            $filename = FileHandler::storePhoto($data['logo'], 'programme');
+            $data['logo'] = 'programme/' . $filename;
+        } else {
+            $data['logo'] = Programme::DEFAULT_LOGO;
+        }
+        return Programme::create($data);
+    }
+
+    public function updateProgramme(Programme $programme, array $data)
+    {
+        if ($programme->logo && !$programme->logoIsDefault() && !empty($data['logo'])) {
+            FileHandler::deleteFile($programme->logo);
+        }
+        if (!empty($data['logo'])) {
+            $filename = FileHandler::storePhoto($data['logo'], 'programme');
+            $data['logo'] = 'programme/' . $filename;
+        }
+
+        $programme->update($data);
+    }
+
+    public function deleteProgramme(Programme $programme): void
+    {
+        $programme->delete();
+    }
+
+
+    public function validator(Request $request, $id = null): Validator
+    {
+        $rules = [
+            'title_en' => 'required|string|max:191',
+            'title_bn' => 'required|string|max:191',
+            'institute_id' => 'required|int',
+            'code' => [
+                'required',
+                'string',
+                'max:191',
+                'unique:programmes,code,' . $id,
+                Rule::unique('programmes')->ignore($id),
+            ],
+            'description' => ['nullable', 'string'],
+            'logo' => [
+                'nullable',
+                'file',
+                'mimes:jpg,bmp,png,jpeg,svg',
+            ],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
+    public function programmeGetDataTable(Request $request): JsonResponse
+    {
+        $authUser = AuthHelper::getAuthUser();
+        $programmes = Programme::select(
+            [
+                'programmes.id as id',
+                'programmes.title_en',
+                'programmes.title_bn',
+                'institutes.title_en as institute_title_en',
+                'programmes.code as programme_code',
+                'programmes.logo as programme_logo',
+                'programmes.row_status',
+                'programmes.created_at',
+                'programmes.updated_at',
+            ]
+        )
+            ->join('institutes', 'programmes.institute_id', '=', 'institutes.id')
+            ->acl();
+
+        return DataTables::eloquent($programmes)
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Programme $programme) use ($authUser) {
+                $str = '';
+                if ($authUser->can('view', $programme)) {
+                    $str .= '<a href="' . route('admin.programmes.show', $programme->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                }
+                if ($authUser->can('update', $programme)) {
+                    $str .= '<a href="' . route('admin.programmes.edit', $programme->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                }
+                if ($authUser->can('delete', $programme)) {
+                    $str .= '<a href="#" data-action="' . route('admin.programmes.destroy', $programme->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                }
+
+                return $str;
+            }))
+            ->editColumn('programme_logo', static function (Programme $programme) {
+                return '<img src="' . asset('storage/' . $programme->programme_logo) . '"  style="width: 100px"/>';
+            })
+            ->rawColumns(['action', 'programme_logo'])
+            ->toJson();
+    }
+
+
+}
