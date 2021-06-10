@@ -18,9 +18,9 @@ class CreateOccupationsTable extends Migration
             $table->string('title_en');
             $table->string('title_bn');
             $table->unsignedInteger('job_sector_id')->index('occupations_fk_job_sector_id');
+            $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();
             $table->foreign('job_sector_id', 'occupations_fk_job_sector_id')->references('id')->on('job_sectors')->onUpdate('CASCADE')->onDelete('CASCADE');
-
         });
     }
 

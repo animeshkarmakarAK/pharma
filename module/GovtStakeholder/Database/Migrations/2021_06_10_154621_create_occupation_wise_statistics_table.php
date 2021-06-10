@@ -19,6 +19,7 @@ class CreateOccupationWiseStatisticsTable extends Migration
             $table->unsignedInteger('occupation_id')->index('occupation_wise_statistics_fk_occupation_id');
             $table->unsignedInteger('current_month_skilled_people')->default(0);
             $table->unsignedInteger('next_month_skill_people')->default(0);
+            $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();
 
             $table->foreign('institute_id', 'occupation_wise_statistics_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('CASCADE');
