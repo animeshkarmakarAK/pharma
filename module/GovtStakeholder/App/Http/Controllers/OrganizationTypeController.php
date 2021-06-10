@@ -13,7 +13,7 @@ use Module\GovtStakeholder\App\Services\OrganizationTypeService;
 
 class OrganizationTypeController extends BaseController
 {
-    const VIEW_PATH = 'backend.organization-types.';
+    const VIEW_PATH = 'govt_stakeholder::backend.organization-types.';
 
     protected OrganizationTypeService $organizationTypeService;
 

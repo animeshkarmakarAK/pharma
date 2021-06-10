@@ -13,7 +13,7 @@ use Module\GovtStakeholder\App\Services\JobSectorService;
 
 class JobSectorController extends BaseController
 {
-    const VIEW_PATH = 'backend.job-sectors.';
+    const VIEW_PATH = 'govt_stakeholder::backend.job-sectors.';
     public JobSectorService $jobSectorService;
 
     public function __construct(JobSectorService $jobSectorService)
