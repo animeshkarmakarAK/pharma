@@ -12,7 +12,7 @@ use Module\GovtStakeholder\App\Services\SkillService;
 
 class SkillController extends BaseController
 {
-    const VIEW_PATH = 'backend.skills.';
+    const VIEW_PATH = 'govt_stakeholder::backend.skills.';
     public SkillService $skillService;
 
     public function __construct(SkillService $skillService)

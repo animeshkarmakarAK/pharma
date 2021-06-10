@@ -13,7 +13,7 @@ use Module\GovtStakeholder\App\Services\UpazilaJobStatisticService;
 
 class UpazilaJobStatisticController extends BaseController
 {
-    const VIEW_PATH = 'backend.upazila-job-statistics.';
+    const VIEW_PATH = 'govt_stakeholder::backend.upazila-job-statistics.';
     public UpazilaJobStatisticService $upazilaJobStatisticService;
 
     public function __construct(UpazilaJobStatisticService $upazilaJobStatisticService)

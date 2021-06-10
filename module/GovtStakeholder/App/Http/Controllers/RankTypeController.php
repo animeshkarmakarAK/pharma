@@ -12,7 +12,7 @@ use Module\GovtStakeholder\App\Services\RankTypeService;
 
 class RankTypeController extends BaseController
 {
-    const VIEW_PATH = 'backend.rank-types.';
+    const VIEW_PATH = 'govt_stakeholder::backend.rank-types.';
     public RankTypeService $rankTypeService;
 
     public function __construct(RankTypeService $rankTypeService)

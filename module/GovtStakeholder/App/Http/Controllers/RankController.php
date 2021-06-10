@@ -12,7 +12,7 @@ use Module\GovtStakeholder\App\Services\RankService;
 
 class RankController extends BaseController
 {
-    const VIEW_PATH = 'backend.ranks.';
+    const VIEW_PATH = 'govt_stakeholder::backend.ranks.';
     public RankService $rankService;
 
     public function __construct(RankService $rankService)
