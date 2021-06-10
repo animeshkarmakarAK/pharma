@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('/');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    Route::get('/', [\Module\GovtStakeholder\App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [\Module\GovtStakeholder\App\Http\Controllers\DashboardController::class, 'dashboard'])->name('admin-dashboard');
+
     Route::resources([
         'organization-units' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class,
         'organization-unit-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class,
