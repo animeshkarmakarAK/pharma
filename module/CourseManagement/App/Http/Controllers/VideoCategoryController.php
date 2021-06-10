@@ -71,7 +71,7 @@ class VideoCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\VideoCategory  $videoCategory
+     * @param  Module\CourseManagement\App\Models\VideoCategory  $videoCategory
      * @return \Illuminate\Http\Response
      */
     public function show(VideoCategory $videoCategory): View
@@ -82,7 +82,7 @@ class VideoCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\VideoCategory  $videoCategory
+     * @param  Module\CourseManagement\App\Models\VideoCategory  $videoCategory
      * @return \Illuminate\Http\Response
      */
     public function edit(VideoCategory $videoCategory): View
@@ -94,7 +94,7 @@ class VideoCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\VideoCategory $videoCategory
+     * @param Module\CourseManagement\App\Models\VideoCategory $videoCategory
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -121,7 +121,7 @@ class VideoCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\VideoCategory  $videoCategory
+     * @param  Module\CourseManagement\App\Models\VideoCategory  $videoCategory
      * @return \Illuminate\Http\Response
      */
     public function destroy(VideoCategory $videoCategory): RedirectResponse

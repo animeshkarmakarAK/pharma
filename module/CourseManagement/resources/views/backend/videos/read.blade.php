@@ -50,7 +50,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Video Type')  }}</p>
                     <div class="input-box">
-                        {{ $video->video_type == \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO ? 'Youtube video' : 'Uploaded video' }}
+                        {{ $video->video_type == Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO ? 'Youtube video' : 'Uploaded video' }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">

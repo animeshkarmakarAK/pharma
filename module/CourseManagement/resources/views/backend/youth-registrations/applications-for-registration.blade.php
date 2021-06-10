@@ -87,7 +87,7 @@
                                             <select class="form-control select2-ajax-wizard"
                                                     name="institute_id"
                                                     id="institute_id"
-                                                    data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                    data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                     data-label-fields="{title_en}"
                                                     data-dependent-fields="#branch_id"
                                                     data-placeholder="Select institute"
@@ -100,7 +100,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="branch_id"
                                                 id="branch_id"
-                                                data-model="{{base64_encode(App\Models\Branch::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on="institute_id"
                                                 data-placeholder="Select Branch"
@@ -112,7 +112,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="training_center_id"
                                                 id="training_center_id"
-                                                data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
                                                 data-placeholder="Select Training Center"
@@ -124,7 +124,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="programme_id"
                                                 id="programme_id"
-                                                data-model="{{base64_encode(App\Models\Programme::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
                                                 data-placeholder="Select Programme"
@@ -136,7 +136,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="course_id"
                                                 id="course_id"
-                                                data-model="{{base64_encode(App\Models\Course::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
                                                 data-placeholder="Select Course"
@@ -209,7 +209,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @can('create', \App\Models\Batch::class)
+                        @can('create', \Module\CourseManagement\App\Models\Batch::class)
                             <div class="d-block mt-5 mb-5 text-center">
                                 <a href="{{route('admin.batches.create')}}" class="btn btn-sm btn-success">
                                     <i class="fa fa-plus-circle"></i> Create New Batch

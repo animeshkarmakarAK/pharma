@@ -13,7 +13,7 @@
                         <h3 class="card-title">{{ $edit ? 'Update Slider' : 'Add Slider' }}</h3>
 
                         <div class="card-tools">
-                            @can('viewAny', \App\Models\Slider::class)
+                            @can('viewAny', Module\CourseManagement\App\Models\Slider::class)
                                 <a href="{{route('admin.sliders.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
@@ -90,7 +90,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
-                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $slider->institute->title_en, 'id' =>  $slider->institute->id])}}"
@@ -111,8 +111,8 @@
                                         <input class="custom-control-input" type="radio"
                                                id="is_button_available_yes"
                                                name="is_button_available"
-                                               value="{{ \App\Models\Slider::IS_BUTTON_AVAILABLE_YES }}"
-                                            {{ ($edit && $slider->is_button_available == \App\Models\Slider::IS_BUTTON_AVAILABLE_YES) || (old('is_button_available') == \App\Models\Slider::IS_BUTTON_AVAILABLE_YES) ? 'checked' : ''}}>
+                                               value="{{ \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES }}"
+                                            {{ ($edit && $slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES) || (old('is_button_available') == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES) ? 'checked' : ''}}>
                                         <label for="is_button_available_yes"
                                                class="custom-control-label">Yes</label>
                                     </div>
@@ -121,8 +121,8 @@
                                         <input class="custom-control-input" type="radio"
                                                id="is_button_available_no"
                                                name="is_button_available"
-                                               value="{{ \App\Models\Slider::IS_BUTTON_AVAILABLE_NO }}"
-                                            {{ ($edit && $slider->is_button_available === \App\Models\Slider::IS_BUTTON_AVAILABLE_NO) || (!empty(old('is_button_available')) && old('is_button_available') == \App\Models\Slider::IS_BUTTON_AVAILABLE_NO) ? 'checked' : ''}}>
+                                               value="{{ \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_NO }}"
+                                            {{ ($edit && $slider->is_button_available === \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_NO) || (!empty(old('is_button_available')) && old('is_button_available') == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_NO) ? 'checked' : ''}}>
                                         <label for="is_button_available_no"
                                                class="custom-control-label">No</label>
                                     </div>
@@ -158,8 +158,8 @@
                                             <input class="custom-control-input" type="radio"
                                                    id="slider_active_status_yes"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Slider::ROW_STATUS_ACTIVE }}"
-                                                {{ ($edit && $slider->row_status == \App\Models\Slider::ROW_STATUS_ACTIVE) || (old('row_status') == \App\Models\Slider::ROW_STATUS_ACTIVE) ? 'checked' : ''}}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE }}"
+                                                {{ ($edit && $slider->row_status == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE) || (old('row_status') == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE) ? 'checked' : ''}}>
                                             <label for="slider_active_status_yes"
                                                    class="custom-control-label">Yes</label>
                                         </div>
@@ -168,8 +168,8 @@
                                             <input class="custom-control-input" type="radio"
                                                    id="slider_active_status_no"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Slider::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $slider->row_status == \App\Models\Slider::ROW_STATUS_INACTIVE) || (old('row_status') == \App\Models\Slider::ROW_STATUS_INACTIVE) ? 'checked' : ''}}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Slider::ROW_STATUS_INACTIVE }}"
+                                                {{ ($edit && $slider->row_status == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_INACTIVE) || (old('row_status') == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_INACTIVE) ? 'checked' : ''}}>
                                             <label for="slider_active_status_no"
                                                    class="custom-control-label">No</label>
                                         </div>
@@ -256,7 +256,7 @@
                 },
                 link: {
                     required: function () {
-                        return $("input[name = 'is_button_available']:checked").val() == {!! \App\Models\Slider::IS_BUTTON_AVAILABLE_YES !!};
+                        return $("input[name = 'is_button_available']:checked").val() == {!! \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES !!};
                     }
                 },
                 description: {
@@ -267,7 +267,7 @@
                 },
                 button_text: {
                     required: function () {
-                        return $("input[name = 'is_button_available']:checked").val() == {!! \App\Models\Slider::IS_BUTTON_AVAILABLE_YES !!};
+                        return $("input[name = 'is_button_available']:checked").val() == {!! \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES !!};
                     }
                 },
                 row_status: {
@@ -306,7 +306,7 @@
                 editAddForm.validate().element("#slider");
             });
 
-            if ($('input[name="is_button_available"]:checked').val() == {!! \App\Models\Slider::IS_BUTTON_AVAILABLE_YES !!}) {
+            if ($('input[name="is_button_available"]:checked').val() == {!! \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES !!}) {
                 $('#button_text').parent().parent().show();
                 $('#link').parent().parent().show();
             } else {
@@ -315,7 +315,7 @@
             }
 
             $('input[name="is_button_available"]').on('change', function () {
-                if ($(this).val() == {{ \App\Models\Slider::IS_BUTTON_AVAILABLE_YES }}) {
+                if ($(this).val() == {{ \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES }}) {
                     $('#button_text').parent().parent().show();
                     $('#link').parent().parent().show();
                 } else {

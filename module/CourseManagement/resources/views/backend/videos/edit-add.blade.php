@@ -63,7 +63,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
-                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-dependent-fields="#video_category_id"
                                                 @if($edit)
@@ -82,7 +82,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="video_category_id"
                                             id="video_category_id"
-                                            data-model="{{base64_encode(App\Models\VideoCategory::class)}}"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\VideoCategory::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit && $video->videoCategory)
@@ -102,8 +102,8 @@
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" id="video_type_youtube_video"
                                                name="video_type"
-                                               value="{{ \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO }}"
-                                            {{ ($edit && $video->video_type == \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO) || old('video_type') == \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO ? 'checked' : '' }}>
+                                               value="{{ \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO }}"
+                                            {{ ($edit && $video->video_type == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO) || old('video_type') == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO ? 'checked' : '' }}>
                                         <label for="video_type_youtube_video" class="custom-control-label">Youtube
                                             Video</label>
                                     </div>
@@ -111,8 +111,8 @@
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" id="video_type_uploaded_video"
                                                name="video_type"
-                                               value="{{ \App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO }}"
-                                            {{ ($edit && $video->video_type == \App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO) || old('video_type') == \App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO ? 'checked' : '' }}>
+                                               value="{{ \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO }}"
+                                            {{ ($edit && $video->video_type == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO) || old('video_type') == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO ? 'checked' : '' }}>
                                         <label for="video_type_uploaded_video" class="custom-control-label">Upload
                                             Video</label>
                                     </div>
@@ -147,14 +147,14 @@
                             @if($edit)
                                 <div class="col-md-6">
                                     <label>Video Content</label>
-                                    @if($video->video_type == \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO)
+                                    @if($video->video_type == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO)
                                         <div class="embed-responsive embed-responsive-16by9"
                                              style="height: 200px; width: 100%;">
                                             <iframe class="embed-responsive-item"
                                                     src="{{ 'https://www.youtube.com/embed/'. $video->youtube_video_id .'?rel=0' }}"
                                                     allowfullscreen></iframe>
                                         </div>
-                                    @elseif($video->video_type == \App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO)
+                                    @elseif($video->video_type == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO)
                                         <div class="embed-responsive embed-responsive-16by9"
                                              style="height: 200px; width: 100%;">
                                             <video controls>
@@ -183,16 +183,16 @@
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Video::ROW_STATUS_ACTIVE }}"
-                                                {{ ($edit && $video->row_status == \App\Models\Video::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
+                                                {{ ($edit && $video->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_active" class="custom-control-label">Active</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_inactive"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Video::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $video->row_status == \App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
+                                                {{ ($edit && $video->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
                                                    class="custom-control-label">Inactive</label>
                                         </div>
@@ -257,13 +257,13 @@
                 },
                 youtube_video_url: {
                     required: function () {
-                        return $('input[name = "video_type"]:checked').val() == {!! \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!};
+                        return $('input[name = "video_type"]:checked').val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!};
                     },
                     pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
                 },
                 uploaded_video_path: {
                     required: function () {
-                        return !$('input[name="uploaded_video_path"]').data('value') && $('input[name = "video_type"]:checked').val() == {!! \App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO !!};
+                        return !$('input[name="uploaded_video_path"]').data('value') && $('input[name = "video_type"]:checked').val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO !!};
                     },
                     accept: "video/*",
                 },
@@ -307,17 +307,17 @@
 
         $(document).ready(function () {
             let videoType = $('input[name="video_type"]:checked').val();
-            if (videoType == {!! \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
+            if (videoType == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
                 $('#youtube_video_url').parent().parent().show();
                 $('#uploaded_video_path').parent().parent().hide();
             }
-            if (videoType == {!! \App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO !!}) {
+            if (videoType == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO !!}) {
                 $('#uploaded_video_path').parent().parent().show();
                 $('#youtube_video_url').parent().parent().hide();
             }
 
             $('input[name="video_type').on('change', function () {
-                if ($(this).val() == {!! \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
+                if ($(this).val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
                     $('#youtube_video_url').parent().parent().show();
                     $('#uploaded_video_path').parent().parent().hide();
                 } else {

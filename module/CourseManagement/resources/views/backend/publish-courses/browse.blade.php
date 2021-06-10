@@ -8,7 +8,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">Course Config List</h3>
                         <div class="card-tools">
-                            @can('create', \App\Models\PublishCourse::class)
+                            @can('create', \Module\CourseManagement\App\Models\PublishCourse::class)
                                 <a href="{{route('admin.publish-courses.create')}}" class="btn btn-sm btn-rounded btn-primary">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>

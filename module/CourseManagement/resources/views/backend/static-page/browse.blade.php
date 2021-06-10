@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold">Static Page List</h3>
 
                         <div class="card-tools">
-                            @can('create', \App\Models\StaticPage::class)
+                            @can('create', Module\CourseManagement\App\Models\StaticPage::class)
                                 <a href="{{route('admin.static-page.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new

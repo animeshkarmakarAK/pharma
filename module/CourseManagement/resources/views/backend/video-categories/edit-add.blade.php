@@ -64,7 +64,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
-                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-dependent-fields="#video_category_id"
                                                 @if($edit)
@@ -82,11 +82,11 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="parent_id"
                                             id="video_category_id"
-                                            data-model="{{base64_encode(App\Models\VideoCategory::class)}}"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\VideoCategory::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit && !empty($videoCategory->parent_id))
-                                            data-preselected-option="{{json_encode(['text' =>  optional(\App\Models\VideoCategory::find($videoCategory->parent_id))->title_en, 'id' =>  $videoCategory->parent_id ]) }}"
+                                            data-preselected-option="{{json_encode(['text' =>  optional(\Module\CourseManagement\App\Models\VideoCategory::find($videoCategory->parent_id))->title_en, 'id' =>  $videoCategory->parent_id ]) }}"
                                             data-filters="{{json_encode(['id' != $videoCategory->id])}}"
                                             @endif
                                             data-placeholder="Select video category">
@@ -102,16 +102,16 @@
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Video::ROW_STATUS_ACTIVE }}"
-                                                {{ ($edit && $videoCategory->row_status == \App\Models\VideoCategory::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\VideoCategory::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
+                                                {{ ($edit && $videoCategory->row_status == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_active" class="custom-control-label">Active</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_inactive"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Video::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $videoCategory->row_status == \App\Models\VideoCategory::ROW_STATUS_INACTIVE) || old('row_status') == \App\Models\VideoCategory::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
+                                                {{ ($edit && $videoCategory->row_status == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
                                                    class="custom-control-label">Inactive</label>
                                         </div>
@@ -173,7 +173,7 @@
 
         $(document).ready(function () {
             $('input[name="is_youtube_video').on('change', function () {
-                if ($(this).val() == {!! \App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
+                if ($(this).val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
                     $('#youtube_video_id').parent().parent().show();
                     $('#video_path').parent().parent().hide();
                 } else {

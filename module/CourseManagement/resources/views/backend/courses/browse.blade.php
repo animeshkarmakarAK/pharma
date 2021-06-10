@@ -8,7 +8,7 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">Courses List</h3>
                         <div class="card-tools">
-                            @can('create', \App\Models\Course::class)
+                            @can('create', \Module\CourseManagement\App\Models\Course::class)
                                 <a href="{{route('admin.courses.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
