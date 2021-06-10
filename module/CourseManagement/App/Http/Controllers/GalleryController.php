@@ -73,7 +73,7 @@ class GalleryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Gallery  $gallery
+     * @param  Module\CourseManagement\App\Models\Gallery  $gallery
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(Gallery $gallery)
@@ -84,7 +84,7 @@ class GalleryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Gallery  $gallery
+     * @param  Module\CourseManagement\App\Models\Gallery  $gallery
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Gallery $gallery)
@@ -99,7 +99,7 @@ class GalleryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gallery  $gallery
+     * @param  Module\CourseManagement\App\Models\Gallery  $gallery
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Gallery $gallery): \Illuminate\Http\RedirectResponse
@@ -126,7 +126,7 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Gallery  $gallery
+     * @param  Module\CourseManagement\App\Models\Gallery  $gallery
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Gallery $gallery): \Illuminate\Http\RedirectResponse

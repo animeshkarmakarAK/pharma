@@ -123,7 +123,7 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
-                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 @if($edit && $staticPage->institute)
                                                 data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->title_en, 'id' =>  $staticPage->institute->id])}}"

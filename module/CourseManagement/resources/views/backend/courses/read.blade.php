@@ -73,7 +73,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Active Status') }}</p>
                     <div class="input-box">
-                        {{ $course->row_status == \App\Models\Course::ROW_STATUS_ACTIVE ? 'Active' : 'Not Active'}}
+                        {{ $course->row_status == \Module\CourseManagement\App\Models\Course::ROW_STATUS_ACTIVE ? 'Active' : 'Not Active'}}
                     </div>
                 </div>
 

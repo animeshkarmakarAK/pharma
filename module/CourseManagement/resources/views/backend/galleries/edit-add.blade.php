@@ -40,7 +40,7 @@
                                 <select class="form-control select2-ajax-wizard"
                                         name="gallery_category_id"
                                         id="gallery_category_id"
-                                        data-model="{{base64_encode(App\Models\GalleryCategory::class)}}"
+                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\GalleryCategory::class)}}"
                                         data-label-fields="{title_en}"
                                         @if($edit && $gallery->gallery_category_id)
                                         data-preselected-option="{{json_encode(['text' => $gallery->galleryCategory->title_en, 'id' => $gallery->gallery_category_id])}}"
@@ -115,7 +115,7 @@
                                 <div class="form-group">
                                     <label for="content_type">Content Type<span
                                             class="required">*</span> :</label>
-                                    @foreach(\App\Models\Gallery::CONTENT_TYPES as $key => $type)
+                                    @foreach(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES as $key => $type)
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="{{$type}}"
                                                    name="content_type"
@@ -128,7 +128,7 @@
                             </div>
 
                             <div class="col-sm-6" id="video_type"
-                                 style="display:{{($edit && \App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type) || old('content_type') ==\App\Models\Gallery::CONTENT_TYPE_VIDEO  ? 'block' : 'none' }}">
+                                 style="display:{{($edit && \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type) || old('content_type') ==\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO  ? 'block' : 'none' }}">
                                 <div class="form-group">
                                     <label for="is_youtube_video">{{ __('Video Type') }}<span
                                             style="color: red"> * </span></label>
@@ -165,7 +165,7 @@
                             </div>
 
                             <div class="form-group col-md-6" id="file_upload"
-                                 style="display:{{(($edit && (\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type || $gallery->is_youtube_vide)) || ((old('is_youtube_video')!=null && !old('is_youtube_video'))|| old('content_type') == \App\Models\Gallery::CONTENT_TYPE_IMAGE)) ? 'block' : 'none' }}">
+                                 style="display:{{(($edit && (\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type || $gallery->is_youtube_vide)) || ((old('is_youtube_video')!=null && !old('is_youtube_video'))|| old('content_type') == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)) ? 'block' : 'none' }}">
                                 <label for="content_path">Gallery Content</label>
                                 <input type="file" class="form-control custom-input-box" name="content_path"
                                        id="content_path"
@@ -173,7 +173,7 @@
                             </div>
 
                             @if($edit)
-                                @if( \App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type)
+                                @if( \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type)
                                     <div class="col-md-6 custom-view-box">
                                         <p class="label-text">{{ __('Content') }}</p>
 
@@ -182,7 +182,7 @@
                                                  alt="Responsive image" style="height: 300px; width: 100%">
                                         </div>
                                     </div>
-                                @elseif(\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type && $gallery->is_youtube_video)
+                                @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type && $gallery->is_youtube_video)
                                     <div class="col-md-6 custom-view-box">
                                         <p class="label-text">{{ __('Youtube Video Content') }}</p>
                                         <iframe width="100%" height="100%"
@@ -190,7 +190,7 @@
                                         </iframe>
                                     </div>
 
-                                @elseif(\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type)
+                                @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type)
                                     <div class="col-md-6 custom-view-box">
                                         <p class="label-text">{{ __('Content') }}</p>
                                         <iframe width="100%" height="100%"
@@ -220,7 +220,7 @@
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
     <script>
         const EDIT = !!'{{$edit}}';
-        const content_types = @json(\App\Models\Gallery::CONTENT_TYPES);
+        const content_types = @json(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES);
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -260,14 +260,14 @@
                 },
                 content_path: {
                     required: function () {
-                        if ((!$('input[name="is_youtube_video"]:checked').val() || $('input[name="content_type"]:checked').val() == {{\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) && !EDIT) {
+                        if ((!$('input[name="is_youtube_video"]:checked').val() || $('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) && !EDIT) {
                             return true
                         } else {
                             return false
                         }
                     },
                     accept: function () {
-                        if ($('input[name="content_type"]:checked').val() == {{\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) {
+                        if ($('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) {
                             return "image/*";
                         } else {
                             if ($('input[name="is_youtube_video"]:checked').val()) {
@@ -278,12 +278,12 @@
                 },
                 is_youtube_video: {
                     required: function () {
-                        return ($('input[name="content_type"]:checked').val() == {{\App\Models\Gallery::CONTENT_TYPE_VIDEO}})
+                        return ($('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO}})
                     },
                 },
                 you_tube_video_id: {
                     required: function () {
-                        return ($('input[name="content_type"]:checked').val() == {{\App\Models\Gallery::CONTENT_TYPE_VIDEO}} && $('input[name="is_youtube_video"]:checked').val() && !EDIT);
+                        return ($('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO}} && $('input[name="is_youtube_video"]:checked').val() && !EDIT);
                     },
                     pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
                 },
@@ -316,7 +316,7 @@
                 let content_type = this.value;
                 $("#youtube_id").css('display', 'none');
 
-                if ({{\App\Models\Gallery::CONTENT_TYPE_VIDEO}} == content_type) {
+                if ({{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO}} == content_type) {
                     $("#video_type").css('display', 'block');
                     $("#file_upload").css('display', 'none');
                     if ($("#is_youtube_video").val()) {

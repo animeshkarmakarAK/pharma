@@ -38,7 +38,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
                                             id="institute_id"
-                                            data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                             data-label-fields="{title_en}"
                                             data-dependent-fields="#application_form_type_id|#branch_id|#training_center_id|#programme_id|#course_id"
                                             @if($edit)
@@ -59,7 +59,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="application_form_type_id"
                                             id="application_form_type_id"
-                                            data-model="{{base64_encode(App\Models\ApplicationFormType::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\ApplicationFormType::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit)
@@ -78,7 +78,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="branch_id"
                                             id="branch_id"
-                                            data-model="{{base64_encode(App\Models\Branch::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit && $publishCourse->branch)
@@ -98,7 +98,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="training_center_id"
                                             id="training_center_id"
-                                            data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             data-depend-on-optional="branch_id"
@@ -118,7 +118,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="programme_id"
                                             id="programme_id"
-                                            data-model="{{base64_encode(App\Models\Programme::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit && $publishCourse->programme)
@@ -138,7 +138,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="course_id"
                                             id="course_id"
-                                            data-model="{{base64_encode(App\Models\Course::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Course::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit)
@@ -159,16 +159,16 @@
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Video::ROW_STATUS_ACTIVE }}"
-                                                {{ ($edit && $publishCourse->row_status == \App\Models\PublishCourse::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\PublishCourse::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
+                                                {{ ($edit && $publishCourse->row_status == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_active" class="custom-control-label">Active</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_inactive"
                                                    name="row_status"
-                                                   value="{{ \App\Models\Video::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $publishCourse->row_status == \App\Models\PublishCourse::ROW_STATUS_INACTIVE) || old('row_status') == \App\Models\PublishCourse::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                   value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
+                                                {{ ($edit && $publishCourse->row_status == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
                                                    class="custom-control-label">Inactive</label>
                                         </div>

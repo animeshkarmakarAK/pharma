@@ -45,7 +45,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Parent Category')  }}</p>
                     <div class="input-box">
-                        {{ optional(\App\Models\Video::find($videoCategory->parent_id))->title_en }}
+                        {{ optional(Module\CourseManagement\App\Models\Video::find($videoCategory->parent_id))->title_en }}
                     </div>
                 </div>
 

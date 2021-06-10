@@ -169,7 +169,7 @@
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
-                                                {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_active" class="custom-control-label">Active</label>
                                         </div>
 
@@ -177,7 +177,7 @@
                                             <input class="custom-control-input" type="radio" id="row_status_inactive"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
                                                    class="custom-control-label">Inactive</label>
                                         </div>

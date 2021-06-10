@@ -9,7 +9,7 @@
                 <div class="user-details card mb-3">
                     <div
                         class="card-header custom-bg-gradient-info font-weight-bold text-primary">{{ __('Gallery Media') }}</div>
-                    @if( \App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type)
+                    @if( \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type)
                         <div class="col-md-12 custom-view-box text-center mt-3">
 
                             <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
@@ -19,7 +19,7 @@
                             <p class="label-text">{{ __('Image') }}</p>
 
                         </div>
-                    @elseif(\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type && $gallery->is_youtube_video )
+                    @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type && $gallery->is_youtube_video )
                         <div class="col-md-12 custom-view-box text-center mt-3">
                             <iframe width="100%" height="100%"
                                     src={{"https://www.youtube.com/embed/".$gallery->you_tube_video_id}}>
@@ -29,7 +29,7 @@
 
                         </div>
 
-                    @elseif(\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type)
+                    @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type)
                         <div class="col-md-12 custom-view-box text-center mt-3">
                             <iframe width="100%" height="100%"
                                     src="{{asset('storage/' .$gallery->content_path)}}">
@@ -71,7 +71,7 @@
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">{{ __('Content Type') }}</p>
                             <div class="input-box">
-                                {{ \App\Models\Gallery::CONTENT_TYPES[$gallery->content_type]}}
+                                {{ \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES[$gallery->content_type]}}
                             </div>
                         </div>
 
@@ -93,7 +93,7 @@
                                 {{ $gallery->archive_date }}
                             </div>
                         </div>
-                        @if($gallery->content_type==\App\Models\Gallery::CONTENT_TYPE_VIDEO)
+                        @if($gallery->content_type==\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO)
                             <div class="col-md-6 custom-view-box">
                                 <p class="label-text">{{ __('Video Type') }}</p>
                                 <div class="input-box">
