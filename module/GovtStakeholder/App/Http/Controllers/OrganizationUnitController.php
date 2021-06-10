@@ -12,7 +12,7 @@ use Module\GovtStakeholder\App\Services\OrganizationUnitService;
 
 class OrganizationUnitController extends BaseController
 {
-    const VIEW_PATH = 'backend.organization-units.';
+    const VIEW_PATH = 'govt_stakeholder::backend.organization-units.';
     protected OrganizationUnitService $organizationUnitService;
 
     public function __construct(OrganizationUnitService $organizationUnitService)

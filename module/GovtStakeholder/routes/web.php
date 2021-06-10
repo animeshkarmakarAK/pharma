@@ -8,6 +8,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'organization-units' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class,
         'organization-unit-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class,
         'human-resource-templates' => \Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class,
+        'occupations' => \Module\GovtStakeholder\App\Http\Controllers\OccupationController::class,
+
     ]);
 
     Route::post('human-resource-templates/{human_resource_template}/update-node-on-drag', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'updateNodeOnDrag'])
@@ -20,6 +22,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('organization-unit-types/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class, 'getDatatable'])->name('organization-unit-types.datatable');
     Route::get('organization-unit-types/{organization_unit_type}/hierarchy', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class, 'employeeHierarchy'])->name('organization-unit-types.hierarchy');
     Route::post('organization-units/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class, 'getDatatable'])->name('organization-units.datatable');
+    Route::post('occupations/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OccupationController::class, 'getDatatable'])->name('occupations.datatable');
 
     Route::resources([
         'organization-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationTypeController::class,
