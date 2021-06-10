@@ -1,4 +1,4 @@
-@extends('core.main')
+@extends('master::layouts.master')
 
 
 

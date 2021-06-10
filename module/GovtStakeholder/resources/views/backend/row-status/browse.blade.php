@@ -1,4 +1,4 @@
-@extends('core.main')
+@extends('master::layouts.master')
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -37,6 +37,6 @@
             </div>
         </div>
     </div>
-    @include('utils.delete-confirm-modal')
+    @include('master::utils.delete-confirm-modal')
 @endsection
 

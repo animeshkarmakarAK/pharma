@@ -17,7 +17,7 @@ use Module\GovtStakeholder\App\Services\OrganizationService;
  */
 class OrganizationController extends BaseController
 {
-    const VIEW_PATH = 'backend.organizations.';
+    const VIEW_PATH = 'govt_stakeholder::backend.organizations.';
 
     protected OrganizationService $organizationService;
 

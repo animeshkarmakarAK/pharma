@@ -2,7 +2,7 @@
     $edit = !empty($organization->id);
 @endphp
 
-@extends('core.main')
+@extends('master::layouts.master')
 
 @section('content')
     <div class="container-fluid">

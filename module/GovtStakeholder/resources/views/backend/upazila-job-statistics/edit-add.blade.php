@@ -4,7 +4,7 @@
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 
-@extends('core.main')
+@extends('master::layouts.master')
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -190,7 +190,7 @@
         </div>
         <div id="test"></div>
     </div>
-    @include('utils.delete-confirm-modal')
+    @include('master::utils.delete-confirm-modal')
     @push('css')
         <style>
             #survey_date-error {

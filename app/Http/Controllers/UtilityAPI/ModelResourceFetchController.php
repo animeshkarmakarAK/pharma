@@ -3,19 +3,11 @@
 namespace App\Http\Controllers\UtilityAPI;
 
 use App\Http\Controllers\BaseController;
-use App\Services\WebAPI\ModelResourceService;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Services\WebAPI\ModelResourceService;
 
 class ModelResourceFetchController extends BaseController
 {
-//institute
-//branch
-//training-center
-//programme
-//application-type
-//course
-//course-config
-//course-session
     const FILTER_MAPS = [
         'contain' => 'LIKE',
         'equal' => '=',

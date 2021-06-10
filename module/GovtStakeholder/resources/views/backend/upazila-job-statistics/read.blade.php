@@ -2,7 +2,7 @@
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
-@extends('core.main')
+@extends('master::layouts.master')
 
 @section('content')
     <div class="container-fluid">
