@@ -8,7 +8,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">Batches List</h3>
                         <div class="card-tools">
-                            @can('create', \App\Models\Batch::class)
+                            @can('create', \Module\CourseManagement\App\Models\Batch::class)
                                 <a href="{{route('admin.batches.create')}}" class="btn btn-sm btn-rounded btn-primary">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>

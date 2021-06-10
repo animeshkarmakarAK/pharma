@@ -54,7 +54,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
                                             id="institute_id"
-                                            data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                             data-label-fields="{title_en}"
                                             data-dependent-fields="#course_id"
                                             @if($edit)
@@ -74,7 +74,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="course_id"
                                             id="course_id"
-                                            data-model="{{base64_encode(App\Models\Course::class)}}"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit)
