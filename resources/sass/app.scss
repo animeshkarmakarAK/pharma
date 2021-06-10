@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+// Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 @import "~admin-lte";
@@ -9,6 +10,8 @@
 @import "~toastr/build/toastr";
 @import "typeahead/typeahead-bootstrap4-stye";
 @import "~flatpickr/dist/flatpickr.min.css";
+@import "~flatpickr/dist/plugins/monthSelect/style.css";
+
 
 @import "custom";
 

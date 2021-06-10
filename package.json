@@ -22,6 +22,7 @@
         "admin-lte": "^3.0.5",
         "axios": "^0.21",
         "bootstrap": "^4.0.0",
+        "d3": "^6.7.0",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-bs4": "^1.7.0",
         "datatables.net-colreorder-bs4": "^1.5.3",
