@@ -16,7 +16,6 @@ class CoursePolicy extends BasePolicy
      */
     public function viewAny(User $user): bool
     {
-
         return $user->hasPermission('view_any_course');
     }
 

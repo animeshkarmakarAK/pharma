@@ -3,5 +3,6 @@
 return [
     'list' => [
         'CourseManagement',
+        'GovtStakeholder',
     ],
 ];
