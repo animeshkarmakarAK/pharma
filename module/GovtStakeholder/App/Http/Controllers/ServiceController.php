@@ -12,7 +12,7 @@ use Module\GovtStakeholder\App\Services\ServiceService;
 
 class ServiceController extends BaseController
 {
-    const VIEW_PATH = 'backend.services.';
+    const VIEW_PATH = 'govt_stakeholder::backend.services.';
     public ServiceService $serviceService;
 
     public function __construct(ServiceService $serviceService)

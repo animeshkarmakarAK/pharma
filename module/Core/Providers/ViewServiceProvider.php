@@ -29,7 +29,6 @@ class ViewServiceProvider extends ServiceProvider
         $modules->each(function ($module) {
             $viewPath = base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views');
             $this->loadViewsFrom($viewPath, Str::snake($module));
-//            View::addNamespace($module, $viewPath);
         });
     }
 }

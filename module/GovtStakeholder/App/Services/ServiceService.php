@@ -69,7 +69,6 @@ class ServiceService
             ]
         );
         $servicees->join('organizations', 'services.organization_id', '=', 'organizations.id');
-        $servicees->acl();
 
         return DataTables::eloquent($servicees)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Service $service) use ($authUser) {

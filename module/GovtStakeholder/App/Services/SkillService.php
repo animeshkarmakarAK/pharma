@@ -74,7 +74,6 @@ class SkillService
             ]
         );
         $skilles->LeftJoin('organizations', 'skills.organization_id', '=', 'organizations.id');
-        $skilles->acl();
 
         return DataTables::eloquent($skilles)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Skill $skill) use ($authUser) {

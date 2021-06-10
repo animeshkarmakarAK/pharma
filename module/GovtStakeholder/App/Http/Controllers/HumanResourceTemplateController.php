@@ -14,7 +14,7 @@ use SebastianBergmann\Diff\Exception;
 
 class HumanResourceTemplateController extends BaseController
 {
-    const VIEW_PATH = "backend.human-resource-templates.";
+    const VIEW_PATH = "govt_stakeholder::backend.human-resource-templates.";
 
     protected HumanResourceTemplateService $humanResourceTemplateService;
 
