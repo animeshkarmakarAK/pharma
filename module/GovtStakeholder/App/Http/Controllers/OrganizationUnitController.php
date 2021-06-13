@@ -157,4 +157,10 @@ class OrganizationUnitController extends BaseController
     {
         return $this->organizationUnitService->getListDataForDatatable();
     }
+
+    public function employeeHierarchy(OrganizationUnit $organizationUnit)
+    {
+        $humanResources = optional($organizationUnit->getHierarchy())->toArray();
+        return \view(self::VIEW_PATH . 'employee-hierarchy', compact('humanResources'));
+    }
 }

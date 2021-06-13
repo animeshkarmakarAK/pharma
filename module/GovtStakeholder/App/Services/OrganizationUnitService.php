@@ -182,6 +182,8 @@ class OrganizationUnitService
                 if ($authUser->can('delete', $organizationUnit)) {
                     $str .= '<a href="#" data-action="' . route('admin.organization-units.destroy', $organizationUnit->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
+                $str .= '<a href="' . route('admin.organization-units.hierarchy', $organizationUnit->id) . '" class="btn btn-outline-secondary btn-sm"> <i class="fas fa-tree"></i> ' . 'hierarchy' . '</a>';
+
                 return $str;
             }))
             ->editColumn('row_status', static function (OrganizationUnit $organizationUnit) {

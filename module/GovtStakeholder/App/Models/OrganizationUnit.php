@@ -36,6 +36,35 @@ class OrganizationUnit extends BaseModel
     protected $guarded = ['id'];
 
 
+    public function getHierarchy()
+    {
+        $topRoot = $this->humanResources->where('parent_id', null)->first();
+        if (!$topRoot) {
+            return null;
+        }
+        $topRoot->load('children');
+        return $this->makeHierarchy($topRoot);
+    }
+
+    public function makeHierarchy($root)
+    {
+        $root['name'] = $root->title_en;
+        $root['parent'] = $root->parent_id;
+        $root['organization_title'] = $root->organization->title_en;
+
+        $children = $root->children;
+
+        if (empty($children)) {
+            return $root;
+        }
+
+        foreach ($children as $key => $child) {
+            $root['children'][$key] = $child;
+            $this->makeHierarchy($child);
+        }
+        return $root;
+    }
+
     /**************************
      *   ----Relationships----
      **************************/

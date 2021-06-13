@@ -21,6 +21,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('organization-unit-types/{organization_unit_type}/hierarchy', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class, 'employeeHierarchy'])->name('organization-unit-types.hierarchy');
     Route::post('organization-units/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class, 'getDatatable'])->name('organization-units.datatable');
 
+    Route::get('organization-units/{organization_unit}/hierarchy', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class, 'employeeHierarchy'])->name('organization-units.hierarchy');
+    Route::post('human-resources/{human_resource}/update-node-on-drag', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'updateNodeOnDrag'])
+        ->name('human-resources.update-node-on-drag');
+    Route::post('human-resources/{human_resource}/update', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'updateNode'])->name('human-resources.update-node');
+    Route::post('human-resources/addNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'addNode'])->name('human-resources.add-node');
+    Route::get('human-resources/{human_resource}/deleteNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'deleteNode'])->name('human-resources.delete-node');
+
+
     Route::resources([
         'organization-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationTypeController::class,
         'organizations' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationController::class,
