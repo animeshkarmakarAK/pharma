@@ -29,7 +29,6 @@
         </div>
     </div>
 
-    <x-modal id="view-modal" type="success" xl></x-modal>
     <x-modal id="edit-add-modal" type="success" xl></x-modal>
 
     @include('utils.delete-confirm-modal')
@@ -44,7 +43,7 @@
     <script>
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
         const editAddModal = $("#edit-add-modal");
-        const viewModal = $("#view-modal");
+        const viewModal = $("#user-profile-view-modal");
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{ route('admin.users.datatable') }}',

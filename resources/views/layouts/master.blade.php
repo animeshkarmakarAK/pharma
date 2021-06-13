@@ -37,6 +37,8 @@
     </div>
 
     @yield('footer', Illuminate\Support\Facades\View::make('master::layouts.partials.master.footer'))
+
+    <x-modal id="user-profile-view-modal" type="success" xl></x-modal>
 </div>
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/js/OverlayScrollbars.min.js"></script>
@@ -52,7 +54,18 @@
     let alertMessage = {!! json_encode(\Illuminate\Support\Facades\Session::get('message')) !!};
     let alerter = toastr[alertType];
     alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+
     @endif
+
+    /**
+     * To show current logged in user in modal
+     */
+    $(document).on('click', "#user-profile-view", async function () {
+        let url = '{{route('admin.users.show', auth()->user()->id)}}';
+        let response = await $.get(url);
+        $("#user-profile-view-modal").find('.modal-content').html(response);
+        $("#user-profile-view-modal").modal('show');
+    });
 </script>
 @stack('js')
 </body>
