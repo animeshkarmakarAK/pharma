@@ -145,3 +145,59 @@ $.validator.setDefaults({
         $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
     },
 });
+
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+
+window.ajaxFailedResponseHandler = function (xhr) {
+    if (typeof xhr.responseJSON !== 'undefined' && typeof xhr.responseJSON.errors !== 'undefined' && Array.isArray(xhr.responseJSON.errors) && xhr.responseJSON.errors.length) {
+        xhr.responseJSON.errors.forEach(function (error) {
+            toastr.error(error);
+        })
+    } else if (typeof xhr.responseJSON !== 'undefined' && typeof xhr.responseJSON.data !== 'undefined') {
+        toastr.error(xhr.responseJSON.data);
+    } else if (typeof xhr.responseJSON !== 'undefined' && Array.isArray(xhr.responseJSON) && xhr.responseJSON.length) {
+        xhr.responseJSON.forEach(function (error) {
+            toastr.error(error);
+        })
+    } else if (typeof xhr.responseJSON !== 'undefined' && xhr.responseJSON && xhr.responseJSON.message !== 'undefined' && xhr.responseJSON.message) {
+        toastr.error(xhr.responseJSON.message);
+    } else if (typeof xhr.responseJSON !== 'undefined' && xhr.responseJSON) {
+        toastr.error(xhr.responseJSON);
+    } else {
+        toastr.error(xhr.responseText);
+    }
+}
+
+$(document).ready(function () {
+    /*--------Back to top js--------*/
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 400);
+        return false;
+    });
+});

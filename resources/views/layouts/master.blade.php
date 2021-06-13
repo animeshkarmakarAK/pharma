@@ -43,51 +43,6 @@
 <script src="{{asset('/js/admin-lte.js')}}"></script>
 <script src="{{asset('/js/on-demand.js')}}"></script>
 <script>
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-    $.validator.setDefaults({
-        errorElement: "em",
-        onkeyup: false,
-        ignore: [],
-        errorPlacement: function (error, element) {
-            error.addClass("help-block");
-            element.parents(".form-group").addClass("has-feedback");
-
-            if (element.prop("type") === "checkbox") {
-                error.insertAfter(element.parent("label"));
-            } else if (element.hasClass('select2-ajax') || element.hasClass('select2') || element.hasClass('select2-ajax-wizard')) {
-                error.insertAfter(element.parents(".form-group").find('.select2-container'));
-            } else if (element.parents('.form-group').find('.input-group').length) {
-                error.insertAfter(element.parents('.form-group').find('.input-group'));
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        success: function (label, element) {
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-        },
-    });
-
     @if(\Illuminate\Support\Facades\Session::has('alerts'))
     let alerts = {!! json_encode(\Illuminate\Support\Facades\Session::get('alerts')) !!};
     helpers.displayAlerts(alerts, toastr);

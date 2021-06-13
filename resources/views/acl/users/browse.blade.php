@@ -90,114 +90,117 @@
                 $('#delete_form')[0].action = $(this).data('action');
                 $('#delete_modal').modal('show');
             });
-        });
 
-        $(document).on('click', ".dt-view", async function () {
-            let url = $(this).data('url');
-            let response = await $.get(url);
-            viewModal.find('.modal-content').html(response);
-            viewModal.modal('show');
-        });
-
-        $(document).on('click', ".dt-edit", async function () {
-            let response = await $.get($(this).data('url'));
-            editAddModal.find('.modal-content').html(response);
-            initializeSelect2(".select2-ajax-wizard");
-            editAddModal.modal('show');
-            registerValidator(true);
-            if ($(this).hasClass('button-from-view')) {
-                viewModal.modal('hide');
-            }
-        });
-
-        if ($(".create-new-button").length) {
-            $(document).on('click', ".create-new-button", async function () {
-                let url = '{{route('admin.users.create')}}';
+            $(document).on('click', ".dt-view", async function () {
+                let url = $(this).data('url');
                 let response = await $.get(url);
+                viewModal.find('.modal-content').html(response);
+                viewModal.modal('show');
+            });
+
+            $(document).on('click', ".dt-edit", async function () {
+                let response = await $.get($(this).data('url'));
                 editAddModal.find('.modal-content').html(response);
                 initializeSelect2(".select2-ajax-wizard");
                 editAddModal.modal('show');
-                registerValidator(false);
-            });
-        }
-
-        editAddModal.on('hidden.bs.modal', function () {
-            editAddModal.find('.modal-content').empty();
-        });
-        viewModal.on('hidden.bs.modal', function () {
-            viewModal.find('.modal-content').empty();
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.avatar-preview img').attr('src', e.target.result);
+                registerValidator(true);
+                if ($(this).hasClass('button-from-view')) {
+                    viewModal.modal('hide');
                 }
-                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            });
+
+            if ($(".create-new-button").length) {
+                $(document).on('click', ".create-new-button", async function () {
+                    let url = '{{route('admin.users.create')}}';
+                    let response = await $.get(url);
+                    editAddModal.find('.modal-content').html(response);
+                    initializeSelect2(".select2-ajax-wizard");
+                    editAddModal.modal('show');
+                    registerValidator(false);
+                });
             }
-        }
 
-        $(document).on('change', "#profile_pic", function () {
-            readURL(this);
-        });
+            editAddModal.on('hidden.bs.modal', function () {
+                editAddModal.find('.modal-content').empty();
+            });
+            viewModal.on('hidden.bs.modal', function () {
+                viewModal.find('.modal-content').empty();
+            });
 
-        function registerValidator(edit) {
-            $(".edit-add-form").validate({
-                rules: {
-                    name_en: {
-                        required: true
-                    },
-                    name_bn: {
-                        required: true,
-                        pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
-                    },
-                    email: {
-                        required: true
-                    },
-                    user_type_id: {
-                        required: true
-                    },
-                    old_password: {
-                        required: function () {
-                            return !!$('#password').val().length;
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.avatar-preview img').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+
+            $(document).on('change', "#profile_pic", function () {
+                readURL(this);
+            });
+
+            function registerValidator(edit) {
+                $(".edit-add-form").validate({
+                    rules: {
+                        name_en: {
+                            required: true
+                        },
+                        name_bn: {
+                            required: true,
+                            pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
+                        },
+                        email: {
+                            required: true
+                        },
+                        user_type_id: {
+                            required: true
+                        },
+                        old_password: {
+                            required: function () {
+                                return !!$('#password').val().length;
+                            },
+                        },
+                        password: {
+                            required: !edit,
+                        },
+                        password_confirmation: {
+                            equalTo: '#password',
                         },
                     },
-                    password: {
-                        required: !edit,
+                    messages: {
+                        name_bn: {
+                            pattern: "Please fill this field in Bangla."
+                        },
                     },
-                    password_confirmation: {
-                        equalTo: '#password',
-                    },
-                },
-                messages: {
-                    name_bn: {
-                        pattern: "Please fill this field in Bangla."
-                    },
-                },
-                submitHandler: function (htmlForm) {
-                    $('.overlay').show();
-                    let formData = new FormData(htmlForm);
-                    let jForm = $(htmlForm);
-                    $.ajax({
-                        url: jForm.prop('action'),
-                        method: jForm.prop('method'),
-                        data: formData,
-                        enctype: 'multipart/form-data',
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                    })
-                        .done(function (responseData) {
-                            toastr.success(responseData.message);
+                    submitHandler: function (htmlForm) {
+                        $('.overlay').show();
+                        let formData = new FormData(htmlForm);
+                        let jForm = $(htmlForm);
+                        $.ajax({
+                            url: jForm.prop('action'),
+                            method: jForm.prop('method'),
+                            data: formData,
+                            enctype: 'multipart/form-data',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
                         })
-                        .fail(ajaxFailedResponseHandler)
-                        .always(function () {
-                            $('.overlay').hide();
-                        });
-                    return false;
-                }
-            });
-        }
+                            .done(function (responseData) {
+                                toastr.success(responseData.message);
+                            })
+                            .fail(window.ajaxFailedResponseHandler)
+                            .always(function () {
+                                datatable.draw();
+                                $('.overlay').hide();
+                            });
+                        return false;
+                    }
+                });
+            }
+        });
+
+
     </script>
 @endpush
