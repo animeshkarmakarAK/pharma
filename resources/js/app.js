@@ -1,4 +1,6 @@
 require('./bootstrap');
+const monthSelectPlugin = require("flatpickr/dist/plugins/monthSelect");
+
 
 $(document).ready(function () {
     $.ajaxSetup({
