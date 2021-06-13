@@ -1131,7 +1131,7 @@
             } else {
                 $('#addModal').find('.modal-title').text("Add a new child");
                 clearModalInputFieldsValue();
-                let url = "/admin/human-resource-templates/addNode";
+                let url = "{{  route('admin.human-resource-templates.add-node') }}";
                 editAddForm.attr("action", url);
                 editAddForm.attr("data-method", "POST");
                 editAddForm.attr("data-node-id", nodeData.id);
@@ -1153,6 +1153,9 @@
             if ((d?.children?.length || d?._children?.length) && isActive) {
                 alert('You can\'t delete this node');
             } else if (isActive) {
+                $('#deleteModal').find('.modal-header').show();
+                $('#deleteModal').find('.modal-body').text("This is a permanent action");
+                $('#deleteModal').find('.modal-footer').show();
                 $('#deleteModal').modal('show');
                 let url = "{{ route('admin.human-resource-templates.delete-node', '__') }}".replace('__', d.id);
                 $('#deleteModal').attr("data-url", url);
@@ -1325,10 +1328,26 @@
                     if (url?.length <= 0) {
                         throw Error('Delete url not found.');
                     }
-                    let response = await $.get(url);
-                    $('#deleteModal').modal("hide");
-                    let deletedNode = searchTree(root, $('#deleteModal').attr('data-node-id'));
-                    removeNode(deletedNode);
+                    let response = await $.get(url)
+                        .done(function (response) {
+
+                            if (response.alertType == "error") {
+                                $('#deleteModal').find('.modal-header').css("display", 'none');
+                                $('#deleteModal').find('.modal-body').text(response.message);
+                                $('#deleteModal').find('.modal-footer').hide();
+                                $('#deleteModal').modal("show");
+                            }else {
+                                $('#deleteModal').modal("hide");
+                                let deletedNode = searchTree(root, $('#deleteModal').attr('data-node-id'));
+                                removeNode(deletedNode);
+                            }
+                        })
+                        .fail(function () {
+                            console.log("delete operation failed");
+                        })
+                        .always(function () {
+                            closeOpenedActionButtons();
+                        })
                 } catch (e) {
                     console.table(...e)
                 }

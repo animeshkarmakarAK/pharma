@@ -13,7 +13,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('human-resource-templates/{human_resource_template}/update-node-on-drag', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'updateNodeOnDrag'])
         ->name('human-resource-templates.update-node-on-drag');
     Route::post('human-resource-templates/{human_resource_template}/update', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'updateNode'])->name('human-resource-templates.update-node');
-    Route::post('human-resource-templates/addNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'addNode']);
+    Route::post('human-resource-templates/addNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'addNode'])->name('human-resource-templates.add-node');
     Route::get('human-resource-templates/{human_resource_template}/deleteNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'deleteNode'])->name('human-resource-templates.delete-node');
 
     Route::post('human-resource-templates/datatable', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'getDatatable'])->name('human-resource-templates.datatable');

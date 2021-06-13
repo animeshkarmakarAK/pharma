@@ -196,6 +196,13 @@ class HumanResourceTemplateController extends BaseController
     {
         $organizationUnitType = $humanResourceTemplate->organizationUnitType;
 
+        if ($humanResourceTemplate->humanResource->isNotEmpty()) {
+            return response()->json([
+                'message' => __('Non-deletable! Human resource using this node.'),
+                'alertType' => 'error',
+            ]);
+        }
+
         try {
             $humanResourceTemplate->delete();
         } catch (\Throwable $exception) {

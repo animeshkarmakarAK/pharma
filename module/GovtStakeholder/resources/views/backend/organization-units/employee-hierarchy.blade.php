@@ -1038,7 +1038,7 @@
         }
 
         function canDelete(nodeEle, nodeData) {
-            return !((nodeData?.children?.length || nodeData?._children?.length)) && !nodeData?.human_resource_template_id;
+            return !((nodeData?.children?.length || nodeData?._children?.length));
         }
 
         function toggleActionButtons(d, currentNode) {
