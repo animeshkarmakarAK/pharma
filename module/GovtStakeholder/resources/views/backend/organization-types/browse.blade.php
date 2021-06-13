@@ -10,7 +10,7 @@
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\OrganizationType::class)
-                                <a href="{{ route('admin.organization-types.create') }}"
+                                <a href="{{ route('govt_stakeholder::admin.organization-types.create') }}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -41,7 +41,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.organization-types.datatable') }}',
+                url: '{{ route('govt_stakeholder::admin.organization-types.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

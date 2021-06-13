@@ -155,14 +155,14 @@ class CourseService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Course $course) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $course)) {
-                    $str .= '<a href="' . route('admin.courses.show', $course->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.courses.show', $course->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
                 if ($authUser->can('update', $course)) {
 
-                    $str .= '<a href="' . route('admin.courses.edit', $course->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.courses.edit', $course->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $course)) {
-                    $str .= '<a href="#" data-action="' . route('admin.courses.destroy', $course->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.courses.destroy', $course->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 return $str;
             }))

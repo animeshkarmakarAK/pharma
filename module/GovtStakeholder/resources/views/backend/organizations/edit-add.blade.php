@@ -14,7 +14,7 @@
 
                         <div class="card-tools">
                             @can('viewAny', \Module\GovtStakeholder\App\Models\Organization::class)
-                                <a href="{{route('admin.organizations.index')}}"
+                                <a href="{{route('govt_stakeholder::admin.organizations.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
                                 </a>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
                               enctype="multipart/form-data"
-                              action="{{ $edit ? route('admin.organizations.update', [$organization->id]) : route('admin.organizations.store')}}">
+                              action="{{ $edit ? route('govt_stakeholder::admin.organizations.update', [$organization->id]) : route('govt_stakeholder::admin.organizations.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

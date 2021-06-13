@@ -12,11 +12,11 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.rank-types.edit', [$rankType->id])}}"
+                        <a href="{{route('govt_stakeholder::admin.rank-types.edit', [$rankType->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Rank Type') }}
                         </a>
-                        <a href="{{route('admin.rank-types.index')}}"
+                        <a href="{{route('govt_stakeholder::admin.rank-types.index')}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>

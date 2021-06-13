@@ -8,10 +8,10 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.application-form-types.edit', [$applicationFormType->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.application-form-types.edit', [$applicationFormType->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Application Form Type') }}
                         </a>
-                        <a href="{{route('admin.application-form-types.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.application-form-types.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

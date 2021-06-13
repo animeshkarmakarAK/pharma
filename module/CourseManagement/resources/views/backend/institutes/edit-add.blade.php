@@ -14,7 +14,7 @@
 
                         <div class="card-tools">
                             @can('viewAny', \App\Models\Institute::class)
-                                <a href="{{route('admin.institutes.index')}}"
+                                <a href="{{route('course_management::admin.institutes.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
                                 </a>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
                               enctype="multipart/form-data"
-                              action="{{ $edit ? route('admin.institutes.update', [$institute->id]) : route('admin.institutes.store')}}">
+                              action="{{ $edit ? route('course_management::admin.institutes.update', [$institute->id]) : route('course_management::admin.institutes.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -300,7 +300,7 @@
                     remote: {
                         param: {
                             type: "post",
-                            url: "{{ route('admin.check-institute-code') }}",
+                            url: "{{ route('course_management::admin.check-institute-code') }}",
                         },
                         depends: function (element) {
                             return $(element).val() !== $('#code').attr('data-code');

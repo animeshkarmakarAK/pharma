@@ -107,7 +107,7 @@
                                             @if($session->course_start_date && $session->course_start_date->gt(now()))
                                                 <button type="button"
                                                         class="btn btn-success course-apply-btn"
-                                                        onclick="window.location.href = `{{route('youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
+                                                        onclick="window.location.href = `{{route('course_management::youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
                                                 >
                                                     আবেদন করুন
                                                 </button>

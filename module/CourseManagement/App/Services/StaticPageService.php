@@ -73,14 +73,14 @@ class StaticPageService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (StaticPage $staticPage) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $staticPage)) {
-                    $str .= '<a href="' . route('admin.static-page.show', $staticPage->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.static-page.show', $staticPage->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $staticPage)) {
-                    $str .= '<a href="' . route('admin.static-page.edit', $staticPage->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.static-page.edit', $staticPage->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $staticPage)) {
-                    $str .= '<a href="#" data-action="' . route('admin.static-page.destroy', $staticPage->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.static-page.destroy', $staticPage->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
                 return $str;

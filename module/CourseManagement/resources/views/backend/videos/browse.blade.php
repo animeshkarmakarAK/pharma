@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold">videos List</h3>
                         <div class="card-tools">
                             @can('create', Module\CourseManagement\App\Models\Video::class)
-                                <a href="{{route('admin.videos.create')}}"
+                                <a href="{{route('course_management::admin.videos.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -40,7 +40,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.videos.datatable') }}',
+                url: '{{ route('course_management::admin.videos.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

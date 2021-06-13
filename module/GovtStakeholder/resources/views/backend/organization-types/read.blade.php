@@ -10,7 +10,7 @@
                         <h3 class="card-title font-weight-bold">{{ __('Organization Type') }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.organization-types.index')}}"
+                            <a href="{{route('govt_stakeholder::admin.organization-types.index')}}"
                                class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>

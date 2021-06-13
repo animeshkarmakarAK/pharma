@@ -12,11 +12,11 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.skills.edit', [$skill->id])}}"
+                        <a href="{{route('govt_stakeholder::admin.skills.edit', [$skill->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Skill') }}
                         </a>
-                        <a href="{{route('admin.skills.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('govt_stakeholder::admin.skills.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

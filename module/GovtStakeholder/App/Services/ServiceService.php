@@ -74,13 +74,13 @@ class ServiceService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Service $service) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $service)) {
-                    $str .= '<a href="' . route('admin.services.show', $service->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.services.show', $service->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $service)) {
-                    $str .= '<a href="' . route('admin.services.edit', $service->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.services.edit', $service->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $service)) {
-                    $str .= '<a href="#" data-action="' . route('admin.services.destroy', $service->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.services.destroy', $service->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

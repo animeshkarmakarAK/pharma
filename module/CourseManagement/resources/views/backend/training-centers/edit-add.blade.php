@@ -13,7 +13,7 @@
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Training Center':'Create Training Center' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.training-centers.index')}}"
+                            <a href="{{route('course_management::admin.training-centers.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -23,7 +23,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{$edit ? route('admin.training-centers.update', $trainingCenter->id) : route('admin.training-centers.store')}}"
+                            action="{{$edit ? route('course_management::admin.training-centers.update', $trainingCenter->id) : route('course_management::admin.training-centers.store')}}"
                             method="POST" class="edit-add-form">
                             @csrf
                             @if($edit)

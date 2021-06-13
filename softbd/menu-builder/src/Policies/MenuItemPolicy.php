@@ -3,24 +3,23 @@
 namespace Softbd\MenuBuilder\Policies;
 
 use App\Models\User;
+use App\Policies\MasterBasePolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class MenuItemPolicy
+class MenuItemPolicy extends MasterBasePolicy
 {
-    use HandlesAuthorization;
-
     protected static $permissions = null;
 
     public function before($user, $ability)
     {
         /** @var User $user */
-        if ($user->row_status != User::ROW_STATUS_ACTIVE) {
-            return false;
-        }
-
-        if ($user->isSuperUser()) {
-            return true;
-        }
+//        if ($user->row_status != User::ROW_STATUS_ACTIVE) {
+//            return false;
+//        }
+//
+//        if ($user->isSuperUser()) {
+//            return true;
+//        }
     }
 
     /**

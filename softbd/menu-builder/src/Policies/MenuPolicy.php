@@ -3,25 +3,11 @@
 namespace Softbd\MenuBuilder\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Policies\MasterBasePolicy;
 use Softbd\MenuBuilder\Models\Menu;
 
-class MenuPolicy
+class MenuPolicy extends MasterBasePolicy
 {
-    use HandlesAuthorization;
-
-    public function before($user, $ability)
-    {
-        /** @var User $user */
-        if ($user->row_status != User::ROW_STATUS_ACTIVE) {
-            return false;
-        }
-
-        if ($user->isSuperUser()) {
-            return true;
-        }
-    }
-
     public function viewAny(User $user)
     {
         return $user->hasPermission('view_any_menu');

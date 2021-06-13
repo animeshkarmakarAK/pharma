@@ -8,10 +8,10 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.sliders.edit', $slider)}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.sliders.edit', $slider)}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Slider') }}
                         </a>
-                        <a href="{{route('admin.sliders.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.sliders.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

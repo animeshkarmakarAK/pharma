@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="{{--{{ route('admin.institutes.index') }}--}}">104{{--{{ $stickerCount['total_institute']? $stickerCount['total_institute']:'0' }}--}}</a>
+                        <a href="{{--{{ route('govt_stakeholder::admin.institutes.index') }}--}}">104{{--{{ $stickerCount['total_institute']? $stickerCount['total_institute']:'0' }}--}}</a>
                     </div>
                     <div class="sticker-title">
                         ইন্ডাস্ট্রি

@@ -14,7 +14,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Config Course' : 'Update Course Config' }}</h3>
                         <div>
-                            <a href="{{route('admin.publish-courses.index')}}"
+                            <a href="{{route('course_management::admin.publish-courses.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -23,7 +23,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('admin.publish-courses.update', $publishCourse->id) : route('admin.publish-courses.store')}}">
+                              action="{{ $edit ? route('course_management::admin.publish-courses.update', $publishCourse->id) : route('course_management::admin.publish-courses.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

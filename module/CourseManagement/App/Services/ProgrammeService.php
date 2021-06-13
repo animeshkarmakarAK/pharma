@@ -91,13 +91,13 @@ class ProgrammeService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Programme $programme) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $programme)) {
-                    $str .= '<a href="' . route('admin.programmes.show', $programme->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('course_management::admin.programmes.show', $programme->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $programme)) {
-                    $str .= '<a href="' . route('admin.programmes.edit', $programme->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('course_management::admin.programmes.edit', $programme->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $programme)) {
-                    $str .= '<a href="#" data-action="' . route('admin.programmes.destroy', $programme->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.programmes.destroy', $programme->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

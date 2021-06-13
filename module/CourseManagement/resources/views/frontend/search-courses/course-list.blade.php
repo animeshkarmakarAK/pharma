@@ -205,7 +205,7 @@
         };
 
         async function courseDetailsModalOpen(courseId) {
-            let response = await $.get('{{route('course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', courseId));
+            let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', courseId));
             if (response?.length) {
                 $("#course_details_modal").find(".modal-content").html(response);
             } else {

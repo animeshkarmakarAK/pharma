@@ -17,7 +17,7 @@
                             <em>Please save your access key for further process.</em>
                         </p>
                         <p class="card-text">You can access to your profile using this access key. <a
-                                href="{{route('youth.login-form')}}">click
+                                href="{{route('course_management::youth.login-form')}}">click
                                 here</a>
                         </p>
                     </div>

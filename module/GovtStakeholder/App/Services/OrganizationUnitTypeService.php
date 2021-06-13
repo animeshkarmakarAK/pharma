@@ -70,17 +70,17 @@ class OrganizationUnitTypeService
             ->addColumn('action', DatatableHelper::getActionButtonBlock( static function (OrganizationUnitType $organizationUnitType) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $organizationUnitType)) {
-                    $str .= '<a href="' . route('admin.organization-unit-types.show', $organizationUnitType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-unit-types.show', $organizationUnitType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $organizationUnitType)) {
-                    $str .= '<a href="' . route('admin.organization-unit-types.edit', $organizationUnitType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-unit-types.edit', $organizationUnitType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $organizationUnitType)) {
-                    $str .= '<a href="#" data-action="' . route('admin.organization-unit-types.destroy', $organizationUnitType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.organization-unit-types.destroy', $organizationUnitType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
-                $str .= '<a href="' . route('admin.organization-unit-types.hierarchy', $organizationUnitType->id) . '" class="btn btn-outline-secondary btn-sm"> <i class="fas fa-tree"></i> ' . 'hierarchy' . '</a>';
+                $str .= '<a href="' . route('govt_stakeholder::admin.organization-unit-types.hierarchy', $organizationUnitType->id) . '" class="btn btn-outline-secondary btn-sm"> <i class="fas fa-tree"></i> ' . 'hierarchy' . '</a>';
 
                 return $str;
             }))

@@ -173,7 +173,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 @if($batches->count())
-                    <form id="add-to-batch-form" method="post" action="{{route('admin.youth.add-to-batch')}}">
+                    <form id="add-to-batch-form" method="post" action="{{route('course_management::admin.youth.add-to-batch')}}">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Select Batch</h5>
@@ -211,7 +211,7 @@
                     <div class="modal-body">
                         @can('create', \Module\CourseManagement\App\Models\Batch::class)
                             <div class="d-block mt-5 mb-5 text-center">
-                                <a href="{{route('admin.batches.create')}}" class="btn btn-sm btn-success">
+                                <a href="{{route('course_management::admin.batches.create')}}" class="btn btn-sm btn-success">
                                     <i class="fa fa-plus-circle"></i> Create New Batch
                                 </a>
                             </div>
@@ -240,7 +240,7 @@
     <script>
         $(document).ready(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.youth.registrations.datatable') }}',
+                url: '{{ route('course_management::admin.youth.registrations.datatable') }}',
                 order: [[2, "asc"]],
                 serialNumberColumn: 1,
                 select: {

@@ -130,14 +130,14 @@ class GalleryService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Gallery $gallery) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $gallery)) {
-                    $str .= '<a href="' . route('admin.galleries.show', $gallery->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.galleries.show', $gallery->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
                 if ($authUser->can('update', $gallery)) {
 
-                    $str .= '<a href="' . route('admin.galleries.edit', $gallery->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.galleries.edit', $gallery->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $gallery)) {
-                    $str .= '<a href="#" data-action="' . route('admin.galleries.destroy', $gallery->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.galleries.destroy', $gallery->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 return $str;
             }))

@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title_en}}</b> - Youth List
                         </h3>
                         <div>
-                            <a href="{{route('admin.batches.index')}}"
+                            <a href="{{route('course_management::admin.batches.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to batch list
                             </a>
@@ -38,7 +38,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.batches.youths.datatable', $batch->id) }}',
+                url: '{{ route('course_management::admin.batches.youths.datatable', $batch->id) }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

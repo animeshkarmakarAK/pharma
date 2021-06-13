@@ -150,14 +150,14 @@ class OrganizationUnitService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OrganizationUnit $organizationUnit) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $organizationUnit)) {
-                    $str .= '<a href="' . route('admin.organization-units.show', $organizationUnit->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-units.show', $organizationUnit->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $organizationUnit)) {
-                    $str .= '<a href="' . route('admin.organization-units.edit', $organizationUnit->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-units.edit', $organizationUnit->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $organizationUnit)) {
-                    $str .= '<a href="#" data-action="' . route('admin.organization-units.destroy', $organizationUnit->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.organization-units.destroy', $organizationUnit->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 return $str;
             }))

@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold text-primary">Batches List</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Batch::class)
-                                <a href="{{route('admin.batches.create')}}" class="btn btn-sm btn-rounded btn-primary">
+                                <a href="{{route('course_management::admin.batches.create')}}" class="btn btn-sm btn-rounded btn-primary">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
                             @endcan
@@ -38,7 +38,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.batches.datatable') }}',
+                url: '{{ route('course_management::admin.batches.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

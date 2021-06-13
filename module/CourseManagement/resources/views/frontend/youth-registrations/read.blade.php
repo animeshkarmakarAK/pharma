@@ -34,7 +34,7 @@
         <div class="row ">
             <div class="col-md-12">
                 <div class="card-tools float-right">
-                    <a href="{{route('admin.youth.registrations.index')}}"
+                    <a href="{{route('course_management::admin.youth.registrations.index')}}"
                        class="btn btn-sm btn-outline-primary btn-rounded">
                         <i class="fas fa-backward"></i> Back to list
                     </a>

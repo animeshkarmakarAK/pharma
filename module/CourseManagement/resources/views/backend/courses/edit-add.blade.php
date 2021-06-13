@@ -15,7 +15,7 @@
                         <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add Course' : 'Update Course' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.courses.index')}}"
+                            <a href="{{route('course_management::admin.courses.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -25,7 +25,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post" enctype="multipart/form-data"
-                              action="{{ $edit ? route('admin.courses.update', [$course->id]) : route('admin.courses.store')}}">
+                              action="{{ $edit ? route('course_management::admin.courses.update', [$course->id]) : route('course_management::admin.courses.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -222,7 +222,7 @@
                     remote: {
                         param: {
                             type: "post",
-                            url: "{{ route('admin.check-course-code') }}",
+                            url: "{{ route('course_management::admin.check-course-code') }}",
                         },
                         depends: function (element) {
                             return $(element).val() !== $('#code').attr('data-code');

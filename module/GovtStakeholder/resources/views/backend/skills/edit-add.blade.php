@@ -13,7 +13,7 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Skill':'Create Skill' }}</h3>
                         <div class="card-tools">
-                            <a href="{{route('admin.skills.index')}}"
+                            <a href="{{route('govt_stakeholder::admin.skills.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -22,7 +22,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{$edit ? route('admin.skills.update', $skill->id) : route('admin.skills.store')}}"
+                            action="{{$edit ? route('govt_stakeholder::admin.skills.update', $skill->id) : route('govt_stakeholder::admin.skills.store')}}"
                             method="POST" class="row edit-add-form">
                             @csrf
                             @if($edit)

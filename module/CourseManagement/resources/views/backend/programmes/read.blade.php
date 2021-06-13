@@ -13,10 +13,10 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.programmes.edit', [$programme->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.programmes.edit', [$programme->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-edit"></i> {{ __('Edit Programme') }}
                         </a>
-                        <a href="{{route('admin.programmes.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.programmes.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

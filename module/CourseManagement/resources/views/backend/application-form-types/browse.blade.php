@@ -8,7 +8,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">Application Form Types List</h3>
                         <div>
-                            <a href="{{route('admin.application-form-types.create')}}"
+                            <a href="{{route('course_management::admin.application-form-types.create')}}"
                                class="btn btn-sm btn-rounded btn-primary">
                                 <i class="fas fa-plus-circle"></i> Add new
                             </a>
@@ -37,7 +37,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.application-form-types.datatable') }}',
+                url: '{{ route('course_management::admin.application-form-types.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

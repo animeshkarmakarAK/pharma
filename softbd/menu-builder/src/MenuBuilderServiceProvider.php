@@ -4,6 +4,8 @@ namespace Softbd\MenuBuilder;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Softbd\MenuBuilder\Models\Menu;
+use Softbd\MenuBuilder\Models\MenuItem;
+use Softbd\MenuBuilder\Policies\MenuItemPolicy;
 use Softbd\MenuBuilder\Policies\MenuPolicy;
 
 class MenuBuilderServiceProvider extends ServiceProvider
@@ -14,7 +16,8 @@ class MenuBuilderServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Menu::class => MenuPolicy::class
+        Menu::class => MenuPolicy::class,
+        MenuItem::class => MenuItemPolicy::class,
     ];
 
     /**

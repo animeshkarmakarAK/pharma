@@ -12,7 +12,7 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.visitor-feedback.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.visitor-feedback.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

@@ -79,13 +79,13 @@ class SkillService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Skill $skill) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $skill)) {
-                    $str .= '<a href="' . route('admin.skills.show', $skill->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.skills.show', $skill->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $skill)) {
-                    $str .= '<a href="' . route('admin.skills.edit', $skill->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.skills.edit', $skill->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $skill)) {
-                    $str .= '<a href="#" data-action="' . route('admin.skills.destroy', $skill->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.skills.destroy', $skill->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

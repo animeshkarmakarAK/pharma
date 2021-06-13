@@ -7,10 +7,10 @@
                 <h3 class="card-title font-weight-bold text-primary">Batch</h3>
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.batches.edit', [$batch->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.batches.edit', [$batch->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Batch') }}
                         </a>
-                        <a href="{{route('admin.batches.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.batches.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

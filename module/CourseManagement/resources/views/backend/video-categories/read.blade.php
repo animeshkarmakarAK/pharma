@@ -8,11 +8,11 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.video-categories.edit', $videoCategory)}}"
+                        <a href="{{route('course_management::admin.video-categories.edit', $videoCategory)}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Video Category') }}
                         </a>
-                        <a href="{{route('admin.video-categories.index')}}"
+                        <a href="{{route('course_management::admin.video-categories.index')}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>

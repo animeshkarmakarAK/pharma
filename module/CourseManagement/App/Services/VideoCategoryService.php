@@ -81,14 +81,14 @@ class VideoCategoryService
             ->addColumn('action', static function (VideoCategory $videoCategory) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $videoCategory)) {
-                    $str .= '<a href="' . route('admin.video-categories.show', $videoCategory->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.video-categories.show', $videoCategory->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $videoCategory)) {
-                    $str .= '<a href="' . route('admin.video-categories.edit', $videoCategory->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.video-categories.edit', $videoCategory->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $videoCategory)) {
-                    $str .= '<a href="#" data-action="' . route('admin.video-categories.destroy', $videoCategory->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.video-categories.destroy', $videoCategory->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
                 return $str;

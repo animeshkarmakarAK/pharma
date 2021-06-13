@@ -14,7 +14,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Batch' : 'Update Batch' }}</h3>
                         <div>
-                            <a href="{{route('admin.batches.index')}}" class="btn btn-sm btn-rounded btn-outline-primary">
+                            <a href="{{route('course_management::admin.batches.index')}}" class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
                         </div>
@@ -22,7 +22,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('admin.batches.update', [$batch->id]) : route('admin.batches.store')}}">
+                              action="{{ $edit ? route('course_management::admin.batches.update', [$batch->id]) : route('course_management::admin.batches.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

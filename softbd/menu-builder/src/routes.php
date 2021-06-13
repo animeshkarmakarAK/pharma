@@ -5,7 +5,7 @@ use \Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => config('menu-builder.route.prefix', 'menu-builder'),
     'as' => config('menu-builder.route.name_prefix', 'menu-builder.'),
-    'middleware' => config('menu-builder.route.middleware', ['web'])],
+    'middleware' => config('menu-builder.route.middleware', ['web', 'auth'])],
     function ()
     {
     Route::get('/menus/{menu}/builder', [Softbd\MenuBuilder\Controllers\MenuBuilderController::class, 'builder'])->name('menus.builder');

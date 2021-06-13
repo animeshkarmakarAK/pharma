@@ -11,7 +11,7 @@
         "color": "#000000",
         "parent_id": 19,
         "order": 1,
-        "route": "admin.institutes.index",
+        "route": "course_management::admin.institutes.index",
         "parameters": null
     },
     {
@@ -26,7 +26,7 @@
         "color": "#000000",
         "parent_id": 19,
         "order": 4,
-        "route": "admin.programmes.index",
+        "route": "course_management::admin.programmes.index",
         "parameters": null
     },
     {
@@ -56,7 +56,7 @@
         "color": "#000000",
         "parent_id": 42,
         "order": 1,
-        "route": "admin.courses.index",
+        "route": "course_management::admin.courses.index",
         "parameters": null
     },
     {
@@ -101,7 +101,7 @@
         "color": "#806f6f",
         "parent_id": 42,
         "order": 3,
-        "route": "admin.publish-courses.index",
+        "route": "course_management::admin.publish-courses.index",
         "parameters": null
     },
     {
@@ -116,7 +116,7 @@
         "color": "#000000",
         "parent_id": 42,
         "order": 2,
-        "route": "admin.application-form-types.index",
+        "route": "course_management::admin.application-form-types.index",
         "parameters": null
     },
     {
@@ -206,7 +206,7 @@
         "color": "#000000",
         "parent_id": 37,
         "order": 1,
-        "route": "admin.batches.index",
+        "route": "course_management::admin.batches.index",
         "parameters": null
     },
     {
@@ -236,7 +236,7 @@
         "color": "#000000",
         "parent_id": 39,
         "order": 1,
-        "route": "admin.youth.registrations.index",
+        "route": "course_management::admin.youth.registrations.index",
         "parameters": null
     },
     {
@@ -251,7 +251,7 @@
         "color": "#000000",
         "parent_id": 19,
         "order": 2,
-        "route": "admin.branches.index",
+        "route": "course_management::admin.branches.index",
         "parameters": null
     },
     {
@@ -281,7 +281,7 @@
         "color": "#000000",
         "parent_id": 19,
         "order": 3,
-        "route": "admin.training-centers.index",
+        "route": "course_management::admin.training-centers.index",
         "parameters": null
     },
     {
@@ -326,7 +326,7 @@
         "color": "#000000",
         "parent_id": 45,
         "order": 1,
-        "route": "admin.galleries.index",
+        "route": "course_management::admin.galleries.index",
         "parameters": null
     },
     {
@@ -341,7 +341,7 @@
         "color": "#000000",
         "parent_id": 45,
         "order": 2,
-        "route": "admin.static-page.index",
+        "route": "course_management::admin.static-page.index",
         "parameters": null
     },
     {
@@ -356,7 +356,7 @@
         "color": "#000000",
         "parent_id": 45,
         "order": 3,
-        "route": "admin.sliders.index",
+        "route": "course_management::admin.sliders.index",
         "parameters": null
     },
     {
@@ -371,7 +371,7 @@
         "color": "#000000",
         "parent_id": 45,
         "order": 4,
-        "route": "admin.videos.index",
+        "route": "course_management::admin.videos.index",
         "parameters": null
     },
     {
@@ -386,7 +386,7 @@
         "color": "#000000",
         "parent_id": 45,
         "order": 5,
-        "route": "admin.video-categories.index",
+        "route": "course_management::admin.video-categories.index",
         "parameters": null
     }
 ]

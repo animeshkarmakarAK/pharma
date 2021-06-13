@@ -12,10 +12,10 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.branches.edit', [$branch->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.branches.edit', [$branch->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Branch') }}
                         </a>
-                        <a href="{{route('admin.branches.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.branches.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

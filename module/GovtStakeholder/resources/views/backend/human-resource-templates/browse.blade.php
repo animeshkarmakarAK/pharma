@@ -10,7 +10,7 @@
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)
-                                <a href="{{route('admin.human-resource-templates.create')}}"
+                                <a href="{{route('govt_stakeholder::admin.human-resource-templates.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -39,7 +39,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.human-resource-templates.datatable') }}',
+                url: '{{ route('govt_stakeholder::admin.human-resource-templates.datatable') }}',
                 order: [[4, "asc"]],
                 columns: [
                     {

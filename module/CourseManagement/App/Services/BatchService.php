@@ -76,17 +76,17 @@ class BatchService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Batch $batch) use ($authUser){
                 $str = '';
                 if($authUser->can('view',$batch)){
-                    $str .= '<a href="' . route('admin.batches.show', $batch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('course_management::admin.batches.show', $batch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if($authUser->can('viewBachYouth', $batch)) {
-                    $str .= '<a href="' . route('admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> Youths </a>';
+                    $str .= '<a href="' . route('course_management::admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> Youths </a>';
                 }
 
                 if($authUser->can('update',$batch)){
-                    $str .= '<a href="' . route('admin.batches.edit', $batch->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('course_management::admin.batches.edit', $batch->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if($authUser->can('delete',$batch)){
-                    $str .= '<a href="#" data-action="' . route('admin.batches.destroy', $batch->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.batches.destroy', $batch->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
                 return $str;
             }))

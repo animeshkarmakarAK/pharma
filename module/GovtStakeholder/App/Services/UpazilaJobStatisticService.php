@@ -99,13 +99,13 @@ class UpazilaJobStatisticService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (UpazilaJobStatistic $upazilaJobStatistic) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $upazilaJobStatistic)) {
-                    $str .= '<a href="' . route('admin.upazila-job-statistics.show', $upazilaJobStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.upazila-job-statistics.show', $upazilaJobStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $upazilaJobStatistic)) {
-                    $str .= '<a href="' . route('admin.upazila-job-statistics.edit', $upazilaJobStatistic->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.upazila-job-statistics.edit', $upazilaJobStatistic->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $upazilaJobStatistic)) {
-                    $str .= '<a href="#" data-action="' . route('admin.upazila-job-statistics.destroy', $upazilaJobStatistic->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.upazila-job-statistics.destroy', $upazilaJobStatistic->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

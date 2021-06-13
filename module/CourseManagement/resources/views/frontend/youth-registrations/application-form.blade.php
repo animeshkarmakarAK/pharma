@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('youth-registrations.store') }}" method="POST" class="youthRegistrationForm"
+            <form action="{{ route('course_management::youth-registrations.store') }}" method="POST" class="youthRegistrationForm"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-12">

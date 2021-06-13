@@ -86,18 +86,18 @@ class VisitorFeedbackService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (VisitorFeedback $visitorFeedback) use ($authUser){
                 $str = '';
                 if ($authUser->can('view', $visitorFeedback)) {
-                    $str .= '<a href="' . route('admin.visitor-feedback.show', $visitorFeedback->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('course_management::admin.visitor-feedback.show', $visitorFeedback->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
 
                 if ($authUser->can('delete', $visitorFeedback)) {
-                    $str .= '<a href="#" data-action="' . route('admin.visitor-feedback.destroy', $visitorFeedback->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.visitor-feedback.destroy', $visitorFeedback->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;
             }))
             ->editColumn('read_at', function (VisitorFeedback $visitorFeedback) {
                 $str = '';
-                $str .= '<a href="#" data-action="' . route('admin.branches.destroy', $visitorFeedback->id) . '" class="badge badge-' . ($visitorFeedback->read_at ? 'success' : 'danger') . '">' . ($visitorFeedback->read_at ? 'Read' : 'Unread') . '</a>';
+                $str .= '<a href="#" data-action="' . route('course_management::admin.branches.destroy', $visitorFeedback->id) . '" class="badge badge-' . ($visitorFeedback->read_at ? 'success' : 'danger') . '">' . ($visitorFeedback->read_at ? 'Read' : 'Unread') . '</a>';
                 return $str;
             })
             ->editColumn('form_type', function (VisitorFeedback $visitorFeedback) {

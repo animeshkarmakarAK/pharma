@@ -622,7 +622,7 @@
         function updateNodeOnDrag(parentId, childId) {
             return $.ajax({
                 method: 'POST',
-                url: "{{route('admin.human-resource-templates.update-node-on-drag', '__')}}".replace('__', childId),
+                url: "{{route('govt_stakeholder::admin.human-resource-templates.update-node-on-drag', '__')}}".replace('__', childId),
                 data: {
                     parent_id: parentId,
                 }
@@ -1122,7 +1122,7 @@
                 $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
 
                 // change form url for edit
-                let url = "{{route('admin.human-resource-templates.update-node', '__')}}".replace('__', nodeData.id);
+                let url = "{{route('govt_stakeholder::admin.human-resource-templates.update-node', '__')}}".replace('__', nodeData.id);
 
                 editAddForm.attr("action", url);
                 editAddForm.attr("data-method", "PATCH");
@@ -1154,7 +1154,7 @@
                 alert('You can\'t delete this node');
             } else if (isActive) {
                 $('#deleteModal').modal('show');
-                let url = "{{ route('admin.human-resource-templates.delete-node', '__') }}".replace('__', d.id);
+                let url = "{{ route('govt_stakeholder::admin.human-resource-templates.delete-node', '__') }}".replace('__', d.id);
                 $('#deleteModal').attr("data-url", url);
                 $('#deleteModal').attr("data-node-id", d.id);
             }

@@ -79,13 +79,13 @@ class RankTypeService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (RankType $rankType) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $rankType)) {
-                    $str .= '<a href="' . route('admin.rank-types.show', $rankType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.rank-types.show', $rankType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $rankType)) {
-                    $str .= '<a href="' . route('admin.rank-types.edit', $rankType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.rank-types.edit', $rankType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $rankType)) {
-                    $str .= '<a href="#" data-action="' . route('admin.rank-types.destroy', $rankType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.rank-types.destroy', $rankType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

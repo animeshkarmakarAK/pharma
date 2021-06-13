@@ -12,11 +12,11 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.upazila-job-statistics.edit', [$upazilaJobStatistic->id])}}"
+                        <a href="{{route('govt_stakeholder::admin.upazila-job-statistics.edit', [$upazilaJobStatistic->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Job Sector') }}
                         </a>
-                        <a href="{{route('admin.upazila-job-statistics.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('govt_stakeholder::admin.upazila-job-statistics.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>
