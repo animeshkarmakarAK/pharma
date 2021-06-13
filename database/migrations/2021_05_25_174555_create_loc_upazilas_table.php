@@ -15,8 +15,8 @@ class CreateLocUpazilasTable extends Migration
     {
         Schema::create('loc_upazilas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 350);
-            $table->string('title_en', 250);
+            $table->string('title_en', 350);
+            $table->string('title_bn', 250);
             $table->unsignedMediumInteger('loc_division_id')->index('loc_upazilas_loc_division_id_foreign');
             $table->unsignedMediumInteger('loc_district_id')->index('loc_upazilas_loc_district_id_foreign');
             $table->char('district_bbs_code', 3)->nullable();

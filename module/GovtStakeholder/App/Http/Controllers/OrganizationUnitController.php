@@ -60,7 +60,7 @@ class OrganizationUnitController extends BaseController
         } catch (\Throwable $exception) {
             DB::rollBack();
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
@@ -109,7 +109,7 @@ class OrganizationUnitController extends BaseController
             $this->organizationUnitService->updateOrganizationUnit($organizationUnit, $validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
