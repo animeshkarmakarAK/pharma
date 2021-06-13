@@ -10,6 +10,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'organization-units' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class,
         'organization-unit-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class,
         'human-resource-templates' => \Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class,
+        'occupation-wise-statistics' => \Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class,
     ]);
 
     Route::post('human-resource-templates/{human_resource_template}/update-node-on-drag', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'updateNodeOnDrag'])
@@ -22,6 +23,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('organization-unit-types/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class, 'getDatatable'])->name('organization-unit-types.datatable');
     Route::get('organization-unit-types/{organization_unit_type}/hierarchy', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class, 'employeeHierarchy'])->name('organization-unit-types.hierarchy');
     Route::post('organization-units/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class, 'getDatatable'])->name('organization-units.datatable');
+    Route::post('occupation-wise-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class, 'getDatatable'])->name('occupation-wise-statistics.datatable');
 
     Route::resources([
         'organization-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationTypeController::class,
@@ -34,7 +36,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'upazila-job-statistics' => \Module\GovtStakeholder\App\Http\Controllers\UpazilaJobStatisticController::class,
     ]);
 
-    Route::post('rank-types/datatable', [\Module\GovtStakeholder\App\Http\Controllers\RankTypeController::class, 'getDatatable'])->name('rank-types.datatable');
+    Route::post('rank-typesoccupation-wise-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\RankTypeController::class, 'getDatatable'])->name('rank-types.datatable');
     Route::post('ranks/datatable', [\Module\GovtStakeholder\App\Http\Controllers\RankController::class, 'getDatatable'])->name('ranks.datatable');
     Route::post('skills/datatable', [\Module\GovtStakeholder\App\Http\Controllers\SkillController::class, 'getDatatable'])->name('skills.datatable');
     Route::post('services/datatable', [\Module\GovtStakeholder\App\Http\Controllers\ServiceController::class, 'getDatatable'])->name('services.datatable');
