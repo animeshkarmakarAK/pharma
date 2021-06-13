@@ -61,10 +61,8 @@ class OccupationWiseStatisticService
         $occupationWiseStatistics = OccupationWiseStatistic::select(
             [
                 'occupation_wise_statistics.id',
-
                 'institutes.title_en as institute_title_en',
                 'occupations.title_en as occupation_title_en',
-
                 'occupation_wise_statistics.current_month_skilled_youth',
                 'occupation_wise_statistics.next_month_skill_youth',
                 'occupation_wise_statistics.row_status',
