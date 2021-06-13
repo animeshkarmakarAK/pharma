@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Module\GovtStakeholder\App\Models\HumanResourceTemplate;
 use Module\GovtStakeholder\App\Models\OrganizationUnitType;
@@ -57,7 +58,7 @@ class HumanResourceTemplateController extends BaseController
             $this->humanResourceTemplateService->createHumanResourceTemplate($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
@@ -131,6 +132,7 @@ class HumanResourceTemplateController extends BaseController
             'alert-type' => 'success'
         ]);
     }
+
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->humanResourceTemplateService->getListDataForDatatable($request);
@@ -146,15 +148,13 @@ class HumanResourceTemplateController extends BaseController
         $validatedData = $this->humanResourceTemplateService->validator($request)->validate();
         try {
             $this->humanResourceTemplateService->updateHumanResourceTemplate($humanResourceTemplate, $validatedData);
-        }catch(\Throwable $exception) {
+        } catch (\Throwable $exception) {
             return response()->json([
                 'message' => __('generic.something_wrong_try_again'),
                 'alertType' => 'error'
             ]);
         }
 
-        $organizationUnitType = OrganizationUnitType::findOrFail($request->input('organization_unit_type_id'));
-        $employeeHierarchy = $organizationUnitType->getHierarchy();
 
         $newNode = $humanResourceTemplate;
         $newNode["name"] = $newNode->title_en;
@@ -177,16 +177,12 @@ class HumanResourceTemplateController extends BaseController
         $validatedData = $this->humanResourceTemplateService->validator($request)->validate();
         try {
             $newNode = $this->humanResourceTemplateService->createHumanResourceTemplate($validatedData);
-        }catch(\Throwable $exception) {
+        } catch (\Throwable $exception) {
             return response()->json([
                 'message' => __('generic.something_wrong_try_again'),
                 'alertType' => 'error'
             ]);
         }
-
-        $organizationUnitType = OrganizationUnitType::findOrFail($request->input('organization_unit_type_id'));
-        $employeeHierarchy = $organizationUnitType->getHierarchy();
-
 
         $newNode["name"] = $newNode->title_en;
         $newNode["parent"] = $newNode->parent_id;
@@ -202,7 +198,7 @@ class HumanResourceTemplateController extends BaseController
 
         try {
             $humanResourceTemplate->delete();
-        }catch(\Throwable $exception) {
+        } catch (\Throwable $exception) {
             return response()->json([
                 'message' => __('generic.something_wrong_try_again'),
                 'alertType' => 'error'
@@ -218,7 +214,7 @@ class HumanResourceTemplateController extends BaseController
         ]);
     }
 
-    public function updateNodeOnDrag(Request  $request, HumanResourceTemplate $humanResourceTemplate): JsonResponse
+    public function updateNodeOnDrag(Request $request, HumanResourceTemplate $humanResourceTemplate): JsonResponse
     {
         $validatedData = $request->validate([
             'parent_id' => [
@@ -229,7 +225,8 @@ class HumanResourceTemplateController extends BaseController
 
         try {
             $humanResourceTemplate->update($validatedData);
-        }catch (Exception $exception) {
+        } catch (\Throwable $exception) {
+            Log::error($exception->getMessage());
             return \response()->json("Update Failed");
         }
 

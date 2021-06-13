@@ -18,7 +18,16 @@ class OrganizationUnitService
 {
     public function createOrganizationUnit(array $data): OrganizationUnit
     {
-        return OrganizationUnit::create($data);
+        $organizationUnit = OrganizationUnit::create($data);
+        $organizationUnitType = $organizationUnit->organizationUnitType;
+
+        $humanResourceTemplates = $organizationUnitType->humanResources;
+        foreach ($humanResourceTemplates as $humanResourceTemplate) {
+            //template is now human resource
+            $humanResource = $humanResourceTemplates;
+            $humanResource['human_resource_template_id'] = $humanResourceTemplate->id;
+            $organizationUnit->humanResources()->create($humanResource);
+        }
     }
 
     public function updateOrganizationUnit(OrganizationUnit $organizationUnit, array $data): bool

@@ -56,4 +56,9 @@ class HumanResourceTemplate extends BaseModel
         return $this->hasMany(self::class, 'parent_id');
     }
 
+    public function humanResource(): HasMany
+    {
+        return $this->hasMany(HumanResource::class);
+    }
+
 }

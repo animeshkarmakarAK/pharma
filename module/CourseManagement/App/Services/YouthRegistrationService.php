@@ -34,7 +34,6 @@ class YouthRegistrationService
             'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land',
             'number_of_siblings', 'student_signature_pic', 'student_pic']);
 
-        //TODO: throw exception if not found Publish course
         $publishCourse = PublishCourse::where('course_id', $data['course_id'])->first();
         if (!$publishCourse) {
             throw ValidationException::withMessages(['publish_course_id' => 'course config not found.']);

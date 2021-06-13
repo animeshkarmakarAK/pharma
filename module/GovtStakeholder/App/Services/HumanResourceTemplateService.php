@@ -121,7 +121,7 @@ class HumanResourceTemplateService
             ->editColumn('is_designation', function (HumanResourceTemplate $humanResourceTemplate) {
                 if ($humanResourceTemplate->is_designation) {
                     return 'Yes';
-                }else{
+                } else {
                     return 'No';
                 }
             })
@@ -133,6 +133,5 @@ class HumanResourceTemplateService
     {
         return $humanResourceTemplate->update($data);
     }
-
 }
 
