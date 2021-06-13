@@ -12,11 +12,11 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.occupation-wise-statistics.edit', [$occupationWiseStatistic->id])}}"
+                        <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.edit', [$occupationWiseStatistic->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Occupation Wise Statistic') }}
                         </a>
-                        <a href="{{route('admin.occupation-wise-statistics.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

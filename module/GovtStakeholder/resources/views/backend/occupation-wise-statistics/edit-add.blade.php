@@ -13,7 +13,7 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Occupation Wise Statistic':'Create Occupation Wise Statistic' }}</h3>
                         <div class="card-tools">
-                            <a href="{{route('admin.occupation-wise-statistics.index')}}"
+                            <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -22,7 +22,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{$edit ? route('admin.occupation-wise-statistics.update', $occupationWiseStatistic->id) : route('admin.occupation-wise-statistics.store')}}"
+                            action="{{$edit ? route('govt_stakeholder::admin.occupation-wise-statistics.update', $occupationWiseStatistic->id) : route('govt_stakeholder::admin.occupation-wise-statistics.store')}}"
                             method="POST" class="row edit-add-form">
                             @csrf
                             @if($edit)

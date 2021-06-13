@@ -10,7 +10,7 @@
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\OccupationWiseStatistic::class)
-                                <a href="{{route('admin.occupation-wise-statistics.create')}}"
+                                <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -42,7 +42,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{route('admin.occupation-wise-statistics.datatable')}}',
+                url: '{{route('govt_stakeholder::admin.occupation-wise-statistics.datatable')}}',
                 order: [[1, "desc"]],
                 columns: [
                     {

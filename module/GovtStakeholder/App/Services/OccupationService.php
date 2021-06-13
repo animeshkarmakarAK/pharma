@@ -75,13 +75,13 @@ class OccupationService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Occupation $occupation) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $occupation)) {
-                    $str .= '<a href="' . route('admin.occupations.show', $occupation->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.occupations.show', $occupation->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }
                 if ($authUser->can('update', $occupation)) {
-                    $str .= '<a href="' . route('admin.occupations.edit', $occupation->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.occupations.edit', $occupation->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $occupation)) {
-                    $str .= '<a href="#" data-action="' . route('admin.occupations.destroy', $occupation->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.occupations.destroy', $occupation->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 return $str;
             }))
