@@ -44,7 +44,6 @@
                                             data-placeholder="Select option"
                                     >
                                     </select>
-
                                 </div>
                             </div>
 
@@ -62,54 +61,52 @@
                                             data-placeholder="Select option"
                                     >
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="current_month_skilled_youth">{{ __('Current Month Skilled Youth') }} <span
+                                            style="color: red">*</span></label>
+                                    <input type="text" class="form-control custom-input-box" id="current_month_skilled_youth"
+                                           name="current_month_skilled_youth"
+                                           value="{{$edit ? $occupationWiseStatistic->current_month_skilled_youth : old('current_month_skilled_youth')}}"
+                                           placeholder="{{ __('Current Month Skilled Youth') }}">
 
                                 </div>
                             </div>
 
-                            <div class="col-md-12 row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="current_month_skilled_youth">{{ __('Current Month Skilled Youth') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box" id="current_month_skilled_youth"
-                                               name="current_month_skilled_youth"
-                                               value="{{$edit ? $occupationWiseStatistic->current_month_skilled_youth : old('current_month_skilled_youth')}}"
-                                               placeholder="{{ __('Current Month Skilled Youth') }}">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="next_month_skill_youth">{{ __('Next Month Skilled Youth') }} <span style="color: red">*</span></label>
+                                    <input type="text" class="form-control custom-input-box" id="next_month_skill_youth"
+                                           name="next_month_skill_youth"
+                                           value="{{$edit ? $occupationWiseStatistic->next_month_skill_youth : old('next_month_skill_youth')}}"
+                                           placeholder="{{ __('Next Month Skilled Youth') }}">
 
-                                    </div>
                                 </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="next_month_skill_youth">{{ __('Next Month Skilled Youth') }} <span style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box" id="next_month_skill_youth"
-                                               name="next_month_skill_youth"
-                                               value="{{$edit ? $occupationWiseStatistic->next_month_skill_youth : old('next_month_skill_youth')}}"
-                                               placeholder="{{ __('Next Month Skilled Youth') }}">
-
-                                    </div>
-                                </div>
-
                             </div>
 
                             @if($edit)
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="row_status">{{ __('Status') }}<span
                                                 style="color: red"> * </span></label>
-                                        <div class="custom-control custom-radio col-sm-6">
-                                            <input class="custom-control-input" type="radio" id="active"
-                                                   name="row_status"
-                                                   value="1"
-                                                {{ ($edit && $occupationWiseStatistic->row_status == \Module\GovtStakeholder\App\Models\OccupationWiseStatistic::ROW_STATUS_ACTIVE) || (!empty(old('row_status')) && old('row_status') == 1)  ? 'checked' : '' }}>
-                                            <label for="active" class="custom-control-label">Active</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col-sm-6">
-                                            <input class="custom-control-input" type="radio" id="inactive"
-                                                   name="row_status"
-                                                   value="0"
-                                                {{ ($edit && $occupationWiseStatistic->row_status == \Module\GovtStakeholder\App\Models\OccupationWiseStatistic::ROW_STATUS_INACTIVE) || (!empty(old('row_status')) && old('row_status') == 0)  ? 'checked' : '' }}>
-                                            <label for="inactive" class="custom-control-label">Inactive</label>
+                                        <div class="input-group form-control">
+                                            <div class="custom-control custom-radio custom-radio-is-deletable">
+                                                <input class="custom-control-input" type="radio" id="active"
+                                                       name="row_status"
+                                                       value="1"
+                                                    {{ ($edit && $occupationWiseStatistic->row_status == \Module\GovtStakeholder\App\Models\OccupationWiseStatistic::ROW_STATUS_ACTIVE) || (!empty(old('row_status')) && old('row_status') == 1)  ? 'checked' : '' }}>
+                                                <label for="active" class="custom-control-label">Active &nbsp;&nbsp;&nbsp;</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-radio-is-deletable">
+                                                <input class="custom-control-input" type="radio" id="inactive"
+                                                       name="row_status"
+                                                       value="0"
+                                                    {{ ($edit && $occupationWiseStatistic->row_status == \Module\GovtStakeholder\App\Models\OccupationWiseStatistic::ROW_STATUS_INACTIVE) || (!empty(old('row_status')) && old('row_status') == 0)  ? 'checked' : '' }}>
+                                                <label for="inactive" class="custom-control-label">Inactive</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
