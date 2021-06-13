@@ -11,7 +11,6 @@ abstract class MasterBasePolicy
 
     public function before($user, $ability)
     {
-        return false;
         /** @var User $user */
         if ($user->row_status != User::ROW_STATUS_ACTIVE) {
             return false;
