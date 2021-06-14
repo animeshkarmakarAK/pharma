@@ -16,7 +16,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class LocDivisionController extends BaseController
 {
-    private const VIEW_PATH = 'geo-locations.loc-divisions.';
+    private const VIEW_PATH = 'backend.geo-locations.loc-divisions.';
 
     public function index(): View
     {
@@ -25,10 +25,12 @@ class LocDivisionController extends BaseController
 
     public function create(): View
     {
-        return view(self::VIEW_PATH . 'edit-add');
+        $locDivision = new LocDivision();
+
+        return view(self::VIEW_PATH . 'ajax.edit-add',compact('locDivision'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
 //        $this->authorize('add');
 
@@ -40,16 +42,11 @@ class LocDivisionController extends BaseController
             LocDivision::create($data);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
-                'message' => __('generic.something_wrong_try_again'),
-                'alert-type' => 'error'
-            ]);
+            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Division']),
-            'alert-type' => 'success'
-        ]);
+        return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'Division']), 'alert-type' => 'success']);
+
     }
 
     public function show(int $id): View
@@ -63,10 +60,10 @@ class LocDivisionController extends BaseController
     {
         $locDivision = LocDivision::findOrFail($id);
 
-        return view(self::VIEW_PATH . 'edit-add', compact('locDivision'));
+        return view(self::VIEW_PATH . 'ajax.edit-add', compact('locDivision'));
     }
 
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         $locDivision = LocDivision::findOrFail($id);
 
@@ -78,16 +75,10 @@ class LocDivisionController extends BaseController
             $locDivision->update($data);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
-                'message' => __('generic.something_wrong_try_again'),
-                'alert-type' => 'error'
-            ]);
+            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Division']),
-            'alert-type' => 'success'
-        ]);
+        return response()->json(['message' => __('generic.object_updated_successfully', ['object' => 'Division']), 'alert-type' => 'success']);
     }
 
     public function destroy(int $id): RedirectResponse
@@ -133,9 +124,9 @@ class LocDivisionController extends BaseController
         return DataTables::eloquent($locDivisions)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (LocDivision $locDivision) {
                 $str = '';
-                $str .= '<a href="' . route('admin.loc-divisions.show', $locDivision->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
-                $str .= '<a href="' . route('admin.loc-divisions.edit', $locDivision->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
-                $str .= '<a href="#" data-action="' . route('admin.loc-divisions.destroy', $locDivision->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                $str .= '<a href="#" data-url="' . route('admin.loc-divisions.show', $locDivision->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                $str .= '<a href="#" data-url="' . route('admin.loc-divisions.edit', $locDivision->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                $str .= '<a href="#" data-action="' . route('admin.loc-divisions.destroy', $locDivision->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 return $str;
             }))
             ->rawColumns(['action'])
