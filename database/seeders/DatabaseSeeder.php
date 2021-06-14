@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             RowStatusSeeder::class,
             UserTypeSeeder::class,
-            \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class
+            \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class,
         ]);
     }
 }
