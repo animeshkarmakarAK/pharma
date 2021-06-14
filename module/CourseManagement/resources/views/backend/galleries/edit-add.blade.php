@@ -16,7 +16,7 @@
                         <h3 class="card-title">{{ ! $edit ? 'Add Gallery' : 'Update Gallery' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.galleries.index')}}"
+                            <a href="{{route('course_management::admin.galleries.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -27,7 +27,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post" enctype="multipart/form-data"
-                              action="{{ $edit ? route('admin.galleries.update',$gallery->id) : route('admin.galleries.store')}}">
+                              action="{{ $edit ? route('course_management::admin.galleries.update',$gallery->id) : route('course_management::admin.galleries.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

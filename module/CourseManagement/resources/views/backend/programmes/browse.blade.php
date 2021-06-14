@@ -9,7 +9,7 @@
 
                         <div class="card-tools">
                             @can('create', \App\Models\Programme::class)
-                                <a href="{{route('admin.programmes.create')}}"
+                                <a href="{{route('course_management::admin.programmes.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -39,7 +39,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{route('admin.programmes.datatable')}}',
+                url: '{{route('course_management::admin.programmes.datatable')}}',
                 order: [[2, "desc"]],
                 columns: [
                     {

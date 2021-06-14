@@ -14,7 +14,7 @@
 
                         <div class="card-tools">
                             @can('viewAny', Module\CourseManagement\App\Models\Slider::class)
-                                <a href="{{route('admin.sliders.index')}}"
+                                <a href="{{route('course_management::admin.sliders.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
                                 </a>
@@ -25,7 +25,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('admin.sliders.update', $slider) : route('admin.sliders.store')}}"
+                              action="{{ $edit ? route('course_management::admin.sliders.update', $slider) : route('course_management::admin.sliders.store')}}"
                               enctype="multipart/form-data">
                             @csrf
                             @if($edit)

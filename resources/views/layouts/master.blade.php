@@ -37,57 +37,14 @@
     </div>
 
     @yield('footer', Illuminate\Support\Facades\View::make('master::layouts.partials.master.footer'))
+
+    <x-modal id="user-profile-view-modal" type="success" xl></x-modal>
 </div>
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/js/OverlayScrollbars.min.js"></script>
 <script src="{{asset('/js/admin-lte.js')}}"></script>
 <script src="{{asset('/js/on-demand.js')}}"></script>
 <script>
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-    $.validator.setDefaults({
-        errorElement: "em",
-        onkeyup: false,
-        ignore: [],
-        errorPlacement: function (error, element) {
-            error.addClass("help-block");
-            element.parents(".form-group").addClass("has-feedback");
-
-            if (element.prop("type") === "checkbox") {
-                error.insertAfter(element.parent("label"));
-            } else if (element.hasClass('select2-ajax') || element.hasClass('select2') || element.hasClass('select2-ajax-wizard')) {
-                error.insertAfter(element.parents(".form-group").find('.select2-container'));
-            } else if (element.parents('.form-group').find('.input-group').length) {
-                error.insertAfter(element.parents('.form-group').find('.input-group'));
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        success: function (label, element) {
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-        },
-    });
-
     @if(\Illuminate\Support\Facades\Session::has('alerts'))
     let alerts = {!! json_encode(\Illuminate\Support\Facades\Session::get('alerts')) !!};
     helpers.displayAlerts(alerts, toastr);
@@ -97,7 +54,18 @@
     let alertMessage = {!! json_encode(\Illuminate\Support\Facades\Session::get('message')) !!};
     let alerter = toastr[alertType];
     alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+
     @endif
+
+    /**
+     * To show current logged in user in modal
+     */
+    $(document).on('click', "#user-profile-view", async function () {
+        let url = '{{route('admin.users.show', auth()->user()->id)}}';
+        let response = await $.get(url);
+        $("#user-profile-view-modal").find('.modal-content').html(response);
+        $("#user-profile-view-modal").modal('show');
+    });
 </script>
 @stack('js')
 </body>

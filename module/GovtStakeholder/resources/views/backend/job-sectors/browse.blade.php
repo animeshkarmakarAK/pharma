@@ -10,7 +10,7 @@
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\JobSector::class)
-                                <a href="{{route('admin.job-sectors.create')}}"
+                                <a href="{{route('govt_stakeholder::admin.job-sectors.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -42,7 +42,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{route('admin.job-sectors.datatable')}}',
+                url: '{{route('govt_stakeholder::admin.job-sectors.datatable')}}',
                 order: [[1, "desc"]],
                 columns: [
                     {

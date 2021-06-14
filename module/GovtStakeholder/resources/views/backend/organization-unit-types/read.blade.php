@@ -9,13 +9,13 @@
                 <div class="card-tools">
                     <div class="btn-group">
                         @can('update', $organizationUnitType )
-                            <a href="{{route('admin.organization-unit-types.edit', $organizationUnitType)}}"
+                            <a href="{{route('govt_stakeholder::admin.organization-unit-types.edit', $organizationUnitType)}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-plus-circle"></i> {{ __('Edit Organization Unit type') }}
                             </a>
                         @endcan
                         @can('viewAny', $organizationUnitType)
-                            <a href="{{route('admin.organization-unit-types.index')}}"
+                            <a href="{{route('govt_stakeholder::admin.organization-unit-types.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> {{ __('Back to list') }}
                             </a>

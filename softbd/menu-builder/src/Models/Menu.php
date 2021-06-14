@@ -2,6 +2,7 @@
 
 namespace Softbd\MenuBuilder\Models;
 
+use App\Helpers\Classes\AuthHelper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -24,10 +25,6 @@ use Illuminate\Support\Str;
  * @property-read int|null $items_count
  * @property-read Collection|\Softbd\MenuBuilder\Models\MenuItem[] $parent_items
  * @property-read int|null $parent_items_count
- * @method static Builder|\Softbd\MenuBuilder\Models\Menu selectAllExcept($exceptColumns)
- * @method static Builder|\Softbd\MenuBuilder\Models\Menu newModelQuery()
- * @method static Builder|\Softbd\MenuBuilder\Models\Menu newQuery()
- * @method static Builder|\Softbd\MenuBuilder\Models\Menu query()
  */
 class Menu extends Model
 {
@@ -178,7 +175,8 @@ class Menu extends Model
 
         /** Filter items by permission */
         $items = $items->filter(static function ($item) {
-            return !$item->children->isEmpty() || auth()->user()->can('visit_this_menu_item', $item);
+            $authUser = AuthHelper::getAuthUser();
+            return !$item->children->isEmpty() || ($authUser && $authUser->can('visit_this_menu_item', $item));
         });
 
         $items = $items->filter(
@@ -187,9 +185,10 @@ class Menu extends Model
                 if ($item->url == '' && $item->route == '' && $item->children->count() == 0) {
                     return false;
                 }
-                if ($item->children->isEmpty() && $item->url == '#') {
-                    return false;
-                }
+                //NOTE: added in blade.
+//                if ($item->children->isEmpty() && $item->url == '#') {
+//                    return false;
+//                }
                 return true;
             }
         );

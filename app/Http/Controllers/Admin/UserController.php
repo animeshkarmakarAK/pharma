@@ -36,16 +36,16 @@ class UserController extends BaseController
     {
         $user = new User();
 
-        return \Illuminate\Support\Facades\View::make('master::acl.users.edit-add', ['user' => $user])->render();
+        return \Illuminate\Support\Facades\View::make('master::acl.users.ajax.edit-add', ['user' => $user])->render();
     }
 
 
     /**
      * @param Request $request
-     * @return RedirectResponse
+     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
         $validatedData = $this->userService->validator($request)->validate();
 
@@ -56,26 +56,20 @@ class UserController extends BaseController
         } catch (\Throwable $exception) {
             DB::rollback();
             Log::debug($exception->getMessage());
-            return back()->with([
-                'message' => __('generic.something_wrong_try_again'),
-                'alert-type' => 'error'
-            ]);
+            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'user']),
-            'alert-type' => 'success'
-        ]);
-
+        return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'user']), 'alert-type' => 'success']);
     }
 
     /**
      * @param User $user
+     * @param Request $request
      * @return string
      */
     public function show(User $user, Request $request): string
     {
-        return \Illuminate\Support\Facades\View::make('master::acl.users.read', ['user' => $user])->render();
+        return \Illuminate\Support\Facades\View::make('master::acl.users.ajax.read', ['user' => $user])->render();
     }
 
     /**
@@ -84,7 +78,7 @@ class UserController extends BaseController
      */
     public function edit(User $user): string
     {
-        return \Illuminate\Support\Facades\View::make('master::acl.users.edit-add', ['user' => $user])->render();
+        return \Illuminate\Support\Facades\View::make('master::acl.users.ajax.edit-add', ['user' => $user])->render();
     }
 
     public function update(User $user, Request $request): JsonResponse
@@ -99,29 +93,27 @@ class UserController extends BaseController
             DB::rollBack();
             Log::debug($exception->getMessage());
             Log::debug($exception->getTraceAsString());
-
-            return response()->json(['message' => 'Something wrong. Please try again.', 'alert-type' => 'error']);
+            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        return response()->json(['message' => 'Profile update successful', 'alert-type' => 'success']);
+        return response()->json(['message' => __('generic.object_updated_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
-
 
     /**
      *  Remove the specified resource from storage.
      *
      * @param User $user
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function destroy(User $user): RedirectResponse
+    public function destroy(User $user): JsonResponse
     {
         try {
             $this->userService->deleteUser($user);
         } catch (\Exception $exception) {
-            return back()->with(['alert-type' => 'error', 'message' => __('Something wrong.')]);
+            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        return back()->with(['alert-type' => 'success', 'message' => __('Delete successful')]);
+        return response()->json(['message' => __('generic.object_deleted_successfully', ['object' => 'Permission']), 'alert-type' => 'success']);
     }
 
     public function getDatatable(Request $request): JsonResponse

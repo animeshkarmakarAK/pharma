@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use Illuminate\Contracts\Support\Renderable;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
 use Module\CourseManagement\App\Models\PublishCourse;
@@ -9,22 +10,19 @@ use Module\CourseManagement\App\Models\Slider;
 use Module\CourseManagement\App\Models\StaticPage;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Models\YouthRegistration;
-use Illuminate\Contracts\View\View;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
-
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
-    public function index(): View
+    public function index()
     {
         $currentInstitute = domainConfig('institute');
 
         if ($currentInstitute) {
-            $currentInstituteCourses = \App\Models\PublishCourse::where([
+            $currentInstituteCourses = PublishCourse::where([
                 'institute_id' => $currentInstitute->id,
             ]);
 
@@ -50,7 +48,7 @@ class HomeController extends Controller
 
             $currentInstituteCourses = $currentInstituteCourses->limit(10)->get();
 
-            return view('custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
+            return view('course_management::custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
         }
 
         $institute = [
@@ -59,7 +57,7 @@ class HomeController extends Controller
             'youth_registrations' => YouthRegistration::count(),
         ];
 
-        return view('welcome', compact('institute'));
+        return view('course_management::welcome', compact('institute'));
     }
 
 }

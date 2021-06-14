@@ -46,7 +46,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
     <script>
         async function courseDetailsModalOpen(publishCourseId) {
-            let response = await $.get('{{route('course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', publishCourseId));
+            let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', publishCourseId));
             if (response?.length) {
                 $("#course_details_modal").find(".modal-content").html(response);
             } else {
@@ -71,7 +71,7 @@
                 },
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: '{{route('yearly-training-calendar.all-event')}}',
+                        url: '{{route('course_management::yearly-training-calendar.all-event')}}',
                         type: "POST",
                     }).done(function (response) {
                         successCallback(response);

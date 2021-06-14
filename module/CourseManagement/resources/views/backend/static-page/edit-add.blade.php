@@ -75,7 +75,7 @@
                         <h3 class="card-title">{{ ! $edit ? 'Add Static Page' : 'Update Static Page' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.static-page.index')}}"
+                            <a href="{{route('course_management::admin.static-page.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -85,7 +85,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('admin.static-page.update', [$staticPage->id]) : route('admin.static-page.store')}}">
+                              action="{{ $edit ? route('course_management::admin.static-page.update', [$staticPage->id]) : route('course_management::admin.static-page.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -227,7 +227,7 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9-_]*$/,
                     remote: {
-                        url: "{{ route('admin.check-page-id') }}",
+                        url: "{{ route('course_management::admin.check-page-id') }}",
                         type: "post",
                         data: {
                             page_id: function () {
@@ -266,7 +266,7 @@
             formData.append('file', blobInfo.blob(), blobInfo.filename());
             $.ajax({
                 type: 'POST',
-                url: "{{ route('admin.staticPage.imageUpload') }}",
+                url: "{{ route('course_management::admin.staticPage.imageUpload') }}",
 
                 //url: EDIT?'image-upload':'0/image-upload',
                 contentType: false,

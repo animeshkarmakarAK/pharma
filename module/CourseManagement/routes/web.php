@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management::admin.', 'middleware' => ['auth']], function () {
     Route::resources([
         'institutes' => Module\CourseManagement\App\Http\Controllers\InstituteController::class,
         'courses' => Module\CourseManagement\App\Http\Controllers\CourseController::class,
@@ -57,27 +57,29 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
 });
 
-Route::get('courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
-Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
+    Route::get('courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+    Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
 
-Route::get('youth-profile/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
-Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
-Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
-Route::get('general-ask-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
-Route::get('contact-us-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
-Route::post('visitor-feedback-store', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');
-Route::get('yearly-training-calendar', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'index'])->name('yearly-training-calendar.index');
-Route::post('yearly-training-calendar-ajax', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'allEvent'])->name('yearly-training-calendar.all-event');
+    Route::get('youth-profile/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
+    Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
+    Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
+    Route::get('general-ask-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
+    Route::get('contact-us-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
+    Route::post('visitor-feedback-store', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');
+    Route::get('yearly-training-calendar', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'index'])->name('yearly-training-calendar.index');
+    Route::post('yearly-training-calendar-ajax', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'allEvent'])->name('yearly-training-calendar.all-event');
 
-Route::resources([
-    'youth-registrations' => Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class,
-]);
+    Route::resources([
+        'youth-registrations' => Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class,
+    ]);
 
-Route::get('youth-registration/success/{accessKey}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
-Route::get('youth-login', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
-Route::get('youth-password-reset', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
-Route::post('youth-login', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
-Route::post('youth-logout', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
+    Route::get('youth-registration/success/{accessKey}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
+    Route::get('youth-login', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
+    Route::get('youth-password-reset', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
+    Route::post('youth-login', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
+    Route::post('youth-logout', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
 
-Route::get('sc/{page_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
-    ->name('static-content.show');
+    Route::get('sc/{page_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
+        ->name('static-content.show');
+});

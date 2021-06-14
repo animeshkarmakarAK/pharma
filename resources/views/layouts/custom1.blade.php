@@ -616,35 +616,8 @@
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/js/OverlayScrollbars.min.js"></script>
 <script src="{{asset('/js/admin-lte.js')}}"></script>
+<script src="{{asset('/js/on-demand.js')}}"></script>
 <script>
-    $.validator.setDefaults({
-        errorElement: "em",
-        onkeyup: false,
-        ignore: [],
-        errorPlacement: function (error, element) {
-            error.addClass("help-block");
-            element.parents(".form-group").addClass("has-feedback");
-
-            if (element.prop("type") === "checkbox") {
-                error.insertAfter(element.parent("label"));
-            } else if (element.hasClass('select2-ajax') || element.hasClass('select2') || element.hasClass('select2-ajax-wizard')) {
-                error.insertAfter(element.parents(".form-group").find('.select2-container'));
-            } else if (element.parents('.form-group').find('.input-group').length) {
-                error.insertAfter(element.parents('.form-group').find('.input-group'));
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        success: function (label, element) {
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-        },
-    });
-
     @if(\Illuminate\Support\Facades\Session::has('alerts'))
     let alerts = {!! json_encode(\Illuminate\Support\Facades\Session::get('alerts')) !!};
     helpers.displayAlerts(alerts, toastr);
@@ -656,24 +629,6 @@
     let alerter = toastr[alertType];
     alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
     @endif
-
-    $(document).ready(function () {
-        /*--------Back to top js--------*/
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                $('#back-to-top').fadeIn();
-            } else {
-                $('#back-to-top').fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $('#back-to-top').click(function () {
-            $('body,html').animate({
-                scrollTop: 0
-            }, 400);
-            return false;
-        });
-    });
 </script>
 @stack('js')
 </body>

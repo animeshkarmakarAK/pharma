@@ -35,6 +35,10 @@
             }
         @endphp
 
+
+        @if($originalItem->children->isEmpty() && $originalItem->url == '#')
+            @continue
+        @endif
         <li class="{{ $listItemClass }}">
             <a href="{{ url($item->link()) }}" target="{{ $item->target }}"
                class="nav-link {{$item->active ? 'active': ''}}">

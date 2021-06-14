@@ -15,7 +15,7 @@
                         <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add Video' : 'Update Video' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.videos.index')}}"
+                            <a href="{{route('course_management::admin.videos.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -24,7 +24,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post" enctype="multipart/form-data"
-                              action="{{ $edit ? route('admin.videos.update', [$video->id]) : route('admin.videos.store')}}">
+                              action="{{ $edit ? route('course_management::admin.videos.update', [$video->id]) : route('course_management::admin.videos.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

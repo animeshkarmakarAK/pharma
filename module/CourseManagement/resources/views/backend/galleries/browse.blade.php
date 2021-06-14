@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold">Galleries List</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Gallery::class)
-                                <a href="{{route('admin.galleries.create')}}"
+                                <a href="{{route('course_management::admin.galleries.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -40,7 +40,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.gallery.datatable') }}',
+                url: '{{ route('course_management::admin.gallery.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

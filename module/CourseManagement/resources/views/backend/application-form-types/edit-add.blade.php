@@ -14,7 +14,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Application Form Type' : 'Update application Form Type' }}</h3>
                         <div>
-                            <a href="{{route('admin.application-form-types.index')}}"
+                            <a href="{{route('course_management::admin.application-form-types.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -23,7 +23,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('admin.application-form-types.update', [$applicationFormType->id]) : route('admin.application-form-types.store')}}">
+                              action="{{ $edit ? route('course_management::admin.application-form-types.update', [$applicationFormType->id]) : route('course_management::admin.application-form-types.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

@@ -9,13 +9,13 @@
                 <div class="card-tools">
                     <div class="btn-group">
                         @can('update', $humanResourceTemplate )
-                            <a href="{{route('admin.human-resource-templates.edit', $humanResourceTemplate)}}"
+                            <a href="{{route('govt_stakeholder::admin.human-resource-templates.edit', $humanResourceTemplate)}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-plus-circle"></i> {{ __('Edit Human Resource Template') }}
                             </a>
                         @endcan
                         @can('viewAny', $humanResourceTemplate)
-                            <a href="{{route('admin.human-resource-templates.index')}}"
+                            <a href="{{route('govt_stakeholder::admin.human-resource-templates.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> {{ __('Back to list') }}
                             </a>

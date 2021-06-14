@@ -13,7 +13,7 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Branch':'Create Branch' }}</h3>
                         <div class="card-tools">
-                            <a href="{{route('admin.branches.index')}}"
+                            <a href="{{route('course_management::admin.branches.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -22,7 +22,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{$edit ? route('admin.branches.update', $branch->id) : route('admin.branches.store')}}"
+                            action="{{$edit ? route('course_management::admin.branches.update', $branch->id) : route('course_management::admin.branches.store')}}"
                             method="POST" class="row edit-add-form">
                             @csrf
                             @if($edit)

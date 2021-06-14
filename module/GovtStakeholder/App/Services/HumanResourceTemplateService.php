@@ -106,14 +106,14 @@ class HumanResourceTemplateService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (HumanResourceTemplate $humanResourceTemplate) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $humanResourceTemplate)) {
-                    $str .= '<a href="' . route('admin.human-resource-templates.show', $humanResourceTemplate->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.human-resource-templates.show', $humanResourceTemplate->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $humanResourceTemplate)) {
-                    $str .= '<a href="' . route('admin.human-resource-templates.edit', $humanResourceTemplate->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.human-resource-templates.edit', $humanResourceTemplate->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $humanResourceTemplate)) {
-                    $str .= '<a href="#" data-action="' . route('admin.human-resource-templates.destroy', $humanResourceTemplate->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.human-resource-templates.destroy', $humanResourceTemplate->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
                 return $str;

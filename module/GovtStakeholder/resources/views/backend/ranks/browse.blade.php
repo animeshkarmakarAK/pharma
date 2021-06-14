@@ -10,7 +10,7 @@
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\Rank::class)
-                                <a href="{{route('admin.ranks.create')}}"
+                                <a href="{{route('govt_stakeholder::admin.ranks.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -42,7 +42,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{route('admin.ranks.datatable')}}',
+                url: '{{route('govt_stakeholder::admin.ranks.datatable')}}',
                 order: [[2, "desc"]],
                 columns: [
                     {

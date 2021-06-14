@@ -69,13 +69,13 @@ class JobSectorService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (JobSector $jobSector) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $jobSector)) {
-                    $str .= '<a href="' . route('admin.job-sectors.show', $jobSector->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.job-sectors.show', $jobSector->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $jobSector)) {
-                    $str .= '<a href="' . route('admin.job-sectors.edit', $jobSector->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.job-sectors.edit', $jobSector->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $jobSector)) {
-                    $str .= '<a href="#" data-action="' . route('admin.job-sectors.destroy', $jobSector->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.job-sectors.destroy', $jobSector->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

@@ -81,13 +81,13 @@ class BranchService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Branch $branch) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $branch)) {
-                    $str .= '<a href="' . route('admin.branches.show', $branch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('course_management::admin.branches.show', $branch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
                 if ($authUser->can('update', $branch)) {
-                    $str .= '<a href="' . route('admin.branches.edit', $branch->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('course_management::admin.branches.edit', $branch->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
                 if ($authUser->can('delete', $branch)) {
-                    $str .= '<a href="#" data-action="' . route('admin.branches.destroy', $branch->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.branches.destroy', $branch->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;

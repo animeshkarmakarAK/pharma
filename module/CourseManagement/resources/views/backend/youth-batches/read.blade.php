@@ -6,7 +6,7 @@
             <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                 <h3 class="card-title font-weight-bold text-primary">Batch</h3>
                 <div>
-                    <a href="{{route('admin.batches.edit', [$batch->id])}}" class="btn btn-sm btn-rounded btn-primary">
+                    <a href="{{route('course_management::admin.batches.edit', [$batch->id])}}" class="btn btn-sm btn-rounded btn-primary">
                         <i class="fas fa-plus-circle"></i> {{ __('Edit Batch') }}
                     </a>
                 </div>

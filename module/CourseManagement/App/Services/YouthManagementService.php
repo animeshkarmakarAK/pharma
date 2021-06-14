@@ -86,7 +86,7 @@ class YouthManagementService
         return DataTables::eloquent($youth)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<a href="' . route('youth-registrations.show', $youth->youth_registration_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->youth_registration_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 return $str;
             }))
             ->editColumn('registration_date', function (Youth $youth) {

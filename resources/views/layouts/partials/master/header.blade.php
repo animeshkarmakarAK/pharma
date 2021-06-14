@@ -26,7 +26,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-header">
-                    <a href="{{route('admin.users.show', auth()->user()->id)}}">
+                    <a href="#" id="user-profile-view">
                       <i class="fas fa-user-tie fa-5x"></i><br/>
                         <h4 class="text-dark">{{auth()->user()->name_en ?? auth()->user()->name_bn}}</h4>
                         <span class="d-block text-sm">

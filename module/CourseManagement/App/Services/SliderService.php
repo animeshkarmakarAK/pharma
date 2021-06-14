@@ -127,14 +127,14 @@ class SliderService
             ->addColumn('action', static function (Slider $slider) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $slider)) {
-                    $str .= '<a href="' . route('admin.sliders.show', $slider->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.sliders.show', $slider->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $slider)) {
-                    $str .= '<a href="' . route('admin.sliders.edit', $slider->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.sliders.edit', $slider->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $slider)) {
-                    $str .= '<a href="#" data-action="' . route('admin.sliders.destroy', $slider->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.sliders.destroy', $slider->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
                 return $str;

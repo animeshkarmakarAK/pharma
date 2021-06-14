@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Helpers\Classes\AuthHelper;
 use App\Traits\AuthenticatableUser;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -21,10 +19,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property string password
  * @property string|null remember_token
  * @property string|null profile_pic
- * @property bool row_status 1 => Active, 0 => Deactivate, 99 => Deleted
- * @property int created_by
- * @property \Illuminate\Support\Carbon|null created_at
- * @property \Illuminate\Support\Carbon|null updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|UsersPermission[] activePermissions
  * @property-read int|null active_permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|UsersPermission[] inActivePermissions

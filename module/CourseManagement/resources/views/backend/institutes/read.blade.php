@@ -9,13 +9,13 @@
                 <div class="card-tools">
                     <div class="btn-group">
                         @can('update', $institute)
-                            <a href="{{route('admin.institutes.edit', [$institute->id])}}"
+                            <a href="{{route('course_management::admin.institutes.edit', [$institute->id])}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-plus-circle"></i> {{ __('Edit Institute') }}
                             </a>
                         @endcan
                         @can('viewAny', $institute)
-                            <a href="{{route('admin.institutes.index')}}"
+                            <a href="{{route('course_management::admin.institutes.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> {{ __('Back to list') }}
                             </a>

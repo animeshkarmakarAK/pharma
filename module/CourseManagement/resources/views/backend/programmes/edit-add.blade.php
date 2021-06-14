@@ -33,7 +33,7 @@
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Programme':'Create Programme' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('admin.programmes.index')}}"
+                            <a href="{{route('course_management::admin.programmes.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -42,7 +42,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{$edit ? route('admin.programmes.update', $programme->id) : route('admin.programmes.store')}}"
+                            action="{{$edit ? route('course_management::admin.programmes.update', $programme->id) : route('course_management::admin.programmes.store')}}"
                             method="POST" class="edit-add-form" enctype="multipart/form-data">
                             @csrf
                             @if($edit)
@@ -177,7 +177,7 @@
                     remote: {
                         param: {
                             type: "post",
-                            url: "{{ route('admin.check-programme-code') }}",
+                            url: "{{ route('course_management::admin.check-programme-code') }}",
                         },
                         depends: function (element) {
                             return !EDIT && $(element).val() !== $('#code').attr('data-code');

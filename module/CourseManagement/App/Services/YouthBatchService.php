@@ -34,9 +34,9 @@ class YouthBatchService
         return DataTables::eloquent($youthBatches)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthBatch $youthBatches) {
                 $str = '';
-                $str .= '<a href="' . route('youth-registrations.show', $youthBatches->youth_registration_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
-                //$str .= '<a href="' . route('admin.youth-batches.edit', $youthBatches->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
-                //$str .= '<a href="#" data-action="' . route('admin.youth-batches.destroy', $youthBatches->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youthBatches->youth_registration_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                //$str .= '<a href="' . route('course_management::admin.youth-batches.edit', $youthBatches->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                //$str .= '<a href="#" data-action="' . route('course_management::admin.youth-batches.destroy', $youthBatches->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 return $str;
             }))
             ->rawColumns(['action'])

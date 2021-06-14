@@ -14,7 +14,7 @@
 
                         <div class="card-tools">
                             @can('viewAny', \Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)
-                                <a href="{{route('admin.human-resource-templates.index')}}"
+                                <a href="{{route('govt_stakeholder::admin.human-resource-templates.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
                                 </a>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
                               enctype="multipart/form-data"
-                              action="{{ $edit ? route('admin.human-resource-templates.update', $humanResourceTemplate) : route('admin.human-resource-templates.store')}}">
+                              action="{{ $edit ? route('govt_stakeholder::admin.human-resource-templates.update', $humanResourceTemplate) : route('govt_stakeholder::admin.human-resource-templates.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')

@@ -49,11 +49,11 @@
 
                         <div class="card-tools">
                             <div class="btn-group">
-                                <a href="{{route('admin.galleries.edit', [$gallery->id])}}"
+                                <a href="{{route('course_management::admin.galleries.edit', [$gallery->id])}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> {{ __('Edit Gallery') }}
                                 </a>
-                                <a href="{{route('admin.galleries.index')}}"
+                                <a href="{{route('course_management::admin.galleries.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> {{ __('Back to list') }}
                                 </a>

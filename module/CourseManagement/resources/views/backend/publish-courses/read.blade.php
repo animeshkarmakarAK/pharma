@@ -10,11 +10,11 @@
                 <h3 class="card-title font-weight-bold text-primary">Course Config</h3>
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.publish-courses.edit', [$publishCourse->id])}}"
+                        <a href="{{route('course_management::admin.publish-courses.edit', [$publishCourse->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Permission') }}
                         </a>
-                        <a href="{{route('admin.publish-courses.index')}}"
+                        <a href="{{route('course_management::admin.publish-courses.index')}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>

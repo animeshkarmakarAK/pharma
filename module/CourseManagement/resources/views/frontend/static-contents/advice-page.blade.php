@@ -25,7 +25,7 @@
                                             </div>
                                             <div class="col-md-12 input_area">
 
-                                                <form action="{{ route('visitor-feedback.store') }}" method="POST" class="edit-add-form" >
+                                                <form action="{{ route('course_management::visitor-feedback.store') }}" method="POST" class="edit-add-form" >
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
                                                         <label for="name" class="col-sm-2 control-label text-right">নাম

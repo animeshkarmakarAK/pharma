@@ -13,10 +13,10 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.training-centers.edit', [$trainingCenter->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.training-centers.edit', [$trainingCenter->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Training Center') }}
                         </a>
-                        <a href="{{route('admin.training-centers.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.training-centers.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>

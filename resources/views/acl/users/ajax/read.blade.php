@@ -97,14 +97,14 @@
                     </div>
 
                     <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('Email)') }}</p>
+                        <p class="label-text">{{ __('Email') }}</p>
                         <div class="input-box">
                             {{ $user->email ?? ""}}
                         </div>
                     </div>
 
                     <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('User Type)') }}</p>
+                        <p class="label-text">{{ __('User Type') }}</p>
                         <div class="input-box">
                             {{ $user->UserType->title ?? "" }}
                         </div>

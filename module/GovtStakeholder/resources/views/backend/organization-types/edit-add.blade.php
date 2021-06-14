@@ -10,7 +10,7 @@
             <div class="card-header custom-bg-gradient-info">
                 <h3 class="card-title font-weight-bold text-primary">{{!$edit ? 'Add Organization Type': 'Update Organization Type'}}</h3>
                 <div class="card-tools">
-                    <a href="{{route('admin.organization-types.index')}}"
+                    <a href="{{route('govt_stakeholder::admin.organization-types.index')}}"
                        class="btn btn-sm btn-rounded btn-outline-primary">
                         <i class="fas fa-backward"></i> Back to list
                     </a>
@@ -19,7 +19,7 @@
 
             <div class="card-body">
                 <form class="row edit-add-form" method="post"
-                      action="{{$edit ? route('admin.organization-types.update', $organizationType->id) : route('admin.organization-types.store')}}"
+                      action="{{$edit ? route('govt_stakeholder::admin.organization-types.update', $organizationType->id) : route('govt_stakeholder::admin.organization-types.store')}}"
                       enctype="multipart/form-data">
 
                     @csrf
