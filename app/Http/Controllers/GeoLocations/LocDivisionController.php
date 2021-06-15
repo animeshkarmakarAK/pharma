@@ -32,8 +32,6 @@ class LocDivisionController extends BaseController
 
     public function store(Request $request): JsonResponse
     {
-//        $this->authorize('add');
-
         $this->validator($request)->validate();
 
         $data = $request->all();
@@ -46,14 +44,13 @@ class LocDivisionController extends BaseController
         }
 
         return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'Division']), 'alert-type' => 'success']);
-
     }
 
     public function show(int $id): View
     {
         $locDivision = LocDivision::findOrFail($id);
 
-        return view(self::VIEW_PATH . 'read', compact('locDivision'));
+        return view(self::VIEW_PATH . 'ajax.read', compact('locDivision'));
     }
 
     public function edit(int $id): View

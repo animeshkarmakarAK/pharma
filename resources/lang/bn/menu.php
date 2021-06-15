@@ -58,5 +58,10 @@ return [
     'occupation_management' => 'পেশা পরিচালনা',
     'occupations' => 'পেশা',
     'occupation_wise_statistics' => 'পেশাগত পরিসংখ্যান',
+
+    //location
+    'location' => "লোকেশন",
+    'division'=>'বিভাগ',
+    'district'=>'জেলা',
 ];
 
