@@ -13,43 +13,59 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OccupationWiseStatisticService
 {
-    public function createOccupationWiseStatistic(array $data): OccupationWiseStatistic
+    public function createOccupationWiseStatistic(array $data): bool
     {
-        return OccupationWiseStatistic::create($data);
+        $data = array_map(function ($newData) use($data) {
+            $newData['institute_id']='1';// TODO: dynamic institute id will be the actual value
+            $newData['survey_date']=$data['survey_date'];
+           return $newData;
+       },$data['monthly_reports']);
+
+        return  OccupationWiseStatistic::insert($data);
     }
 
-    public function updateOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic, array $data): OccupationWiseStatistic
+    public function updateOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic, array $data): bool
     {
-        $occupationWiseStatistic->fill($data);
-        $occupationWiseStatistic->save();
+        //dd($data);
 
-        return $occupationWiseStatistic;
+        $data = array_map(function ($newData) use($data){
+            if(empty($newData['id'])){
+                $newData['id']=null;
+            }
+            $newData['survey_date']=$data['survey_date'];
+            $newData['institute_id']='1';// TODO: dynamic institute id will be the actual value
+            return $newData;
+        },$data['monthly_reports']);
+
+        //dd($data);
+        return OccupationWiseStatistic::upsert(
+            $data,
+            ['id'],
+            [
+                'current_month_skilled_youth',
+                'next_month_skill_youth',
+            ]
+        );
+
     }
 
     public function deleteOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic): bool
     {
-        return $occupationWiseStatistic->delete();
+        return OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->delete();
     }
 
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'institute_id' => [
-                'required',
-                'int',
-                'exists:institutes,id',
-            ],
-            'occupation_id' => [
-                'required',
-                'int',
-                'exists:occupations,id',
-            ],
-            'current_month_skilled_youth' => ['required', 'int'],
-            'next_month_skill_youth' => ['required', 'int'],
-            'row_status' => [
-                'required_if:' . $id . ',!=,null',
-            ],
+            'monthly_reports.*.current_month_skilled_youth' => ['required', 'int'],
+            'monthly_reports.*.next_month_skill_youth' => ['required', 'int'],
+            'monthly_reports.*.occupation_id' => ['required', 'int'],
+            'survey_date'=>['required','date'],
         ];
+        if($id){
+            $rules['monthly_reports.*.id']=['int'];
+            $rules['monthly_reports.*.survey_date']=['date'];
+        }
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -66,8 +82,9 @@ class OccupationWiseStatisticService
                 'occupation_wise_statistics.current_month_skilled_youth',
                 'occupation_wise_statistics.next_month_skill_youth',
                 'occupation_wise_statistics.row_status',
+                'occupation_wise_statistics.survey_date',
             ]
-        );
+        )->where('institute_id',1);
         $occupationWiseStatistics->join('institutes', 'occupation_wise_statistics.institute_id', '=', 'institutes.id');
         $occupationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
 

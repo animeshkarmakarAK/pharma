@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Module\GovtStakeholder\App\Models\Occupation;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
 use Module\GovtStakeholder\App\Services\OccupationWiseStatisticService;
 
@@ -36,7 +37,8 @@ class OccupationWiseStatisticController extends BaseController
     public function create(): View
     {
         $occupationWiseStatistic = new OccupationWiseStatistic();
-        return view(self::VIEW_PATH . 'edit-add', compact('occupationWiseStatistic'));
+        $occupations = Occupation::select('id', 'title_en')->get();
+        return view(self::VIEW_PATH . 'edit-add', compact(['occupationWiseStatistic','occupations']));
     }
 
     /**
@@ -49,7 +51,14 @@ class OccupationWiseStatisticController extends BaseController
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->occupationWiseStatisticService->validator($request)->validate();
-
+        //dd($validatedData['survey_date']);
+        $occupationStatistic = OccupationWiseStatistic::where([['survey_date',$validatedData['survey_date']],['institute_id',1]])->first();
+        if($occupationStatistic){
+            return back()->with([
+                'message' => 'Occupation Wise Statistic for this month are already exist',
+                'alert-type' => 'error'
+            ]);
+        }
         try {
             $this->occupationWiseStatisticService->createOccupationWiseStatistic($validatedData);
         } catch (\Throwable $exception) {
@@ -80,7 +89,9 @@ class OccupationWiseStatisticController extends BaseController
      */
     public function edit(OccupationWiseStatistic $occupationWiseStatistic): View
     {
-        return view(self::VIEW_PATH . 'edit-add', compact('occupationWiseStatistic'));
+        $occupations=Occupation::all();
+        $occupationWiseStatistics = OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->get()->keyBy('occupation_id');
+        return view(self::VIEW_PATH . 'edit-add', compact(['occupations','occupationWiseStatistics','occupationWiseStatistic']));
     }
 
     /**

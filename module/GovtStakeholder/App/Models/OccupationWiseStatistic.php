@@ -15,6 +15,7 @@ use Module\CourseManagement\App\Models\Institute;
  * @property int occupation_id
  * @property int current_month_skilled_youth
  * @property int next_month_skill_youth
+ * @property carbon survey_date
  * @property-read Institute institute
  * @property-read Occupation occupation
  */
