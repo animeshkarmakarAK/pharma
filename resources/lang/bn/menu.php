@@ -61,7 +61,8 @@ return [
 
     //location
     'location' => "লোকেশন",
-    'division'=>'বিভাগ',
-    'district'=>'জেলা',
+    'division'=> "বিভাগ",
+    'district'=> "জেলা",
+    'upazila'=> "উপজেলা",
 ];
 

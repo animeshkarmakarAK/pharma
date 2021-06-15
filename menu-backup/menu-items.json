@@ -673,5 +673,20 @@
         "order": 2,
         "route": "admin.loc-districts.index",
         "parameters": null
+    },
+    {
+        "id": 89,
+        "menu_id": 3,
+        "title": "Upazila",
+        "title_lang_key": "menu.upazila",
+        "permission_key": null,
+        "url": "",
+        "target": "_self",
+        "icon_class": "fa-location-arrow",
+        "color": "#000000",
+        "parent_id": 86,
+        "order": 3,
+        "route": "admin.loc-upazilas.index",
+        "parameters": null
     }
 ]

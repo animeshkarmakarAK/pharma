@@ -61,7 +61,8 @@ return [
 
     //location
     'location' => "Location",
-    'division'=>'Division',
-    'district'=>'District',
+    'division'=> "Division",
+    'district'=> "District",
+    'upazila'=> "Upazila",
 ];
 
