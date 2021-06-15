@@ -8,24 +8,54 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 use Yajra\DataTables\Facades\DataTables;
 
 class UpazilaJobStatisticService
 {
-    public function createUpazilaJobStatistic(array $data): UpazilaJobStatistic
+    public function createUpazilaJobStatistic(array $data): bool
     {
-        $data['survey_date'] = date('Y-m-01', strtotime($data['survey_date']));
-        return UpazilaJobStatistic::create($data);
+        $data = array_map(function ($item) use ($data){
+            $item = array_merge($item, ['loc_upazila_id' => $data['loc_upazila_id'], 'survey_date' => $data['survey_date']]);
+            return $item;
+        }, $data['monthly_reports']);
+
+        return UpazilaJobStatistic::insert($data);
     }
 
-    public function updateUpazilaJobStatistic(UpazilaJobStatistic $upazilaJobStatistic, array $data): UpazilaJobStatistic
+    public function updateUpazilaJobStatistic(UpazilaJobStatistic $upazilaJobStatistic, array $data): bool
     {
-        $data['survey_date'] = date('Y-m-01', strtotime($data['survey_date']));
-        $upazilaJobStatistic->fill($data);
-        $upazilaJobStatistic->save();
+        $data = array_map(function ($item) use ($data){
+            $item = array_merge($item, [
+                'loc_upazila_id' => $data['loc_upazila_id'],
+                'survey_date' => $data['survey_date'],
+                'row_status' => $data['row_status'],
+            ]);
 
-        return $upazilaJobStatistic;
+            if(empty($data['id'])){
+                $data['id']=null;
+            }
+            return $item;
+        }, $data['monthly_reports']);
+
+        return UpazilaJobStatistic::upsert(
+            $data,
+            ['id'],
+            [
+                "job_sector_id",
+                "total_unemployed",
+                "total_employed",
+                "total_vacancy",
+                "total_new_recruitment",
+                "total_new_skilled_youth",
+                "total_skilled_youth",
+                "loc_upazila_id",
+                "survey_date",
+                "row_status",
+            ]
+        );
+
     }
 
     public function deleteUpazilaJobStatistic(UpazilaJobStatistic $upazilaJobStatistic): bool
@@ -41,17 +71,17 @@ class UpazilaJobStatisticService
                 'int',
                 'exists:loc_upazilas,id',
             ],
-            'job_sector_id' => [
+            'monthly_reports.*.job_sector_id' => [
                 'required',
                 'int',
                 'exists:job_sectors,id',
             ],
-            'total_unemployed' => ['required', 'int'],
-            'total_employed' => ['required', 'int'],
-            'total_vacancy' => ['required', 'int'],
-            'total_new_recruitment' => ['required', 'int'],
-            'total_new_skilled_youth' => ['required', 'int'],
-            'total_skilled_youth' => ['required', 'int'],
+            'monthly_reports.*.total_unemployed' => ['required', 'int'],
+            'monthly_reports.*.total_employed' => ['required', 'int'],
+            'monthly_reports.*.total_vacancy' => ['required', 'int'],
+            'monthly_reports.*.total_new_recruitment' => ['required', 'int'],
+            'monthly_reports.*.total_new_skilled_youth' => ['required', 'int'],
+            'monthly_reports.*.total_skilled_youth' => ['required', 'int'],
             'survey_date' => [
                 'required',
                 static function ($attribute, $value, $fail) use ($request, $id) {
@@ -74,6 +104,11 @@ class UpazilaJobStatisticService
                 'required_if:' . $id . ',!=,null',
             ],
         ];
+
+        if($id){
+            //$rules['monthly_reports.*.id']=['int'];
+            $rules['monthly_reports.*.id']=['required_if:' . $id . ',!=,null'];
+        }
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
