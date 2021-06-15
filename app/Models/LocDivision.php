@@ -29,20 +29,6 @@ class LocDivision extends BaseModel
     protected $table = 'loc_divisions';
     protected $guarded = ['id'];
 
-    /**
-     * Scope a query to only include the data access associate with the auth user.
-     * @param Builder $query
-     * @param string|null $alias
-     * @return Builder
-     */
-    public function scopeAcl(Builder $query, string $alias = null): Builder
-    {
-        if (empty($alias)) {
-            $alias = $this->getTable() . '.';
-        }
-        return $query;
-    }
-
     public function locDistricts(): HasMany
     {
         return $this->hasMany(LocDistrict::class);
