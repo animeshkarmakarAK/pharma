@@ -39,7 +39,7 @@ class UpazilaJobStatisticController extends BaseController
     {
         $jobSectors = JobSector::active()->get();
         $upazilaJobStatistic = new UpazilaJobStatistic();
-        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic','jobSectors'));
+        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic', 'jobSectors'));
     }
 
     /**
@@ -74,7 +74,9 @@ class UpazilaJobStatisticController extends BaseController
      */
     public function show(UpazilaJobStatistic $upazilaJobStatistic): View
     {
-        return view(self::VIEW_PATH . 'read', compact('upazilaJobStatistic'));
+        $upazilaJobStatistics = UpazilaJobStatistic::where(['loc_upazila_id' => $upazilaJobStatistic->loc_upazila_id, 'survey_date' => $upazilaJobStatistic->survey_date])->get()->keyBy('job_sector_id');
+        $jobSectors = JobSector::active()->get();
+        return view(self::VIEW_PATH . 'read', compact('upazilaJobStatistic', 'jobSectors', 'upazilaJobStatistics'));
     }
 
     /**
@@ -83,9 +85,9 @@ class UpazilaJobStatisticController extends BaseController
      */
     public function edit(UpazilaJobStatistic $upazilaJobStatistic): View
     {
-        $upazilaJobStatistics = UpazilaJobStatistic::where(['loc_upazila_id'=>$upazilaJobStatistic->loc_upazila_id, 'survey_date'=>$upazilaJobStatistic->survey_date])->get()->keyBy('job_sector_id');
+        $upazilaJobStatistics = UpazilaJobStatistic::where(['loc_upazila_id' => $upazilaJobStatistic->loc_upazila_id, 'survey_date' => $upazilaJobStatistic->survey_date])->get()->keyBy('job_sector_id');
         $jobSectors = JobSector::active()->get();
-        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic','jobSectors', 'upazilaJobStatistics'));
+        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic', 'jobSectors', 'upazilaJobStatistics'));
     }
 
     /**
@@ -97,8 +99,6 @@ class UpazilaJobStatisticController extends BaseController
     public function update(Request $request, UpazilaJobStatistic $upazilaJobStatistic): RedirectResponse
     {
         $validatedData = $this->upazilaJobStatisticService->validator($request, $upazilaJobStatistic->id)->validate();
-
-        //dd($validatedData);
 
         try {
             $this->upazilaJobStatisticService->updateUpazilaJobStatistic($upazilaJobStatistic, $validatedData);

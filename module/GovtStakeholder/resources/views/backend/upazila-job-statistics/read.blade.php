@@ -26,71 +26,78 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Reporting Month') }}</p>
+                    <div class="input-box">
+                        {{ $upazilaJobStatistic->survey_date ? \Carbon\Carbon::parse($upazilaJobStatistic->survey_date)->format('d M, Y') : '' }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Upazila') }}</p>
                     <div class="input-box">
                         {{ $upazilaJobStatistic->LocUpazila->title_en ? $upazilaJobStatistic->LocUpazila->title_en : '' }}
                     </div>
                 </div>
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Job Sector') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->jobSector->title_en ? $upazilaJobStatistic->jobSector->title_en : '' }}
-                    </div>
-                </div>
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">Job Sector</th>
+                            <th scope="col">Total Unemployed</th>
+                            <th scope="col">Total Employed</th>
+                            <th scope="col">Total Vacancy</th>
+                            <th scope="col">Total New Recruitment</th>
+                            <th scope="col">Total New Skilled Youth</th>
+                            <th scope="col">Total Skilled Youth</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($jobSectors as  $index=>$jobSector)
+                            @php
+                                $statistic = !empty($upazilaJobStatistics[$jobSector->id]) ? $upazilaJobStatistics[$jobSector->id] : null;
+                            @endphp
+                            <tr>
+                                <th scope="row">
+                                    {{ $jobSector->title_en }}
+                                </th>
+                                <td class="custom-view-box">
+                                    <div class="input-box">
+                                        {{$statistic ? $statistic->total_unemployed : 0 }}
+                                    </div>
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Total Unemployed') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->total_unemployed ? $upazilaJobStatistic->total_unemployed : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Total Employed') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->total_employed ? $upazilaJobStatistic->total_employed : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Total Vacancy') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->total_vacancy ? $upazilaJobStatistic->total_vacancy : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Total New Recruitment') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->total_new_recruitment ? $upazilaJobStatistic->total_new_recruitment : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Total New Skilled Youth') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->total_new_skilled_youth ? $upazilaJobStatistic->total_new_skilled_youth : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Total Skilled Youth') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->total_skilled_youth ? $upazilaJobStatistic->total_skilled_youth : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Survey Date') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->survey_date ? \Carbon\Carbon::parse($upazilaJobStatistic->survey_date)->format('d M, Y') : '' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Status') }}</p>
-                    <div class="input-box">
-                        {{ $upazilaJobStatistic->row_status ? 'Active' : 'Inactive' }}
-                    </div>
-                </div>
+                                </td>
+                                <td class="custom-view-box">
+                                    <div class="input-box">
+                                        {{$statistic ? $statistic->total_employed : 0 }}
+                                    </div>
+                                </td>
+                                <td class="custom-view-box">
+                                    <div class="input-box">
+                                        {{$statistic ? $statistic->total_vacancy : 0 }}
+                                    </div>
+                                </td>
+                                <td class="custom-view-box">
+                                    <div class="input-box">
+                                        {{$statistic ? $statistic->total_new_recruitment : 0 }}
+                                    </div>
+                                </td>
+                                <td class="custom-view-box">
+                                    <div class="input-box">
+                                        {{$statistic ? $statistic->total_new_skilled_youth : 0 }}
+                                    </div>
+                                </td>
+                                <td class="custom-view-box">
+                                    <div class="input-box">
+                                        {{$statistic ? $statistic->total_skilled_youth : 0 }}
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
 
-
-
-
+                        </tbody>
+                    </table>
+                </div>
 
 
             </div>

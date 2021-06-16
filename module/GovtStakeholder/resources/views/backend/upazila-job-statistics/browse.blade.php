@@ -64,11 +64,6 @@
                         name: "upazila_job_statistics.survey_date"
                     },
                     {
-                        title: "Status",
-                        data: "row_status",
-                        name: "upazila_job_statistics.row_status"
-                    },
-                    {
                         title: "Action",
                         data: "action",
                         orderable: false,
