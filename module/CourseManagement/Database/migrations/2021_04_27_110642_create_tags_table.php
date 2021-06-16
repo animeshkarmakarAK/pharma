@@ -18,7 +18,8 @@ class CreateTagsTable extends Migration
             $table->unsignedInteger('institute_id');
             $table->string('tag_en', 191);
             $table->string('tag_bn', 191);
-            $table->uuidMorphs('taggable');
+            $table->string("taggable_type", 191)->index('tags_fk_taggable_type');
+            $table->unsignedInteger("taggable_id")->index('tags_fk_taggable_id');
             $table->timestamps();
             $table->foreign('institute_id', 'tags_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
