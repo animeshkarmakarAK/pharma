@@ -114,6 +114,39 @@
                     <div id="my_data"></div>
                 </div>
             </div>
+
+            <div class="card ml-2" style=" border-radius: 10px; min-width: 570px">
+                <div class="card-header text-white" style="background-color:#c665e6;">
+                    <h3 class="card-title font-weight-bold">নড়াইল জেলা মানচিত্র</h3>
+                </div>
+                <div class="card-body">
+                    <div id="bd_map_d3"></div>
+                    <div class="map_info" style="display: none">
+                        <div class="map_content_top">
+                            <p><b><span id="district"></span></b></p>
+                        </div>
+                        <hr>
+                        <div class="map_content_body">
+                            <div class="mb-2">
+                                <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Running
+                                    Courses</p>
+                                <strong id="running_courses" class="map_count_numbers">10</strong>
+                            </div>
+                            <div class="mb-2">
+                                <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total
+                                    Enrollment</p>
+                                <b id="total_enrollment" class="map_count_numbers">20</b>
+                            </div>
+                            <div class="mb-2">
+                                <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
+                                    Running Students</p>
+                                <b id="running_students" class="map_count_numbers">100</b>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row d-flex" style="margin-left: 2px">
@@ -554,8 +587,6 @@
 
 @push('js')
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-
-
     <script>
         $('.navTabs').on('click', function (event) {
             $('.navTabs').removeClass('active')
@@ -931,9 +962,211 @@
 
 
     </script>
+
+    {{--Map d3js js--}}
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
+    <script type="text/javascript">
+        var w = 300;
+        var h = 340;
+        var proj = d3.geo.mercator();
+        var path = d3.geo.path().projection(proj);
+        var t = proj.translate(); // the projection's default translation
+        var s = proj.scale() // the projection's default scale
+
+        var buckets = 9,
+            colors = ["#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"]; // alternatively colorbrewer.YlGnBu[9]
+
+        var map = d3.select("#bd_map_d3")
+            .append("svg:svg")
+            .attr("viewBox", "397 205 86 122")
+            .attr("width", w)
+            .attr("height", h)
+            //.call(d3.behavior.zoom().on("zoom", redraw))
+            .call(initialize);
+
+        var bangladesh = map.append("svg:g")
+            .attr("id", "bangladesh");
+
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+
+        //let url = "{{ asset('assets/dashboard/bd-map-assets/bd.json') }}";//offline json
+        let url = "{{ asset('assets/dashboard/bd-map-assets/narail-district.json') }}";//offline json
+        d3.json(url, function (json) {
+
+            var maxTotal = d3.max(json.features, function (d) {
+                return d.properties.DIVISION
+            });
+
+            var colorScale = d3.scale.quantile()
+                .domain(d3.range(buckets).map(function (d) {
+                    return (d / buckets) * maxTotal
+                }))
+                .range(colors);
+
+
+            var y = d3.scale.sqrt()
+                .domain([0, 10000])
+                .range([0, 300]);
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .tickValues(colorScale.domain())
+                .orient("right");
+
+
+            bangladesh.selectAll("path")
+                .data(json.features)
+                .enter().append("path")
+                .attr("d", path)
+                .style("opacity", 0.5)
+                .attr('class', 'bd')
+
+                .on('mouseover', function (d, i) {
+                    if ($('.map_info').hide()) {
+                        $('.map_info').show();
+                        $("#district").text(d.properties.ADM3_EN + " Thana");
+                        $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
+                        $("#running_students").text(Math.floor(Math.random() * 9) + 250);
+                        $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
+                    }
+
+                    d3.select(this).transition().duration(300).style("opacity", 1);
+                    div.transition().duration(300)
+                        .style("opacity", .9)
+                        .text(d.properties.ADM3_EN + " - " + d.properties.ADM2_EN)
+                        .style("color", "#fff")
+                        .style("padding", "5px 5px")
+                        .style("border", "1px solid #fff")
+                        .style("font-weight", " bold")
+                        .style("background", "#333")
+                        .style("top", (d3.event.pageY - 10) + "px")
+                        .style("left", (d3.event.pageX + 10) + "px");
+                })
+
+                .on('mouseleave', function (d, i) {
+                    if ($('.map_info').show()) {
+                        $('.map_info').hide();
+                    }
+
+                    d3.select(this).transition().duration(300)
+                        .style("opacity", 0.5);
+                    div.transition().duration(300)
+                        .style("opacity", 0);
+                })
+                .forEach(a => {
+                    a.forEach(v => {
+                        // console.log(v)
+                        let r = Math.floor(100 + Math.random() * 155)
+                        let g = Math.floor(100 + Math.random() * 55)
+                        let b = Math.floor(100 + Math.random() * 55)
+                        v.setAttribute('fill', `rgb(${r},${g},${b})`)
+                    })
+                });
+
+
+            bangladesh.selectAll("path").transition().duration(300)
+                .style("fill", function (d) {
+                    return colorScale(d.properties.DIVISION);
+                });
+            console.log('BD >> ', bangladesh)
+            let box = bangladesh[0][0].getBBox()
+            map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`)
+        });
+
+        function initialize() {
+            proj.scale(6700);
+            proj.translate([-1240, 720]);
+        }
+    </script>
+
 @endpush
 
 @push('css')
+    <link type="text/css" rel="stylesheet"
+          href="http://run.plnkr.co/preview/ckp3uzv2i00073b60zjubt58g/zcolorbrewer.css"/>
+    <style type="text/css">
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        #bangladesh {
+            stroke: #101010;
+            stroke-width: 0.01;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 0.5em;
+            font-size: 10px;
+            color: #222;
+            background: #FFF;
+            border-radius: 2px;
+            pointer-events: none;
+            box-shadow: 0px 0px 2px 0px #a6a6a6;
+        }
+
+        .key path {
+            display: none;
+        }
+
+        .key line {
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .key text {
+            font-size: 10px;
+        }
+
+        .key rect {
+            stroke-width: .4;
+        }
+
+        .bd:hover {
+            fill: green;
+        }
+
+        .map_info {
+            display: inline-block;
+            /*padding: 15px 10px 10px 10px;*/
+            position: absolute;
+            top: 50px;
+            right: 6px;
+            opacity: .8;
+            font-size: 12px;
+            background: #f2f7f8;
+            border-radius: 5px;
+            max-height: 190px;
+            min-width: 192px;
+        }
+
+        svg{
+            margin-bottom: 50px !important;
+        }
+        .map_content_top {
+            padding: 15px 10px 0px 10px;
+            line-height: 2px;
+            font-size: 15px;
+        }
+
+        .map_content_body {
+            padding: 0 10px 10px 10px;
+            line-height: 17px;
+        }
+
+        .map_count_numbers {
+            margin-left: 18px;
+            font-size: 18px;
+        }
+
+
+    </style>
     <style>
         .sticker-area {
             background: #fff;
