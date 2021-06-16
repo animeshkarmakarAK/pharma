@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\GeoLocations;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Http\Controllers\BaseController;
 use App\Models\LocDivision;
@@ -18,6 +19,11 @@ class LocDivisionController extends BaseController
 {
     private const VIEW_PATH = 'backend.geo-locations.loc-divisions.';
 
+    public function __construct()
+    {
+        $this->authorizeResource(LocDivision::class);
+    }
+
     public function index(): View
     {
         return view(self::VIEW_PATH . 'browse');
@@ -32,12 +38,10 @@ class LocDivisionController extends BaseController
 
     public function store(Request $request): JsonResponse
     {
-        $this->validator($request)->validate();
-
-        $data = $request->all();
+        $validateData = $this->validator($request)->validate();
 
         try {
-            LocDivision::create($data);
+            LocDivision::create($validateData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
@@ -102,12 +106,17 @@ class LocDivisionController extends BaseController
         return \Illuminate\Support\Facades\Validator::make($request->all(), [
             'title' => 'required|max:300',
             'title_en' => 'required|max:191',
-            'bbs_code' => 'required|max:2'
+            'bbs_code' => 'required|max:2',
+            'status' => 'nullable',
+            'created_by' => 'nullable',
+            'updated_by' => 'nullable'
         ]);
     }
 
     public function getDatatable(Request $request): JsonResponse
     {
+        $authUser = AuthHelper::getAuthUser();
+
         /** @var Builder $locDivisions */
         $locDivisions = LocDivision::select([
             'loc_divisions.id as id',
@@ -119,11 +128,18 @@ class LocDivisionController extends BaseController
         ]);
 
         return DataTables::eloquent($locDivisions)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (LocDivision $locDivision) {
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (LocDivision $locDivision) use($authUser) {
                 $str = '';
-                $str .= '<a href="#" data-url="' . route('admin.loc-divisions.show', $locDivision->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
-                $str .= '<a href="#" data-url="' . route('admin.loc-divisions.edit', $locDivision->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
-                $str .= '<a href="#" data-action="' . route('admin.loc-divisions.destroy', $locDivision->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+
+                if ($authUser->can('view', $locDivision)) {
+                    $str .= '<a href="#" data-url="' . route('admin.loc-divisions.show', $locDivision->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                }
+                if ($authUser->can('update', $locDivision)) {
+                    $str .= '<a href="#" data-url="' . route('admin.loc-divisions.edit', $locDivision->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                }
+                if ($authUser->can('delete', $locDivision)) {
+                    $str .= '<a href="#" data-action="' . route('admin.loc-divisions.destroy', $locDivision->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                }
                 return $str;
             }))
             ->rawColumns(['action'])

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\GeoLocations;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Http\Controllers\BaseController;
 use App\Models\LocDistrict;
@@ -18,6 +19,13 @@ class LocDistrictController extends BaseController
 {
     private const VIEW_PATH = 'backend.geo-locations.loc-districts.';
 
+
+    public function __construct()
+    {
+        $this->authorizeResource(LocDistrict::class);
+    }
+
+
     public function index(): View
     {
         return view(self::VIEW_PATH . 'browse');
@@ -32,12 +40,10 @@ class LocDistrictController extends BaseController
 
     public function store(Request $request): JsonResponse
     {
-        $this->validator($request)->validate();
-
-        $data = $request->all();
+        $validatedData = $this->validator($request)->validate();
 
         try {
-            LocDistrict::create($data);
+            LocDistrict::create($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
@@ -63,14 +69,12 @@ class LocDistrictController extends BaseController
 
     public function update(Request $request, int $id): JsonResponse
     {
+        $validatedData = $this->validator($request)->validate();
+
         $locDistrict = LocDistrict::findOrFail($id);
 
-        $this->validator($request)->validate();
-
-        $data = $request->all();
-
         try {
-            $locDistrict->update($data);
+            $locDistrict->update($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
@@ -104,12 +108,18 @@ class LocDistrictController extends BaseController
             'title' => 'required|max:300',
             'title_en' => 'required|max:191',
             'bbs_code' => 'required|max:2',
-            'loc_division_id'=> 'required'
+            'loc_division_id'=> 'required',
+            'division_bbs_code'=> 'nullable',
+            'status'=> 'nullable',
+            'created_by' => 'nullable',
+            'updated_by' => 'nullable'
         ]);
     }
 
     public function getDatatable(Request $request): JsonResponse
     {
+        $authUser = AuthHelper::getAuthUser();
+
         /** @var Builder $locDivisions */
         $locDistricts = LocDistrict::select([
             'loc_districts.id as id',
@@ -125,11 +135,18 @@ class LocDistrictController extends BaseController
         $locDistricts->join('loc_divisions', 'loc_districts.loc_division_id', '=', 'loc_divisions.id');
 
         return DataTables::eloquent($locDistricts)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (LocDistrict $locDistrict) {
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (LocDistrict $locDistrict) use($authUser) {
                 $str = '';
-                $str .= '<a href="#" data-url="' . route('admin.loc-districts.show', $locDistrict->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
-                $str .= '<a href="#" data-url="' . route('admin.loc-districts.edit', $locDistrict->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
-                $str .= '<a href="#" data-action="' . route('admin.loc-districts.destroy', $locDistrict->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                if ($authUser->can('view', $locDistrict)) {
+                    $str .= '<a href="#" data-url="' . route('admin.loc-districts.show', $locDistrict->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                }
+                if ($authUser->can('update', $locDistrict)) {
+                    $str .= '<a href="#" data-url="' . route('admin.loc-districts.edit', $locDistrict->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                }
+                if ($authUser->can('delete', $locDistrict)) {
+                    $str .= '<a href="#" data-action="' . route('admin.loc-districts.destroy', $locDistrict->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                }
+
                 return $str;
             }))
             ->rawColumns(['action'])
