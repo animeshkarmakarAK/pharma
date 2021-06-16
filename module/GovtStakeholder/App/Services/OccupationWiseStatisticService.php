@@ -8,10 +8,10 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
 use Yajra\DataTables\Facades\DataTables;
-use DB;
 
 class OccupationWiseStatisticService
 {
@@ -39,7 +39,7 @@ class OccupationWiseStatisticService
 
         return OccupationWiseStatistic::upsert(
             $data,
-            ['survey_date','institute_id','occupation_id'],
+            ['survey_date', 'institute_id', 'occupation_id'],
             [
                 'current_month_skilled_youth',
                 'next_month_skill_youth',
@@ -66,7 +66,7 @@ class OccupationWiseStatisticService
         if ($id) {
             $rules['monthly_reports.*.id'] = ['int'];
             $rules['monthly_reports.*.survey_date'] = ['date'];
-        }else{
+        } else {
             $rules['survey_date'] = ['required', 'date', Rule::unique('occupation_wise_statistics')->where(function ($query) {
                 return $query->where('institute_id', 1); //TODO institute_id will replace by user Institute_id
             })];
@@ -107,7 +107,7 @@ class OccupationWiseStatisticService
 
                 return $str;
             }))
-            ->editColumn('survey_date', function(OccupationWiseStatistic $occupationWiseStatistic) {
+            ->editColumn('survey_date', function (OccupationWiseStatistic $occupationWiseStatistic) {
                 return Date('M Y', strtotime($occupationWiseStatistic['survey_date']));
             })
             ->rawColumns(['action'])
