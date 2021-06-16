@@ -14,10 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            GeoLocationDatabaseSeeder::class,
             RoleTableSeeder::class,
             RowStatusSeeder::class,
             UserTypeSeeder::class,
-            \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class
+            \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class,
         ]);
     }
 }

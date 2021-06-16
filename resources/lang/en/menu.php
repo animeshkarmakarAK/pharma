@@ -58,5 +58,11 @@ return [
     'occupation_management' => 'Occupation Management',
     'occupations' => 'Occupations',
     'occupation_wise_statistics' => 'Occupation Wise Statistics',
+
+    //location
+    'location' => "Location",
+    'division'=> "Division",
+    'district'=> "District",
+    'upazila'=> "Upazila",
 ];
 
