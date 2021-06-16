@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Occupation Wise Statistic for'.date("M Y", strtotime($occupationWiseStatistic->survey_date)):'Create Occupation Wise Statistic For '.date('M Y') }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Occupation Wise Statistic':'Create Occupation Wise Statistic'}}</h3>
                         <div class="card-tools">
                             <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
@@ -37,7 +37,8 @@
                                            class="form-control flat-month"
                                            name="survey_date"
                                            id="survey_date"
-                                           value="{{$edit ? $occupationWiseStatistic->survey_date : old('survey_date')}}">
+                                           {{$edit?'disabled':''}}
+                                           value="{{!$edit? old('survey_date')?old('survey_date'):'':$occupationWiseStatistic->survey_date}}">
                                 </div>
                             </div>
 
@@ -73,15 +74,26 @@
                                                        value="{{$statistic['survey_date']}}">
                                             @endif
                                             <input type="number" class="form-control custom-input-box"
-                                                   id="current_month_skilled_youth"
+                                                   id="monthly_reports[{{$index}}][current_month_skilled_youth]"
                                                    name="monthly_reports[{{$index}}][current_month_skilled_youth]"
-                                                   value="{{empty($statistic['current_month_skilled_youth'])?0:$statistic['current_month_skilled_youth']}}"
+                                                   min="0"
+                                                   value="{{
+                                                            empty($statistic['current_month_skilled_youth'])
+                                                            ? old('monthly_reports.'.$index.'.current_month_skilled_youth')
+                                                            ? old('monthly_reports.'.$index.'.current_month_skilled_youth'):0
+                                                            :$statistic['current_month_skilled_youth']}}"
                                                    placeholder="">
                                         </td>
-                                        <td><input type="number" class="form-control custom-input-box"
-                                                   id="current_month_skilled_youth"
+                                        <td>
+                                            <input type="number" class="form-control custom-input-box"
+                                                   id="monthly_reports[{{$index}}][next_month_skill_youth]"
                                                    name="monthly_reports[{{$index}}][next_month_skill_youth]"
-                                                   value="{{empty($statistic['next_month_skill_youth'])?0:$statistic['next_month_skill_youth']}}"
+                                                   min="0"
+                                                   value="{{
+                                                            empty($statistic['next_month_skill_youth'])
+                                                             ? old('monthly_reports.'.$index.'.next_month_skill_youth')
+                                                            ? old('monthly_reports.'.$index.'.next_month_skill_youth'):0
+                                                            :$statistic['next_month_skill_youth']}}"
                                                    placeholder="">
                                         </td>
                                     </tr>
@@ -113,21 +125,12 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                current_month_skilled_youth: {
+                survey_date: {
                     required: true,
-                    number: true,
-                },
-                next_month_skill_youth: {
-                    required: true,
-                    number: true,
                 },
 
             },
-            messages: {
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
-                }
-            },
+
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
                 htmlForm.submit();
