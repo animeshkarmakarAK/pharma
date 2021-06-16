@@ -50,30 +50,22 @@ class LocDivisionController extends BaseController
         return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'Division']), 'alert-type' => 'success']);
     }
 
-    public function show(int $id): View
+    public function show(LocDivision $locDivision): View
     {
-        $locDivision = LocDivision::findOrFail($id);
-
         return view(self::VIEW_PATH . 'ajax.read', compact('locDivision'));
     }
 
-    public function edit(int $id): View
+    public function edit(LocDivision $locDivision): View
     {
-        $locDivision = LocDivision::findOrFail($id);
-
         return view(self::VIEW_PATH . 'ajax.edit-add', compact('locDivision'));
     }
 
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, LocDivision $locDivision): JsonResponse
     {
-        $locDivision = LocDivision::findOrFail($id);
-
-        $this->validator($request)->validate();
-
-        $data = $request->all();
+        $validateData = $this->validator($request)->validate();
 
         try {
-            $locDivision->update($data);
+            $locDivision->update($validateData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
@@ -82,9 +74,8 @@ class LocDivisionController extends BaseController
         return response()->json(['message' => __('generic.object_updated_successfully', ['object' => 'Division']), 'alert-type' => 'success']);
     }
 
-    public function destroy(int $id): RedirectResponse
+    public function destroy(LocDivision $locDivision): RedirectResponse
     {
-        $locDivision = LocDivision::findOrFail($id);
         try {
             $locDivision->delete();
         } catch (\Throwable $exception) {

@@ -1,11 +1,11 @@
 @php
-    $edit = !empty($locDistrict->id);
+    $edit = !empty($locUpazila->id);
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 
 <div class="modal-header custom-bg-gradient-info">
     <h4 class="modal-title">
-        <i class="fas fa-eye"></i> {{!$edit ? 'Add District': 'Update District'}}
+        <i class="fas fa-eye"></i> {{!$edit ? 'Add Upazila': 'Update Upazila'}}
     </h4>
     <button type="button" class="close" data-dismiss="modal"
             aria-label="{{ __('voyager::generic.close') }}">
@@ -17,7 +17,7 @@
     <div class="card card-outline">
         <div class="card-body">
             <form class="row edit-add-form" method="post"
-                  action="{{$edit ? route('admin.loc-districts.update', $locDistrict->id) : route('admin.loc-districts.store')}}"
+                  action="{{$edit ? route('admin.loc-upazilas.update', $locUpazila->id) : route('admin.loc-upazilas.store')}}"
                   enctype="multipart/form-data">
                 @csrf
                 @if($edit)
@@ -25,16 +25,16 @@
                 @endif
                 <div class="col-sm-6 col-md-4">
                     <label for="name_en">Title <span style="color: red"> * </span></label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{$edit ? $locDistrict->title : ''}}"/>
+                    <input type="text" class="form-control" name="title" id="title" value="{{$edit ? $locUpazila->title : ''}}"/>
                 </div>
 
                 <div class="col-sm-6 col-md-4">
                     <label for="name_en">Title (En) <span style="color: red"> * </span></label>
-                    <input type="text" class="form-control" name="title_en" value="{{$edit ? $locDistrict->title_en : ''}}"/>
+                    <input type="text" class="form-control" name="title_en" value="{{$edit ? $locUpazila->title_en : ''}}"/>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <label for="name_en">BBS Code <span style="color: red"> * </span></label>
-                    <input type="text" class="form-control" name="bbs_code" value="{{$edit ? $locDistrict->bbs_code : ''}}"/>
+                    <input type="text" class="form-control" name="bbs_code" value="{{$edit ? $locUpazila->bbs_code : ''}}"/>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <label for="loc_division_id">{{ __('Division') }} <span
@@ -44,11 +44,27 @@
                             data-model="{{base64_encode(App\Models\LocDivision::class)}}"
                             data-label-fields="{title} - {title_en}"
                             @if($edit)
-                            data-preselected-option="{{json_encode(['text' =>  $locDistrict->division->title, 'id' =>  $locDistrict->division->id])}}"
+                            data-preselected-option="{{json_encode(['text' =>  $locUpazila->division->title, 'id' =>  $locUpazila->division->id])}}"
                             @endif
                             data-placeholder="Select Division"
                     >
                         <option selected disabled>{{ __('Select Division') }}</option>
+                    </select>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <label for="loc_district_id">{{ __('District') }} <span
+                            style="color: red"> * </span></label>
+                    <select class="form-control select2-ajax-wizard"
+                            name="loc_district_id"
+                            data-model="{{base64_encode(App\Models\LocDistrict::class)}}"
+                            data-label-fields="{title} - {title_en}"
+                            data-depend-on="loc_division_id"
+                            @if($edit)
+                            data-preselected-option="{{json_encode(['text' =>  $locUpazila->district->title, 'id' =>  $locUpazila->district->id])}}"
+                            @endif
+                            data-placeholder="Select District"
+                    >
+                        <option selected disabled>{{ __('Select District') }}</option>
                     </select>
                 </div>
 

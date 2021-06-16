@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $bbs_code
  * @property int $loc_division_id
  * @property bool|null $is_sadar_district
- * @property-read \App\Models\LocDivision $locDivision
  * @property-read Collection|\App\Models\LocUpazila[] $locUpazilas
  * @property-read int|null $loc_upazilas_count
  * @property-read LocDivision division
