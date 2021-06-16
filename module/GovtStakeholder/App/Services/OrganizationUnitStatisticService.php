@@ -28,17 +28,14 @@ class OrganizationUnitStatisticService
     public function updateOrganizationUnitStatistic(organizationUnitStatistic $organizationUnitStatistic, array $data): bool
     {
 
-        $data = array_map(function ($newData) use ($data) {
-            if (empty($newData['id'])) {
-                $newData['id'] = null;
-            }
+        $data = array_map(function ($newData) use ($data, $organizationUnitStatistic) {
             $newData['survey_date'] = $data['survey_date'];
+            $newData['id'] = $organizationUnitStatistic->id;
             return $newData;
         }, $data['monthly_reports']);
 
-
         return organizationUnitStatistic::upsert(
-            $data,
+            $data, ['id'], ['total_vacancy', 'total_new_recruits', 'total_occupied_position']
         );
 
     }

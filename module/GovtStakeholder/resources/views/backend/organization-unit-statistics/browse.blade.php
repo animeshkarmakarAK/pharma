@@ -81,9 +81,14 @@
                         visible: true,
                     },
                     {
-                        title: "Name",
+                        title: "Organization Unit",
                         data: "organization_unit_name",
                         name: "organization_units.title_en",
+                    },
+                    {
+                        title: "Reporting Date",
+                        data: "survey_date",
+                        name: "organization_unit_statistics.survey_date"
                     },
                     {
                         title: "New Recruit",
@@ -100,6 +105,7 @@
                         data: "total_occupied_position",
                         name: "organization_unit_statistics.total_occupied_position"
                     },
+
                     {
                         title: "Action",
                         data: "action",

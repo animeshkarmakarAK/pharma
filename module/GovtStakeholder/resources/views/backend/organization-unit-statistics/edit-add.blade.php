@@ -120,15 +120,21 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                current_month_skilled_youth: {
+                total_vacancy: {
                     required: true,
                     number: true,
                 },
-                next_month_skill_youth: {
+                total_occupied_position: {
                     required: true,
                     number: true,
                 },
-
+                total_new_recruits: {
+                    required: true,
+                    number: true,
+                },
+                survey_date: {
+                    required: true,
+                }
             },
             messages: {
                 title_bn: {

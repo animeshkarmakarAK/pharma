@@ -114,7 +114,7 @@ class OrganizationUnitStatisticController extends BaseController
         }
 
         return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Occupation Wise Statistic']),
+            'message' => __('generic.object_updated_successfully', ['object' => 'Organization Unit Statistic']),
             'alert-type' => 'success'
         ]);
     }
