@@ -8,49 +8,69 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
 use Yajra\DataTables\Facades\DataTables;
 
 class OccupationWiseStatisticService
 {
-    public function createOccupationWiseStatistic(array $data): OccupationWiseStatistic
+    public function createOccupationWiseStatistic(array $data): bool
     {
-        return OccupationWiseStatistic::create($data);
+        $data = array_map(function ($newData) use ($data) {
+            $newData['institute_id'] = '1';// TODO: dynamic institute id will be the actual value
+            $newData['survey_date'] = $data['survey_date'];
+            return $newData;
+        }, $data['monthly_reports']);
+
+        return OccupationWiseStatistic::insert($data);
     }
 
-    public function updateOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic, array $data): OccupationWiseStatistic
+    public function updateOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic, array $data): bool
     {
-        $occupationWiseStatistic->fill($data);
-        $occupationWiseStatistic->save();
+        $data = array_map(function ($newData) use ($occupationWiseStatistic) {
+            if (empty($newData['id'])) {
+                $newData['id'] = null;
+                $newData['survey_date'] = $occupationWiseStatistic['survey_date'];
+            }
+            $newData['institute_id'] = '1';// TODO: dynamic institute id will be the actual value
+            return $newData;
+        }, $data['monthly_reports']);
 
-        return $occupationWiseStatistic;
+        return OccupationWiseStatistic::upsert(
+            $data,
+            ['survey_date', 'institute_id', 'occupation_id'],
+            [
+                'current_month_skilled_youth',
+                'next_month_skill_youth',
+                'survey_date',
+                'institute_id',
+                'occupation_id'
+            ]
+        );
+
     }
 
     public function deleteOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic): bool
     {
-        return $occupationWiseStatistic->delete();
+        return OccupationWiseStatistic::where([['survey_date', $occupationWiseStatistic->survey_date], ['institute_id', $occupationWiseStatistic->institute_id]])->delete();
     }
 
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'institute_id' => [
-                'required',
-                'int',
-                'exists:institutes,id',
-            ],
-            'occupation_id' => [
-                'required',
-                'int',
-                'exists:occupations,id',
-            ],
-            'current_month_skilled_youth' => ['required', 'int'],
-            'next_month_skill_youth' => ['required', 'int'],
-            'row_status' => [
-                'required_if:' . $id . ',!=,null',
-            ],
+            'monthly_reports.*.current_month_skilled_youth' => ['required', 'int'],
+            'monthly_reports.*.next_month_skill_youth' => ['required', 'int'],
+            'monthly_reports.*.occupation_id' => ['required', 'int'],
         ];
-
+        if ($id) {
+            $rules['monthly_reports.*.id'] = ['int'];
+            $rules['monthly_reports.*.survey_date'] = ['date'];
+        } else {
+            $rules['survey_date'] = ['required', 'date', Rule::unique('occupation_wise_statistics')->where(function ($query) {
+                return $query->where('institute_id', 1); //TODO institute_id will replace by user Institute_id
+            })];
+        }
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
@@ -58,19 +78,19 @@ class OccupationWiseStatisticService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|OccupationWiseStatistic $occupationWiseStatistics */
+
         $occupationWiseStatistics = OccupationWiseStatistic::select(
             [
-                'occupation_wise_statistics.id',
                 'institutes.title_en as institute_title_en',
-                'occupations.title_en as occupation_title_en',
-                'occupation_wise_statistics.current_month_skilled_youth',
-                'occupation_wise_statistics.next_month_skill_youth',
-                'occupation_wise_statistics.row_status',
+                DB::raw('MAX(occupation_wise_statistics.id) as id'),
+                'occupation_wise_statistics.survey_date',
             ]
         );
         $occupationWiseStatistics->join('institutes', 'occupation_wise_statistics.institute_id', '=', 'institutes.id');
-        $occupationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
-
+        $occupationWiseStatistics->groupBy(
+            'survey_date',
+            'institute_id',
+        );
 
         return DataTables::eloquent($occupationWiseStatistics)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OccupationWiseStatistic $occupationWiseStatistic) use ($authUser) {
@@ -87,10 +107,10 @@ class OccupationWiseStatisticService
 
                 return $str;
             }))
-            ->editColumn('row_status', function (OccupationWiseStatistic $occupationWiseStatistic) {
-                return $occupationWiseStatistic->row_status == OccupationWiseStatistic::ROW_STATUS_ACTIVE ? '<a href="#" class="badge badge-success">Active</a>' : '<a href="#" class="badge badge-danger">Inactive</a>';
+            ->editColumn('survey_date', function (OccupationWiseStatistic $occupationWiseStatistic) {
+                return Date('M Y', strtotime($occupationWiseStatistic['survey_date']));
             })
-            ->rawColumns(['action', 'row_status'])
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

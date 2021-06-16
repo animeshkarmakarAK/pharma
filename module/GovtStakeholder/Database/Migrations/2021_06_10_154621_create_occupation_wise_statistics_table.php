@@ -19,6 +19,7 @@ class CreateOccupationWiseStatisticsTable extends Migration
             $table->unsignedInteger('occupation_id')->index('occupation_wise_statistics_fk_occupation_id');
             $table->unsignedInteger('current_month_skilled_youth')->default(0);
             $table->unsignedInteger('next_month_skill_youth')->default(0);
+            $table->date('survey_date')->nullable();
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();
 

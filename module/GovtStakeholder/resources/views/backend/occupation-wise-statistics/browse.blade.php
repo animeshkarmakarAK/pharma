@@ -31,7 +31,6 @@
         </div>
     </div>
     @include('master::utils.delete-confirm-modal')
-
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
@@ -56,27 +55,14 @@
                     {
                         title: "Institute",
                         data: "institute_title_en",
-                        name: "institutes.title_en"
+                        name: "institutes.title_en",
+                        visible: false
                     },
                     {
-                        title: "Occupation",
-                        data: "occupation_title_en",
-                        name: "occupations.title_en"
-                    },
-                    {
-                        title: "Current Month Skilled Youth",
-                        data: "current_month_skilled_youth",
-                        name: "occupation_wise_statistics.current_month_skilled_youth"
-                    },
-                    {
-                        title: "Next Month Skilled Youth",
-                        data: "next_month_skill_youth",
-                        name: "occupation_wise_statistics.next_month_skill_youth"
-                    },
-                    {
-                        title: "Status",
-                        data: "row_status",
-                        name: "occupation_wise_statistics.row_status"
+                        title: "Reporting Date",
+                        data: "survey_date",
+                        name: "occupation_wise_statistics.survey_date",
+                        visible: true
                     },
                     {
                         title: "Action",
