@@ -38,11 +38,12 @@ class OrganizationUnitStatisticController extends BaseController
      */
     public function create(): View
     {
-        $organizationUnits = OrganizationUnit::get();
+        $organizationUnits = new organizationUnitStatistic();
 
-        $statistics = OrganizationUnitStatistic::select([
-            'organization_unit_id',
-        ])->groupBy('organization_unit_id')->get();
+        $statistics = OrganizationUnit::select([
+            'id', 'title_en', 'title_bn'
+        ])->groupBy('id', 'title_en', 'title_bn')->get();
+
 
         return view(self::VIEW_PATH . 'edit-add', compact(['statistics', 'organizationUnits']));
     }
@@ -93,7 +94,7 @@ class OrganizationUnitStatisticController extends BaseController
      */
     public function edit(OrganizationUnitStatistic $organizationUnitStatistic): View
     {
-        $statistics = OrganizationUnitStatistic::where('survey_date', $organizationUnitStatistic->survey_date)->get();
+        $statistics = OrganizationUnitStatistic::where('survey_date', $organizationUnitStatistic->survey_date, $organizationUnitStatistic->id)->get();
 
         return view(self::VIEW_PATH . 'edit-add', compact(['statistics','organizationUnitStatistic']));
     }

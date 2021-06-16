@@ -55,7 +55,9 @@
 
 
                                 @foreach($statistics as $index => $statistic)
-
+                                    @php
+                                      $statistic = !$edit ? $statistic->statistics : $statistic;
+                                    @endphp
                                     <tr>
                                         <th scope="row">{{$statistic->organizationUnit->title_en}}</th>
                                         <td>
