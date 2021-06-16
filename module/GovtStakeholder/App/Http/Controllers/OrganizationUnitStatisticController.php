@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Module\GovtStakeholder\App\Models\Occupation;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
-use Module\GovtStakeholder\App\Policies\OrganizationUnitStatisticPolicy;
-use Module\GovtStakeholder\App\Services\OccupationWiseStatisticService;
+use Module\GovtStakeholder\App\Models\OrganizationUnit;
+use Module\GovtStakeholder\App\Models\OrganizationUnitStatistic;
 use Module\GovtStakeholder\App\Services\OrganizationUnitStatisticService;
 
 class OrganizationUnitStatisticController extends BaseController
@@ -38,9 +38,9 @@ class OrganizationUnitStatisticController extends BaseController
      */
     public function create(): View
     {
-        $occupationWiseStatistic = new OccupationWiseStatistic();
-        $occupations = Occupation::select('id', 'title_en')->get();
-        return view(self::VIEW_PATH . 'edit-add', compact(['occupationWiseStatistic','occupations']));
+        $organizationUnitStatistic = new OrganizationUnitStatistic();
+        $organizationUnits = OrganizationUnit::get();
+        return view(self::VIEW_PATH . 'edit-add', compact(['organizationUnitStatistic', 'organizationUnits']));
     }
 
     /**
@@ -52,17 +52,18 @@ class OrganizationUnitStatisticController extends BaseController
      */
     public function store(Request $request): RedirectResponse
     {
-        $validatedData = $this->occupationWiseStatisticService->validator($request)->validate();
-        //dd($validatedData['survey_date']);
-        $occupationStatistic = OccupationWiseStatistic::where([['survey_date',$validatedData['survey_date']],['institute_id',1]])->first();
-        if($occupationStatistic){
+        $validatedData = $this->organizationUnitStatisticService->validator($request)->validate();
+
+        $organizationUnitStatistic = OrganizationUnitStatistic::where([['survey_date',$validatedData['survey_date']]])->first();
+
+        if($organizationUnitStatistic){
             return back()->with([
-                'message' => 'Occupation Wise Statistic for this month are already exist',
+                'message' => 'Organization Unit Statistics for this month is already exist',
                 'alert-type' => 'error'
             ]);
         }
         try {
-            $this->occupationWiseStatisticService->createOccupationWiseStatistic($validatedData);
+            $this->organizationUnitStatisticService->createOrganizationUnitStatistic($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -71,7 +72,7 @@ class OrganizationUnitStatisticController extends BaseController
             ]);
         }
         return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Occupation Wise Statistic']),
+            'message' => __('generic.object_created_successfully', ['object' => 'Organization Unit Statistic']),
             'alert-type' => 'success'
         ]);
     }

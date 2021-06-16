@@ -14,58 +14,58 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OrganizationUnitStatisticService
 {
-    public function createOccupationWiseStatistic(array $data): bool
+    public function createOrganizationUnitStatistic(array $data): bool
     {
         $data = array_map(function ($newData) use($data) {
-            $newData['institute_id']='1';// TODO: dynamic institute id will be the actual value
             $newData['survey_date']=$data['survey_date'];
            return $newData;
        },$data['monthly_reports']);
 
-        return  OccupationWiseStatistic::insert($data);
+        return  OrganizationUnitStatistic::insert($data);
     }
 
-    public function updateOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic, array $data): bool
+    public function updateOrganizationUnitStatistic(OrganizationUnitStatistic $organizationUnitStatistic, array $data): bool
     {
-        //dd($data);
 
         $data = array_map(function ($newData) use($data){
             if(empty($newData['id'])){
                 $newData['id']=null;
             }
             $newData['survey_date']=$data['survey_date'];
-            $newData['institute_id']='1';// TODO: dynamic institute id will be the actual value
             return $newData;
         },$data['monthly_reports']);
 
-        //dd($data);
-        return OccupationWiseStatistic::upsert(
+
+        return OrganizationUnitStatistic::upsert(
             $data,
             ['id'],
             [
-                'current_month_skilled_youth',
-                'next_month_skill_youth',
+                'total_new_recruits',
+                'total_vacancy',
+                'total_occupied_position',
             ]
         );
 
     }
 
-    public function deleteOccupationWiseStatistic(OccupationWiseStatistic $occupationWiseStatistic): bool
+    public function deleteOccupationWiseStatistic(OrganizationUnitStatistic $organizationUnitStatistic): bool
     {
-        return OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->delete();
+        return OrganizationUnitStatistic::where([['survey_date',$organizationUnitStatistic->survey_date]])->delete();
     }
 
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'monthly_reports.*.current_month_skilled_youth' => ['required', 'int'],
-            'monthly_reports.*.next_month_skill_youth' => ['required', 'int'],
-            'monthly_reports.*.occupation_id' => ['required', 'int'],
+            'monthly_reports.*.organization_unit_id' => ['required', 'int'],
+            'monthly_reports.*.total_new_recruits' => ['required', 'int'],
+            'monthly_reports.*.total_vacancy' => ['required', 'int'],
+            'monthly_reports.*.total_occupied_position' => ['required', 'int'],
             'survey_date'=>['required','date'],
         ];
+
         if($id){
-            $rules['monthly_reports.*.id']=['int'];
-            $rules['monthly_reports.*.survey_date']=['date'];
+            $rules['monthly_reports.*.id'] = ['int'];
+            $rules['monthly_reports.*.survey_date'] = ['date'];
         }
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

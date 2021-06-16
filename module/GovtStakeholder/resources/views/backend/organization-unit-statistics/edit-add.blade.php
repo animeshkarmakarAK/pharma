@@ -1,5 +1,5 @@
 @php
-    $edit = !empty($occupationWiseStatistic->id) ;
+    $edit = !empty($organizationUnitStatistics->id) ;
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
@@ -11,9 +11,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Occupation Wise Statistic for'.date("M Y", strtotime($occupationWiseStatistic->survey_date)):'Create Occupation Wise Statistic For '.date('M Y') }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Organization Unit Statistic for'.date("M Y", strtotime($organizationUnitStatistics->survey_date)):'Create Organization Unit Statistic For '.date('M Y') }}</h3>
                         <div class="card-tools">
-                            <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.index')}}"
+                            <a href="{{route('govt_stakeholder::admin.organization-unit-statistics.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -23,7 +23,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{$edit ? route('govt_stakeholder::admin.occupation-wise-statistics.update', $occupationWiseStatistic->id) : route('govt_stakeholder::admin.occupation-wise-statistics.store')}}"
+                            action="{{$edit ? route('govt_stakeholder::admin.organization-unit-statistics.update', $organizationUnitStatistics->id) : route('govt_stakeholder::admin.organization-unit-statistics.store')}}"
                             method="POST" class="row edit-add-form">
                             @csrf
                             @if($edit)
@@ -37,51 +37,58 @@
                                            class="form-control flat-month"
                                            name="survey_date"
                                            id="survey_date"
-                                           value="{{$edit ? $occupationWiseStatistic->survey_date : old('survey_date')}}">
+                                           value="{{$edit ? $organizationUnitStatistic->survey_date : old('survey_date')}}">
                                 </div>
                             </div>
-
 
 
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Occupation</th>
-                                    <th>Current Month Skilled Youth</th>
-                                    <th>Next Month Skilled Youth</th>
+                                    <th>Organization Unit</th>
+                                    <th>New Recruits</th>
+                                    <th>Total Vacancy</th>
+                                    <th>Total Occupied Position</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
 
-                                @foreach($occupations as $index=>$occupation)
-                                    @php
-                                        $statistic = $edit && !empty($occupationWiseStatistics[$occupation->id]) ? $occupationWiseStatistics[$occupation->id] : null;
-                                    @endphp
+                                @foreach($organizationUnits as $index => $organizationUnit)
 
                                     <tr>
-                                        <th scope="row">{{$occupation->title_en}}</th>
+                                        <th scope="row">{{$organizationUnit->title_en}}</th>
                                         <td>
-                                            <input type="hidden" name="monthly_reports[{{$index}}][occupation_id]"
-                                                   value="{{$occupation->id}}">
-                                            @if($edit &&  !empty($statistic['id']))
-                                                <input type="hidden" name="monthly_reports[{{$index}}][id]"
-                                                       value="{{$statistic['id']}}">
+                                            <input type="hidden"
+                                                   name="monthly_reports[{{$index}}][organization_unit_id]"
+                                                   value="{{$organizationUnit->id}}">
+                                            @if($edit &&  !empty($organizationUnit['id']))
+                                                <input type="hidden"
+                                                       name="monthly_reports[{{$index}}][organization_unit_id]"
+                                                       value="{{$organizationUnit->id}}">
                                             @endif
-                                            @if($edit &&  !empty($statistic['survey_date']))
+                                            @if($edit &&  !empty($organizationUnit['survey_date']))
                                                 <input type="hidden" name="monthly_reports[{{$index}}][survey_date]"
-                                                       value="{{$statistic['survey_date']}}">
+                                                       value="{{$organizationUnit['survey_date']}}">
                                             @endif
                                             <input type="number" class="form-control custom-input-box"
-                                                   id="current_month_skilled_youth"
-                                                   name="monthly_reports[{{$index}}][current_month_skilled_youth]"
-                                                   value="{{empty($statistic['current_month_skilled_youth'])?0:$statistic['current_month_skilled_youth']}}"
+                                                   id="total_new_recruits[{{ $index }}]"
+                                                   name="monthly_reports[{{$index}}][total_new_recruits]"
+                                                   value="{{ empty($organizationUnit['total_new_recruits']) ? 0 : $organizationUnit['total_new_recruits']}}"
                                                    placeholder="">
                                         </td>
+
                                         <td><input type="number" class="form-control custom-input-box"
-                                                   id="current_month_skilled_youth"
-                                                   name="monthly_reports[{{$index}}][next_month_skill_youth]"
-                                                   value="{{empty($statistic['next_month_skill_youth'])?0:$statistic['next_month_skill_youth']}}"
+                                                   id="total_new_recruits[{{ $index }}]"
+                                                   name="monthly_reports[{{$index}}][total_vacancy]"
+                                                   value="{{ empty($organizationUnit['total_vacancy']) ? 0 : $organizationUnit['total_vacancy']}}"
+                                                   placeholder="">
+                                        </td>
+
+                                        <td><input type="number" class="form-control custom-input-box"
+                                                   id="total_new_recruits[{{ $index }}]"
+                                                   name="monthly_reports[{{$index}}][total_occupied_position]"
+                                                   value="{{ empty($organizationUnit['total_occupied_position']) ? 0 : $organizationUnit['total_occupied_position']}}"
                                                    placeholder="">
                                         </td>
                                     </tr>
