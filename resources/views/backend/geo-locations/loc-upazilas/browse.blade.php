@@ -6,13 +6,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h3 class="card-title font-weight-bold">Division List</h3>
+                        <h3 class="card-title font-weight-bold">{{__('Upazila List')}}</h3>
 
 
                         <div class="card-tools">
                             <a href="javascript:;"
                                class="btn btn-sm btn-outline-primary btn-rounded create-new-button">
-                                <i class="fas fa-plus-circle"></i> Add new
+                                <i class="fas fa-plus-circle"></i> {{__('generic.add_new')}}
                             </a>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -33,7 +33,7 @@
     </div>
 
     <x-modal id="edit-add-modal" type="success" xl></x-modal>
-    <x-modal id="division-view-modal" type="success" xl></x-modal>
+    <x-modal id="view-modal" type="success" xl></x-modal>
 
     @include('utils.delete-confirm-modal')
 
@@ -48,10 +48,10 @@
         $(function () {
 
             const editAddModal = $("#edit-add-modal");
-            const viewModal = $("#division-view-modal");
+            const viewModal = $("#view-modal");
 
             let params = serverSideDatatableFactory({
-                url: '{{route('admin.loc-divisions.datatable')}}',
+                url: '{{route('admin.loc-upazilas.datatable')}}',
                 order: [[2, "asc"]],
                 columns: [
                     {
@@ -78,6 +78,16 @@
                         name: "bbs_code"
                     },
                     {
+                        title: "Division",
+                        data: "loc_divisions.title",
+                        name: "loc_divisions.title"
+                    },
+                    {
+                        title: "District",
+                        data: "loc_districts.title",
+                        name: "loc_districts.title"
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         orderable: false,
@@ -96,7 +106,7 @@
 
             if ($(".create-new-button").length) {
                 $(document).on('click', ".create-new-button", async function () {
-                    let url = '{{route('admin.loc-divisions.create')}}';
+                    let url = '{{route('admin.loc-upazilas.create')}}';
                     let response = await $.get(url);
                     editAddModal.find('.modal-content').html(response);
                     initializeSelect2(".select2-ajax-wizard");
@@ -144,7 +154,11 @@
                         bbs_code: {
                             required: true,
                             maxlength: 2
-                        }
+                        },
+                        loc_division_id: {
+                            required: true
+                        },
+
                     },
                     messages: {
                         title: {

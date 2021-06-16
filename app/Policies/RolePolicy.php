@@ -46,7 +46,6 @@ class RolePolicy extends MasterBasePolicy
      * Determine whether the user can update the model.
      *
      * @param User $user
-     * @param Role $role
      * @return mixed
      */
     public function update(User $user): bool

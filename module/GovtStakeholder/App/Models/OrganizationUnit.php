@@ -9,6 +9,7 @@ use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class OrganizationUnit
@@ -81,5 +82,10 @@ class OrganizationUnit extends BaseModel
     public function humanResources(): HasMany
     {
         return $this->hasMany(HumanResource::class);
+    }
+
+    public function statistics():HasOne
+    {
+        return $this->hasOne(organizationUnitStatistic::class);
     }
 }

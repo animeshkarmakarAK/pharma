@@ -7,6 +7,7 @@ use App\Traits\LocDivisionBelongsToRelation;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \App\Models\LocDivision $locDivision
  * @property-read Collection|\App\Models\LocUpazila[] $locUpazilas
  * @property-read int|null $loc_upazilas_count
+ * @property-read LocDivision division
  */
 class LocDistrict extends BaseModel
 {
@@ -58,5 +60,13 @@ class LocDistrict extends BaseModel
     public function locUpazilas(): HasMany
     {
         return $this->hasMany(LocUpazila::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(LocDivision::class, 'loc_division_id');
     }
 }

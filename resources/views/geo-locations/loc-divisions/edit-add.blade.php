@@ -1,4 +1,4 @@
-@extends('master::main.master')
+@extends('core.main')
 
 @php
     $edit = !empty($locDivision->id);

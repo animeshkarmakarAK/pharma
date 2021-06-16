@@ -9,6 +9,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
         'human-resource-templates' => \Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class,
         'occupations' => \Module\GovtStakeholder\App\Http\Controllers\OccupationController::class,
         'occupation-wise-statistics' => \Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class,
+        'organization-unit-statistics' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,
     ]);
 
     Route::post('human-resource-templates/{human_resource_template}/update-node-on-drag', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class, 'updateNodeOnDrag'])
@@ -23,6 +24,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('organization-units/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class, 'getDatatable'])->name('organization-units.datatable');
     Route::post('occupations/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OccupationController::class, 'getDatatable'])->name('occupations.datatable');
     Route::post('occupation-wise-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class, 'getDatatable'])->name('occupation-wise-statistics.datatable');
+    Route::post('organization-unit-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'getDatatable'])->name('organization-unit-statistics.datatable');
 
     Route::get('organization-units/{organization_unit}/hierarchy', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class, 'employeeHierarchy'])->name('organization-units.hierarchy');
     Route::post('human-resources/{human_resource}/update-node-on-drag', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'updateNodeOnDrag'])
