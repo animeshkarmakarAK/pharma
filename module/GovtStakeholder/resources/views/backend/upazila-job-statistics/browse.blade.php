@@ -54,24 +54,14 @@
                         visible: true,
                     },
                     {
-                        title: "District",
+                        title: "Upazila",
                         data: "loc_upazila_title_en",
                         name: "loc_upazilas.title_en"
                     },
                     {
-                        title: "Job Sector",
-                        data: "job_sector_title_en",
-                        name: "job_sectors.title_en"
-                    },
-                    {
-                        title: "Survey Date",
+                        title: "Reporting Month",
                         data: "survey_date",
                         name: "upazila_job_statistics.survey_date"
-                    },
-                    {
-                        title: "Status",
-                        data: "row_status",
-                        name: "upazila_job_statistics.row_status"
                     },
                     {
                         title: "Action",

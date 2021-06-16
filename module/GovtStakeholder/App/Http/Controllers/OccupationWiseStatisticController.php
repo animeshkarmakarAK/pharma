@@ -51,19 +51,11 @@ class OccupationWiseStatisticController extends BaseController
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->occupationWiseStatisticService->validator($request)->validate();
-        //dd($validatedData['survey_date']);
-        $occupationStatistic = OccupationWiseStatistic::where([['survey_date',$validatedData['survey_date']],['institute_id',1]])->first();
-        if($occupationStatistic){
-            return back()->with([
-                'message' => 'Occupation Wise Statistic for this month are already exist',
-                'alert-type' => 'error'
-            ]);
-        }
         try {
             $this->occupationWiseStatisticService->createOccupationWiseStatistic($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
@@ -80,7 +72,8 @@ class OccupationWiseStatisticController extends BaseController
      */
     public function show(OccupationWiseStatistic $occupationWiseStatistic): View
     {
-        return view(self::VIEW_PATH . 'read', compact('occupationWiseStatistic'));
+        $occupationWiseStatistics = OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->get()->keyBy('occupation_id');
+        return view(self::VIEW_PATH . 'read', compact(['occupationWiseStatistic','occupationWiseStatistics']));
     }
 
     /**
@@ -108,7 +101,7 @@ class OccupationWiseStatisticController extends BaseController
             $this->occupationWiseStatisticService->updateOccupationWiseStatistic($occupationWiseStatistic, $validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);

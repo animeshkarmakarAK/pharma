@@ -168,6 +168,7 @@ window.initializeSelect2 = function (selector) {
                      * @type {*|jQuery|{}}
                      */
                     const filters = elm.data('filters') || {};
+                    console.table('filters', filters);
 
                     if (typeof dependOn !== 'undefined' && dependOn.length) {
                         let parsedDependOn = dependOn.split('|');

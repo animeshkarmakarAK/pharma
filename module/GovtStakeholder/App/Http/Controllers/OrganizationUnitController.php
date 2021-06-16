@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Module\GovtStakeholder\App\Models\OrganizationUnit;
 use Module\GovtStakeholder\App\Services\OrganizationUnitService;
@@ -52,9 +53,12 @@ class OrganizationUnitController extends BaseController
     {
         $organizationUnitValidatedData = $this->organizationUnitService->validator($request)->validate();
 
+        DB::beginTransaction();
         try {
             $this->organizationUnitService->createOrganizationUnit($organizationUnitValidatedData);
+            DB::commit();
         } catch (\Throwable $exception) {
+            DB::rollBack();
             Log::debug($exception->getMessage());
             return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
@@ -152,5 +156,11 @@ class OrganizationUnitController extends BaseController
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->organizationUnitService->getListDataForDatatable();
+    }
+
+    public function employeeHierarchy(OrganizationUnit $organizationUnit)
+    {
+        $humanResources = optional($organizationUnit->getHierarchy())->toArray();
+        return \view(self::VIEW_PATH . 'employee-hierarchy', compact('humanResources'));
     }
 }
