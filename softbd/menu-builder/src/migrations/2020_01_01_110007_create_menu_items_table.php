@@ -20,7 +20,7 @@ class CreateMenuItemsTable extends Migration {
 
             $table->mediumIncrements('id');
             $table->unsignedSmallInteger('menu_id')->nullable();
-            $table->string('title', 191);
+            $table->string('title', 191)->nullable();
             $table->string('title_lang_key', 255)->nullable();
             $table->string('permission_key', 191)->nullable();
             $table->string('url', 191);
