@@ -16,7 +16,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class LocDivisionController extends BaseController
 {
-    private const VIEW_PATH = 'geo-locations.loc-divisions.';
+    private const VIEW_PATH = 'backend.geo-locations.loc-divisions.';
 
     public function index(): View
     {

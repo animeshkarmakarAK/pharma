@@ -8,6 +8,7 @@ use App\Traits\LocUpazilaBelongsToRelation;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class OrganizationUnit
@@ -35,6 +36,35 @@ class OrganizationUnit extends BaseModel
     protected $guarded = ['id'];
 
 
+    public function getHierarchy()
+    {
+        $topRoot = $this->humanResources->where('parent_id', null)->first();
+        if (!$topRoot) {
+            return null;
+        }
+        $topRoot->load('children');
+        return $this->makeHierarchy($topRoot);
+    }
+
+    public function makeHierarchy($root)
+    {
+        $root['name'] = $root->title_en;
+        $root['parent'] = $root->parent_id;
+        $root['organization_title'] = $root->organization->title_en;
+
+        $children = $root->children;
+
+        if (empty($children)) {
+            return $root;
+        }
+
+        foreach ($children as $key => $child) {
+            $root['children'][$key] = $child;
+            $this->makeHierarchy($child);
+        }
+        return $root;
+    }
+
     /**************************
      *   ----Relationships----
      **************************/
@@ -46,5 +76,10 @@ class OrganizationUnit extends BaseModel
     public function organizationUnitType(): BelongsTo
     {
         return $this->belongsTo(OrganizationUnitType::class);
+    }
+
+    public function humanResources(): HasMany
+    {
+        return $this->hasMany(HumanResource::class);
     }
 }

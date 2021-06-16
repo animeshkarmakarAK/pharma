@@ -22,31 +22,33 @@ abstract class BaseModel extends Model
     public const ROW_STATUS_INACTIVE = '0';
     public const ROW_STATUS_DELETED = '99';
 
+
     /**
+     * @param $decorated
      * @return array
-     * @deprecated Use getCurrentInstance
      */
-    public static function getRowStatusOptions(): array
+    public function getRowStatusOptions($decorated): array
     {
         return [
-            self::ROW_STATUS_ACTIVE => __('Active'),
-            self::ROW_STATUS_INACTIVE => __('Inactive'),
-            self::ROW_STATUS_DELETED => __('Deleted'),
+            self::ROW_STATUS_ACTIVE => sprintf($decorated ? '<span class="badge badge-success"> %s </span>' : '%s', __('Active')),
+            self::ROW_STATUS_INACTIVE => sprintf($decorated ? '<span class="badge badge-warning"> %s </span>' : '%s', __('Inactive')),
+            self::ROW_STATUS_DELETED => sprintf($decorated ? '<span class="badge badge-danger"> %s </span>' : '%s', __('Deleted')),
         ];
     }
 
-    public static function getCurrentRowStatus(Model $model): string
+    /**
+     * get active status of a model
+     *
+     * @param false $decorated
+     * @return string
+     */
+    public function getCurrentRowStatus(bool $decorated = false): string
     {
-        $rowStatusArray = self::getStatusOptions();
-        if (!empty($rowStatusArray[$model->row_status])) {
-            return $rowStatusArray[$model->row_status];
+        $rowStatusArray = $this->getRowStatusOptions($decorated);
+        if (!empty($rowStatusArray[$this->row_status])) {
+            return $rowStatusArray[$this->row_status];
         }
         return '';
-    }
-
-    public static function getStatusOptions(): array
-    {
-        return self::getRowStatusOptions();
     }
 
 
