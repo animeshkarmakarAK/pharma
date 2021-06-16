@@ -43,22 +43,27 @@ class OrganizationUnitService
             'organization_id' => [
                 'required',
                 'int',
-                'exists: organizations,id',
+                'exists:organizations,id',
+            ],
+            'organization_unit_type_id' => [
+                'required',
+                'int',
+                'exists:organization_unit_types,id',
             ],
             'loc_division_id' => [
                 'required',
                 'int',
-                'exists: loc_division,id',
+                'exists:loc_divisions,id',
             ],
             'loc_district_id' => [
                 'required',
                 'int',
-                'exists: loc_districts,id',
+                'exists:loc_districts,id',
             ],
             'loc_upazila_id' => [
                 'required',
                 'int',
-                'exists: loc_upazila,id',
+                'exists:loc_upazilas,id',
             ],
             'address' => [
                 'nullable',

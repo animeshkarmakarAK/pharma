@@ -8,6 +8,7 @@ use App\Traits\LocUpazilaBelongsToRelation;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class OrganizationUnit
@@ -46,5 +47,10 @@ class OrganizationUnit extends BaseModel
     public function organizationUnitType(): BelongsTo
     {
         return $this->belongsTo(OrganizationUnitType::class);
+    }
+
+    public function statistics():HasOne
+    {
+        return $this->hasOne(organizationUnitStatistic::class);
     }
 }

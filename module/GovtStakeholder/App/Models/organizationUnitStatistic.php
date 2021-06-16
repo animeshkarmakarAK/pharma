@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Module\CourseManagement\App\Models\Institute;
 
+
 /**
- * Class OccupationWiseStatistic
+ * Class organizationUnitStatistic
  * @package Module\GovtStakeholder\App\Models
  * @property int organization_unit_id
  * @property int total_occupied_position
@@ -20,7 +21,7 @@ use Module\CourseManagement\App\Models\Institute;
  * @property-read OrganizationUnit organizationUnit
  */
 
-class OrganizationUnitStatistic extends BaseModel
+class organizationUnitStatistic extends BaseModel
 {
     use HasFactory;
 

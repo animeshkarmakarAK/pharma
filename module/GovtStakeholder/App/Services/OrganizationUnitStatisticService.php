@@ -9,49 +9,40 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
-use Module\GovtStakeholder\App\Models\OrganizationUnitStatistic;
+use Module\GovtStakeholder\App\Models\organizationUnitStatistic;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrganizationUnitStatisticService
 {
     public function createOrganizationUnitStatistic(array $data): bool
     {
-        $data = array_map(function ($newData) use($data) {
-            $newData['survey_date']=$data['survey_date'];
-           return $newData;
-       },$data['monthly_reports']);
+        $data = array_map(function ($newData) use ($data) {
+            $newData['survey_date'] = $data['survey_date'];
+            return $newData;
+        }, $data['monthly_reports']);
 
-        return  OrganizationUnitStatistic::insert($data);
+
+        return organizationUnitStatistic::insert($data);
     }
 
-    public function updateOrganizationUnitStatistic(OrganizationUnitStatistic $organizationUnitStatistic, array $data): bool
+    public function updateOrganizationUnitStatistic(organizationUnitStatistic $organizationUnitStatistic, array $data): bool
     {
 
-        $data = array_map(function ($newData) use($data){
-            if(empty($newData['id'])){
-                $newData['id']=null;
+        $data = array_map(function ($newData) use ($data) {
+            if (empty($newData['id'])) {
+                $newData['id'] = null;
             }
-            $newData['survey_date']=$data['survey_date'];
+            $newData['survey_date'] = $data['survey_date'];
             return $newData;
-        },$data['monthly_reports']);
+        }, $data['monthly_reports']);
 
 
-        return OrganizationUnitStatistic::upsert(
+        return organizationUnitStatistic::upsert(
             $data,
-            ['id'],
-            [
-                'total_new_recruits',
-                'total_vacancy',
-                'total_occupied_position',
-            ]
         );
 
     }
 
-    public function deleteOccupationWiseStatistic(OrganizationUnitStatistic $organizationUnitStatistic): bool
-    {
-        return OrganizationUnitStatistic::where([['survey_date',$organizationUnitStatistic->survey_date]])->delete();
-    }
 
     public function validator(Request $request, $id = null): Validator
     {
@@ -60,10 +51,10 @@ class OrganizationUnitStatisticService
             'monthly_reports.*.total_new_recruits' => ['required', 'int'],
             'monthly_reports.*.total_vacancy' => ['required', 'int'],
             'monthly_reports.*.total_occupied_position' => ['required', 'int'],
-            'survey_date'=>['required','date'],
+            'survey_date' => ['required', 'date'],
         ];
 
-        if($id){
+        if ($id) {
             $rules['monthly_reports.*.id'] = ['int'];
             $rules['monthly_reports.*.survey_date'] = ['date'];
         }
@@ -74,8 +65,8 @@ class OrganizationUnitStatisticService
     public function getServiceLists(Request $request): JsonResponse
     {
         $authUser = AuthHelper::getAuthUser();
-        /** @var Builder|OrganizationUnitStatistic $organizationUnitStatistics */
-        $organizationUnitStatistics = OrganizationUnitStatistic::select(
+        /** @var Builder|organizationUnitStatistic $organizationUnitStatistics */
+        $organizationUnitStatistics = organizationUnitStatistic::select(
             [
                 'organization_unit_statistics.id',
                 'organization_units.title_en as organization_unit_name',
@@ -88,7 +79,7 @@ class OrganizationUnitStatisticService
         $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
 
         return DataTables::eloquent($organizationUnitStatistics)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OrganizationUnitStatistic $organizationUnitStatistic) use ($authUser) {
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (organizationUnitStatistic $organizationUnitStatistic) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $organizationUnitStatistic)) {
                     $str .= '<a href="' . route('govt_stakeholder::admin.organization-unit-statistics.show', $organizationUnitStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';

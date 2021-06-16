@@ -8,10 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use Module\GovtStakeholder\App\Models\Occupation;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
+use Module\GovtStakeholder\App\Models\Organization;
 use Module\GovtStakeholder\App\Models\OrganizationUnit;
-use Module\GovtStakeholder\App\Models\OrganizationUnitStatistic;
+use Module\GovtStakeholder\App\Models\organizationUnitStatistic;
 use Module\GovtStakeholder\App\Services\OrganizationUnitStatisticService;
 
 class OrganizationUnitStatisticController extends BaseController
@@ -38,9 +38,13 @@ class OrganizationUnitStatisticController extends BaseController
      */
     public function create(): View
     {
-        $organizationUnitStatistic = new OrganizationUnitStatistic();
         $organizationUnits = OrganizationUnit::get();
-        return view(self::VIEW_PATH . 'edit-add', compact(['organizationUnitStatistic', 'organizationUnits']));
+
+        $statistics = OrganizationUnitStatistic::select([
+            'organization_unit_id',
+        ])->groupBy('organization_unit_id')->get();
+
+        return view(self::VIEW_PATH . 'edit-add', compact(['statistics', 'organizationUnits']));
     }
 
     /**
@@ -54,7 +58,7 @@ class OrganizationUnitStatisticController extends BaseController
     {
         $validatedData = $this->organizationUnitStatisticService->validator($request)->validate();
 
-        $organizationUnitStatistic = OrganizationUnitStatistic::where([['survey_date',$validatedData['survey_date']]])->first();
+        $organizationUnitStatistic = organizationUnitStatistic::where([['survey_date',$validatedData['survey_date']]])->first();
 
         if($organizationUnitStatistic){
             return back()->with([
@@ -77,41 +81,33 @@ class OrganizationUnitStatisticController extends BaseController
         ]);
     }
 
-    /**
-     * @param OccupationWiseStatistic $occupationWiseStatistic
-     * @return View
-     */
-    public function show(OccupationWiseStatistic $occupationWiseStatistic): View
+
+    public function show(OrganizationUnitStatistic $organizationUnitStatistic): View
     {
-        return view(self::VIEW_PATH . 'read', compact('occupationWiseStatistic'));
+        return view(self::VIEW_PATH . 'read', compact('organizationUnitStatistic'));
     }
 
     /**
-     * @param OccupationWiseStatistic $occupationWiseStatistic
+     * @param organizationUnitStatistic $organizationUnitStatistic
      * @return View
      */
-    public function edit(OccupationWiseStatistic $occupationWiseStatistic): View
+    public function edit(OrganizationUnitStatistic $organizationUnitStatistic): View
     {
-        $occupations=Occupation::all();
-        $occupationWiseStatistics = OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->get()->keyBy('occupation_id');
-        return view(self::VIEW_PATH . 'edit-add', compact(['occupations','occupationWiseStatistics','occupationWiseStatistic']));
+        $statistics = OrganizationUnitStatistic::where('survey_date', $organizationUnitStatistic->survey_date)->get();
+
+        return view(self::VIEW_PATH . 'edit-add', compact(['statistics','organizationUnitStatistic']));
     }
 
-    /**
-     * @param Request $request
-     * @param OccupationWiseStatistic $occupationWiseStatistic
-     * @return RedirectResponse
-     * @throws ValidationException
-     */
-    public function update(Request $request, OccupationWiseStatistic $occupationWiseStatistic): RedirectResponse
+
+    public function update(Request $request, OrganizationUnitStatistic $organizationUnitStatistic): RedirectResponse
     {
-        $validatedData = $this->occupationWiseStatisticService->validator($request, $occupationWiseStatistic->id)->validate();
+        $validatedData = $this->organizationUnitStatisticService->validator($request, $organizationUnitStatistic->id)->validate();
 
         try {
-            $this->occupationWiseStatisticService->updateOccupationWiseStatistic($occupationWiseStatistic, $validatedData);
+            $this->organizationUnitStatisticService->updateOrganizationUnitStatistic($organizationUnitStatistic, $validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
@@ -124,23 +120,24 @@ class OrganizationUnitStatisticController extends BaseController
     }
 
     /**
-     * @param OccupationWiseStatistic $occupationWiseStatistic
+     * @param organizationUnitStatistic $organizationUnitStatistic
      * @return RedirectResponse
      */
-    public function destroy(OccupationWiseStatistic $occupationWiseStatistic): RedirectResponse
+
+    public function destroy(OrganizationUnitStatistic $organizationUnitStatistic): RedirectResponse
     {
         try {
-            $this->occupationWiseStatisticService->deleteOccupationWiseStatistic($occupationWiseStatistic);
+            $organizationUnitStatistic->delete();
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
         }
 
         return back()->with([
-            'message' => __('generic.object_deleted_successfully', ['object' => 'Occupation Wise Statistic']),
+            'message' => __('generic.object_deleted_successfully', ['object' => 'Organization Unit Statistic']),
             'alert-type' => 'success'
         ]);
     }
