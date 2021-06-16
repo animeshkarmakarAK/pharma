@@ -1,5 +1,5 @@
 @php
-    $edit = !empty($organizationUnitStatistic->id) ;
+    $edit = !empty($organizationUnitStatistic->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
@@ -54,44 +54,50 @@
                                 <tbody>
 
 
-                                @foreach($statistics as $index => $statistic)
+                                @foreach($organizationUnits as  $index => $organizationUnit)
                                     @php
-                                      $statistic = !$edit ? $statistic->statistics : $statistic;
+                                        $statistic = $edit && !empty($organizationUnitStatistics[$organizationUnit->id]) ? $organizationUnitStatistics[$organizationUnit->id] : null;
                                     @endphp
                                     <tr>
-                                        <th scope="row">{{$statistic->organizationUnit->title_en}}</th>
+                                        <th scope="row">
+                                            {{ $organizationUnit->title_en }}
+                                            <input type="hidden" name="monthly_reports[{{$index}}][id]"
+                                                   value="{{ $statistic ? $statistic->id : '' }}">
+                                            <input type="hidden" name="monthly_reports[{{$index}}][organization_unit_id]"
+                                                   value="{{ $organizationUnit->id }}">
+                                        </th>
                                         <td>
-                                            <input type="hidden"
-                                                   name="monthly_reports[{{$index}}][organization_unit_id]"
-                                                   value="{{$statistic->organizationUnit->id}}">
-                                            @if($edit &&  !empty($statistic->organization_unit_id))
-                                                <input type="hidden"
-                                                       name="monthly_reports[{{$index}}][organization_unit_id]"
-                                                       value="{{ $statistic->organization_unit_id }}">
-                                            @endif
-                                            @if($edit &&  !empty($statistic->survey_date))
-                                                <input type="hidden" name="monthly_reports[{{$index}}][survey_date]"
-                                                       value="{{ $statistic->survey_date }}">
-                                            @endif
                                             <input type="number" class="form-control custom-input-box"
-                                                   id="total_new_recruits[{{ $index }}]"
+                                                   id="total_new_recruits"
                                                    name="monthly_reports[{{$index}}][total_new_recruits]"
-                                                   value="{{ empty($statistic->total_new_recruits) ? 0 : $statistic->total_new_recruits}}"
-                                                   placeholder="">
-                                        </td>
+                                                   value="{{
+                                                            empty($statistic['total_new_recruits'])
+                                                            ? old('monthly_reports.'.$index.'.total_new_recruits')
+                                                            ? old('monthly_reports.'.$index.'.total_new_recruits'):0
+                                                            :$statistic['total_new_recruits']}}">
 
-                                        <td><input type="number" class="form-control custom-input-box"
-                                                   id="total_vacancy[{{ $index }}]"
+
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control custom-input-box"
+                                                   id="total_vacancy"
                                                    name="monthly_reports[{{$index}}][total_vacancy]"
-                                                   value="{{ empty($statistic->total_vacancy) ? 0 : $statistic->total_vacancy }}"
-                                                   placeholder="">
+                                                   value="{{
+                                                            empty($statistic['total_vacancy'])
+                                                            ? old('monthly_reports.'.$index.'.total_vacancy')
+                                                            ? old('monthly_reports.'.$index.'.total_vacancy'):0
+                                                            :$statistic['total_vacancy']}}">
                                         </td>
-
-                                        <td><input type="number" class="form-control custom-input-box"
-                                                   id="total_occupied_position[{{ $index }}]"
+                                        <td>
+                                            <input type="number" class="form-control custom-input-box"
+                                                   id="total_occupied_position"
                                                    name="monthly_reports[{{$index}}][total_occupied_position]"
-                                                   value="{{ empty($statistic->total_occupied) ? 0 : $statistic->total_occupied }}"
-                                                   placeholder="">
+
+                                                   value="{{
+                                                        empty($statistic['total_occupied_position'])
+                                                        ? old('monthly_reports.'.$index.'.total_occupied_position')
+                                                        ? old('monthly_reports.'.$index.'.total_occupied_position'):0
+                                                        :$statistic['total_occupied_position']}}">
                                         </td>
                                     </tr>
                                 @endforeach

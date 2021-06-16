@@ -169,6 +169,11 @@
 
                 </ul>
                 <!-- Tab panes -->
+
+                <div id="organization-unit-datatable">
+
+                </div>
+
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
                         <table class="table">
@@ -542,6 +547,13 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="datatable-container">
+                            <table id="dataTable" class="table table-bordered table-striped dataTable compact">
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -553,8 +565,41 @@
 @endsection
 
 @push('js')
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
+    <script>
+        $(function () {
+            let params = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.organization-units.statistics-datatable') }}',
+                order: [[2, "asc"]],
+                columns: [
+                    {
+                        title: "Organization Unit Name",
+                        data: "organization_unit_name",
+                        name: "organization_unit.title_en"
+                    },
+                    {
+                        title: "total occupied",
+                        data: "total_occupied_position",
+                        name: "total_occupied_position"
+                    },
+                    {
+                        title: "Total vacancy",
+                        data: "total_vacancy",
+                        name: "total_vacancy"
+                    },
 
+                ]
+            });
+            const datatable = $('#dataTable').DataTable(params);
+            bindDatatableSearchOnPresEnterOnly(datatable);
+
+            $(document, 'td').on('click', '.delete', function (e) {
+                $('#delete_form')[0].action = $(this).data('action');
+                $('#delete_modal').modal('show');
+            });
+        });
+    </script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
     <script>
         $('.navTabs').on('click', function (event) {

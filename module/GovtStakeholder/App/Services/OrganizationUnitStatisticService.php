@@ -51,7 +51,7 @@ class OrganizationUnitStatisticService
         ];
 
         if ($id) {
-            $rules['monthly_reports.*.id'] = ['int'];
+//            $rules['monthly_reports.*.id'] = ['int'];
             $rules['monthly_reports.*.survey_date'] = ['date'];
         }
 
@@ -90,6 +90,22 @@ class OrganizationUnitStatisticService
                 return $str;
             }))
             ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function getStatistics(Request $request): JsonResponse
+    {
+        $organizationUnitStatistics = organizationUnitStatistic::select(
+            [
+                'organization_unit_statistics.id',
+                'organization_units.title_en as organization_unit_name',
+            ]);
+
+        $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
+
+        $organizationUnitStatistics->groupBy('organization_unit_id', 'organization_unit_statistics.id')
+            ->max('organization_unit_statistics.total_occupied_position', 'organization_unit_statistics.total_vacancy','organization_unit_statistics.total_new_recruits');
+        return DataTables::eloquent($organizationUnitStatistics)
             ->toJson();
     }
 }

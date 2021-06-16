@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('human-resources/addNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'addNode'])->name('human-resources.add-node');
     Route::get('human-resources/{human_resource}/deleteNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'deleteNode'])->name('human-resources.delete-node');
 
+    Route::post('organization-units/vacancy-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'vacantStatisticsOfOrganizationUnit'])->name('organization-units.statistics-datatable');
 
     Route::resources([
         'organization-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationTypeController::class,
