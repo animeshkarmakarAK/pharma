@@ -6,11 +6,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Occupation Wise Statistic List</h3>
+                        <h3 class="card-title font-weight-bold">Organization Units Statistics</h3>
 
                         <div class="card-tools">
-                            @can('create', \Module\GovtStakeholder\App\Models\OccupationWiseStatistic::class)
-                                <a href="{{route('govt_stakeholder::admin.occupation-wise-statistics.create')}}"
+                            @can('create', \Module\GovtStakeholder\App\Models\OrganizationUnitStatistic::class)
+                                <a href="{{route('govt_stakeholder::admin.organization-unit-statistics.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -69,7 +69,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{route('govt_stakeholder::admin.occupation-wise-statistics.datatable')}}',
+                url: '{{route('govt_stakeholder::admin.organization-unit-statistics.datatable')}}',
                 order: [[1, "desc"]],
                 columns: [
                     {
@@ -81,27 +81,25 @@
                         visible: true,
                     },
                     {
-                        title: "Institute",
-                        data: "institute_title_en",
-                        name: "institutes.title_en",
-                        visible: false
+                        title: "Name",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en",
                     },
                     {
-                        title: "Occupation",
-                        data: "occupation_title_en",
-                        name: "occupations.title_en"
+                        title: "New Recruit",
+                        data: "total_new_recruits",
+                        name: "organization_unit_statistics.total_new_recruits"
                     },
                     {
-                        title: "Current Month Skilled Youth",
-                        data: "current_month_skilled_youth",
-                        name: "occupation_wise_statistics.current_month_skilled_youth"
+                        title: "Total Vacancy",
+                        data: "total_vacancy",
+                        name: "organization_unit_statistics.total_vacancy"
                     },
                     {
-                        title: "Next Month Skilled Youth",
-                        data: "next_month_skill_youth",
-                        name: "occupation_wise_statistics.next_month_skill_youth"
+                        title: "Total occupied position",
+                        data: "total_occupied_position",
+                        name: "organization_unit_statistics.total_occupied_position"
                     },
-
                     {
                         title: "Action",
                         data: "action",

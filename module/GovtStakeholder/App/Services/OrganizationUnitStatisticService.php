@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
+use Module\GovtStakeholder\App\Models\OrganizationUnitStatistic;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrganizationUnitStatisticService
@@ -73,41 +74,35 @@ class OrganizationUnitStatisticService
     public function getServiceLists(Request $request): JsonResponse
     {
         $authUser = AuthHelper::getAuthUser();
-        /** @var Builder|OccupationWiseStatistic $occupationWiseStatistics */
-        $occupationWiseStatistics = OccupationWiseStatistic::select(
+        /** @var Builder|OrganizationUnitStatistic $organizationUnitStatistics */
+        $organizationUnitStatistics = OrganizationUnitStatistic::select(
             [
-                'occupation_wise_statistics.id',
-                'institutes.title_en as institute_title_en',
-                'occupations.title_en as occupation_title_en',
-                'occupation_wise_statistics.current_month_skilled_youth',
-                'occupation_wise_statistics.next_month_skill_youth',
-                'occupation_wise_statistics.row_status',
-                'occupation_wise_statistics.survey_date',
-            ]
-        )->where('institute_id',1);
-        $occupationWiseStatistics->join('institutes', 'occupation_wise_statistics.institute_id', '=', 'institutes.id');
-        $occupationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
+                'organization_unit_statistics.id',
+                'organization_units.title_en as organization_unit_name',
+                'organization_unit_statistics.total_occupied_position',
+                'organization_unit_statistics.total_vacancy',
+                'organization_unit_statistics.total_new_recruits',
+                'organization_unit_statistics.survey_date',
+            ]);
 
+        $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
 
-        return DataTables::eloquent($occupationWiseStatistics)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OccupationWiseStatistic $occupationWiseStatistic) use ($authUser) {
+        return DataTables::eloquent($organizationUnitStatistics)
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OrganizationUnitStatistic $organizationUnitStatistic) use ($authUser) {
                 $str = '';
-                if ($authUser->can('view', $occupationWiseStatistic)) {
-                    $str .= '<a href="' . route('govt_stakeholder::admin.occupation-wise-statistics.show', $occupationWiseStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                if ($authUser->can('view', $organizationUnitStatistic)) {
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-unit-statistics.show', $organizationUnitStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 }
-                if ($authUser->can('update', $occupationWiseStatistic)) {
-                    $str .= '<a href="' . route('govt_stakeholder::admin.occupation-wise-statistics.edit', $occupationWiseStatistic->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                if ($authUser->can('update', $organizationUnitStatistic)) {
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-unit-statistics.edit', $organizationUnitStatistic->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
                 }
-                if ($authUser->can('delete', $occupationWiseStatistic)) {
-                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.occupation-wise-statistics.destroy', $occupationWiseStatistic->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                if ($authUser->can('delete', $organizationUnitStatistic)) {
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.organization-unit-statistics.destroy', $organizationUnitStatistic->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
                 }
 
                 return $str;
             }))
-            ->editColumn('row_status', function (OccupationWiseStatistic $occupationWiseStatistic) {
-                return $occupationWiseStatistic->row_status == OccupationWiseStatistic::ROW_STATUS_ACTIVE ? '<a href="#" class="badge badge-success">Active</a>' : '<a href="#" class="badge badge-danger">Inactive</a>';
-            })
-            ->rawColumns(['action', 'row_status'])
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

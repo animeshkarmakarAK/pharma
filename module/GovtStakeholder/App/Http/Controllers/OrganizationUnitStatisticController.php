@@ -22,7 +22,7 @@ class OrganizationUnitStatisticController extends BaseController
     public function __construct(OrganizationUnitStatisticService $organizationUnitStatisticService)
     {
         $this->organizationUnitStatisticService = $organizationUnitStatisticService;
-        $this->authorizeResource(OrganizationUnitStatisticPolicy::class);
+//        $this->authorizeResource(OrganizationUnitStatisticPolicy::class);
     }
 
     /**
@@ -147,6 +147,6 @@ class OrganizationUnitStatisticController extends BaseController
 
     public function getDatatable(Request $request): JsonResponse
     {
-        return $this->occupationWiseStatisticService->getServiceLists($request);
+        return $this->organizationUnitStatisticService->getServiceLists($request);
     }
 }
