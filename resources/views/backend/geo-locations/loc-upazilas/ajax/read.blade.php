@@ -50,7 +50,7 @@
         </div>
         <div class="col-12 text-right">
             <a href="javascript:;"
-               data-url="{{ route('admin.loc-districts.edit', $locUpazila) }}"
+               data-url="{{ route('admin.loc-upazilas.edit', $locUpazila) }}"
                class="btn btn-sm btn-outline-warning rounded-0 dt-edit button-from-view"><i
                     class="fas fa-edit"></i> {{ __('generic.edit_button_label') }}</a>
         </div>
