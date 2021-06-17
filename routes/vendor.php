@@ -54,3 +54,6 @@ Route::group(['prefix' => 'web-api', 'as' => 'web-api.'], function () {
     Route::post('model-resources', [\App\Http\Controllers\UtilityAPI\ModelResourceFetchController::class, 'modelResources'])
         ->name('model-resources');
 });
+
+/** Change Language > options > Bangla|English */
+Route::post('change-language/{language}', [\App\Http\Controllers\Admin\LocalizationController::class,'changeLanguage'])->name('change-language');

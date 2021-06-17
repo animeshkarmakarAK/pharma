@@ -53,25 +53,19 @@ class LocDistrictController extends BaseController
 
     }
 
-    public function show(int $id): View
+    public function show(LocDistrict $locDistrict): View
     {
-        $locDistrict = LocDistrict::findOrFail($id);
-
         return view(self::VIEW_PATH . 'ajax.read', compact('locDistrict'));
     }
 
-    public function edit(int $id): View
+    public function edit(LocDistrict $locDistrict): View
     {
-        $locDistrict = LocDistrict::findOrFail($id);
-
         return view(self::VIEW_PATH . 'ajax.edit-add', compact('locDistrict'));
     }
 
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, LocDistrict $locDistrict): JsonResponse
     {
         $validatedData = $this->validator($request)->validate();
-
-        $locDistrict = LocDistrict::findOrFail($id);
 
         try {
             $locDistrict->update($validatedData);
@@ -83,9 +77,8 @@ class LocDistrictController extends BaseController
         return response()->json(['message' => __('generic.object_updated_successfully', ['object' => 'District']), 'alert-type' => 'success']);
     }
 
-    public function destroy(int $id): RedirectResponse
+    public function destroy(LocDistrict $locDistrict): RedirectResponse
     {
-        $locDistrict = LocDistrict::findOrFail($id);
         try {
             $locDistrict->delete();
         } catch (\Throwable $exception) {
@@ -108,7 +101,7 @@ class LocDistrictController extends BaseController
             'title' => 'required|max:300',
             'title_en' => 'required|max:191',
             'bbs_code' => 'required|max:2',
-            'loc_division_id'=> 'required',
+            'loc_division_id'=> 'required|exists:loc_divisions,id',
             'division_bbs_code'=> 'nullable',
             'status'=> 'nullable',
             'created_by' => 'nullable',
@@ -122,7 +115,7 @@ class LocDistrictController extends BaseController
 
         /** @var Builder $locDivisions */
         $locDistricts = LocDistrict::select([
-            'loc_districts.id as id',
+            'loc_districts.id',
             'loc_districts.title',
             'loc_districts.title_en',
             'loc_districts.bbs_code',

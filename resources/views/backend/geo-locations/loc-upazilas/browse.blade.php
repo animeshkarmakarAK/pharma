@@ -158,6 +158,9 @@
                         loc_division_id: {
                             required: true
                         },
+                        loc_district_id: {
+                            required: true
+                        },
 
                     },
                     messages: {

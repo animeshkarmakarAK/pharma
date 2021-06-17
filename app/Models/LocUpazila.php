@@ -7,6 +7,7 @@ use App\Traits\LocDistrictBelongsToRelation;
 use App\Traits\LocDivisionBelongsToRelation;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 
@@ -20,9 +21,9 @@ use Illuminate\Support\Carbon;
  * @property int $loc_district_id
  * @property string|null $district_bbs_code
  * @property bool $is_sadar_upazila
- * @property-read \App\Models\LocDistrict $locDistrict
- * @property-read \App\Models\LocDivision $locDivision
  * @property-read int|null $loc_unions_count
+ * @property-read LocDivision division
+ * @property-read LocDistrict district
  */
 class LocUpazila extends BaseModel
 {
@@ -40,5 +41,21 @@ class LocUpazila extends BaseModel
             '0' => __('No'),
             '1' => __('Yes')
         ];
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(LocDivision::class, 'loc_division_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function district(): BelongsTo
+    {
+        return $this->belongsTo(LocDistrict::class, 'loc_district_id');
     }
 }

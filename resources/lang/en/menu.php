@@ -64,5 +64,9 @@ return [
     'division'=> "Division",
     'district'=> "District",
     'upazila'=> "Upazila",
+
+    //tools
+    'tools' => 'Tools',
+    'menu_builder' => 'Menu Builder'
 ];
 

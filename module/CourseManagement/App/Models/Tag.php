@@ -6,6 +6,14 @@ namespace Module\CourseManagement\App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * Class Tag
+ * @package Module\CourseManagement\App\Models
+ * @property string tag_en
+ * @property string tag_bn
+ * @property int institute_id
+ */
+
 class Tag extends BaseModel
 {
     use HasFactory;

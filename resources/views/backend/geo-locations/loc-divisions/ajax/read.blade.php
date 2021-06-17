@@ -12,10 +12,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card bg-white">
-                <div class="card-header custom-bg-gradient-info text-primary">
-                    <h3 class="card-title font-weight-bold">{{ __('Division Info') }}</h3>
-                </div>
-
                 <div class="card-body row">
                     <div class="col-md-6 custom-view-box">
                         <p class="label-text">{{ __('Title') }}</p>
@@ -43,7 +39,7 @@
         <div class="col-12 text-right">
             <a href="javascript:;"
                data-url="{{ route('admin.loc-divisions.edit', $locDivision) }}"
-               class="btn btn-sm btn-outline-warning rounded-0 border-left-0 dt-edit button-from-view"><i
+               class="btn btn-sm btn-outline-warning rounded-0 dt-edit button-from-view"><i
                     class="fas fa-edit"></i> {{ __('generic.edit_button_label') }}</a>
         </div>
     </div>

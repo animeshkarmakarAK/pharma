@@ -64,5 +64,9 @@ return [
     'division'=> "বিভাগ",
     'district'=> "জেলা",
     'upazila'=> "উপজেলা",
+
+    //tools
+    'tools' => 'টুলস',
+    'menu_builder' => 'মেনু নির্মাণ'
 ];
 
