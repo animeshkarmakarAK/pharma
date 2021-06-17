@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Module\GovtStakeholder\App\Models\Occupation;
 use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
 use Module\GovtStakeholder\App\Services\OccupationWiseStatisticService;
 
@@ -36,7 +37,8 @@ class OccupationWiseStatisticController extends BaseController
     public function create(): View
     {
         $occupationWiseStatistic = new OccupationWiseStatistic();
-        return view(self::VIEW_PATH . 'edit-add', compact('occupationWiseStatistic'));
+        $occupations = Occupation::select('id', 'title_en')->get();
+        return view(self::VIEW_PATH . 'edit-add', compact(['occupationWiseStatistic','occupations']));
     }
 
     /**
@@ -49,12 +51,11 @@ class OccupationWiseStatisticController extends BaseController
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->occupationWiseStatisticService->validator($request)->validate();
-
         try {
             $this->occupationWiseStatisticService->createOccupationWiseStatistic($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
@@ -71,7 +72,8 @@ class OccupationWiseStatisticController extends BaseController
      */
     public function show(OccupationWiseStatistic $occupationWiseStatistic): View
     {
-        return view(self::VIEW_PATH . 'read', compact('occupationWiseStatistic'));
+        $occupationWiseStatistics = OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->get()->keyBy('occupation_id');
+        return view(self::VIEW_PATH . 'read', compact(['occupationWiseStatistic','occupationWiseStatistics']));
     }
 
     /**
@@ -80,7 +82,9 @@ class OccupationWiseStatisticController extends BaseController
      */
     public function edit(OccupationWiseStatistic $occupationWiseStatistic): View
     {
-        return view(self::VIEW_PATH . 'edit-add', compact('occupationWiseStatistic'));
+        $occupations=Occupation::all();
+        $occupationWiseStatistics = OccupationWiseStatistic::where([['survey_date',$occupationWiseStatistic->survey_date],['institute_id',$occupationWiseStatistic->institute_id]])->get()->keyBy('occupation_id');
+        return view(self::VIEW_PATH . 'edit-add', compact(['occupations','occupationWiseStatistics','occupationWiseStatistic']));
     }
 
     /**
@@ -97,7 +101,7 @@ class OccupationWiseStatisticController extends BaseController
             $this->occupationWiseStatisticService->updateOccupationWiseStatistic($occupationWiseStatistic, $validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
-            return back()->with([
+            return back()->withInput([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);

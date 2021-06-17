@@ -6,8 +6,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Module\GovtStakeholder\App\Models\JobSector;
 use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 use Module\GovtStakeholder\App\Services\UpazilaJobStatisticService;
 
@@ -35,8 +37,9 @@ class UpazilaJobStatisticController extends BaseController
      */
     public function create(): View
     {
+        $jobSectors = JobSector::active()->get();
         $upazilaJobStatistic = new UpazilaJobStatistic();
-        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic'));
+        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic', 'jobSectors'));
     }
 
     /**
@@ -71,7 +74,9 @@ class UpazilaJobStatisticController extends BaseController
      */
     public function show(UpazilaJobStatistic $upazilaJobStatistic): View
     {
-        return view(self::VIEW_PATH . 'read', compact('upazilaJobStatistic'));
+        $upazilaJobStatistics = UpazilaJobStatistic::where(['loc_upazila_id' => $upazilaJobStatistic->loc_upazila_id, 'survey_date' => $upazilaJobStatistic->survey_date])->get()->keyBy('job_sector_id');
+        $jobSectors = JobSector::active()->get();
+        return view(self::VIEW_PATH . 'read', compact('upazilaJobStatistic', 'jobSectors', 'upazilaJobStatistics'));
     }
 
     /**
@@ -80,7 +85,9 @@ class UpazilaJobStatisticController extends BaseController
      */
     public function edit(UpazilaJobStatistic $upazilaJobStatistic): View
     {
-        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic'));
+        $upazilaJobStatistics = UpazilaJobStatistic::where(['loc_upazila_id' => $upazilaJobStatistic->loc_upazila_id, 'survey_date' => $upazilaJobStatistic->survey_date])->get()->keyBy('job_sector_id');
+        $jobSectors = JobSector::active()->get();
+        return view(self::VIEW_PATH . 'edit-add', compact('upazilaJobStatistic', 'jobSectors', 'upazilaJobStatistics'));
     }
 
     /**

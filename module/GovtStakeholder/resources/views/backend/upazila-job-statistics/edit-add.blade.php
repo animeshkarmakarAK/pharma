@@ -29,24 +29,32 @@
                                 @method('put')
                             @endif
 
-                            <div class="col-sm-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="survey_date">{{ __('Survey Date') }} <span
+                                    <label for="survey_date">{{ __('Reporting Month') }} <span
                                             style="color: red">*</span></label>
                                     <input type="text"
                                            class="form-control flat-month"
-                                           name="survey_date"
+                                           name="{{ !$edit? 'survey_date':'' }}"
                                            id="survey_date"
-                                           value="{{$edit ? $upazilaJobStatistic->survey_date : old('survey_date')}}">
+                                           value="{{$edit ? $upazilaJobStatistic->survey_date : old('survey_date')}}"
+                                        {{ $edit? 'disabled':'' }}
+                                    >
+                                    @if($edit)
+                                        <input type="hidden" name="loc_upazila_id"
+                                               value="{{ $upazilaJobStatistic->loc_upazila_id }}">
+                                        <input type="hidden" name="survey_date"
+                                               value="{{ $upazilaJobStatistic->survey_date }}">
+                                    @endif
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="loc_upazila_id">{{ __('Upazila') }} <span
                                             style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
-                                            name="loc_upazila_id"
+                                            name="{{ !$edit? 'loc_upazila_id':'' }}"
                                             id="loc_upazila_id"
                                             data-model="{{base64_encode(\App\Models\LocUpazila::class)}}"
                                             data-label-fields="{title_en}"
@@ -54,106 +62,108 @@
                                             data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->LocUpazila->title_en, 'id' =>  $upazilaJobStatistic->loc_upazila_id])}}"
                                             @endif
                                             data-placeholder="Select option"
+                                        {{ $edit? 'disabled':'' }}
                                     >
                                         <option selected disabled>Select Upazila</option>
                                     </select>
-
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="job_sector_id">{{ __('Job Sector') }} <span style="color: red">*</span></label>
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="job_sector_id"
-                                            id="job_sector_id"
-                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\JobSector::class)}}"
-                                            data-label-fields="{title_en}"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->jobSector->title_en, 'id' =>  $upazilaJobStatistic->job_sector_id])}}"
-                                            @endif
-                                            data-placeholder="Select option"
-                                    >
-                                        <option selected disabled>Select Job Sector</option>
-                                    </select>
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Job Sector</th>
+                                        <th scope="col">Total Unemployed</th>
+                                        <th scope="col">Total Employed</th>
+                                        <th scope="col">Total Vacancy</th>
+                                        <th scope="col">Total New Recruitment</th>
+                                        <th scope="col">Total New Skilled Youth</th>
+                                        <th scope="col">Total Skilled Youth</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($jobSectors as  $index=>$jobSector)
+                                        @php
+                                            $statistic = $edit && !empty($upazilaJobStatistics[$jobSector->id]) ? $upazilaJobStatistics[$jobSector->id] : null;
+                                        @endphp
+                                        <tr>
+                                            <th scope="row">
+                                                {{ $jobSector->title_en }}
+                                                <input type="hidden" name="monthly_reports[{{$index}}][id]"
+                                                       value="{{ $statistic ? $statistic->id : '' }}">
+                                                <input type="hidden" name="monthly_reports[{{$index}}][job_sector_id]"
+                                                       value="{{ $jobSector->id }}">
+                                            </th>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_unemployed"
+                                                       name="monthly_reports[{{$index}}][total_unemployed]"
+                                                       {{--value="{{$statistic ? $statistic->total_unemployed : 0 }}"--}}
+                                                       value="{{
+                                                            empty($statistic['total_unemployed'])
+                                                            ? old('monthly_reports.'.$index.'.total_unemployed')
+                                                            ? old('monthly_reports.'.$index.'.total_unemployed'):0
+                                                            :$statistic['total_unemployed']}}">
+                                                {{--<span class="text-danger" id="total_unemployed">100</span>--}}
 
-                                </div>
-                            </div>
 
-                            <div class="survey_data row" id="survey_data" style="display: none">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="total_unemployed">{{ __('Total Unemployed') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box" id="total_unemployed"
-                                               name="total_unemployed"
-                                               value="{{$edit ? $upazilaJobStatistic->total_unemployed : old('total_unemployed')}}"
-                                               placeholder="{{ __('Total Unemployed') }}">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_employed"
+                                                       name="monthly_reports[{{$index}}][total_employed]"
+                                                       value="{{
+                                                            empty($statistic['total_employed'])
+                                                            ? old('monthly_reports.'.$index.'.total_employed')
+                                                            ? old('monthly_reports.'.$index.'.total_employed'):0
+                                                            :$statistic['total_employed']}}">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_vacancy"
+                                                       name="monthly_reports[{{$index}}][total_vacancy]"
 
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="total_employed">{{ __('Total Employed') }} <span style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box" id="total_employed"
-                                               name="total_employed"
-                                               value="{{$edit ? $upazilaJobStatistic->total_employed : old('total_employed')}}"
-                                               placeholder="{{ __('Total Employed') }}">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="total_vacancy">{{ __('Total Vacancy') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box" id="total_vacancy"
-                                               name="total_vacancy"
-                                               value="{{$edit ? $upazilaJobStatistic->total_vacancy : old('total_vacancy')}}"
-                                               placeholder="{{ __('Total Vacancy') }}">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="total_new_recruitment">{{ __('Total New Recruitment') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box"
-                                               id="total_new_recruitment"
-                                               name="total_new_recruitment"
-                                               value="{{$edit ? $upazilaJobStatistic->total_new_recruitment : old('total_new_recruitment')}}"
-                                               placeholder="{{ __('Total New Recruitment') }}">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="total_new_skilled_youth">{{ __('Total New Skilled Youth') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box"
-                                               id="total_new_skilled_youth"
-                                               name="total_new_skilled_youth"
-                                               value="{{$edit ? $upazilaJobStatistic->total_new_skilled_youth : old('total_new_skilled_youth')}}"
-                                               placeholder="{{ __('Total New Skilled Youth') }}">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="total_skilled_youth">{{ __('Total Skilled Youth') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="text" class="form-control custom-input-box"
-                                               id="total_skilled_youth"
-                                               name="total_skilled_youth"
-                                               value="{{$edit ? $upazilaJobStatistic->total_skilled_youth : old('total_skilled_youth')}}"
-                                               placeholder="{{ __('Total Skilled Youth') }}">
-
-                                    </div>
-                                </div>
+                                                       value="{{
+                                                        empty($statistic['total_vacancy'])
+                                                        ? old('monthly_reports.'.$index.'.total_vacancy')
+                                                        ? old('monthly_reports.'.$index.'.total_vacancy'):0
+                                                        :$statistic['total_vacancy']}}">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_new_recruitment"
+                                                       name="monthly_reports[{{$index}}][total_new_recruitment]"
+                                                       value="{{
+                                                        empty($statistic['total_new_recruitment'])
+                                                        ? old('monthly_reports.'.$index.'.total_new_recruitment')
+                                                        ? old('monthly_reports.'.$index.'.total_new_recruitment'):0
+                                                        :$statistic['total_new_recruitment']}}">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_new_skilled_youth"
+                                                       name="monthly_reports[{{$index}}][total_new_skilled_youth]"
+                                                       value="{{
+                                                        empty($statistic['total_new_skilled_youth'])
+                                                        ? old('monthly_reports.'.$index.'.total_new_skilled_youth')
+                                                        ? old('monthly_reports.'.$index.'.total_new_skilled_youth'):0
+                                                        :$statistic['total_new_skilled_youth']}}">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_skilled_youth"
+                                                       name="monthly_reports[{{$index}}][total_skilled_youth]"
+                                                       value="{{
+                                                        empty($statistic['total_skilled_youth'])
+                                                        ? old('monthly_reports.'.$index.'.total_skilled_youth')
+                                                        ? old('monthly_reports.'.$index.'.total_skilled_youth'):0
+                                                        :$statistic['total_skilled_youth']}}">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
 
                             @if($edit)
@@ -193,11 +203,6 @@
     @include('master::utils.delete-confirm-modal')
     @push('css')
         <style>
-            #survey_date-error {
-                position: absolute;
-                left: 8px;
-                bottom: -7px;
-            }
         </style>
     @endpush
 @endsection
@@ -264,14 +269,13 @@
         });
 
 
-        $('#job_sector_id').on('change', function () {
+        $('#loc_upazila_id').on('change', function () {
             let date = $('#survey_date').val();
             let d = new Date(date);
             let preMonth = d.getMonth();
             let currentYear = d.getFullYear();
             let locUpazilaId = $('#loc_upazila_id').val();
             let jobSectorId = $('#job_sector_id').val();
-            $('#survey_data').show();
 
             const filters = {};
             filters['loc_upazila_id'] = {
@@ -281,7 +285,7 @@
                 value: jobSectorId
             };
             filters["survey_date"] = {
-                value: currentYear+'-'+preMonth+'-'+"01"
+                value: currentYear + '-' + preMonth + '-' + "01"
             };
 
             $.ajax({
@@ -290,12 +294,28 @@
                 data: {
                     resource: {
                         model: "{{base64_encode(\Module\GovtStakeholder\App\Models\UpazilaJobStatistic::class)}}",
-                        columns: 'loc_upazila_id|job_sector_id|survey_date',
+                        columns: 'loc_upazila_id|job_sector_id|survey_date|total_unemployed|total_employed|total_vacancy|total_new_recruitment|total_new_skilled_youth|total_new_skilled_youth|total_skilled_youth',
                         filters,
                     }
                 }
-            }).then(function (res) {
-                console.log(res);
+            }).then(
+                function (res) {
+                    let data = JSON.parse(res.data);
+                    console.log(data);
+                    data = data[0];
+
+                    $("#total_unemployed_old").text(data.total_unemployed);
+                    $("#total_employed_old").text(data.total_employed);
+                    $("#total_vacancy_old").text(data.total_vacancy);
+                    $("#total_new_recruitment_old").text(data.total_new_recruitment);
+                    $("#total_new_skilled_youth_old").text(data.total_new_skilled_youth);
+                    $("#total_skilled_youth_old").text(data.total_skilled_youth);
+
+                    $(".old_survey_data_area").show();
+                },
+            ).fail(function (data) {
+                $(".old_survey_data_area").css({'display': 'none'});
+                console.log( "Ajax failed: ");
             });
         });
     </script>

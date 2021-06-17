@@ -18,7 +18,25 @@ class OrganizationUnitService
 {
     public function createOrganizationUnit(array $data): OrganizationUnit
     {
-        return OrganizationUnit::create($data);
+        $organizationUnit = OrganizationUnit::create($data);
+        $organizationUnitType = $organizationUnit->organizationUnitType;
+
+        $humanResourceTemplates = $organizationUnitType->humanResourceTemplate;
+        $idMapper = [];
+        foreach ($humanResourceTemplates as $humanResourceTemplate) {
+            //template is now human resource
+            $humanResource = $humanResourceTemplate->getAttributes();
+            $humanResource['human_resource_template_id'] = $humanResourceTemplate->id;
+
+            if (isset($humanResource["parent_id"]) && $idMapper[$humanResource["parent_id"]]) {
+                $humanResource["parent_id"] = $idMapper[$humanResource["parent_id"]];
+            }
+
+            $createdHumanResource = $organizationUnit->humanResources()->create($humanResource);
+            $idMapper[$humanResourceTemplate->id] = $createdHumanResource->id;
+        }
+
+        return $organizationUnit;
     }
 
     public function updateOrganizationUnit(OrganizationUnit $organizationUnit, array $data): bool
@@ -43,22 +61,27 @@ class OrganizationUnitService
             'organization_id' => [
                 'required',
                 'int',
-                'exists: organizations,id',
+                'exists:organizations,id',
+            ],
+            'organization_unit_type_id' => [
+                'required',
+                'int',
+                'exists:organization_unit_types,id',
             ],
             'loc_division_id' => [
                 'required',
                 'int',
-                'exists: loc_division,id',
+                'exists:loc_divisions,id',
             ],
             'loc_district_id' => [
                 'required',
                 'int',
-                'exists: loc_districts,id',
+                'exists:loc_districts,id',
             ],
             'loc_upazila_id' => [
                 'required',
                 'int',
-                'exists: loc_upazila,id',
+                'exists:loc_upazilas,id',
             ],
             'address' => [
                 'nullable',
@@ -159,6 +182,8 @@ class OrganizationUnitService
                 if ($authUser->can('delete', $organizationUnit)) {
                     $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.organization-units.destroy', $organizationUnit->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
+                $str .= '<a href="' . route('admin.organization-units.hierarchy', $organizationUnit->id) . '" class="btn btn-outline-secondary btn-sm"> <i class="fas fa-tree"></i> ' . 'hierarchy' . '</a>';
+
                 return $str;
             }))
             ->editColumn('row_status', static function (OrganizationUnit $organizationUnit) {

@@ -32,11 +32,11 @@ class UserController extends BaseController
         return view(self::VIEW_PATH . 'browse');
     }
 
-    public function create(): string
+    public function create(): View
     {
         $user = new User();
 
-        return \Illuminate\Support\Facades\View::make('master::acl.users.ajax.edit-add', ['user' => $user])->render();
+        return \view('master::acl.users.ajax.edit-add', compact('user'));
     }
 
 
@@ -67,18 +67,18 @@ class UserController extends BaseController
      * @param Request $request
      * @return string
      */
-    public function show(User $user, Request $request): string
+    public function show(User $user, Request $request): View
     {
-        return \Illuminate\Support\Facades\View::make('master::acl.users.ajax.read', ['user' => $user])->render();
+        return \view('master::acl.users.ajax.read', compact('user'));
     }
 
     /**
      * @param User $user
      * @return string
      */
-    public function edit(User $user): string
+    public function edit(User $user): View
     {
-        return \Illuminate\Support\Facades\View::make('master::acl.users.ajax.edit-add', ['user' => $user])->render();
+        return \view('master::acl.users.ajax.edit-add', compact('user'));
     }
 
     public function update(User $user, Request $request): JsonResponse
