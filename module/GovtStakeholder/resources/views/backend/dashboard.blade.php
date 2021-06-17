@@ -3,8 +3,194 @@
     /** @let \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
+
+@push('css')
+    <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
+    <style>
+
+        .sticker-area {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .sticker-count {
+            padding: 10px;
+            color: #5b9bd5;
+            font-size: 20px;
+        }
+
+        .sticker-title {
+            font-weight: bold;
+            min-height: 36px;
+            line-height: 17px;
+        }
+
+        .sticker-icon {
+            padding: 30px;
+            font-size: 30px;
+            color: #ffffff;
+        }
+
+        .institute-sticker {
+            border-bottom: 8px solid #2defd8;
+        }
+
+        .youth-sticker {
+            border-bottom: 8px solid #5b9bd5;
+        }
+
+        .course-sticker {
+            border-bottom: 8px solid #ffd966;
+        }
+
+        .branch-sticker {
+            border-bottom: 8px solid #fe5c02;
+        }
+
+        .training_center-sticker {
+            border-bottom: 8px solid #ffc000;
+        }
+
+        .colorIndicator {
+            height: 10px;
+            width: 10px;
+            border-radius: 50px;
+            margin: 8px
+        }
+
+        .govt_tag_style {
+            background-color: #ebf4e6;
+            color: #6bbe73;
+            width: 80px;
+            text-align: center
+        }
+
+        .nonGovt_tag_style {
+            background-color: #e6f2f8;
+            color: #5a9ed5;
+            width: 80px;
+            text-align: center
+        }
+
+        .tab .nav-tabs li {
+            background-color: #dbf4fe;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 30px;
+            padding-right: 30px;
+            border-top-left-radius: 20px 30px;
+            border-top-right-radius: 20px 30px;
+            border: 1px solid #138dd1;
+        }
+
+        .tab .nav-tabs li.active {
+            background-color: #138dd1;
+        }
+
+        .tab .nav-tabs li.active a {
+            color: #fff;
+        }
+
+        .table thead tr th select {
+            width: 10vw;
+            padding: 10px;
+            height: fit-content;
+            background-color: #6fcdff;
+            margin-right: -6.1vw;
+            margin-bottom: -11.6px;
+            margin-top: -6.3px;
+        }
+
+        .table {
+            background-color: #ffffff;
+            width: 80vw;
+        }
+
+        .table thead {
+            border-top-right-radius: 20px;
+        }
+
+
+        /**************************************************************/
+        /*************************Map CSS******************************/
+        /**************************************************************/
+        #bangladesh {
+            stroke: #101010;
+            stroke-width: 0.01;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 0.5em;
+            font-size: 10px;
+            color: #222;
+            background: #FFF;
+            border-radius: 2px;
+            pointer-events: none;
+            box-shadow: 0px 0px 2px 0px #a6a6a6;
+        }
+
+        .key path {
+            display: none;
+        }
+
+        .key line {
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .key text {
+            font-size: 10px;
+        }
+
+        .key rect {
+            stroke-width: .4;
+        }
+
+        .bd:hover {
+            fill: green;
+        }
+
+        .map_info {
+            display: inline-block;
+            position: absolute;
+            top: 50px;
+            right: 6px;
+            opacity: .8;
+            font-size: 12px;
+            background: #f2f7f8;
+            border-radius: 5px;
+            max-height: 190px;
+            min-width: 192px;
+        }
+
+        .svg_map {
+            margin-bottom: 50px !important;
+        }
+
+        .map_content_top {
+            padding: 15px 10px 0px 10px;
+            line-height: 2px;
+            font-size: 15px;
+        }
+
+        .map_content_body {
+            padding: 0 10px 10px 10px;
+            line-height: 17px;
+        }
+
+        .map_count_numbers {
+            margin-left: 18px;
+            font-size: 18px;
+        }
+    </style>
+@endpush
+
 @push('js')
-    <script src="https://d3js.org/d3.v4.js"></script>[
+    <script src="https://d3js.org/d3.v4.js"></script>
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -225,100 +411,35 @@
                     <!-- Tab panes -->
                     <div class="tab-content tabs">
                         <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
-                            <table class="table" id="dataTable">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">কোম্পানির নাম</th>
-                                    <th scope="col">ধরন</th>
-                                    <th scope="col">নতুন নিয়োগ</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -10px">
-                                        <select class="form-control" style="">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>আকিজ লিমিটেড</th>
-                                    <td>
-                                        <div class="nonGovt_tag_style">বেসরকারি</div>
-                                    </td>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">এসএমই ফাউন্ডেসন</th>
-                                    <td>
-                                        <div class="govt_tag_style">সরকারি</div>
-                                    </td>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">বসুন্ধরা লিমিটেড</th>
-                                    <td>
-                                        <div class="nonGovt_tag_style">বেসরকারি</div>
-                                    </td>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কর্ণফুলী পেপার মিল</th>
-                                    <td>
-                                        <div class="govt_tag_style">সরকারি</div>
-                                    </td>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">সোনালি ব্যাঙ্ক</th>
-                                    <td>
-                                        <div class="govt_tag_style">সরকারি</div>
-                                    </td>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্রাইম ব্যাঙ্ক</th>
-                                    <td>
-                                        <div class="nonGovt_tag_style">বেসরকারি</div>
-                                    </td>
-                                    <td>389</td>
-                                    <td>200</td>
-                                    <td>1200</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="datatable-container">
+                                <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                    <thead class="custom-bg-gradient-info">
+                                    <tr>
+                                        <th scope="col">কোম্পানির নাম</th>
+                                        <th scope="col">ধরন</th>
+                                        <th scope="col">নতুন নিয়োগ</th>
+                                        <th scope="col">কর্মখালি</th>
+                                        <th scope="col">কর্মরত</th>
+                                        <th scope="col" style="margin-right: -10px">
+                                            <select class="form-control" style="">
+                                                <option value="1" selected>জানুয়ারি</option>
+                                                <option value="2">ফেব্রুয়ারি</option>
+                                                <option value="3">মার্চ</option>
+                                                <option value="4">এপ্রিল</option>
+                                                <option value="5">মে</option>
+                                                <option value="6">জুন</option>
+                                                <option value="7">জুলাই</option>
+                                                <option value="8">আগস্ট</option>
+                                                <option value="9">সেপ্টেমবর</option>
+                                                <option value="10">অক্টোবর</option>
+                                                <option value="11">নভেম্বর</option>
+                                                <option value="12">ডিসেম্বর</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="Unemployed">
                             <table class="table" style="background-color: #ffffff">
@@ -647,11 +768,12 @@
                         data: "survey_date",
                         name: "survey_date",
                         // visible: false,
+                        sortable: false
                     },
                 ]
             });
+            params.dom = "";
             const datatable = $('#dataTable').DataTable(params);
-            bindDatatableSearchOnPresEnterOnly(datatable);
 
             $(document, 'td').on('click', '.delete', function (e) {
                 $('#delete_form')[0].action = $(this).data('action');
@@ -1163,186 +1285,3 @@
 
 @endpush
 
-@push('css')
-    <style>
-
-        .sticker-area {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .sticker-count {
-            padding: 10px;
-            color: #5b9bd5;
-            font-size: 20px;
-        }
-
-        .sticker-title {
-            font-weight: bold;
-            min-height: 36px;
-            line-height: 17px;
-        }
-
-        .sticker-icon {
-            padding: 30px;
-            font-size: 30px;
-            color: #ffffff;
-        }
-
-        .institute-sticker {
-            border-bottom: 8px solid #2defd8;
-        }
-
-        .youth-sticker {
-            border-bottom: 8px solid #5b9bd5;
-        }
-
-        .course-sticker {
-            border-bottom: 8px solid #ffd966;
-        }
-
-        .branch-sticker {
-            border-bottom: 8px solid #fe5c02;
-        }
-
-        .training_center-sticker {
-            border-bottom: 8px solid #ffc000;
-        }
-
-        .colorIndicator {
-            height: 10px;
-            width: 10px;
-            border-radius: 50px;
-            margin: 8px
-        }
-
-        .govt_tag_style {
-            background-color: #ebf4e6;
-            color: #6bbe73;
-            width: 80px;
-            text-align: center
-        }
-
-        .nonGovt_tag_style {
-            background-color: #e6f2f8;
-            color: #5a9ed5;
-            width: 80px;
-            text-align: center
-        }
-
-        .tab .nav-tabs li {
-            background-color: #dbf4fe;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            padding-left: 30px;
-            padding-right: 30px;
-            border-top-left-radius: 20px 30px;
-            border-top-right-radius: 20px 30px;
-            border: 1px solid #138dd1;
-        }
-
-        .tab .nav-tabs li.active {
-            background-color: #138dd1;
-        }
-
-        .tab .nav-tabs li.active a {
-            color: #fff;
-        }
-
-        .table thead tr th select {
-            width: 10vw;
-            padding: 10px;
-            height: fit-content;
-            background-color: #6fcdff;
-            margin-right: -6.1vw;
-            margin-bottom: -11.6px;
-            margin-top: -6.3px;
-        }
-
-        .table {
-            background-color: #ffffff;
-            width: 80vw;
-        }
-
-        .table thead {
-            border-top-right-radius: 20px;
-        }
-
-
-        /**************************************************************/
-        /*************************Map CSS******************************/
-        /**************************************************************/
-        #bangladesh {
-            stroke: #101010;
-            stroke-width: 0.01;
-        }
-
-        div.tooltip {
-            position: absolute;
-            text-align: center;
-            padding: 0.5em;
-            font-size: 10px;
-            color: #222;
-            background: #FFF;
-            border-radius: 2px;
-            pointer-events: none;
-            box-shadow: 0px 0px 2px 0px #a6a6a6;
-        }
-
-        .key path {
-            display: none;
-        }
-
-        .key line {
-            stroke: #000;
-            shape-rendering: crispEdges;
-        }
-
-        .key text {
-            font-size: 10px;
-        }
-
-        .key rect {
-            stroke-width: .4;
-        }
-
-        .bd:hover {
-            fill: green;
-        }
-
-        .map_info {
-            display: inline-block;
-            position: absolute;
-            top: 50px;
-            right: 6px;
-            opacity: .8;
-            font-size: 12px;
-            background: #f2f7f8;
-            border-radius: 5px;
-            max-height: 190px;
-            min-width: 192px;
-        }
-
-        .svg_map {
-            margin-bottom: 50px !important;
-        }
-
-        .map_content_top {
-            padding: 15px 10px 0px 10px;
-            line-height: 2px;
-            font-size: 15px;
-        }
-
-        .map_content_body {
-            padding: 0 10px 10px 10px;
-            line-height: 17px;
-        }
-
-        .map_count_numbers {
-            margin-left: 18px;
-            font-size: 18px;
-        }
-    </style>
-@endpush
