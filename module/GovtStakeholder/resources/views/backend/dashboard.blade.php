@@ -994,8 +994,6 @@
             .style("opacity", 0);
 
 
-        //let url = "{{ asset('assets/dashboard/bd-map-assets/bd.json') }}";
-        //let url = "{{ asset('assets/dashboard/bd-map-assets/narail-district.json') }}";
         let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
         d3.json(url, function (json) {
 
