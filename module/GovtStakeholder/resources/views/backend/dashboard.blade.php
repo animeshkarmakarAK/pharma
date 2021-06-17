@@ -980,7 +980,7 @@
 
         var map = d3.select("#bd_map_d3")
             .append("svg:svg")
-            .attr("viewBox", "397 205 86 122")
+            //.attr("viewBox", "397 205 86 122")
             .attr("width", w)
             .attr("height", h)
             //.call(d3.behavior.zoom().on("zoom", redraw))
@@ -998,7 +998,7 @@
         d3.json(url, function (json) {
 
             var maxTotal = d3.max(json.features, function (d) {
-                return d.properties.DIVISION
+                return d.properties.ADM2_EN
             });
 
             var colorScale = d3.scale.quantile()
@@ -1017,7 +1017,6 @@
                 .tickValues(colorScale.domain())
                 .orient("right");
 
-
             bangladesh.selectAll("path")
                 .data(json.features)
                 .enter().append("path")
@@ -1025,7 +1024,6 @@
                 .style("opacity", 0.5)
                 .attr('class', 'bd')
                 .filter((d) => d.properties.ADM2_EN === 'Narail')
-
 
                 .on('mouseover', function (d, i) {
                     if ($('.map_info').hide()) {
@@ -1059,6 +1057,7 @@
                     div.transition().duration(300)
                         .style("opacity", 0);
                 })
+
                 .forEach(a => {
                     a.forEach(v => {
                         // console.log(v)
@@ -1069,12 +1068,11 @@
                     })
                 });
 
-
             bangladesh.selectAll("path").transition().duration(300)
                 .style("fill", function (d) {
                     return colorScale(d.properties.DIVISION);
                 });
-            console.log('BD >> ', bangladesh)
+            console.log('BD >> ', bangladesh);
 
             //Remove unnecessary path
             bangladesh.selectAll('path')
@@ -1095,84 +1093,7 @@
 
 @push('css')
     <style type="text/css">
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
 
-        #bangladesh {
-            stroke: #101010;
-            stroke-width: 0.01;
-        }
-
-        div.tooltip {
-            position: absolute;
-            text-align: center;
-            padding: 0.5em;
-            font-size: 10px;
-            color: #222;
-            background: #FFF;
-            border-radius: 2px;
-            pointer-events: none;
-            box-shadow: 0px 0px 2px 0px #a6a6a6;
-        }
-
-        .key path {
-            display: none;
-        }
-
-        .key line {
-            stroke: #000;
-            shape-rendering: crispEdges;
-        }
-
-        .key text {
-            font-size: 10px;
-        }
-
-        .key rect {
-            stroke-width: .4;
-        }
-
-        .bd:hover {
-            fill: green;
-        }
-
-        .map_info {
-            display: inline-block;
-            /*padding: 15px 10px 10px 10px;*/
-            position: absolute;
-            top: 50px;
-            right: 6px;
-            opacity: .8;
-            font-size: 12px;
-            background: #f2f7f8;
-            border-radius: 5px;
-            max-height: 190px;
-            min-width: 192px;
-        }
-
-        svg{
-            margin-bottom: 50px !important;
-        }
-        .map_content_top {
-            padding: 15px 10px 0px 10px;
-            line-height: 2px;
-            font-size: 15px;
-        }
-
-        .map_content_body {
-            padding: 0 10px 10px 10px;
-            line-height: 17px;
-        }
-
-        .map_count_numbers {
-            margin-left: 18px;
-            font-size: 18px;
-        }
-
-
-    </style>
-    <style>
         .sticker-area {
             background: #fff;
             padding: 20px 30px;
@@ -1277,6 +1198,80 @@
             border-top-right-radius: 20px;
         }
 
+
+
+        /**************************************************************/
+        /*************************Map CSS******************************/
+        /**************************************************************/
+        #bangladesh {
+            stroke: #101010;
+            stroke-width: 0.01;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 0.5em;
+            font-size: 10px;
+            color: #222;
+            background: #FFF;
+            border-radius: 2px;
+            pointer-events: none;
+            box-shadow: 0px 0px 2px 0px #a6a6a6;
+        }
+
+        .key path {
+            display: none;
+        }
+
+        .key line {
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .key text {
+            font-size: 10px;
+        }
+
+        .key rect {
+            stroke-width: .4;
+        }
+
+        .bd:hover {
+            fill: green;
+        }
+
+        .map_info {
+            display: inline-block;
+            /*padding: 15px 10px 10px 10px;*/
+            position: absolute;
+            top: 50px;
+            right: 6px;
+            opacity: .8;
+            font-size: 12px;
+            background: #f2f7f8;
+            border-radius: 5px;
+            max-height: 190px;
+            min-width: 192px;
+        }
+
+        svg{
+            margin-bottom: 50px !important;
+        }
+        .map_content_top {
+            padding: 15px 10px 0px 10px;
+            line-height: 2px;
+            font-size: 15px;
+        }
+
+        .map_content_body {
+            padding: 0 10px 10px 10px;
+            line-height: 17px;
+        }
+
+        .map_count_numbers {
+            margin-left: 18px;
+            font-size: 18px;
+        }
     </style>
 @endpush
-
