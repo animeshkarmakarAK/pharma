@@ -172,13 +172,6 @@
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
                         <table class="table" id="dataTable">
-                            <!-- /.card-header -->
-{{--                            <div class="card-body">--}}
-{{--                                <div class="datatable-container">--}}
-{{--                                    <table id="dataTable" class="table table-bordered table-striped dataTable compact">--}}
-{{--                                    </table>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <thead class="custom-bg-gradient-info">
                             <tr>
                                 <th scope="col">কোম্পানির নাম</th>
