@@ -13,6 +13,15 @@
 
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
+        <li class="nav-item m-auto">
+            <div class="btn-group language bg-light" style="border-radius: 10px">
+                <button onclick="document.getElementById('change_language').submit()" class="btn btn-sm btn-{{app()->getLocale() === 'en' ? 'primary': 'default'}} padding8 font-size-12 border-rad-left14">English</button>
+                <button onclick="document.getElementById('change_language').submit()"  class="btn btn-sm btn-{{app()->getLocale() === 'bn' ? 'primary': 'default'}} padding5 font-size-12 border-rad-right14">বাংলা</button>
+            </div>
+            <form method="post" action="{{route('change-language', app()->getLocale() === 'bn' ? 'en': 'bn')}}" id="change_language">
+                @csrf
+            </form>
+        </li>
         @guest
             <li class="nav-item">
                 <a class="nav-link" href="{{route('admin.login-form')}}">
