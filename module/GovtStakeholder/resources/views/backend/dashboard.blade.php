@@ -120,12 +120,20 @@
                     <h3 class="card-title font-weight-bold">জেলা মানচিত্র</h3>
                 </div>
                 <div class="card-body">
+                    {{--<select name="map_select"
+                            id="map_select">
+                        <option selected>Select District</option>
+                        <option value="Dhaka">Dhaka</option>
+                        <option value="Narail">Narail</option>
+                        <option value="Khulna">Khulna</option>
+                        <option value="Faridpur">Faridpur</option>
+
+                    </select>--}}
                     <select class="select2-ajax-wizard"
                             name="map_select"
                             id="map_select"
                             data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                             data-label-fields="{title_en}"
-                            {{--                            data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->LocUpazila->title_en, 'id' =>  $upazilaJobStatistic->loc_upazila_id])}}"--}}
                             data-placeholder="Select option"
                     >
                         <option selected disabled>Select Upazila</option>
@@ -1006,24 +1014,20 @@
             $('#map_select').on('change', function () {
                 let district = $('#map_select option:selected').text();
                 district = district.toLowerCase();
-
-                //const mySentence = "My name is miladul";
                 const words = district.split(" ");
-
 
                 for (let i = 0; i < words.length; i++) {
                     words[i] = words[i][0].toUpperCase() + words[i].substr(1);
                 }
                 district = words.join(" ");
 
-
                 let maxTotal = d3.max(json.features, function (d) {
-                    return d.properties.ADM2_EN
+                    return d.properties.ADM2_EN;
                 });
 
                 let colorScale = d3.scale.quantile()
                     .domain(d3.range(buckets).map(function (d) {
-                        return (d / buckets) * maxTotal
+                        return (d / buckets) * maxTotal;
                     }))
                     .range(colors);
 
@@ -1043,7 +1047,7 @@
                     .attr("d", path)
                     .style("opacity", 0.5)
                     .attr('class', 'bd')
-                    .filter((d) => d.properties.ADM2_EN === district)
+                    .filter((d) => d.properties.ADM2_EN == district)
 
                     .on('mouseover', function (d, i) {
                         if ($('.map_info').hide()) {
