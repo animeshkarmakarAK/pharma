@@ -1,6 +1,6 @@
 @extends('master::layouts.master')
 @php
-    /** @var \App\Models\User $authUser */
+    /** @let \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 @push('js')
@@ -115,11 +115,21 @@
                 </div>
             </div>
 
-            <div class="card ml-2" style=" border-radius: 10px; min-width: 570px">
+            <div class="card ml-2" style=" border-radius: 10px;">
                 <div class="card-header text-white" style="background-color:#c665e6;">
-                    <h3 class="card-title font-weight-bold">নড়াইল জেলা মানচিত্র</h3>
+                    <h3 class="card-title font-weight-bold">জেলা মানচিত্র</h3>
                 </div>
                 <div class="card-body">
+                    <select class="select2-ajax-wizard"
+                            name="map_select"
+                            id="map_select"
+                            data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
+                            data-label-fields="{title_en}"
+                            {{--                            data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->LocUpazila->title_en, 'id' =>  $upazilaJobStatistic->loc_upazila_id])}}"--}}
+                            data-placeholder="Select option"
+                    >
+                        <option selected disabled>Select Upazila</option>
+                    </select>
                     <div id="bd_map_d3"></div>
                     <div class="map_info" style="display: none">
                         <div class="map_content_top">
@@ -598,12 +608,12 @@
     <script>
 
         // set the dimensions and margins of the graph
-        var margin = {top: 10, right: 100, bottom: 30, left: 30},
+        let margin = {top: 10, right: 100, bottom: 30, left: 30},
             width = 560 - margin.left - margin.right,
             height = 300 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
-        var svg1 = d3.select("#my_data")
+        let svg1 = d3.select("#my_data")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -619,11 +629,11 @@
         //Read the data
 
         // List of groups (here I have one group per column)
-        var allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
+        let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
 
 
         // Reformat the data: we need an array of arrays of {x, y} tuples
-        var dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
+        let dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
             return {
                 name: data[Object.keys(data)[0]],
                 values: dataSet.map(function (d) {
@@ -649,12 +659,12 @@
 
         // A color scale: one color for each group
         console.log(d3.schemeSet2)
-        var myColor = d3.scaleOrdinal()
+        let myColor = d3.scaleOrdinal()
             .domain(allGroup)
             .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
         // Add X axis --> it is a date format
-        var x = d3.scaleLinear()
+        let x = d3.scaleLinear()
             .domain([1, 5])
             .range([0, width]);
         svg1.append("g")
@@ -662,7 +672,7 @@
             .call(d3.axisBottom(x));
 
         // Add Y axis
-        var y = d3.scaleLinear()
+        let y = d3.scaleLinear()
             .domain([0, 500])
             .range([height, 0]);
         svg1.append("g")
@@ -671,7 +681,7 @@
         lineBackground1()
 
         // Add the lines
-        var line = d3.line()
+        let line = d3.line()
             .x(function (d) {
                 return x(+d.time)
             })
@@ -771,10 +781,7 @@
                 currentOpacity = d3.selectAll("." + d.name).style("opacity")
                 // Change the opacity: from 0 to 1 or from 1 to 0
                 d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
-
             })
-
-
     </script>
 
     <script>
@@ -783,7 +790,7 @@
          **/
 
             // set the dimensions and margins of the graph
-        var margin = {top: 10, right: 30, bottom: 20, left: 50},
+        let margin = {top: 10, right: 30, bottom: 20, left: 50},
             width = 560 - margin.left - margin.right,
             height = 300 - margin.top - margin.bottom;
 
@@ -830,7 +837,7 @@
         function dataSwitch(type) {
             console.log(type)
             if (subgroups.includes(type)) {
-                var index = subgroups.indexOf(type);
+                let index = subgroups.indexOf(type);
                 if (index > -1) {
                     subgroups.splice(index, 1);
                     colorCodes.splice(index, 1)
@@ -868,7 +875,7 @@
 
         function graph(data) {
 
-            var svg = d3.select("#my_dataviz")
+            let svg = d3.select("#my_dataviz")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -878,10 +885,10 @@
 
 
             // List of subgroups = header of the csv files = soil condition here
-            //var subgroups = data.columns.slice(1)
+            //let subgroups = data.columns.slice(1)
 
             // List of groups = species here = value of the first column called group -> I show them on the X axis
-            var groups = d3.map(data, function (d) {
+            let groups = d3.map(data, function (d) {
                 console.log(d)
                 return (d.group)
             }).keys()
@@ -900,7 +907,7 @@
             }
 
             // Add X axis
-            var x = d3.scaleBand()
+            let x = d3.scaleBand()
                 .domain(groups)
                 .range([0, width])
                 .padding([0.3])
@@ -909,19 +916,19 @@
                 .call(d3.axisBottom(x).tickSize(6));
 
             // Add Y axis
-            var y = d3.scaleLinear()
+            let y = d3.scaleLinear()
                 .domain([0, 200])
                 .range([height, 0]);
             svg.append("g")
                 .call(d3.axisLeft(y));
 
             // Another scale for subgroup position?
-            var xSubgroup = d3.scaleBand()
+            let xSubgroup = d3.scaleBand()
                 .domain(subgroups)
                 .range([0, x.bandwidth()])
                 .padding([0.1]);
             // color palette = one color per subgroup
-            var color = d3.scaleOrdinal()
+            let color = d3.scaleOrdinal()
                 .domain(subgroups)
                 .range(colorCodes)
 
@@ -959,8 +966,6 @@
                 });
 
         }
-
-
     </script>
 
     {{--Map d3js js--}}
@@ -968,17 +973,17 @@
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
-        var w = 300;
-        var h = 340;
-        var proj = d3.geo.mercator();
-        var path = d3.geo.path().projection(proj);
-        var t = proj.translate(); // the projection's default translation
-        var s = proj.scale() // the projection's default scale
+        let w = 300;
+        let h = 340;
+        let proj = d3.geo.mercator();
+        let path = d3.geo.path().projection(proj);
+        let t = proj.translate(); // the projection's default translation
+        let s = proj.scale() // the projection's default scale
 
-        var buckets = 9,
+        let buckets = 9,
             colors = ["#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"]; // alternatively colorbrewer.YlGnBu[9]
 
-        var map = d3.select("#bd_map_d3")
+        let map = d3.select("#bd_map_d3")
             .append("svg:svg")
             //.attr("viewBox", "397 205 86 122")
             .attr("width", w)
@@ -986,10 +991,10 @@
             //.call(d3.behavior.zoom().on("zoom", redraw))
             .call(initialize);
 
-        var bangladesh = map.append("svg:g")
+        let bangladesh = map.append("svg:g")
             .attr("id", "bangladesh");
 
-        var div = d3.select("body").append("div")
+        let div = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
@@ -997,90 +1002,107 @@
         let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
         d3.json(url, function (json) {
 
-            var maxTotal = d3.max(json.features, function (d) {
-                return d.properties.ADM2_EN
-            });
+            $('#map_select').on('change', function () {
+                let district = $('#map_select option:selected').text();
+                district = district.toLowerCase();
 
-            var colorScale = d3.scale.quantile()
-                .domain(d3.range(buckets).map(function (d) {
-                    return (d / buckets) * maxTotal
-                }))
-                .range(colors);
+                //const mySentence = "My name is miladul";
+                const words = district.split(" ");
 
 
-            var y = d3.scale.sqrt()
-                .domain([0, 10000])
-                .range([0, 300]);
+                for (let i = 0; i < words.length; i++) {
+                    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                }
+                district = words.join(" ");
 
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .tickValues(colorScale.domain())
-                .orient("right");
 
-            bangladesh.selectAll("path")
-                .data(json.features)
-                .enter().append("path")
-                .attr("d", path)
-                .style("opacity", 0.5)
-                .attr('class', 'bd')
-                .filter((d) => d.properties.ADM2_EN === 'Narail')
+                let maxTotal = d3.max(json.features, function (d) {
+                    return d.properties.ADM2_EN
+                });
 
-                .on('mouseover', function (d, i) {
-                    if ($('.map_info').hide()) {
-                        $('.map_info').show();
-                        $("#district").text(d.properties.ADM3_EN + " Thana");
-                        $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
-                        $("#running_students").text(Math.floor(Math.random() * 9) + 250);
-                        $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
-                    }
+                let colorScale = d3.scale.quantile()
+                    .domain(d3.range(buckets).map(function (d) {
+                        return (d / buckets) * maxTotal
+                    }))
+                    .range(colors);
 
-                    d3.select(this).transition().duration(300).style("opacity", 1);
-                    div.transition().duration(300)
-                        .style("opacity", .9)
-                        .text(d.properties.ADM3_EN + " - " + d.properties.ADM2_EN)
-                        .style("color", "#fff")
-                        .style("padding", "5px 5px")
-                        .style("border", "1px solid #fff")
-                        .style("font-weight", " bold")
-                        .style("background", "#333")
-                        .style("top", (d3.event.pageY - 10) + "px")
-                        .style("left", (d3.event.pageX + 10) + "px");
-                })
 
-                .on('mouseleave', function (d, i) {
-                    if ($('.map_info').show()) {
-                        $('.map_info').hide();
-                    }
+                let y = d3.scale.sqrt()
+                    .domain([0, 10000])
+                    .range([0, 300]);
 
-                    d3.select(this).transition().duration(300)
-                        .style("opacity", 0.5);
-                    div.transition().duration(300)
-                        .style("opacity", 0);
-                })
+                let yAxis = d3.svg.axis()
+                    .scale(y)
+                    .tickValues(colorScale.domain())
+                    .orient("right");
 
-                .forEach(a => {
-                    a.forEach(v => {
-                        // console.log(v)
-                        let r = Math.floor(100 + Math.random() * 155)
-                        let g = Math.floor(100 + Math.random() * 55)
-                        let b = Math.floor(100 + Math.random() * 55)
-                        v.setAttribute('fill', `rgb(${r},${g},${b})`)
+                bangladesh.selectAll("path")
+                    .data(json.features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .style("opacity", 0.5)
+                    .attr('class', 'bd')
+                    .filter((d) => d.properties.ADM2_EN === district)
+
+                    .on('mouseover', function (d, i) {
+                        if ($('.map_info').hide()) {
+                            $('.map_info').show();
+                            $("#district").text(d.properties.ADM3_EN + " Thana");
+                            $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
+                            $("#running_students").text(Math.floor(Math.random() * 9) + 250);
+                            $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
+                        }
+
+                        d3.select(this).transition().duration(300).style("opacity", 1);
+                        div.transition().duration(300)
+                            .style("opacity", .9)
+                            .text(d.properties.ADM3_EN + " - " + d.properties.ADM2_EN)
+                            .style("color", "#fff")
+                            .style("padding", "5px 5px")
+                            .style("border", "1px solid #fff")
+                            .style("font-weight", " bold")
+                            .style("background", "#333")
+                            .style("top", (d3.event.pageY - 10) + "px")
+                            .style("left", (d3.event.pageX + 10) + "px");
                     })
-                });
 
-            bangladesh.selectAll("path").transition().duration(300)
-                .style("fill", function (d) {
-                    return colorScale(d.properties.DIVISION);
-                });
-            console.log('BD >> ', bangladesh);
+                    .on('mouseleave', function (d, i) {
+                        if ($('.map_info').show()) {
+                            $('.map_info').hide();
+                        }
 
-            //Remove unnecessary path
-            bangladesh.selectAll('path')
-                .filter((d) => d.properties.ADM2_EN != 'Narail').remove();
+                        d3.select(this).transition().duration(300)
+                            .style("opacity", 0.5);
+                        div.transition().duration(300)
+                            .style("opacity", 0);
+                    })
 
-            //viewBox
-            let box = bangladesh[0][0].getBBox()
-            map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`)
+                    .forEach(a => {
+                        a.forEach(v => {
+                            // console.log(v)
+                            let r = Math.floor(100 + Math.random() * 155)
+                            let g = Math.floor(100 + Math.random() * 55)
+                            let b = Math.floor(100 + Math.random() * 55)
+                            v.setAttribute('fill', `rgb(${r},${g},${b})`)
+                        })
+                    });
+
+                bangladesh.selectAll("path").transition().duration(300)
+                    .style("fill", function (d) {
+                        return colorScale(d.properties.DIVISION);
+                    });
+                console.log('BD >> ', bangladesh);
+
+                //Remove unnecessary path
+                bangladesh.selectAll('path')
+                    .filter((d) => d.properties.ADM2_EN != district).remove();
+
+                //viewBox
+                let box = bangladesh[0][0].getBBox()
+                map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`)
+            })
+
+
         });
 
         function initialize() {
@@ -1199,7 +1221,6 @@
         }
 
 
-
         /**************************************************************/
         /*************************Map CSS******************************/
         /**************************************************************/
@@ -1243,7 +1264,6 @@
 
         .map_info {
             display: inline-block;
-            /*padding: 15px 10px 10px 10px;*/
             position: absolute;
             top: 50px;
             right: 6px;
@@ -1255,9 +1275,10 @@
             min-width: 192px;
         }
 
-        svg{
+        svg {
             margin-bottom: 50px !important;
         }
+
         .map_content_top {
             padding: 15px 10px 0px 10px;
             line-height: 2px;
