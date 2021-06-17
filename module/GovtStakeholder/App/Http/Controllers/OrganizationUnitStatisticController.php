@@ -39,12 +39,8 @@ class OrganizationUnitStatisticController extends BaseController
     public function create(): View
     {
         $organizationUnits = OrganizationUnit::get();
-
-        $statistics = OrganizationUnitStatistic::select([
-            'organization_unit_id',
-        ])->groupBy('organization_unit_id')->get();
-
-        return view(self::VIEW_PATH . 'edit-add', compact(['statistics', 'organizationUnits']));
+        $organizationUnitStatistic = new OrganizationUnitStatistic();
+        return view(self::VIEW_PATH . 'edit-add', compact('organizationUnitStatistic', 'organizationUnits'));
     }
 
     /**
@@ -93,9 +89,10 @@ class OrganizationUnitStatisticController extends BaseController
      */
     public function edit(OrganizationUnitStatistic $organizationUnitStatistic): View
     {
-        $statistics = OrganizationUnitStatistic::where('survey_date', $organizationUnitStatistic->survey_date)->get();
+        $organizationUnitStatistics = OrganizationUnitStatistic::where(['survey_date' => $organizationUnitStatistic->survey_date])->get()->keyBy('organization_unit_id');
 
-        return view(self::VIEW_PATH . 'edit-add', compact(['statistics','organizationUnitStatistic']));
+        $organizationUnits = OrganizationUnit::get();
+        return view(self::VIEW_PATH . 'edit-add', compact('organizationUnitStatistic', 'organizationUnits', 'organizationUnitStatistics'));
     }
 
 
@@ -146,5 +143,10 @@ class OrganizationUnitStatisticController extends BaseController
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->organizationUnitStatisticService->getServiceLists($request);
+    }
+
+    public function vacantStatisticsOfOrganizationUnit(Request $request)
+    {
+        return $this->organizationUnitStatisticService->getStatistics($request);
     }
 }
