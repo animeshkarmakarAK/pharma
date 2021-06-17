@@ -169,14 +169,16 @@
 
                 </ul>
                 <!-- Tab panes -->
-
-                <div id="organization-unit-datatable">
-
-                </div>
-
                 <div class="tab-content tabs">
                     <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
-                        <table class="table">
+                        <table class="table" id="dataTable">
+                            <!-- /.card-header -->
+{{--                            <div class="card-body">--}}
+{{--                                <div class="datatable-container">--}}
+{{--                                    <table id="dataTable" class="table table-bordered table-striped dataTable compact">--}}
+{{--                                    </table>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <thead class="custom-bg-gradient-info">
                             <tr>
                                 <th scope="col">কোম্পানির নাম</th>
@@ -547,47 +549,51 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="datatable-container">
-                            <table id="dataTable" class="table table-bordered table-striped dataTable compact">
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div>
-
-        </div>
-
     </div>
 @endsection
 
 @push('js')
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script>
+
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{ route('govt_stakeholder::admin.organization-units.statistics-datatable') }}',
                 order: [[2, "asc"]],
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info:false,
+                generateSerialNumber: false,
                 columns: [
                     {
-                        title: "Organization Unit Name",
                         data: "organization_unit_name",
-                        name: "organization_unit.title_en"
+                        name: "organization_units.title_en"
                     },
                     {
-                        title: "total occupied",
+                        data: "organization_unit_type_name",
+                        name: "organization_unit_types.title_en"
+                    },
+                    {
+                        data: "total_new_recruits",
+                        name: "total_new_recruits"
+                    },
+                    {
                         data: "total_occupied_position",
                         name: "total_occupied_position"
                     },
                     {
-                        title: "Total vacancy",
                         data: "total_vacancy",
                         name: "total_vacancy"
                     },
-
+                    {
+                        data: "survey_date",
+                        name: "survey_date",
+                        // visible: false,
+                    },
                 ]
             });
             const datatable = $('#dataTable').DataTable(params);

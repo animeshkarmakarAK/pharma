@@ -98,13 +98,18 @@ class OrganizationUnitStatisticService
         $organizationUnitStatistics = organizationUnitStatistic::select(
             [
                 'organization_unit_statistics.id',
+                'organization_unit_statistics.total_new_recruits',
+                'organization_unit_statistics.total_vacancy',
+                'organization_unit_statistics.total_occupied_position',
+                'organization_unit_statistics.survey_date',
                 'organization_units.title_en as organization_unit_name',
+                'organization_unit_types.title_en as organization_unit_type_name',
             ]);
+        $organizationUnitStatistics->whereMonth('survey_date', '05');
 
         $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
+        $organizationUnitStatistics->join('organization_unit_types', 'organization_units.organization_unit_type_id', '=', 'organization_unit_types.id');
 
-        $organizationUnitStatistics->groupBy('organization_unit_id', 'organization_unit_statistics.id')
-            ->max('organization_unit_statistics.total_occupied_position', 'organization_unit_statistics.total_vacancy','organization_unit_statistics.total_new_recruits');
         return DataTables::eloquent($organizationUnitStatistics)
             ->toJson();
     }
