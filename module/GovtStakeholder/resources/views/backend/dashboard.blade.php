@@ -225,7 +225,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content tabs">
                         <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
-                            <table class="table">
+                            <table class="table" id="dataTable">
                                 <thead class="custom-bg-gradient-info">
                                 <tr>
                                     <th scope="col">কোম্পানির নাম</th>
@@ -605,6 +605,7 @@
 @endsection
 
 @push('js')
+    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
         $('.navTabs').on('click', function (event) {
@@ -612,187 +613,230 @@
             $(this).addClass('active')
             //$(this).css('background-color: #138dd1')
         })
-    </script>
+        $(function () {
+            let params = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.organization-units.statistics-datatable') }}',
+                order: [[2, "asc"]],
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info:false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        data: "organization_unit_type_name",
+                        name: "organization_unit_types.title_en"
+                    },
+                    {
+                        data: "total_new_recruits",
+                        name: "total_new_recruits"
+                    },
+                    {
+                        data: "total_occupied_position",
+                        name: "total_occupied_position"
+                    },
+                    {
+                        data: "total_vacancy",
+                        name: "total_vacancy"
+                    },
+                    {
+                        data: "survey_date",
+                        name: "survey_date",
+                        // visible: false,
+                    },
+                ]
+            });
+            const datatable = $('#dataTable').DataTable(params);
+            bindDatatableSearchOnPresEnterOnly(datatable);
 
-    <script>
-        // set the dimensions and margins of the graph
-        let margin = {top: 10, right: 100, bottom: 30, left: 30},
-            width = 560 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
-
-        // append the svg object to the body of the page
-        let svg1 = d3.select("#my_data")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
-
-        let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
-            {time: "2", A: "300", B: "400", C: "104", D: "340", E: "340"},
-            {time: "3", A: "250", B: "449", C: "316", D: "350", E: "211"},
-            {time: "4", A: "307", B: "400", C: "412", D: "8", E: "313"},
-            {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]
-        //Read the data
-
-        // List of groups (here I have one group per column)
-        let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
-
-
-        // Reformat the data: we need an array of arrays of {x, y} tuples
-        let dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
-            return {
-                name: data[Object.keys(data)[0]],
-                values: dataSet.map(function (d) {
-                    return {time: d.time, value: +d[Object.keys(data)[0]]};
-                })
-            };
+            $(document, 'td').on('click', '.delete', function (e) {
+                $('#delete_form')[0].action = $(this).data('action');
+                $('#delete_modal').modal('show');
+            });
         });
-        // I strongly advise to have a look to dataReady with
 
-        //custome line add to graph background
-        let lineBackground1 = (data = [0, 1, 2, 3, 4]) => {
-            return data.map((i) => {
-                return svg1.append('line')
-                    .attr('x1', 0)
-                    .attr('y1', 52 * i)
-                    .attr('x2', 440)
-                    .attr('y2', 54 * i)
-                    .attr('stroke', 'gray')
-                    .attr('stroke-width', 0.2)
-            })
-        }
+        (function () {
+            // set the dimensions and margins of the graph
+            let margin = {top: 10, right: 100, bottom: 30, left: 30},
+                width = 560 - margin.left - margin.right,
+                height = 300 - margin.top - margin.bottom;
+
+            // append the svg object to the body of the page
+            let svg1 = d3.select("#my_data")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+            let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
+                {time: "2", A: "300", B: "400", C: "104", D: "340", E: "340"},
+                {time: "3", A: "250", B: "449", C: "316", D: "350", E: "211"},
+                {time: "4", A: "307", B: "400", C: "412", D: "8", E: "313"},
+                {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]
+            //Read the data
+
+            // List of groups (here I have one group per column)
+            let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
 
 
-        // A color scale: one color for each group
-        console.log(d3.schemeSet2)
-        let myColor = d3.scaleOrdinal()
-            .domain(allGroup)
-            .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
+            // Reformat the data: we need an array of arrays of {x, y} tuples
+            let dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
+                return {
+                    name: data[Object.keys(data)[0]],
+                    values: dataSet.map(function (d) {
+                        return {time: d.time, value: +d[Object.keys(data)[0]]};
+                    })
+                };
+            });
+            // I strongly advise to have a look to dataReady with
 
-        // Add X axis --> it is a date format
-        let x = d3.scaleLinear()
-            .domain([1, 5])
-            .range([0, width]);
-        svg1.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            //custom line add to graph background
+            let lineBackground1 = (data = [0, 1, 2, 3, 4]) => {
+                return data.map((i) => {
+                    return svg1.append('line')
+                        .attr('x1', 0)
+                        .attr('y1', 52 * i)
+                        .attr('x2', 440)
+                        .attr('y2', 54 * i)
+                        .attr('stroke', 'gray')
+                        .attr('stroke-width', 0.2)
+                })
+            }
 
-        // Add Y axis
-        let y = d3.scaleLinear()
-            .domain([0, 500])
-            .range([height, 0]);
-        svg1.append("g")
-            .call(d3.axisLeft(y));
 
-        lineBackground1()
+            // A color scale: one color for each group
+            console.log(d3.schemeSet2)
+            let myColor = d3.scaleOrdinal()
+                .domain(allGroup)
+                .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
-        // Add the lines
-        let line = d3.line()
-            .x(function (d) {
-                return x(+d.time)
-            })
-            .y(function (d) {
-                return y(+d.value)
-            })
-        svg1.selectAll("myLines")
-            .data(dataReady)
-            .enter()
-            .append("path")
-            .attr("class", function (d) {
-                return d.name
-            })
-            .attr("d", function (d) {
-                return line(d.values)
-            })
-            .attr("stroke", function (d) {
-                return myColor(d.name)
-            })
-            .style("stroke-width", 4)
-            .style("fill", "none")
+            // Add X axis --> it is a date format
+            let x = d3.scaleLinear()
+                .domain([1, 5])
+                .range([0, width]);
+            svg1.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
 
-        // Add the points
-        svg1
-            // First we need to enter in a group
-            .selectAll("myDots")
-            .data(dataReady)
-            .enter()
-            .append('g')
-            .style("fill", function (d) {
-                return myColor(d.name)
-            })
-            .attr("class", function (d) {
-                return d.name
-            })
-            // Second we need to enter in the 'values' part of this group
-            .selectAll("myPoints")
-            .data(function (d) {
-                return d.values
-            })
-            .enter()
-            .append("circle")
-            .attr("cx", function (d) {
-                return x(d.time)
-            })
-            .attr("cy", function (d) {
-                return y(d.value)
-            })
-            .attr("r", 5)
-            .attr("stroke", "white")
+            // Add Y axis
+            let y = d3.scaleLinear()
+                .domain([0, 500])
+                .range([height, 0]);
+            svg1.append("g")
+                .call(d3.axisLeft(y));
 
-        // Add a label at the end of each line
-        svg1
-            .selectAll("myLabels")
-            .data(dataReady)
-            .enter()
-            .append('g')
-            .append("text")
-            .attr("class", function (d) {
-                return d.name
-            })
-            .datum(function (d) {
-                return {name: d.name, value: d.values[d.values.length - 1]};
-            }) // keep only the last value of each time series
-            .attr("transform", function (d) {
-                return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")";
-            }) // Put the text at the position of the last point
-            .attr("x", 12) // shift the text a bit more right
-            .text(function (d) {
-                return d.name;
-            })
-            .style("fill", function (d) {
-                return myColor(d.name)
-            })
-            .style("font-size", 15)
+            lineBackground1()
 
-        // Add a legend (interactive)
-        svg1
-            .selectAll("myLegend")
-            .data(dataReady)
-            .enter()
-            .append('g')
-            .append("text")
-            .attr('x', function (d, i) {
-                return i == 3 ? 30 + i * 100 : 30 + i * 60
-            })
-            .attr('y', 10)
-            .text(function (d) {
-                return d.name;
-            })
-            .style("fill", function (d) {
-                return myColor(d.name)
-            })
-            .style("font-size", 15)
-            .on("click", function (d) {
-                // is the element currently visible ?
-                currentOpacity = d3.selectAll("." + d.name).style("opacity")
-                // Change the opacity: from 0 to 1 or from 1 to 0
-                d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
-            })
-    </script>
+            // Add the lines
+            let line = d3.line()
+                .x(function (d) {
+                    return x(+d.time)
+                })
+                .y(function (d) {
+                    return y(+d.value)
+                })
+            svg1.selectAll("myLines")
+                .data(dataReady)
+                .enter()
+                .append("path")
+                .attr("class", function (d) {
+                    return d.name
+                })
+                .attr("d", function (d) {
+                    return line(d.values)
+                })
+                .attr("stroke", function (d) {
+                    return myColor(d.name)
+                })
+                .style("stroke-width", 4)
+                .style("fill", "none")
 
-    <script>
+            // Add the points
+            svg1
+                // First we need to enter in a group
+                .selectAll("myDots")
+                .data(dataReady)
+                .enter()
+                .append('g')
+                .style("fill", function (d) {
+                    return myColor(d.name)
+                })
+                .attr("class", function (d) {
+                    return d.name
+                })
+                // Second we need to enter in the 'values' part of this group
+                .selectAll("myPoints")
+                .data(function (d) {
+                    return d.values
+                })
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) {
+                    return x(d.time)
+                })
+                .attr("cy", function (d) {
+                    return y(d.value)
+                })
+                .attr("r", 5)
+                .attr("stroke", "white")
+
+            // Add a label at the end of each line
+            svg1
+                .selectAll("myLabels")
+                .data(dataReady)
+                .enter()
+                .append('g')
+                .append("text")
+                .attr("class", function (d) {
+                    return d.name
+                })
+                .datum(function (d) {
+                    return {name: d.name, value: d.values[d.values.length - 1]};
+                }) // keep only the last value of each time series
+                .attr("transform", function (d) {
+                    return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")";
+                }) // Put the text at the position of the last point
+                .attr("x", 12) // shift the text a bit more right
+                .text(function (d) {
+                    return d.name;
+                })
+                .style("fill", function (d) {
+                    return myColor(d.name)
+                })
+                .style("font-size", 15)
+
+            // Add a legend (interactive)
+            svg1
+                .selectAll("myLegend")
+                .data(dataReady)
+                .enter()
+                .append('g')
+                .append("text")
+                .attr('x', function (d, i) {
+                    return i == 3 ? 30 + i * 100 : 30 + i * 60
+                })
+                .attr('y', 10)
+                .text(function (d) {
+                    return d.name;
+                })
+                .style("fill", function (d) {
+                    return myColor(d.name)
+                })
+                .style("font-size", 15)
+                .on("click", function (d) {
+                    // is the element currently visible ?
+                    currentOpacity = d3.selectAll("." + d.name).style("opacity")
+                    // Change the opacity: from 0 to 1 or from 1 to 0
+                    d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
+                })
+        })();
+
         (function () {
             /**
              * This block is for colum graph
@@ -977,7 +1021,6 @@
         })();
     </script>
 
-    {{--Map d3js js--}}
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
