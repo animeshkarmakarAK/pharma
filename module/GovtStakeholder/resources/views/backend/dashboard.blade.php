@@ -988,6 +988,7 @@
             //.attr("viewBox", "397 205 86 122")
             .attr("width", w)
             .attr("height", h)
+            .attr("class", "svg_map")
             //.call(d3.behavior.zoom().on("zoom", redraw))
             .call(initialize);
 
@@ -1275,7 +1276,7 @@
             min-width: 192px;
         }
 
-        svg {
+        .svg_map {
             margin-bottom: 50px !important;
         }
 
