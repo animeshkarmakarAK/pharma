@@ -994,8 +994,9 @@
             .style("opacity", 0);
 
 
-        //let url = "{{ asset('assets/dashboard/bd-map-assets/bd.json') }}";//offline json
-        let url = "{{ asset('assets/dashboard/bd-map-assets/narail-district.json') }}";//offline json
+        //let url = "{{ asset('assets/dashboard/bd-map-assets/bd.json') }}";
+        //let url = "{{ asset('assets/dashboard/bd-map-assets/narail-district.json') }}";
+        let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
         d3.json(url, function (json) {
 
             var maxTotal = d3.max(json.features, function (d) {
@@ -1025,6 +1026,8 @@
                 .attr("d", path)
                 .style("opacity", 0.5)
                 .attr('class', 'bd')
+                .filter((d) => d.properties.ADM2_EN === 'Narail')
+
 
                 .on('mouseover', function (d, i) {
                     if ($('.map_info').hide()) {
@@ -1074,6 +1077,12 @@
                     return colorScale(d.properties.DIVISION);
                 });
             console.log('BD >> ', bangladesh)
+
+            //Remove unnecessary path
+            bangladesh.selectAll('path')
+                .filter((d) => d.properties.ADM2_EN != 'Narail').remove();
+
+            //viewBox
             let box = bangladesh[0][0].getBBox()
             map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`)
         });
@@ -1087,8 +1096,6 @@
 @endpush
 
 @push('css')
-    <link type="text/css" rel="stylesheet"
-          href="http://run.plnkr.co/preview/ckp3uzv2i00073b60zjubt58g/zcolorbrewer.css"/>
     <style type="text/css">
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
