@@ -8,6 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
 use Module\GovtStakeholder\App\Models\organizationUnitStatistic;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -105,12 +106,62 @@ class OrganizationUnitStatisticService
                 'organization_units.title_en as organization_unit_name',
                 'organization_unit_types.title_en as organization_unit_type_name',
             ]);
-        $organizationUnitStatistics->whereMonth('survey_date', '05');
+
+        if ($request->input('month')) {
+            $organizationUnitStatistics->whereMonth('survey_date', $request->input('month'));
+        }
 
         $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
         $organizationUnitStatistics->join('organization_unit_types', 'organization_units.organization_unit_type_id', '=', 'organization_unit_types.id');
 
         return DataTables::eloquent($organizationUnitStatistics)
+            ->editColumn('survey_date', function () {
+                return "";
+            })
+            ->toJson();
+    }
+
+    public function unemploymentStatistic(Request $request): JsonResponse
+    {
+        $occpationWiseStatistics = OccupationWiseStatistic::select(
+            [
+                'occupation_wise_statistics.id',
+                'occupation_wise_statistics.current_month_skilled_youth as unemployed',
+                'occupations.title_en as occupation_name',
+            ]);
+
+        if ($request->input('month')) {
+            $occpationWiseStatistics->whereMonth('survey_date', $request->input('month'));
+        }
+
+        $occpationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
+
+        return DataTables::eloquent($occpationWiseStatistics)
+            ->editColumn('survey_date', function () {
+                return "";
+            })
+            ->toJson();
+    }
+
+    public function vacancyStatistic(Request $request): JsonResponse
+    {
+        $occpationWiseStatistics = OccupationWiseStatistic::select(
+            [
+                'occupation_wise_statistics.id',
+                'occupation_wise_statistics.next_month_skill_youth as vacancy',
+                'occupations.title_en as occupation_name',
+            ]);
+
+        if ($request->input('month')) {
+            $occpationWiseStatistics->whereMonth('survey_date', $request->input('month'));
+        }
+
+        $occpationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
+
+        return DataTables::eloquent($occpationWiseStatistics)
+            ->editColumn('survey_date', function () {
+                return "";
+            })
             ->toJson();
     }
 }

@@ -149,4 +149,13 @@ class OrganizationUnitStatisticController extends BaseController
     {
         return $this->organizationUnitStatisticService->getStatistics($request);
     }
+
+    public function unemploymentStatisticOccupationWise(Request $request)
+    {
+        return $this->organizationUnitStatisticService->unemploymentStatistic($request);
+    }
+    public function vacancyStatisticOccupationWise(Request $request)
+    {
+        return $this->organizationUnitStatisticService->vacancyStatistic($request);
+    }
 }

@@ -412,7 +412,7 @@
                     <div class="tab-content tabs">
                         <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
                             <div class="datatable-container">
-                                <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                <table id="dataTable" class="table table-bordered dataTable">
                                     <thead class="custom-bg-gradient-info">
                                     <tr>
                                         <th scope="col">কোম্পানির নাম</th>
@@ -421,7 +421,7 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" style="">
+                                            <select class="form-control" id="month-list" style="">
                                                 <option value="1" selected>জানুয়ারি</option>
                                                 <option value="2">ফেব্রুয়ারি</option>
                                                 <option value="3">মার্চ</option>
@@ -441,85 +441,42 @@
                                 </table>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="Unemployed">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="unemployed">
+                            <div class="datatable-container">
+                                <table id="dataTable1" class="table table-bordered dataTable">
+                                    <thead class="custom-bg-gradient-info">
+                                    <tr>
+                                        <th scope="col">স্কিলের নাম</th>
+                                        <th scope="col">কর্মহীন</th>
+                                        <th scope="col" style="margin-right: -10px">
+                                            <select class="form-control" id="month-list1" style="">
+                                                <option value="1" selected>জানুয়ারি</option>
+                                                <option value="2">ফেব্রুয়ারি</option>
+                                                <option value="3">মার্চ</option>
+                                                <option value="4">এপ্রিল</option>
+                                                <option value="5">মে</option>
+                                                <option value="6">জুন</option>
+                                                <option value="7">জুলাই</option>
+                                                <option value="8">আগস্ট</option>
+                                                <option value="9">সেপ্টেমবর</option>
+                                                <option value="10">অক্টোবর</option>
+                                                <option value="11">নভেম্বর</option>
+                                                <option value="12">ডিসেম্বর</option>
+                                            </select>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="vacant">
-                            <table class="table" style="background-color: #ffffff">
+                            <table class="table" id="dataTable2" style="background-color: #ffffff">
                                 <thead class="custom-bg-gradient-info">
                                 <tr>
                                     <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
                                     <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
                                     <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
+                                        <select class="form-control" id="month-list2" style="margin-right: -8.3vw">
                                             <option value="1" selected>জানুয়ারি</option>
                                             <option value="2">ফেব্রুয়ারি</option>
                                             <option value="3">মার্চ</option>
@@ -536,47 +493,6 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
                             </table>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="employed">
@@ -767,18 +683,99 @@
                     {
                         data: "survey_date",
                         name: "survey_date",
-                        // visible: false,
-                        sortable: false
+                        visible: true,
+                        sortable: false,
+                        defaultContent: "",
                     },
                 ]
             });
-            params.dom = "";
+            params.dom = "<'row'<'col-sm-12'tr>>";
+
+            params.ajax.data = d => {
+                d.month = $('#month-list').val();
+            };
             const datatable = $('#dataTable').DataTable(params);
 
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
+            $('#month-list').on('change', function () {
+                datatable1.draw();
+            })
+
+
+            let params1 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                order: [[2, "asc"]],
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info:false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        data: "occupation_name",
+                        name: "occupations.title_en"
+                    },
+                    {
+                        data: "unemployed",
+                        name: "occupation_wise_statistics.current_month_skilled_youth"
+                    },
+                    {
+                        data: "survey_date",
+                        name: "survey_date",
+                        visible: true,
+                        sortable: false,
+                        defaultContent: "",
+                    },
+                ]
             });
+            params1.dom = "<'row'<'col-sm-12'tr>>";
+
+            params1.ajax.data = d => {
+                d.month = $('#month-list1').val();
+            };
+            const datatable1 = $('#dataTable1').DataTable(params1);
+
+
+            $('#month-list1').on('change', function () {
+                datatable1.draw();
+            })
+
+            let params2 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.vacancy-statistics-datatable') }}',
+                order: [[2, "asc"]],
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info:false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        data: "occupation_name",
+                        name: "occupations.title_en"
+                    },
+                    {
+                        data: "unemployed",
+                        name: "occupation_wise_statistics.next_month_skill_youth"
+                    },
+                    {
+                        data: "survey_date",
+                        name: "survey_date",
+                        visible: true,
+                        sortable: false,
+                        defaultContent: "",
+                    },
+                ]
+            });
+            params2.dom = "<'row'<'col-sm-12'tr>>";
+
+            params2.ajax.data = d => {
+                d.month = $('#month-list2').val();
+            };
+            const datatable2 = $('#dataTable2').DataTable(params2);
+
+
+            $('#month-list2').on('change', function () {
+                datatable1.draw();
+            })
         });
 
         (function () {
