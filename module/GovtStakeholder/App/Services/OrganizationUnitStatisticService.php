@@ -149,6 +149,7 @@ class OrganizationUnitStatisticService
             [
                 'occupation_wise_statistics.id',
                 'occupation_wise_statistics.next_month_skill_youth as vacancy',
+                'occupation_wise_statistics.current_month_skilled_youth',
                 'occupations.title_en as occupation_name',
             ]);
 
