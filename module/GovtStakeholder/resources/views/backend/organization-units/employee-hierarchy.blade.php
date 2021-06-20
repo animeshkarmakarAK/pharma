@@ -91,7 +91,7 @@
                                         name="parent_id"
                                         id="parent_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResource::class)}}"
-                                        data-filters="{{json_encode(['organization_unit_id' => optional($humanResources)["organization_unit_id"], 'id' => ['type' => 'not-equal', 'value' => $humanResources['id']]])}}"
+                                        data-filters="{{json_encode(['organization_unit_id' => optional($humanResources)["organization_unit_id"], 'id' => ['type' => 'not-equal', 'value' => optional($humanResources)['id']]])}}"
                                         data-label-fields="{title_en}"
                                         data-placeholder="Select Parent"
                                 >
@@ -625,7 +625,7 @@
         function updateNodeOnDrag(parentId, childId) {
             return $.ajax({
                 method: 'POST',
-                url: "{{route('admin.human-resources.update-node-on-drag', '__')}}".replace('__', childId),
+                url: "{{route('govt_stakeholder::admin.human-resources.update-node-on-drag', '__')}}".replace('__', childId),
                 data: {
                     parent_id: parentId,
                 }
@@ -1125,7 +1125,7 @@
                 $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
 
                 // change form url for edit
-                let url = "{{route('admin.human-resources.update-node', '__')}}".replace('__', nodeData.id);
+                let url = "{{route('govt_stakeholder::admin.human-resources.update-node', '__')}}".replace('__', nodeData.id);
 
                 editAddForm.attr("action", url);
                 editAddForm.attr("data-method", "PATCH");
@@ -1134,7 +1134,7 @@
             } else {
                 $('#addModal').find('.modal-title').text("Add a new child");
                 clearModalInputFieldsValue();
-                let url = "{{ route('admin.human-resources.add-node') }}";
+                let url = "{{ route('govt_stakeholder::admin.human-resources.add-node') }}";
                 editAddForm.attr("action", url);
                 editAddForm.attr("data-method", "POST");
                 editAddForm.attr("data-node-id", nodeData.id);
@@ -1157,7 +1157,7 @@
                 alert('You can\'t delete this node');
             } else if (isActive) {
                 $('#deleteModal').modal('show');
-                let url = "{{ route('admin.human-resources.delete-node', '__') }}".replace('__', d.id);
+                let url = "{{ route('govt_stakeholder::admin.human-resources.delete-node', '__') }}".replace('__', d.id);
                 $('#deleteModal').attr("data-url", url);
                 $('#deleteModal').attr("data-node-id", d.id);
             }

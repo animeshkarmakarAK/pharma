@@ -2,80 +2,19 @@
 
 namespace Module\GovtStakeholder\App\Http\Controllers;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\Rule;
 use Module\GovtStakeholder\App\Models\HumanResource;
+use Module\GovtStakeholder\App\Services\HumanResourceService;
 
 class HumanResourceController extends BaseController
 {
-    public function validator(Request $request): Validator
+    protected HumanResourceService $humanResourceService;
+
+    public function __construct(HumanResourceService $humanResourceService)
     {
-        $rules = [
-            'title_en' => [
-                'required',
-                'string',
-                'max: 191'
-            ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max: 191'
-            ],
-            'organization_id' => [
-                'required',
-                'int',
-                'exists:organizations,id'
-            ],
-            'organization_unit_id' => [
-                'required',
-                'int',
-                'exists:organization_units,id'
-            ],
-            'parent_id' => [
-                'nullable',
-                'int',
-                'exists:human_resources,id'
-            ],
-            'human_resource_template_id' => [
-                'nullable',
-                'int',
-                'exists:human_resource_templates,id'
-            ],
-            'rank_id' => [
-                'nullable',
-                'int',
-                'exists:ranks,id'
-            ],
-            'display_order' => [
-                'required',
-                'int',
-                'min:0',
-            ],
-            'is_designation' => [
-                'required',
-                'int',
-            ],
-            'skill_id' => [
-                'nullable',
-                'array'
-            ],
-            'skill_id.*' => [
-                'nullable',
-                'int',
-                'distinct'
-            ],
-            'status' => [
-                'nullable',
-                'int', //TODO: this should come from constant
-                Rule::in([1, 2, 0, 99]),
-            ]
-        ];
-
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
-
+        $this->humanResourceService = $humanResourceService;
     }
 
     /**
@@ -87,9 +26,9 @@ class HumanResourceController extends BaseController
      */
     public function addNode(Request $request): JsonResponse
     {
-        $validatedData = $this->validator($request)->validate();
+        $validatedData = $this->humanResourceService->validator($request)->validate();
         try {
-            $newNode = HumanResource::create($validatedData);
+            $newNode = $this->humanResourceService->createHumanResource($validatedData);
         } catch (\Throwable $exception) {
             return response()->json([
                 'message' => __('generic.something_wrong_try_again'),
@@ -112,9 +51,9 @@ class HumanResourceController extends BaseController
      */
     public function updateNode(Request $request, HumanResource $humanResource): JsonResponse
     {
-        $validatedData = $this->validator($request)->validate();
+        $validatedData = $this->humanResourceService->validator($request)->validate();
         try {
-            $humanResource->update($validatedData);
+            $this->humanResourceService->updateHumanResource($humanResource, $request->all());
         } catch (\Throwable $exception) {
             return response()->json([
                 'message' => __('generic.something_wrong_try_again'),
@@ -138,8 +77,6 @@ class HumanResourceController extends BaseController
      */
     public function deleteNode(HumanResource $humanResource): JsonResponse
     {
-        $organizationUnit = $humanResource->organizationUnit;
-
         try {
             $humanResource->delete();
         } catch (\Throwable $exception) {
@@ -162,6 +99,8 @@ class HumanResourceController extends BaseController
      */
     public function updateNodeOnDrag(Request $request, HumanResource $humanResource): JsonResponse
     {
+        $validatedData = $this->humanResourceService->validator($request)->validate();
+
         $validatedData = $request->validate([
             'parent_id' => [
                 'int',
@@ -170,7 +109,7 @@ class HumanResourceController extends BaseController
         ]);
 
         try {
-            $humanResource->update($validatedData);
+            $this->humanResourceService->updateHumanResource($humanResource, $validatedData);
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
             return \response()->json("Update Failed");

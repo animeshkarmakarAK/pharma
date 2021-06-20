@@ -419,18 +419,13 @@
                                         <th scope="col" style="margin-right: -10px">
                                             <select class="form-control" id="month-list"
                                                     style="width: 18vh; margin-right: 2px;">
-                                                <option value="1" selected>জানুয়ারি</option>
-                                                <option value="2">ফেব্রুয়ারি</option>
-                                                <option value="3">মার্চ</option>
-                                                <option value="4">এপ্রিল</option>
-                                                <option value="5">মে</option>
-                                                <option value="6">জুন</option>
-                                                <option value="7">জুলাই</option>
-                                                <option value="8">আগস্ট</option>
-                                                <option value="9">সেপ্টেমবর</option>
-                                                <option value="10">অক্টোবর</option>
-                                                <option value="11">নভেম্বর</option>
-                                                <option value="12">ডিসেম্বর</option>
+                                                @foreach(getMonthList('bn') as $key => $month)
+                                                    @if($key == \Carbon\Carbon::now()->format('m'))
+                                                        <option value="{{ $key }}" selected>{{ $month }}</option>
+                                                    @else
+                                                        <option value="{{ $key }}">{{ $month }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </th>
                                     </tr>
@@ -490,7 +485,6 @@
         $('.navTabs').on('click', function (event) {
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
-            //$(this).css('background-color: #138dd1')
         })
         $(function () {
             let params = serverSideDatatableFactory({
@@ -583,7 +577,7 @@
                         name: "organization_units.title_en"
                     },
                     {
-                        title: "করমখালি",
+                        title: "কর্মখালি",
                         data: "sum_vacancy",
                         name: "sum_vacancy"
                     },
