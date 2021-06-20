@@ -451,7 +451,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="vacant">
                             <div class="datatable-container">
-                                <table class="table" id="dataTable2" style="background-color: #ffffff">
+                                <table class="table table-bordered dataTable" id="dataTable2" style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
                                     </thead>
                                 </table>
@@ -467,7 +467,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skilled">
                             <div class="datatable-container">
-                                <table class="table" id="dataTable4" style="background-color: #ffffff">
+                                <table class="table table-bordered dataTable" id="dataTable4" style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
                                     </thead>
                                 </table>
@@ -564,7 +564,9 @@
             const datatable1 = $('#dataTable1').DataTable(params1);
 
             $('a[href = "#unemployed"]').on('click', function () {
-                datatable1.draw();
+                setTimeout(function () {
+                    datatable1.draw();
+                }, 200)
             })
 
             let params2 = serverSideDatatableFactory({
@@ -590,7 +592,9 @@
             const datatable2 = $('#dataTable2').DataTable(params2);
 
             $('a[href = "#vacant"]').on('click', function () {
-                datatable2.draw();
+                setTimeout(function () {
+                    datatable2.draw();
+                }, 200)
             })
 
             //datatable for employed statistics
@@ -621,7 +625,9 @@
             const datatable3 = $('#dataTable3').DataTable(params3);
 
             $('a[href = "#employed"]').on('click', function () {
-                datatable3.draw();
+                setTimeout(function () {
+                    datatable3.draw();
+                }, 200)
             })
 
 
@@ -651,7 +657,9 @@
             const datatable4 = $('#dataTable4').DataTable(params4);
 
             $('a[href = "#skilled"]').on('click', function () {
-                datatable4.draw();
+                setTimeout(function () {
+                    datatable4.draw();
+                }, 200)
             })
         });
 
