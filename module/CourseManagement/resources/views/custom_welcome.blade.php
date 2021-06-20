@@ -171,9 +171,7 @@
                                 <div class="news-post">
                                     <div class="img-box"
                                          style="
-                                             background: url({{asset('/storage/'. optional($publishCourse->course)->cover_image)}});
-                                             background-position: center;
-                                             background-repeat: no-repeat;
+                                             background: url({{asset('/storage/'. optional($publishCourse->course)->cover_image)}}) no-repeat center;
                                              background-size: cover;
                                              ">
                                         <span>{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</span>
@@ -317,11 +315,9 @@
             }
 
             .slider-area {
-                background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg);
-                background-repeat: no-repeat;
+                background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg)  no-repeat center;
                 background-size: cover;
                 padding: 100px 0;
-                background-position: center;
             }
 
             .blink {

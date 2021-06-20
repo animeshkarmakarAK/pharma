@@ -76,10 +76,7 @@
 
         .tab .nav-tabs li {
             background-color: #dbf4fe;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding: 7px 30px;
             border-top-left-radius: 20px 30px;
             border-top-right-radius: 20px 30px;
             border: 1px solid #138dd1;
@@ -94,7 +91,7 @@
         }
 
         .table thead tr th select {
-            width: 10vw;
+            /*width: 10vw;*/
             padding: 10px;
             height: fit-content;
             background-color: #6fcdff;
@@ -105,7 +102,7 @@
 
         .table {
             background-color: #ffffff;
-            width: 80vw;
+            /*width: 80vw;*/
         }
 
         .table thead {
@@ -130,7 +127,7 @@
             background: #FFF;
             border-radius: 2px;
             pointer-events: none;
-            box-shadow: 0px 0px 2px 0px #a6a6a6;
+            box-shadow: 0 0 2px 0 #a6a6a6;
         }
 
         .key path {
@@ -157,13 +154,13 @@
         .map_info {
             display: inline-block;
             position: absolute;
-            top: 50px;
+            bottom: 6px;
             right: 6px;
             opacity: .8;
             font-size: 12px;
             background: #f2f7f8;
             border-radius: 5px;
-            max-height: 190px;
+            /*max-height: 190px;*/
             min-width: 192px;
         }
 
@@ -172,7 +169,7 @@
         }
 
         .map_content_top {
-            padding: 15px 10px 0px 10px;
+            padding: 15px 10px 0 10px;
             line-height: 2px;
             font-size: 15px;
         }
@@ -199,10 +196,7 @@
                 <div class="sticker-area text-center institute-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/2.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
-                        {{--                            <i class="fas fa-university sticker-icon"></i>--}}
+                        background: url({{ asset("/assets/dashboard/2.png") }}) no-repeat center;">
                         <i class="fa fa-industry sticker-icon"></i>
                     </div>
 
@@ -218,9 +212,7 @@
                 <div class="sticker-area text-center youth-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/1.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/1.png") }}) no-repeat center; ">
                         <i class="fas fa-briefcase sticker-icon"></i>
                     </div>
 
@@ -237,9 +229,7 @@
                 <div class="sticker-area text-center course-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/3.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/3.png") }}) no-repeat center; ">
                         <i class="fas fa-list-alt sticker-icon"></i>
                     </div>
 
@@ -257,9 +247,7 @@
                 <div class="sticker-area text-center branch-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/5.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/5.png") }}) no-repeat center; ">
                         <i class="fas fa-code-branch sticker-icon"></i>
                     </div>
 
@@ -276,9 +264,7 @@
                 <div class="sticker-area text-center training_center-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/4.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/4.png") }}) no-repeat center; ">
                         <i class="fas fa-chalkboard-teacher sticker-icon"></i>
                     </div>
 
@@ -297,24 +283,24 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white" style="background-color:#c665e6;">
-                                <h3 class="card-title font-weight-bold">বিগত ১ মাসের হিসাব</h3>
+                            <div class="card-header text-white bg-maroon" >
+                                <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
-                                <div id="my_data"></div>
+                                <div id="employment_statistic"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white">
+                            <div class="card-header text-white bg-primary">
                                 <h3 class="card-title font-weight-bold">সেক্টর ভিত্তিক জনবল</h3>
                             </div>
                             <div class="card-body">
-                                <div id="my_dataviz" style="background-color: #ffffff; margin-left: -3px"></div>
+                                <div id="job_sector_statistic" style="background-color: #ffffff; margin-left: -3px"></div>
                                 <div style="height: 1px; margin-top: 5px; background-color: #f4f4f4"></div>
-                                <div class="row" style="margin-left: 30px; margin-bottom: -20px">
+                                <div class="row job_sector_statistic_lable_text" style="margin-left: 30px; margin-bottom: -20px">
                                     <div class="row col-3" id="unemployedToggle">
                                         <div class="colorIndicator" style="background-color: #f52674"></div>
                                         <p>কর্মহীন</p>
@@ -353,20 +339,35 @@
                             </div>
                             <hr>
                             <div class="map_content_body">
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Running
-                                        Courses</p>
-                                    <strong id="running_courses" class="map_count_numbers">10</strong>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total
-                                        Enrollment</p>
-                                    <b id="total_enrollment" class="map_count_numbers">20</b>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
-                                        Running Students</p>
-                                    <b id="running_students" class="map_count_numbers">100</b>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total Unemployed</p>
+                                            <strong id="total_unemployed" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total Employed</p>
+                                            <b id="total_employed" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <b id="total_vacancy" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <strong id="total_new_recruitment" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <b id="total_new_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <b id="total_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -387,7 +388,7 @@
                             </a>
                         </li>
                         <li role="presentation" class="navTabs" style="">
-                            <a href="#Unemployed" aria-controls="profile" role="tab" data-toggle="tab">
+                            <a href="#unemployed" aria-controls="profile" role="tab" data-toggle="tab">
                                 <span>কর্মহীন জনবলের তালিকা</span>
                             </a>
                         </li>
@@ -402,7 +403,7 @@
                             </a>
                         </li>
                         <li role="presentation" class="navTabs" style="">
-                            <a href="#skiled" aria-controls="messages" role="tab" data-toggle="tab">
+                            <a href="#skilled" aria-controls="messages" role="tab" data-toggle="tab">
                                 <span>দক্ষ জনবলের তালিকা</span>
                             </a>
                         </li>
@@ -412,7 +413,7 @@
                     <div class="tab-content tabs">
                         <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
                             <div class="datatable-container">
-                                <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                <table id="dataTable" class="table table-bordered dataTable">
                                     <thead class="custom-bg-gradient-info">
                                     <tr>
                                         <th scope="col">কোম্পানির নাম</th>
@@ -421,7 +422,7 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" style="">
+                                            <select class="form-control" id="month-list" style="width: 18vh; margin-right: 2px;">
                                                 <option value="1" selected>জানুয়ারি</option>
                                                 <option value="2">ফেব্রুয়ারি</option>
                                                 <option value="3">মার্চ</option>
@@ -441,281 +442,37 @@
                                 </table>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="Unemployed">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="unemployed">
+                            <div class="datatable-container">
+                                <table id="dataTable1" class="table table-bordered dataTable">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="vacant">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="datatable-container">
+                                <table class="table table-bordered dataTable" id="dataTable2" style="background-color: #ffffff">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="employed">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="datatable-container">
+                                <table id="dataTable3" class="table table-bordered dataTable">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skiled">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skilled">
+                            <div class="datatable-container">
+                                <table class="table table-bordered dataTable" id="dataTable4" style="background-color: #ffffff">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -729,6 +486,9 @@
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
+        let data = @json($data);
+        let windowWidth = window.innerWidth;
+
         $('.navTabs').on('click', function (event) {
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
@@ -741,7 +501,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -767,51 +527,182 @@
                     {
                         data: "survey_date",
                         name: "survey_date",
-                        // visible: false,
-                        sortable: false
+                        visible: true,
+                        sortable: false,
+                        defaultContent: "",
                     },
                 ]
             });
-            params.dom = "";
+            params.dom = "<'row'<'col-sm-12'tr>>";
+
+            params.ajax.data = d => {
+                d.month = $('#month-list').val();
+            };
             const datatable = $('#dataTable').DataTable(params);
 
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
+            $('#month-list').on('change', function () {
+                datatable.draw();
+            })
+
+
+            let params1 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "কর্মহীন",
+                        data: "sum_vacancy",
+                        name: "sum_vacancy",
+                    },
+                ]
             });
+            params1.dom = "<'row'<'col-sm-12'tr>>";
+
+            const datatable1 = $('#dataTable1').DataTable(params1);
+
+            $('a[href = "#unemployed"]').on('click', function () {
+                setTimeout(function () {
+                    datatable1.draw();
+                }, 200)
+            })
+
+            let params2 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "করমখালি",
+                        data: "sum_vacancy",
+                        name: "sum_vacancy"
+                    },
+                ]
+            });
+            params2.dom = "<'row'<'col-sm-12'tr>>";
+
+            const datatable2 = $('#dataTable2').DataTable(params2);
+
+            $('a[href = "#vacant"]').on('click', function () {
+                setTimeout(function () {
+                    datatable2.draw();
+                }, 200)
+            })
+
+            //datatable for employed statistics
+
+            let params3 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "কর্মরত",
+                        data: "sum_occupied_position",
+                        name: "sum_occupied_position"
+                    },
+                ]
+            });
+            params3.dom = "<'row'<'col-sm-12'tr>>";
+
+
+            const datatable3 = $('#dataTable3').DataTable(params3);
+
+            $('a[href = "#employed"]').on('click', function () {
+                setTimeout(function () {
+                    datatable3.draw();
+                }, 200)
+            })
+
+
+            //datatable for skilled people
+            let params4 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "দক্ষ জনবল সংখ্যা",
+                        data: "sum_occupied_position",
+                        name: "sum_occupied_position"
+                    },
+                ]
+            });
+            params4.dom = "<'row'<'col-sm-12'tr>>";
+
+            const datatable4 = $('#dataTable4').DataTable(params4);
+
+            $('a[href = "#skilled"]').on('click', function () {
+                setTimeout(function () {
+                    datatable4.draw();
+                }, 200)
+            })
         });
 
         (function () {
+
+            if (data==[] || !data.employment_statistic){
+                $("#employment_statistic").html('No Data Found')
+                return null;
+            }
             // set the dimensions and margins of the graph
             let margin = {top: 10, right: 100, bottom: 30, left: 30},
-                width = 560 - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
-            let svg1 = d3.select("#my_data")
+            let svg1 = d3.select("#employment_statistic")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
+            let highestValue = 0;
 
-            let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
-                {time: "2", A: "300", B: "400", C: "104", D: "340", E: "340"},
-                {time: "3", A: "250", B: "449", C: "316", D: "350", E: "211"},
-                {time: "4", A: "307", B: "400", C: "412", D: "8", E: "313"},
-                {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]
-            //Read the data
-
-            // List of groups (here I have one group per column)
-            let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
+            let employment_statistic_data = data.employment_statistic.map((item, index) => {
+                for (const [key, value] of Object.entries(item)) {
+                    highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
+                }
+                item['time'] = '' + (index + 1)
+                return item
+            })
+            let employment_statistic_data_group = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'নতুন দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
 
 
             // Reformat the data: we need an array of arrays of {x, y} tuples
-            let dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
+            let dataReady = employment_statistic_data_group.map(function (data) { // .map allows to do something for each element of the list
                 return {
                     name: data[Object.keys(data)[0]],
-                    values: dataSet.map(function (d) {
+                    values: employment_statistic_data.map(function (d) {
                         return {time: d.time, value: +d[Object.keys(data)[0]]};
                     })
                 };
@@ -833,9 +724,9 @@
 
 
             // A color scale: one color for each group
-            console.log(d3.schemeSet2)
+            //console.log(d3.schemeSet2)
             let myColor = d3.scaleOrdinal()
-                .domain(allGroup)
+                .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
             // Add X axis --> it is a date format
@@ -848,7 +739,7 @@
 
             // Add Y axis
             let y = d3.scaleLinear()
-                .domain([0, 500])
+                .domain([0, highestValue])
                 .range([height, 0]);
             svg1.append("g")
                 .call(d3.axisLeft(y));
@@ -963,53 +854,33 @@
             /**
              * This block is for colum graph
              **/
+            if (data==[] || !data.job_sector_statistic){
+                $("#job_sector_statistic").html('No Data Found')
+                $(".job_sector_statistic_lable_text").css('display','none')
+                return null;
+            }
+
                 // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
-                width = 560 - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
 
             // Parse the Data
+            let job_sector_statistic_data = data['job_sector_statistic']
 
-
-            let dummyData = [
-                {
-                    group: "ইঞ্জিনিয়ার",
-                    Employed: "130",
-                    UnEmployed: "100"
-                },
-                {
-                    group: "মেকানিক",
-                    Employed: "106",
-                    UnEmployed: "56"
-                },
-                {
-                    group: "ডেলিভারি ম্যান",
-                    Employed: "191",
-                    UnEmployed: "128"
-                },
-                {
-                    group: "ড্রাইভার",
-                    Employed: "190",
-                    UnEmployed: "106"
-                },
-                {
-                    group: "সেলসম্যান",
-                    Employed: "119",
-                    UnEmployed: "69"
-                },
-                {
-                    group: "ইলেক্টিসিয়ান",
-                    Employed: "179",
-                    UnEmployed: "136"
-                }]
+            let highestValue = 0;
+            data.job_sector_statistic.map((item, index) => {
+                for (const [key, value] of Object.entries(item)) {
+                    highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
+                }
+            })
 
             let subgroups = ['Employed', 'UnEmployed']
             let colorCodes = ['#2f49d1', '#f52674']
 
             function dataSwitch(type) {
-                console.log(type)
                 if (subgroups.includes(type)) {
                     let index = subgroups.indexOf(type);
                     if (index > -1) {
@@ -1026,8 +897,8 @@
                     }
 
                 }
-                $('#my_dataviz').html('')
-                graph(dummyData)
+                $('#job_sector_statistic').html('')
+                graph(job_sector_statistic_data)
 
             }
 
@@ -1039,7 +910,7 @@
 
             })
 
-            graph(dummyData)
+            graph(job_sector_statistic_data)
 
             function xAxis(g) {
                 return g.attr("transform", `translate(0,${height - margin.bottom})`)
@@ -1049,7 +920,7 @@
 
             function graph(data) {
 
-                let svg = d3.select("#my_dataviz")
+                let svg = d3.select("#job_sector_statistic")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -1063,7 +934,6 @@
 
                 // List of groups = species here = value of the first column called group -> I show them on the X axis
                 let groups = d3.map(data, function (d) {
-                    console.log(d)
                     return (d.group)
                 }).keys()
 
@@ -1091,7 +961,7 @@
 
                 // Add Y axis
                 let y = d3.scaleLinear()
-                    .domain([0, 200])
+                    .domain([0, highestValue])
                     .range([height, 0]);
                 svg.append("g")
                     .call(d3.axisLeft(y));
@@ -1148,6 +1018,7 @@
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
         (function () {
+            let selectedDistroctData = [];
             let w = 300;
             let h = 340;
             let proj = d3.geo.mercator();
@@ -1177,10 +1048,20 @@
 
             let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             d3.json(url, function (json) {
-
                 $('#map_select').on('change', function () {
-                    let district = $('#map_select option:selected').text();
-                    district = district.toLowerCase();
+                    let districtElm = $('#map_select option:selected');
+                    let district = districtElm.text().toLowerCase();
+
+                    $.ajax({
+                        data: {district_id: districtElm.val()},
+                        url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
+                        type: 'POST',
+                        success: function (data) {
+                            selectedDistroctData = data;
+                            console.log(selectedDistroctData);
+                        }
+                    });
+
                     const words = district.split(" ");
 
                     for (let i = 0; i < words.length; i++) {
@@ -1217,12 +1098,20 @@
                         .filter((d) => d.properties.ADM2_EN == district)
 
                         .on('mouseover', function (d, i) {
+                            let districtId = $('#map_select').val();
+                            let upazilaName = d.properties.ADM3_EN;
+                            console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
+                            let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
+                            console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
                                 $("#district").text(d.properties.ADM3_EN + " Thana");
-                                $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
-                                $("#running_students").text(Math.floor(Math.random() * 9) + 250);
-                                $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
+                                $("#total_unemployed").text(upazilaStatistics?.total_unemployed);
+                                $("#total_employed").text(upazilaStatistics?.total_employed);
+                                $("#total_vacancy").text(upazilaStatistics?.total_vacancy);
+                                $("#total_new_recruitment").text(upazilaStatistics?.total_new_recruitment);
+                                $("#total_new_skilled_youth").text(upazilaStatistics?.total_new_skilled_youth);
+                                $("#total_skilled_youth").text(upazilaStatistics?.total_skilled_youth);
                             }
 
                             d3.select(this).transition().duration(300).style("opacity", 1);
@@ -1241,6 +1130,12 @@
                         .on('mouseleave', function (d, i) {
                             if ($('.map_info').show()) {
                                 $('.map_info').hide();
+                                $("#total_unemployed").text('0');
+                                $("#total_employed").text('0');
+                                $("#total_vacancy").text('0');
+                                $("#total_new_recruitment").text('0');
+                                $("#total_new_skilled_youth").text('0');
+                                $("#total_skilled_youth").text('0');
                             }
 
                             d3.select(this).transition().duration(300)
@@ -1263,7 +1158,6 @@
                         .style("fill", function (d) {
                             return colorScale(d.properties.DIVISION);
                         });
-                    console.log('BD >> ', bangladesh);
 
                     //Remove unnecessary path
                     bangladesh.selectAll('path')

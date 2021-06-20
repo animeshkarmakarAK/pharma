@@ -17,7 +17,7 @@
                                         <div class="form-body fix">
                                             <div class="advice-portlet-title fix">
                                                 <div class="text-center">
-                                                    <h3 class="green-heading titleconte">{{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }}
+                                                    <h3 class="green-heading title-content">{{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }}
                                                         সম্পর্কে যদি আপনার কোনো মতামত থাকে তাহলে নিচের ফর্মটি পূরণ করে
                                                         সংরক্ষণ করুন</h3>
                                                 </div>
@@ -111,7 +111,7 @@
 
 @push('css')
     <style>
-        h3.green-heading.titleconte {
+        h3.green-heading.title-content {
             font-size: 18px !important;
             padding: 15px;
         }

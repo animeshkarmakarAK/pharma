@@ -34,6 +34,8 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::get('human-resources/{human_resource}/deleteNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'deleteNode'])->name('human-resources.delete-node');
 
     Route::post('organization-units/vacancy-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'vacantStatisticsOfOrganizationUnit'])->name('organization-units.statistics-datatable');
+    Route::post('occupations/unemployed-people-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,'unemploymentStatisticOccupationWise'])->name('occupations.statistics-datatable');
+    Route::post('occupations/vacancy-people-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,'vacancyStatisticOccupationWise'])->name('occupations.vacancy-statistics-datatable');
 
     Route::resources([
         'organization-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationTypeController::class,
@@ -54,6 +56,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('organizations/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationController::class, 'getDatatable'])->name('organizations.datatable');
     Route::post('job-sectors/datatable', [\Module\GovtStakeholder\App\Http\Controllers\JobSectorController::class, 'getDatatable'])->name('job-sectors.datatable');
     Route::post('upazila-job-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\UpazilaJobStatisticController::class, 'getDatatable'])->name('upazila-job-statistics.datatable');
+
 });
 
 

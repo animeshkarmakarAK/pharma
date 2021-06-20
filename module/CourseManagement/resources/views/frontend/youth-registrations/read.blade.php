@@ -2,10 +2,6 @@
 
 @section('content')
     <style>
-        * {
-            font-family: "Times New Roman";
-        }
-
         img {
             margin-left: 14vw;
         }

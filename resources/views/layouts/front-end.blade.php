@@ -275,7 +275,7 @@
 
         .profile-box:hover {
             padding: 25px 15px 25px;
-            box-shadow: 0px 0px 20px #bbb;
+            box-shadow: 0 0 20px #bbb;
         }
 
         .profile-box img {
@@ -313,7 +313,7 @@
 
         .news-post:hover {
             /*padding: 25px 15px 25px;*/
-            box-shadow: 0px 0px 20px #bbb;
+            box-shadow: 0 0 20px #bbb;
             transition: .4s;
         }
 
@@ -348,7 +348,7 @@
 
         .article-box:hover .news-post .post-content-text {
             transition: .4s;
-            bottom: 0px;
+            bottom: 0;
         }
 
         .news-post .post-content-text h4 {
