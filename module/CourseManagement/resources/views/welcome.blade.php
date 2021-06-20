@@ -112,13 +112,13 @@
                                 <div id="front-right-sidebar" class="scroller"
                                      style="height: 315px; overflow: hidden; width: auto;" data-always-visible="1"
                                      data-rail-visible="0" data-initialized="1">
-                                    <p style="font-size:1rem; line-height:1.5;font-family: Flaticon;color: #555;">কোন
+                                    <p style="font-size:1rem; line-height:1.5;font-family: Flaticon,serif;color: #555;">কোন
                                         কার্যক্রম পাওয়া যায় নি ।</p>
                                 </div>
                                 <div class="slimScrollBar"
-                                     style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315px;"></div>
+                                     style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 315px;"></div>
                                 <div class="slimScrollRail"
-                                     style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                                     style="width: 7px; height: 100%; position: absolute; top: 0; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
                             </div>
                         </div>
                     </div>

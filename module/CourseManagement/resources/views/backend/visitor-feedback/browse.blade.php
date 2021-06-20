@@ -68,7 +68,7 @@
         }
         .filter-item{
             display: inline-block;
-            padding: 0px 10px;
+            padding: 0 10px;
         }
         .filter-icon{
             color: #007bff;

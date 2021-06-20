@@ -76,10 +76,7 @@
 
         .tab .nav-tabs li {
             background-color: #dbf4fe;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding: 7px 30px;
             border-top-left-radius: 20px 30px;
             border-top-right-radius: 20px 30px;
             border: 1px solid #138dd1;
@@ -130,7 +127,7 @@
             background: #FFF;
             border-radius: 2px;
             pointer-events: none;
-            box-shadow: 0px 0px 2px 0px #a6a6a6;
+            box-shadow: 0 0 2px 0 #a6a6a6;
         }
 
         .key path {
@@ -172,7 +169,7 @@
         }
 
         .map_content_top {
-            padding: 15px 10px 0px 10px;
+            padding: 15px 10px 0 10px;
             line-height: 2px;
             font-size: 15px;
         }
@@ -199,10 +196,7 @@
                 <div class="sticker-area text-center institute-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/2.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
-                        {{--                            <i class="fas fa-university sticker-icon"></i>--}}
+                        background: url({{ asset("/assets/dashboard/2.png") }}) no-repeat center;">
                         <i class="fa fa-industry sticker-icon"></i>
                     </div>
 
@@ -218,9 +212,7 @@
                 <div class="sticker-area text-center youth-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/1.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/1.png") }}) no-repeat center; ">
                         <i class="fas fa-briefcase sticker-icon"></i>
                     </div>
 
@@ -237,9 +229,7 @@
                 <div class="sticker-area text-center course-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/3.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/3.png") }}) no-repeat center; ">
                         <i class="fas fa-list-alt sticker-icon"></i>
                     </div>
 
@@ -257,9 +247,7 @@
                 <div class="sticker-area text-center branch-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/5.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/5.png") }}) no-repeat center; ">
                         <i class="fas fa-code-branch sticker-icon"></i>
                     </div>
 
@@ -276,9 +264,7 @@
                 <div class="sticker-area text-center training_center-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/4.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/4.png") }}) no-repeat center; ">
                         <i class="fas fa-chalkboard-teacher sticker-icon"></i>
                     </div>
 
@@ -743,7 +729,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -786,7 +772,7 @@
         (function () {
             // set the dimensions and margins of the graph
             let margin = {top: 10, right: 100, bottom: 30, left: 30},
-                width = Math.abs(windowWidth/3) - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
@@ -967,7 +953,7 @@
              **/
                 // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
-                width = Math.abs(windowWidth/3) - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
