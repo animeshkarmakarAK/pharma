@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             RankTypeSeeder::class,
             RankSeeder::class,
             ServiceSeeder::class,
+            OrganizationUnitSeeder::class,
+            OrganizationUnitTypeSeeder::class,
+            HumanResourceTemplatesSeeder::class,
         ]);
     }
 }

@@ -42,7 +42,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                        <tr>
+                        <tr class="text-primary custom-bg-gradient-info">
                             <th scope="col">Job Sector</th>
                             <th scope="col">Total Unemployed</th>
                             <th scope="col">Total Employed</th>
