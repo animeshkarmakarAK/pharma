@@ -157,7 +157,7 @@
         .map_info {
             display: inline-block;
             position: absolute;
-            top: 111px;
+            bottom: 6px;
             right: 6px;
             opacity: .8;
             font-size: 12px;
