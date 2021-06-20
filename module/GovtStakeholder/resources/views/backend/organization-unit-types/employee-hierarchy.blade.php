@@ -1131,7 +1131,7 @@
             } else {
                 $('#addModal').find('.modal-title').text("Add a new child");
                 clearModalInputFieldsValue();
-                let url = "{{  route('admin.human-resource-templates.add-node') }}";
+                let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
                 editAddForm.attr("action", url);
                 editAddForm.attr("data-method", "POST");
                 editAddForm.attr("data-node-id", nodeData.id);
