@@ -283,7 +283,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white bg-maroon" >
+                            <div class="card-header text-white bg-maroon">
                                 <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
@@ -298,9 +298,11 @@
                                 <h3 class="card-title font-weight-bold">সেক্টর ভিত্তিক জনবল</h3>
                             </div>
                             <div class="card-body">
-                                <div id="job_sector_statistic" style="background-color: #ffffff; margin-left: -3px"></div>
+                                <div id="job_sector_statistic"
+                                     style="background-color: #ffffff; margin-left: -3px"></div>
                                 <div style="height: 1px; margin-top: 5px; background-color: #f4f4f4"></div>
-                                <div class="row job_sector_statistic_lable_text" style="margin-left: 30px; margin-bottom: -20px">
+                                <div class="row job_sector_statistic_lable_text"
+                                     style="margin-left: 30px; margin-bottom: -20px">
                                     <div class="row col-3" id="unemployedToggle">
                                         <div class="colorIndicator" style="background-color: #f52674"></div>
                                         <p>কর্মহীন</p>
@@ -342,29 +344,35 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total Unemployed</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i>
+                                                Total Unemployed</p>
                                             <strong id="total_unemployed" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total Employed</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i>
+                                                Total Employed</p>
                                             <b id="total_employed" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
+                                                Total Vacancy</p>
                                             <b id="total_vacancy" class="map_count_numbers"></b>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i>
+                                                Total New Recruitment</p>
                                             <strong id="total_new_recruitment" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i>
+                                                Total New Skilled Youth</p>
                                             <b id="total_new_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
+                                                Total Skilled Youth</p>
                                             <b id="total_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                     </div>
@@ -422,14 +430,15 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <?php $months = [1 => 'জানুয়ারি', 2 => 'ফেব্রুয়ারি', 3 => 'মার্চ', 4 => 'এপ্রিল', 5 => 'মে',
-                                                6 => 'জুন', 7 => 'জুলাই', 8 => 'আগস্ট', 9 => 'সেপ্টেমবর', 10 => 'অক্টোবর', 11 => 'নভেম্বর', 12 =>'ডিসেম্বর']  ?>
-                                            <select class="form-control" id="month-list" style="width: 18vh; margin-right: 2px;">
+                                            <?php  $months = [1 => 'জানুয়ারি', 2 => 'ফেব্রুয়ারি', 3 => 'মার্চ', 4 => 'এপ্রিল', 5 => 'মে',
+                                                6 => 'জুন', 7 => 'জুলাই', 8 => 'আগস্ট', 9 => 'সেপ্টেমবর', 10 => 'অক্টোবর', 11 => 'নভেম্বর', 12 => 'ডিসেম্বর']  ?>
+                                            <select class="form-control" id="month-list"
+                                                    style="width: 18vh; margin-right: 2px;">
                                                 @foreach($months as $key => $month)
                                                     @if($key == \Carbon\Carbon::now()->format('m'))
                                                         <option value="{{ $key }}" selected>{{ $month }}</option>
                                                     @else
-                                                    <option value="{{ $key }}">{{ $month }}</option>
+                                                        <option value="{{ $key }}">{{ $month }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -449,7 +458,8 @@
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="vacant">
                             <div class="datatable-container">
-                                <table class="table table-bordered dataTable" id="dataTable2" style="background-color: #ffffff">
+                                <table class="table table-bordered dataTable" id="dataTable2"
+                                       style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
                                     </thead>
                                 </table>
@@ -465,7 +475,8 @@
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skilled">
                             <div class="datatable-container">
-                                <table class="table table-bordered dataTable" id="dataTable4" style="background-color: #ffffff">
+                                <table class="table table-bordered dataTable" id="dataTable4"
+                                       style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
                                     </thead>
                                 </table>
@@ -665,7 +676,7 @@
 
         (function () {
 
-            if (data==[] || !data.employment_statistic){
+            if (data == [] || !data.employment_statistic) {
                 $("#employment_statistic").html('No Data Found')
                 return null;
             }
@@ -710,9 +721,9 @@
                 return data.map((i) => {
                     return svg1.append('line')
                         .attr('x1', 0)
-                        .attr('y1', (height/5) * i) //add
+                        .attr('y1', (height / 5) * i) //add
                         .attr('x2', width) //add
-                        .attr('y2', (height/5) * i) //add
+                        .attr('y2', (height / 5) * i) //add
                         .attr('stroke', 'gray')
                         .attr('stroke-width', 0.2)
                 })
@@ -850,13 +861,13 @@
             /**
              * This block is for colum graph
              **/
-            if (data==[] || !data.job_sector_statistic){
+            if (data == [] || !data.job_sector_statistic) {
                 $("#job_sector_statistic").html('No Data Found')
-                $(".job_sector_statistic_lable_text").css('display','none')
+                $(".job_sector_statistic_lable_text").css('display', 'none')
                 return null;
             }
 
-                // set the dimensions and margins of the graph
+            // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
