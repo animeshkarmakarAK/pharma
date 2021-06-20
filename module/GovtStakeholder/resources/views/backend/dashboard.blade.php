@@ -1275,12 +1275,12 @@
                         .on('mouseleave', function (d, i) {
                             if ($('.map_info').show()) {
                                 $('.map_info').hide();
-                                $("#total_unemployed").text('Null');
-                                $("#total_employed").text('Null');
-                                $("#total_vacancy").text('Null');
-                                $("#total_new_recruitment").text('Null');
-                                $("#total_new_skilled_youth").text('Null');
-                                $("#total_skilled_youth").text('Null');
+                                $("#total_unemployed").text('0');
+                                $("#total_employed").text('0');
+                                $("#total_vacancy").text('0');
+                                $("#total_new_recruitment").text('0');
+                                $("#total_new_skilled_youth").text('0');
+                                $("#total_skilled_youth").text('0');
                             }
 
                             d3.select(this).transition().duration(300)
