@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'dashboard' => 'ডাশবোর্ড',
+
     //user management
     'user_management' => 'ইউজার ম্যানেজমেন্ট',
     'users' => 'ব্যবহারকারী',

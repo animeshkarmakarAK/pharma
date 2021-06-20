@@ -729,6 +729,8 @@
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
+        let windowWidth = window.innerWidth;
+
         $('.navTabs').on('click', function (event) {
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
@@ -784,7 +786,7 @@
         (function () {
             // set the dimensions and margins of the graph
             let margin = {top: 10, right: 100, bottom: 30, left: 30},
-                width = 560 - margin.left - margin.right,
+                width = Math.abs(windowWidth/3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
@@ -965,7 +967,7 @@
              **/
                 // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
-                width = 560 - margin.left - margin.right,
+                width = Math.abs(windowWidth/3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
