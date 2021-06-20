@@ -430,11 +430,9 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <?php  $months = [1 => 'জানুয়ারি', 2 => 'ফেব্রুয়ারি', 3 => 'মার্চ', 4 => 'এপ্রিল', 5 => 'মে',
-                                                6 => 'জুন', 7 => 'জুলাই', 8 => 'আগস্ট', 9 => 'সেপ্টেমবর', 10 => 'অক্টোবর', 11 => 'নভেম্বর', 12 => 'ডিসেম্বর']  ?>
                                             <select class="form-control" id="month-list"
                                                     style="width: 18vh; margin-right: 2px;">
-                                                @foreach($months as $key => $month)
+                                                @foreach(getMonthList('bn') as $key => $month)
                                                     @if($key == \Carbon\Carbon::now()->format('m'))
                                                         <option value="{{ $key }}" selected>{{ $month }}</option>
                                                     @else
