@@ -33,7 +33,7 @@ class OrganizationUnitController extends BaseController
     }
 
     /**
-     * show the form for creating a new organization unit type
+     * show the form for creating a new organization unit
      * @return View
      */
     public function create(): View
@@ -67,7 +67,7 @@ class OrganizationUnitController extends BaseController
         }
 
         return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Organization Unit Type']),
+            'message' => __('generic.object_created_successfully', ['object' => 'Organization Unit']),
             'alert-type' => 'success'
         ]);
     }
@@ -116,14 +116,14 @@ class OrganizationUnitController extends BaseController
         }
 
         return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Organization Unit Type']),
+            'message' => __('generic.object_updated_successfully', ['object' => 'Organization Unit']),
             'alert-type' => 'success'
         ]);
     }
 
 
     /**
-     * delete organization unit type
+     * delete organization unit
      *
      * @param OrganizationUnit $organizationUnit
      * @return RedirectResponse
@@ -141,7 +141,7 @@ class OrganizationUnitController extends BaseController
         }
 
         return back()->with([
-            'message' => __('generic.object_deleted_successfully', ['object' => 'Organization Unit Type']),
+            'message' => __('generic.object_deleted_successfully', ['object' => 'Organization Unit']),
             'alert-type' => 'success'
         ]);
     }
