@@ -729,6 +729,8 @@
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
+        let data = @json($data);
+        console.log(data)
         let windowWidth = window.innerWidth;
 
         $('.navTabs').on('click', function (event) {
