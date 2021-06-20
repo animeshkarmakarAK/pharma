@@ -703,5 +703,20 @@
         "order": 1,
         "route": "admin.dashboard",
         "parameters": null
+    },
+    {
+        "id": 92,
+        "menu_id": 3,
+        "title": "Organization Unit Status",
+        "title_lang_key": null,
+        "permission_key": null,
+        "url": "",
+        "target": "_self",
+        "icon_class": "fa-adjust",
+        "color": "#000000",
+        "parent_id": 70,
+        "order": 8,
+        "route": "govt_stakeholder::admin.organization-unit-statistics.index",
+        "parameters": null
     }
 ]
