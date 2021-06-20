@@ -350,21 +350,21 @@
                                             <b id="total_employed" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-info" aria-hidden="true"></i> Total Vacancy</p>
                                             <b id="total_vacancy" class="map_count_numbers"></b>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-yellow" aria-hidden="true"></i> Total New Recruitment</p>
                                             <strong id="total_new_recruitment" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-dark" aria-hidden="true"></i> Total New Skilled Youth</p>
                                             <b id="total_new_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-primary" aria-hidden="true"></i> Total Skilled Youth</p>
                                             <b id="total_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                     </div>
