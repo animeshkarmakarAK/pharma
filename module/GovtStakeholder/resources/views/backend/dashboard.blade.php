@@ -278,7 +278,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
@@ -307,7 +307,7 @@
 
 
             <div class="col-md-6">
-                <div class="card">
+                <div class="card" style="height: 100%">
                     <div class="card-header text-white" style="background-color:#c665e6;">
                         <h3 class="card-title font-weight-bold">জেলা মানচিত্র</h3>
                     </div>
@@ -317,11 +317,14 @@
                                 id="map_select"
                                 data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                 data-label-fields="{title_en}"
-                                data-placeholder="Select option"
+                                data-placeholder="Select District"
                         >
-                            <option selected disabled>Select Upazila</option>
                         </select>
-                        <div id="bd_map_d3"></div>
+                        <div id="map_message">
+                            <br>
+                            <h3 class="text-shadow-light text-center" style="color: #777f85;">Please select <strong>District</strong> to view map</h3>
+                        </div>
+                        <div id="bd_map_d3" style="display: none"></div>
                         <div class="map_info" style="display: none">
                             <div class="map_content_top">
                                 <p><b><span id="district"></span></b></p>
@@ -348,17 +351,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i>
+                                            <p class="mb-0"><i class="fa fa-circle" style="color: #b3de4a" aria-hidden="true"></i>
                                                 Total New Recruitment</p>
                                             <strong id="total_new_recruitment" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i>
+                                            <p class="mb-0"><i class="fa fa-circle" style="color: #f368e0" aria-hidden="true"></i>
                                                 Total New Skilled Youth</p>
                                             <b id="total_new_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
+                                            <p class="mb-0"><i class="fa fa-circle" style="color: #9b4ade" aria-hidden="true"></i>
                                                 Total Skilled Youth</p>
                                             <b id="total_skilled_youth" class="map_count_numbers"></b>
                                         </div>
@@ -1068,6 +1071,8 @@
             let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             d3.json(url, function (json) {
                 $('#map_select').on('change', function () {
+                    $('#bd_map_d3').show();
+
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
 
@@ -1123,6 +1128,7 @@
                             console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
+                                $('#map_message').hide();
                                 $("#district").text(d.properties.ADM3_EN + " Thana");
                                 $("#total_unemployed").text(upazilaStatistics?.total_unemployed);
                                 $("#total_employed").text(upazilaStatistics?.total_employed);
