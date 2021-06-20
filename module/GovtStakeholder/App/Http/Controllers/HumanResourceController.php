@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Module\GovtStakeholder\App\Models\HumanResource;
-use Module\GovtStakeholder\App\Models\HumanResourceTemplate;
 
 class HumanResourceController extends BaseController
 {
@@ -70,7 +69,7 @@ class HumanResourceController extends BaseController
             ],
             'status' => [
                 'nullable',
-                'int',
+                'int', //TODO: this should come from constant
                 Rule::in([1, 2, 0, 99]),
             ]
         ];
