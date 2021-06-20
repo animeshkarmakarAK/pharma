@@ -283,7 +283,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white bg-maroon" >
+                            <div class="card-header text-white bg-maroon">
                                 <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
@@ -298,18 +298,9 @@
                                 <h3 class="card-title font-weight-bold">সেক্টর ভিত্তিক জনবল</h3>
                             </div>
                             <div class="card-body">
-                                <div id="job_sector_statistic" style="background-color: #ffffff; margin-left: -3px"></div>
+                                <div id="job_sector_statistic"
+                                     style="background-color: #ffffff; margin-left: -3px"></div>
                                 <div style="height: 1px; margin-top: 5px; background-color: #f4f4f4"></div>
-                                <div class="row job_sector_statistic_lable_text" style="margin-left: 30px; margin-bottom: -20px">
-                                    <div class="row col-3" id="unemployedToggle">
-                                        <div class="colorIndicator" style="background-color: #f52674"></div>
-                                        <p>কর্মহীন</p>
-                                    </div>
-                                    <div class="row  col-3" id="employedToggle">
-                                        <div class="colorIndicator" style="background-color:#2f49d1"></div>
-                                        <p>কর্মরত</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -342,29 +333,35 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total Unemployed</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i>
+                                                Total Unemployed</p>
                                             <strong id="total_unemployed" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total Employed</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i>
+                                                Total Employed</p>
                                             <b id="total_employed" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
+                                                Total Vacancy</p>
                                             <b id="total_vacancy" class="map_count_numbers"></b>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i>
+                                                Total New Recruitment</p>
                                             <strong id="total_new_recruitment" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i>
+                                                Total New Skilled Youth</p>
                                             <b id="total_new_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
+                                                Total Skilled Youth</p>
                                             <b id="total_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                     </div>
@@ -422,7 +419,8 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" id="month-list" style="width: 18vh; margin-right: 2px;">
+                                            <select class="form-control" id="month-list"
+                                                    style="width: 18vh; margin-right: 2px;">
                                                 <option value="1" selected>জানুয়ারি</option>
                                                 <option value="2">ফেব্রুয়ারি</option>
                                                 <option value="3">মার্চ</option>
@@ -452,7 +450,8 @@
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="vacant">
                             <div class="datatable-container">
-                                <table class="table table-bordered dataTable" id="dataTable2" style="background-color: #ffffff">
+                                <table class="table table-bordered dataTable" id="dataTable2"
+                                       style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
                                     </thead>
                                 </table>
@@ -468,7 +467,8 @@
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skilled">
                             <div class="datatable-container">
-                                <table class="table table-bordered dataTable" id="dataTable4" style="background-color: #ffffff">
+                                <table class="table table-bordered dataTable" id="dataTable4"
+                                       style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
                                     </thead>
                                 </table>
@@ -669,13 +669,13 @@
 
         (function () {
 
-            if (data==[] || !data.employment_statistic){
+            if (data == [] || !data.employment_statistic) {
                 $("#employment_statistic").html('No Data Found')
                 return null;
             }
             // set the dimensions and margins of the graph
-            let margin = {top: 40, right: 120, bottom: 30, left: 50}, //add
-                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
+            let margin = {top: 40, right: 80, bottom: 30, left: 50}, //add
+                width = Math.abs(windowWidth / 2.7) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
@@ -701,6 +701,7 @@
             // Reformat the data: we need an array of arrays of {x, y} tuples
             let dataReady = employment_statistic_data_group.map(function (data) { // .map allows to do something for each element of the list
                 return {
+                    key: Object.keys(data)[0],
                     name: data[Object.keys(data)[0]],
                     values: employment_statistic_data.map(function (d) {
                         return {time: d.time, value: +d[Object.keys(data)[0]]};
@@ -714,9 +715,9 @@
                 return data.map((i) => {
                     return svg1.append('line')
                         .attr('x1', 0)
-                        .attr('y1', (height/5) * i) //add
+                        .attr('y1', (height / 5) * i) //add
                         .attr('x2', width) //add
-                        .attr('y2', (height/5) * i) //add
+                        .attr('y2', (height / 5) * i) //add
                         .attr('stroke', 'gray')
                         .attr('stroke-width', 0.2)
                 })
@@ -724,7 +725,6 @@
 
 
             // A color scale: one color for each group
-            //console.log(d3.schemeSet2)
             let myColor = d3.scaleOrdinal()
                 .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
@@ -759,7 +759,7 @@
                 .enter()
                 .append("path")
                 .attr("class", function (d) {
-                    return d.name
+                    return d.key
                 })
                 .attr("d", function (d) {
                     return line(d.values)
@@ -781,7 +781,7 @@
                     return myColor(d.name)
                 })
                 .attr("class", function (d) {
-                    return d.name
+                    return d.key
                 })
                 // Second we need to enter in the 'values' part of this group
                 .selectAll("myPoints")
@@ -807,7 +807,7 @@
                 .append('g')
                 .append("text")
                 .attr("class", function (d) {
-                    return d.name
+                    return d.key
                 })
                 .datum(function (d) {
                     return {name: d.name, value: d.values[d.values.length - 1]};
@@ -815,14 +815,15 @@
                 .attr("transform", function (d) {
                     return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")";
                 }) // Put the text at the position of the last point
-                .attr("x", 12) // shift the text a bit more right
+                .attr("x", -5) // shift the text a bit more right
+                .attr("y", -5) // shift the text a bit more right
                 .text(function (d) {
                     return d.name;
                 })
                 .style("fill", function (d) {
                     return myColor(d.name)
                 })
-                .style("font-size", 15)
+                .style("font-size", 12)
 
             // Add a legend (interactive)
             svg1
@@ -844,9 +845,9 @@
                 .style("font-size", 15)
                 .on("click", function (d) {
                     // is the element currently visible ?
-                    currentOpacity = d3.selectAll("." + d.name).style("opacity")
+                    currentOpacity = d3.selectAll("." + d.key).style("opacity")
                     // Change the opacity: from 0 to 1 or from 1 to 0
-                    d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
+                    d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
                 })
         })();
 
@@ -854,14 +855,13 @@
             /**
              * This block is for colum graph
              **/
-            if (data==[] || !data.job_sector_statistic){
+            if (data == [] || !data.job_sector_statistic) {
                 $("#job_sector_statistic").html('No Data Found')
-                $(".job_sector_statistic_lable_text").css('display','none')
                 return null;
             }
 
-                // set the dimensions and margins of the graph
-            let margin = {top: 10, right: 30, bottom: 20, left: 50},
+            // set the dimensions and margins of the graph
+            let margin = {top: 25, right: 30, bottom: 20, left: 50},
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
@@ -877,38 +877,10 @@
                 }
             })
 
+
             let subgroups = ['Employed', 'UnEmployed']
+            let subgroupsKey = [{key: "Employed", name: "কর্মরত"}, {key: "UnEmployed", name: "কর্মহীন"}]
             let colorCodes = ['#2f49d1', '#f52674']
-
-            function dataSwitch(type) {
-                if (subgroups.includes(type)) {
-                    let index = subgroups.indexOf(type);
-                    if (index > -1) {
-                        subgroups.splice(index, 1);
-                        colorCodes.splice(index, 1)
-                    }
-                } else {
-                    if (type == 'Employed') {
-                        subgroups = [type, ...subgroups]
-                        colorCodes = ['#2f49d1', ...colorCodes]
-                    } else {
-                        subgroups.push(type)
-                        colorCodes.push('#f52674')
-                    }
-
-                }
-                $('#job_sector_statistic').html('')
-                graph(job_sector_statistic_data)
-
-            }
-
-            $('#employedToggle').on('click', function () {
-                dataSwitch('Employed')
-            })
-            $('#unemployedToggle').on('click', function () {
-                dataSwitch('UnEmployed')
-
-            })
 
             graph(job_sector_statistic_data)
 
@@ -938,13 +910,13 @@
                 }).keys()
 
 
-                let lineBackground = (data = [0, 1, 2, 3, 4, 5, 6, 7]) => {
+                let lineBackground = (data = [0, 1, 2, 3, 4]) => {
                     return data.map((i) => {
                         return svg.append('line')
                             .attr('x1', 0)
-                            .attr('y1', 54 * i)
-                            .attr('x2', 480)
-                            .attr('y2', 54 * i)
+                            .attr('y1', (highestValue/27) * i)
+                            .attr('x2', width)
+                            .attr('y2', (highestValue/27) * i)
                             .attr('stroke', 'gray')
                             .attr('stroke-width', 0.2)
                     })
@@ -1007,10 +979,65 @@
                     })
                     .attr("fill", function (d) {
                         return color(d.key);
+                    })
+                    .attr("class", function (d) {
+                        return d.key
+                    });
+
+                svg
+                    .selectAll("myLegend")
+                    .data(subgroupsKey)
+                    .enter()
+                    .append('g')
+                    .append("text")
+                    .attr('x', function (d, i) {
+                        return i == 3 ? 30 + i * 100 : 30 + i * 60
+                    })
+                    .attr('y', -10) //add
+                    .text(function (d) {
+                        return d.name;
+                    })
+                    .style("fill", function (d) {
+                        return color(d.key)
+                    })
+                    .style("font-size", 15)
+                    .on("click", function (d) {
+                        // is the element currently visible ?
+                        currentOpacity = d3.selectAll("." + d.key).style("opacity")
+                        // Change the opacity: from 0 to 1 or from 1 to 0
+                        d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
+                    })
+                svg
+                    .selectAll("myLegend")
+                    .data(subgroupsKey)
+                    .enter()
+                    .append('g')
+                    .append("circle")
+                    .attr('x', function (d, i) {
+                        return i == 3 ? 30 + i * 100 : 30 + i * 60
+                    })
+                    .attr('y', -10) //add
+                    .attr("r", 5)
+                    .attr("stroke", function (d) {
+                        return color(d.key)
+                    })
+                    .attr("transform",
+                        function (d, i) {
+                            return "translate(" + (20 + (i * 60)) + "," + (-15) + ")"
+                        })
+                    .style("fill", function (d) {
+                        return color(d.key)
+                    })
+                    .on("click", function (d) {
+                        // is the element currently visible ?
+                        currentOpacity = d3.selectAll("." + d.key).style("opacity")
+                        // Change the opacity: from 0 to 1 or from 1 to 0
+                        d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
                     });
 
             }
-        })();
+        })
+        ();
     </script>
 
     <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -1058,7 +1085,6 @@
                         type: 'POST',
                         success: function (data) {
                             selectedDistroctData = data;
-                            console.log(selectedDistroctData);
                         }
                     });
 
