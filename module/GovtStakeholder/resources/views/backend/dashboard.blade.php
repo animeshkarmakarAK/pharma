@@ -745,7 +745,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -788,7 +788,7 @@
         (function () {
             // set the dimensions and margins of the graph
             let margin = {top: 10, right: 100, bottom: 30, left: 30},
-                width = Math.abs(windowWidth/3) - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
@@ -799,16 +799,27 @@
                 .append("g")
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
+            let highestValue = 0;
 
-            let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
+            let dataSet = data.employment_statistic.map((item, index) => {
+                for (const [key, value] of Object.entries(item)) {
+                    highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
+                }
+                item['time'] = '' + (index + 1)
+                return item
+            })
+            //console.log(highestValue, dataSets)
+
+            /*let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
                 {time: "2", A: "300", B: "400", C: "104", D: "340", E: "340"},
                 {time: "3", A: "250", B: "449", C: "316", D: "350", E: "211"},
                 {time: "4", A: "307", B: "400", C: "412", D: "8", E: "313"},
-                {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]
+                {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]*/
             //Read the data
 
             // List of groups (here I have one group per column)
-            let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
+            //let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
+            let allGroup = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'নতুন দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
 
 
             // Reformat the data: we need an array of arrays of {x, y} tuples
@@ -837,7 +848,7 @@
 
 
             // A color scale: one color for each group
-            console.log(d3.schemeSet2)
+            //console.log(d3.schemeSet2)
             let myColor = d3.scaleOrdinal()
                 .domain(allGroup)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
@@ -852,7 +863,7 @@
 
             // Add Y axis
             let y = d3.scaleLinear()
-                .domain([0, 500])
+                .domain([0, highestValue])
                 .range([height, 0]);
             svg1.append("g")
                 .call(d3.axisLeft(y));
@@ -969,7 +980,7 @@
              **/
                 // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
-                width = Math.abs(windowWidth/3) - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
@@ -977,6 +988,7 @@
             // Parse the Data
 
 
+/*
             let dummyData = [
                 {
                     group: "ইঞ্জিনিয়ার",
@@ -1008,12 +1020,21 @@
                     Employed: "179",
                     UnEmployed: "136"
                 }]
+*/
+
+            let dummyData = data['job_sector_statistic']
+
+            let highestValue = 0;
+            data.job_sector_statistic.map((item, index) => {
+                for (const [key, value] of Object.entries(item)) {
+                    highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
+                }
+            })
 
             let subgroups = ['Employed', 'UnEmployed']
             let colorCodes = ['#2f49d1', '#f52674']
 
             function dataSwitch(type) {
-                console.log(type)
                 if (subgroups.includes(type)) {
                     let index = subgroups.indexOf(type);
                     if (index > -1) {
@@ -1067,7 +1088,6 @@
 
                 // List of groups = species here = value of the first column called group -> I show them on the X axis
                 let groups = d3.map(data, function (d) {
-                    console.log(d)
                     return (d.group)
                 }).keys()
 
@@ -1095,7 +1115,7 @@
 
                 // Add Y axis
                 let y = d3.scaleLinear()
-                    .domain([0, 200])
+                    .domain([0, highestValue])
                     .range([height, 0]);
                 svg.append("g")
                     .call(d3.axisLeft(y));
@@ -1267,7 +1287,6 @@
                         .style("fill", function (d) {
                             return colorScale(d.properties.DIVISION);
                         });
-                    console.log('BD >> ', bangladesh);
 
                     //Remove unnecessary path
                     bangladesh.selectAll('path')
