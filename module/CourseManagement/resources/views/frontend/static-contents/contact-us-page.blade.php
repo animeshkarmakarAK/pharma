@@ -221,7 +221,7 @@
         .contact-us-form {
             border: 1px solid #f9f9f9;
             padding: 20px;
-            box-shadow: 0px 0px 15px #eee;
+            box-shadow: 0 0 15px #eee;
             min-height: 550px;
         }
 
@@ -233,7 +233,7 @@
 
         .contact-box {
             padding: 10px 20px;
-            margin: 0px;
+            margin: 0;
         }
 
         i.template-contact-icon {

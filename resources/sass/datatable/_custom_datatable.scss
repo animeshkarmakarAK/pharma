@@ -1,9 +1,10 @@
 .datatable-container {
     max-width: 100% !important;
+
     table {
         white-space: nowrap !important;
-        width:100%!important;
-        border-collapse:collapse!important;
+        width: 100% !important;
+        border-collapse: collapse !important;
     }
 }
 
@@ -38,6 +39,7 @@ table.table-striped.dataTable tbody tr:nth-of-type(odd) {
 table.table-striped.dataTable tbody tr:nth-of-type(even) {
     background-color: rgba(0, 0, 0, 0.03);
 }
+
 table.table-striped.dataTable tbody tr:nth-of-type(odd).selected {
     background: #e9f4fa;
 }

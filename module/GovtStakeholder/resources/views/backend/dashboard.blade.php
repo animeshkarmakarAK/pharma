@@ -76,10 +76,7 @@
 
         .tab .nav-tabs li {
             background-color: #dbf4fe;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding: 7px 30px;
             border-top-left-radius: 20px 30px;
             border-top-right-radius: 20px 30px;
             border: 1px solid #138dd1;
@@ -94,7 +91,7 @@
         }
 
         .table thead tr th select {
-            width: 10vw;
+            /*width: 10vw;*/
             padding: 10px;
             height: fit-content;
             background-color: #6fcdff;
@@ -105,7 +102,7 @@
 
         .table {
             background-color: #ffffff;
-            width: 80vw;
+            /*width: 80vw;*/
         }
 
         .table thead {
@@ -130,7 +127,7 @@
             background: #FFF;
             border-radius: 2px;
             pointer-events: none;
-            box-shadow: 0px 0px 2px 0px #a6a6a6;
+            box-shadow: 0 0 2px 0 #a6a6a6;
         }
 
         .key path {
@@ -157,13 +154,13 @@
         .map_info {
             display: inline-block;
             position: absolute;
-            top: 50px;
+            bottom: 6px;
             right: 6px;
             opacity: .8;
             font-size: 12px;
             background: #f2f7f8;
             border-radius: 5px;
-            max-height: 190px;
+            /*max-height: 190px;*/
             min-width: 192px;
         }
 
@@ -172,7 +169,7 @@
         }
 
         .map_content_top {
-            padding: 15px 10px 0px 10px;
+            padding: 15px 10px 0 10px;
             line-height: 2px;
             font-size: 15px;
         }
@@ -199,10 +196,7 @@
                 <div class="sticker-area text-center institute-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/2.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
-                        {{--                            <i class="fas fa-university sticker-icon"></i>--}}
+                        background: url({{ asset("/assets/dashboard/2.png") }}) no-repeat center;">
                         <i class="fa fa-industry sticker-icon"></i>
                     </div>
 
@@ -218,9 +212,7 @@
                 <div class="sticker-area text-center youth-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/1.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/1.png") }}) no-repeat center; ">
                         <i class="fas fa-briefcase sticker-icon"></i>
                     </div>
 
@@ -237,9 +229,7 @@
                 <div class="sticker-area text-center course-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/3.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/3.png") }}) no-repeat center; ">
                         <i class="fas fa-list-alt sticker-icon"></i>
                     </div>
 
@@ -257,9 +247,7 @@
                 <div class="sticker-area text-center branch-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/5.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/5.png") }}) no-repeat center; ">
                         <i class="fas fa-code-branch sticker-icon"></i>
                     </div>
 
@@ -276,9 +264,7 @@
                 <div class="sticker-area text-center training_center-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/4.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/4.png") }}) no-repeat center; ">
                         <i class="fas fa-chalkboard-teacher sticker-icon"></i>
                     </div>
 
@@ -353,20 +339,35 @@
                             </div>
                             <hr>
                             <div class="map_content_body">
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Running
-                                        Courses</p>
-                                    <strong id="running_courses" class="map_count_numbers">10</strong>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total
-                                        Enrollment</p>
-                                    <b id="total_enrollment" class="map_count_numbers">20</b>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
-                                        Running Students</p>
-                                    <b id="running_students" class="map_count_numbers">100</b>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total Unemployed</p>
+                                            <strong id="total_unemployed" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total Employed</p>
+                                            <b id="total_employed" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <b id="total_vacancy" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <strong id="total_new_recruitment" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <b id="total_new_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <b id="total_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -387,7 +388,7 @@
                             </a>
                         </li>
                         <li role="presentation" class="navTabs" style="">
-                            <a href="#Unemployed" aria-controls="profile" role="tab" data-toggle="tab">
+                            <a href="#unemployed" aria-controls="profile" role="tab" data-toggle="tab">
                                 <span>কর্মহীন জনবলের তালিকা</span>
                             </a>
                         </li>
@@ -402,7 +403,7 @@
                             </a>
                         </li>
                         <li role="presentation" class="navTabs" style="">
-                            <a href="#skiled" aria-controls="messages" role="tab" data-toggle="tab">
+                            <a href="#skilled" aria-controls="messages" role="tab" data-toggle="tab">
                                 <span>দক্ষ জনবলের তালিকা</span>
                             </a>
                         </li>
@@ -412,7 +413,7 @@
                     <div class="tab-content tabs">
                         <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
                             <div class="datatable-container">
-                                <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                <table id="dataTable" class="table table-bordered dataTable">
                                     <thead class="custom-bg-gradient-info">
                                     <tr>
                                         <th scope="col">কোম্পানির নাম</th>
@@ -421,7 +422,7 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" style="">
+                                            <select class="form-control" id="month-list" style="width: 18vh; margin-right: 2px;">
                                                 <option value="1" selected>জানুয়ারি</option>
                                                 <option value="2">ফেব্রুয়ারি</option>
                                                 <option value="3">মার্চ</option>
@@ -441,281 +442,37 @@
                                 </table>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="Unemployed">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="unemployed">
+                            <div class="datatable-container">
+                                <table id="dataTable1" class="table table-bordered dataTable">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="vacant">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="datatable-container">
+                                <table class="table table-bordered dataTable" id="dataTable2" style="background-color: #ffffff">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane tab_custome_style fade" id="employed">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="datatable-container">
+                                <table id="dataTable3" class="table table-bordered dataTable">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skiled">
-                            <table class="table" style="background-color: #ffffff">
-                                <thead class="custom-bg-gradient-info">
-                                <tr>
-                                    <th scope="col">স্কিলের নাম</th>
-                                    <th scope="col">নতুন</th>
-                                    <th scope="col">কর্মখালি</th>
-                                    <th scope="col">কর্মরত</th>
-                                    <th scope="col" style="margin-right: -50px">
-                                        <select class="form-control" style="margin-right: -8.3vw">
-                                            <option value="1" selected>জানুয়ারি</option>
-                                            <option value="2">ফেব্রুয়ারি</option>
-                                            <option value="3">মার্চ</option>
-                                            <option value="4">এপ্রিল</option>
-                                            <option value="5">মে</option>
-                                            <option value="6">জুন</option>
-                                            <option value="7">জুলাই</option>
-                                            <option value="8">আগস্ট</option>
-                                            <option value="9">সেপ্টেমবর</option>
-                                            <option value="10">অক্টোবর</option>
-                                            <option value="11">নভেম্বর</option>
-                                            <option value="12">ডিসেম্বর</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>ড্রাইভার</th>
-                                    <td>20</td>
-                                    <td>200</td>
-                                    <td>2050</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">প্লাম্বার</th>
-                                    <td>50</td>
-                                    <td>0</td>
-                                    <td>340</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">ইলেক্টিসিয়ান</th>
-                                    <td>33</td>
-                                    <td>405</td>
-                                    <td>4050</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">কারপেন্টার</th>
-                                    <td>36</td>
-                                    <td>33</td>
-                                    <td>330</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">গার্ড</th>
-                                    <td>230</td>
-                                    <td>400</td>
-                                    <td>1107</td>
-                                    <td></td>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div role="tabpanel" class="tab-pane tab_custome_style fade" id="skilled">
+                            <div class="datatable-container">
+                                <table class="table table-bordered dataTable" id="dataTable4" style="background-color: #ffffff">
+                                    <thead class="custom-bg-gradient-info">
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -770,18 +527,144 @@
                     {
                         data: "survey_date",
                         name: "survey_date",
-                        // visible: false,
-                        sortable: false
+                        visible: true,
+                        sortable: false,
+                        defaultContent: "",
                     },
                 ]
             });
-            params.dom = "";
+            params.dom = "<'row'<'col-sm-12'tr>>";
+
+            params.ajax.data = d => {
+                d.month = $('#month-list').val();
+            };
             const datatable = $('#dataTable').DataTable(params);
 
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
+            $('#month-list').on('change', function () {
+                datatable.draw();
+            })
+
+
+            let params1 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "কর্মহীন",
+                        data: "sum_vacancy",
+                        name: "sum_vacancy",
+                    },
+                ]
             });
+            params1.dom = "<'row'<'col-sm-12'tr>>";
+
+            const datatable1 = $('#dataTable1').DataTable(params1);
+
+            $('a[href = "#unemployed"]').on('click', function () {
+                setTimeout(function () {
+                    datatable1.draw();
+                }, 200)
+            })
+
+            let params2 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "করমখালি",
+                        data: "sum_vacancy",
+                        name: "sum_vacancy"
+                    },
+                ]
+            });
+            params2.dom = "<'row'<'col-sm-12'tr>>";
+
+            const datatable2 = $('#dataTable2').DataTable(params2);
+
+            $('a[href = "#vacant"]').on('click', function () {
+                setTimeout(function () {
+                    datatable2.draw();
+                }, 200)
+            })
+
+            //datatable for employed statistics
+
+            let params3 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "কর্মরত",
+                        data: "sum_occupied_position",
+                        name: "sum_occupied_position"
+                    },
+                ]
+            });
+            params3.dom = "<'row'<'col-sm-12'tr>>";
+
+
+            const datatable3 = $('#dataTable3').DataTable(params3);
+
+            $('a[href = "#employed"]').on('click', function () {
+                setTimeout(function () {
+                    datatable3.draw();
+                }, 200)
+            })
+
+
+            //datatable for skilled people
+            let params4 = serverSideDatatableFactory({
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
+                searching: false,
+                paging: false,
+                lengthChange: false,
+                info: false,
+                generateSerialNumber: false,
+                columns: [
+                    {
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
+                    },
+                    {
+                        title: "দক্ষ জনবল সংখ্যা",
+                        data: "sum_occupied_position",
+                        name: "sum_occupied_position"
+                    },
+                ]
+            });
+            params4.dom = "<'row'<'col-sm-12'tr>>";
+
+            const datatable4 = $('#dataTable4').DataTable(params4);
+
+            $('a[href = "#skilled"]').on('click', function () {
+                setTimeout(function () {
+                    datatable4.draw();
+                }, 200)
+            })
         });
 
         (function () {
@@ -1135,6 +1018,7 @@
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
         (function () {
+            let selectedDistroctData = [];
             let w = 300;
             let h = 340;
             let proj = d3.geo.mercator();
@@ -1164,10 +1048,20 @@
 
             let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             d3.json(url, function (json) {
-
                 $('#map_select').on('change', function () {
-                    let district = $('#map_select option:selected').text();
-                    district = district.toLowerCase();
+                    let districtElm = $('#map_select option:selected');
+                    let district = districtElm.text().toLowerCase();
+
+                    $.ajax({
+                        data: {district_id: districtElm.val()},
+                        url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
+                        type: 'POST',
+                        success: function (data) {
+                            selectedDistroctData = data;
+                            console.log(selectedDistroctData);
+                        }
+                    });
+
                     const words = district.split(" ");
 
                     for (let i = 0; i < words.length; i++) {
@@ -1204,12 +1098,20 @@
                         .filter((d) => d.properties.ADM2_EN == district)
 
                         .on('mouseover', function (d, i) {
+                            let districtId = $('#map_select').val();
+                            let upazilaName = d.properties.ADM3_EN;
+                            console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
+                            let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
+                            console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
                                 $("#district").text(d.properties.ADM3_EN + " Thana");
-                                $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
-                                $("#running_students").text(Math.floor(Math.random() * 9) + 250);
-                                $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
+                                $("#total_unemployed").text(upazilaStatistics?.total_unemployed);
+                                $("#total_employed").text(upazilaStatistics?.total_employed);
+                                $("#total_vacancy").text(upazilaStatistics?.total_vacancy);
+                                $("#total_new_recruitment").text(upazilaStatistics?.total_new_recruitment);
+                                $("#total_new_skilled_youth").text(upazilaStatistics?.total_new_skilled_youth);
+                                $("#total_skilled_youth").text(upazilaStatistics?.total_skilled_youth);
                             }
 
                             d3.select(this).transition().duration(300).style("opacity", 1);
@@ -1228,6 +1130,12 @@
                         .on('mouseleave', function (d, i) {
                             if ($('.map_info').show()) {
                                 $('.map_info').hide();
+                                $("#total_unemployed").text('0');
+                                $("#total_employed").text('0');
+                                $("#total_vacancy").text('0');
+                                $("#total_new_recruitment").text('0');
+                                $("#total_new_skilled_youth").text('0');
+                                $("#total_skilled_youth").text('0');
                             }
 
                             d3.select(this).transition().duration(300)

@@ -18,7 +18,7 @@ class CreateApplicationFormTypesTable extends Migration
             $table->unsignedInteger('institute_id')->index('application_form_types_fk_institute_id');
             $table->string('title_en', 191)->nullable();
             $table->string('title_bn', 191)->nullable();
-            $table->tinyInteger('ethnic')->nullable()->default(0)->comment("1 => in ethnic group, 2 => not in enthic group");
+            $table->tinyInteger('ethnic')->nullable()->default(0)->comment("1 => in ethnic group, 2 => not in ethnic group");
             $table->tinyInteger('freedom_fighter')->nullable()->default(0);
             $table->tinyInteger('disable_status')->nullable()->default(0)->comment('1 => disable  2 => not disable');
             $table->tinyInteger('ssc')->nullable()->default(0)->comment('is passed ssc');
