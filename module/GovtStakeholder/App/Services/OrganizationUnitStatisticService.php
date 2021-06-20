@@ -123,23 +123,10 @@ class OrganizationUnitStatisticService
 
     public function unemploymentStatistic(Request $request): JsonResponse
     {
-        $occpationWiseStatistics = OccupationWiseStatistic::select(
-            [
-                'occupation_wise_statistics.id',
-                'occupation_wise_statistics.current_month_skilled_youth as unemployed',
-                'occupations.title_en as occupation_name',
-            ]);
+        $orgStat = organizationUnitStatistic::join('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id')
+            ->selectRaw('sum(total_new_recruits) as sum_new_recruits, sum(total_vacancy) as sum_vacancy, sum(total_occupied_position) as sum_occupied_position, organization_units.title_en as organization_unit_name');
 
-        if ($request->input('month')) {
-            $occpationWiseStatistics->whereMonth('survey_date', $request->input('month'));
-        }
-
-        $occpationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
-
-        return DataTables::eloquent($occpationWiseStatistics)
-            ->editColumn('survey_date', function () {
-                return "";
-            })
+        return DataTables::eloquent($orgStat)
             ->toJson();
     }
 

@@ -421,7 +421,7 @@
                                         <th scope="col">কর্মখালি</th>
                                         <th scope="col">কর্মরত</th>
                                         <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" id="month-list" style="">
+                                            <select class="form-control" id="month-list" style="width: 18vh; margin-right: 2px;">
                                                 <option value="1" selected>জানুয়ারি</option>
                                                 <option value="2">ফেব্রুয়ারি</option>
                                                 <option value="3">মার্চ</option>
@@ -445,26 +445,6 @@
                             <div class="datatable-container">
                                 <table id="dataTable1" class="table table-bordered dataTable">
                                     <thead class="custom-bg-gradient-info">
-                                    <tr>
-                                        <th scope="col">স্কিলের নাম</th>
-                                        <th scope="col">কর্মহীন</th>
-                                        <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" id="month-list1" style="">
-                                                <option value="1" selected>জানুয়ারি</option>
-                                                <option value="2">ফেব্রুয়ারি</option>
-                                                <option value="3">মার্চ</option>
-                                                <option value="4">এপ্রিল</option>
-                                                <option value="5">মে</option>
-                                                <option value="6">জুন</option>
-                                                <option value="7">জুলাই</option>
-                                                <option value="8">আগস্ট</option>
-                                                <option value="9">সেপ্টেমবর</option>
-                                                <option value="10">অক্টোবর</option>
-                                                <option value="11">নভেম্বর</option>
-                                                <option value="12">ডিসেম্বর</option>
-                                            </select>
-                                        </th>
-                                    </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -473,26 +453,6 @@
                             <div class="datatable-container">
                                 <table class="table" id="dataTable2" style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
-                                    <tr>
-                                        <th scope="col">স্কিলের নাম</th>
-                                        <th scope="col">কর্মখালি</th>
-                                        <th scope="col" style="margin-right: -50px">
-                                            <select class="form-control" id="month-list2">
-                                                <option value="1" selected>জানুয়ারি</option>
-                                                <option value="2">ফেব্রুয়ারি</option>
-                                                <option value="3">মার্চ</option>
-                                                <option value="4">এপ্রিল</option>
-                                                <option value="5">মে</option>
-                                                <option value="6">জুন</option>
-                                                <option value="7">জুলাই</option>
-                                                <option value="8">আগস্ট</option>
-                                                <option value="9">সেপ্টেমবর</option>
-                                                <option value="10">অক্টোবর</option>
-                                                <option value="11">নভেম্বর</option>
-                                                <option value="12">ডিসেম্বর</option>
-                                            </select>
-                                        </th>
-                                    </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -501,26 +461,6 @@
                             <div class="datatable-container">
                                 <table id="dataTable3" class="table table-bordered dataTable">
                                     <thead class="custom-bg-gradient-info">
-                                    <tr>
-                                        <th scope="col">স্কিলের নাম</th>
-                                        <th scope="col">কর্মরত</th>
-                                        <th scope="col" style="margin-right: -10px">
-                                            <select class="form-control" id="month-list3" style="">
-                                                <option value="1" selected>জানুয়ারি</option>
-                                                <option value="2">ফেব্রুয়ারি</option>
-                                                <option value="3">মার্চ</option>
-                                                <option value="4">এপ্রিল</option>
-                                                <option value="5">মে</option>
-                                                <option value="6">জুন</option>
-                                                <option value="7">জুলাই</option>
-                                                <option value="8">আগস্ট</option>
-                                                <option value="9">সেপ্টেমবর</option>
-                                                <option value="10">অক্টোবর</option>
-                                                <option value="11">নভেম্বর</option>
-                                                <option value="12">ডিসেম্বর</option>
-                                            </select>
-                                        </th>
-                                    </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -529,28 +469,6 @@
                             <div class="datatable-container">
                                 <table class="table" id="dataTable4" style="background-color: #ffffff">
                                     <thead class="custom-bg-gradient-info">
-                                    <tr>
-                                        <th scope="col">স্কিলের নাম</th>
-                                        <th scope="col">নতুন</th>
-                                        <th scope="col">কর্মখালি</th>
-                                        <th scope="col">কর্মরত</th>
-                                        <th scope="col" style="margin-right: -50px">
-                                            <select class="form-control" id="month-list4" style="margin-right: -8.3vw">
-                                                <option value="1" selected>জানুয়ারি</option>
-                                                <option value="2">ফেব্রুয়ারি</option>
-                                                <option value="3">মার্চ</option>
-                                                <option value="4">এপ্রিল</option>
-                                                <option value="5">মে</option>
-                                                <option value="6">জুন</option>
-                                                <option value="7">জুলাই</option>
-                                                <option value="8">আগস্ট</option>
-                                                <option value="9">সেপ্টেমবর</option>
-                                                <option value="10">অক্টোবর</option>
-                                                <option value="11">নভেম্বর</option>
-                                                <option value="12">ডিসেম্বর</option>
-                                            </select>
-                                        </th>
-                                    </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -625,89 +543,60 @@
 
             let params1 = serverSideDatatableFactory({
                 url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
-                order: [[2, "asc"]],
                 searching: false,
                 paging: false,
-                lengthChange: false,
-                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
-                        data: "occupation_name",
-                        name: "occupations.title_en"
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
                     },
                     {
-                        data: "unemployed",
-                        name: "occupation_wise_statistics.current_month_skilled_youth"
-                    },
-                    {
-                        data: "survey_date",
-                        name: "survey_date",
-                        visible: true,
-                        sortable: false,
-                        defaultContent: "",
+                        title: "কর্মহীন",
+                        data: "sum_vacancy",
+                        name: "sum_vacancy",
                     },
                 ]
             });
             params1.dom = "<'row'<'col-sm-12'tr>>";
 
-            params1.ajax.data = d => {
-                d.month = $('#month-list1').val();
-            };
             const datatable1 = $('#dataTable1').DataTable(params1);
 
             $('a[href = "#unemployed"]').on('click', function () {
                 datatable1.draw();
             })
-            $('#month-list1').on('change', function () {
-                datatable1.draw();
-            })
 
             let params2 = serverSideDatatableFactory({
-                url: '{{ route('govt_stakeholder::admin.occupations.vacancy-statistics-datatable') }}',
-                order: [[2, "asc"]],
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
                 searching: false,
                 paging: false,
-                lengthChange: false,
-                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
-                        data: "occupation_name",
-                        name: "occupations.title_en"
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
                     },
                     {
-                        data: "unemployed",
-                        name: "occupation_wise_statistics.next_month_skill_youth"
-                    },
-                    {
-                        data: "survey_date",
-                        name: "survey_date",
-                        visible: true,
-                        sortable: false,
-                        defaultContent: "",
+                        title: "করমখালি",
+                        data: "sum_vacancy",
+                        name: "sum_vacancy"
                     },
                 ]
             });
             params2.dom = "<'row'<'col-sm-12'tr>>";
 
-            params2.ajax.data = d => {
-                d.month = $('#month-list2').val();
-            };
             const datatable2 = $('#dataTable2').DataTable(params2);
 
             $('a[href = "#vacant"]').on('click', function () {
-                datatable2.draw();
-            })
-            $('#month-list2').on('change', function () {
                 datatable2.draw();
             })
 
             //datatable for employed statistics
 
             let params3 = serverSideDatatableFactory({
-                url: '{{ route('govt_stakeholder::admin.occupations.vacancy-statistics-datatable') }}',
-                order: [[2, "asc"]],
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
                 searching: false,
                 paging: false,
                 lengthChange: false,
@@ -715,42 +604,30 @@
                 generateSerialNumber: false,
                 columns: [
                     {
-                        data: "occupation_name",
-                        name: "occupations.title_en"
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
                     },
                     {
-                        data: "unemployed",
-                        name: "occupation_wise_statistics.next_month_skill_youth"
-                    },
-                    {
-                        data: "survey_date",
-                        name: "survey_date",
-                        visible: true,
-                        sortable: false,
-                        defaultContent: "",
+                        title: "কর্মরত",
+                        data: "sum_occupied_position",
+                        name: "sum_occupied_position"
                     },
                 ]
             });
             params3.dom = "<'row'<'col-sm-12'tr>>";
 
-            params3.ajax.data = d => {
-                d.month = $('#month-list2').val();
-            };
+
             const datatable3 = $('#dataTable3').DataTable(params3);
 
             $('a[href = "#employed"]').on('click', function () {
                 datatable3.draw();
             })
 
-            $('#month-list3').on('change', function () {
-                datatable3.draw();
-            })
-
 
             //datatable for skilled people
             let params4 = serverSideDatatableFactory({
-                url: '{{ route('govt_stakeholder::admin.occupations.vacancy-statistics-datatable') }}',
-                order: [[2, "asc"]],
+                url: '{{ route('govt_stakeholder::admin.occupations.statistics-datatable') }}',
                 searching: false,
                 paging: false,
                 lengthChange: false,
@@ -758,42 +635,22 @@
                 generateSerialNumber: false,
                 columns: [
                     {
-                        data: "occupation_name",
-                        name: "occupations.title_en"
+                        title: "কোম্পানির নাম",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en"
                     },
                     {
-                        data: "unemployed",
-                        name: "occupation_wise_statistics.next_month_skill_youth"
-                    },
-                    {
-                        data: "current_month_skilled_youth",
-                        name: "occupation_wise_statistics.current_month_skilled_youth"
-                    },
-                    {
-                        data: "current_month_skilled_youth",
-                        name: "occupation_wise_statistics.current_month_skilled_youth"
-                    },
-                    {
-                        data: "survey_date",
-                        name: "survey_date",
-                        visible: true,
-                        sortable: false,
-                        defaultContent: "",
+                        title: "দক্ষ জনবল সংখ্যা",
+                        data: "sum_occupied_position",
+                        name: "sum_occupied_position"
                     },
                 ]
             });
             params4.dom = "<'row'<'col-sm-12'tr>>";
 
-            params4.ajax.data = d => {
-                d.month = $('#month-list4').val();
-            };
             const datatable4 = $('#dataTable4').DataTable(params4);
 
             $('a[href = "#skilled"]').on('click', function () {
-                datatable4.draw();
-            })
-
-            $('#month-list4').on('change', function () {
                 datatable4.draw();
             })
         });
