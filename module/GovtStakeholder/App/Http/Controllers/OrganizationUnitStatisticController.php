@@ -8,8 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
-use Module\GovtStakeholder\App\Models\Organization;
 use Module\GovtStakeholder\App\Models\OrganizationUnit;
 use Module\GovtStakeholder\App\Models\organizationUnitStatistic;
 use Module\GovtStakeholder\App\Services\OrganizationUnitStatisticService;
@@ -17,7 +15,7 @@ use Module\GovtStakeholder\App\Services\OrganizationUnitStatisticService;
 class OrganizationUnitStatisticController extends BaseController
 {
     const VIEW_PATH = 'govt_stakeholder::backend.organization-unit-statistics.';
-    public  OrganizationUnitStatisticService $organizationUnitStatisticService;
+    public OrganizationUnitStatisticService $organizationUnitStatisticService;
 
     public function __construct(OrganizationUnitStatisticService $organizationUnitStatisticService)
     {
@@ -54,9 +52,9 @@ class OrganizationUnitStatisticController extends BaseController
     {
         $validatedData = $this->organizationUnitStatisticService->validator($request)->validate();
 
-        $organizationUnitStatistic = organizationUnitStatistic::where([['survey_date',$validatedData['survey_date']]])->first();
+        $organizationUnitStatistic = organizationUnitStatistic::where([['survey_date', $validatedData['survey_date']]])->first();
 
-        if($organizationUnitStatistic){
+        if ($organizationUnitStatistic) {
             return back()->with([
                 'message' => 'Organization Unit Statistics for this month is already exist',
                 'alert-type' => 'error'
@@ -154,6 +152,7 @@ class OrganizationUnitStatisticController extends BaseController
     {
         return $this->organizationUnitStatisticService->unemploymentStatistic($request);
     }
+
     public function vacancyStatisticOccupationWise(Request $request)
     {
         return $this->organizationUnitStatisticService->vacancyStatistic($request);

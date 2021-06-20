@@ -579,7 +579,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -629,7 +629,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -669,7 +669,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -711,7 +711,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
@@ -754,7 +754,7 @@
                 searching: false,
                 paging: false,
                 lengthChange: false,
-                info:false,
+                info: false,
                 generateSerialNumber: false,
                 columns: [
                     {
