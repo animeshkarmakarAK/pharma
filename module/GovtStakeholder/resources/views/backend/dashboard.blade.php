@@ -674,7 +674,7 @@
                 return null;
             }
             // set the dimensions and margins of the graph
-            let margin = {top: 20, right: 120, bottom: 30, left: 50}, //add
+            let margin = {top: 40, right: 120, bottom: 30, left: 50}, //add
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
@@ -834,7 +834,7 @@
                 .attr('x', function (d, i) {
                     return i == 3 ? 30 + i * 100 : 30 + i * 60
                 })
-                .attr('y', -5) //add
+                .attr('y', -24) //add
                 .text(function (d) {
                     return d.name;
                 })

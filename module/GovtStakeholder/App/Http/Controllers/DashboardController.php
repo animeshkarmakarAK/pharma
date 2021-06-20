@@ -23,7 +23,7 @@ class DashboardController
             ->take(5)
             ->get();
 
-        $data['employment_statistic'] = $employmentStatistic->get()->toArray();
+        $data['employment_statistic'] = array_reverse($employmentStatistic->get()->toArray());
         $jobSectorStatistic=UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
