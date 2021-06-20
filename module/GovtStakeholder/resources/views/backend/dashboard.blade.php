@@ -297,24 +297,24 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white" style="background-color:#c665e6;">
-                                <h3 class="card-title font-weight-bold">বিগত ১ মাসের হিসাব</h3>
+                            <div class="card-header text-white bg-maroon" >
+                                <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
-                                <div id="my_data"></div>
+                                <div id="employment_statistic"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white">
+                            <div class="card-header text-white bg-primary">
                                 <h3 class="card-title font-weight-bold">সেক্টর ভিত্তিক জনবল</h3>
                             </div>
                             <div class="card-body">
-                                <div id="my_dataviz" style="background-color: #ffffff; margin-left: -3px"></div>
+                                <div id="job_sector_statistic" style="background-color: #ffffff; margin-left: -3px"></div>
                                 <div style="height: 1px; margin-top: 5px; background-color: #f4f4f4"></div>
-                                <div class="row" style="margin-left: 30px; margin-bottom: -20px">
+                                <div class="row job_sector_statistic_lable_text" style="margin-left: 30px; margin-bottom: -20px">
                                     <div class="row col-3" id="unemployedToggle">
                                         <div class="colorIndicator" style="background-color: #f52674"></div>
                                         <p>কর্মহীন</p>
@@ -730,7 +730,6 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
         let data = @json($data);
-        console.log(data)
         let windowWidth = window.innerWidth;
 
         $('.navTabs').on('click', function (event) {
@@ -786,13 +785,18 @@
         });
 
         (function () {
+
+            if (data==[] || !data.employment_statistic){
+                $("#employment_statistic").html('No Data Found')
+                return null;
+            }
             // set the dimensions and margins of the graph
             let margin = {top: 10, right: 100, bottom: 30, left: 30},
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
-            let svg1 = d3.select("#my_data")
+            let svg1 = d3.select("#employment_statistic")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -801,32 +805,21 @@
                     "translate(" + margin.left + "," + margin.top + ")");
             let highestValue = 0;
 
-            let dataSet = data.employment_statistic.map((item, index) => {
+            let employment_statistic_data = data.employment_statistic.map((item, index) => {
                 for (const [key, value] of Object.entries(item)) {
                     highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
                 }
                 item['time'] = '' + (index + 1)
                 return item
             })
-            //console.log(highestValue, dataSets)
-
-            /*let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
-                {time: "2", A: "300", B: "400", C: "104", D: "340", E: "340"},
-                {time: "3", A: "250", B: "449", C: "316", D: "350", E: "211"},
-                {time: "4", A: "307", B: "400", C: "412", D: "8", E: "313"},
-                {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]*/
-            //Read the data
-
-            // List of groups (here I have one group per column)
-            //let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
-            let allGroup = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'নতুন দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
+            let employment_statistic_data_group = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'নতুন দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
 
 
             // Reformat the data: we need an array of arrays of {x, y} tuples
-            let dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
+            let dataReady = employment_statistic_data_group.map(function (data) { // .map allows to do something for each element of the list
                 return {
                     name: data[Object.keys(data)[0]],
-                    values: dataSet.map(function (d) {
+                    values: employment_statistic_data.map(function (d) {
                         return {time: d.time, value: +d[Object.keys(data)[0]]};
                     })
                 };
@@ -850,7 +843,7 @@
             // A color scale: one color for each group
             //console.log(d3.schemeSet2)
             let myColor = d3.scaleOrdinal()
-                .domain(allGroup)
+                .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
             // Add X axis --> it is a date format
@@ -978,6 +971,12 @@
             /**
              * This block is for colum graph
              **/
+            if (data==[] || !data.job_sector_statistic){
+                $("#job_sector_statistic").html('No Data Found')
+                $(".job_sector_statistic_lable_text").css('display','none')
+                return null;
+            }
+
                 // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
@@ -986,43 +985,7 @@
             // append the svg object to the body of the page
 
             // Parse the Data
-
-
-/*
-            let dummyData = [
-                {
-                    group: "ইঞ্জিনিয়ার",
-                    Employed: "130",
-                    UnEmployed: "100"
-                },
-                {
-                    group: "মেকানিক",
-                    Employed: "106",
-                    UnEmployed: "56"
-                },
-                {
-                    group: "ডেলিভারি ম্যান",
-                    Employed: "191",
-                    UnEmployed: "128"
-                },
-                {
-                    group: "ড্রাইভার",
-                    Employed: "190",
-                    UnEmployed: "106"
-                },
-                {
-                    group: "সেলসম্যান",
-                    Employed: "119",
-                    UnEmployed: "69"
-                },
-                {
-                    group: "ইলেক্টিসিয়ান",
-                    Employed: "179",
-                    UnEmployed: "136"
-                }]
-*/
-
-            let dummyData = data['job_sector_statistic']
+            let job_sector_statistic_data = data['job_sector_statistic']
 
             let highestValue = 0;
             data.job_sector_statistic.map((item, index) => {
@@ -1051,8 +1014,8 @@
                     }
 
                 }
-                $('#my_dataviz').html('')
-                graph(dummyData)
+                $('#job_sector_statistic').html('')
+                graph(job_sector_statistic_data)
 
             }
 
@@ -1064,7 +1027,7 @@
 
             })
 
-            graph(dummyData)
+            graph(job_sector_statistic_data)
 
             function xAxis(g) {
                 return g.attr("transform", `translate(0,${height - margin.bottom})`)
@@ -1074,7 +1037,7 @@
 
             function graph(data) {
 
-                let svg = d3.select("#my_dataviz")
+                let svg = d3.select("#job_sector_statistic")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)

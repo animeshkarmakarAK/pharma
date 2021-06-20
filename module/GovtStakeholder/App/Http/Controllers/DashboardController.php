@@ -23,17 +23,16 @@ class DashboardController
             ->get();
 
         $data['employment_statistic'] = $employmentStatistic->get()->toArray();
-        //dd($upazilaJobStatistic->get()->toArray());
-        $jobSectorStataistic=UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
-        $jobSectorStataistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
-        $jobSectorStataistic->select(['upazila_job_statistics.job_sector_id as group', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
+        $jobSectorStatistic=UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
+        $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
+        $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as Employed")])
             ->groupBy('upazila_job_statistics.job_sector_id')
             ->orderBy('upazila_job_statistics.job_sector_id', 'ASC')
             ->take(6)
             ->get();
 
-        $data['job_sector_statistic'] = $jobSectorStataistic->get()->toArray();
+        $data['job_sector_statistic'] = $jobSectorStatistic->get()->toArray();
 
 
         return view('govt_stakeholder::backend.dashboard', compact('data'));
