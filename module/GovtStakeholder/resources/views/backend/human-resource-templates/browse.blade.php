@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Human Resources List</h3>
+                        <h3 class="card-title font-weight-bold">Human Resource Template List</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)
