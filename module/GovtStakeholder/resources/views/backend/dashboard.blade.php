@@ -76,10 +76,7 @@
 
         .tab .nav-tabs li {
             background-color: #dbf4fe;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding: 7px 30px;
             border-top-left-radius: 20px 30px;
             border-top-right-radius: 20px 30px;
             border: 1px solid #138dd1;
@@ -130,7 +127,7 @@
             background: #FFF;
             border-radius: 2px;
             pointer-events: none;
-            box-shadow: 0px 0px 2px 0px #a6a6a6;
+            box-shadow: 0 0 2px 0 #a6a6a6;
         }
 
         .key path {
@@ -157,13 +154,13 @@
         .map_info {
             display: inline-block;
             position: absolute;
-            top: 50px;
+            bottom: 6px;
             right: 6px;
             opacity: .8;
             font-size: 12px;
             background: #f2f7f8;
             border-radius: 5px;
-            max-height: 190px;
+            /*max-height: 190px;*/
             min-width: 192px;
         }
 
@@ -172,7 +169,7 @@
         }
 
         .map_content_top {
-            padding: 15px 10px 0px 10px;
+            padding: 15px 10px 0 10px;
             line-height: 2px;
             font-size: 15px;
         }
@@ -199,10 +196,7 @@
                 <div class="sticker-area text-center institute-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/2.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
-                        {{--                            <i class="fas fa-university sticker-icon"></i>--}}
+                        background: url({{ asset("/assets/dashboard/2.png") }}) no-repeat center;">
                         <i class="fa fa-industry sticker-icon"></i>
                     </div>
 
@@ -218,9 +212,7 @@
                 <div class="sticker-area text-center youth-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/1.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/1.png") }}) no-repeat center; ">
                         <i class="fas fa-briefcase sticker-icon"></i>
                     </div>
 
@@ -237,9 +229,7 @@
                 <div class="sticker-area text-center course-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/3.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/3.png") }}) no-repeat center; ">
                         <i class="fas fa-list-alt sticker-icon"></i>
                     </div>
 
@@ -257,9 +247,7 @@
                 <div class="sticker-area text-center branch-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/5.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/5.png") }}) no-repeat center; ">
                         <i class="fas fa-code-branch sticker-icon"></i>
                     </div>
 
@@ -276,9 +264,7 @@
                 <div class="sticker-area text-center training_center-sticker">
                     <div class="sticker-body" id="pentagon" style="
                         height: 80px;
-                        background: url({{ asset("/assets/dashboard/4.png") }});
-                        background-repeat: no-repeat;
-                        background-position: center; ">
+                        background: url({{ asset("/assets/dashboard/4.png") }}) no-repeat center; ">
                         <i class="fas fa-chalkboard-teacher sticker-icon"></i>
                     </div>
 
@@ -297,24 +283,24 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white" style="background-color:#c665e6;">
-                                <h3 class="card-title font-weight-bold">বিগত ১ মাসের হিসাব</h3>
+                            <div class="card-header text-white bg-maroon" >
+                                <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
-                                <div id="my_data"></div>
+                                <div id="employment_statistic"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header text-white">
+                            <div class="card-header text-white bg-primary">
                                 <h3 class="card-title font-weight-bold">সেক্টর ভিত্তিক জনবল</h3>
                             </div>
                             <div class="card-body">
-                                <div id="my_dataviz" style="background-color: #ffffff; margin-left: -3px"></div>
+                                <div id="job_sector_statistic" style="background-color: #ffffff; margin-left: -3px"></div>
                                 <div style="height: 1px; margin-top: 5px; background-color: #f4f4f4"></div>
-                                <div class="row" style="margin-left: 30px; margin-bottom: -20px">
+                                <div class="row job_sector_statistic_lable_text" style="margin-left: 30px; margin-bottom: -20px">
                                     <div class="row col-3" id="unemployedToggle">
                                         <div class="colorIndicator" style="background-color: #f52674"></div>
                                         <p>কর্মহীন</p>
@@ -353,20 +339,35 @@
                             </div>
                             <hr>
                             <div class="map_content_body">
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Running
-                                        Courses</p>
-                                    <strong id="running_courses" class="map_count_numbers">10</strong>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total
-                                        Enrollment</p>
-                                    <b id="total_enrollment" class="map_count_numbers">20</b>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
-                                        Running Students</p>
-                                    <b id="running_students" class="map_count_numbers">100</b>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total Unemployed</p>
+                                            <strong id="total_unemployed" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total Employed</p>
+                                            <b id="total_employed" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <b id="total_vacancy" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <strong id="total_new_recruitment" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <b id="total_new_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <b id="total_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -482,6 +483,9 @@
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script>
+        let data = @json($data);
+        let windowWidth = window.innerWidth;
+
         $('.navTabs').on('click', function (event) {
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
@@ -660,36 +664,41 @@
         });
 
         (function () {
+
+            if (data==[] || !data.employment_statistic){
+                $("#employment_statistic").html('No Data Found')
+                return null;
+            }
             // set the dimensions and margins of the graph
-            let margin = {top: 10, right: 100, bottom: 30, left: 30},
-                width = 560 - margin.left - margin.right,
+            let margin = {top: 40, right: 120, bottom: 30, left: 50}, //add
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
-            let svg1 = d3.select("#my_data")
+            let svg1 = d3.select("#employment_statistic")
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
+            let highestValue = 0;
 
-            let dataSet = [{time: "1", A: "20", B: "350", C: "130", D: "200", E: "20"},
-                {time: "2", A: "300", B: "400", C: "104", D: "340", E: "340"},
-                {time: "3", A: "250", B: "449", C: "316", D: "350", E: "211"},
-                {time: "4", A: "307", B: "400", C: "412", D: "8", E: "313"},
-                {time: "5", A: "383", B: "348", C: "270", D: "20", E: "315"}]
-            //Read the data
-
-            // List of groups (here I have one group per column)
-            let allGroup = [{A: 'কর্মহীন'}, {B: 'কর্মরত'}, {C: 'নতুন দক্ষ জনবল'}, {D: 'কর্মখালি'}, {E: 'নিয়োগ'}]
+            let employment_statistic_data = data.employment_statistic.map((item, index) => {
+                for (const [key, value] of Object.entries(item)) {
+                    highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
+                }
+                item['time'] = '' + (index + 1)
+                return item
+            })
+            let employment_statistic_data_group = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'নতুন দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
 
 
             // Reformat the data: we need an array of arrays of {x, y} tuples
-            let dataReady = allGroup.map(function (data) { // .map allows to do something for each element of the list
+            let dataReady = employment_statistic_data_group.map(function (data) { // .map allows to do something for each element of the list
                 return {
                     name: data[Object.keys(data)[0]],
-                    values: dataSet.map(function (d) {
+                    values: employment_statistic_data.map(function (d) {
                         return {time: d.time, value: +d[Object.keys(data)[0]]};
                     })
                 };
@@ -701,9 +710,9 @@
                 return data.map((i) => {
                     return svg1.append('line')
                         .attr('x1', 0)
-                        .attr('y1', 52 * i)
-                        .attr('x2', 440)
-                        .attr('y2', 54 * i)
+                        .attr('y1', (height/5) * i) //add
+                        .attr('x2', width) //add
+                        .attr('y2', (height/5) * i) //add
                         .attr('stroke', 'gray')
                         .attr('stroke-width', 0.2)
                 })
@@ -711,9 +720,9 @@
 
 
             // A color scale: one color for each group
-            console.log(d3.schemeSet2)
+            //console.log(d3.schemeSet2)
             let myColor = d3.scaleOrdinal()
-                .domain(allGroup)
+                .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
             // Add X axis --> it is a date format
@@ -726,7 +735,7 @@
 
             // Add Y axis
             let y = d3.scaleLinear()
-                .domain([0, 500])
+                .domain([0, highestValue])
                 .range([height, 0]);
             svg1.append("g")
                 .call(d3.axisLeft(y));
@@ -821,7 +830,7 @@
                 .attr('x', function (d, i) {
                     return i == 3 ? 30 + i * 100 : 30 + i * 60
                 })
-                .attr('y', 10)
+                .attr('y', -24) //add
                 .text(function (d) {
                     return d.name;
                 })
@@ -841,53 +850,33 @@
             /**
              * This block is for colum graph
              **/
+            if (data==[] || !data.job_sector_statistic){
+                $("#job_sector_statistic").html('No Data Found')
+                $(".job_sector_statistic_lable_text").css('display','none')
+                return null;
+            }
+
                 // set the dimensions and margins of the graph
             let margin = {top: 10, right: 30, bottom: 20, left: 50},
-                width = 560 - margin.left - margin.right,
+                width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
 
             // Parse the Data
+            let job_sector_statistic_data = data['job_sector_statistic']
 
-
-            let dummyData = [
-                {
-                    group: "ইঞ্জিনিয়ার",
-                    Employed: "130",
-                    UnEmployed: "100"
-                },
-                {
-                    group: "মেকানিক",
-                    Employed: "106",
-                    UnEmployed: "56"
-                },
-                {
-                    group: "ডেলিভারি ম্যান",
-                    Employed: "191",
-                    UnEmployed: "128"
-                },
-                {
-                    group: "ড্রাইভার",
-                    Employed: "190",
-                    UnEmployed: "106"
-                },
-                {
-                    group: "সেলসম্যান",
-                    Employed: "119",
-                    UnEmployed: "69"
-                },
-                {
-                    group: "ইলেক্টিসিয়ান",
-                    Employed: "179",
-                    UnEmployed: "136"
-                }]
+            let highestValue = 0;
+            data.job_sector_statistic.map((item, index) => {
+                for (const [key, value] of Object.entries(item)) {
+                    highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
+                }
+            })
 
             let subgroups = ['Employed', 'UnEmployed']
             let colorCodes = ['#2f49d1', '#f52674']
 
             function dataSwitch(type) {
-                console.log(type)
                 if (subgroups.includes(type)) {
                     let index = subgroups.indexOf(type);
                     if (index > -1) {
@@ -904,8 +893,8 @@
                     }
 
                 }
-                $('#my_dataviz').html('')
-                graph(dummyData)
+                $('#job_sector_statistic').html('')
+                graph(job_sector_statistic_data)
 
             }
 
@@ -917,7 +906,7 @@
 
             })
 
-            graph(dummyData)
+            graph(job_sector_statistic_data)
 
             function xAxis(g) {
                 return g.attr("transform", `translate(0,${height - margin.bottom})`)
@@ -927,7 +916,7 @@
 
             function graph(data) {
 
-                let svg = d3.select("#my_dataviz")
+                let svg = d3.select("#job_sector_statistic")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -941,7 +930,6 @@
 
                 // List of groups = species here = value of the first column called group -> I show them on the X axis
                 let groups = d3.map(data, function (d) {
-                    console.log(d)
                     return (d.group)
                 }).keys()
 
@@ -969,7 +957,7 @@
 
                 // Add Y axis
                 let y = d3.scaleLinear()
-                    .domain([0, 200])
+                    .domain([0, highestValue])
                     .range([height, 0]);
                 svg.append("g")
                     .call(d3.axisLeft(y));
@@ -1026,6 +1014,7 @@
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
         (function () {
+            let selectedDistroctData = [];
             let w = 300;
             let h = 340;
             let proj = d3.geo.mercator();
@@ -1055,10 +1044,20 @@
 
             let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             d3.json(url, function (json) {
-
                 $('#map_select').on('change', function () {
-                    let district = $('#map_select option:selected').text();
-                    district = district.toLowerCase();
+                    let districtElm = $('#map_select option:selected');
+                    let district = districtElm.text().toLowerCase();
+
+                    $.ajax({
+                        data: {district_id: districtElm.val()},
+                        url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
+                        type: 'POST',
+                        success: function (data) {
+                            selectedDistroctData = data;
+                            console.log(selectedDistroctData);
+                        }
+                    });
+
                     const words = district.split(" ");
 
                     for (let i = 0; i < words.length; i++) {
@@ -1095,12 +1094,20 @@
                         .filter((d) => d.properties.ADM2_EN == district)
 
                         .on('mouseover', function (d, i) {
+                            let districtId = $('#map_select').val();
+                            let upazilaName = d.properties.ADM3_EN;
+                            console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
+                            let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
+                            console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
                                 $("#district").text(d.properties.ADM3_EN + " Thana");
-                                $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
-                                $("#running_students").text(Math.floor(Math.random() * 9) + 250);
-                                $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
+                                $("#total_unemployed").text(upazilaStatistics?.total_unemployed);
+                                $("#total_employed").text(upazilaStatistics?.total_employed);
+                                $("#total_vacancy").text(upazilaStatistics?.total_vacancy);
+                                $("#total_new_recruitment").text(upazilaStatistics?.total_new_recruitment);
+                                $("#total_new_skilled_youth").text(upazilaStatistics?.total_new_skilled_youth);
+                                $("#total_skilled_youth").text(upazilaStatistics?.total_skilled_youth);
                             }
 
                             d3.select(this).transition().duration(300).style("opacity", 1);
@@ -1119,6 +1126,12 @@
                         .on('mouseleave', function (d, i) {
                             if ($('.map_info').show()) {
                                 $('.map_info').hide();
+                                $("#total_unemployed").text('0');
+                                $("#total_employed").text('0');
+                                $("#total_vacancy").text('0');
+                                $("#total_new_recruitment").text('0');
+                                $("#total_new_skilled_youth").text('0');
+                                $("#total_skilled_youth").text('0');
                             }
 
                             d3.select(this).transition().duration(300)
@@ -1141,7 +1154,6 @@
                         .style("fill", function (d) {
                             return colorScale(d.properties.DIVISION);
                         });
-                    console.log('BD >> ', bangladesh);
 
                     //Remove unnecessary path
                     bangladesh.selectAll('path')

@@ -13,7 +13,7 @@
         .node circle {
             fill: #fff;
             stroke: steelblue;
-            stroke-width: 1.5px;
+            stroke-width: 2px;
         }
 
         .node text {
@@ -23,7 +23,7 @@
         .link {
             fill: none;
             stroke: #ccc;
-            stroke-width: 1.5px;
+            stroke-width: 2px;
         }
 
         body {

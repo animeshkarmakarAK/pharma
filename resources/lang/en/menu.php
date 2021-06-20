@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'dashboard' => 'Dashboard',
+
     //user management
     'user_management' => 'User Management',
     'users' => 'Users',
@@ -38,14 +40,14 @@ return [
     'video_category' => 'Video Category',
 
     //organization management
-    'organization_management'=> 'Organization Management',
-    'organizations'=> 'Organizations',
-    'organization_type'=> 'Organization Type',
-    'organization_units'=> 'Organization Units',
-    'organization_unit_types'=> 'Organization Unit Types',
+    'organization_management' => 'Organization Management',
+    'organizations' => 'Organizations',
+    'organization_type' => 'Organization Type',
+    'organization_units' => 'Organization Units',
+    'organization_unit_types' => 'Organization Unit Types',
     'human_resource_templates' => 'HR Templates',
-    'ranks'=> 'Ranks',
-    'rank-type'=> 'Rank Type',
+    'ranks' => 'Ranks',
+    'rank-type' => 'Rank Type',
 
     //skill management
     'skill_management' => 'Skill Management',
@@ -61,9 +63,9 @@ return [
 
     //location
     'location' => "Location",
-    'division'=> "Division",
-    'district'=> "District",
-    'upazila'=> "Upazila",
+    'division' => "Division",
+    'district' => "District",
+    'upazila' => "Upazila",
 
     //tools
     'tools' => 'Tools',

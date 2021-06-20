@@ -6,12 +6,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Module\GovtStakeholder\App\Models\HumanResourceTemplate;
-use Module\GovtStakeholder\App\Models\OrganizationUnitType;
 use Module\GovtStakeholder\App\Services\HumanResourceTemplateService;
-use SebastianBergmann\Diff\Exception;
 
 class HumanResourceTemplateController extends BaseController
 {
