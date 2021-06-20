@@ -7,6 +7,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
         'organization-units' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitController::class,
         'organization-unit-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitTypeController::class,
         'human-resource-templates' => \Module\GovtStakeholder\App\Http\Controllers\HumanResourceTemplateController::class,
+        'human-resources' => \Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class,
         'occupations' => \Module\GovtStakeholder\App\Http\Controllers\OccupationController::class,
         'occupation-wise-statistics' => \Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class,
         'organization-unit-statistics' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('human-resources/{human_resource}/update', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'updateNode'])->name('human-resources.update-node');
     Route::post('human-resources/addNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'addNode'])->name('human-resources.add-node');
     Route::get('human-resources/{human_resource}/deleteNode', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'deleteNode'])->name('human-resources.delete-node');
+    Route::post('human-resources/datatable', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'getDatatable'])->name('human-resources.datatable');
 
     Route::post('organization-units/vacancy-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'vacantStatisticsOfOrganizationUnit'])->name('organization-units.statistics-datatable');
     Route::post('occupations/unemployed-people-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,'unemploymentStatisticOccupationWise'])->name('occupations.statistics-datatable');

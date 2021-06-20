@@ -45,7 +45,7 @@ class HumanResource extends BaseModel
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(HumanResourceTemplate::class);
+        return $this->belongsTo(HumanResource::class);
     }
 
     public function children(): HasMany

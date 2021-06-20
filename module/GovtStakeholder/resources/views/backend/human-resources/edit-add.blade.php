@@ -1,5 +1,5 @@
 @php
-    $edit = !empty($humanResourceTemplate->id);
+    $edit = !empty($humanResource->id);
 @endphp
 
 @extends('master::layouts.master')
@@ -10,11 +10,11 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Human Resource Template' : 'Update Human Resource Template' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Human Resource' : 'Update Human Resource' }}</h3>
 
                         <div class="card-tools">
-                            @can('viewAny', \Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)
-                                <a href="{{route('govt_stakeholder::admin.human-resource-templates.index')}}"
+                            @can('viewAny', \Module\GovtStakeholder\App\Models\HumanResource::class)
+                                <a href="{{route('govt_stakeholder::admin.human-resources.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
                                 </a>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
                               enctype="multipart/form-data"
-                              action="{{ $edit ? route('govt_stakeholder::admin.human-resource-templates.update', $humanResourceTemplate) : route('govt_stakeholder::admin.human-resource-templates.store')}}">
+                              action="{{ $edit ? route('govt_stakeholder::admin.human-resources.update', $humanResource) : route('govt_stakeholder::admin.human-resources.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -37,7 +37,7 @@
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
-                                           value="{{ $edit ? $humanResourceTemplate->title_en : old('title_en') }}"
+                                           value="{{ $edit ? $humanResource->title_en : old('title_en') }}"
                                            placeholder="{{ __('Name') }}">
                                 </div>
                             </div>
@@ -48,8 +48,26 @@
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
-                                           value="{{ $edit ? $humanResourceTemplate->title_bn : old('title_bn') }}"
+                                           value="{{ $edit ? $humanResource->title_bn : old('title_bn') }}"
                                            placeholder="{{ __('Name') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="human_resource_template_id">{{ __('Template Name') }}<span
+                                            class="required"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="human_resource_template_id"
+                                            id="human_resource_template_id"
+                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
+                                            data-label-fields="{title_en}"
+                                            @if($edit && $humanResource->humanResourceTemplate)
+                                            data-preselected-option="{{json_encode(['text' =>  $humanResource->humanResourceTemplate->title_en, 'id' => $humanResource->humanResourceTemplate->id])}}"
+                                            @endif
+                                            data-placeholder="Select Human Resource Template"
+                                    >
+                                    </select>
                                 </div>
                             </div>
 
@@ -62,8 +80,8 @@
                                             id="organization_id"
                                             data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
                                             data-label-fields="{title_en}"
-                                            @if($edit && $humanResourceTemplate->organization)
-                                            data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->organization->title_en, 'id' => $humanResourceTemplate->organization->id])}}"
+                                            @if($edit && $humanResource->organization)
+                                            data-preselected-option="{{json_encode(['text' =>  $humanResource->organization->title_en, 'id' => $humanResource->organization->id])}}"
                                             @endif
                                             data-placeholder="Select Organization"
                                     >
@@ -73,17 +91,17 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="organization_unit_type_id">{{ __('Organization Unit Type') }}<span
+                                    <label for="organization_unit_id">{{ __('Organization Unit') }}<span
                                             class="required"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
-                                            name="organization_unit_type_id"
-                                            id="organization_unit_type_id"
-                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\OrganizationUnitType::class)}}"
+                                            name="organization_unit_id"
+                                            id="organization_unit_id"
+                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\OrganizationUnit::class)}}"
                                             data-label-fields="{title_en}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->organizationUnitType->title_en, 'id' => $humanResourceTemplate->organizationUnitType->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $humanResource->organizationUnit->title_en, 'id' => $humanResource->organizationUnit->id])}}"
                                             @endif
-                                            data-placeholder="Select Organization Unit Type"
+                                            data-placeholder="Select Organization Unit"
                                     >
                                     </select>
                                 </div>
@@ -95,12 +113,12 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="parent_id"
                                             id="parent_id"
-                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
+                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResource::class)}}"
                                             data-label-fields="{title_en}"
                                             @if($edit)
-                                            data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => $humanResourceTemplate->id]])}}"
-                                            @if($humanResourceTemplate->parent_id)
-                                            data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->parent->title_en, 'id' => $humanResourceTemplate->parent->id])}}"
+                                            data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => $humanResource->id]])}}"
+                                            @if($humanResource->parent_id)
+                                            data-preselected-option="{{json_encode(['text' =>  $humanResource->parent->title_en, 'id' => $humanResource->parent->id])}}"
                                             @endif
                                             @endif
                                             data-placeholder="Select Parent"
@@ -118,8 +136,8 @@
                                             id="rank_id"
                                             data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Rank::class)}}"
                                             data-label-fields="{title_en}"
-                                            @if($edit && $humanResourceTemplate->rank)
-                                            data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->rank->title_en, 'id' => $humanResourceTemplate->rank->id])}}"
+                                            @if($edit && $humanResource->rank)
+                                            data-preselected-option="{{json_encode(['text' =>  $humanResource->rank->title_en, 'id' => $humanResource->rank->id])}}"
                                             @endif
                                             data-placeholder="Select Rank"
                                     >
@@ -133,7 +151,7 @@
                                             style="color: red"> * </span></label>
                                     <input type="number" class="form-control" id="display_order"
                                            name="display_order"
-                                           value="{{ $edit ? $humanResourceTemplate->display_order : old('display_order') }}"
+                                           value="{{ $edit ? $humanResource->display_order : old('display_order') }}"
                                            placeholder="{{ __('Display Order') }}">
                                 </div>
                             </div>
@@ -145,7 +163,7 @@
                                         <input class="custom-control-input" type="radio" id="is_designation_yes"
                                                name="is_designation"
                                                value="1"
-                                            {{ ($edit && $humanResourceTemplate->is_designation == 1) || !empty(old('is_designation')) && old('is_designation') == 1 ? 'checked' : '' }}>
+                                            {{ ($edit && $humanResource->is_designation == 1) || !empty(old('is_designation')) && old('is_designation') == 1 ? 'checked' : '' }}>
                                         <label for="is_designation_yes" class="custom-control-label">Yes</label>
                                     </div>
 
@@ -153,7 +171,7 @@
                                         <input class="custom-control-input" type="radio" id="is_designation_no"
                                                name="is_designation"
                                                value="0"
-                                            {{ ($edit && $humanResourceTemplate->is_designation == 0) || !empty(old('is_designation')) && old('is_designation') == 0 ? 'checked' : '' }}>
+                                            {{ ($edit && $humanResource->is_designation == 0) || !empty(old('is_designation')) && old('is_designation') == 0 ? 'checked' : '' }}>
                                         <label for="is_designation_no"
                                                class="custom-control-label">No</label>
                                     </div>
@@ -169,8 +187,8 @@
                                             id="skill_ids"
                                             data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Skill::class)}}"
                                             data-label-fields="{title_en}"
-                                            @if($edit && $humanResourceTemplate->skills)
-                                            data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->skills->title_en, 'id' => $humanResourceTemplate->skills->id])}}"
+                                            @if($edit && $humanResource->skills)
+                                            data-preselected-option="{{json_encode(['text' =>  $humanResource->skills->title_en, 'id' => $humanResource->skills->id])}}"
                                             @endif
                                             data-placeholder="Select Skills"
                                     >
@@ -234,7 +252,7 @@
                 organization_id: {
                     required: true,
                 },
-                organization_unit_type_id: {
+                organization_unit_id: {
                     required: true,
                 },
                 "skill_ids[]": {
