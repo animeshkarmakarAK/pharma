@@ -1095,6 +1095,7 @@
                         .attr("d", path)
                         .style("opacity", 0.5)
                         .attr('class', 'bd')
+                        .attr('class', (d) => d.properties.ADM3_EN)
                         .filter((d) => d.properties.ADM2_EN == district)
 
                         .on('mouseover', function (d, i) {

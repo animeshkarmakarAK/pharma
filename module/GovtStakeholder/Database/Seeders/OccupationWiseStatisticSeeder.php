@@ -28,6 +28,7 @@ class OccupationWiseStatisticSeeder extends Seeder
                     'occupation_id'=>'1',
                     'current_month_skilled_youth' => '100',
                     'next_month_skill_youth' => '100',
+                    'survey_date' => date("Y-m-01"),
                     'row_status' => 1,
                 ),
             1 =>
@@ -37,6 +38,7 @@ class OccupationWiseStatisticSeeder extends Seeder
                     'occupation_id'=>'2',
                     'current_month_skilled_youth' => '200',
                     'next_month_skill_youth' => '200',
+                    'survey_date' => date("Y-m-01"),
                     'row_status' => 1,
                 ),
             2 =>
@@ -46,6 +48,7 @@ class OccupationWiseStatisticSeeder extends Seeder
                     'occupation_id'=>'3',
                     'current_month_skilled_youth' => '300',
                     'next_month_skill_youth' => '300',
+                    'survey_date' => date("Y-m-01"),
                     'row_status' => 1,
                 ),
             3 =>
@@ -55,6 +58,7 @@ class OccupationWiseStatisticSeeder extends Seeder
                     'occupation_id'=>'4',
                     'current_month_skilled_youth' => '200',
                     'next_month_skill_youth' => '200',
+                    'survey_date' => date("Y-m-01"),
                     'row_status' => 1,
                 ),
             4 =>
@@ -64,6 +68,7 @@ class OccupationWiseStatisticSeeder extends Seeder
                     'occupation_id'=>'4',
                     'current_month_skilled_youth' => '300',
                     'next_month_skill_youth' => '300',
+                    'survey_date' => date("Y-m-01"),
                     'row_status' => 1,
                 ),
             5 =>
@@ -73,6 +78,7 @@ class OccupationWiseStatisticSeeder extends Seeder
                     'occupation_id'=>'3',
                     'current_month_skilled_youth' => '400',
                     'next_month_skill_youth' => '400',
+                    'survey_date' => date("Y-m-01"),
                     'row_status' => 1,
                 ),
         ));
