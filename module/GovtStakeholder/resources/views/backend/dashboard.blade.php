@@ -154,13 +154,13 @@
         .map_info {
             display: inline-block;
             position: absolute;
-            top: 50px;
+            bottom: 6px;
             right: 6px;
             opacity: .8;
             font-size: 12px;
             background: #f2f7f8;
             border-radius: 5px;
-            max-height: 190px;
+            /*max-height: 190px;*/
             min-width: 192px;
         }
 
@@ -339,20 +339,35 @@
                             </div>
                             <hr>
                             <div class="map_content_body">
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Running
-                                        Courses</p>
-                                    <strong id="running_courses" class="map_count_numbers">10</strong>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total
-                                        Enrollment</p>
-                                    <b id="total_enrollment" class="map_count_numbers">20</b>
-                                </div>
-                                <div class="mb-2">
-                                    <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i>
-                                        Running Students</p>
-                                    <b id="running_students" class="map_count_numbers">100</b>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total Unemployed</p>
+                                            <strong id="total_unemployed" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total Employed</p>
+                                            <b id="total_employed" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Vacancy</p>
+                                            <b id="total_vacancy" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-red" aria-hidden="true"></i> Total New Recruitment</p>
+                                            <strong id="total_new_recruitment" class="map_count_numbers"></strong>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-green" aria-hidden="true"></i> Total New Skilled Youth</p>
+                                            <b id="total_new_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p class="mb-0"><i class="fa fa-circle text-blue" aria-hidden="true"></i> Total Skilled Youth</p>
+                                            <b id="total_skilled_youth" class="map_count_numbers"></b>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1003,6 +1018,7 @@
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
         (function () {
+            let selectedDistroctData = [];
             let w = 300;
             let h = 340;
             let proj = d3.geo.mercator();
@@ -1032,10 +1048,20 @@
 
             let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             d3.json(url, function (json) {
-
                 $('#map_select').on('change', function () {
-                    let district = $('#map_select option:selected').text();
-                    district = district.toLowerCase();
+                    let districtElm = $('#map_select option:selected');
+                    let district = districtElm.text().toLowerCase();
+
+                    $.ajax({
+                        data: {district_id: districtElm.val()},
+                        url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
+                        type: 'POST',
+                        success: function (data) {
+                            selectedDistroctData = data;
+                            console.log(selectedDistroctData);
+                        }
+                    });
+
                     const words = district.split(" ");
 
                     for (let i = 0; i < words.length; i++) {
@@ -1072,12 +1098,20 @@
                         .filter((d) => d.properties.ADM2_EN == district)
 
                         .on('mouseover', function (d, i) {
+                            let districtId = $('#map_select').val();
+                            let upazilaName = d.properties.ADM3_EN;
+                            console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
+                            let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
+                            console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
                                 $("#district").text(d.properties.ADM3_EN + " Thana");
-                                $("#running_courses").text(Math.floor(Math.random() * 6) + 10);
-                                $("#running_students").text(Math.floor(Math.random() * 9) + 250);
-                                $("#total_enrollment").text(Math.floor(Math.random() * 5) + 50);
+                                $("#total_unemployed").text(upazilaStatistics?.total_unemployed);
+                                $("#total_employed").text(upazilaStatistics?.total_employed);
+                                $("#total_vacancy").text(upazilaStatistics?.total_vacancy);
+                                $("#total_new_recruitment").text(upazilaStatistics?.total_new_recruitment);
+                                $("#total_new_skilled_youth").text(upazilaStatistics?.total_new_skilled_youth);
+                                $("#total_skilled_youth").text(upazilaStatistics?.total_skilled_youth);
                             }
 
                             d3.select(this).transition().duration(300).style("opacity", 1);
@@ -1096,6 +1130,12 @@
                         .on('mouseleave', function (d, i) {
                             if ($('.map_info').show()) {
                                 $('.map_info').hide();
+                                $("#total_unemployed").text('0');
+                                $("#total_employed").text('0');
+                                $("#total_vacancy").text('0');
+                                $("#total_new_recruitment").text('0');
+                                $("#total_new_skilled_youth").text('0');
+                                $("#total_skilled_youth").text('0');
                             }
 
                             d3.select(this).transition().duration(300)
