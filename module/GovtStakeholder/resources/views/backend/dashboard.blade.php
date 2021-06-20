@@ -791,7 +791,7 @@
                 return null;
             }
             // set the dimensions and margins of the graph
-            let margin = {top: 10, right: 100, bottom: 30, left: 30},
+            let margin = {top: 20, right: 120, bottom: 30, left: 50}, //add
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
@@ -831,9 +831,9 @@
                 return data.map((i) => {
                     return svg1.append('line')
                         .attr('x1', 0)
-                        .attr('y1', 52 * i)
-                        .attr('x2', 440)
-                        .attr('y2', 54 * i)
+                        .attr('y1', (height/5) * i) //add
+                        .attr('x2', width) //add
+                        .attr('y2', (height/5) * i) //add
                         .attr('stroke', 'gray')
                         .attr('stroke-width', 0.2)
                 })
@@ -951,7 +951,7 @@
                 .attr('x', function (d, i) {
                     return i == 3 ? 30 + i * 100 : 30 + i * 60
                 })
-                .attr('y', 10)
+                .attr('y', -5) //add
                 .text(function (d) {
                     return d.name;
                 })
