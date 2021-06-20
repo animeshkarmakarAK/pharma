@@ -298,9 +298,7 @@
                                 <h3 class="card-title font-weight-bold">সেক্টর ভিত্তিক জনবল</h3>
                             </div>
                             <div class="card-body">
-                                <div id="job_sector_statistic"
-                                     style="background-color: #ffffff; margin-left: -3px"></div>
-                                <div style="height: 1px; margin-top: 5px; background-color: #f4f4f4"></div>
+                                <div id="job_sector_statistic"></div>
                             </div>
                         </div>
                     </div>
