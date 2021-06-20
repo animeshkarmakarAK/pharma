@@ -485,7 +485,6 @@
         $('.navTabs').on('click', function (event) {
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
-            //$(this).css('background-color: #138dd1')
         })
         $(function () {
             let params = serverSideDatatableFactory({
@@ -578,7 +577,7 @@
                         name: "organization_units.title_en"
                     },
                     {
-                        title: "করমখালি",
+                        title: "কর্মখালি",
                         data: "sum_vacancy",
                         name: "sum_vacancy"
                     },
