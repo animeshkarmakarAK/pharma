@@ -3,6 +3,7 @@
 namespace Module\GovtStakeholder\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Module\GovtStakeholder\Database\Factories\OrganizationUnitStatisticFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,8 @@ class DatabaseSeeder extends Seeder
             OrganizationUnitSeeder::class,
             OrganizationUnitTypeSeeder::class,
             HumanResourceTemplatesSeeder::class,
+//            OrganizationUnitStatisticSeeder::class,
         ]);
+
     }
 }
