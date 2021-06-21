@@ -137,14 +137,19 @@
                 });
             }
 
-            function showFormField(ele) {
-                ele.show();
+
+            function disabledHideFormFields(...fields) {
+                fields.forEach(function (field) {
+                    field.prop('disabled', true);
+                    field.parent().parent().hide();
+                });
             }
 
-            function hideOrgInsDistrictField() {
-                $('#institute_id').parent().parent().hide();
-                $('#organization_id').parent().parent().hide();
-                $('#loc_district_id').parent().parent().hide();
+            function enableShowFormFields(...fields) {
+                fields.forEach(function (field) {
+                    field.prop('disabled', false);
+                    field.parent().parent().show();
+                });
             }
 
             $(document).on('change', "#user_type_id", function () {
@@ -152,21 +157,19 @@
 
                 switch (userType) {
                     case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
-                        hideOrgInsDistrictField();
-                        showFormField($('#loc_district_id').parent().parent())
+                        enableShowFormFields($('#loc_district_id'));
+                        disabledHideFormFields($('#institute_id'), $('#organization_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
-                        hideOrgInsDistrictField();
-                        showFormField($('#institute_id').parent().parent())
+                        enableShowFormFields($('#institute_id'));
+                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!}:
-                        hideOrgInsDistrictField();
-                        showFormField($('#organization_id').parent().parent())
+                        enableShowFormFields($('#organization_id'));
+                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'));
                         break;
-                }
-
-                if (userType == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}) {
-                    $('#district_id')
+                    default:
+                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'));
                 }
             })
 
@@ -209,17 +212,17 @@
                         },
                         organization_id: {
                             required: function () {
-                                return $('#organization_id').parent().parent().css("display") == "block";
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!};
                             }
                         },
                         institute_id: {
                             required: function () {
-                                return $('#institute_id').parent().parent().css("display") == "block";
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!};
                             }
                         },
-                        loc_division_id: {
+                        loc_district_id: {
                             required: function () {
-                                return $('#loc_district_id').parent().parent().css("display") == "block";
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!};
                             }
                         },
                         old_password: {
