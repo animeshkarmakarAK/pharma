@@ -103,7 +103,7 @@
                                 id="institute_id"
                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                 data-label-fields="{title_en}"
-                                @if($edit)
+                                @if($edit && $user->institute)
                                 data-preselected-option="{{json_encode(['text' =>  $user->institute->title, 'id' =>  $user->institute->code])}}"
                                 @endif
                                 data-placeholder="Select Institute"
@@ -122,7 +122,7 @@
                                 id="organization_id"
                                 data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
                                 data-label-fields="{title_en}"
-                                @if($edit)
+                                @if($edit && $user->organization)
                                 data-preselected-option="{{json_encode(['text' =>  $user->organization->title, 'id' =>  $user->organization->code])}}"
                                 @endif
                                 data-placeholder="Select Organization"
@@ -141,7 +141,7 @@
                                 id="loc_district_id"
                                 data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                 data-label-fields="{title_en}"
-                                @if($edit)
+                                @if($edit && $user->locDistrict)
                                 data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title, 'id' =>  $user->locDistrict->code])}}"
                                 @endif
                                 data-placeholder="Select District"

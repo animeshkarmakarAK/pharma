@@ -16,6 +16,9 @@ class AddForeignKeysToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('role_id', 'users_fk_role_id')->references('id')->on('roles')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->foreign('user_type_id', 'users_fk_user_type_id')->references('id')->on('user_types')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('institute_id', 'users_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('organization_id', 'users_fk_organization_id')->references('id')->on('organizations')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('loc_district_id', 'users_fk_loc_district_id')->references('id')->on('loc_districts')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -29,6 +32,9 @@ class AddForeignKeysToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('users_fk_role_id');
             $table->dropForeign('users_fk_user_type_id');
+            $table->dropForeign('users_fk_institute_id');
+            $table->dropForeign('users_fk_organization_id');
+            $table->dropForeign('users_fk_loc_district_id');
         });
     }
 }

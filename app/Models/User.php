@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Module\CourseManagement\App\Models\Institute;
+use Module\GovtStakeholder\App\Models\Organization;
 
 /**
  * App\Models\User
@@ -125,5 +126,10 @@ class User extends AuthBaseModel
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
+    }
+
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class);
     }
 }
