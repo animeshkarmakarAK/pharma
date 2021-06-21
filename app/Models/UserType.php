@@ -26,6 +26,7 @@ class UserType extends BaseModel
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
     const USER_TYPE_ORGANIZATION_USER_CODE = '4';
+    const USER_TYPE_DC_USER_CODE = '5';
 
     public function rowStatus(): HasOne
     {

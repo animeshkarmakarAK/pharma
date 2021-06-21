@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('name_en', 191)->nullable();
             $table->string('name_bn', 191)->nullable();
             $table->string('email', 191)->unique();
+            $table->unsignedInteger('organization_id')->nullable();
+            $table->unsignedInteger('institute_id')->nullable();
+            $table->unsignedInteger('loc_district_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 191);
             $table->string('profile_pic')->nullable();
@@ -28,6 +31,10 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('updated_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('institute_id', 'users_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('organization_id', 'users_fk_organization_id')->references('id')->on('organizations')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('loc_district_id', 'users_fk_loc_district_id')->references('id')->on('loc_districts')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

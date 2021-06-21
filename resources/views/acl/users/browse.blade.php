@@ -73,6 +73,24 @@
                         name: "user_types.title"
                     },
                     {
+                        title: "Institute",
+                        data: "institute_name",
+                        name: "institutes.title_en",
+                        visible: false,
+                    },
+                    {
+                        title: "Organization",
+                        data: "organization_name",
+                        name: "organizations.title_en",
+                        visible: false,
+                    },
+                    {
+                        title: "District",
+                        data: "loc_district_name",
+                        name: "loc_districts.title_en",
+                        visible: false,
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         name: "action",
@@ -119,6 +137,39 @@
                 });
             }
 
+            function showFormField(ele) {
+                ele.show();
+            }
+
+            function hideOrgInsDistrictField() {
+                $('#institute_id').parent().parent().hide();
+                $('#organization_id').parent().parent().hide();
+                $('#loc_district_id').parent().parent().hide();
+            }
+
+            $(document).on('change', "#user_type_id", function () {
+                let userType = parseInt($(this).val());
+
+                switch (userType) {
+                    case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
+                        hideOrgInsDistrictField();
+                        showFormField($('#loc_district_id').parent().parent())
+                        break;
+                    case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
+                        hideOrgInsDistrictField();
+                        showFormField($('#institute_id').parent().parent())
+                        break;
+                    case {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!}:
+                        hideOrgInsDistrictField();
+                        showFormField($('#organization_id').parent().parent())
+                        break;
+                }
+
+                if (userType == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}) {
+                    $('#district_id')
+                }
+            })
+
             editAddModal.on('hidden.bs.modal', function () {
                 editAddModal.find('.modal-content').empty();
             });
@@ -155,6 +206,21 @@
                         },
                         user_type_id: {
                             required: true
+                        },
+                        organization_id: {
+                            required: function () {
+                                return $('#organization_id').parent().parent().css("display") == "block";
+                            }
+                        },
+                        institute_id: {
+                            required: function () {
+                                return $('#institute_id').parent().parent().css("display") == "block";
+                            }
+                        },
+                        loc_division_id: {
+                            required: function () {
+                                return $('#loc_district_id').parent().parent().css("display") == "block";
+                            }
                         },
                         old_password: {
                             required: function () {

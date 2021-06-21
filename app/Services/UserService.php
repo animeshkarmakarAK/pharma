@@ -59,6 +59,21 @@ class UserService
                 'required',
                 'exists:user_types,code'
             ],
+            'institute_id' => [
+                'nullable',
+                'int',
+                'exists:institutes.id'
+            ],
+            'organization_id' => [
+                'nullable',
+                'int',
+                'exists:organizations.id'
+            ],
+            'loc_district_id' => [
+                'nullable',
+                'int',
+                'exists:loc_districts.id'
+            ],
             'password' => [
                 'bail',
                 new RequiredIf($id == null),
@@ -118,12 +133,18 @@ class UserService
             'users.name_en',
             'users.name_bn',
             'users.user_type_id',
+            'organizations.title_en as organization_name',
+            'institutes.title_en as institute_name',
+            'loc_districts.title_en as loc_district_name',
             'user_types.title as user_type_title',
             'users.email',
             'users.created_at',
             'users.updated_at'
         ]);
         $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
+        $users->join('institutes', 'users.institute_id', '=', 'institutes.id');
+        $users->join('organizations', 'users.organization_id', '=', 'organizations.id');
+        $users->join('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
 
         return DataTables::eloquent($users)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (User $user) use ($authUser) {

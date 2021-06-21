@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Traits\AuthenticatableUser;
+use App\Traits\LocDistrictBelongsToRelation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
+use Module\CourseManagement\App\Models\Institute;
 
 /**
  * App\Models\User
@@ -32,12 +34,13 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  */
 class User extends AuthBaseModel
 {
-    use AuthenticatableUser;
+    use AuthenticatableUser, LocDistrictBelongsToRelation;
 
     const USER_TYPE_SUPER_USER_CODE = '1';
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
     const USER_TYPE_ORGANIZATION_USER_CODE = '4';
+    const USER_TYPE_DC_USER_CODE = '5';
 
     const DEFAULT_PROFILE_PIC = 'users/default.jpg';
     const PROFILE_PIC_FOLDER_NAME = 'users';
@@ -114,4 +117,13 @@ class User extends AuthBaseModel
         return $this->userType->code === self::USER_TYPE_SUPER_USER_CODE;
     }
 
+    public function isDC(): bool
+    {
+        return $this->userType->code === self::USER_TYPE_DC_USER_CODE;
+    }
+
+    public function institute(): BelongsTo
+    {
+        return $this->belongsTo(Institute::class);
+    }
 }
