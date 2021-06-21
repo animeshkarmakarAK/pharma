@@ -235,6 +235,5 @@ class HumanResourceTemplateController extends BaseController
         }
 
         return \response()->json("update successful");
-
     }
 }

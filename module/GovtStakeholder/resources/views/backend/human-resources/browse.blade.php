@@ -6,11 +6,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Human Resource Template List</h3>
+                        <h3 class="card-title font-weight-bold">Human Resources List</h3>
 
                         <div class="card-tools">
-                            @can('create', \Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)
-                                <a href="{{route('govt_stakeholder::admin.human-resource-templates.create')}}"
+                            @can('create', \Module\GovtStakeholder\App\Models\HumanResource::class)
+                                <a href="{{route('govt_stakeholder::admin.human-resources.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -39,7 +39,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('govt_stakeholder::admin.human-resource-templates.datatable') }}',
+                url: '{{ route('govt_stakeholder::admin.human-resources.datatable') }}',
                 order: [[4, "asc"]],
                 columns: [
                     {
@@ -62,7 +62,7 @@
                     },
                     {
                         title: "Organization Name",
-                        data: "organization_title",
+                        data: "organization_name",
                         name: "organizations.title_en"
                     },
                     {
@@ -71,9 +71,9 @@
                         name: "human_resource_templates.parent_id"
                     },
                     {
-                        title: "Organization Unit Type",
-                        data: "organization_unit_type_title",
-                        name: "organization_unit_types.title_en",
+                        title: "Organization Unit",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en",
                         visible: false
                     },
                     {
@@ -96,6 +96,12 @@
                         title: "Skills",
                         data: "skills",
                         name: "skill_ids",
+                        visible: false,
+                    },
+                    {
+                        title: "Human Resource Template",
+                        data: "human_resource_template_name",
+                        name: "human_resource_templates.title_en",
                         visible: false,
                     },
                     {

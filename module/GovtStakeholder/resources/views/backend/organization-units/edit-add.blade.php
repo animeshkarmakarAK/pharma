@@ -99,8 +99,8 @@
                                             data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                             data-label-fields="{title_en}"
                                             data-dependent-fields="#loc_district_id|#loc_upazila_id"
-                                            @if($edit && $organizationUnit->division)
-                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnit->division->title_en, 'id' => $organizationUnit->division->id])}}"
+                                            @if($edit && $organizationUnit->locDivision)
+                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnit->locDivision->title_en, 'id' => $organizationUnit->locDivision->id])}}"
                                             @endif
                                             data-placeholder="Select Division"
                                     >
@@ -119,8 +119,8 @@
                                             data-label-fields="{title_en}"
                                             data-depend-on-optional="loc_division_id"
                                             data-dependent-fields="#loc_upazila_id"
-                                            @if($edit && $organizationUnit->district)
-                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnit->district->title_en, 'id' => $organizationUnit->district->id])}}"
+                                            @if($edit && $organizationUnit->locDistrict)
+                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnit->locDistrict->title_en, 'id' => $organizationUnit->locDistrict->id])}}"
                                             @endif
                                             data-placeholder="Select District"
                                     >
@@ -138,8 +138,8 @@
                                             data-model="{{base64_encode(\App\Models\LocUpazila::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on-optional="loc_division_id|loc_district_id"
-                                            @if($edit && $organizationUnit->upazila)
-                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnit->upazila->title_en, 'id' => $organizationUnit->upazila->id])}}"
+                                            @if($edit && $organizationUnit->locUpazila)
+                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnit->locUpazila->title_en, 'id' => $organizationUnit->locUpazila->id])}}"
                                             @endif
                                             data-placeholder="Select Upazila"
                                     >

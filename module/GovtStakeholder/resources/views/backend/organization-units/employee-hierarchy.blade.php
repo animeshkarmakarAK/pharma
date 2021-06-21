@@ -1038,6 +1038,9 @@
         }
 
         function canDelete(nodeEle, nodeData) {
+            if (!nodeData?.parent?.length && !nodeData?.children?.length && !nodeData?._children?.length) {
+                return false;
+            }
             return !((nodeData?.children?.length || nodeData?._children?.length));
         }
 
