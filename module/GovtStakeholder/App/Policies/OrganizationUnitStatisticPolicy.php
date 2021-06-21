@@ -12,9 +12,10 @@ class OrganizationUnitStatisticPolicy extends BasePolicy
      * Determine whether the user can view any models.
      *
      * @param User $user
+     * @param OccupationWiseStatistic $occupationWiseStatistic
      * @return mixed
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, OccupationWiseStatistic $occupationWiseStatistic): bool
     {
         return $user->hasPermission('view_any_organization_unit_statistic');
     }

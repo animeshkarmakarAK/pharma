@@ -69,9 +69,9 @@ class AppServiceProvider extends ServiceProvider
         $modules = collect(is_array(config('module.list')) ? config('module.list') : []);
 
         $modules->each(function ($module) {
-            if (file_exists(base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'database')) &&
-                file_exists(base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations'))) {
-                $migrationPath = base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations');
+            if (file_exists(base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'Database')) &&
+                file_exists(base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'migrations'))) {
+                $migrationPath = base_path('module' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . 'Database' . DIRECTORY_SEPARATOR . 'migrations');
                 $this->loadMigrationsFrom($migrationPath);
             }
         });
