@@ -53,6 +53,14 @@ class RoleTableSeeder extends Seeder
                     'code' => 'organization_admin',
                     'is_deletable' => '0'
                 ),
+            4 =>
+                array(
+                    'id' => 5,
+                    'title_en' => 'DC',
+                    'title_bn' => 'ডিসি',
+                    'code' => 'dc',
+                    'is_deletable' => '0'
+                ),
         ));
 
         Schema::enableForeignKeyConstraints();

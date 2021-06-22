@@ -9,7 +9,8 @@ $(document).ready(function () {
             xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'));
         }
     });
-    $(".flat-date").each(function (key) {
+
+    $(".flat-date").each(function () {
         let format = $(this).data('format');
         $(this).flatpickr({
             altInput: true,
@@ -18,7 +19,18 @@ $(document).ready(function () {
         });
     });
 
-    $(".flat-month").each(function (key) {
+    $(".flat-time").each(function () {
+        let format = $(this).data('format');
+        $(this).flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            altInput: true,
+            altFormat: "h:i K",
+            dateFormat: format ? format : "H:i",
+        });
+    });
+
+    $(".flat-month").each(function () {
         let format = $(this).data('format');
         $(this).flatpickr({
             altInput: true,
@@ -30,14 +42,6 @@ $(document).ready(function () {
                 })
             ]
         });
-    });
-
-    $(".flat-time").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        altInput: true,
-        altFormat: "h:i K",
-        dateFormat: "H:i",
     });
 
     $(".flat-datetime").each(function (key) {

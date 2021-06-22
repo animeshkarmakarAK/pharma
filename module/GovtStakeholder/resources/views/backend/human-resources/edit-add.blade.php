@@ -73,7 +73,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="organization_id">{{ __('Organization Name') }}<span
+                                    <label for="organization_id">{{ __('Organization') }}<span
                                             class="required"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="organization_id"

@@ -27,17 +27,19 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property-read int|null notifications_count
  * @property-read Role|null role
  * @property-read UserType userType
+ * @property-read Theme theme
  * @property-read \Illuminate\Database\Eloquent\Collection|Role[] roles
  * @property-read int|null roles_count
  */
 class User extends AuthBaseModel
 {
-    use AuthenticatableUser;
+    use AuthenticatableUser, LocDistrictBelongsToRelation;
 
     const USER_TYPE_SUPER_USER_CODE = '1';
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
     const USER_TYPE_ORGANIZATION_USER_CODE = '4';
+    const USER_TYPE_DC_USER_CODE = '5';
 
     const DEFAULT_PROFILE_PIC = 'users/default.jpg';
     const PROFILE_PIC_FOLDER_NAME = 'users';
@@ -112,6 +114,14 @@ class User extends AuthBaseModel
     public function isSuperUser(): bool
     {
         return $this->userType->code === self::USER_TYPE_SUPER_USER_CODE;
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function theme(): BelongsTo
+    {
+        return $this->belongsTo(Theme::class, 'theme_id');
     }
 
 }
