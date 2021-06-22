@@ -114,7 +114,9 @@ class Menu extends Model
         } elseif ($type === 'builder') {
             $type = 'menu-builder::menu.menu-builder-editor';
         } elseif ($type === 'admin-lte') {
-            $type = 'menu-builder::menu.admin-lte-sidebar-menu';
+            //$type = 'menu-builder::menu.admin-lte-sidebar-menu';
+            $menuType = AuthHelper::getAuthUser()->theme->key;
+            $type = 'menu-builder::menu.'.$menuType;
         } else {
             if (is_null($type)) {
                 $type = 'menu-builder::menu.default';

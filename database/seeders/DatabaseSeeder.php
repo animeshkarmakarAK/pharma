@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserTypeSeeder::class,
             \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class,
             \Module\GovtStakeholder\Database\Seeders\DatabaseSeeder::class,
+            ThemeSeeder::class
         ]);
     }
 }
