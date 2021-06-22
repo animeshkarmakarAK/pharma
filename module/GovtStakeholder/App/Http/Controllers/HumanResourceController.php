@@ -136,7 +136,7 @@ class HumanResourceController extends BaseController
     }
 
     /**
-     * add a new node in tree -- human resource
+     * add a new resource in tree -- human resource
      *
      * @param Request $request
      * @return JsonResponse

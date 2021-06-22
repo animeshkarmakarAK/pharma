@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('name_en', 191)->nullable();
             $table->string('name_bn', 191)->nullable();
             $table->string('email', 191)->unique();
+            $table->unsignedInteger('organization_id')->nullable();
+            $table->unsignedInteger('institute_id')->nullable();
+            $table->unsignedMediumInteger('loc_district_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 191);
             $table->string('profile_pic')->nullable();

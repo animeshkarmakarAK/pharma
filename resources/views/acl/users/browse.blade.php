@@ -35,15 +35,17 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
+    <link rel="stylesheet" href="{{config('assets.css.datatable')}}">
 @endpush
 
 @push('js')
-    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
+    <script type="text/javascript" src="{{config('assets.js.datatable')}}"></script>
+
     <script>
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
         const editAddModal = $("#edit-add-modal");
         const viewModal = $("#user-profile-view-modal");
+
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{ route('admin.users.datatable') }}',
@@ -71,6 +73,24 @@
                         title: "User Type",
                         data: "user_type_title",
                         name: "user_types.title"
+                    },
+                    {
+                        title: "Institute",
+                        data: "institute_name",
+                        name: "institutes.title_en",
+                        visible: false,
+                    },
+                    {
+                        title: "Organization",
+                        data: "organization_name",
+                        name: "organizations.title_en",
+                        visible: false,
+                    },
+                    {
+                        title: "District",
+                        data: "loc_district_name",
+                        name: "loc_districts.title_en",
+                        visible: false,
                     },
                     {
                         title: "Action",
@@ -119,6 +139,42 @@
                 });
             }
 
+
+            function disabledHideFormFields(...fields) {
+                fields.forEach(function (field) {
+                    field.prop('disabled', true);
+                    field.parent().parent().hide();
+                });
+            }
+
+            function enableShowFormFields(...fields) {
+                fields.forEach(function (field) {
+                    field.prop('disabled', false);
+                    field.parent().parent().show();
+                });
+            }
+
+            $(document).on('change', "#user_type_id", function () {
+                let userType = parseInt($(this).val());
+
+                switch (userType) {
+                    case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
+                        enableShowFormFields($('#loc_district_id'));
+                        disabledHideFormFields($('#institute_id'), $('#organization_id'));
+                        break;
+                    case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
+                        enableShowFormFields($('#institute_id'));
+                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'));
+                        break;
+                    case {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!}:
+                        enableShowFormFields($('#organization_id'));
+                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'));
+                        break;
+                    default:
+                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'));
+                }
+            })
+
             editAddModal.on('hidden.bs.modal', function () {
                 editAddModal.find('.modal-content').empty();
             });
@@ -155,6 +211,21 @@
                         },
                         user_type_id: {
                             required: true
+                        },
+                        organization_id: {
+                            required: function () {
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!};
+                            }
+                        },
+                        institute_id: {
+                            required: function () {
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!};
+                            }
+                        },
+                        loc_district_id: {
+                            required: function () {
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!};
+                            }
                         },
                         old_password: {
                             required: function () {

@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
 use App\Models\Permission;
 use App\Models\User;
@@ -23,7 +24,6 @@ class UserService
 {
     public function createUser(array $data): User
     {
-
         if (!empty($data['profile_pic'])) {
             $filename = FileHandler::storePhoto($data['profile_pic'], User::PROFILE_PIC_FOLDER_NAME);
             $data['profile_pic'] = $filename ? User::PROFILE_PIC_FOLDER_NAME . '/' . $filename : User::DEFAULT_PROFILE_PIC;
@@ -33,8 +33,32 @@ class UserService
 
         $userType = UserType::findOrFail($data['user_type_id']);
         $data['role_id'] = $userType->default_role_id;
+        $data = $this->setAndClearData($data);
 
         return User::create($data);
+    }
+
+    protected function setAndClearData(array $data): array
+    {
+        if ($data['user_type_id'] == UserType::USER_TYPE_DC_USER_CODE) {
+            $data['institute_id'] = null;
+            $data['organization_id'] = null;
+        }
+        elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
+            $data['loc_district_id'] = null;
+            $data['organization_id'] = null;
+        }
+        elseif ($data['user_type_id'] == UserType::USER_TYPE_ORGANIZATION_USER_CODE) {
+            $data['loc_district_id'] = null;
+            $data['institute_id'] = null;
+        }
+        else {
+            $data['loc_district_id'] = null;
+            $data['institute_id'] = null;
+            $data['organization_id'] = null;
+        }
+
+        return $data;
     }
 
     public function validator(Request $request, $id = null): Validator
@@ -58,6 +82,21 @@ class UserService
                 'bail',
                 'required',
                 'exists:user_types,code'
+            ],
+            'institute_id' => [
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_INSTITUTE_USER_CODE,
+                'int',
+                'exists:institutes,id'
+            ],
+            'organization_id' => [
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_ORGANIZATION_USER_CODE,
+                'int',
+                'exists:organizations,id'
+            ],
+            'loc_district_id' => [
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_DC_USER_CODE,
+                'int',
+                'exists:loc_districts,id'
             ],
             'password' => [
                 'bail',
@@ -103,6 +142,7 @@ class UserService
             $data['role_id'] = $userType->default_role_id;
         }
 
+        $data = $this->setAndClearData($data);
         $user->update($data);
         return $user;
     }
@@ -118,12 +158,18 @@ class UserService
             'users.name_en',
             'users.name_bn',
             'users.user_type_id',
+            'organizations.title_en as organization_name',
+            'institutes.title_en as institute_name',
+            'loc_districts.title_en as loc_district_name',
             'user_types.title as user_type_title',
             'users.email',
             'users.created_at',
             'users.updated_at'
         ]);
         $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
+        $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
+        $users->leftJoin('organizations', 'users.organization_id', '=', 'organizations.id');
+        $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
 
         return DataTables::eloquent($users)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (User $user) use ($authUser) {

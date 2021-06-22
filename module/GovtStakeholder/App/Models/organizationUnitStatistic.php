@@ -2,12 +2,10 @@
 
 namespace Module\GovtStakeholder\App\Models;
 
-use App\Traits\LocUpazilaBelongsToRelation;
-use App\Traits\ScopeRowStatusTrait;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Module\CourseManagement\App\Models\Institute;
 
 
 /**
