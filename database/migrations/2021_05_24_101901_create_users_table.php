@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 191);
             $table->string('profile_pic')->nullable();
-            $table->unsignedInteger('theme_id')->nullable()->default(1);
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
