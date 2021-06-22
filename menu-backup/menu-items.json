@@ -718,20 +718,5 @@
         "order": 8,
         "route": "govt_stakeholder::admin.organization-unit-statistics.index",
         "parameters": null
-    },
-    {
-        "id": 93,
-        "menu_id": 3,
-        "title": "Theme",
-        "title_lang_key": null,
-        "permission_key": null,
-        "url": "",
-        "target": "_self",
-        "icon_class": "fa-cogs",
-        "color": "#000000",
-        "parent_id": 20,
-        "order": 2,
-        "route": "admin.themes.index",
-        "parameters": null
     }
 ]
