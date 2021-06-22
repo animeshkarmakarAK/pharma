@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\AuthenticatableUser;
+use App\Traits\LocDistrictBelongsToRelation;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -27,7 +28,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property-read int|null notifications_count
  * @property-read Role|null role
  * @property-read UserType userType
- * @property-read Theme theme
  * @property-read \Illuminate\Database\Eloquent\Collection|Role[] roles
  * @property-read int|null roles_count
  */
@@ -115,13 +115,4 @@ class User extends AuthBaseModel
     {
         return $this->userType->code === self::USER_TYPE_SUPER_USER_CODE;
     }
-
-    /**
-     * @return BelongsTo
-     */
-    public function theme(): BelongsTo
-    {
-        return $this->belongsTo(Theme::class, 'theme_id');
-    }
-
 }
