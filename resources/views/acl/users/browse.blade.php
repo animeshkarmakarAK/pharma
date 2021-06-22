@@ -35,15 +35,17 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
+    <link rel="stylesheet" href="{{config('assets.css.datatable')}}">
 @endpush
 
 @push('js')
-    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
+    <script type="text/javascript" src="{{config('assets.js.datatable')}}"></script>
+
     <script>
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
         const editAddModal = $("#edit-add-modal");
         const viewModal = $("#user-profile-view-modal");
+
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{ route('admin.users.datatable') }}',
