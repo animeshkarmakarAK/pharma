@@ -104,7 +104,7 @@
                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                 data-label-fields="{title_en}"
                                 @if($edit && $user->institute)
-                                data-preselected-option="{{json_encode(['text' =>  $user->institute->title, 'id' =>  $user->institute->id])}}"
+                                data-preselected-option="{{json_encode(['text' =>  $user->institute->title_en, 'id' =>  $user->institute->id])}}"
                                 @endif
                                 data-placeholder="Select Institute"
                         >
@@ -123,7 +123,7 @@
                                 data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
                                 data-label-fields="{title_en}"
                                 @if($edit && $user->organization)
-                                data-preselected-option="{{json_encode(['text' =>  $user->organization->title, 'id' =>  $user->organization->id])}}"
+                                data-preselected-option="{{json_encode(['text' =>  $user->organization->title_en, 'id' =>  $user->organization->id])}}"
                                 @endif
                                 data-placeholder="Select Organization"
                         >
@@ -142,7 +142,7 @@
                                 data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                 data-label-fields="{title_en}"
                                 @if($edit && $user->locDistrict)
-                                data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title, 'id' =>  $user->locDistrict->id])}}"
+                                data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title_en, 'id' =>  $user->locDistrict->id])}}"
                                 @endif
                                 data-placeholder="Select District"
                         >
