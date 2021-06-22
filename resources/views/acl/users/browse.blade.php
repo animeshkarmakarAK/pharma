@@ -35,11 +35,11 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="{{config('assets.css.datatable')}}">
+    <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
 @endpush
 
 @push('js')
-    <script type="text/javascript" src="{{config('assets.js.datatable')}}"></script>
+    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
 
     <script>
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
