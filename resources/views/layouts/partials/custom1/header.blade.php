@@ -23,7 +23,7 @@
         <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
             <li class="nav-item dropdown">
                 @auth('web')
-                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('govt_stakeholder::admin.dashboard') }}"
+                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('admin.dashboard') }}"
                        id="bd-versions">
                         <i class="fas fa-clipboard-list"></i>&nbsp; ড্যাশবোর্ড
                     </a>
