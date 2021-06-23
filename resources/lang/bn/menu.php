@@ -2,6 +2,8 @@
 
 return [
     'dashboard' => 'ডাশবোর্ড',
+    'tools' => 'টুলস',
+    'menu_builder' => 'মেনু বিল্ডার',
 
     //user management
     'user_management' => 'ইউজার ম্যানেজমেন্ট',
@@ -33,11 +35,12 @@ return [
 
     //content management
     'content_management' => 'কন্টেন্ট ম্যানেজমেন্ট',
+    'gallery_album' => 'গ্যালারী এলবাম',
     'gallery' => 'গ্যালারী',
     'static_page' => 'স্থির পৃষ্ঠা',
     'slider' => 'স্লাইডার',
-    'video' => 'ভিডিও',
     'video_category' => 'ভিডিও ধরন',
+    'video' => 'ভিডিও',
 
     //organization management
     'organization_management'=> 'সংস্থা পরিচালনা',
@@ -48,6 +51,7 @@ return [
     'human_resource_templates' => 'এইচআর টেম্পলেট',
     'ranks'=> 'র‌্যাঙ্কস',
     'rank-type'=> 'র‍্যংকের ধরন',
+    'organization_unit_statistic'=> 'অর্গানিজশন উনিটের স্ট্যাটিসটিক্স',
 
     //skill management
     'skill_management' => 'দক্ষতা পরিচালনা',
@@ -66,9 +70,5 @@ return [
     'division'=> "বিভাগ",
     'district'=> "জেলা",
     'upazila'=> "উপজেলা",
-
-    //tools
-    'tools' => 'টুলস',
-    'menu_builder' => 'মেনু নির্মাণ'
 ];
 

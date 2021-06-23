@@ -30,7 +30,7 @@ class TablePermissionKeySeeder extends Seeder
             "sms_sending_logs",
             "user_roles",
             "users_permissions",
-            "menus",
+//            "menus",
             "menu_items"
         ];
 
@@ -67,6 +67,22 @@ class TablePermissionKeySeeder extends Seeder
             [
                 'table_name' => 'batches',
                 'key' => 'view_batch_youth',
+            ],
+            [
+                'table_name' => 'data_entry',
+                'key' => 'view_any_organization_wise_statistic',
+            ],
+            [
+                'table_name' => 'data_entry',
+                'key' => 'view_any_occupation_wise_statistic',
+            ],
+            [
+                'table_name' => 'data_entry',
+                'key' => 'view_any_upazila_job_statistic',
+            ],
+            [
+                'table_name' => 'data_entry',
+                'key' => 'view_any_organization_unit_statistic',
             ],
         ];
 
