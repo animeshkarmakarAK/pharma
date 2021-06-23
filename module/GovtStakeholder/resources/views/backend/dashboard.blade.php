@@ -272,7 +272,7 @@
                         <a href="#">231</a>
                     </div>
                     <div class="sticker-title">
-                        দক্ষতা বৃদ্ধিকারী প্রতিষ্ঠান
+                        প্রশিক্ষণ প্রতিষ্ঠান
                     </div>
                 </div>
             </div>
@@ -668,6 +668,8 @@
                 $("#employment_statistic").html('No Data Found')
                 return null;
             }
+
+            console.log('data',data)
             // set the dimensions and margins of the graph
             let margin = {top: 40, right: 80, bottom: 30, left: 50}, //add
                 width = Math.abs(windowWidth / 2.7) - margin.left - margin.right,
@@ -856,9 +858,9 @@
             }
 
             // set the dimensions and margins of the graph
-            let margin = {top: 25, right: 30, bottom: 20, left: 50},
+            let margin = {top: 25, right: 20, bottom: 150, left: 100},
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
-                height = 300 - margin.top - margin.bottom;
+                height = 500 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
 
@@ -886,8 +888,7 @@
             }
 
             function graph(data) {
-
-                let svg = d3.select("#job_sector_statistic")
+                 let svg = d3.select("#job_sector_statistic")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -896,14 +897,10 @@
                         "translate(" + margin.left + "," + margin.top + ")");
 
 
-                // List of subgroups = header of the csv files = soil condition here
-                //let subgroups = data.columns.slice(1)
-
                 // List of groups = species here = value of the first column called group -> I show them on the X axis
                 let groups = d3.map(data, function (d) {
-                    return (d.group)
+                    return (d.sector)
                 }).keys()
-
 
                 let lineBackground = (data = [0, 1, 2, 3, 4]) => {
                     return data.map((i) => {
@@ -924,7 +921,10 @@
                     .paddingInner([0.3])
                 svg.append("g")
                     .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x).tickSize(6));
+                    .call(d3.axisBottom(x).tickSize(6))
+                    .selectAll("text")
+                    .attr("transform", "translate(-10,0)rotate(-45)")
+                    .style("text-anchor", "end");
 
                 // Add Y axis
                 let y = d3.scaleLinear()
@@ -953,7 +953,7 @@
                     .enter()
                     .append("g")
                     .attr("transform", function (d) {
-                        return "translate(" + x(d.group) + ",0)";
+                        return "translate(" + x(d.sector) + ",0)";
                     })
                     .selectAll("rect")
                     .data(function (d) {
@@ -1001,35 +1001,7 @@
                         currentOpacity = d3.selectAll("." + d.key).style("opacity")
                         // Change the opacity: from 0 to 1 or from 1 to 0
                         d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
-                    })
-                svg
-                    .selectAll("myLegend")
-                    .data(subgroupsKey)
-                    .enter()
-                    .append('g')
-                    .append("circle")
-                    .attr('x', function (d, i) {
-                        return i == 3 ? 30 + i * 100 : 30 + i * 60
-                    })
-                    .attr('y', -10) //add
-                    .attr("r", 5)
-                    .attr("stroke", function (d) {
-                        return color(d.key)
-                    })
-                    .attr("transform",
-                        function (d, i) {
-                            return "translate(" + (20 + (i * 60)) + "," + (-15) + ")"
-                        })
-                    .style("fill", function (d) {
-                        return color(d.key)
-                    })
-                    .on("click", function (d) {
-                        // is the element currently visible ?
-                        currentOpacity = d3.selectAll("." + d.key).style("opacity")
-                        // Change the opacity: from 0 to 1 or from 1 to 0
-                        d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
                     });
-
             }
         })
         ();
@@ -1040,7 +1012,7 @@
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
         (function () {
-            let selectedDistroctData = [];
+            let selectedDistrictData = [];
             let w = 300;
             let h = 340;
             let proj = d3.geo.mercator();
@@ -1049,7 +1021,7 @@
             let s = proj.scale() // the projection's default scale
 
             let buckets = 9,
-                colors = ["#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"]; // alternatively colorbrewer.YlGnBu[9]
+                colors = ["#4736a2", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"]; // alternatively colorbrewer.YlGnBu[9]
 
             let map = d3.select("#bd_map_d3")
                 .append("svg:svg")
@@ -1076,14 +1048,14 @@
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
 
-                    $.ajax({
-                        data: {district_id: districtElm.val()},
-                        url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
-                        type: 'POST',
-                        success: function (data) {
-                            selectedDistroctData = data;
-                        }
-                    });
+                    {{--$.ajax({--}}
+                    {{--    data: {district_id: districtElm.val()},--}}
+                    {{--    url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",--}}
+                    {{--    type: 'POST',--}}
+                    {{--    success: function (data) {--}}
+                    {{--        selectedDistrictData = data;--}}
+                    {{--    }--}}
+                    {{--});--}}
 
                     const words = district.split(" ");
 
@@ -1096,35 +1068,47 @@
                         return d.properties.ADM2_EN;
                     });
 
-                    let colorScale = d3.scale.quantile()
-                        .domain(d3.range(buckets).map(function (d) {
-                            return (d / buckets) * maxTotal;
-                        }))
-                        .range(colors);
+                    // let colorScale = d3.scale.quantile()
+                    //     .domain(d3.range(buckets).map(function (d) {
+                    //         return (d / buckets) * maxTotal;
+                    //     }))
+                    //     .range(colors);
 
 
-                    let y = d3.scale.sqrt()
-                        .domain([0, 10000])
-                        .range([0, 300]);
+                    // let y = d3.scale.sqrt()
+                    //     .domain([0, 10000])
+                    //     .range([0, 300]);
+                    //
+                    // let yAxis = d3.svg.axis()
+                    //     .scale(y)
+                    //     .tickValues(colorScale.domain())
+                    //     .orient("right");
 
-                    let yAxis = d3.svg.axis()
-                        .scale(y)
-                        .tickValues(colorScale.domain())
-                        .orient("right");
-
-                    bangladesh.selectAll("path")
+                     bangladesh.selectAll('path')
                         .data(json.features)
-                        .enter().append("path")
+                        .enter()
+                        .append("path")
                         .attr("d", path)
-                        .style("opacity", 0.5)
+                        .style("opacity",1).attr('id',(d) => 'path-'+d.id)
                         .attr('class', 'bd')
                         .filter((d) => d.properties.ADM2_EN == district)
-
                         .on('mouseover', function (d, i) {
+                            div.transition().duration(300)
+                                .style("opacity", .9)
+                                .text(d.properties.ADM3_EN + " - " + d.properties.ADM2_EN)
+                                .style("color", "#fff")
+                                .style("padding", "5px 5px")
+                                .style("border", "1px solid #fff")
+                                .style("font-weight", " bold")
+                                .style("background", "#333")
+                                .style("top", (d3.event.pageY - 10) + "px")
+                                .style("left", (d3.event.pageX + 10) + "px");
+                        })
+                        .on('click', function (d, i) {
                             let districtId = $('#map_select').val();
                             let upazilaName = d.properties.ADM3_EN;
                             console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
-                            let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
+                            let upazilaStatistics = selectedDistrictData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
                             console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
@@ -1151,22 +1135,22 @@
                                 .style("left", (d3.event.pageX + 10) + "px");
                         })
 
-                        .on('mouseleave', function (d, i) {
-                            if ($('.map_info').show()) {
-                                $('.map_info').hide();
-                                $("#total_unemployed").text('0');
-                                $("#total_employed").text('0');
-                                $("#total_vacancy").text('0');
-                                $("#total_new_recruitment").text('0');
-                                $("#total_new_skilled_youth").text('0');
-                                $("#total_skilled_youth").text('0');
-                            }
-
-                            d3.select(this).transition().duration(300)
-                                .style("opacity", 0.5);
-                            div.transition().duration(300)
-                                .style("opacity", 0);
-                        })
+                        // .on('mouseleave', function (d, i) {
+                        //     if ($('.map_info').show()) {
+                        //         $('.map_info').hide();
+                        //         $("#total_unemployed").text('0');
+                        //         $("#total_employed").text('0');
+                        //         $("#total_vacancy").text('0');
+                        //         $("#total_new_recruitment").text('0');
+                        //         $("#total_new_skilled_youth").text('0');
+                        //         $("#total_skilled_youth").text('0');
+                        //     }
+                        //
+                        //     d3.select(this).transition().duration(300)
+                        //         .style("opacity", 0.5);
+                        //     div.transition().duration(300)
+                        //         .style("opacity", 0);
+                        // })
 
                         .forEach(a => {
                             a.forEach(v => {
@@ -1177,10 +1161,25 @@
                                 v.setAttribute('fill', `rgb(${r},${g},${b})`)
                             })
                         });
+                    // bangladesh.selectAll("text").data(json.features)
+                    //     .enter()
+                    //     .append("text")
+                    //     .filter((d) => d.properties.ADM2_EN == district)
+                    //     .attr('font-family','Verdana')
+                    //     .attr('font-size','0.5')
+                    //     .attr('fill','red')
+                    //     //.style('display','block')
+                    //     .append('textPath')
+                    //     .attr('href',(d)=>'#path-'+d.id)
+                    //     .text(function(d) {
+                    //         console.log('popopo',d.properties)
+                    //         return d.properties.ADM3_EN;
+                    //     });
 
                     bangladesh.selectAll("path").transition().duration(300)
                         .style("fill", function (d) {
-                            return colorScale(d.properties.DIVISION);
+                           // const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                            return '#6d85ca';
                         });
 
                     //Remove unnecessary path
