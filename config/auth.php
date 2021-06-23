@@ -77,6 +77,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'youths' => [
+            'driver' => 'eloquent',
+            'model' => Module\CourseManagement\App\Models\Youth::class,
+        ],
     ],
 
     /*

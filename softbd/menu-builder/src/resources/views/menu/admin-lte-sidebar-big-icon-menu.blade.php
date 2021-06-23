@@ -1,5 +1,5 @@
 @if(!isset($innerLoop))
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+    <ul class="nav nav-pills nav-sidebar flex-column nav-big-icon-sidebar" data-widget="treeview" role="menu">
         @else
             <ul class="nav nav-treeview">
                 @endif
@@ -7,7 +7,7 @@
                     @php
                         /** @var \Softbd\MenuBuilder\Models\MenuItem $originalItem */
                         $originalItem = $item;
-                        $listItemClass = 'nav-item';
+                        $listItemClass = 'nav-item '.(!isset($innerLoop) ? 'parent':'');
                         $linkAttributes =  null;
                         $styles = null;
                         $icon = null;
@@ -31,7 +31,7 @@
 
                         // Set Icon
                         if(isset($options->icon) && $options->icon == true){
-                            $icon = '<i class="nav-icon fas ' . $item->icon_class . '"></i>';
+                            $icon = '<div><i class="nav-icon fas ' . $item->icon_class . '"></i></div>';
                         }
                     @endphp
 
