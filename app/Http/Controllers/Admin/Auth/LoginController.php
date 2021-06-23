@@ -198,7 +198,7 @@ class LoginController extends Controller
     {
         if ($user->user_type_id != User::USER_TYPE_DC_USER_CODE) {
             Auth::guard($this->currentGuardName)->logout();
-            abort('You are not allowed to login without dc user.');
+            abort(401, 'You are not allowed to login without dc user.');
         }
     }
 
