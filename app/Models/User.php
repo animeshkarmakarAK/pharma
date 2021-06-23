@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\AuthenticatableUser;
 use App\Traits\LocDistrictBelongsToRelation;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -22,15 +23,15 @@ use Module\GovtStakeholder\App\Models\Organization;
  * @property string password
  * @property string|null remember_token
  * @property string|null profile_pic
- * @property-read \Illuminate\Database\Eloquent\Collection|UsersPermission[] activePermissions
+ * @property-read Collection|UsersPermission[] activePermissions
  * @property-read int|null active_permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|UsersPermission[] inActivePermissions
+ * @property-read Collection|UsersPermission[] inActivePermissions
  * @property-read int|null in_active_permissions_count
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] notifications
  * @property-read int|null notifications_count
  * @property-read Role|null role
  * @property-read UserType userType
- * @property-read \Illuminate\Database\Eloquent\Collection|Role[] roles
+ * @property-read Collection|Role[] roles
  * @property-read int|null roles_count
  */
 class User extends AuthBaseModel
@@ -118,7 +119,7 @@ class User extends AuthBaseModel
         return $this->userType->code === self::USER_TYPE_SUPER_USER_CODE;
     }
 
-    public function isDC(): bool
+    public function isDCUser(): bool
     {
         return $this->userType->code === self::USER_TYPE_DC_USER_CODE;
     }
