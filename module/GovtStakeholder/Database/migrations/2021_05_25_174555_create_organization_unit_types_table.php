@@ -15,6 +15,7 @@ class CreateOrganizationUnitTypesTable extends Migration
     {
         Schema::create('organization_unit_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('organization_id');
             $table->string('title_en', 191)->nullable();
             $table->string('title_bn', 191)->nullable();
             $table->unsignedTinyInteger('row_status')->default(1);
