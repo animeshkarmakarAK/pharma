@@ -53,6 +53,24 @@
                                 </div>
                             </div>
 
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="organization_id">{{ __('Organization') }}<span
+                                            class="required"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="organization_id"
+                                            id="organization_id"
+                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
+                                            data-label-fields="{title_en}"
+                                            @if($edit && $organizationUnitType->organization)
+                                            data-preselected-option="{{json_encode(['text' =>  $organizationUnitType->organization->title_en, 'id' => $organizationUnitType->organization->id])}}"
+                                            @endif
+                                            data-placeholder="Select Organization"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+
                             @if($edit)
                                 <div class="col-sm-6">
                                     <div class="form-group">

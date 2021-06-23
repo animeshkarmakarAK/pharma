@@ -77,10 +77,11 @@
                         </div>
 
                         <input type="hidden" name="organization_id" id="organization_id"
-                               value="{{ optional($humanResources)["organization_id"] }}">
+                               value="{{ $organizationUnitType->organization_id }}">
                         <input type="hidden" name="organization_unit_type_id" id="organization_unit_type_id"
-                               value="{{ optional($humanResources)["organization_unit_type_id"] }}">
+                               value="{{ $organizationUnitType->id }}">
 
+                        @if(!empty($humanResources))
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="parent_id">{{ __('Parent') }}</label>
@@ -88,7 +89,7 @@
                                         name="parent_id"
                                         id="parent_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
-                                        data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => -1]])}}"
+                                        data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => -1], 'organization_id' => $organizationUnitType->organization_id])}}"
                                         data-label-fields="{title_en}"
                                         data-placeholder="Select Parent"
                                 >
@@ -96,6 +97,7 @@
                                 <input type="text" name="parent_id" id="hidden_parent_id" hidden disabled>
                             </div>
                         </div>
+                        @endif
 
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -104,6 +106,7 @@
                                         name="rank_id"
                                         id="rank_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Rank::class)}}"
+                                        data-filters="{{json_encode(['organization_id' => $organizationUnitType->organization_id])}}"
                                         data-label-fields="{title_en}"
                                         data-placeholder="Select Rank"
                                 >
@@ -159,7 +162,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save changes</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary add-modal-close-btn" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
@@ -218,6 +221,19 @@
 
 
         $(document).ready(function () {
+            if (!treeData) {
+                $('#addModal').find('.modal-header').html('<h5 class="text-center text-capitalize">Don\'t have any human resource.Please add one!.</h5>');
+                $('#addModal').find('.add-modal-close-btn').hide();
+                $('#addModal').modal({backdrop: 'static', keyboard: false});
+                clearModalInputFieldsValue();
+                let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
+                editAddForm.attr("action", url);
+                editAddForm.attr("data-method", "POST");
+                editAddForm.attr("data-is-edit", false);
+                $('#addModal').modal('show');
+                return 0;
+            }
+
             viewerWidth = $(document).width() - $('.os-padding').innerWidth() - 20;
             viewerHeight = $(document).height();
             height = viewerHeight;
@@ -1143,7 +1159,7 @@
                 if (nodeData.id) {
                     $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
                 }
-                $('#parent_id').parent().parent().css('display', 'none');
+                $('#parent_id').parent().parent().hide();
             }
 
             if (btnEle.style("opacity") == 1) {
@@ -1266,10 +1282,14 @@
                 // Stop form from submitting normally
                 event.preventDefault();
 
-                let currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
-                let responseNodeData;
+                // when there is no tree data -- human resource template
 
-                let edit = editAddForm.attr('data-is-edit') == "true";
+                let edit, responseNodeData, currentNode;
+                if (root) {
+                     edit = editAddForm.attr('data-is-edit') == "true";
+                     currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
+                }
+
 
                 // Get some values from elements on the page:
                 const $form = $(this),
@@ -1281,10 +1301,13 @@
                     const responseData = await $.post(url, $(this).serialize())
                         .done(function ({nodeData}) {
                             responseNodeData = nodeData;
-                            if (!edit) {
+                            if (!edit && root) {
                                 addNode(currentNode, responseNodeData);
-                            } else {
+                            } else if (edit && root) {
                                 editNode(currentNode, responseNodeData);
+                            }else {
+                                //refresh page
+                                location.reload();
                             }
                         })
                         .fail(function () {
@@ -1301,7 +1324,7 @@
             });
 
             function editNode(currentNode, respondedNodeData) {
-                if (currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent
+                if (currentNode?.parent && currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent
                     let parent = searchTree(root, respondedNodeData.parent_id);
                     let nodeData = searchTree(root, respondedNodeData.id);
 
@@ -1339,7 +1362,7 @@
                                 $('#deleteModal').find('.modal-body').text(response.message);
                                 $('#deleteModal').find('.modal-footer').hide();
                                 $('#deleteModal').modal("show");
-                            }else {
+                            } else {
                                 $('#deleteModal').modal("hide");
                                 let deletedNode = searchTree(root, $('#deleteModal').attr('data-node-id'));
                                 removeNode(deletedNode);
