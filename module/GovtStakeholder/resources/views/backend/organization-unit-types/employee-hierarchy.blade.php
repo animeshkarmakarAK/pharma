@@ -89,7 +89,8 @@
                                         name="parent_id"
                                         id="parent_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
-                                        data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => -1], 'organization_id' => $organizationUnitType->organization_id])}}"
+{{--                                        data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => -1], 'organization_id' => $organizationUnitType->organization_id])}}"--}}
+                                        data-filters="{{json_encode(['organization_id' => $organizationUnitType->organization_id, 'id' => ['type' => 'not-equal', 'value' => optional($humanResources)['id']]])}}"
                                         data-label-fields="{title_en}"
                                         data-placeholder="Select Parent"
                                 >
