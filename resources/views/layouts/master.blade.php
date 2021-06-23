@@ -23,6 +23,90 @@
         .sidebar-blue-dark .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
             background-color: #0d2bc6;
         }
+
+        /** need to move **/
+          .nav-big-icon-sidebar .nav-item.parent > a .nav-icon{
+              display: block;
+              font-size: 35px !important;
+              text-align: center;
+              margin: auto !important;
+              width: 50px !important;
+              margin-bottom: 20px !important;
+          }
+
+        .nav-big-icon-sidebar .nav-item.parent > a{
+            text-align: center;
+            border-bottom: 1px solid #33a6f7;
+            padding-bottom: 18px;
+        }
+        .nav-big-icon-sidebar .nav-treeview{
+            background: #328cd8;
+            padding: 14px 0px 10px 0px;
+        }
+
+        .nav-big-icon-sidebar .nav-treeview:before{
+            content: '';
+            margin-left: 25px;
+            border-left: 13px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 15px solid #2f49d1;
+
+        }
+
+        .nav-big-icon-sidebar .nav-item.parent.menu-open > a{
+            border-bottom: none !important;
+        }
+        .nav-big-icon-sidebar .nav-treeview .nav-link.active{
+            background-color: #4288c3;
+        }
+
+        .nav-big-icon-sidebar .nav-item.parent.menu-open > a.active + .nav-treeview:before{
+            border-top: 15px solid #0d2bc6;
+        }
+
+        .main-sidebar.sidebar-focused .nav-big-icon-sidebar .nav-link p,
+        .main-sidebar:hover .nav-big-icon-sidebar .nav-link p{
+            width: 100%;
+        }
+
+        .theme-inner-box{
+            border-radius: 6px;
+            box-shadow: 0px 0px 12px 6px #f4f4f4;
+            padding: 15px 10px;
+            background: #fff;
+            margin-bottom: 25px !important;
+            height: 100%;
+        }
+        .theme-box {
+            -webkit-transition: transform 0.8s;
+            -moz-transition: transform 0.8s;
+            -o-transition: transform 0.8s;
+            transition: transform 0.8s;
+            width: 300px;
+            min-height: 320px;
+            position: relative;
+        }
+        .theme-box.active{
+            border: 8px solid #0d2bc6 !important;
+        }
+
+        .theme-box:hover .theme-inner-box{
+            box-shadow: 0px 0px 45px -10px #a6d1ff !important;
+        }
+        .theme-image{
+            width: 80px;
+            margin-left: 15px;
+        }
+        .theme-button-wrapper{
+            text-align: center;
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+            display: none;
+        }
+        .theme-box:hover .theme-button-wrapper{
+            display: block;
+        }
     </style>
     @stack('css')
 </head>
