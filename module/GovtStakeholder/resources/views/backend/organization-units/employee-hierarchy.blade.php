@@ -78,8 +78,8 @@
 
                         <input type="hidden" name="organization_id" id="organization_id"
                                value="{{ optional($humanResources)["organization_id"] }}">
-                        <input type="hidden" name="organization_unit_type_id" id="organization_unit_type_id"
-                               value="{{ optional($humanResources)["organization_unit_type_id"] }}">
+{{--                        <input type="hidden" name="organization_unit_type_id" id="organization_unit_type_id"--}}
+{{--                               value="{{ optional($humanResources)["organization_unit_type_id"] }}">--}}
 
                         <input type="hidden" name="organization_unit_id" id="organization_unit_id"
                                value="{{ optional($humanResources)["organization_unit_id"] }}">
@@ -1038,7 +1038,10 @@
         }
 
         function canDelete(nodeEle, nodeData) {
-            if (!nodeData?.parent?.length && !nodeData?.children?.length && !nodeData?._children?.length) {
+            if (nodeData.human_resource_template_id != null) {
+                return false;
+            }
+            if (!nodeData?.parent && !nodeData?.children && !nodeData?._children) {
                 return false;
             }
             return !((nodeData?.children?.length || nodeData?._children?.length));
@@ -1212,9 +1215,9 @@
                 organization_id: {
                     required: true,
                 },
-                organization_unit_type_id: {
-                    required: true,
-                },
+                // organization_unit_type_id: {
+                //     required: false,
+                // },
                 "skill_ids[]": {
                     required: false,
                 },
@@ -1231,10 +1234,43 @@
                     pattern: "This field is required in Bangla.",
                 },
             },
-            submitHandler: function (htmlForm) {
+            submitHandler: async function (htmlForm) {
                 $('.overlay').show();
-                // htmlForm.submit();
+
+                let currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
+                let responseNodeData;
+
+                let edit = editAddForm.attr('data-is-edit') == "true";
+
+                // Get some values from elements on the page:
+                const $form = $(this),
+                    url = $form.attr("action"),
+                    methodType = $(this).attr("data-method");
+
+                // Send the data using post
+                try {
+                    const responseData = await $.post(url, $(this).serialize())
+                        .done(function ({nodeData}) {
+                            responseNodeData = nodeData;
+                            if (!edit) {
+                                addNode(currentNode, responseNodeData);
+                            } else {
+                                editNode(currentNode, responseNodeData);
+                            }
+                        })
+                        .fail(function () {
+                            console.log("update failed");
+                        })
+                        .always(function () {
+                            $('#addModal').modal("hide");
+                            closeOpenedActionButtons();
+                        })
+                } catch (e) {
+                    console.log(e.message);
+                }
+                return false;
             }
+
         });
 
 
@@ -1260,46 +1296,6 @@
             $('#parent_id').on('change', function () {
                 $('#hidden_parent_id').val($('#parent_id').val()).prop('disabled', false);
             })
-
-
-            editAddForm.submit(async function (event) {
-                // Stop form from submitting normally
-                event.preventDefault();
-
-                let currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
-                let responseNodeData;
-
-                let edit = editAddForm.attr('data-is-edit') == "true";
-
-                // Get some values from elements on the page:
-                const $form = $(this),
-                    url = $form.attr("action"),
-                    methodType = $(this).attr("data-method");
-
-                // Send the data using post
-                try {
-                    const responseData = await $.post(url, $(this).serialize())
-                        .done(function ({nodeData}) {
-                            responseNodeData = nodeData;
-                            if (!edit) {
-                                addNode(currentNode, responseNodeData);
-                            } else {
-                                console.table("response", responseNodeData);
-                                editNode(currentNode, responseNodeData);
-                            }
-                        })
-                        .fail(function () {
-                            console.log("update failed");
-                        })
-                        .always(function () {
-                            $('#addModal').modal("hide");
-                            closeOpenedActionButtons();
-                        })
-                } catch (e) {
-                    console.log(e.message);
-                }
-
-            });
 
             function editNode(currentNode, respondedNodeData) {
                 if (currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent
