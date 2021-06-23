@@ -71,6 +71,7 @@ class LoginController extends Controller
                 'user_type_id' => User::USER_TYPE_DC_USER_CODE,
                 'name_en' => 'DC',
                 'name_bn' => 'ডিসি',
+                'loc_district_id' => '18',
                 'email' => 'dc@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('password')
