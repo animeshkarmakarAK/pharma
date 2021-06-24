@@ -7,6 +7,13 @@ namespace App\Traits;
 use App\Models\LocDistrict;
 use Illuminate\Database\Eloquent\Model;
 
+
+/**
+ * Trait LocDistrictBelongsToRelation
+ * @package App\Traits
+ * @property int loc_district_id
+ * @property-read LocDistrict locDistrict
+ */
 trait LocDistrictBelongsToRelation
 {
     public function locDistrict(): \Illuminate\Database\Eloquent\Relations\BelongsTo
