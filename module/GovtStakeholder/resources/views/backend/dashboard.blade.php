@@ -683,8 +683,8 @@
                 .append("g")
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
-            let highestValue = 0;
 
+            let highestValue = 0;
             let employment_statistic_data = data.employment_statistic.map((item, index) => {
                 for (const [key, value] of Object.entries(item)) {
                     highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
