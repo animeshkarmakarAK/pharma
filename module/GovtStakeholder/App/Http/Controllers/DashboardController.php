@@ -11,8 +11,17 @@ class DashboardController
 {
     public function dashboard()
     {
-        $startDate = Carbon::now()->subMonth(6)->startOfMonth()->toDateString();
-        $endDate = Carbon::now()->toDateString();;
+        $months = [];
+
+        $startDate = Carbon::now()->subMonths(6)->startOfMonth();
+        $incrementDate = Carbon::now()->subMonths(6)->startOfMonth();
+        $endDate = Carbon::now();
+
+        for ($i=0;$i<6;$i++){
+            $months[$incrementDate->format('F')] = [];
+            $incrementDate->addMonth();
+        }
+
         $data = [];
         $employmentStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
         $employmentStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
@@ -25,13 +34,26 @@ class DashboardController
             ->whereBetween(DB::raw('date(upazila_job_statistics.survey_date)'), [$startDate, $endDate])
             ->groupBy('upazila_job_statistics.survey_date')
             ->orderBy('upazila_job_statistics.survey_date', 'DESC');
-        $employmentStatistic = $employmentStatistic->get();
-//        foreach ($employmentStatistic as $date => $statistics) {
-//            $employmentStatistic[Carbon::parse($date)->format('M')] = $statistics;
-//        }
+        $employmentStatistic = $employmentStatistic->get()->keyBy('survey_date');
 
-        $data['employment_statistic'] = $employmentStatistic->toArray();
-        //dd($data['employment_statistic']);
+        $results = [];
+        foreach ($months as $month => $values) {
+            if(empty($employmentStatistic[$month])){
+                $results[$month] = [
+                    'total_unemployed' => 0,
+                    'total_employed' => 0,
+                    'total_vacancy' => 0,
+                    'total_new_recruitment' => 0,
+                    'total_skilled_youth' => 0,
+                    'survey_date' => $month
+                ];
+            }else{
+                $results[$month] = $employmentStatistic[$month]->toArray();
+            }
+        }
+        //dd($results);
+        $data['employment_statistic'] = array_values($results);
+       // dd($data['employment_statistic']);
         $jobSectorStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $jobSectorStatistic->join('job_sectors', 'upazila_job_statistics.job_sector_id', '=', 'job_sectors.id');

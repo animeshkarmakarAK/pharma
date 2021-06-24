@@ -284,7 +284,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header text-white bg-maroon">
-                                <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
+                                <h3 class="card-title font-weight-bold">বিগত ৬ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
                                 <div id="employment_statistic"></div>
@@ -690,7 +690,6 @@
                 for (const [key, value] of Object.entries(item)) {
                     highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
                 }
-                console.log(item)
                 xaxisLabels.push(item.survey_date);
                 item['time'] = '' + (index + 1)
                 return item
@@ -729,7 +728,7 @@
                 .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
-
+            console.log('width',width)
             // Add X axis --> it is a date format
             let x = d3.scaleBand()
                 .domain(xaxisLabels)
@@ -750,7 +749,6 @@
             // Add the lines
             let line = d3.line()
                 .x(function (d) {
-                    console.log(x(d.time))
                     return x(d.time)
                 })
                 .y(function (d) {
