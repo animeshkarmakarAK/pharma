@@ -1148,13 +1148,6 @@
                 $('#title_en').val(nodeData.title_en);
                 $('#title_bn').val(nodeData.title_bn);
 
-                $('#parent_id').data('filters', {
-                    id: {
-                        type: "not-equal",
-                        value: nodeData.id
-                    }
-                });
-
                 if (nodeData.parent_id) {
                     $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
                     $('#parent_id').parent().parent().css('display', 'block');
