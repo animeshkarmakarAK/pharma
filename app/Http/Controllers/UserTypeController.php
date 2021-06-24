@@ -22,7 +22,7 @@ class UserTypeController extends BaseController
 
     public function index()
     {
-        $userTypes = UserType::all();
+        $userTypes = UserType::with(['role', 'rowStatus'])->get();
         return \view(self::VIEW_PATH . 'browse', compact('userTypes'));
     }
 
