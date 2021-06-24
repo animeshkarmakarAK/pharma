@@ -684,11 +684,14 @@
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
 
+            let xaxisLabels = [];
             let highestValue = 0;
             let employment_statistic_data = data.employment_statistic.map((item, index) => {
                 for (const [key, value] of Object.entries(item)) {
                     highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
                 }
+                console.log(item)
+                xaxisLabels.push(item.survey_date);
                 item['time'] = '' + (index + 1)
                 return item
             })
@@ -701,12 +704,12 @@
                     key: Object.keys(data)[0],
                     name: data[Object.keys(data)[0]],
                     values: employment_statistic_data.map(function (d) {
-                        return {time: d.time, value: +d[Object.keys(data)[0]]};
+                        return {time: d.survey_date, value: +d[Object.keys(data)[0]]};
                     })
                 };
             });
             // I strongly advise to have a look to dataReady with
-
+            console.log('dataReady',dataReady);
             //custom line add to graph background
             let lineBackground1 = (data = [0, 1, 2, 3, 4]) => {
                 return data.map((i) => {
@@ -726,9 +729,10 @@
                 .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
+
             // Add X axis --> it is a date format
-            let x = d3.scaleLinear()
-                .domain([1, 5])
+            let x = d3.scaleBand()
+                .domain(xaxisLabels)
                 .range([0, width]);
             svg1.append("g")
                 .attr("transform", "translate(0," + height + ")")
@@ -746,7 +750,8 @@
             // Add the lines
             let line = d3.line()
                 .x(function (d) {
-                    return x(+d.time)
+                    console.log(x(d.time))
+                    return x(d.time)
                 })
                 .y(function (d) {
                     return y(+d.value)

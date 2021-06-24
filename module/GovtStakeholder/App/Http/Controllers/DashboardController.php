@@ -11,9 +11,8 @@ class DashboardController
 {
     public function dashboard()
     {
-        $date = now();
-        $date2 = now();
-
+        $startDate = Carbon::now()->subMonth(6)->startOfMonth()->toDateString();
+        $endDate = Carbon::now()->toDateString();;
         $data = [];
         $employmentStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
         $employmentStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
@@ -21,17 +20,18 @@ class DashboardController
             DB::raw("SUM(upazila_job_statistics.total_employed) as total_employed"),
             DB::raw("SUM(upazila_job_statistics.total_vacancy) as total_vacancy"),
             DB::raw("SUM(upazila_job_statistics.total_new_recruitment) as total_new_recruitment"),
-            DB::raw("SUM(upazila_job_statistics.total_skilled_youth) as total_skilled_youth")])
-//            ->whereDate('upazila_job_statistics.survey_date', [$date->format('Y-m-01'), $date2->subMonths(6)->format('Y-m-01')])
+            DB::raw("SUM(upazila_job_statistics.total_skilled_youth) as total_skilled_youth"),
+            DB::raw('DATE_FORMAT(upazila_job_statistics.survey_date, "%M") as survey_date')])
+            ->whereBetween(DB::raw('date(upazila_job_statistics.survey_date)'), [$startDate, $endDate])
             ->groupBy('upazila_job_statistics.survey_date')
             ->orderBy('upazila_job_statistics.survey_date', 'DESC');
-        $employmentStatistic = $employmentStatistic->get()->keyBy('survey_date');
-        foreach ($employmentStatistic as $date => $statistics) {
-            $employmentStatistic[Carbon::parse($date)->format('M')] = $statistics;
-        }
+        $employmentStatistic = $employmentStatistic->get();
+//        foreach ($employmentStatistic as $date => $statistics) {
+//            $employmentStatistic[Carbon::parse($date)->format('M')] = $statistics;
+//        }
 
         $data['employment_statistic'] = $employmentStatistic->toArray();
-        //dd($employmentStatistic);
+        //dd($data['employment_statistic']);
         $jobSectorStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $jobSectorStatistic->join('job_sectors', 'upazila_job_statistics.job_sector_id', '=', 'job_sectors.id');
