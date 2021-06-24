@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Module\GovtStakeholder\App\Models\Organization;
 
 class LoginController extends Controller
 {
@@ -84,6 +85,22 @@ class LoginController extends Controller
                 'password' => Hash::make('password')
             ]);
             $user1->save();
+
+            //Organization
+            $user2 = new User();
+            /** @var UserType $userType */
+            $userType = UserType::where('code', User::USER_TYPE_ORGANIZATION_USER_CODE)->firstOrFail();
+            $user2->fill([
+                'user_type_id' => $userType->code,
+                'role_id' => $userType->default_role_id,
+                'name_en' => 'Beximco',
+                'name_bn' => 'বেক্সিমকো',
+                'loc_district_id' => 1,
+                'email' => 'dc@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password')
+            ]);
+            $user2->save();
         }
 
         return view('master::acl.auth.login');
