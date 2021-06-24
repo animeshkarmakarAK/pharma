@@ -275,7 +275,7 @@
                     maxlength: 191
                 },
                 description: {
-                    required: true,
+                    required: false,
                     maxlength: 255
                 },
                 organization_type_id: {

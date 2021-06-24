@@ -62,6 +62,7 @@
                                             id="organization_id"
                                             data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
                                             data-label-fields="{title_en}"
+                                            data-dependent-fields="#organization_unit_type_id"
                                             @if($edit && $organizationUnit->organization)
                                             data-preselected-option="{{json_encode(['text' =>  $organizationUnit->organization->title_en, 'id' => $organizationUnit->organization->id])}}"
                                             @endif
@@ -80,6 +81,7 @@
                                             id="organization_unit_type_id"
                                             data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\OrganizationUnitType::class)}}"
                                             data-label-fields="{title_en}"
+                                            data-depend-on="organization_id"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $organizationUnit->organizationUnitType->title_en, 'id' => $organizationUnit->organizationUnitType->id])}}"
                                             @endif

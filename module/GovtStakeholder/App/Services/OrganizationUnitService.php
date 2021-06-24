@@ -23,16 +23,19 @@ class OrganizationUnitService
 
         $humanResourceTemplates = $organizationUnitType->humanResourceTemplate;
         $idMapper = [];
+
+
         foreach ($humanResourceTemplates as $humanResourceTemplate) {
             //template is now human resource
             $humanResource = $humanResourceTemplate->getAttributes();
             $humanResource['human_resource_template_id'] = $humanResourceTemplate->id;
 
-            if (isset($humanResource["parent_id"]) && $idMapper[$humanResource["parent_id"]]) {
+            if (isset($humanResource["parent_id"]) && isset($idMapper[$humanResource["parent_id"]])) {
                 $humanResource["parent_id"] = $idMapper[$humanResource["parent_id"]];
             }
 
             $createdHumanResource = $organizationUnit->humanResources()->create($humanResource);
+
             $idMapper[$humanResourceTemplate->id] = $createdHumanResource->id;
         }
 

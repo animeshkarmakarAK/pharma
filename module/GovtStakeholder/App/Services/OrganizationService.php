@@ -49,13 +49,14 @@ class OrganizationService
             ],
 
             'description' => [
-                'required',
+                'nullable',
                 'max:255',
             ],
             'organization_type_id' => [
                 'required',
             ],
             'fax_no' => [
+                'nullable',
                 'max: 50',
                 'regex: /^\+?[0-9]{6,}$/',
             ],
