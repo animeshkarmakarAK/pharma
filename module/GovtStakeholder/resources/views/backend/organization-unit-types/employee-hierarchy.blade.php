@@ -44,7 +44,7 @@
     <div class="modal" id="addModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header custom-bg-gradient-info">
                     <h5 class="modal-title">Add Child</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -89,7 +89,7 @@
                                             name="parent_id"
                                             id="parent_id"
                                             data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
-                                            data-filters="{{json_encode(['organization_unit_type_id' =>["type" => "equal", 'value' => $organizationUnitType->id], 'id' => ['type' => 'not-equal', 'value' => optional($humanResources)['id']]])}}"
+                                            data-filters="{{json_encode(['organization_unit_type_id' =>["type" => "equal", 'value' => $organizationUnitType->id], 'id' => ['type' => 'not-equal', 'value' => "__" ]])}}"
                                             data-label-fields="{title_en}"
                                             data-placeholder="Select Parent"
                                     >
@@ -160,11 +160,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            <button type="button" class="btn btn-secondary add-modal-close-btn" data-dismiss="modal">
+
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary add-modal-close-btn float-right"
+                                    data-dismiss="modal">
                                 Close
                             </button>
+                            <button type="submit" class="submit-node-btn btn btn-primary float-right mr-2">Add</button>
                         </div>
                     </form>
                 </div>
@@ -1139,50 +1141,61 @@
             });
         }
 
+        function settingsEditModal(nodeData) {
+            $('#addModal').find('.modal-title').text("Edit Node");
+
+            //set the fields with node value
+            $('#title_en').val(nodeData.title_en);
+            $('#title_bn').val(nodeData.title_bn);
+
+            if (nodeData.parent_id) {
+                $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
+                $('#parent_id').parent().parent().show();
+                $('#parent_id').data('filters').id.value = nodeData.id;
+            } else {
+                $('#parent_id').parent().parent().hide();
+            }
+            if (nodeData.rank_id) {
+                $('#rank_id').append(new Option(nodeData.rank_id, nodeData?.rank_id, true, true)).trigger('change');
+            }
+            $('#display_order').val(nodeData.display_order);
+            $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
+
+            // change form url for edit
+            let url = "{{route('govt_stakeholder::admin.human-resource-templates.update-node', '__')}}".replace('__', nodeData.id);
+
+            editAddForm.attr("action", url);
+            editAddForm.attr("data-method", "PATCH");
+            editAddForm.attr("data-node-id", nodeData.id);
+            editAddForm.attr("data-is-edit", true);
+            $('.submit-node-btn').text("Edit")
+        }
+
+        function settingsAddModal(nodeData) {
+            $('#addModal').find('.modal-title').text("Add a new child");
+            clearModalInputFieldsValue();
+            let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
+            editAddForm.attr("action", url);
+            editAddForm.attr("data-method", "POST");
+            editAddForm.attr("data-node-id", nodeData.id);
+            editAddForm.attr("data-is-edit", false);
+
+            if (nodeData.id) {
+                $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
+            }
+            $('#parent_id').parent().parent().hide();
+            $('.submit-node-btn').text("Add")
+        }
 
         function showModal(btnEle, modal, edit = false, nodeData = false) {
             if (edit) {
-                $('#addModal').find('.modal-title').text("Edit Node");
-
-                //set the fields with current value
-                $('#title_en').val(nodeData.title_en);
-                $('#title_bn').val(nodeData.title_bn);
-
-                if (nodeData.parent_id) {
-                    $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
-                    $('#parent_id').parent().parent().css('display', 'block');
-                } else {
-                    $('#parent_id').parent().parent().css('display', 'none');
-                }
-                if (nodeData.rank_id) {
-                    $('#rank_id').append(new Option(nodeData.rank_id, nodeData?.rank_id, true, true)).trigger('change');
-                }
-                $('#display_order').val(nodeData.display_order);
-                $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
-
-                // change form url for edit
-                let url = "{{route('govt_stakeholder::admin.human-resource-templates.update-node', '__')}}".replace('__', nodeData.id);
-
-                editAddForm.attr("action", url);
-                editAddForm.attr("data-method", "PATCH");
-                editAddForm.attr("data-node-id", nodeData.id);
-                editAddForm.attr("data-is-edit", true);
+                settingsEditModal(nodeData);
             } else {
-                $('#addModal').find('.modal-title').text("Add a new child");
-                clearModalInputFieldsValue();
-                let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
-                editAddForm.attr("action", url);
-                editAddForm.attr("data-method", "POST");
-                editAddForm.attr("data-node-id", nodeData.id);
-                editAddForm.attr("data-is-edit", false);
-
-                if (nodeData.id) {
-                    $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
-                }
-                $('#parent_id').parent().parent().hide();
+                settingsAddModal(nodeData);
             }
 
             if (btnEle.style("opacity") == 1) {
+                modal.modal({backdrop: 'static', keyboard: false});
                 modal.modal('show');
             }
         }
@@ -1303,7 +1316,6 @@
             $('#parent_id').on('change', function () {
                 $('#hidden_parent_id').val($('#parent_id').val()).prop('disabled', false);
             })
-
 
 
             const deleteBtn = $('#node-delete-button');
