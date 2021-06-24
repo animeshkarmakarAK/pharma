@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class UserType
@@ -13,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string code
  * @property int row_status
  * @property int default_role_id
- * @property Role $role
+ * @property-read Role $role
+ * @property-read Collection $users
  */
 class UserType extends BaseModel
 {
@@ -31,6 +34,11 @@ class UserType extends BaseModel
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'default_role_id', 'id');
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'user_type_id', 'code');
     }
 }
 

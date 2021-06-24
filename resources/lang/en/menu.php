@@ -61,6 +61,7 @@ return [
     'occupation_management' => 'Occupation Management',
     'occupations' => 'Occupations',
     'occupation_wise_statistics' => 'Occupation Wise Statistics',
+    'organization_unit_statistic' => 'Organization Unit Statistics',
 
     //location
     'location' => "Location",
