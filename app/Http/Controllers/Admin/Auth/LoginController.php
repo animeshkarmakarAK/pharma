@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -55,8 +56,11 @@ class LoginController extends Controller
         if (!$users->count()) {
             // Admin
             $user = new User();
+            /** @var UserType $userType */
+            $userType = UserType::where('code', User::USER_TYPE_SUPER_USER_CODE)->firstOrFail();
             $user->fill([
-                'user_type_id' => User::USER_TYPE_SUPER_USER_CODE,
+                'user_type_id' => $userType->code,
+                'role_id' => $userType->default_role_id,
                 'name_en' => 'Admin',
                 'name_bn' => 'Admin',
                 'email' => 'admin@gmail.com',
@@ -67,8 +71,11 @@ class LoginController extends Controller
 
             //DC
             $user1 = new User();
+            /** @var UserType $userType */
+            $userType = UserType::where('code', User::USER_TYPE_DC_USER_CODE)->firstOrFail();
             $user1->fill([
-                'user_type_id' => User::USER_TYPE_DC_USER_CODE,
+                'user_type_id' => $userType->code,
+                'role_id' => $userType->default_role_id,
                 'name_en' => 'DC',
                 'name_bn' => 'ডিসি',
                 'loc_district_id' => '18',

@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use App\Traits\ScopeRowStatusTrait;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class UserType
@@ -13,7 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string title
  * @property string code
  * @property int row_status
- * @method static Builder|UserType active()
+ * @property int default_role_id
+ * @property Role $role
  */
 class UserType extends BaseModel
 {
@@ -28,14 +28,9 @@ class UserType extends BaseModel
     const USER_TYPE_ORGANIZATION_USER_CODE = '4';
     const USER_TYPE_DC_USER_CODE = '5';
 
-    public function rowStatus(): HasOne
+    public function role(): BelongsTo
     {
-        return $this->hasOne(RowStatus::class, 'code', 'row_status');
-    }
-
-    public function roles(): HasOne
-    {
-        return $this->hasOne(Role::class, 'id', 'default_role_id');
+        return $this->belongsTo(Role::class, 'id', 'default_role_id');
     }
 }
 
