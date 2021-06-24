@@ -30,7 +30,7 @@ class UserType extends BaseModel
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'id', 'default_role_id');
+        return $this->belongsTo(Role::class, 'default_role_id', 'id');
     }
 }
 
