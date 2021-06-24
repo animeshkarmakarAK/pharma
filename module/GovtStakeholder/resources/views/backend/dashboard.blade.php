@@ -334,10 +334,10 @@
                             >
                             </select>
                         @endif
-                        <div id="map_message">
+                        {{--<div id="map_message">
                             <br>
                             <h3 class="text-shadow-light text-center" style="color: #777f85;">Please select <strong>District</strong> to view map</h3>
-                        </div>
+                        </div>--}}
                         <div id="bd_map_d3" style="display: none"></div>
                         <div class="map_info" style="display: none">
                             <div class="map_content_top">
@@ -1060,9 +1060,8 @@
             //let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             let url = "{{ asset('assets/dashboard/bd-map-assets/small_bangladesh_geojson_adm3_492_upozila.json') }}";
             d3.json(url, function (json) {
-                $('#map_select').on('change', function () {
+                function getMap() {
                     $('#bd_map_d3').show();
-
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
 
@@ -1110,10 +1109,6 @@
                         .attr('class', 'bd')
                         .filter((d) => d.properties.ADM2_EN == district)
                         .attr("class", "labels")
-
-
-
-
                         .on('mouseover', function (d, i) {
                             let districtId = $('#map_select').val();
                             let upazilaName = d.properties.ADM3_EN;
@@ -1187,25 +1182,25 @@
                     map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`);
 
 
-                    bangladesh.selectAll("text")
-                        .data(json.features)
-                        .enter().append("text")
-                        .attr("x", function(d) {
-                            return path.centroid(d)[0];
-                        })
-                        .attr("y", function(d) {
-                            return path.centroid(d)[1];
-                        })
-                        .attr("text-anchor", "middle")
-                        .attr("font-size", ".02rem")
-                        .filter((d) => d.properties.ADM2_EN == district)
-                        .text(function(d) { return d.properties.ADM3_EN; });
+                    // bangladesh.selectAll("text")
+                    //     .data(json.features)
+                    //     .enter().append("text")
+                    //     .attr("x", function(d) {
+                    //         return path.centroid(d)[0];
+                    //     })
+                    //     .attr("y", function(d) {
+                    //         return path.centroid(d)[1];
+                    //     })
+                    //     .attr("text-anchor", "middle")
+                    //     .attr("font-size", ".02rem")
+                    //     .filter((d) => d.properties.ADM2_EN == district)
+                    //     .text(function(d) { return d.properties.ADM3_EN; });
+                }
+                getMap();
 
-
+                $('#map_select').on('change', function () {
+                    getMap();
                 });
-
-
-
             });
 
             function initialize() {
