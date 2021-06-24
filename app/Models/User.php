@@ -23,6 +23,9 @@ use Module\GovtStakeholder\App\Models\Organization;
  * @property string password
  * @property string|null remember_token
  * @property string|null profile_pic
+ * @property int loc_district_id
+ * @property int institute_id
+ * @property int organization_id
  * @property-read Collection|UsersPermission[] activePermissions
  * @property-read int|null active_permissions_count
  * @property-read Collection|UsersPermission[] inActivePermissions
@@ -31,6 +34,8 @@ use Module\GovtStakeholder\App\Models\Organization;
  * @property-read int|null notifications_count
  * @property-read Role|null role
  * @property-read UserType userType
+ * @property-read Institute institute
+ * @property-read Organization organization
  * @property-read Collection|Role[] roles
  * @property-read int|null roles_count
  */

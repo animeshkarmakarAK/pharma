@@ -377,9 +377,9 @@
     {
         "id": 50,
         "menu_id": 3,
-        "title": "",
+        "title": "Video Category",
         "title_lang_key": "menu.video_category",
-        "permission_key": null,
+        "permission_key": "view_any_video_category",
         "url": "",
         "target": "_self",
         "icon_class": "fa-cogs",

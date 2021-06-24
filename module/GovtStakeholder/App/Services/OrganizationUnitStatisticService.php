@@ -123,7 +123,7 @@ class OrganizationUnitStatisticService
 
     public function unemploymentStatistic(Request $request): JsonResponse
     {
-        $orgStat = organizationUnitStatistic::join('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id')
+        $orgStat = organizationUnitStatistic::join('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id', 'organization_unit_name')
             ->selectRaw('sum(total_new_recruits) as sum_new_recruits, sum(total_vacancy) as sum_vacancy, sum(total_occupied_position) as sum_occupied_position, organization_units.title_en as organization_unit_name');
 
         return DataTables::eloquent($orgStat)

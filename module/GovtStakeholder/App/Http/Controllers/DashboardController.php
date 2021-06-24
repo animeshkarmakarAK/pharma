@@ -2,43 +2,73 @@
 
 namespace Module\GovtStakeholder\App\Http\Controllers;
 
+use App\Helpers\Classes\AuthHelper;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
-use Illuminate\Http\Request;
 
 class DashboardController
 {
     public function dashboard()
     {
+        $authUser = AuthHelper::getAuthUser();
+        $months = [];
+
+        $startDate = Carbon::now()->subMonths(6)->startOfMonth();
+        $incrementDate = Carbon::now()->subMonths(6)->startOfMonth();
+        $endDate = Carbon::now();
+
+        for ($i=0;$i<6;$i++){
+            $months[$incrementDate->format('F')] = [];
+            $incrementDate->addMonth();
+        }
+
         $data = [];
-        $employmentStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
+        $employmentStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
         $employmentStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $employmentStatistic->select([DB::raw("SUM(upazila_job_statistics.total_unemployed) as total_unemployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as total_employed"),
             DB::raw("SUM(upazila_job_statistics.total_vacancy) as total_vacancy"),
             DB::raw("SUM(upazila_job_statistics.total_new_recruitment) as total_new_recruitment"),
-            DB::raw("SUM(upazila_job_statistics.total_skilled_youth) as total_skilled_youth")])
+            DB::raw("SUM(upazila_job_statistics.total_skilled_youth) as total_skilled_youth"),
+            DB::raw('DATE_FORMAT(upazila_job_statistics.survey_date, "%M") as survey_date')])
+            ->whereBetween(DB::raw('date(upazila_job_statistics.survey_date)'), [$startDate, $endDate])
             ->groupBy('upazila_job_statistics.survey_date')
-            ->orderBy('upazila_job_statistics.survey_date', 'DESC')
-            ->take(5)
-            ->get();
+            ->orderBy('upazila_job_statistics.survey_date', 'DESC');
+        $employmentStatistic = $employmentStatistic->get()->keyBy('survey_date');
 
-        $data['employment_statistic'] = array_reverse($employmentStatistic->get()->toArray());
-        $jobSectorStatistic=UpazilaJobStatistic::where('loc_upazilas.loc_district_id', 1);
+        $results = [];
+        foreach ($months as $month => $values) {
+            if(empty($employmentStatistic[$month])){
+                $results[$month] = [
+                    'total_unemployed' => 0,
+                    'total_employed' => 0,
+                    'total_vacancy' => 0,
+                    'total_new_recruitment' => 0,
+                    'total_skilled_youth' => 0,
+                    'survey_date' => $month
+                ];
+            }else{
+                $results[$month] = $employmentStatistic[$month]->toArray();
+            }
+        }
+
+        $data['employment_statistic'] = array_values($results);
+
+        $jobSectorStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
-        $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
+        $jobSectorStatistic->join('job_sectors', 'upazila_job_statistics.job_sector_id', '=', 'job_sectors.id');
+        $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', 'job_sectors.title_bn as sector', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as Employed")])
-            ->groupBy('upazila_job_statistics.job_sector_id')
+            ->groupBy('upazila_job_statistics.job_sector_id', 'job_sectors.title_bn')
             ->orderBy('upazila_job_statistics.job_sector_id', 'ASC')
-            ->take(6)
             ->get();
 
         $data['job_sector_statistic'] = $jobSectorStatistic->get()->toArray();
 
-
         return view('govt_stakeholder::backend.dashboard', compact('data'));
     }
-
 
 
     public function dashboardUpazilaJobStatistic(Request $request)

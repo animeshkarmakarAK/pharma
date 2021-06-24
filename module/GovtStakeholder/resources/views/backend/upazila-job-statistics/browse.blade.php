@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold">Upazila Job Statistic List</h3>
 
                         <div class="card-tools">
-                            @can('create', \Module\GovtStakeholder\App\Models\JobSector::class)
+                            @can('create', \Module\GovtStakeholder\App\Models\UpazilaJobStatistic::class)
                                 <a href="{{route('govt_stakeholder::admin.upazila-job-statistics.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new

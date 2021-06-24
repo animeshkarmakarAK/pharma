@@ -115,7 +115,7 @@
         /**************************************************************/
         #bangladesh {
             stroke: #101010;
-            stroke-width: 0.01;
+            stroke-width: 0.03;
         }
 
         div.tooltip {
@@ -272,7 +272,7 @@
                         <a href="#">231</a>
                     </div>
                     <div class="sticker-title">
-                        দক্ষতা বৃদ্ধিকারী প্রতিষ্ঠান
+                        প্রশিক্ষণ প্রতিষ্ঠান
                     </div>
                 </div>
             </div>
@@ -284,7 +284,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header text-white bg-maroon">
-                                <h3 class="card-title font-weight-bold">বিগত ৫ মাসের হিসাব</h3>
+                                <h3 class="card-title font-weight-bold">বিগত ৬ মাসের হিসাব</h3>
                             </div>
                             <div class="card-body">
                                 <div id="employment_statistic"></div>
@@ -312,18 +312,32 @@
                         <h3 class="card-title font-weight-bold">জেলা মানচিত্র</h3>
                     </div>
                     <div class="card-body">
-                        <select class="select2-ajax-wizard"
-                                name="map_select"
-                                id="map_select"
-                                data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
-                                data-label-fields="{title_en}"
-                                data-placeholder="Select District"
-                        >
-                        </select>
-                        <div id="map_message">
+                        @if($authUser->isDCUser())
+                            <select class="select2-ajax-wizard"
+                                    name="map_select"
+                                    id="map_select"
+                                    data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
+                                    data-filters="{{json_encode(['id' => $authUser->loc_district_id])}}"
+                                    data-preselected-option="{{json_encode(['text' =>  $authUser->locDistrict->title_en, 'id' =>  $authUser->loc_district_id])}}"
+                                    data-label-fields="{title_en}"
+                                    data-placeholder="Select District"
+                            >
+                            </select>
+                        @else
+                            <select class="select2-ajax-wizard"
+                                    name="map_select"
+                                    id="map_select"
+                                    data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
+                                    data-filters="{{json_encode(['id' => 20000000])}}"
+                                    data-label-fields="{title_en}"
+                                    data-placeholder="Select District"
+                            >
+                            </select>
+                        @endif
+                        {{--<div id="map_message">
                             <br>
                             <h3 class="text-shadow-light text-center" style="color: #777f85;">Please select <strong>District</strong> to view map</h3>
-                        </div>
+                        </div>--}}
                         <div id="bd_map_d3" style="display: none"></div>
                         <div class="map_info" style="display: none">
                             <div class="map_content_top">
@@ -668,6 +682,8 @@
                 $("#employment_statistic").html('No Data Found')
                 return null;
             }
+
+            console.log('data',data)
             // set the dimensions and margins of the graph
             let margin = {top: 40, right: 80, bottom: 30, left: 50}, //add
                 width = Math.abs(windowWidth / 2.7) - margin.left - margin.right,
@@ -681,12 +697,14 @@
                 .append("g")
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
-            let highestValue = 0;
 
+            let xaxisLabels = [];
+            let highestValue = 0;
             let employment_statistic_data = data.employment_statistic.map((item, index) => {
                 for (const [key, value] of Object.entries(item)) {
                     highestValue = parseInt(value) > highestValue ? parseInt(value) : highestValue;
                 }
+                xaxisLabels.push(item.survey_date);
                 item['time'] = '' + (index + 1)
                 return item
             })
@@ -699,12 +717,12 @@
                     key: Object.keys(data)[0],
                     name: data[Object.keys(data)[0]],
                     values: employment_statistic_data.map(function (d) {
-                        return {time: d.time, value: +d[Object.keys(data)[0]]};
+                        return {time: d.survey_date, value: +d[Object.keys(data)[0]]};
                     })
                 };
             });
             // I strongly advise to have a look to dataReady with
-
+            console.log('dataReady',dataReady);
             //custom line add to graph background
             let lineBackground1 = (data = [0, 1, 2, 3, 4]) => {
                 return data.map((i) => {
@@ -724,9 +742,10 @@
                 .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
+            console.log('width',width)
             // Add X axis --> it is a date format
-            let x = d3.scaleLinear()
-                .domain([1, 5])
+            let x = d3.scaleBand()
+                .domain(xaxisLabels)
                 .range([0, width]);
             svg1.append("g")
                 .attr("transform", "translate(0," + height + ")")
@@ -744,7 +763,7 @@
             // Add the lines
             let line = d3.line()
                 .x(function (d) {
-                    return x(+d.time)
+                    return x(d.time)
                 })
                 .y(function (d) {
                     return y(+d.value)
@@ -856,9 +875,9 @@
             }
 
             // set the dimensions and margins of the graph
-            let margin = {top: 25, right: 30, bottom: 20, left: 50},
+            let margin = {top: 25, right: 20, bottom: 150, left: 100},
                 width = Math.abs(windowWidth / 3) - margin.left - margin.right,
-                height = 300 - margin.top - margin.bottom;
+                height = 500 - margin.top - margin.bottom;
 
             // append the svg object to the body of the page
 
@@ -886,8 +905,7 @@
             }
 
             function graph(data) {
-
-                let svg = d3.select("#job_sector_statistic")
+                 let svg = d3.select("#job_sector_statistic")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -896,14 +914,10 @@
                         "translate(" + margin.left + "," + margin.top + ")");
 
 
-                // List of subgroups = header of the csv files = soil condition here
-                //let subgroups = data.columns.slice(1)
-
                 // List of groups = species here = value of the first column called group -> I show them on the X axis
                 let groups = d3.map(data, function (d) {
-                    return (d.group)
+                    return (d.sector)
                 }).keys()
-
 
                 let lineBackground = (data = [0, 1, 2, 3, 4]) => {
                     return data.map((i) => {
@@ -924,7 +938,10 @@
                     .paddingInner([0.3])
                 svg.append("g")
                     .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x).tickSize(6));
+                    .call(d3.axisBottom(x).tickSize(6))
+                    .selectAll("text")
+                    .attr("transform", "translate(-10,0)rotate(-45)")
+                    .style("text-anchor", "end");
 
                 // Add Y axis
                 let y = d3.scaleLinear()
@@ -953,7 +970,7 @@
                     .enter()
                     .append("g")
                     .attr("transform", function (d) {
-                        return "translate(" + x(d.group) + ",0)";
+                        return "translate(" + x(d.sector) + ",0)";
                     })
                     .selectAll("rect")
                     .data(function (d) {
@@ -1001,35 +1018,7 @@
                         currentOpacity = d3.selectAll("." + d.key).style("opacity")
                         // Change the opacity: from 0 to 1 or from 1 to 0
                         d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
-                    })
-                svg
-                    .selectAll("myLegend")
-                    .data(subgroupsKey)
-                    .enter()
-                    .append('g')
-                    .append("circle")
-                    .attr('x', function (d, i) {
-                        return i == 3 ? 30 + i * 100 : 30 + i * 60
-                    })
-                    .attr('y', -10) //add
-                    .attr("r", 5)
-                    .attr("stroke", function (d) {
-                        return color(d.key)
-                    })
-                    .attr("transform",
-                        function (d, i) {
-                            return "translate(" + (20 + (i * 60)) + "," + (-15) + ")"
-                        })
-                    .style("fill", function (d) {
-                        return color(d.key)
-                    })
-                    .on("click", function (d) {
-                        // is the element currently visible ?
-                        currentOpacity = d3.selectAll("." + d.key).style("opacity")
-                        // Change the opacity: from 0 to 1 or from 1 to 0
-                        d3.selectAll("." + d.key).transition().style("opacity", currentOpacity == 1 ? 0 : 1)
                     });
-
             }
         })
         ();
@@ -1068,11 +1057,11 @@
                 .style("opacity", 0);
 
 
-            let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
+            //let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
+            let url = "{{ asset('assets/dashboard/bd-map-assets/small_bangladesh_geojson_adm3_492_upozila.json') }}";
             d3.json(url, function (json) {
-                $('#map_select').on('change', function () {
+                function getMap() {
                     $('#bd_map_d3').show();
-
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
 
@@ -1119,7 +1108,7 @@
                         .style("opacity", 0.5)
                         .attr('class', 'bd')
                         .filter((d) => d.properties.ADM2_EN == district)
-
+                        .attr("class", "labels")
                         .on('mouseover', function (d, i) {
                             let districtId = $('#map_select').val();
                             let upazilaName = d.properties.ADM3_EN;
@@ -1178,20 +1167,40 @@
                             })
                         });
 
-                    bangladesh.selectAll("path").transition().duration(300)
-                        .style("fill", function (d) {
-                            return colorScale(d.properties.DIVISION);
-                        });
 
                     //Remove unnecessary path
                     bangladesh.selectAll('path')
                         .filter((d) => d.properties.ADM2_EN != district).remove();
+
+                    //Remove unnecessary label
+                    bangladesh.selectAll('text')
+                        .filter((d) => d.properties.ADM2_EN != district).remove();
+
+
                     //viewBox
                     let box = bangladesh[0][0].getBBox()
-                    map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`)
-                })
+                    map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`);
 
 
+                    // bangladesh.selectAll("text")
+                    //     .data(json.features)
+                    //     .enter().append("text")
+                    //     .attr("x", function(d) {
+                    //         return path.centroid(d)[0];
+                    //     })
+                    //     .attr("y", function(d) {
+                    //         return path.centroid(d)[1];
+                    //     })
+                    //     .attr("text-anchor", "middle")
+                    //     .attr("font-size", ".02rem")
+                    //     .filter((d) => d.properties.ADM2_EN == district)
+                    //     .text(function(d) { return d.properties.ADM3_EN; });
+                }
+                getMap();
+
+                $('#map_select').on('change', function () {
+                    getMap();
+                });
             });
 
             function initialize() {
@@ -1200,6 +1209,7 @@
             }
         })();
     </script>
+
 
 @endpush
 

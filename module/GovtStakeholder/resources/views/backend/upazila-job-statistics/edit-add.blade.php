@@ -58,6 +58,7 @@
                                             id="loc_upazila_id"
                                             data-model="{{base64_encode(\App\Models\LocUpazila::class)}}"
                                             data-label-fields="{title_en}"
+                                            data-filters="{{json_encode(['loc_district_id' => $authUser->loc_district_id])}}"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->LocUpazila->title_en, 'id' =>  $upazilaJobStatistic->loc_upazila_id])}}"
                                             @endif
@@ -315,7 +316,7 @@
                 },
             ).fail(function (data) {
                 $(".old_survey_data_area").css({'display': 'none'});
-                console.log( "Ajax failed: ");
+                console.log("Ajax failed: ");
             });
         });
     </script>
