@@ -14,10 +14,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int display_order
  * @property int is_designation
  * @property int parent_id
+ * @property int organization_id
+ * @property int organization_unit_type_id
+ * @property int rank_id
  * @property array skill_ids
  * @property-read  Organization organization
  * @property-read  OrganizationUnitType organizationUnitType
  * @property-read  HumanResourceTemplate senior
+ * @property-read  HumanResource humanResource
  * @property-read  Rank rank
  */
 

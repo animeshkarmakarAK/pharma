@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @package Module\GovtStakeholder\App\Models
  * @property string title_en
  * @property string title_bn
+ * @property int organization_id
  * @property-read HumanResourceTemplate humanResourceTemplate
+ * @property-read Organization organization
  */
 class OrganizationUnitType extends BaseModel
 {
