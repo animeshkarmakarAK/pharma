@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -53,9 +54,13 @@ class LoginController extends Controller
     {
         $users = User::all();
         if (!$users->count()) {
+            // Admin
             $user = new User();
+            /** @var UserType $userType */
+            $userType = UserType::where('code', User::USER_TYPE_SUPER_USER_CODE)->firstOrFail();
             $user->fill([
-                'user_type_id' => 1,
+                'user_type_id' => $userType->code,
+                'role_id' => $userType->default_role_id,
                 'name_en' => 'Admin',
                 'name_bn' => 'Admin',
                 'email' => 'admin@gmail.com',
@@ -63,6 +68,22 @@ class LoginController extends Controller
                 'password' => Hash::make('password')
             ]);
             $user->save();
+
+            //DC
+            $user1 = new User();
+            /** @var UserType $userType */
+            $userType = UserType::where('code', User::USER_TYPE_DC_USER_CODE)->firstOrFail();
+            $user1->fill([
+                'user_type_id' => $userType->code,
+                'role_id' => $userType->default_role_id,
+                'name_en' => 'DC',
+                'name_bn' => 'ডিসি',
+                'loc_district_id' => '18',
+                'email' => 'dc@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password')
+            ]);
+            $user1->save();
         }
 
         return view('master::acl.auth.login');
@@ -183,7 +204,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+//        if ($user->user_type_id != User::USER_TYPE_DC_USER_CODE) {
+//            Auth::guard($this->currentGuardName)->logout();
+//            abort(401, 'You are not allowed to login without dc user.');
+//        }
     }
 
     /**

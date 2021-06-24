@@ -611,7 +611,7 @@
         </div>
     @endif
 
-    @yield('footer', \Illuminate\Support\Facades\View::make('core.front-end.layouts.partials.custom1.footer'))
+    @yield('footer', \Illuminate\Support\Facades\View::make('master::.layouts.partials.custom1.footer'))
 </div>
 <script src="{{asset('/js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/js/OverlayScrollbars.min.js"></script>

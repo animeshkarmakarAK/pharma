@@ -34,6 +34,7 @@ return [
     //content management
     'content_management' => 'Content Management',
     'gallery' => 'Gallery',
+    'gallery_album' => 'Gallery Album',
     'static_page' => 'Static Page',
     'slider' => 'Slider',
     'video' => 'Video',

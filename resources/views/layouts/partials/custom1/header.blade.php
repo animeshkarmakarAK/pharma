@@ -4,7 +4,6 @@
 <div class="site-header">
     <header class="navbar navbar-expand flex-column flex-md-row bd-navbar custom_header">
         <div class="navbar-nav-scroll">
-            {{--<ul class="navbar-nav bd-navbar-nav flex-row">--}}
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
                 <li class="nav-item">
                     <a class="nav-link text-white" href="mailto:support@bitac.gov.bd"
@@ -39,7 +38,7 @@
 
             @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('youth')->check())
                 <li class="nav-item dropdown">
-                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('youth.login-form') }}"
+                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('course_management::youth.login-form') }}"
                        id="bd-versions">
                         <i class="far fa-user"></i>&nbsp; ইউথ লগইন
                     </a>
@@ -61,14 +60,14 @@
                         <i class="fas fa-lock-open"></i>&nbsp; লগআউট
                     </a>
                     <form id="youth-logout" style="display: none" method="post"
-                          action="{{route('youth.logout-submit')}}">
+                          action="{{route('course_management::youth.logout-submit')}}">
                         @csrf
                     </form>
                 </li>
             @endauth
             @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
                 <li class="nav-item dropdown">
-                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('youth-registrations.index') }}"
+                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('course_management::youth-registrations.index') }}"
                        id="bd-versions" aria-haspopup="true">
                         <i class="fa fa-file"> </i>&nbsp; অনলাইন আবেদন
                     </a>
@@ -99,24 +98,23 @@
                     <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
                 </li>
                 <li class="nav-item {{ request()->is('courses-search*') ? 'active' : '' }}">
-                    <a href="{{ route('course_search') }}" class="btn ">কোর্স সমূহ</a>
+                    <a href="{{ route('course_management::course_search') }}" class="btn ">কোর্স সমূহ</a>
                 </li>
                 <li class="nav-item {{ request()->is('training-calender*') ? 'active' : '' }}">
-                    <a href="{{ route('yearly-training-calendar.index') }}" class="btn ">প্রশিক্ষণ বর্ষপঞ্জি</a>
+                    <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="btn ">প্রশিক্ষণ বর্ষপঞ্জি</a>
                 </li>
                 <li class="nav-item {{ request()->is('skill-videos*') ? 'active' : '' }}">
-                    <a href="{{ route('youth.skill_videos') }}" class="btn ">ভিডিও সমূহ</a>
+                    <a href="{{ route('course_management::youth.skill_videos') }}" class="btn ">ভিডিও সমূহ</a>
                 </li>
                 <li class="nav-item {{ request()->is('advice-page*') ? 'active' : '' }}">
-                    <a href="{{ route('advice-page') }}" class="btn ">পরামর্শ</a>
+                    <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
                 </li>
                 <li class="nav-item {{ request()->is('general-ask-page*') ? 'active' : '' }}">
-                    <a href="{{ route('general-ask-page') }}" class="btn">সাধারণ জিজ্ঞাসা</a>
+                    <a href="{{ route('course_management::general-ask-page') }}" class="btn">সাধারণ জিজ্ঞাসা</a>
                 </li>
                 <li class="nav-item {{ request()->is('contact-us-page*') ? 'active' : '' }}">
-                    <a href="{{ route('contact-us-page') }}" class="btn">যোগাযোগ</a>
+                    <a href="{{ route('course_management::contact-us-page') }}" class="btn">যোগাযোগ</a>
                 </li>
-
             </ul>
         </div>
     </nav>

@@ -34,6 +34,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     ]);
 
     Route::get('row-status', [App\Http\Controllers\RowStatusController::class, 'index'])->name('row-status');
+
+    //thgemes
+    Route::resource('/themes', App\Http\Controllers\ThemesController::class);
+    Route::post('themes/datatable', [App\Http\Controllers\ThemesController::class, 'getDatatable'])->name('themes.datatable');
+    Route::get('change-themes', [App\Http\Controllers\ThemesController::class, 'changeThemeList'])->name('themes.changeThemeList');
+    Route::post('apply-theme', [App\Http\Controllers\ThemesController::class, 'applyTheme'])->name('themes.applyTheme');
+
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -56,4 +63,4 @@ Route::group(['prefix' => 'web-api', 'as' => 'web-api.'], function () {
 });
 
 /** Change Language > options > Bangla|English */
-Route::post('change-language/{language}', [\App\Http\Controllers\Admin\LocalizationController::class,'changeLanguage'])->name('change-language');
+Route::post('change-language/{language}', [\App\Http\Controllers\Admin\LocalizationController::class, 'changeLanguage'])->name('change-language');
