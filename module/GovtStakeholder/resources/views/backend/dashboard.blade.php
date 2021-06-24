@@ -115,7 +115,7 @@
         /**************************************************************/
         #bangladesh {
             stroke: #101010;
-            stroke-width: 0.01;
+            stroke-width: 0.03;
         }
 
         div.tooltip {
@@ -312,14 +312,28 @@
                         <h3 class="card-title font-weight-bold">জেলা মানচিত্র</h3>
                     </div>
                     <div class="card-body">
-                        <select class="select2-ajax-wizard"
-                                name="map_select"
-                                id="map_select"
-                                data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
-                                data-label-fields="{title_en}"
-                                data-placeholder="Select District"
-                        >
-                        </select>
+                        @if($authUser->isDCUser())
+                            <select class="select2-ajax-wizard"
+                                    name="map_select"
+                                    id="map_select"
+                                    data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
+                                    data-filters="{{json_encode(['id' => $authUser->loc_district_id])}}"
+                                    data-preselected-option="{{json_encode(['text' =>  $authUser->locDistrict->title_en, 'id' =>  $authUser->loc_district_id])}}"
+                                    data-label-fields="{title_en}"
+                                    data-placeholder="Select District"
+                            >
+                            </select>
+                        @else
+                            <select class="select2-ajax-wizard"
+                                    name="map_select"
+                                    id="map_select"
+                                    data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
+                                    data-filters="{{json_encode(['id' => 20000000])}}"
+                                    data-label-fields="{title_en}"
+                                    data-placeholder="Select District"
+                            >
+                            </select>
+                        @endif
                         <div id="map_message">
                             <br>
                             <h3 class="text-shadow-light text-center" style="color: #777f85;">Please select <strong>District</strong> to view map</h3>
@@ -1012,7 +1026,7 @@
     <script type="text/javascript" src="{{ asset('assets/dashboard/bd-map-assets/d3.geo.min.js') }}"></script>
     <script type="text/javascript">
         (function () {
-            let selectedDistrictData = [];
+            let selectedDistroctData = [];
             let w = 300;
             let h = 340;
             let proj = d3.geo.mercator();
@@ -1021,7 +1035,7 @@
             let s = proj.scale() // the projection's default scale
 
             let buckets = 9,
-                colors = ["#4736a2", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"]; // alternatively colorbrewer.YlGnBu[9]
+                colors = ["#ffffd9", "#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"]; // alternatively colorbrewer.YlGnBu[9]
 
             let map = d3.select("#bd_map_d3")
                 .append("svg:svg")
@@ -1040,7 +1054,8 @@
                 .style("opacity", 0);
 
 
-            let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
+            //let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
+            let url = "{{ asset('assets/dashboard/bd-map-assets/small_bangladesh_geojson_adm3_492_upozila.json') }}";
             d3.json(url, function (json) {
                 $('#map_select').on('change', function () {
                     $('#bd_map_d3').show();
@@ -1048,14 +1063,14 @@
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
 
-                    {{--$.ajax({--}}
-                    {{--    data: {district_id: districtElm.val()},--}}
-                    {{--    url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",--}}
-                    {{--    type: 'POST',--}}
-                    {{--    success: function (data) {--}}
-                    {{--        selectedDistrictData = data;--}}
-                    {{--    }--}}
-                    {{--});--}}
+                    $.ajax({
+                        data: {district_id: districtElm.val()},
+                        url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
+                        type: 'POST',
+                        success: function (data) {
+                            selectedDistroctData = data;
+                        }
+                    });
 
                     const words = district.split(" ");
 
@@ -1068,47 +1083,39 @@
                         return d.properties.ADM2_EN;
                     });
 
-                    // let colorScale = d3.scale.quantile()
-                    //     .domain(d3.range(buckets).map(function (d) {
-                    //         return (d / buckets) * maxTotal;
-                    //     }))
-                    //     .range(colors);
+                    let colorScale = d3.scale.quantile()
+                        .domain(d3.range(buckets).map(function (d) {
+                            return (d / buckets) * maxTotal;
+                        }))
+                        .range(colors);
 
 
-                    // let y = d3.scale.sqrt()
-                    //     .domain([0, 10000])
-                    //     .range([0, 300]);
-                    //
-                    // let yAxis = d3.svg.axis()
-                    //     .scale(y)
-                    //     .tickValues(colorScale.domain())
-                    //     .orient("right");
+                    let y = d3.scale.sqrt()
+                        .domain([0, 10000])
+                        .range([0, 300]);
 
-                     bangladesh.selectAll('path')
+                    let yAxis = d3.svg.axis()
+                        .scale(y)
+                        .tickValues(colorScale.domain())
+                        .orient("right");
+
+                    bangladesh.selectAll("path")
                         .data(json.features)
-                        .enter()
-                        .append("path")
+                        .enter().append("path")
                         .attr("d", path)
-                        .style("opacity",1).attr('id',(d) => 'path-'+d.id)
+                        .style("opacity", 0.5)
                         .attr('class', 'bd')
                         .filter((d) => d.properties.ADM2_EN == district)
+                        .attr("class", "labels")
+
+
+
+
                         .on('mouseover', function (d, i) {
-                            div.transition().duration(300)
-                                .style("opacity", .9)
-                                .text(d.properties.ADM3_EN + " - " + d.properties.ADM2_EN)
-                                .style("color", "#fff")
-                                .style("padding", "5px 5px")
-                                .style("border", "1px solid #fff")
-                                .style("font-weight", " bold")
-                                .style("background", "#333")
-                                .style("top", (d3.event.pageY - 10) + "px")
-                                .style("left", (d3.event.pageX + 10) + "px");
-                        })
-                        .on('click', function (d, i) {
                             let districtId = $('#map_select').val();
                             let upazilaName = d.properties.ADM3_EN;
                             console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
-                            let upazilaStatistics = selectedDistrictData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
+                            let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
                             console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
@@ -1135,22 +1142,22 @@
                                 .style("left", (d3.event.pageX + 10) + "px");
                         })
 
-                        // .on('mouseleave', function (d, i) {
-                        //     if ($('.map_info').show()) {
-                        //         $('.map_info').hide();
-                        //         $("#total_unemployed").text('0');
-                        //         $("#total_employed").text('0');
-                        //         $("#total_vacancy").text('0');
-                        //         $("#total_new_recruitment").text('0');
-                        //         $("#total_new_skilled_youth").text('0');
-                        //         $("#total_skilled_youth").text('0');
-                        //     }
-                        //
-                        //     d3.select(this).transition().duration(300)
-                        //         .style("opacity", 0.5);
-                        //     div.transition().duration(300)
-                        //         .style("opacity", 0);
-                        // })
+                        .on('mouseleave', function (d, i) {
+                            if ($('.map_info').show()) {
+                                $('.map_info').hide();
+                                $("#total_unemployed").text('0');
+                                $("#total_employed").text('0');
+                                $("#total_vacancy").text('0');
+                                $("#total_new_recruitment").text('0');
+                                $("#total_new_skilled_youth").text('0');
+                                $("#total_skilled_youth").text('0');
+                            }
+
+                            d3.select(this).transition().duration(300)
+                                .style("opacity", 0.5);
+                            div.transition().duration(300)
+                                .style("opacity", 0);
+                        })
 
                         .forEach(a => {
                             a.forEach(v => {
@@ -1161,34 +1168,39 @@
                                 v.setAttribute('fill', `rgb(${r},${g},${b})`)
                             })
                         });
-                    // bangladesh.selectAll("text").data(json.features)
-                    //     .enter()
-                    //     .append("text")
-                    //     .filter((d) => d.properties.ADM2_EN == district)
-                    //     .attr('font-family','Verdana')
-                    //     .attr('font-size','0.5')
-                    //     .attr('fill','red')
-                    //     //.style('display','block')
-                    //     .append('textPath')
-                    //     .attr('href',(d)=>'#path-'+d.id)
-                    //     .text(function(d) {
-                    //         console.log('popopo',d.properties)
-                    //         return d.properties.ADM3_EN;
-                    //     });
 
-                    bangladesh.selectAll("path").transition().duration(300)
-                        .style("fill", function (d) {
-                           // const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                            return '#6d85ca';
-                        });
 
                     //Remove unnecessary path
                     bangladesh.selectAll('path')
                         .filter((d) => d.properties.ADM2_EN != district).remove();
+
+                    //Remove unnecessary label
+                    bangladesh.selectAll('text')
+                        .filter((d) => d.properties.ADM2_EN != district).remove();
+
+
                     //viewBox
                     let box = bangladesh[0][0].getBBox()
-                    map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`)
-                })
+                    map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`);
+
+
+                    bangladesh.selectAll("text")
+                        .data(json.features)
+                        .enter().append("text")
+                        .attr("x", function(d) {
+                            return path.centroid(d)[0];
+                        })
+                        .attr("y", function(d) {
+                            return path.centroid(d)[1];
+                        })
+                        .attr("text-anchor", "middle")
+                        .attr("font-size", ".02rem")
+                        .filter((d) => d.properties.ADM2_EN == district)
+                        .text(function(d) { return d.properties.ADM3_EN; });
+
+
+                });
+
 
 
             });
@@ -1199,6 +1211,7 @@
             }
         })();
     </script>
+
 
 @endpush
 
