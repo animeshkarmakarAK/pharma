@@ -39,6 +39,11 @@ class OrganizationUnitTypeService
                 'string',
                 'max: 191'
             ],
+            'organization_id' => [
+              'required',
+              'int',
+              'exists:organizations,id',
+            ],
             'row_status' => [
                 Rule::requiredIf(function () use($id) {
                     return !empty($id);
@@ -63,8 +68,11 @@ class OrganizationUnitTypeService
             'organization_unit_types.title_bn',
             'organization_unit_types.created_at',
             'organization_unit_types.updated_at',
-            'organization_unit_types.row_status'
+            'organization_unit_types.row_status',
+            'organizations.title_en as organization_name',
         ]);
+
+        $organizationUnitType->join('organizations', 'organization_unit_types.organization_id', '=', 'organizations.id');
 
         return DataTables::eloquent($organizationUnitType)
             ->addColumn('action', DatatableHelper::getActionButtonBlock( static function (OrganizationUnitType $organizationUnitType) use ($authUser) {

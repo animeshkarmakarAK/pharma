@@ -166,9 +166,9 @@ class VideoService
                 return $str;
             })
             ->editColumn('row_status', function (Video $video) {
-                return $video->getCurrentRowStatus($video);
+                return $video->getCurrentRowStatus(true);
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'row_status'])
             ->toJson();
     }
 

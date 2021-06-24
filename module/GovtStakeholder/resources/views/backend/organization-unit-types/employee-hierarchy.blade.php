@@ -44,7 +44,7 @@
     <div class="modal" id="addModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header custom-bg-gradient-info">
                     <h5 class="modal-title">Add Child</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -77,25 +77,27 @@
                         </div>
 
                         <input type="hidden" name="organization_id" id="organization_id"
-                               value="{{ optional($humanResources)["organization_id"] }}">
+                               value="{{ $organizationUnitType->organization_id }}">
                         <input type="hidden" name="organization_unit_type_id" id="organization_unit_type_id"
-                               value="{{ optional($humanResources)["organization_unit_type_id"] }}">
+                               value="{{ $organizationUnitType->id }}">
 
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="parent_id">{{ __('Parent') }}</label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="parent_id"
-                                        id="parent_id"
-                                        data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
-                                        data-filters="{{json_encode(['id' => ['type' => 'not-equal', 'value' => -1]])}}"
-                                        data-label-fields="{title_en}"
-                                        data-placeholder="Select Parent"
-                                >
-                                </select>
-                                <input type="text" name="parent_id" id="hidden_parent_id" hidden disabled>
+                        @if(!empty($humanResources))
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="parent_id">{{ __('Parent') }}</label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="parent_id"
+                                            id="parent_id"
+                                            data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResourceTemplate::class)}}"
+                                            data-filters="{{json_encode(['organization_unit_type_id' =>["type" => "equal", 'value' => $organizationUnitType->id], 'id' => ['type' => 'not-equal', 'value' => "__" ]])}}"
+                                            data-label-fields="{title_en}"
+                                            data-placeholder="Select Parent"
+                                    >
+                                    </select>
+                                    <input type="text" name="parent_id" id="hidden_parent_id" hidden disabled>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -104,6 +106,7 @@
                                         name="rank_id"
                                         id="rank_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Rank::class)}}"
+                                        data-filters="{{json_encode(['organization_id' => $organizationUnitType->organization_id])}}"
                                         data-label-fields="{title_en}"
                                         data-placeholder="Select Rank"
                                 >
@@ -157,9 +160,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary add-modal-close-btn float-right"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="submit-node-btn btn btn-primary float-right mr-2">Add</button>
                         </div>
                     </form>
                 </div>
@@ -218,6 +225,19 @@
 
 
         $(document).ready(function () {
+            if (!treeData) {
+                $('#addModal').find('.modal-header').html('<h5 class="text-center text-capitalize">Don\'t have any human resource.Please add one!.</h5>');
+                $('#addModal').find('.add-modal-close-btn').hide();
+                $('#addModal').modal({backdrop: 'static', keyboard: false});
+                clearModalInputFieldsValue();
+                let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
+                editAddForm.attr("action", url);
+                editAddForm.attr("data-method", "POST");
+                editAddForm.attr("data-is-edit", false);
+                $('#addModal').modal('show');
+                return 0;
+            }
+
             viewerWidth = $(document).width() - $('.os-padding').innerWidth() - 20;
             viewerHeight = $(document).height();
             height = viewerHeight;
@@ -618,6 +638,31 @@
             // expand(parent);
             // sortTree();
         }
+
+        function editNode(currentNode, respondedNodeData) {
+            if (currentNode?.parent && currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent
+                let parent = searchTree(root, respondedNodeData.parent_id);
+                let nodeData = searchTree(root, respondedNodeData.id);
+
+                if (parent) {
+                    removeNode(currentNode);
+                    addNode(parent, nodeData);
+                } else {
+                    alert("Error to Edit: Parent does not exist");
+                }
+            } else {
+                let tmpResponseNodeData = respondedNodeData;
+                currentNode.title_en = tmpResponseNodeData.title_en;
+                currentNode.title_bn = tmpResponseNodeData.title_bn;
+                currentNode.name = tmpResponseNodeData.name;
+                currentNode.is_designation = tmpResponseNodeData.is_designation;
+                currentNode.display_order = tmpResponseNodeData.display_order;
+                currentNode.rank_id = tmpResponseNodeData.rank_id;
+                console.table("current node: ", currentNode);
+                update(currentNode);
+            }
+        }
+
 
         function updateNodeOnDrag(parentId, childId) {
             return $.ajax({
@@ -1096,57 +1141,61 @@
             });
         }
 
+        function settingsEditModal(nodeData) {
+            $('#addModal').find('.modal-title').text("Edit Node");
+
+            //set the fields with node value
+            $('#title_en').val(nodeData.title_en);
+            $('#title_bn').val(nodeData.title_bn);
+
+            if (nodeData.parent_id) {
+                $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
+                $('#parent_id').parent().parent().show();
+                $('#parent_id').data('filters').id.value = nodeData.id;
+            } else {
+                $('#parent_id').parent().parent().hide();
+            }
+            if (nodeData.rank_id) {
+                $('#rank_id').append(new Option(nodeData.rank_id, nodeData?.rank_id, true, true)).trigger('change');
+            }
+            $('#display_order').val(nodeData.display_order);
+            $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
+
+            // change form url for edit
+            let url = "{{route('govt_stakeholder::admin.human-resource-templates.update-node', '__')}}".replace('__', nodeData.id);
+
+            editAddForm.attr("action", url);
+            editAddForm.attr("data-method", "PATCH");
+            editAddForm.attr("data-node-id", nodeData.id);
+            editAddForm.attr("data-is-edit", true);
+            $('.submit-node-btn').text("Edit")
+        }
+
+        function settingsAddModal(nodeData) {
+            $('#addModal').find('.modal-title').text("Add a new child");
+            clearModalInputFieldsValue();
+            let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
+            editAddForm.attr("action", url);
+            editAddForm.attr("data-method", "POST");
+            editAddForm.attr("data-node-id", nodeData.id);
+            editAddForm.attr("data-is-edit", false);
+
+            if (nodeData.id) {
+                $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
+            }
+            $('#parent_id').parent().parent().hide();
+            $('.submit-node-btn').text("Add")
+        }
 
         function showModal(btnEle, modal, edit = false, nodeData = false) {
             if (edit) {
-                $('#addModal').find('.modal-title').text("Edit Node");
-
-                //set the fields with current value
-                $('#title_en').val(nodeData.title_en);
-                $('#title_bn').val(nodeData.title_bn);
-
-                $('#parent_id').data('filters', {
-                    id: {
-                        type: "not-equal",
-                        value: nodeData.id
-                    }
-                });
-
-                if (nodeData.parent_id) {
-                    $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
-                    $('#parent_id').parent().parent().css('display', 'block');
-                } else {
-                    $('#parent_id').parent().parent().css('display', 'none');
-                }
-                if (nodeData.rank_id) {
-                    $('#rank_id').append(new Option(nodeData.rank_id, nodeData?.rank_id, true, true)).trigger('change');
-                }
-                $('#display_order').val(nodeData.display_order);
-                $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
-
-                // change form url for edit
-                let url = "{{route('govt_stakeholder::admin.human-resource-templates.update-node', '__')}}".replace('__', nodeData.id);
-
-                editAddForm.attr("action", url);
-                editAddForm.attr("data-method", "PATCH");
-                editAddForm.attr("data-node-id", nodeData.id);
-                editAddForm.attr("data-is-edit", true);
+                settingsEditModal(nodeData);
             } else {
-                $('#addModal').find('.modal-title').text("Add a new child");
-                clearModalInputFieldsValue();
-                let url = "{{  route('govt_stakeholder::admin.human-resource-templates.add-node') }}";
-                editAddForm.attr("action", url);
-                editAddForm.attr("data-method", "POST");
-                editAddForm.attr("data-node-id", nodeData.id);
-                editAddForm.attr("data-is-edit", false);
-
-                if (nodeData.id) {
-                    $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
-                }
-                $('#parent_id').parent().parent().css('display', 'none');
+                settingsAddModal(nodeData);
             }
 
             if (btnEle.style("opacity") == 1) {
+                modal.modal({backdrop: 'static', keyboard: false});
                 modal.modal('show');
             }
         }
@@ -1180,27 +1229,7 @@
         const editAddForm = $('.edit-add-form');
 
         editAddForm.validate({
-            errorElement: "em",
-            onkeyup: false,
-            errorPlacement: function (error, element) {
-                error.addClass("help-block");
-                element.parents(".form-group").addClass("has-feedback");
-
-                if (element.parents(".form-group").length) {
-                    error.insertAfter(element.parents(".form-group").first().children().last());
-                } else if (element.hasClass('select2') || element.hasClass('select2-ajax-custom') || element.hasClass('select2-ajax')) {
-                    error.insertAfter(element.parents(".form-group").first().find('.select2-container'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-                $(element).closest('.help-block').remove();
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-            },
+            ignore: "",
             rules: {
                 title_en: {
                     required: true
@@ -1233,7 +1262,34 @@
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
-                // htmlForm.submit();
+                let edit, responseNodeData, currentNode;
+                if (root) {
+                    edit = editAddForm.attr('data-is-edit') == "true";
+                    currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
+                }
+
+
+                const url = editAddForm.attr('action');
+
+                $.post(url, editAddForm.serialize())
+                    .done(function ({nodeData}) {
+                        responseNodeData = nodeData;
+                        if (!edit && root) {
+                            addNode(currentNode, responseNodeData);
+                        } else if (edit && root) {
+                            editNode(currentNode, responseNodeData);
+                        } else {
+                            location.reload();
+                        }
+                    })
+                    .fail(function () {
+                        console.log("update failed");
+                    })
+                    .always(function () {
+                        $('#addModal').modal("hide");
+                        closeOpenedActionButtons();
+                    })
+                return false;
             }
         });
 
@@ -1262,68 +1318,6 @@
             })
 
 
-            editAddForm.submit(async function (event) {
-                // Stop form from submitting normally
-                event.preventDefault();
-
-                let currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
-                let responseNodeData;
-
-                let edit = editAddForm.attr('data-is-edit') == "true";
-
-                // Get some values from elements on the page:
-                const $form = $(this),
-                    url = $form.attr("action"),
-                    methodType = $(this).attr("data-method");
-
-                // Send the data using post
-                try {
-                    const responseData = await $.post(url, $(this).serialize())
-                        .done(function ({nodeData}) {
-                            responseNodeData = nodeData;
-                            if (!edit) {
-                                addNode(currentNode, responseNodeData);
-                            } else {
-                                editNode(currentNode, responseNodeData);
-                            }
-                        })
-                        .fail(function () {
-                            console.log("update failed");
-                        })
-                        .always(function () {
-                            $('#addModal').modal("hide");
-                            closeOpenedActionButtons();
-                        })
-                } catch (e) {
-                    console.log(e.message);
-                }
-
-            });
-
-            function editNode(currentNode, respondedNodeData) {
-                if (currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent
-                    let parent = searchTree(root, respondedNodeData.parent_id);
-                    let nodeData = searchTree(root, respondedNodeData.id);
-
-                    if (parent) {
-                        removeNode(currentNode);
-                        addNode(parent, nodeData);
-                    } else {
-                        alert("Error to Edit: Parent does not exist");
-                    }
-                } else {
-                    let tmpResponseNodeData = respondedNodeData;
-                    currentNode.title_en = tmpResponseNodeData.title_en;
-                    currentNode.title_bn = tmpResponseNodeData.title_bn;
-                    currentNode.name = tmpResponseNodeData.name;
-                    currentNode.is_designation = tmpResponseNodeData.is_designation;
-                    currentNode.display_order = tmpResponseNodeData.display_order;
-                    currentNode.rank_id = tmpResponseNodeData.rank_id;
-                    console.table("current node: ", currentNode);
-                    update(currentNode);
-                }
-            }
-
             const deleteBtn = $('#node-delete-button');
             deleteBtn.on("click", async function () {
                 try {
@@ -1339,7 +1333,7 @@
                                 $('#deleteModal').find('.modal-body').text(response.message);
                                 $('#deleteModal').find('.modal-footer').hide();
                                 $('#deleteModal').modal("show");
-                            }else {
+                            } else {
                                 $('#deleteModal').modal("hide");
                                 let deletedNode = searchTree(root, $('#deleteModal').attr('data-node-id'));
                                 removeNode(deletedNode);

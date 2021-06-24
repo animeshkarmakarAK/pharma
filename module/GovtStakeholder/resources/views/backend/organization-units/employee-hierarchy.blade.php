@@ -44,7 +44,7 @@
     <div class="modal" id="addModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header custom-bg-gradient-info">
                     <h5 class="modal-title">Add Child</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -78,8 +78,8 @@
 
                         <input type="hidden" name="organization_id" id="organization_id"
                                value="{{ optional($humanResources)["organization_id"] }}">
-                        <input type="hidden" name="organization_unit_type_id" id="organization_unit_type_id"
-                               value="{{ optional($humanResources)["organization_unit_type_id"] }}">
+                        {{--                        <input type="hidden" name="organization_unit_type_id" id="organization_unit_type_id"--}}
+                        {{--                               value="{{ optional($humanResources)["organization_unit_type_id"] }}">--}}
 
                         <input type="hidden" name="organization_unit_id" id="organization_unit_id"
                                value="{{ optional($humanResources)["organization_unit_id"] }}">
@@ -91,7 +91,7 @@
                                         name="parent_id"
                                         id="parent_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResource::class)}}"
-                                        data-filters="{{json_encode(['organization_unit_id' => optional($humanResources)["organization_unit_id"], 'id' => ['type' => 'not-equal', 'value' => optional($humanResources)['id']]])}}"
+                                        data-filters="{{json_encode(['organization_unit_id' => optional($humanResources)["organization_unit_id"], 'id' => ['type' => 'not-equal', 'value' => "__"]])}}"
                                         data-label-fields="{title_en}"
                                         data-placeholder="Select Parent"
                                 >
@@ -160,9 +160,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary add-modal-close-btn float-right"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="submit-node-btn btn btn-primary float-right mr-2">Add</button>
                         </div>
                     </form>
                 </div>
@@ -622,6 +625,30 @@
             // sortTree();
         }
 
+        function editNode(currentNode, respondedNodeData) {
+            if (currentNode?.parent && currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent
+                let parent = searchTree(root, respondedNodeData.parent_id);
+                let nodeData = searchTree(root, respondedNodeData.id);
+
+                if (parent) {
+                    removeNode(currentNode);
+                    addNode(parent, nodeData);
+                } else {
+                    alert("Error to Edit: Parent does not exist");
+                }
+            } else {
+                let tmpResponseNodeData = respondedNodeData;
+                currentNode.title_en = tmpResponseNodeData.title_en;
+                currentNode.title_bn = tmpResponseNodeData.title_bn;
+                currentNode.name = tmpResponseNodeData.name;
+                currentNode.is_designation = tmpResponseNodeData.is_designation;
+                currentNode.display_order = tmpResponseNodeData.display_order;
+                currentNode.rank_id = tmpResponseNodeData.rank_id;
+                console.table("current node: ", currentNode);
+                update(currentNode);
+            }
+        }
+
         function updateNodeOnDrag(parentId, childId) {
             return $.ajax({
                 method: 'POST',
@@ -1038,7 +1065,10 @@
         }
 
         function canDelete(nodeEle, nodeData) {
-            if (!nodeData?.parent?.length && !nodeData?.children?.length && !nodeData?._children?.length) {
+            if (nodeData.human_resource_template_id != null) {
+                return false;
+            }
+            if (!nodeData?.parent && !nodeData?.children && !nodeData?._children) {
                 return false;
             }
             return !((nodeData?.children?.length || nodeData?._children?.length));
@@ -1099,58 +1129,62 @@
             });
         }
 
+        function settingsEditModal(nodeData) {
+            $('#addModal').find('.modal-title').text("Edit Node");
+
+            //set the fields with current value
+            $('#title_en').val(nodeData.title_en);
+            $('#title_bn').val(nodeData.title_bn);
+
+            if (nodeData.parent_id) {
+                $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
+                $('#parent_id').parent().parent().show();
+                $('#parent_id').data('filters').id.value = nodeData.id;
+            } else {
+                $('#parent_id').parent().parent().hide();
+            }
+            if (nodeData.rank_id) {
+                $('#rank_id').append(new Option(nodeData.rank_id, nodeData?.rank_id, true, true)).trigger('change');
+            }
+            $('#display_order').val(nodeData.display_order);
+            $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
+
+            // change form url for edit
+            let url = "{{route('govt_stakeholder::admin.human-resources.update-node', '__')}}".replace('__', nodeData.id);
+
+            editAddForm.attr("action", url);
+            editAddForm.attr("data-method", "PATCH");
+            editAddForm.attr("data-node-id", nodeData.id);
+            editAddForm.attr("data-is-edit", true);
+            $('.submit-node-btn').text("Edit")
+        }
+
+        function settingsAddModal(nodeData) {
+            $('#addModal').find('.modal-title').text("Add a new child");
+            clearModalInputFieldsValue();
+            let url = "{{ route('govt_stakeholder::admin.human-resources.add-node') }}";
+            editAddForm.attr("action", url);
+            editAddForm.attr("data-method", "POST");
+            editAddForm.attr("data-node-id", nodeData.id);
+            editAddForm.attr("data-is-edit", false);
+
+            if (nodeData.id) {
+                $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
+            }
+            $('#parent_id').parent().parent().hide();
+            $('.submit-node-btn').text("Add")
+        }
 
         function showModal(btnEle, modal, edit = false, nodeData = false) {
             if (edit) {
-                $('#addModal').find('.modal-title').text("Edit Node");
-
-                //set the fields with current value
-                $('#title_en').val(nodeData.title_en);
-                $('#title_bn').val(nodeData.title_bn);
-
-                $('#parent_id').data('filters', {
-                    id: {
-                        type: "not-equal",
-                        value: nodeData.id
-                    }
-                });
-
-                if (nodeData.parent_id) {
-                    $('#parent_id').append(new Option(nodeData?.parent?.title_en, nodeData?.parent?.id, true, true)).trigger('change');
-                    $('#parent_id').parent().parent().css('display', 'block');
-                } else {
-                    $('#parent_id').parent().parent().css('display', 'none');
-                }
-                if (nodeData.rank_id) {
-                    $('#rank_id').append(new Option(nodeData.rank_id, nodeData?.rank_id, true, true)).trigger('change');
-                }
-                $('#display_order').val(nodeData.display_order);
-                $("input[name=is_designation][value=" + nodeData.is_designation + "]").attr('checked', 'checked');
-
-                // change form url for edit
-                let url = "{{route('govt_stakeholder::admin.human-resources.update-node', '__')}}".replace('__', nodeData.id);
-
-                editAddForm.attr("action", url);
-                editAddForm.attr("data-method", "PATCH");
-                editAddForm.attr("data-node-id", nodeData.id);
-                editAddForm.attr("data-is-edit", true);
+                settingsEditModal(nodeData);
             } else {
-                $('#addModal').find('.modal-title').text("Add a new child");
-                clearModalInputFieldsValue();
-                let url = "{{ route('govt_stakeholder::admin.human-resources.add-node') }}";
-                editAddForm.attr("action", url);
-                editAddForm.attr("data-method", "POST");
-                editAddForm.attr("data-node-id", nodeData.id);
-                editAddForm.attr("data-is-edit", false);
-
-                if (nodeData.id) {
-                    $('#parent_id').append(new Option(nodeData?.title_en, nodeData?.id, true, true)).trigger('change');
-                }
-                $('#parent_id').parent().parent().css('display', 'none');
+                settingsAddModal(nodeData);
             }
 
             if (btnEle.style("opacity") == 1) {
                 modal.modal('show');
+                modal.modal({backdrop: 'static', keyboard: false});
             }
         }
 
@@ -1212,9 +1246,9 @@
                 organization_id: {
                     required: true,
                 },
-                organization_unit_type_id: {
-                    required: true,
-                },
+                // organization_unit_type_id: {
+                //     required: false,
+                // },
                 "skill_ids[]": {
                     required: false,
                 },
@@ -1233,8 +1267,37 @@
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
-                // htmlForm.submit();
+                let edit, responseNodeData, currentNode;
+                if (root) {
+                    edit = editAddForm.attr('data-is-edit') == "true";
+                    currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
+                }
+
+
+                const url = editAddForm.attr('action');
+
+                $.post(url, editAddForm.serialize())
+                    .done(function ({nodeData}) {
+                        responseNodeData = nodeData;
+                        if (!edit && root) {
+                            addNode(currentNode, responseNodeData);
+                        } else if (edit && root) {
+                            editNode(currentNode, responseNodeData);
+                        } else {
+                            location.reload();
+                        }
+                    })
+                    .fail(function () {
+                        console.log("update failed");
+                    })
+                    .always(function () {
+                        $('#addModal').modal("hide");
+                        closeOpenedActionButtons();
+                    })
+                return false;
             }
+
+
         });
 
 
@@ -1260,46 +1323,6 @@
             $('#parent_id').on('change', function () {
                 $('#hidden_parent_id').val($('#parent_id').val()).prop('disabled', false);
             })
-
-
-            editAddForm.submit(async function (event) {
-                // Stop form from submitting normally
-                event.preventDefault();
-
-                let currentNode = searchTree(root, editAddForm.attr('data-node-id')); // this is parent for add
-                let responseNodeData;
-
-                let edit = editAddForm.attr('data-is-edit') == "true";
-
-                // Get some values from elements on the page:
-                const $form = $(this),
-                    url = $form.attr("action"),
-                    methodType = $(this).attr("data-method");
-
-                // Send the data using post
-                try {
-                    const responseData = await $.post(url, $(this).serialize())
-                        .done(function ({nodeData}) {
-                            responseNodeData = nodeData;
-                            if (!edit) {
-                                addNode(currentNode, responseNodeData);
-                            } else {
-                                console.table("response", responseNodeData);
-                                editNode(currentNode, responseNodeData);
-                            }
-                        })
-                        .fail(function () {
-                            console.log("update failed");
-                        })
-                        .always(function () {
-                            $('#addModal').modal("hide");
-                            closeOpenedActionButtons();
-                        })
-                } catch (e) {
-                    console.log(e.message);
-                }
-
-            });
 
             function editNode(currentNode, respondedNodeData) {
                 if (currentNode?.parent?.id != respondedNodeData.parent_id) { // if parent id updated then push the child to new parent

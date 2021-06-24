@@ -62,6 +62,11 @@
                         name: "title_bn"
                     },
                     {
+                        title: "Organization",
+                        data: "organization_name",
+                        name: "organizations.title_bn"
+                    },
+                    {
                         title: "Active Status",
                         data: "row_status",
                         name: "row_status"

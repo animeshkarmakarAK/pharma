@@ -161,6 +161,6 @@ class OrganizationUnitTypeController extends BaseController
     public function employeeHierarchy(OrganizationUnitType $organizationUnitType): View
     {
         $humanResources = optional($organizationUnitType->getHierarchy())->toArray();
-        return \view(self::VIEW_PATH . 'employee-hierarchy', compact('humanResources'));
+        return \view(self::VIEW_PATH . 'employee-hierarchy', compact('humanResources', 'organizationUnitType'));
     }
 }

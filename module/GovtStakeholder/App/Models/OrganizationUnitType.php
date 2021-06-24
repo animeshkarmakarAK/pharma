@@ -4,6 +4,7 @@ namespace Module\GovtStakeholder\App\Models;
 
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -19,6 +20,10 @@ class OrganizationUnitType extends BaseModel
 
     protected $guarded = ['id'];
 
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class);
+    }
     public function humanResourceTemplate(): HasMany
     {
         return $this->hasMany(HumanResourceTemplate::class);
