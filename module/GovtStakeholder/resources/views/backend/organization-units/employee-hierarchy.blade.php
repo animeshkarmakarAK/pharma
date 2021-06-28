@@ -272,11 +272,7 @@
             root.x0 = viewerHeight / 2;
             root.y0 = 0;
 
-
-            openClose(root);
-            root.children.forEach(function (child) {
-                openClose(child);
-            })
+            open(root); // open all tree nodes when first time document loaded
             // Layout the tree initially and center on the root node.
             update(root);
             centerNode(root);
@@ -585,20 +581,6 @@
             return d;
         }
 
-
-        function open(myNode) {
-            toggleChildren(myNode);
-            if (myNode.children) {
-                myNode.children.forEach(function (j) {
-                    open(j);
-                })
-            }
-            if (myNode._children) {
-                myNode._children.forEach(function (j) {
-                    open(j);
-                })
-            }
-        }
 
         // Toggle children on click.
 

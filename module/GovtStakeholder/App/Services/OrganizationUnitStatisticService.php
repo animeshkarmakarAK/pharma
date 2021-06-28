@@ -4,6 +4,7 @@ namespace Module\GovtStakeholder\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -90,6 +91,10 @@ class OrganizationUnitStatisticService
 
                 return $str;
             }))
+            ->editColumn('survey_date', function (OrganizationUnitStatistic $organizationUnitStatistic) {
+                $date = new Carbon($organizationUnitStatistic->survey_date);
+                return $date->monthName;
+            })
             ->rawColumns(['action'])
             ->toJson();
     }

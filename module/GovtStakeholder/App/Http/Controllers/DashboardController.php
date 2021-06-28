@@ -25,7 +25,10 @@ class DashboardController
         }
 
         $data = [];
-        $employmentStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+        $employmentStatistic = UpazilaJobStatistic::query();
+        if ($authUser->isDCUser()) {
+            $employmentStatistic->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+        }
         $employmentStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $employmentStatistic->select([DB::raw("SUM(upazila_job_statistics.total_unemployed) as total_unemployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as total_employed"),
@@ -56,7 +59,10 @@ class DashboardController
 
         $data['employment_statistic'] = array_values($results);
 
-        $jobSectorStatistic = UpazilaJobStatistic::where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+        $jobSectorStatistic = UpazilaJobStatistic::query();
+        if ($authUser->isDCUser()) {
+            $jobSectorStatistic->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+        }
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $jobSectorStatistic->join('job_sectors', 'upazila_job_statistics.job_sector_id', '=', 'job_sectors.id');
         $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', 'job_sectors.title_bn as sector', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),

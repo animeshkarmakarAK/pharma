@@ -328,7 +328,6 @@
                                     name="map_select"
                                     id="map_select"
                                     data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
-                                    data-filters="{{json_encode(['id' => 20000000])}}"
                                     data-label-fields="{title_en}"
                                     data-placeholder="Select District"
                             >
@@ -365,17 +364,20 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle" style="color: #b3de4a" aria-hidden="true"></i>
+                                            <p class="mb-0"><i class="fa fa-circle" style="color: #b3de4a"
+                                                               aria-hidden="true"></i>
                                                 Total New Recruitment</p>
                                             <strong id="total_new_recruitment" class="map_count_numbers"></strong>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle" style="color: #f368e0" aria-hidden="true"></i>
+                                            <p class="mb-0"><i class="fa fa-circle" style="color: #f368e0"
+                                                               aria-hidden="true"></i>
                                                 Total New Skilled Youth</p>
                                             <b id="total_new_skilled_youth" class="map_count_numbers"></b>
                                         </div>
                                         <div class="mb-2">
-                                            <p class="mb-0"><i class="fa fa-circle" style="color: #9b4ade" aria-hidden="true"></i>
+                                            <p class="mb-0"><i class="fa fa-circle" style="color: #9b4ade"
+                                                               aria-hidden="true"></i>
                                                 Total Skilled Youth</p>
                                             <b id="total_skilled_youth" class="map_count_numbers"></b>
                                         </div>
@@ -683,7 +685,7 @@
                 return null;
             }
 
-            console.log('data',data)
+            console.log('data', data)
             // set the dimensions and margins of the graph
             let margin = {top: 40, right: 80, bottom: 30, left: 50}, //add
                 width = Math.abs(windowWidth / 2.7) - margin.left - margin.right,
@@ -722,7 +724,7 @@
                 };
             });
             // I strongly advise to have a look to dataReady with
-            console.log('dataReady',dataReady);
+            console.log('dataReady', dataReady);
             //custom line add to graph background
             let lineBackground1 = (data = [0, 1, 2, 3, 4]) => {
                 return data.map((i) => {
@@ -742,7 +744,7 @@
                 .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
-            console.log('width',width)
+            console.log('width', width)
             // Add X axis --> it is a date format
             let x = d3.scaleBand()
                 .domain(xaxisLabels)
@@ -905,7 +907,7 @@
             }
 
             function graph(data) {
-                 let svg = d3.select("#job_sector_statistic")
+                let svg = d3.select("#job_sector_statistic")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -923,9 +925,9 @@
                     return data.map((i) => {
                         return svg.append('line')
                             .attr('x1', 0)
-                            .attr('y1', (highestValue/27) * i)
+                            .attr('y1', (highestValue / 27) * i)
                             .attr('x2', width)
-                            .attr('y2', (highestValue/27) * i)
+                            .attr('y2', (highestValue / 27) * i)
                             .attr('stroke', 'gray')
                             .attr('stroke-width', 0.2)
                     })
@@ -1060,7 +1062,7 @@
             //let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             let url = "{{ asset('assets/dashboard/bd-map-assets/small_bangladesh_geojson_adm3_492_upozila.json') }}";
             d3.json(url, function (json) {
-                function getMap() {
+                const getMap = () => {
                     $('#bd_map_d3').show();
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
@@ -1077,7 +1079,7 @@
                     const words = district.split(" ");
 
                     for (let i = 0; i < words.length; i++) {
-                        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                        words[i] = words[i][0]?.toUpperCase() + words[i].substr(1);
                     }
                     district = words.join(" ");
 

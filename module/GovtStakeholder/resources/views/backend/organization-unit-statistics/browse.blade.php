@@ -70,7 +70,7 @@
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{route('govt_stakeholder::admin.organization-unit-statistics.datatable')}}',
-                order: [[1, "desc"]],
+                order: [[2, "desc"]],
                 columns: [
                     {
                         title: "SL#",
@@ -86,7 +86,7 @@
                         name: "organization_units.title_en",
                     },
                     {
-                        title: "Reporting Date",
+                        title: "Reporting Month",
                         data: "survey_date",
                         name: "organization_unit_statistics.survey_date"
                     },
