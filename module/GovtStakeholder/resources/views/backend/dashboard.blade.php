@@ -516,7 +516,15 @@
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
         })
+        let loc_division_id;
+        const isUserDivisionCommissioner = {!! $authUser->isDivcomUser() ? 1 : 0!!};
+
         $(function () {
+
+            if (isUserDivisionCommissioner){
+                loc_division_id = $('#map_select').val();
+            }
+
             let params = serverSideDatatableFactory({
                 url: '{{ route('govt_stakeholder::admin.organization-units.statistics-datatable') }}',
                 order: [[2, "asc"]],
@@ -559,7 +567,7 @@
 
             params.ajax.data = d => {
                 d.month = $('#month-list').val();
-                d.loc_division_id = $('#map_select option:selected').val();
+                d.loc_division_id = loc_division_id;
             };
             const datatable = $('#dataTable').DataTable(params);
 
@@ -588,7 +596,7 @@
             });
 
             params1.ajax.data = d => {
-                d.loc_division_id = $('#map_select option:selected').val();
+                d.loc_division_id = loc_division_id;
             };
             params1.dom = "<'row'<'col-sm-12'tr>>";
 
@@ -620,7 +628,7 @@
             });
             params2.dom = "<'row'<'col-sm-12'tr>>";
             params2.ajax.data = d => {
-                d.loc_division_id = $('#map_select option:selected').val();
+                d.loc_division_id = loc_division_id;
             };
 
             const datatable2 = $('#dataTable2').DataTable(params2);
@@ -655,7 +663,7 @@
             });
 
             params3.ajax.data = d => {
-                d.loc_division_id = $('#map_select option:selected').val();
+                d.loc_division_id = loc_division_id;
             };
             params3.dom = "<'row'<'col-sm-12'tr>>";
 
@@ -692,7 +700,7 @@
             });
             params4.dom = "<'row'<'col-sm-12'tr>>";
             params4.ajax.data = d => {
-                d.loc_division_id = $('#map_select option:selected').val();
+                d.loc_division_id = loc_division_id;
             };
             const datatable4 = $('#dataTable4').DataTable(params4);
 
