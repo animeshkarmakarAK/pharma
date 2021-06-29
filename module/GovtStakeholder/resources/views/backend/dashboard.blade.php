@@ -309,7 +309,7 @@
             <div class="col-md-6">
                 <div class="card" style="height: 100%">
                     <div class="card-header text-white" style="background-color:#c665e6;">
-                        <h3 class="card-title font-weight-bold">জেলা মানচিত্র</h3>
+                        <h3 class="map-type-title card-title font-weight-bold">{{ $authUser->isDivcomUser()  ? "বিভাগ মানচিত্র" : "জেলা মানচিত্র"}}</h3>
                     </div>
                     <div class="card-body">
                         @if($authUser->isDCUser())
@@ -321,6 +321,17 @@
                                     data-preselected-option="{{json_encode(['text' =>  $authUser->locDistrict->title_en, 'id' =>  $authUser->loc_district_id])}}"
                                     data-label-fields="{title_en}"
                                     data-placeholder="Select District"
+                            >
+                            </select>
+                        @elseif($authUser->isDivcomUser())
+                            <select class="select2-ajax-wizard"
+                                    name="map_select"
+                                    id="map_select"
+                                    data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
+                                    data-filters="{{json_encode(['id' => $authUser->loc_division_id])}}"
+                                    data-preselected-option="{{json_encode(['text' =>  $authUser->locDivision->title_en, 'id' =>  $authUser->loc_division_id])}}"
+                                    data-label-fields="{title_en}"
+                                    data-placeholder="Select Division"
                             >
                             </select>
                         @else
@@ -548,6 +559,7 @@
 
             params.ajax.data = d => {
                 d.month = $('#month-list').val();
+                d.loc_division_id = $('#map_select option:selected').val();
             };
             const datatable = $('#dataTable').DataTable(params);
 
@@ -574,6 +586,10 @@
                     },
                 ]
             });
+
+            params1.ajax.data = d => {
+                d.loc_division_id = $('#map_select option:selected').val();
+            };
             params1.dom = "<'row'<'col-sm-12'tr>>";
 
             const datatable1 = $('#dataTable1').DataTable(params1);
@@ -603,6 +619,9 @@
                 ]
             });
             params2.dom = "<'row'<'col-sm-12'tr>>";
+            params2.ajax.data = d => {
+                d.loc_division_id = $('#map_select option:selected').val();
+            };
 
             const datatable2 = $('#dataTable2').DataTable(params2);
 
@@ -634,6 +653,10 @@
                     },
                 ]
             });
+
+            params3.ajax.data = d => {
+                d.loc_division_id = $('#map_select option:selected').val();
+            };
             params3.dom = "<'row'<'col-sm-12'tr>>";
 
 
@@ -668,7 +691,9 @@
                 ]
             });
             params4.dom = "<'row'<'col-sm-12'tr>>";
-
+            params4.ajax.data = d => {
+                d.loc_division_id = $('#map_select option:selected').val();
+            };
             const datatable4 = $('#dataTable4').DataTable(params4);
 
             $('a[href = "#skilled"]').on('click', function () {
@@ -685,7 +710,8 @@
                 return null;
             }
 
-            console.log('data', data)
+            console.table('data', data);
+
             // set the dimensions and margins of the graph
             let margin = {top: 40, right: 80, bottom: 30, left: 50}, //add
                 width = Math.abs(windowWidth / 2.7) - margin.left - margin.right,
@@ -1067,8 +1093,10 @@
                     let districtElm = $('#map_select option:selected');
                     let district = districtElm.text().toLowerCase();
 
+                    let division_id = $('#loc_division_id option:selected').val();
+
                     $.ajax({
-                        data: {district_id: districtElm.val()},
+                        data: {district_id: division_id},
                         url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
                         type: 'POST',
                         success: function (data) {
@@ -1182,21 +1210,6 @@
                     //viewBox
                     let box = bangladesh[0][0].getBBox()
                     map.attr("viewBox", `${box.x} ${box.y} ${box.width} ${box.height}`);
-
-
-                    // bangladesh.selectAll("text")
-                    //     .data(json.features)
-                    //     .enter().append("text")
-                    //     .attr("x", function(d) {
-                    //         return path.centroid(d)[0];
-                    //     })
-                    //     .attr("y", function(d) {
-                    //         return path.centroid(d)[1];
-                    //     })
-                    //     .attr("text-anchor", "middle")
-                    //     .attr("font-size", ".02rem")
-                    //     .filter((d) => d.properties.ADM2_EN == district)
-                    //     .text(function(d) { return d.properties.ADM3_EN; });
                 }
                 getMap();
 

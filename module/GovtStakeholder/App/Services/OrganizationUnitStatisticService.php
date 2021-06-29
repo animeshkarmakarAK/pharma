@@ -119,6 +119,9 @@ class OrganizationUnitStatisticService
         $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
         $organizationUnitStatistics->join('organization_unit_types', 'organization_units.organization_unit_type_id', '=', 'organization_unit_types.id');
 
+        if ($request->input('loc_division_id')) {
+            $organizationUnitStatistics->where('organization_units.loc_division_id', $request->input('loc_division_id'));
+        }
         return DataTables::eloquent($organizationUnitStatistics)
             ->editColumn('survey_date', function () {
                 return "";
@@ -128,15 +131,19 @@ class OrganizationUnitStatisticService
 
     public function unemploymentStatistic(Request $request): JsonResponse
     {
-        $orgStat = organizationUnitStatistic::join('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id', 'organization_unit_name')
+        $organizationUnitStatistics = organizationUnitStatistic::join('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id', 'organization_unit_name')
             ->selectRaw('sum(total_new_recruits) as sum_new_recruits, sum(total_vacancy) as sum_vacancy, sum(total_occupied_position) as sum_occupied_position, organization_units.title_en as organization_unit_name');
 
-        return DataTables::eloquent($orgStat)
+        if ($request->input('loc_division_id')) {
+            $organizationUnitStatistics->where('organization_units.loc_division_id', $request->input('loc_division_id'));
+        }
+        return DataTables::eloquent($organizationUnitStatistics)
             ->toJson();
     }
 
     public function vacancyStatistic(Request $request): JsonResponse
     {
+
         $occpationWiseStatistics = OccupationWiseStatistic::select(
             [
                 'occupation_wise_statistics.id',

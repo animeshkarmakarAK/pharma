@@ -29,6 +29,10 @@ class DashboardController
         if ($authUser->isDCUser()) {
             $employmentStatistic->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
         }
+
+        if ($authUser->isDivcomUser()) {
+            $employmentStatistic->where('loc_upazilas.loc_division_id', $authUser->loc_division_id);
+        }
         $employmentStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $employmentStatistic->select([DB::raw("SUM(upazila_job_statistics.total_unemployed) as total_unemployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as total_employed"),
@@ -63,6 +67,9 @@ class DashboardController
         if ($authUser->isDCUser()) {
             $jobSectorStatistic->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
         }
+        if ($authUser->isDivcomUser()) {
+            $jobSectorStatistic->where('loc_upazilas.loc_division_id', $authUser->loc_division_id);
+        }
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $jobSectorStatistic->join('job_sectors', 'upazila_job_statistics.job_sector_id', '=', 'job_sectors.id');
         $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', 'job_sectors.title_bn as sector', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
@@ -94,6 +101,11 @@ class DashboardController
         $upazilaJobStatistics->join('loc_districts', 'loc_upazilas.loc_district_id', 'loc_districts.id');
         $upazilaJobStatistics->where('loc_districts.id', $request->input('district_id'));
         $upazilaJobStatistics->where('upazila_job_statistics.survey_date', date('Y-m-01'));
+
+        if ($request->input('loc_division_id')) {
+            $upazilaJobStatistics->join('loc_divisions', 'loc_upazilas.loc_division_id', 'loc_division.id');
+            $upazilaJobStatistics->where('loc_divisions.id', $request->input('loc_division_id'));
+        }
 
         $upazilaJobStatistics->groupBy(
             'upazila_job_statistics.loc_upazila_id',
