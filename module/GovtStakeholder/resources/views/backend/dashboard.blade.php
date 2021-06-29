@@ -438,7 +438,7 @@
                     <div class="tab-content tabs">
                         <div role="tabpanel" class="tab-pane tab_custome_style fade in active show" id="Industry">
                             <div class="datatable-container">
-                                <table id="dataTable" class="table table-bordered dataTable">
+                                <table id="dataTable" class="table dataTable">
                                     <thead class="custom-bg-gradient-info">
                                     <tr>
                                         <th scope="col">কোম্পানির নাম</th>
@@ -521,7 +521,7 @@
 
         $(function () {
 
-            if (isUserDivisionCommissioner){
+            if (isUserDivisionCommissioner) {
                 loc_division_id = $('#map_select').val();
             }
 
@@ -533,6 +533,13 @@
                 lengthChange: false,
                 info: false,
                 generateSerialNumber: false,
+                'columnDefs': [
+                    {
+                        "targets": [0, 1, 2, 3, 4],
+                        "className": "text-center",
+                        "width": "4%"
+                    },
+                ],
                 columns: [
                     {
                         data: "organization_unit_name",
