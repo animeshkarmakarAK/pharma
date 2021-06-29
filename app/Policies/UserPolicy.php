@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-
 use App\Models\User;
 
 class UserPolicy extends MasterBasePolicy
@@ -107,5 +106,11 @@ class UserPolicy extends MasterBasePolicy
     public function changeUserRole(User $user, User $model): bool
     {
         return $this->viewUserPermission($user, $model) && $user->hasPermission('change_user_role');
+    }
+
+
+    public function changeUserType(User $user, User $model): bool
+    {
+        return !($user->isDCUser() || $user->isInstituteUser() || $user->isOrganizationUser()) && !($user->id == $model->id);
     }
 }

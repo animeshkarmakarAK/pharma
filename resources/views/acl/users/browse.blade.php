@@ -158,20 +158,24 @@
                 let userType = parseInt($(this).val());
 
                 switch (userType) {
+                    case {!! \App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE !!}:
+                        enableShowFormFields($('#loc_division_id'));
+                        disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_district_id'));
+                        break;
                     case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
                         enableShowFormFields($('#loc_district_id'));
-                        disabledHideFormFields($('#institute_id'), $('#organization_id'));
+                        disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_division_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
                         enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'));
+                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!}:
                         enableShowFormFields($('#organization_id'));
-                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'));
+                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     default:
-                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'));
+                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
                 }
             })
 

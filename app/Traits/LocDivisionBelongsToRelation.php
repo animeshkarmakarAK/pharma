@@ -4,6 +4,7 @@ namespace App\Traits;
 
 
 use App\Models\LocDistrict;
+use App\Models\LocDivision;
 use Illuminate\Database\Eloquent\Model;
 
 trait LocDivisionBelongsToRelation
@@ -11,7 +12,7 @@ trait LocDivisionBelongsToRelation
     public function locDivision(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         /** @var Model $this */
-        return $this->belongsTo(LocDistrict::class, 'loc_division_id')
+        return $this->belongsTo(LocDivision::class, 'loc_division_id')
             ->select(['id', 'title_en', 'title', 'bbs_code']);
     }
 }

@@ -75,24 +75,42 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="user_type_id">{{ __('User Type') }} <span
-                                style="color: red"> * </span></label>
-                        <select class="form-control select2-ajax-wizard"
-                                name="user_type_id"
-                                id="user_type_id"
-                                data-model="{{base64_encode(App\Models\UserType::class)}}"
-                                data-label-fields="{title}"
-                                @if($edit)
-                                data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
-                                @endif
-                                data-placeholder="Select User Type"
-                        >
-                            <option selected disabled>Select User Type</option>
-                        </select>
+                @if($edit && $authUser->can('changeUserType', $user))
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="user_type_id">{{ __('User Type') }} <span
+                                    style="color: red"> * </span></label>
+                            <select class="form-control select2-ajax-wizard"
+                                    name="user_type_id"
+                                    id="user_type_id"
+                                    data-model="{{base64_encode(App\Models\UserType::class)}}"
+                                    data-label-fields="{title}"
+                                    @if($edit)
+                                    data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
+                                    @endif
+                                    data-placeholder="Select User Type"
+                            >
+                                <option selected disabled>Select User Type</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                    @elseif(!$edit)
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="user_type_id">{{ __('User Type') }} <span
+                                    style="color: red"> * </span></label>
+                            <select class="form-control select2-ajax-wizard"
+                                    name="user_type_id"
+                                    id="user_type_id"
+                                    data-model="{{base64_encode(App\Models\UserType::class)}}"
+                                    data-label-fields="{title}"
+                                    data-placeholder="Select User Type"
+                            >
+                                <option selected disabled>Select User Type</option>
+                            </select>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="col-sm-6" style="display: none;">
                     <div class="form-group">
@@ -147,6 +165,25 @@
                                 data-placeholder="Select District"
                         >
                             <option selected disabled>Select District</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-6" style="display: none;">
+                    <div class="form-group">
+                        <label for="loc_division_id">{{ __('Division') }} <span
+                                style="color: red"> * </span></label>
+                        <select class="form-control select2-ajax-wizard"
+                                name="loc_division_id"
+                                id="loc_division_id"
+                                data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
+                                data-label-fields="{title_en}"
+                                @if($edit && $user->locDivision)
+                                data-preselected-option="{{json_encode(['text' =>  $user->locDivision->title_en, 'id' =>  $user->locDivision->id])}}"
+                                @endif
+                                data-placeholder="Select Division"
+                        >
+                            <option selected disabled>Select Division</option>
                         </select>
                     </div>
                 </div>

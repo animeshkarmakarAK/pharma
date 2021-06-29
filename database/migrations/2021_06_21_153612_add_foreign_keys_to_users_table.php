@@ -19,6 +19,7 @@ class AddForeignKeysToUsersTable extends Migration
             $table->foreign('institute_id', 'users_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('organization_id', 'users_fk_organization_id')->references('id')->on('organizations')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('loc_district_id', 'users_fk_loc_district_id')->references('id')->on('loc_districts')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('loc_division_id', 'users_fk_loc_division_id')->references('id')->on('loc_divisions')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

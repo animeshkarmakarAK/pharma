@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedMediumInteger('loc_district_id')->nullable();
+            $table->unsignedMediumInteger('loc_division_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 191);
             $table->string('profile_pic')->nullable();

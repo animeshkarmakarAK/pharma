@@ -43,19 +43,24 @@ class UserService
         if ($data['user_type_id'] == UserType::USER_TYPE_DC_USER_CODE) {
             $data['institute_id'] = null;
             $data['organization_id'] = null;
-        }
-        elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
+            $data['loc_division_id'] = null;
+        } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['organization_id'] = null;
-        }
-        elseif ($data['user_type_id'] == UserType::USER_TYPE_ORGANIZATION_USER_CODE) {
+            $data['loc_division_id'] = null;
+        } elseif ($data['user_type_id'] == UserType::USER_TYPE_ORGANIZATION_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['institute_id'] = null;
-        }
-        else {
+            $data['loc_division_id'] = null;
+        } elseif ($data['user_type_id'] == UserType::USER_TYPE_DIVCOM_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['institute_id'] = null;
             $data['organization_id'] = null;
+        } else {
+            $data['loc_district_id'] = null;
+            $data['institute_id'] = null;
+            $data['organization_id'] = null;
+            $data['loc_division_id'] = null;
         }
 
         return $data;
@@ -98,6 +103,11 @@ class UserService
                 'int',
                 'exists:loc_districts,id'
             ],
+            'loc_division_id' => [
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_DIVCOM_USER_CODE,
+                'int',
+                'exists:loc_divisions,id'
+            ],
             'password' => [
                 'bail',
                 new RequiredIf($id == null),
@@ -137,10 +147,10 @@ class UserService
             unset($data['password']);
         }
 
-        if (empty($user->role_id)) {
-            $userType = UserType::findOrFail($data['user_type_id']);
-            $data['role_id'] = $userType->default_role_id;
-        }
+//        if (empty($user->role_id)) {
+        $userType = UserType::findOrFail($data['user_type_id']);
+        $data['role_id'] = $userType->default_role_id;
+//        }
 
         $data = $this->setAndClearData($data);
         $user->update($data);

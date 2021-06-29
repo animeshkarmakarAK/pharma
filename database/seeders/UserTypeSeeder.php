@@ -61,6 +61,15 @@ class UserTypeSeeder extends Seeder
                     'row_status' => 1,
                     'default_role_id' => '5'
                 ),
+
+            5 =>
+                array(
+                    'id' => '6',
+                    'title' => 'DivCom',
+                    'code' => '6',
+                    'row_status' => 1,
+                    'default_role_id' => '6'
+                ),
         ));
 
         Schema::enableForeignKeyConstraints();
