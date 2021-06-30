@@ -19,7 +19,7 @@
                         Training Management System</h2>
                 </div>
                 <div class="col-sm-4 mx-auto">
-                    <form class="login-form" action="{{route('youth.login-submit')}}" method="post">
+                    <form class="login-form" action="{{route('course_management::youth.login-submit')}}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -40,7 +40,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                Forget access key? <a href="{{route('youth.password-reset')}}">Recover now</a>
+                                Forget access key? <a href="{{route('course_management::youth.password-reset')}}">Recover now</a>
                             </div>
                         </div>
                         <div class="row">

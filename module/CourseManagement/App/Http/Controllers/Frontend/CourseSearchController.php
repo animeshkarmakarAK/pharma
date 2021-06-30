@@ -16,13 +16,15 @@ class CourseSearchController extends Controller
      *
      * @return View
      */
+    const VIEW_PATH = 'course_management::frontend.search-courses.';
+
     public function findCourse(): View
     {
         $institutes = Institute::active()->whereHas('courses')->get();
         $programmes = Programme::active()->whereHas('publishCourses')->get();
         $courses = Course::active()->get();
 
-        return view('frontend.search-courses.course-list', compact('institutes', 'programmes', 'courses'));
+        return view(self::VIEW_PATH.'course-list', compact('institutes', 'programmes', 'courses'));
     }
 
     /**
@@ -32,7 +34,7 @@ class CourseSearchController extends Controller
     public function courseDetails(int $publishCourseId): string
     {
         $publishCourse = PublishCourse::findOrFail($publishCourseId);
-        return \Illuminate\Support\Facades\View::make('frontend.search-courses.course-details-ajax', ['publishCourse' => $publishCourse])->render();
+        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH.'course-details-ajax', ['publishCourse' => $publishCourse])->render();
     }
 
 }

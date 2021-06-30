@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 
 class YouthController extends Controller
 {
+    const VIEW_PATH = "course_management::frontend.";
     protected YouthRegistrationService $youthRegistrationService;
 
     public function __construct(YouthRegistrationService $youthRegistrationService)
@@ -35,7 +36,7 @@ class YouthController extends Controller
         ]);
         $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
 
-        return \view('frontend.youth.youth-profile')->with(
+        return \view(self::VIEW_PATH . 'youth.youth-profile')->with(
             [
                 'youth' => $youth,
                 'father' => $youthFamilyMembers['father'],
@@ -48,7 +49,7 @@ class YouthController extends Controller
 
     public function videos(): View
     {
-        return \view('frontend.skill-videos');
+        return \view(self::VIEW_PATH . 'skill-videos');
     }
 
     /**
@@ -76,11 +77,11 @@ class YouthController extends Controller
             $videos->leftJoin('video_categories', 'video_category_id', '=', 'video_categories.id');
 
             if ($request->input('searchQuery')) {
-                $videos->where('videos.title_en', 'LIKE', '%'.$request->input('searchQuery').'%')
-                    ->orWhere('videos.title_bn', 'LIKE', '%'.$request->input('searchQuery').'%')
-                    ->orWhere('videos.description', 'LIKE', '%'.$request->input('searchQuery').'%')
-                    ->orWhere('video_categories.title_en', 'LIKE', '%'.$request->input('searchQuery').'%')
-                    ->orWhere('video_categories.title_bn', 'LIKE', '%'.$request->input('searchQuery').'%');
+                $videos->where('videos.title_en', 'LIKE', '%' . $request->input('searchQuery') . '%')
+                    ->orWhere('videos.title_bn', 'LIKE', '%' . $request->input('searchQuery') . '%')
+                    ->orWhere('videos.description', 'LIKE', '%' . $request->input('searchQuery') . '%')
+                    ->orWhere('video_categories.title_en', 'LIKE', '%' . $request->input('searchQuery') . '%')
+                    ->orWhere('video_categories.title_bn', 'LIKE', '%' . $request->input('searchQuery') . '%');
             }
 
             if (!empty($request->input('institute_id'))) {
@@ -105,19 +106,19 @@ class YouthController extends Controller
 
     public function advicePage(): View
     {
-        return \view('frontend.static-contents.advice-page');
+        return \view(self::VIEW_PATH . 'static-contents.advice-page');
 
     }
 
     public function generalAskPage(): View
     {
-        return \view('frontend.static-contents.general-ask-page');
+        return \view(self::VIEW_PATH . 'static-contents.general-ask-page');
 
     }
 
     public function contactUsPage(): View
     {
-        return \view('frontend.static-contents.contact-us-page');
+        return \view(self::VIEW_PATH . 'static-contents.contact-us-page');
 
     }
 }

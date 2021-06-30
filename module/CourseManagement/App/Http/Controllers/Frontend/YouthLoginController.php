@@ -19,7 +19,7 @@ class YouthLoginController
 
         $currentInstitute = domainConfig('institute');
 
-        return view('core.auth.custom1.youth-login', compact('currentInstitute'));
+        return view('acl.auth.custom1.youth-login', compact('currentInstitute'));
     }
 
     public function passwordResetForm()
@@ -30,7 +30,7 @@ class YouthLoginController
 
         $currentInstitute = domainConfig('institute');
 
-        return view('core.auth.custom1.youth-password-reset', compact('currentInstitute'));
+        return view('acl.auth.custom1.youth-password-reset', compact('currentInstitute'));
     }
 
     public function login(Request $request)

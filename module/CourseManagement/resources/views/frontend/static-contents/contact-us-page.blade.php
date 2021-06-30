@@ -23,7 +23,7 @@
                                                 <hr>
                                             </div>
                                             <div class="col-md-12 input_area">
-                                                <form action="{{ route('visitor-feedback.store') }}" method="POST"
+                                                <form action="{{ route('course_management::visitor-feedback.store') }}" method="POST"
                                                       class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
@@ -36,7 +36,7 @@
                                                             <input type="hidden" name="institute_id"
                                                                    value="{{$currentInstitute->id}}">
                                                             <input type="hidden" name="form_type"
-                                                                   value="{{\App\Models\VisitorFeedback::FORM_TYPE_CONTACT}}">
+                                                                   value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_CONTACT}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
@@ -106,18 +106,18 @@
                                                                 {{ $currentInstitute->title_bn }}
                                                             </option>
                                                         </optgroup>
-                                                        @if(\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                        @if(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
                                                             <optgroup label="Branch">
-                                                                @foreach(\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
+                                                                @foreach(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
                                                                     <option value="{{ $branch->google_map_src }}">
                                                                         {{ $branch->title_bn }}
                                                                     </option>
                                                                 @endforeach
                                                             </optgroup>
                                                         @endif
-                                                        @if(\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                        @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
                                                             <optgroup label="Training Center">
-                                                                @foreach(\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
+                                                                @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                     <option
                                                                         value="{{ $trainingCenter->google_map_src }}">
                                                                         {{ $trainingCenter->title_bn }}

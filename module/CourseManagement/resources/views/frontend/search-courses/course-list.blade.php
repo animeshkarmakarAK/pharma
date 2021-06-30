@@ -227,19 +227,19 @@
         };
 
         const instituteFetch = searchAPI({
-            model: "{{base64_encode(\App\Models\Institute::class)}}",
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}",
             columns: 'title_bn|logo|address'
         });
         const courseFetch = searchAPI({
-            model: "{{base64_encode(\App\Models\PublishCourse::class)}}",
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
             columns: 'id|institute.title_bn|course.title_bn|course.cover_image'
         });
         const courseFetchForProgramme = searchAPI({
-            model: "{{base64_encode(\App\Models\PublishCourse::class)}}",
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
             columns: 'id|institute.title_bn|course.title_bn|course.cover_image'
         });
         const programmeFetch = searchAPI({
-            model: "{{base64_encode(\App\Models\Programme::class)}}",
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}",
             columns: 'title_bn|logo|institute.title_bn'
         });
 
@@ -286,7 +286,7 @@
             if (institute_id?.toString()?.length) {
                 filters['institute_id'] = institute_id;
             }
-            filters['row_status'] = '{{\App\Models\Course::ROW_STATUS_ACTIVE}}'
+            filters['row_status'] = '{{\Module\CourseManagement\App\Models\Course::ROW_STATUS_ACTIVE}}'
 
             let domainInstitute = $('#domain-institute').val();
             if (domainInstitute?.toString()?.length) {
@@ -365,7 +365,7 @@
                 $('.program_overlay').hide();
                 $('#program_pagination').html(response?.data?.next_page_url);
                 let html = '';
-                $.each(response.data.data, function (i, item) {
+                $.each(response?.data?.data, function (i, item) {
                     html += template({
                         id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.logo,

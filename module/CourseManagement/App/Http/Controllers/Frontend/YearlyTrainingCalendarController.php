@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class YearlyTrainingCalendarController extends Controller
 {
+    const VIEW_PATH = "course_management::frontend.";
     public function index(): View
     {
-        return \view('frontend.yearly-training-calendar');
-
+        return \view(self::VIEW_PATH.'yearly-training-calendar');
     }
 
     public function allEvent()
