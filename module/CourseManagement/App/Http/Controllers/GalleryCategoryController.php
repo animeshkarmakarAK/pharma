@@ -27,7 +27,7 @@ class GalleryCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(): View
     {
@@ -37,7 +37,7 @@ class GalleryCategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function create(): View
     {
@@ -53,6 +53,7 @@ class GalleryCategoryController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        //dd($request->all());;
         $validatedData = $this->galleryCategoryService->validator($request)->validate();
         try {
             $this->galleryCategoryService->createGalleryCategory($validatedData);
@@ -100,7 +101,9 @@ class GalleryCategoryController extends Controller
      */
     public function update(Request $request, GalleryCategory $galleryCategory): RedirectResponse
     {
-        $validatedData = $this->galleryCategoryService->validator($request)->validate();
+        //dd($request->all());
+        $validatedData = $this->galleryCategoryService->validator($request, $galleryCategory->id)->validate();
+        //dd($validatedData);
 
         try {
             $this->galleryCategoryService->updateGalleryCategory($galleryCategory, $validatedData);

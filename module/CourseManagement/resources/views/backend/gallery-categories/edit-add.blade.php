@@ -68,7 +68,7 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
                                             id="institute_id"
-                                            data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                             data-label-fields="{title_en}"
                                             @if($edit && $galleryCategory->institute_id)
                                             data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title_en, 'id' => $galleryCategory->institute_id])}}"
@@ -79,6 +79,32 @@
                                     </select>
                                 </div>
                             @endif
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="image">{{ __('Album Photo') }}</label>
+                                    <div class="input-group">
+                                        <div class="programme-image-upload-section">
+                                            <div class="avatar-preview text-center">
+                                                <label for="image">
+                                                    <img class="figure-img"
+                                                         src={{ $edit && $galleryCategory->image ? asset('storage/'.$galleryCategory->image) : "https://via.placeholder.com/350x350?text=Photo+Album"}}
+                                                             height="200" width="200"
+                                                         alt="Photo Album"/>
+                                                    <span class="p-1 bg-gray"
+                                                          style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
+                                                        <i class="fa fa-pencil-alt text-white"></i>
+                                                    </span>
+                                                </label>
+                                                <div class="imgRemove" style="display: none">
+                                                </div>
+                                            </div>
+                                            <input type="file" name="image" style="display: none"
+                                                   id="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="col-sm-12 text-right">
@@ -98,9 +124,9 @@
 
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
-    <script>
+    {{--<script>
         const EDIT = !!'{{$edit}}';
-        const content_types = @json(\App\Models\Gallery::CONTENT_TYPES);
+        const content_types = @json(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES);
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -143,6 +169,80 @@
                 htmlForm.submit();
             }
         });
+    </script>--}}
+    <script>
+        const EDIT = !!'{{$edit}}';
+        const content_types = @json(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES);
+
+        const editAddForm = $('.edit-add-form');
+        editAddForm.validate({
+            errorElement: "em",
+            onkeyup: false,
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                element.parents(".form-group").addClass("has-feedback");
+
+                if (element.parents(".form-group").length) {
+                    error.insertAfter(element.parents(".form-group").first().children().last());
+                } else if (element.hasClass('select2') || element.hasClass('select2-ajax-custom') || element.hasClass('select2-ajax')) {
+                    error.insertAfter(element.parents(".form-group").first().find('.select2-container'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                $(element).closest('.help-block').remove();
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+            },
+            rules: {
+                title_en: {
+                    required: true,
+                },
+                title_bn: {
+                    required: true,
+                    pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
+                },
+                institute_id: {
+                    required: true,
+                },
+
+            },
+            submitHandler: function (htmlForm) {
+                $('.overlay').show();
+                htmlForm.submit();
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $(input).parent().find('.avatar-preview img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $(document).ready(function () {
+            $('#image').change(function () {
+                readURL(this); //preview image
+
+                setTimeout(function () {
+                    editAddForm.validate().element('#image');
+                }, 200);
+
+                $('.imgRemove').css('display', 'block');
+            });
+
+            $('.imgRemove').on('click', function () {
+                $('#image').parent().find('.avatar-preview img').attr('src',  "https://via.placeholder.com/350x350?text=Photo+Album");
+                $('#image').val("").valid();
+                $(this).css('display', 'none');
+            })
+        })
     </script>
 @endpush
 
