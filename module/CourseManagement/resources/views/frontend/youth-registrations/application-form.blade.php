@@ -310,7 +310,7 @@
                                             <input type="radio" name="disable_status"
                                                    class="custom-control-input"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
-                                                   id="physically_disable" {{ old('disable_status') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : '' }}>
+                                                   id="physically_disable" {{ old('disable_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="physically_disable">Yes</label>
                                         </div>
                                         <div class="col">
@@ -751,7 +751,7 @@
                                     <div class="card-body hsc_collapse collapse hide">
 
                                         <input type="hidden" name="academicQualification[hsc][examination]"
-                                               value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
+                                               value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
                                         <div class="form-row form-group">
                                             <label for="hsc_examination_name" class="col-md-4 col-form-label">Examination<span
                                                     class="required">*</span></label>
