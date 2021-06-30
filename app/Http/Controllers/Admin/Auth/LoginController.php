@@ -103,7 +103,7 @@ class LoginController extends Controller
             $user2->save();
         }
 
-        return view('master::acl.auth.login');
+        return view('master::acl.auth.custom1.login');
 
     }
 

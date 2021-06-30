@@ -27,7 +27,7 @@ class GalleryCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function index(): View
     {
@@ -37,7 +37,7 @@ class GalleryCategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function create(): View
     {

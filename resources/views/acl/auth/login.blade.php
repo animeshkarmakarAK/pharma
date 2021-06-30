@@ -1,3 +1,7 @@
+@extends('master::layouts.custom1')
+@section('header', '')
+@section('footer', '')
+
 @extends('master::layouts.front-end')
 
 @section('content')
