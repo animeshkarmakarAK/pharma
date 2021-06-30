@@ -97,14 +97,17 @@ class DashboardController
                 DB::raw('loc_upazilas.title_en as upazila_title'),
             ]
         );
+
         $upazilaJobStatistics->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', 'loc_upazilas.id');
-        $upazilaJobStatistics->join('loc_districts', 'loc_upazilas.loc_district_id', 'loc_districts.id');
-        $upazilaJobStatistics->where('loc_districts.id', $request->input('district_id'));
         $upazilaJobStatistics->where('upazila_job_statistics.survey_date', date('Y-m-01'));
 
-        if ($request->input('loc_division_id')) {
-            $upazilaJobStatistics->join('loc_divisions', 'loc_upazilas.loc_division_id', 'loc_division.id');
-            $upazilaJobStatistics->where('loc_divisions.id', $request->input('loc_division_id'));
+
+        if ($request->input('division_id')) {
+            $upazilaJobStatistics->join('loc_divisions', 'loc_upazilas.loc_division_id', 'loc_divisions.id');
+            $upazilaJobStatistics->where('loc_divisions.id', $request->input('division_id'));
+        }else {
+            $upazilaJobStatistics->join('loc_districts', 'loc_upazilas.loc_district_id', 'loc_districts.id');
+            $upazilaJobStatistics->where('loc_districts.id', $request->input('district_id'));
         }
 
         $upazilaJobStatistics->groupBy(

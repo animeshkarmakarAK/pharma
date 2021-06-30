@@ -314,8 +314,8 @@
                     <div class="card-body">
                         @if($authUser->isDCUser())
                             <select class="select2-ajax-wizard"
-                                    name="map_select"
-                                    id="map_select"
+                                    name="loc_district_id"
+                                    id="loc_district_id"
                                     data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                     data-filters="{{json_encode(['id' => $authUser->loc_district_id])}}"
                                     data-preselected-option="{{json_encode(['text' =>  $authUser->locDistrict->title_en, 'id' =>  $authUser->loc_district_id])}}"
@@ -325,8 +325,8 @@
                             </select>
                         @elseif($authUser->isDivcomUser())
                             <select class="select2-ajax-wizard"
-                                    name="map_select"
-                                    id="map_select"
+                                    name="loc_division_id"
+                                    id="loc_division_id"
                                     data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                     data-filters="{{json_encode(['id' => $authUser->loc_division_id])}}"
                                     data-preselected-option="{{json_encode(['text' =>  $authUser->locDivision->title_en, 'id' =>  $authUser->loc_division_id])}}"
@@ -336,18 +336,15 @@
                             </select>
                         @else
                             <select class="select2-ajax-wizard"
-                                    name="map_select"
-                                    id="map_select"
+                                    name="loc_district_id"
+                                    id="loc_district_id"
                                     data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                     data-label-fields="{title_en}"
                                     data-placeholder="Select District"
                             >
                             </select>
                         @endif
-                        {{--<div id="map_message">
-                            <br>
-                            <h3 class="text-shadow-light text-center" style="color: #777f85;">Please select <strong>District</strong> to view map</h3>
-                        </div>--}}
+
                         <div id="bd_map_d3" style="display: none"></div>
                         <div class="map_info" style="display: none">
                             <div class="map_content_top">
@@ -516,13 +513,18 @@
             $('.navTabs').removeClass('active')
             $(this).addClass('active')
         })
-        let loc_division_id;
+        let loc_division_id, loc_district_id;
         const isUserDivisionCommissioner = {!! $authUser->isDivcomUser() ? 1 : 0!!};
+        const isDCUser = {!! $authUser->isDCUser() ? 1 : 0 !!};
 
         $(function () {
 
             if (isUserDivisionCommissioner) {
-                loc_division_id = $('#map_select').val();
+                loc_division_id = $('#loc_division_id').val();
+            }
+
+            if (isDCUser) {
+                loc_district_id = $('#loc_district_id').val();
             }
 
             let params = serverSideDatatableFactory({
@@ -537,7 +539,6 @@
                     {
                         "targets": [0, 1, 2, 3, 4],
                         "className": "text-center",
-                        "width": "4%"
                     },
                 ],
                 columns: [
@@ -575,6 +576,7 @@
             params.ajax.data = d => {
                 d.month = $('#month-list').val();
                 d.loc_division_id = loc_division_id;
+                d.loc_district_id = loc_district_id;
             };
             const datatable = $('#dataTable').DataTable(params);
 
@@ -604,6 +606,7 @@
 
             params1.ajax.data = d => {
                 d.loc_division_id = loc_division_id;
+                d.loc_district_id = loc_district_id;
             };
             params1.dom = "<'row'<'col-sm-12'tr>>";
 
@@ -636,6 +639,7 @@
             params2.dom = "<'row'<'col-sm-12'tr>>";
             params2.ajax.data = d => {
                 d.loc_division_id = loc_division_id;
+                d.loc_district_id = loc_district_id;
             };
 
             const datatable2 = $('#dataTable2').DataTable(params2);
@@ -671,6 +675,7 @@
 
             params3.ajax.data = d => {
                 d.loc_division_id = loc_division_id;
+                d.loc_district_id = loc_district_id;
             };
             params3.dom = "<'row'<'col-sm-12'tr>>";
 
@@ -708,6 +713,7 @@
             params4.dom = "<'row'<'col-sm-12'tr>>";
             params4.ajax.data = d => {
                 d.loc_division_id = loc_division_id;
+                d.loc_district_id = loc_district_id;
             };
             const datatable4 = $('#dataTable4').DataTable(params4);
 
@@ -1102,16 +1108,28 @@
 
             //let url = "{{ asset('assets/dashboard/bd-map-assets/bangladesh_upozila_map.json') }}";
             let url = "{{ asset('assets/dashboard/bd-map-assets/small_bangladesh_geojson_adm3_492_upozila.json') }}";
+            if (isUserDivisionCommissioner) {
+                 url = "{{ asset('assets/dashboard/bd-map-assets/small_bangladesh_geojson_adm2_64_districts_zillas.json') }}"
+            }
             d3.json(url, function (json) {
                 const getMap = () => {
                     $('#bd_map_d3').show();
-                    let districtElm = $('#map_select option:selected');
+                    let districtElm = $('#loc_district_id option:selected');
                     let district = districtElm.text().toLowerCase();
 
                     let division_id = $('#loc_division_id option:selected').val();
+                    let divisionOrDistrictName = district;
+                    let mapType = "ADM2_EN";
+                    let isDivisionMap = false;
+                    if (isUserDivisionCommissioner) {
+                        divisionOrDistrictName = $('#loc_division_id option:selected').text().toLowerCase();
+                        mapType = "ADM1_EN";
+                        isDivisionMap = true;
+                    }
+                    let mapChildType = isDivisionMap ? "ADM2_EN" : "ADM3_EN";
 
                     $.ajax({
-                        data: {district_id: division_id},
+                        data: isUserDivisionCommissioner ? {division_id: division_id} : {district_id: districtElm.val()},
                         url: "{{ route('admin.admin-dashboard-upazila-job-statistic') }}",
                         type: 'POST',
                         success: function (data) {
@@ -1119,15 +1137,16 @@
                         }
                     });
 
-                    const words = district.split(" ");
+                    const words = divisionOrDistrictName.split(" ");
 
                     for (let i = 0; i < words.length; i++) {
                         words[i] = words[i][0]?.toUpperCase() + words[i].substr(1);
                     }
-                    district = words.join(" ");
+                    divisionOrDistrictName = words.join(" ");
+
 
                     let maxTotal = d3.max(json.features, function (d) {
-                        return d.properties.ADM2_EN;
+                        return d.properties[mapType];
                     });
 
                     let colorScale = d3.scale.quantile()
@@ -1152,18 +1171,18 @@
                         .attr("d", path)
                         .style("opacity", 0.5)
                         .attr('class', 'bd')
-                        .filter((d) => d.properties.ADM2_EN == district)
+                        .filter((d) => d.properties[mapType] == divisionOrDistrictName)
                         .attr("class", "labels")
                         .on('mouseover', function (d, i) {
-                            let districtId = $('#map_select').val();
+                            let districtId = $('#loc_district_id').val();
                             let upazilaName = d.properties.ADM3_EN;
-                            console.log('districtId: ' + districtId + 'Thana: ' + d.properties.ADM3_EN);
                             let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
-                            console.table(upazilaStatistics)
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
                                 $('#map_message').hide();
-                                $("#district").text(d.properties.ADM3_EN + " Thana");
+                                $("#district").text(function () {
+                                    return isDivisionMap ? d.properties.ADM2_EN + "district" :  d.properties.ADM3_EN + " Thana";
+                                });
                                 $("#total_unemployed").text(upazilaStatistics?.total_unemployed);
                                 $("#total_employed").text(upazilaStatistics?.total_employed);
                                 $("#total_vacancy").text(upazilaStatistics?.total_vacancy);
@@ -1175,7 +1194,7 @@
                             d3.select(this).transition().duration(300).style("opacity", 1);
                             div.transition().duration(300)
                                 .style("opacity", .9)
-                                .text(d.properties.ADM3_EN + " - " + d.properties.ADM2_EN)
+                                .text(d.properties[mapType] + "-" + d.properties[mapChildType])
                                 .style("color", "#fff")
                                 .style("padding", "5px 5px")
                                 .style("border", "1px solid #fff")
@@ -1215,11 +1234,11 @@
 
                     //Remove unnecessary path
                     bangladesh.selectAll('path')
-                        .filter((d) => d.properties.ADM2_EN != district).remove();
+                        .filter((d) => d.properties[mapType] != divisionOrDistrictName).remove();
 
                     //Remove unnecessary label
                     bangladesh.selectAll('text')
-                        .filter((d) => d.properties.ADM2_EN != district).remove();
+                        .filter((d) => d.properties[mapType] != divisionOrDistrictName).remove();
 
 
                     //viewBox
@@ -1228,7 +1247,7 @@
                 }
                 getMap();
 
-                $('#map_select').on('change', function () {
+                $('#loc_district_id').on('change', function () {
                     getMap();
                 });
             });

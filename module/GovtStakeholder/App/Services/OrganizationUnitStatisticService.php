@@ -122,6 +122,9 @@ class OrganizationUnitStatisticService
         if ($request->input('loc_division_id')) {
             $organizationUnitStatistics->where('organization_units.loc_division_id', $request->input('loc_division_id'));
         }
+        if ($request->input('loc_district_id')) {
+            $organizationUnitStatistics->where('organization_units.loc_district_id', $request->input('loc_district_id'));
+        }
         return DataTables::eloquent($organizationUnitStatistics)
             ->editColumn('survey_date', function () {
                 return "";
@@ -137,31 +140,12 @@ class OrganizationUnitStatisticService
         if ($request->input('loc_division_id')) {
             $organizationUnitStatistics->where('organization_units.loc_division_id', $request->input('loc_division_id'));
         }
+
+        if ($request->input('loc_district_id')) {
+            $organizationUnitStatistics->where('organization_units.loc_district_id', $request->input('loc_district_id'));
+        }
         return DataTables::eloquent($organizationUnitStatistics)
             ->toJson();
     }
 
-    public function vacancyStatistic(Request $request): JsonResponse
-    {
-
-        $occpationWiseStatistics = OccupationWiseStatistic::select(
-            [
-                'occupation_wise_statistics.id',
-                'occupation_wise_statistics.next_month_skill_youth as vacancy',
-                'occupation_wise_statistics.current_month_skilled_youth',
-                'occupations.title_en as occupation_name',
-            ]);
-
-        if ($request->input('month')) {
-            $occpationWiseStatistics->whereMonth('survey_date', $request->input('month'));
-        }
-
-        $occpationWiseStatistics->join('occupations', 'occupation_wise_statistics.occupation_id', '=', 'occupations.id');
-
-        return DataTables::eloquent($occpationWiseStatistics)
-            ->editColumn('survey_date', function () {
-                return "";
-            })
-            ->toJson();
-    }
 }
