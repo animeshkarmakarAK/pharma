@@ -221,51 +221,24 @@
             </div>
 
             <div class="row">
-                @if($galleries->count())
-                <div class="gallery_filter col-md-12">
-                    <ul class="list-inline" id="galleryCategoryName">
-                        <li class="gallery-category-filter list-inline-item bg-dark px-2 mx-0"
-                            data-gallery-category-id="" style="cursor: pointer">All
-                        </li>
-                        @foreach($galleryCategories as $galleryCategory)
-                            <li data-gallery-category-id="{{ $galleryCategory->id }}"
-                                class="gallery-category-filter list-inline-item bg-light  px-2 mx-0"
-                                style="cursor: pointer">
-                                {{ $galleryCategory->title_en }}
-                            </li>
-                        @endforeach
-                    </ul>
-
-                </div>
-                <div class="demo-gallery col-md-12">
-                    <ul id="lightgallery" class="list-inline row">
-                        @if(!empty($galleries))
-                            @foreach($galleries as $gallery)
-                                <li class="gallery_category_id_{{ $gallery->gallery_category_id }} list-inline-item col-sm-3 m-0 mb-2">
-                                    <a href="" data-toggle="modal" data-target="#gallery_id_{{$gallery->id}}">
-                                        @if($gallery->content_type == \App\Models\Gallery::CONTENT_TYPE_IMAGE)
-                                            <img class="img-responsive" style="width: 100%; height: 200px"
-                                                 src="{{asset('/storage/'. $gallery->content_path)}}">
-                                        @else
-                                            <div class="position-relative">
-                                                <div class="iframe-layer"></div>
-                                                <div class="iframe-class">
-                                                    <iframe width="100%" height="200px" style="border: none"
-                                                            src={{"https://www.youtube.com/embed/".$gallery->you_tube_video_id}}>
-                                                    </iframe>
-                                                </div>
+                @if($galleryCategories)
+                    <div class="col-md-12">
+                        <ul class="list-inline row">
+                            @foreach($galleryCategories as $galleryCategory)
+                                <div class="col-md-3">
+                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                        <div class="card mr-1">
+                                            <img class="img-responsive" style="width: 100%; height: 180px"
+                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $galleryCategory->title_bn }}</h5>
                                             </div>
-                                        @endif
+                                        </div>
                                     </a>
-                                </li>
+                                </div>
                             @endforeach
-                        @else
-                            <p>No image in gallery</p>
-
-                        @endif
-
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
                 @else
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
@@ -274,29 +247,10 @@
                     </div>
                 @endif
             </div>
+
         </div>
     </section>
 
-    <!-- Modal -->
-    @if(!empty($galleries))
-        @foreach($galleries as $gallery)
-            <div class="modal fade" id="gallery_id_{{ $gallery->id }}" tabindex="-1" role="dialog"
-                 aria-labelledby="gallery_id_{{ $gallery->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content gallery_modal">
-                        @if($gallery->content_type == \App\Models\Gallery::CONTENT_TYPE_IMAGE)
-                            <img class="img-responsive"
-                                 src="{{asset('/storage/'. $gallery->content_path)}}" width="100%">
-                        @else
-                            <iframe class="img-responsive" height="250px"
-                                    src="{{'https://www.youtube.com/embed/'.$gallery->you_tube_video_id}}">
-                            </iframe>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    @endif
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
         <div class="modal-dialog" style="max-width: 80%;">

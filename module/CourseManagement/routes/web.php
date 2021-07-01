@@ -55,6 +55,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::resource('visitor-feedback', Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class)->only(['index', 'destroy', 'show']);
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
+    Route::get('featured-galleries', [\Module\CourseManagement\App\Http\Controllers\GalleryCategoryController::class, 'featuredGalleries'])->name('gallery-album.featured');
+    Route::post('featured-galleries', [\Module\CourseManagement\App\Http\Controllers\GalleryCategoryController::class, 'changeFeaturedGalleries'])->name('gallery-album.change-featured');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
@@ -82,4 +84,10 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
 
     Route::get('sc/{page_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
         ->name('static-content.show');
+
+    Route::post('youth/recover-access-key-by-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
+    Route::post('youth/registration-success-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRegistrationSuccess'])->name('youth.registration-success-mail');
+    Route::get('youth/check-unique-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthEmailUniqueness'])->name('youth.check-unique-email');
+
+
 });

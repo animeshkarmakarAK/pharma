@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use App\Helpers\Classes\FileHandler;
 use Module\CourseManagement\App\Models\GalleryCategory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,6 +17,13 @@ class GalleryCategoryService
 {
     public function createGalleryCategory(array $data): GalleryCategory
     {
+        if (!empty($data['image'])) {
+            $filename = FileHandler::storePhoto($data['image'], 'gallery-category');
+            $data['image'] = 'gallery-category/' . $filename;
+        } else {
+            $data['image'] = GalleryCategory::DEFAULT_IMAGE;
+        }
+
         return GalleryCategory::create($data);
     }
 
@@ -30,6 +38,11 @@ class GalleryCategoryService
             'title_en' => ['required', 'string', 'max:191'],
             'title_bn' => ['required', 'string', 'max:191'],
             'institute_id' => ['required', 'int', 'exists:institutes,id'],
+            'image' => [
+                'nullable',
+                'file',
+                'mimes:jpg,bmp,png,jpeg,svg',
+            ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -41,6 +54,21 @@ class GalleryCategoryService
      */
     public function updateGalleryCategory(GalleryCategory $galleryCategory, array $data): GalleryCategory
     {
+        if ($galleryCategory->image && $galleryCategory->logoIsDefault() && !empty($data['image'])) {
+            FileHandler::deleteFile($galleryCategory->image);
+        }
+
+        if (!empty($data['image'])) {
+            $filename = FileHandler::storePhoto($data['image'], 'gallery-category');
+            $data['image'] = 'gallery-category/' . $filename;
+
+        } else {
+            unset($data['image']);
+        }
+
+        if (empty($galleryCategory->image) && empty($data['image'])) {
+            $data['image'] = GalleryCategory::DEFAULT_IMAGE;
+        }
         $galleryCategory->fill($data);
         $galleryCategory->save();
         return $galleryCategory;

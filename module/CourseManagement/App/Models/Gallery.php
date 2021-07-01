@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon publish_date
  * @property Carbon archive_date
  * @property string you_tube_video_id
+ * @property-read GalleryCategory galleryCategory
  */
 class Gallery extends BaseModel
 {

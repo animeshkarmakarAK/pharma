@@ -104,10 +104,12 @@ class YouthAcademicQualification extends BaseModel
     public const EXAMINATION_HSC = '2';
     public const EXAMINATION_GRADUATION = '3';
     public const EXAMINATION_MASTERS = '4';
+    public const EXAMINATION_JSC = '5';
 
     public static function getExaminationOptions(): array
     {
         return [
+          self::EXAMINATION_JSC => __('J.S.C'),
           self::EXAMINATION_SSC => __('S.S.C'),
           self::EXAMINATION_HSC => __('H.S.C'),
           self::EXAMINATION_GRADUATION => __('Graduation'),
