@@ -151,9 +151,11 @@ class GalleryCategoryController extends Controller
 
     /**
      * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function featuredGalleries(): View
+    public function showFeaturedGalleries(): View
     {
+//        $this->authorize('viewAny'); TODO:permission: only super admin|institute user can see this page to edit
         $albums = GalleryCategory::with('galleries')->get();
         return \view(self::VIEW_PATH . 'featured', compact('albums'));
     }
@@ -166,6 +168,9 @@ class GalleryCategoryController extends Controller
        foreach ($request->data as $id) {
            GalleryCategory::where('id', $id)->update(['featured' => '1']);
        }
-       return response()->json("Featured galleries updated");
+        return response()->json([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Featured Galleries']),
+            'alertType' => 'success',
+        ]);
     }
 }

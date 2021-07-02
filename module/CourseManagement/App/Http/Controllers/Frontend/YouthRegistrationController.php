@@ -119,9 +119,6 @@ class YouthRegistrationController extends Controller
 
         $accessKey = $youth->access_key;
         $redirectTo = route('course_management::youth-registration.success', $accessKey);
-//        Mail::to('animesh.pust@gmail.com')->send(new YouthRegistrationSuccessMail("registration successful!"));
-
-       // Mail::to('animesh.pust@gmail.com')->send(new YouthRegistrationSuccessMail("registration successful!"));
 
         return response()->json([
             'message' => __('generic.object_created_successfully', ['object' => 'Registration']),

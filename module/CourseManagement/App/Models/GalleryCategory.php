@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Models;
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,10 +18,12 @@ use Illuminate\Support\Carbon;
  * @property string title_en
  * @property string title_bn
  * @property string image
+ * @property bool featured
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
  * @property int institute_id
  * @property-read Institute institute
+ * @property-read Collection|Gallery galleries
  */
 class GalleryCategory extends BaseModel
 {
@@ -43,4 +46,5 @@ class GalleryCategory extends BaseModel
     {
         return $this->hasMany(Gallery::class);
     }
+
 }

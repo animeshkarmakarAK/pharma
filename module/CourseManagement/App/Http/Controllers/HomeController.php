@@ -27,7 +27,11 @@ class HomeController extends BaseController
             ]);
 
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
-            $galleryCategories = GalleryCategory::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->get();
+            $galleryCategories = GalleryCategory::active()
+                ->orderBy('id', 'DESC')
+                ->where(['institute_id' => $currentInstitute->id])
+                ->where(['featured' => 1])
+                ->get();
 
             $sliders = Slider::active()
                 ->where(['institute_id' => $currentInstitute->id])

@@ -18,7 +18,8 @@
                             <div class="card-header row">
                                 <div class="custom-control custom-checkbox">
                                     <input class="feature-checkbox custom-control-input" type="checkbox"
-                                           id="{{ $album->id }}" name="{{ $album->id }}">
+                                           id="{{ $album->id }}"
+                                           name="{{ $album->id }}" {{ $album->featured == 1 ? "checked" :''}}>
                                     <label for="{{ $album->id }}" class="custom-control-label">{{ $album->title_en }}
                                         <sup
                                             style="color: #eeeeee">{{ $album->featured ? "featured" : "not featuring" }}</sup></label>
@@ -32,7 +33,6 @@
             </div>
             <input type="submit" class="btn btn-primary float-right" value="change">
         </form>
-
     </div>
 @endsection
 
@@ -46,34 +46,47 @@
             return nFeaturedGalleries <= maxFeaturedGallery;
         }
 
+        function showToasterAlert(response) {
+            let alertType = response.alertType;
+            let alertMessage = response.message;
+            let alerter = toastr[alertType];
+            alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+        }
+
         $(document).ready(function () {
             $('.feature-checkbox').on('click', function (e) {
                 if (!checkMaxFeaturedGallery() && $(this).is(':checked')) {
                     e.preventDefault();
+                    showToasterAlert({
+                        alertType: "error",
+                        message: "Max " + maxFeaturedGallery + " features are supported!",
+                    });
                     return false;
                 }
             })
         })
 
-        $( "form" ).submit(function( event ) {
+
+        $("form").submit(function (event) {
 
             // Stop form from submitting normally
             event.preventDefault();
 
             // Get some values from elements on the page:
-            const $form = $( this ),
-                url = $form.attr( "action" );
+            const $form = $(this),
+                url = $form.attr("action");
 
-            let checkedAlbums = $('input[type=checkbox]:checked').map(function(_, el) {
+            const checkedAlbums = $('input[type=checkbox]:checked').map(function (_, el) {
                 return $(el).attr('id');
             }).get();
 
-            const data = $(this).serialize();
-            let posting = $.post( url, { data: checkedAlbums } );
+            let posting = $.post(url, {data: checkedAlbums});
 
-            // Put the results in a div
-            posting.done(function( data ) {
-               console.log('done');
+            posting.done(function (data) {
+                //refresh page
+                location.reload();
+                //show success alert
+                showToasterAlert(data);
             });
         });
     </script>

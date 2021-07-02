@@ -221,17 +221,17 @@
             </div>
 
             <div class="row">
-                @if($galleryCategories)
+                @if(!empty($galleryCategories))
                     <div class="col-md-12">
                         <ul class="list-inline row">
                             @foreach($galleryCategories as $galleryCategory)
                                 <div class="col-md-3">
-                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                    <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
                                         <div class="card mr-1">
                                             <img class="img-responsive" style="width: 100%; height: 180px"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
                                             <div class="card-body">
-                                                <h5 class="card-title">{{ $galleryCategory->title_bn }}</h5>
+                                                <h5 class="card-title">{{ $galleryCategory->title_en }}</h5>
                                             </div>
                                         </div>
                                     </a>
@@ -393,8 +393,8 @@
 
 
             let galleryCategoryName = document.getElementById("galleryCategoryName");
-            let galleryCategoryBtn = galleryCategoryName.getElementsByClassName("gallery-category-filter");
-            for (var i = 0; i < galleryCategoryBtn.length; i++) {
+            let galleryCategoryBtn = galleryCategoryName?.getElementsByClassName("gallery-category-filter");
+            for (var i = 0; i < galleryCategoryBtn?.length; i++) {
                 galleryCategoryBtn[i].addEventListener("click", function () {
                     var current = document.getElementsByClassName("bg-dark");
                     current[0].className = current[0].className.replace(" bg-dark", " bg-light");

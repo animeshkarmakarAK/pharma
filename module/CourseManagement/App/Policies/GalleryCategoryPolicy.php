@@ -88,4 +88,10 @@ class GalleryCategoryPolicy extends BasePolicy
     {
         return $user->hasPermission('force_delete_gallery_category');
     }
+
+
+    public function viewFeaturedGalleries(User $user): bool
+    {
+        return $user->isInstituteUser();
+    }
 }
