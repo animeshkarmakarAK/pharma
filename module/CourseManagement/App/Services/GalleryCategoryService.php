@@ -43,6 +43,9 @@ class GalleryCategoryService
                 'file',
                 'mimes:jpg,bmp,png,jpeg,svg',
             ],
+            'featured' => [
+                'nullable',
+            ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -95,6 +98,7 @@ class GalleryCategoryService
             'gallery_categories.id',
             'gallery_categories.title_en',
             'gallery_categories.title_bn',
+            'gallery_categories.featured',
             'institutes.title_en as institute_title_en'
         ]);
         $galleryCategories->join('institutes', 'gallery_categories.institute_id', 'institutes.id');
@@ -114,7 +118,14 @@ class GalleryCategoryService
                 }
                 return $str;
             }))
-            ->rawColumns(['action'])
+            ->editColumn('featured', function (GalleryCategory $galleryCategory) {
+                if ($galleryCategory->featured == 1) {
+                    return 1;
+                }else {
+                    return 0;
+                }
+            })
+            ->rawColumns(['action', 'featured'])
             ->toJson();
     }
 }
