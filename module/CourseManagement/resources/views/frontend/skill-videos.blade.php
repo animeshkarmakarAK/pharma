@@ -3,7 +3,6 @@
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
 @extends($layout)
-
 @section('content')
     <div class="container-fluid">
         <div class="row mt-2 mb-5">
@@ -15,7 +14,7 @@
 
                     <div class="col-md-3">
                         <input type="search" name="search" id="search" class="form-control rounded-0"
-                               placeholder="অনুসন্ধান...">
+                               placeholder="সার্চ...">
                     </div>
 
                     @if(!empty($currentInstitute))
@@ -26,11 +25,12 @@
                                 <select class="form-control select2-ajax-wizard"
                                         name="institute_id"
                                         id="institute_id"
-                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                        data-label-fields="{title_bn}"
+                                        data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                        data-label-fields="{title_en}"
                                         data-dependent-fields="#video_id|#video_category_id"
-                                        data-placeholder="ইনস্টিটিউট নির্বাচন করুন"
+                                        data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                 >
+                                    <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
                                 </select>
                             </div>
                         </div>
@@ -42,12 +42,12 @@
                                     name="video_category_id"
                                     id="video_category_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\VideoCategory::class)}}"
-                                    data-label-fields="{title_bn}"
+                                    data-label-fields="{title_en}"
                                     data-depend-on="institute_id"
                                     data-dependent-fields="#video_id"
-                                    data-placeholder="ভিডিও ক্যাটাগরি নির্বাচন করুন"
+                                    data-placeholder="ভিডিও ক্যাটাগরি সিলেক্ট করুন"
                             >
-                                <option value="">ভিডিও ক্যাটাগরি নির্বাচন করুন</option>
+                                <option value="">ভিডিও ক্যাটাগরি সিলেক্ট করুন</option>
                             </select>
                         </div>
                     </div>
@@ -58,11 +58,11 @@
                                     name="video_id"
                                     id="video_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}"
-                                    data-label-fields="{title_bn} - {institute_id}"
+                                    data-label-fields="{title_en} - {institute_id}"
                                     data-depend-on-optional="institute_id"
-                                    data-placeholder="ভিডিও নির্বাচন করুন"
+                                    data-placeholder="ভিডিও সিলেক্ট করুন"
                             >
-                                <option value="">ভিডিও নির্বাচন করুন</option>
+                                <option value="">ভিডিও সিলেক্ট করুন</option>
                             </select>
                         </div>
                     </div>
@@ -187,22 +187,24 @@
                 window.scrollTo(0,0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
-                    html += '<div class="text-center" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center h3">কোন ভিডিও পাওয়া যায়নি!</div>';
+                    html += '<div class="text-center" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
                 }
                 $.each(response.data?.data, function (i, item) {
                     html += template(item);
                 });
 
                 $('#container-skill-videos').html(html);
-                $('.prev-next-button').html(response?.pagination);
+                // $('.prev-next-button').html(response?.pagination);
+                console.table("response",response.data.links);
 
-                // let link_html = '<nav> <ul class="pagination">';
-                // $.each(response.links, function (i, link) {
-                //     link_html += paginatorLinks(link);
-                //     // window.history.pushState("", "", link.url);
-                // });
-                // link_html += '</ul></nav>';
-                // $('.prev-next-button').html(link_html);
+                let link_html = '<nav> <ul class="pagination">';
+                let links = response?.data?.links;
+                $.each(links, function (i, link) {
+                    link_html += paginatorLinks(link);
+                    // window.history.pushState("", "", link.url);
+                });
+                link_html += '</ul></nav>';
+                $('.prev-next-button').html(link_html);
             });
         }
 
@@ -212,7 +214,9 @@
             $(document).on('click', '.pagination .page-link', function (e) {
                 e.preventDefault();
                 let url = $(this).attr('href');
-                videoSearch(url);
+                if (url) {
+                    videoSearch(url);
+                }
             });
 
             $('#skill-video-search-btn').on('click', function () {
