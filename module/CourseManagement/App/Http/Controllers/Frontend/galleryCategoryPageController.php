@@ -19,13 +19,12 @@ class galleryCategoryPageController
             ->where(['institute_id' => $currentInstitute->id])
             ->where(['featured' => 1])
             ->get();
-        //dd($galleryCategories);
-        return view(self::VIEW_PATH. 'gallery-categories', compact('galleryCategories'));
+        return view(self::VIEW_PATH . 'gallery-categories', compact('galleryCategories'));
     }
 
     public function singleGalleryCategoryPage(GalleryCategory $galleryCategory)
     {
         $galleries = $galleryCategory->galleries;
-        return view(self::VIEW_PATH.'gallery-category', compact('galleryCategory', 'galleries'));
+        return view(self::VIEW_PATH . 'gallery-category', compact('galleryCategory', 'galleries'));
     }
 }

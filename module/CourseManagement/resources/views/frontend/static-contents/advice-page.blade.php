@@ -25,7 +25,8 @@
                                             </div>
                                             <div class="col-md-12 input_area">
 
-                                                <form action="{{ route('course_management::visitor-feedback.store') }}" method="POST" class="edit-add-form" >
+                                                <form action="{{ route('course_management::visitor-feedback.store') }}"
+                                                      method="POST" class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
                                                         <label for="name" class="col-sm-2 control-label text-right">নাম
@@ -34,8 +35,10 @@
                                                             <input required="required" maxlength="255" id="name"
                                                                    class="form-control" type="text" name="name"
                                                                    aria-required="true">
-                                                            <input type="hidden" name="institute_id" value="{{$currentInstitute->id}}">
-                                                            <input type="hidden" name="form_type" value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK}}">
+                                                            <input type="hidden" name="institute_id"
+                                                                   value="{{$currentInstitute->id}}">
+                                                            <input type="hidden" name="form_type"
+                                                                   value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
@@ -66,7 +69,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
-                                                        <label for="suggestion" class="col-sm-2 control-label text-right">মতামত
+                                                        <label for="suggestion"
+                                                               class="col-sm-2 control-label text-right">মতামত
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="comment" rows="4"
@@ -165,7 +169,7 @@
                 },
                 email: {
                     required: true,
-                    email:true
+                    email: true
                 }
             },
             messages: {

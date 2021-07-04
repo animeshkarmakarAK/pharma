@@ -250,7 +250,8 @@
         </div>
         @if(!empty($galleryCategories->count()>4))
             <div class="col-md-12 text-center margin-10">
-                <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">আরও গ্যালারি দেখুন</a>
+                <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">আরও গ্যালারি
+                    দেখুন</a>
             </div>
         @endif
     </section>
@@ -273,7 +274,7 @@
             }
 
             .slider-area {
-                background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg)  no-repeat center;
+                background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg) no-repeat center;
                 background-size: cover;
                 padding: 100px 0;
             }
