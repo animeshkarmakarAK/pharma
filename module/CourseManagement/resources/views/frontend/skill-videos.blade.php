@@ -5,7 +5,7 @@
 @extends($layout)
 @section('content')
     <div class="container-fluid">
-        <div class="row mt-2 mb-5">
+        <div class="row">
             <div class="col-md-12">
                 <div class="row justify-content-center">
                     <div class="col-md-1">
@@ -108,7 +108,7 @@
                 html += ' allowfullscreen></iframe>';
             } else {
                 html += '<video controls width="250"';
-                html += '<source src = storage/' + item.uploaded_video_path + ' type="video/mp4"';
+                html += '<source src = /storage/' + item.uploaded_video_path + ' type="video/mp4"';
                 html += '></video>';
             }
             html += '</div>';
@@ -199,10 +199,11 @@
 
                 let link_html = '<nav> <ul class="pagination">';
                 let links = response?.data?.links;
-                $.each(links, function (i, link) {
-                    link_html += paginatorLinks(link);
-                    // window.history.pushState("", "", link.url);
-                });
+                if (links.length > 3) {
+                    $.each(links, function (i, link) {
+                        link_html += paginatorLinks(link);
+                    });
+                }
                 link_html += '</ul></nav>';
                 $('.prev-next-button').html(link_html);
             });
