@@ -15,31 +15,30 @@
                             alt="Institute Logo" data-extra-logo="">
                     </a>
                     <h2 class="pt-4 pb-4"
-                        style="color: #636f41">{{ !empty($currentInstitute)? $currentInstitute->title_en : 'NISE-3' }}
-                        Training Management System</h2>
+                        style="color: #636f41">{{ !empty($currentInstitute)? $currentInstitute->title_bn : 'নাইস-৩' }}
+                        প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম</h2>
                 </div>
                 <div class="col-sm-4 mx-auto">
-                    <form class="login-form" action="#" method="get">
+                    <form class="login-form" action="{{ route('course_management::youth.recover-access-key') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                            <label class="control-label visible-ie8 visible-ie9">Mobile Number</label>
+                            <label class="control-label visible-ie8 visible-ie9">Email Address</label>
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
                                 <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
                                        type="text" autocomplete="off"
-                                       name="access_key"
-                                       id="access_key"
-                                       placeholder="Enter your mobile number">
+                                       name="email"
+                                       id="email"
+                                       placeholder="Enter your email address">
                             </div>
                         </div>
 
-                        <div class="form-actions">
 
-                            <button type="submit" class="btn btn-primary btn-block submit_btn">Recover access key
-                            </button>
-                        </div>
-
+                        <button type="submit" class="btn btn-primary btn-block submit_btn">Recover access key
+                        </button>
+                    </form>
+                    <form>
                         <div class="row">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
                                 <h4> হেল্প ডেস্ক</h4>
@@ -65,7 +64,6 @@
                                         নির্দেশিকা</a></h4>
                             </div>
                         </div>
-
                     </form>
 
 
@@ -182,8 +180,9 @@
             const loginForm = $('.login-form');
             loginForm.validate({
                 rules: {
-                    access_key: {
+                    email: {
                         required: true,
+                        pattern: /\w+@\w+.\w+/
                     },
                 },
                 submitHandler: function (htmlForm) {

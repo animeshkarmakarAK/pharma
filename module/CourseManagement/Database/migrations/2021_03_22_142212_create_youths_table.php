@@ -19,6 +19,7 @@ class CreateYouthsTable extends Migration
             $table->string('name_en', 191)->nullable();
             $table->string('name_bn', 191)->nullable();
             $table->string('mobile', 20)->index('youths_mobile');
+            $table->string('email', 191)->index('youths_email')->unique();
             $table->unsignedTinyInteger('present_address_division_id');
             $table->unsignedTinyInteger('present_address_district_id');
             $table->unsignedSmallInteger('present_address_upazila_id');

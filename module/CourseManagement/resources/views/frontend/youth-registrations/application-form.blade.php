@@ -174,6 +174,13 @@
                                            value="{{ old('mobile') }}" placeholder="Mobile">
                                 </div>
 
+                                <div class="form-group col-md-6">
+                                    <label for="email">Email(ইমেল) <span class="required">*</span>
+                                        :</label>
+                                    <input type="text" class="form-control" name="email" id="email"
+                                           value="{{ old('email') }}" placeholder="Email">
+                                </div>
+
 
                                 <div class="form-group col-md-6">
                                     <label for="date_of_birth">Date of Birth (জন্ম তারিখ) <span
@@ -310,7 +317,7 @@
                                             <input type="radio" name="disable_status"
                                                    class="custom-control-input"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
-                                                   id="physically_disable" {{ old('disable_status') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : '' }}>
+                                                   id="physically_disable" {{ old('disable_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="physically_disable">Yes</label>
                                         </div>
                                         <div class="col">
@@ -606,6 +613,105 @@
                                     class="fa fa-address-book"> </i> {{ __('Academic Qualification') }}</h3>
                         </div>
                         <div class="card-body row">
+                            <div class="col-md-6 academic-qualification-jsc">
+                                <div class="card col-md-12 custom-bg-gradient-info">
+                                    <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
+                                         data-target=".jsc_collapse" aria-controls=".jsc_collapse">
+                                        <h3 class="card-title text-primary d-inline-flex">জে.এস.সি/সমমান
+                                            <div class="form-check ml-3">
+                                                <input class="form-check-input" name="jsc_examination_info"
+                                                       id="jsc_examination_info"
+                                                       type="checkbox" {{ old('jsc_examination_info') == 'on' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="">
+                                                    <p>(পাস)</p>
+                                                </label>
+                                            </div>
+                                        </h3>
+                                    </div>
+                                    <div class="card-body jsc_collapse collapse hide">
+
+                                        <input type="hidden" name="academicQualification[jsc][examination]"
+                                               value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC }}">
+
+                                        <div class="form-row form-group">
+                                            <label for="jsc_examination_name"
+                                                   class="col-md-4 col-form-label">পরীক্ষা<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <select name="academicQualification[jsc][examination_name]"
+                                                        id="jsc_examination_name" class="select2 form-control">
+                                                    <option value=""></option>
+                                                    <option value="1">JSC</option>
+                                                    <option value="2">JDC</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row form-group mt-2">
+                                            <label for="jsc_board" class="col-md-4 col-form-label">বোর্ড<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <select name="academicQualification[jsc][board]" id="jsc_board"
+                                                        class="select2">
+                                                    @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
+                                                        <option value=""></option>
+                                                        <option
+                                                            value="{{ $key }}" {{ old('academicQualification.jsc.board') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row form-group mt-2">
+                                            <label for="jsc_roll" class="col-md-4 col-form-label">রোল নং<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" name="academicQualification[jsc][roll_no]"
+                                                       id="jsc_roll" class="form-control"
+                                                       value="{{ old('academicQualification.jsc.roll_no') }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row form-group mt-2">
+                                            <label for="jsc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
+                                                নং<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="jsc_reg_no"
+                                                       name="academicQualification[jsc][reg_no]" class="form-control"
+                                                       value="{{ old('academicQualification.jsc.reg_no') }}">
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="academicQualification[jsc][result]" value="5">
+                                        <div class="form-row form-group mt-2">
+                                            <label for="jsc_result" class="col-md-4 col-form-label">ফলাফল<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="number" name="academicQualification[jsc][grade]"
+                                                       id="jsc_gpa" class="form-control"
+                                                       width="10" placeholder="জি.পি.এ"
+                                                       value="{{ old('academicQualification.jsc.grade') }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row form-group mt-2">
+                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">পাসের বছর<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <select name="academicQualification[jsc][passing_year]"
+                                                        id="jsc_passing_year" class="select2">
+                                                    <option value=""></option>
+                                                    @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
+                                                        <option
+                                                            value="{{ $i }}" {{ old('academicQualification.jsc.passing_year') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-6 academic-qualification-ssc">
                                 <div class="card col-md-12 custom-bg-gradient-info">
                                     <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
@@ -751,7 +857,7 @@
                                     <div class="card-body hsc_collapse collapse hide">
 
                                         <input type="hidden" name="academicQualification[hsc][examination]"
-                                               value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
+                                               value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
                                         <div class="form-row form-group">
                                             <label for="hsc_examination_name" class="col-md-4 col-form-label">Examination<span
                                                     class="required">*</span></label>
@@ -1455,7 +1561,6 @@
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -1529,6 +1634,9 @@
                     langBN: true,
                     maxlength: 30,
                 },
+                number_of_siblings: {
+                    max: 99,
+                },
                 father_name: {
                     required: true,
                 },
@@ -1538,6 +1646,11 @@
                 mobile: {
                     required: true,
                     pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                },
+                email: {
+                    required: true,
+                    pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+                    remote: "{!! route('course_management::youth.check-unique-email') !!}",
                 },
                 institute_id: {
                     required: true,
@@ -1601,6 +1714,50 @@
                     required: true,
                     //accept: "image/*",
                     youthSignatureSize: true,
+                },
+                "academicQualification[jsc][examination_name]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+                "academicQualification[jsc][board]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+                "academicQualification[jsc][roll_no]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+
+                "academicQualification[jsc][reg_no]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+                "academicQualification[jsc][result]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+                "academicQualification[jsc][group]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+                "academicQualification[jsc][passing_year]": {
+                    required: function () {
+                        return $('#jsc_examination_info').prop('checked');
+                    }
+                },
+                "academicQualification[jsc][grade]": {
+                    required: function () {
+                        return !$('#jsc_gpa').prop('hidden') && $("#jsc_examination_info").prop('checked');
+                    },
+
+                    min: 1,
+                    max: 5
                 },
 
                 "academicQualification[ssc][examination_name]": {
@@ -1920,10 +2077,38 @@
                 nid: {
                     required: "Provide either NID number or birth certificate number or passport number",
                 },
+                email: {
+                    remote: "This email address already has been taken.!",
+                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
-                // htmlForm.submit();
+
+                const form = $(htmlForm);
+                const formData = new FormData(htmlForm);
+                const url = form.attr("action");
+
+                // Send the data using post
+                $.ajax({
+                    url: url,
+                    data: formData,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('.overlay').hide();
+                        let alertType = response.alertType;
+                        let alertMessage = response.message;
+                        let alerter = toastr[alertType];
+                        alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+
+                        if (response.accessKey) {
+                            window.location.href = response.redirectTo;
+                        }
+                    },
+                });
+
+                return false;
             }
         });
 
@@ -1950,6 +2135,13 @@
         function setFormFields(restrictedField) {
             const ON = 1;
             const OFF = 0;
+
+            if (restrictedField.jsc === ON || restrictedField.jsc === undefined) {
+                $('.jsc_collapse').parent().parent().show();
+            } else {
+                $('.jsc_collapse').parent().parent().hide();
+            }
+
             if (restrictedField.ssc === ON || restrictedField.ssc === undefined) {
                 $('.ssc_collapse').parent().parent().show();
             } else {
@@ -2133,47 +2325,6 @@
         }
 
         $(document).ready(function () {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $(".youthRegistrationForm").submit(function (event) {
-                // Stop form from submitting normally
-                event.preventDefault();
-                $('.overlay').show();
-
-                // Get some values from elements on the page:
-                var $form = $(this),
-                    url = $form.attr("action");
-
-                const form = $('form')[0];
-                const formData = new FormData(form);
-
-                // Send the data using post
-                $.ajax({
-                    url: url,
-                    data: formData,
-                    type: 'POST',
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        $('.overlay').hide();
-                        let alertType = response.alertType;
-                        let alertMessage = response.message;
-                        let alerter = toastr[alertType];
-                        alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
-
-                        if (response.accessKey) {
-                            window.location.href = response.redirectTo;
-                        }
-                    },
-                });
-            });
-
-
             $('#physical_disabilities').parent().hide();
             let applicationFormType = {!! !empty($publishCourse) ? $publishCourse->applicationFormType: 0 !!};
 
@@ -2221,9 +2372,21 @@
                 }
             })
 
+            $('.jsc_collapse').on('show.bs.collapse', function () {
+                $('#jsc_examination_info').prop('checked', true);
+            })
+
+            $('.jsc_collapse').on('hide.bs.collapse', function () {
+                $('#jsc_examination_info').prop('checked', false);
+                $('.ssc_collapse').collapse('hide');
+                $('.hsc_collapse').collapse('hide');
+                $('.graduation_collapse').collapse('hide');
+                $('.masters_collapse').collapse('hide');
+            })
 
             $('.ssc_collapse').on('show.bs.collapse', function () {
                 $('#ssc_examination_info').prop('checked', true);
+                $('.jsc_collapse').collapse('show');
             })
             $('.ssc_collapse').on('hide.bs.collapse', function () {
                 $('#ssc_examination_info').prop('checked', false);
@@ -2235,6 +2398,7 @@
             $('.hsc_collapse').on('show.bs.collapse', function () {
                 $('#hsc_examination_info').prop('checked', true);
                 $('.ssc_collapse').collapse('show');
+                $('.jsc_collapse').collapse('show');
 
             })
             $('.hsc_collapse').on('hide.bs.collapse', function () {
@@ -2246,13 +2410,14 @@
 
             $('.graduation_collapse').on('show.bs.collapse', function () {
                 $('#graduation_examination_info').prop('checked', true);
+                $('.jsc_collapse').collapse('show');
                 $('.ssc_collapse').collapse('show');
                 $('.hsc_collapse').collapse('show');
             })
             $('.graduation_collapse').on('hide.bs.collapse', function () {
                 $('#graduation_examination_info').prop('checked', false);
+                $('.jsc_collapse').collapse('show');
                 $('.masters_collapse').collapse('hide');
-
             })
 
             $('.masters_collapse').on('show.bs.collapse', function () {

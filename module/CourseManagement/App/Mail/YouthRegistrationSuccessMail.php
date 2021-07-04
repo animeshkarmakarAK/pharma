@@ -15,12 +15,16 @@ class YouthRegistrationSuccessMail extends Mailable
      *
      * @return void
      */
-    public $msg;
+    public string $msg;
+    public string $access_key;
 
-    public function __construct()
+    public function __construct($subject, $access_key, $msg)
     {
-
+        $this->access_key = $access_key;
+        $this->msg = $msg;
+        $this->subject = $subject;
     }
+
 
     /**
      * Build the message.
@@ -29,12 +33,8 @@ class YouthRegistrationSuccessMail extends Mailable
      */
     public function build(): YouthRegistrationSuccessMail
     {
-        return $this->from(env('MAIL_FROM_ADDRESS', 'animesh.pust@gmail.com'))
-            ->subject('NISE3 Registration Confirmation')
-            ->view('frontend.email.youth-registration-success')
-            ->with([
-                'msg' => 'You registered successfully in NISE3',
-                'link' => '/inboxes/'
-            ]);
+        return $this->from(env('MAIL_FROM_ADDRESS', 'noreply@skills.gov.bd'))
+            ->subject($this->subject)
+            ->view('course_management::frontend.email.youth-registration-success');
     }
 }

@@ -9,12 +9,10 @@ use App\Models\LocDivision;
 use App\Models\LocUpazila;
 use App\Traits\AuthenticatableUser;
 use App\Traits\ScopeRowStatusTrait;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 
 /**
  * Class Youth

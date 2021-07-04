@@ -2,6 +2,9 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
+use App\Mail\YouthRegistrationSuccessMail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\Youth;
@@ -107,19 +110,57 @@ class YouthController extends Controller
     public function advicePage(): View
     {
         return \view(self::VIEW_PATH . 'static-contents.advice-page');
-
     }
 
     public function generalAskPage(): View
     {
         return \view(self::VIEW_PATH . 'static-contents.general-ask-page');
-
     }
 
     public function contactUsPage(): View
     {
         return \view(self::VIEW_PATH . 'static-contents.contact-us-page');
-
     }
+
+    public function sendMailToRecoverAccessKey(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $youth = Youth::where('email', $request->input('email'))->first();
+
+        if (empty($youth)) {
+            return back()->with([
+                'message' => __('Email address not found!'),
+                'alert-type' => 'error'
+            ])->withInput();
+        }
+
+        $youthEmailAddress = $youth->email;
+        $mailMsg = "Access Key Recovery Mail";
+        $mailSubject = env("MAIL_FROM_NAME") . "- Recover access key";
+        try {
+            Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthRegistrationSuccessMail($mailSubject, $youth->access_key, $mailMsg));
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return back()->with([
+                'message' => __('email send failed'),
+                'alert-type' => 'error'
+            ])->withInput();
+        }
+
+        return back()->with([
+            'message' => __('A recovery email sent to your email'),
+            'alert-type' => 'success'
+        ]);
+    }
+
+
+    public function checkYouthEmailUniqueness(Request $request): JsonResponse
+    {
+        $youth = Youth::where('email', $request->email)->first();
+        if ($youth == null) {
+            return response()->json(true);
+        }
+        return response()->json("email already been taken!");
+    }
+
 }
 

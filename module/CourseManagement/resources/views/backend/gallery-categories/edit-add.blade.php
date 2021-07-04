@@ -82,7 +82,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="image">{{ __('Album Photo') }}</label>
+                                    <label for="image">{{ __('Cover Image') }}</label>
                                     <div class="input-group">
                                         <div class="programme-image-upload-section">
                                             <div class="avatar-preview text-center">
@@ -124,52 +124,6 @@
 
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
-    {{--<script>
-        const EDIT = !!'{{$edit}}';
-        const content_types = @json(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES);
-
-        const editAddForm = $('.edit-add-form');
-        editAddForm.validate({
-            errorElement: "em",
-            onkeyup: false,
-            errorPlacement: function (error, element) {
-                error.addClass("help-block");
-                element.parents(".form-group").addClass("has-feedback");
-
-                if (element.parents(".form-group").length) {
-                    error.insertAfter(element.parents(".form-group").first().children().last());
-                } else if (element.hasClass('select2') || element.hasClass('select2-ajax-custom') || element.hasClass('select2-ajax')) {
-                    error.insertAfter(element.parents(".form-group").first().find('.select2-container'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-                $(element).closest('.help-block').remove();
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-            },
-            rules: {
-                title_en: {
-                    required: true,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
-                },
-                institute_id: {
-                    required: true,
-                },
-
-            },
-            submitHandler: function (htmlForm) {
-                $('.overlay').show();
-                htmlForm.submit();
-            }
-        });
-    </script>--}}
     <script>
         const EDIT = !!'{{$edit}}';
         const content_types = @json(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES);

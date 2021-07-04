@@ -20,7 +20,7 @@ class YouthRegistrationService
     {
         $presentAddress = data_get($data, 'address.present');
         $permanentAddress = data_get($data, 'address.permanent');
-        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile', 'ethnic_group']);
+        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile','email', 'ethnic_group']);
         $youth = array_merge($youth, $presentAddress);
         $youth = array_merge($youth, $permanentAddress);
 
@@ -97,6 +97,7 @@ class YouthRegistrationService
         $rules = [
             'name_en' => 'required|string|max:191',
             'mobile' => 'required|string|max:20',
+            'email' => 'required|string|max:191|email|unique:youths',
             'address.present.present_address_division_id' => 'required|int',
             'address.present.present_address_district_id' => 'required|int',
             'address.present.present_address_upazila_id' => 'required|int',

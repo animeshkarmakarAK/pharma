@@ -21,7 +21,7 @@ class CreateLocDistrictsTable extends Migration {
 			$table->string('title_en');
 			$table->string('title');
 			$table->char('bbs_code', 4)->nullable();
-			$table->boolean('status')->default(1);
+			$table->boolean('row_status')->default(1);
 			$table->integer('created_by')->nullable();
 			$table->integer('updated_by')->nullable();
 			$table->timestamps();

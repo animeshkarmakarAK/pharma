@@ -10,12 +10,12 @@
             <div class="col-md-12">
                 <div class="row justify-content-center m-3">
                     <div class="col-md-1">
-                        <p class="font-weight-bold text-primary">Filter<i class="fa fa-filter"></i></p>
+                        <p class="font-weight-bold text-primary">ফিল্টার <i class="fa fa-filter"></i></p>
                     </div>
 
                     <div class="col-md-3">
                         <input type="search" name="search" id="search" class="form-control rounded-0"
-                               placeholder="search...">
+                               placeholder="অনুসন্ধান...">
                     </div>
 
                     @if(!empty($currentInstitute))
@@ -27,9 +27,9 @@
                                         name="institute_id"
                                         id="institute_id"
                                         data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                        data-label-fields="{title_en}"
+                                        data-label-fields="{title_bn}"
                                         data-dependent-fields="#video_id|#video_category_id"
-                                        data-placeholder="Select Institute"
+                                        data-placeholder="ইনস্টিটিউট নির্বাচন করুন"
                                 >
                                 </select>
                             </div>
@@ -42,12 +42,12 @@
                                     name="video_category_id"
                                     id="video_category_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\VideoCategory::class)}}"
-                                    data-label-fields="{title_en}"
+                                    data-label-fields="{title_bn}"
                                     data-depend-on="institute_id"
                                     data-dependent-fields="#video_id"
-                                    data-placeholder="select video category"
+                                    data-placeholder="ভিডিও ক্যাটাগরি নির্বাচন করুন"
                             >
-                                <option value="">select video category</option>
+                                <option value="">ভিডিও ক্যাটাগরি নির্বাচন করুন</option>
                             </select>
                         </div>
                     </div>
@@ -58,17 +58,17 @@
                                     name="video_id"
                                     id="video_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}"
-                                    data-label-fields="{title_en} - {institute_id}"
+                                    data-label-fields="{title_bn} - {institute_id}"
                                     data-depend-on-optional="institute_id"
-                                    data-placeholder="select video"
+                                    data-placeholder="ভিডিও নির্বাচন করুন"
                             >
-                                <option value="">select video</option>
+                                <option value="">ভিডিও নির্বাচন করুন</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="col-md-1">
-                        <button class="btn btn-success" id="skill-video-search-btn">{{ __('search') }}</button>
+                        <button class="btn btn-success" id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
                     </div>
 
                     <div class="col">
@@ -187,7 +187,7 @@
                 window.scrollTo(0,0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
-                    html += '<div class="text-center" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center h3">No video found!</div>';
+                    html += '<div class="text-center" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center h3">কোন ভিডিও পাওয়া যায়নি!</div>';
                 }
                 $.each(response.data?.data, function (i, item) {
                     html += template(item);

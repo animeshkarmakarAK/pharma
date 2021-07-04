@@ -19,6 +19,8 @@ class CreateGalleryCategoriesTable extends Migration
             $table->unsignedInteger('created_by');
             $table->string('title_en', 191);
             $table->string('title_bn', 191);
+            $table->string('image',191)->nullable();
+            $table->boolean('featured')->default(false);
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();
             $table->foreign('institute_id', 'gallery_categories_fk_institute_id')

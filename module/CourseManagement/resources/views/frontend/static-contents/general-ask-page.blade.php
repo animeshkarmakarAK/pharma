@@ -11,7 +11,7 @@
                 <div class="card pt-5 pb-5">
                     <div class="container">
                         <div class="row mt-5">
-                            <div class="col-md-8">
+                            <div class="col-md-10 mx-auto">
                                 <div class="">
                                     <h2 class="question-answer-heading">সচরাচর জিজ্ঞাস্য</h2>
                                     <div class="panel-group question-answer-container" id="accordion">
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1"></div>
+                            {{--<div class="col-md-1"></div>
                             <div class="col-md-3 general-ask-download-area">
                                 <div class="download-area">
                                     <img src="{{asset('/assets/company/images/pdf-logo.png')}}" width="70%"
@@ -66,7 +66,7 @@
                                        title="Download general-ask details" download>Download
                                     </a>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,7 @@ class GalleryCategoryController extends Controller
         $this->galleryCategoryService = $galleryCategoryService;
         $this->authorizeResource(GalleryCategory::class);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -73,8 +74,8 @@ class GalleryCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\GalleryCategory  $galleryCategory
-     * @return \Illuminate\Contracts\View\Factory|View
+     * @param GalleryCategory $galleryCategory
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
     public function show(GalleryCategory $galleryCategory)
     {
@@ -84,7 +85,7 @@ class GalleryCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\GalleryCategory  $galleryCategory
+     * @param GalleryCategory $galleryCategory
      * @return View
      */
     public function edit(GalleryCategory $galleryCategory): View
@@ -95,9 +96,10 @@ class GalleryCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GalleryCategory  $galleryCategory
+     * @param Request $request
+     * @param GalleryCategory $galleryCategory
      * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, GalleryCategory $galleryCategory): RedirectResponse
     {
@@ -124,7 +126,7 @@ class GalleryCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\GalleryCategory  $galleryCategory
+     * @param GalleryCategory $galleryCategory
      * @return RedirectResponse
      */
     public function destroy(GalleryCategory $galleryCategory): RedirectResponse
@@ -148,5 +150,30 @@ class GalleryCategoryController extends Controller
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->galleryCategoryService->getListDataForDatatable($request);
+    }
+
+    /**
+     * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function showFeaturedGalleries(): View
+    {
+//        $this->authorize('viewAny'); TODO:permission: only super admin|institute user can see this page to edit
+        $albums = GalleryCategory::with('galleries')->get();
+        return \view(self::VIEW_PATH . 'featured', compact('albums'));
+    }
+
+    public function changeFeaturedGalleries(Request $request): JsonResponse
+    {
+        GalleryCategory::where('id', "!=", null)
+            ->update(['featured' => 0]);
+
+       foreach ($request->data as $id) {
+           GalleryCategory::where('id', $id)->update(['featured' => '1']);
+       }
+        return response()->json([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Featured Galleries']),
+            'alertType' => 'success',
+        ]);
     }
 }

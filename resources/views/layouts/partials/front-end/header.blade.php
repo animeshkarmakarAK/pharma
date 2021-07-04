@@ -30,7 +30,7 @@
                 </li>
             @else
                 <li class="nav-item dropdown">
-                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('admin.login-form') }}"
+                    <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('login') }}"
                        id="bd-versions">
                         <i class="far fa-user"></i>&nbsp; লগইন
                     </a>
