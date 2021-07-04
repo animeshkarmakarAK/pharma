@@ -127,6 +127,7 @@ class Menu extends Model
             return $items;
         }
 
+
         return new HtmlString(
             View::make($type, ['items' => $items, 'options' => $options])->render()
         );

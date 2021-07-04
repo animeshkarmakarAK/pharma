@@ -225,7 +225,7 @@
 
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-lg btn-success">Apply Now</button>
+                            <button type="button" class="btn btn-lg btn-success">আবেদন করুন</button>
                         </div>
                     </div>
                 </div>
