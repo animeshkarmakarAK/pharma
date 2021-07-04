@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row mt-2 mb-5">
             <div class="col-md-12">
-                <div class="row justify-content-center m-3">
+                <div class="row justify-content-center">
                     <div class="col-md-1">
                         <p class="font-weight-bold text-primary">ফিল্টার <i class="fa fa-filter"></i></p>
                     </div>
