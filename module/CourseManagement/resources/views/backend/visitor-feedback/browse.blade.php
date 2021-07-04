@@ -28,13 +28,13 @@
 
                                     <div class="filter-item">
                                         <input type="radio" id="feedbacl_filter" name="form_type" class="form_type"
-                                               value="{{\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK}}">
+                                               value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK}}">
                                         <label for="feedbacl_filter">Feedback</label>
                                     </div>
 
                                     <div class="filter-item">
                                         <input type="radio" id="contact_filter" name="form_type" class="form_type"
-                                               value="{{\App\Models\VisitorFeedback::FORM_TYPE_CONTACT}}">
+                                               value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_CONTACT}}">
                                         <label for="contact_filter">Contact</label>
                                     </div>
 
