@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Models;
 
+use App\Models\RowStatus;
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,11 +20,13 @@ use Illuminate\Support\Carbon;
  * @property string title_bn
  * @property string image
  * @property bool featured
+ * @property int row_status
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
  * @property int institute_id
  * @property-read Institute institute
  * @property-read Collection|Gallery galleries
+ * @property-read RowStatus rowStatus
  */
 class GalleryCategory extends BaseModel
 {
