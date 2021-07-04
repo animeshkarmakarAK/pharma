@@ -103,7 +103,7 @@ class GalleryCategoryController extends Controller
      */
     public function update(Request $request, GalleryCategory $galleryCategory): RedirectResponse
     {
-        $validatedData = $this->galleryCategoryService->validator($request)->validate();
+        $validatedData = $this->galleryCategoryService->validator($request, $galleryCategory->id)->validate();
 
         try {
             $this->galleryCategoryService->updateGalleryCategory($galleryCategory, $validatedData);

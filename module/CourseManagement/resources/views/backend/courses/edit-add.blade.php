@@ -177,7 +177,7 @@
                                             <input class="custom-control-input" type="radio" id="row_status_inactive"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                                {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
                                                    class="custom-control-label">Inactive</label>
                                         </div>

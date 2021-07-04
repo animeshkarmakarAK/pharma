@@ -14,7 +14,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title">{{ ! $edit ? 'Add Gallery Category' : 'Update Gallery Category' }}</h3>
+                        <h3 class="card-title">{{ ! $edit ? 'Add Album' : 'Update Album' }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.gallery-categories.index')}}"
@@ -106,6 +106,30 @@
                                 </div>
                             </div>
 
+                            @if($edit)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="row_status">Active Status</label>
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="row_status_active"
+                                                   name="row_status"
+                                                   value="{{ \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_ACTIVE }}"
+                                                {{ ($edit && $galleryCategory->row_status == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                            <label for="row_status_active" class="custom-control-label">Active</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="row_status_inactive"
+                                                   name="row_status"
+                                                   value="{{ \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_INACTIVE }}"
+                                                {{ ($edit && $galleryCategory->row_status == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
+                                            <label for="row_status_inactive"
+                                                   class="custom-control-label">Inactive</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
@@ -192,7 +216,7 @@
             });
 
             $('.imgRemove').on('click', function () {
-                $('#image').parent().find('.avatar-preview img').attr('src',  "https://via.placeholder.com/350x350?text=Photo+Album");
+                $('#image').parent().find('.avatar-preview img').attr('src', "https://via.placeholder.com/350x350?text=Photo+Album");
                 $('#image').val("").valid();
                 $(this).css('display', 'none');
             })

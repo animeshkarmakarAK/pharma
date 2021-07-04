@@ -5,6 +5,7 @@ namespace Module\CourseManagement\App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
+use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\GalleryCategory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +33,7 @@ class GalleryCategoryService
      * @param null $id
      * @return Validator
      */
-    public function validator(Request $request): Validator
+    public function validator(Request $request, $id = null): Validator
     {
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
@@ -45,6 +46,13 @@ class GalleryCategoryService
             ],
             'featured' => [
                 'nullable',
+            ],
+            'row_status' => [
+                Rule::requiredIf(function () use ($id) {
+                    return !empty($id);
+                }),
+                'int',
+                'exists:row_status,code',
             ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
@@ -103,6 +111,10 @@ class GalleryCategoryService
         ]);
         $galleryCategories->join('institutes', 'gallery_categories.institute_id', 'institutes.id');
 
+        if ($authUser->isInstituteUser()) {
+            $galleryCategories->where('institute_id', $authUser->institute_id);
+        }
+
         return DataTables::eloquent($galleryCategories)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (GalleryCategory $galleryCategory) use ($authUser) {
                 $str = '';
@@ -118,13 +130,6 @@ class GalleryCategoryService
                 }
                 return $str;
             }))
-            ->editColumn('featured', function (GalleryCategory $galleryCategory) {
-                if ($galleryCategory->featured == 1) {
-                    return 1;
-                }else {
-                    return 0;
-                }
-            })
             ->rawColumns(['action', 'featured'])
             ->toJson();
     }
