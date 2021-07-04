@@ -85,7 +85,7 @@
                         title: "Institute Name",
                         data: "institute_title_en",
                         name: "title_en",
-                        visible: false,
+                        visible: {{ \App\Helpers\Classes\AuthHelper::getAuthUser()->isSuperUser() ? "true" : "false" }},
                     },
                     {
                         title: "Featured",
