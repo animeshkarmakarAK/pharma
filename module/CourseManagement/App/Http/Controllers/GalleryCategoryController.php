@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use App\Helpers\Classes\AuthHelper;
 use Module\CourseManagement\App\Models\GalleryCategory;
 use Module\CourseManagement\App\Services\GalleryCategoryService;
 use Illuminate\Contracts\View\View;
@@ -156,7 +157,17 @@ class GalleryCategoryController extends Controller
     public function showFeaturedGalleries(): View
     {
 //        $this->authorize('viewAny'); TODO:permission: only super admin|institute user can see this page to edit
-        $albums = GalleryCategory::with('galleries')->get();
+        $currentInstitute = domainConfig('institute');
+        $authUser = AuthHelper::getAuthUser();
+        $albums = GalleryCategory::active();
+        if ($currentInstitute) {
+            $albums->where('institute_id', $currentInstitute->id);
+        }
+        if ($authUser->isInstituteUser()) {
+            $albums->where('institute_id', $authUser->institute_id);
+        }
+        $albums = $albums->with('galleries')->get();
+
         return \view(self::VIEW_PATH . 'featured', compact('albums'));
     }
 

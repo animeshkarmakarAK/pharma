@@ -40,7 +40,7 @@ class HomeController extends BaseController
 
             $staticPage = StaticPage::orderBy('id', 'DESC')
                 ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)
-                ->where(['institute_id' => $currentInstitute->id],)
+                ->where(['institute_id' => $currentInstitute->id])
                 ->limit(1)
                 ->first();
 

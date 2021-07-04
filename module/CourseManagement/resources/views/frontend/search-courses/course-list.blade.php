@@ -2,6 +2,7 @@
     $currentInstitute = domainConfig('institute');
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
+
 @extends($layout)
 @push('css')
     <style>
@@ -58,7 +59,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info">
-                        <h1 class="text-center text-primary">পছন্দের কোর্স খুঁজুন</h1>
+                        <h1 class="text-center text-primary mt-4">পছন্দের কোর্স খুঁজুন</h1>
                     </div>
                     <div class="card-body bg-gray-light">
                         <div class="row justify-content-center">
@@ -166,9 +167,78 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal_for_mukto_path" role="dialog">
+        <div class="modal-dialog" style="max-width: 80%;">
+            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                <div class="modal-header custom-bg-gradient-info">
+                    <div style=" height:40px;">
+                        <h4 style="text-align: center; margin-top: 5px">কোর্সের বর্ণনা</h4>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
+                                    <img id="mp_cover_image" class="img-fluid" alt="Responsive image"
+                                         src="http://lorempixel.com/900/300/"
+                                         style="height: 300px; width: 100%">
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 custom-view-box">
+                                            <p class="label-text">কোর্সের নাম </p>
+                                            <div class="input-box" id="mp_course_title"></div>
+                                        </div>
+
+                                        <div class="col-md-6 custom-view-box">
+                                            <p class="label-text">কোর্স ফি</p>
+                                            <div class="input-box" id="mp_course_fee"></div>
+                                        </div>
+
+                                        <div class="col-md-12 custom-view-box">
+                                            <p class="label-text">কোর্সের বর্ণনা</p>
+                                            <div class="input-box" id="mp_course_description"></div>
+                                        </div>
+                                        <div class="col-md-6 custom-view-box">
+                                            <p class="label-text">পূর্বশর্ত </p>
+                                            <div class="input-box" id="mp_prerequisite"></div>
+                                        </div>
+                                        <div class="col-md-6 custom-view-box">
+                                            <p class="label-text">পূর্ব যোগ্যতা</p>
+                                            <div class="input-box" id="mp_eligibility"></div>
+                                        </div>
+                                        <div class="col-md-6 custom-view-box">
+                                            <p class="label-text">ইন্সটিটিউটের নাম </p>
+                                            <div class="input-box" id="mp_institute_name_field"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn btn-lg btn-success">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('js')
     <script>
+        const muktoPathImageBasePath = 'http://admin.muktopaathdemo.orangebd.com/cache-images/219x145x1/uploads/images/';
+        const muktoPathCourses = @json(\App\Helpers\Classes\Helper::getMuktoPathCourses());
+
+        console.log(muktoPathCourses)
         const searchAPI = function ({model, columns}) {
             const config = {
                 url: '{{route('web-api.model-resources')}}',
@@ -203,6 +273,26 @@
                 });
             };
         };
+
+        function RemoveHTMLTags(html) {
+            if (html.toString().length === 0) {
+                return '';
+            }
+            return html.replace(/(<([^>]+)>)/ig, "");
+        }
+
+        function openMuktopathCourse(courseId) {
+            let course = muktoPathCourses.find((item) => item.id === courseId);
+            console.log(course)
+
+            $('#mp_course_title').text(course?.course_alias_name);
+            $('#mp_institute_name_field').text(course?.institution_name_bn);
+            $('#mp_prerequisite').html(course?.requirement);
+            $('#mp_course_description').html(RemoveHTMLTags(course?.details));
+            $('#mp_cover_image').attr('src', muktoPathImageBasePath + course.thumnail?.file_encode_path);
+            $("#mp_course_fee").text(course?.payment_point_amount > 0 ? (course?.payment_point_amount + '/=') : 'Free');
+            $("#course_details_modal_for_mukto_path").modal('show');
+        }
 
         async function courseDetailsModalOpen(courseId) {
             let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', courseId));
@@ -295,10 +385,28 @@
 
             $('.course_overlay').show();
             courseFetch(filters, resetPage, url)?.then(function (response) {
+                console.log('search')
                 $('.course_overlay').hide();
                 $('#course_pagination').html(response?.data?.next_page_url);
                 let html = '';
-                console.log(response)
+
+                if (resetPage) {
+                    let muktoPathCoursesFiltered = muktoPathCourses;
+                    if (search.toString().length) {
+                        muktoPathCoursesFiltered = muktoPathCoursesFiltered.filter((item) => item.course_alias_name.includes(search));
+                    }
+
+                    $.each(muktoPathCoursesFiltered, function (i, item) {
+                        html += template({
+                            id: item.id,
+                            imageUrl: muktoPathImageBasePath + item.thumnail?.file_encode_path,
+                            title: item.course_alias_name,
+                            description: item.institution_name_bn,
+                            selector: 'course mukto-path',
+                        });
+                    });
+                }
+
                 $.each(response.data.data, function (i, item) {
                     html += template({
                         id: item.id,
@@ -308,6 +416,7 @@
                         selector: 'course',
                     });
                 });
+
                 if (resetPage) {
                     $(el ? el : '#course_name_list_modal').html(html);
                 } else {
@@ -336,7 +445,7 @@
                 let html = '';
                 $.each(response.data.data, function (i, item) {
                     html += template({
-                        id: item.course_id,
+                        id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.course_cover_image,
                         title: item.course_title_bn,
                         description: item.institute_title_bn,
@@ -365,7 +474,7 @@
                 $('.program_overlay').hide();
                 $('#program_pagination').html(response?.data?.next_page_url);
                 let html = '';
-                $.each(response?.data?.data, function (i, item) {
+                $.each(response.data.data, function (i, item) {
                     html += template({
                         id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.logo,
@@ -458,7 +567,6 @@
                 }
             })
 
-
             $(document).on('click', '.institute', function () {
                 const institute_id = $(this).data('id');
                 if (institute_id?.toString()?.length) {
@@ -470,7 +578,12 @@
             });
             $(document).on('click', '.course', function () {
                 const course_id = $(this).data('id');
-                courseDetailsModalOpen(course_id);
+                console.log(course_id)
+                if ($(this).hasClass('mukto-path')) {
+                    openMuktopathCourse(course_id);
+                } else {
+                    courseDetailsModalOpen(course_id);
+                }
             });
             $(document).on('click', '.programme', function () {
                 const programme_id = $(this).data('id');

@@ -9,7 +9,6 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Module\GovtStakeholder\App\Models\OccupationWiseStatistic;
 use Module\GovtStakeholder\App\Models\organizationUnitStatistic;
 use Yajra\DataTables\Facades\DataTables;
 
