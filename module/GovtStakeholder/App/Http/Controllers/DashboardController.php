@@ -6,6 +6,13 @@ use App\Helpers\Classes\AuthHelper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\Branch;
+use Module\CourseManagement\App\Models\Course;
+use Module\CourseManagement\App\Models\Institute;
+use Module\CourseManagement\App\Models\Programme;
+use Module\CourseManagement\App\Models\TrainingCenter;
+use Module\CourseManagement\App\Models\Youth;
 use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 
 class DashboardController
@@ -79,6 +86,27 @@ class DashboardController
             ->get();
 
         $data['job_sector_statistic'] = $jobSectorStatistic->get()->toArray();
+
+        if ($authUser->isInstituteUser()) {
+            $totalInstitute = Institute::active()->count();
+            $totalYouth = Youth::active()->count();
+            $totalCourse = Course::acl()->active()->count();
+            $totalBranch = Branch::acl()->active()->count();
+            $totalTrainingCenter = TrainingCenter::acl()->active()->count();
+            $totalProgramme = Programme::acl()->active()->count();
+            $totalBatch = Batch::acl()->count();
+
+            $data = [];
+            $data['total_institute'] = $totalInstitute;
+            $data['total_youth'] = $totalYouth;
+            $data['total_course'] = $totalCourse;
+            $data['total_branch'] = $totalBranch;
+            $data['total_training_center'] = $totalTrainingCenter;
+            $data['total_programme'] = $totalProgramme;
+            $data['totalBatch'] = $totalBatch;
+            return view('govt_stakeholder::backend.institute-dashboard', compact('data'));
+        }
+
 
         return view('govt_stakeholder::backend.dashboard', compact('data'));
     }
