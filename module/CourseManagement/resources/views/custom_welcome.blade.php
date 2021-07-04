@@ -221,7 +221,7 @@
             </div>
 
             <div class="row">
-                @if(!empty($galleryCategories))
+                @if(!empty($galleryCategories->count()))
                     <div class="col-md-12">
                         <ul class="list-inline row">
                             @foreach($galleryCategories as $galleryCategory)
@@ -231,7 +231,7 @@
                                             <img class="img-responsive" style="width: 100%; height: 180px"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
                                             <div class="card-body">
-                                                <h5 class="card-title">{{ $galleryCategory->title_en }}</h5>
+                                                <h5 class="card-title">{{ $galleryCategory->title_bn }}</h5>
                                             </div>
                                         </div>
                                     </a>
@@ -247,8 +247,12 @@
                     </div>
                 @endif
             </div>
-
         </div>
+        @if(!empty($galleryCategories->count()>4))
+            <div class="col-md-12 text-center margin-10">
+                <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">আরও গ্যালারি দেখুন</a>
+            </div>
+        @endif
     </section>
 
 

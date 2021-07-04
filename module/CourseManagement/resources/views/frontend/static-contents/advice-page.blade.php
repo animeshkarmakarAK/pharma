@@ -11,7 +11,7 @@
                 <div class="card pt-5 pb-5 mb-0">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8 advice-form">
+                            <div class="col-md-8 mx-auto advice-form">
                                 <div class="portlet light ">
                                     <div class="advice-portlet-body form fix">
                                         <div class="form-body fix">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1"></div>
+                            {{--<div class="col-md-1"></div>
                             <div class="col-md-3 advice-download-area">
                                 <div class="download-area">
                                     <img src="{{asset('/assets/company/images/pdf-logo.png')}}" width="70%"
@@ -100,7 +100,7 @@
                                        title="Download general-ask details" download>Download
                                     </a>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>

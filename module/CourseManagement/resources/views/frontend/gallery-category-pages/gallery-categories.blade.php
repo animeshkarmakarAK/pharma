@@ -17,7 +17,7 @@
                             <div class="row">
                                 @foreach($galleryCategories as $galleryCategory)
                                     <div class="col-md-3">
-                                        <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                        <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
                                             <div class="card mr-1 text-center">
                                                 <div style="background: url('{{asset('/storage/'. $galleryCategory->image)}}') no-repeat center center / cover; height: 180px">
                                                 </div>

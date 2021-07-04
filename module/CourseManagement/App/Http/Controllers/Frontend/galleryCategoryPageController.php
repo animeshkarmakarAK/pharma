@@ -12,8 +12,14 @@ class galleryCategoryPageController
 
     public function allGalleryCategoryPage()
     {
+
         $currentInstitute = domainConfig('institute');
-        $galleryCategories = GalleryCategory::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->get();
+        $galleryCategories = GalleryCategory::active()
+            ->orderBy('id', 'DESC')
+            ->where(['institute_id' => $currentInstitute->id])
+            ->where(['featured' => 1])
+            ->get();
+        //dd($galleryCategories);
         return view(self::VIEW_PATH. 'gallery-categories', compact('galleryCategories'));
     }
 
