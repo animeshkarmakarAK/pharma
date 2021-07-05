@@ -27,7 +27,7 @@
         }
 
         .main-menu {
-            height: 80px;
+            /*height: 80px;*/
         }
 
         .logo {

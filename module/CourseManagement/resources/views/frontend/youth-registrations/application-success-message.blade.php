@@ -9,16 +9,15 @@
         <div class="row">
             <div class="col-sm-6 mx-auto mb-5">
                 <div class="card text-center mt-5 mb-5">
-                    <h5 class="card-header bg-success">Youth Registration Successful</h5>
+                    <h5 class="card-header bg-success">নিবন্ধন সফল হয়েছে</h5>
                     <div class="card-body pt-5 pb-5">
-                        <h5 class="display-5">Your application has been successfully submitted.</h5><br>
-                        <p class="text-muted">Your access key:<strong> {{$accessKey}}</strong></p>
+                        <h5 class="display-5">আপনার আবেদনটি সফলভাবে দাখিল হয়েছে.</h5><br>
+                        <p class="text-muted">আপনার অ্যাক্সেস কী:<strong> {{$accessKey}}</strong></p>
                         <p class="text-warning">
-                            <em>Please save your access key for further process.</em>
+                            <em>পরবর্তী প্রক্রিয়া জন্য আপনার অ্যাক্সেস কী সংরক্ষণ করুন.</em>
                         </p>
-                        <p class="card-text">You can access to your profile using this access key. <a
-                                href="{{route('course_management::youth.login-form')}}">click
-                                here</a>
+                        <p class="card-text">এই অ্যাক্সেস কী ব্যবহার করে আপনি আপনার প্রোফাইলে অ্যাক্সেস করতে পারেন. <a
+                                href="{{route('course_management::youth.login-form')}}">ক্লিক করুন</a>
                         </p>
                     </div>
                 </div>
