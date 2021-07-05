@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class YearlyTrainingCalendarController extends Controller
     const VIEW_PATH = "course_management::frontend.";
     public function index(): View
     {
-        return \view(self::VIEW_PATH.'yearly-training-calendar');
+        return \view(self::VIEW_PATH.'training-calendar.yearly-training-calendar');
     }
 
     public function allEvent()
@@ -30,6 +31,15 @@ class YearlyTrainingCalendarController extends Controller
         $courseSessions->where('publish_courses.institute_id', '=', $currentInstitute->id);
 
         return $courseSessions->get()->toArray();
+    }
+
+    public function fiscalYear()
+    {
+        $courseSessions = CourseSession::select('course_id', DB::raw('count(*) as total_course_session'))
+        ->groupBy('course_id')->get();
+        //dd($courseSessions);
+        return \view(self::VIEW_PATH.'training-calendar.fiscal-year', compact('courseSessions'));
+
     }
 
 }
