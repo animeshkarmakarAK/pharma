@@ -27,6 +27,41 @@
                                                       class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
+                                                        <label for="receiver" class="col-sm-2 control-label text-right">প্রাপক
+                                                            <span style="color: red"> * </span></label>
+                                                        <div class="col-sm-10 container_name">
+                                                            <select required="required" name="receiver" class="form-control"
+                                                                    id="receiver">
+                                                                <optgroup label="Institute">
+                                                                    <option value="institute-{{ $currentInstitute->id }}">
+                                                                        {{ $currentInstitute->title_bn }}
+                                                                    </option>
+                                                                </optgroup>
+                                                                {{--@if(\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                                    <optgroup label="Branch">
+                                                                        @foreach(\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
+                                                                            <option value="branch-{{ $branch->id }}">
+                                                                                {{ $branch->title_bn }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endif--}}
+                                                                @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                                    <optgroup label="Training Center">
+                                                                        @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
+                                                                            <option
+                                                                                value="training_center-{{ $trainingCenter->id }}">
+                                                                                {{ $trainingCenter->title_bn }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endif
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="form-group row" aria-required="true">
                                                         <label for="name" class="col-sm-2 control-label text-right">নাম
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
