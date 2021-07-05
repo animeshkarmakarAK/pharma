@@ -1,4 +1,8 @@
-@extends('master::layouts.front-end')
+@php
+    $currentInstitute = domainConfig('institute');
+    $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+@endphp
+@extends($layout)
 
 @section('content')
     <div class="container-fluid">

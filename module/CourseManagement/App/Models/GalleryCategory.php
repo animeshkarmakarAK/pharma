@@ -24,7 +24,11 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
  * @property int institute_id
+ * @property int|null programme_id
+ * @property int|null batch_id
  * @property-read Institute institute
+ * @property-read Programme programme
+ * @property-read Batch batch
  * @property-read Collection|Gallery galleries
  * @property-read RowStatus rowStatus
  */
@@ -40,6 +44,16 @@ class GalleryCategory extends BaseModel
         return $this->belongsTo(Institute::class);
     }
 
+    public function programme(): BelongsTo
+    {
+        return $this->belongsTo(Programme::class);
+    }
+
+    public function batch(): BelongsTo
+    {
+        return $this->belongsTo(Batch::class);
+    }
+
     public function logoIsDefault(): bool
     {
         return $this->image === self::DEFAULT_IMAGE;
@@ -49,5 +63,4 @@ class GalleryCategory extends BaseModel
     {
         return $this->hasMany(Gallery::class);
     }
-
 }

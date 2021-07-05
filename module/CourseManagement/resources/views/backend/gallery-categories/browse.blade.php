@@ -84,8 +84,20 @@
                     {
                         title: "Institute Name",
                         data: "institute_title_en",
-                        name: "title_en",
+                        name: "institutes.title_en",
                         visible: {{ \App\Helpers\Classes\AuthHelper::getAuthUser()->isSuperUser() ? "true" : "false" }},
+                    },
+                    {
+                        title: "Programme Name",
+                        data: "programme_title_en",
+                        name: "programmes.title_en",
+                        visible: false,
+                    },
+                    {
+                        title: "Batch Name",
+                        data: "batch_title_en",
+                        name: "batches.title_en",
+                        visible: false,
                     },
                     {
                         title: "Featured",
@@ -111,6 +123,7 @@
                 ],
             });
             const datatable = $('#dataTable').DataTable(params);
+
             bindDatatableSearchOnPresEnterOnly(datatable);
 
             $(document, 'td').on('click', '.delete', function (e) {
@@ -156,11 +169,17 @@
                 const $form = $(this),
                     url = "{!! route('course_management::admin.gallery-album.change-featured')!!}";
 
-                const checkedAlbums = $('input[type=checkbox]:checked').map(function (_, el) {
-                    return $(el).attr('id');
-                }).get();
+                let checkedAlbums = [], uncheckedAlbums = [];
+                $('input[type=checkbox]').each(function () {
+                    if (this.checked) {
+                        checkedAlbums.push($(this).attr('id'));
+                    }else {
+                        uncheckedAlbums.push($(this).attr('id'));
+                    }
+                });
 
-                let posting = $.post(url, {data: checkedAlbums});
+                const data = {"featured": checkedAlbums, "dropped": uncheckedAlbums};
+                let posting = $.post(url, {data: data});
 
                 posting.done(function (data) {
                     //show success alert

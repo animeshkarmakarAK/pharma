@@ -173,12 +173,22 @@ class GalleryCategoryController extends Controller
 
     public function changeFeaturedGalleries(Request $request): JsonResponse
     {
-        GalleryCategory::where('id', "!=", null)
-            ->update(['featured' => 0]);
+        $featured = optional($request->data)["featured"];
+        $dropped = optional($request->data)["dropped"];
 
-       foreach ($request->data as $id) {
-           GalleryCategory::where('id', $id)->update(['featured' => '1']);
-       }
+        //dropped to featured
+        if (!empty($dropped)) {
+            foreach ($dropped as $id) {
+                GalleryCategory::where('id', $id)->update(['featured' => '0']);
+            }
+        }
+
+        //update status featured
+        if (!empty($featured)) {
+            foreach ($featured as $id) {
+                GalleryCategory::where('id', $id)->update(['featured' => '1']);
+            }
+        }
         return response()->json([
             'message' => __('generic.object_updated_successfully', ['object' => 'Featured Galleries']),
             'alertType' => 'success',

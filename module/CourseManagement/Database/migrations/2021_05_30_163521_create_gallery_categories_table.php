@@ -16,6 +16,8 @@ class CreateGalleryCategoriesTable extends Migration
         Schema::create('gallery_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('institute_id');
+            $table->unsignedInteger('batch_id')->nullable();
+            $table->unsignedInteger('programme_id')->nullable();
             $table->unsignedInteger('created_by');
             $table->string('title_en', 191);
             $table->string('title_bn', 191);
@@ -26,6 +28,16 @@ class CreateGalleryCategoriesTable extends Migration
             $table->foreign('institute_id', 'gallery_categories_fk_institute_id')
                 ->references('id')
                 ->on('institutes')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->foreign('batch_id', 'gallery_categories_fk_batch_id')
+                ->references('id')
+                ->on('batches')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->foreign('programme_id', 'gallery_categories_fk_programme_id')
+                ->references('id')
+                ->on('programmes')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });

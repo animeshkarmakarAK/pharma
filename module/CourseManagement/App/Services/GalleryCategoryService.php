@@ -38,7 +38,20 @@ class GalleryCategoryService
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
             'title_bn' => ['required', 'string', 'max:191'],
-            'institute_id' => ['required', 'int', 'exists:institutes,id'],
+            'institute_id' => ['required',
+                'int',
+                'exists:institutes,id'
+            ],
+            'programme_id' => ['required',
+                'nullable',
+                'int',
+                'exists:programmes,id'
+            ],
+            'batch_id' => [
+                'nullable',
+                'int',
+                'exists:batches,id'
+            ],
             'image' => [
                 'nullable',
                 'file',
@@ -107,12 +120,16 @@ class GalleryCategoryService
             'gallery_categories.title_en',
             'gallery_categories.title_bn',
             'gallery_categories.featured',
-            'institutes.title_en as institute_title_en'
+            'institutes.title_en as institute_title_en',
+            'programmes.title_en as programme_title_en',
+            'batches.title_en as batch_title_en'
         ]);
         $galleryCategories->join('institutes', 'gallery_categories.institute_id', 'institutes.id');
+        $galleryCategories->leftJoin('programmes', 'gallery_categories.programme_id', 'programmes.id');
+        $galleryCategories->leftJoin('batches', 'gallery_categories.batch_id', 'batches.id');
 
         if ($authUser->isInstituteUser()) {
-            $galleryCategories->where('institute_id', $authUser->institute_id);
+            $galleryCategories->where('gallery_categories.institute_id', $authUser->institute_id);
         }
 
         return DataTables::eloquent($galleryCategories)

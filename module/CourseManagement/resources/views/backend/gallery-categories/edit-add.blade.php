@@ -70,6 +70,7 @@
                                             id="institute_id"
                                             data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                             data-label-fields="{title_en}"
+                                            data-dependent-fields="#programme_id|#batch_id"
                                             @if($edit && $galleryCategory->institute_id)
                                             data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title_en, 'id' => $galleryCategory->institute_id])}}"
                                             @endif
@@ -79,6 +80,39 @@
                                     </select>
                                 </div>
                             @endif
+
+
+                            <div class="form-group col-md-6">
+                                <label for="programme_id">Programme</label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="programme_id"
+                                        id="programme_id"
+                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
+                                        data-label-fields="{title_en}"
+                                        data-depend-on-optional="institute_id"
+                                        data-dependent-fields="#batch_id"
+                                        @if($edit && $galleryCategory->programme_id)
+                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->programme->title_en, 'id' => $galleryCategory->programme_id])}}"
+                                        @endif
+                                        data-placeholder="নির্বাচন করুন"
+                                >
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="batch_id">Batch</label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="batch_id"
+                                        id="batch_id"
+                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
+                                        data-label-fields="{title_en}"
+                                        data-depend-on-optional="institute_id|programme_id"
+                                        @if($edit && $galleryCategory->batch_id)
+                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->batch->title_en, 'id' => $galleryCategory->batch_id])}}"
+                                        @endif
+                                        data-placeholder="নির্বাচন করুন"
+                                >
+                                </select>
+                            </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">

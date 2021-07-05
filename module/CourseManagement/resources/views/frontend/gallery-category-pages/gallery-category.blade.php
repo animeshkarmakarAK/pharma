@@ -16,32 +16,36 @@
                         <div class="card-body bg-gray-light">
                             <div class="row">
                                 @if($galleries->count())
-                                @foreach($galleries as $gallery)
-                                    <div class="col-md-3">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <a href="" data-toggle="modal" data-target="#gallery_id_{{$gallery->id}}">
-                                                    @if($gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)
-                                                        <img class="img-responsive" style="width: 100%; height: 200px"
-                                                             src="{{asset('/storage/'. $gallery->content_path)}}">
-                                                    @else
-                                                        <div class="position-relative">
-                                                            <div class="iframe-layer"></div>
-                                                            <div class="iframe-class">
-                                                                <iframe width="100%" height="200px" style="border: none"
-                                                                        src={{"https://www.youtube.com/embed/".$gallery->you_tube_video_id}}>
-                                                                </iframe>
+                                    @foreach($galleries as $gallery)
+                                        <div class="col-md-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <a href="" data-toggle="modal"
+                                                       data-target="#gallery_id_{{$gallery->id}}">
+                                                        @if($gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)
+                                                            <img class="img-responsive"
+                                                                 style="width: 100%; height: 200px"
+                                                                 src="{{asset('/storage/'. $gallery->content_path)}}">
+                                                        @else
+                                                            <div class="position-relative">
+                                                                <div class="iframe-layer"></div>
+                                                                <div class="iframe-class">
+                                                                    <iframe width="100%" height="200px"
+                                                                            style="border: none"
+                                                                            src={{"https://www.youtube.com/embed/".$gallery->you_tube_video_id}}>
+                                                                    </iframe>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    @endif
-                                                </a>
-                                            </div>
-                                            <div class="card-footer">
-                                                {{$gallery->content_title}}
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <h6 class="float-left">{{$gallery->content_title}}</h6>
+                                                    <h6 class="float-right">{{$gallery->created_at->format('d-m-Y')}}</h6>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
                                 @else
                                     <div class="col-md-12 m-5">
                                         <h5 class="text-center text-danger">এই অ্যালবামে কোন ছবি নেই</h5>
@@ -71,8 +75,10 @@
                         </div>
                         <div>
                             @if($gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)
-                                <img class="img-responsive"
-                                     src="{{asset('/storage/'. $gallery->content_path)}}" width="100%">
+                                <div class="card-overlay bg-black">
+                                    <img class="img-responsive gallery-image"
+                                         src="{{asset('/storage/'. $gallery->content_path)}}" width="100%">
+                                </div>
                             @else
                                 <div class="embed-responsive embed-responsive-16by9">
                                     <iframe class="embed-responsive-item"
@@ -89,14 +95,24 @@
             </div>
         @endforeach
     @endif
-
-
-
-
 @endsection
 
 @push('css')
     <style>
+        .modal{
+            background: #000b16;
+        }
+        .gallery-image {
+            display: block;
+            position: relative;
+            left: 0;
+            top: 0;
+            z-index: 0;
+            opacity: 0.4;
+            background: url("http://lorempixel.com/1000/600/") no-repeat center center;
+            background-size: cover;
+        }
+
         .iframe-class {
             z-index: -1;
         }
@@ -108,16 +124,15 @@
             width: 100%;
             opacity: .0001;
         }
-        .modal_close{
+
+        .modal_close {
             z-index: 999;
         }
 
     </style>
-
 @endpush
 
 @push('js')
     <script>
     </script>
-
 @endpush

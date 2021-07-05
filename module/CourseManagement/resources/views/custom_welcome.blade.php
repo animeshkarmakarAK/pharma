@@ -231,7 +231,8 @@
                                             <img class="img-responsive" style="width: 100%; height: 180px"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
                                             <div class="card-body">
-                                                <h5 class="card-title">{{ $galleryCategory->title_bn }}</h5>
+                                                <h5 class="card-title float-left">{{ $galleryCategory->title_bn }}</h5>
+                                                <h6 class="float-right">{{ optional($galleryCategory->programme)->title_bn . " ". optional($galleryCategory->batch)->title_bn }}</h6>
                                             </div>
                                         </div>
                                     </a>
@@ -242,7 +243,7 @@
                 @else
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
-                            Gallery not found.
+                            কোন গ্যালারি পাওয়া যাইনি.
                         </div>
                     </div>
                 @endif
