@@ -29,7 +29,7 @@
                     </a>
                 @elseauth('youth')
                     <a class="nav-item nav-link mr-md-2 text-white"
-                       href="{{ route('youth', auth()->guard('youth')->user()->id) }}"
+                       href="{{ route('course_management::youth', auth()->guard('youth')->user()->id) }}"
                        id="bd-versions">
                         <i class="fas fa-clipboard-list"></i>&nbsp; প্রোফাইল
                     </a>
