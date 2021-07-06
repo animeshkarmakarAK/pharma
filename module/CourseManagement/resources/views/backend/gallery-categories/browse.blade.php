@@ -42,23 +42,8 @@
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.gallery-categories.datatable') }}',
                 order: [[3, "asc"]],
-                serialNumberColumn: 1,
-                select: {
-                    style: 'multi',
-                    selector: 'td:first-child'
-                },
+                serialNumberColumn: 0,
                 columns: [
-                    {
-                        title: "",
-                        data: null,
-                        defaultContent: '',
-                        orderable: false,
-                        searchable: false,
-                        // className: 1 ? 'select-checkbox' : '', 'targets': 1,
-                        render: function (data, type, row, meta) {
-                            return '<input type="checkbox" ' + ((row.featured === 1) ? 'checked' : '') + ' id='+ row.id + ' class="feature-checkbox" />';
-                        }
-                    },
                     {
                         title: "SL#",
                         data: null,
@@ -101,11 +86,14 @@
                         data: "featured",
                         name: "gallery_categories.featured",
                         render: function (data, type, row, meta) {
-                            if (row.featured === 1) {
-                                return "<span class='badge badge-success'>Yes</span>";
-                            }else {
-                                return "<span class='badge badge-danger'>No</span>";
-                            }
+                            let checked = row.featured === 1 ? "checked" : "";
+                            let yesNo = row.featured === 1 ? "Yes" : "No";
+                            let html = '<div class="form-group">';
+                            html += '<div class="custom-control custom-switch custom-switch custom-switch-off-danger custom-switch-on-success">';
+                            html += '<input type="checkbox" class="custom-control-input feature-toggle" id="'+row.id+'"' + checked + '>';
+                            html += '<label class="custom-control-label" for="'+row.id+'">' + yesNo +'</label>';
+                            html += '</div></div>';
+                            return html;
                         }
                     },
 
@@ -143,15 +131,15 @@
             }
 
             $(document).ready(function () {
-                $(document).on('click', '.feature-checkbox', function (e) {
+                $(document).on('click', '.feature-toggle', function (e) {
                     let id = $(this).attr('id');
                     let data = {
                         id: id,
                         maxFeaturedGallery: maxFeaturedGallery,
                     };
                     if ($(this).is(':checked')) {
-                       data.featured = true;
-                    }else {
+                        data.featured = true;
+                    } else {
                         data.featured = false;
                     }
 
@@ -191,7 +179,7 @@
                 $('input[type=checkbox]').each(function () {
                     if (this.checked) {
                         checkedAlbums.push($(this).attr('id'));
-                    }else {
+                    } else {
                         uncheckedAlbums.push($(this).attr('id'));
                     }
                 });
@@ -207,5 +195,10 @@
             });
         })
 
+    </script>
+    <script>
+        $(function() {
+            $('#toggle-one').bootstrapToggle();
+        })
     </script>
 @endpush

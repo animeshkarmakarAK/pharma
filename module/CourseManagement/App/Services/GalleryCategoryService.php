@@ -46,7 +46,7 @@ class GalleryCategoryService
                 'nullable',
                 'int',
                 'exists:programmes,id'
-            ],  
+            ],
             'batch_id' => [
                 'nullable',
                 'int',

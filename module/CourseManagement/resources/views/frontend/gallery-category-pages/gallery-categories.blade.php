@@ -8,53 +8,51 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header custom-bg-gradient-info">
-                            <h1 class="text-center text-primary mt-4">গ্যালারীর অ্যালবাম সমূহ</h1>
+                <div class="card shadow">
+                    <div class="card-header custom-bg-gradient-info">
+                        <h1 class="text-center text-primary mt-4">গ্যালারীর অ্যালবাম সমূহ</h1>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-1 offset-1">
+                            <i class="fa fa-filter">Filter</i>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-1 offset-1">
-                                <i class="fa fa-filter">Filter</i>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <select class="form-control select2-ajax-wizard"
-                                        name="programme_id"
-                                        id="programme_id"
-                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
-                                        data-label-fields="{title_en}"
-                                        data-dependent-fields="#batch_id"
-                                        data-placeholder="প্রোগ্রাম নির্বাচন করুন"
-                                >
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <select class="form-control select2-ajax-wizard"
-                                        name="batch_id"
-                                        id="batch_id"
-                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
-                                        data-label-fields="{title_en}"
-                                        data-depend-on-optional="programme_id"
-                                        data-placeholder="ব্যাচ নির্বাচন করুন"
-                                >
-                                </select>
-                            </div>
-                            <div class="col-md-1">
-                                <button class="btn btn-success"
-                                        id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
-                            </div>
+                        <div class="form-group col-md-3">
+                            <select class="form-control select2-ajax-wizard"
+                                    name="programme_id"
+                                    id="programme_id"
+                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
+                                    data-label-fields="{title_en}"
+                                    data-dependent-fields="#batch_id"
+                                    data-placeholder="প্রোগ্রাম নির্বাচন করুন"
+                            >
+                            </select>
                         </div>
-                        <div class="row" id="container-album">
+                        <div class="form-group col-md-3">
+                            <select class="form-control select2-ajax-wizard"
+                                    name="batch_id"
+                                    id="batch_id"
+                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
+                                    data-label-fields="{title_en}"
+                                    data-depend-on-optional="programme_id"
+                                    data-placeholder="ব্যাচ নির্বাচন করুন"
+                            >
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-success"
+                                    id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
+                        </div>
+                    </div>
+                    <div class="row" id="container-album">
 
-                        </div>
-                        <div class="row mb-5">
-                            <div class="col-md-12">
-                                <div class="prev-next-button float-right">
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <div class="prev-next-button float-right">
 
-                                </div>
-                                <div class="overlay" style="display: none">
-                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-                                </div>
+                            </div>
+                            <div class="overlay" style="display: none">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                             </div>
                         </div>
                     </div>
@@ -72,15 +70,19 @@
     <script>
         const template = function (item) {
             let html = ` <div class="col-md-3">`;
-            html += `<div class="card">`;
+            html += `<div class="card m-1">`;
             let src = "{{ route('course_management::gallery-category', '__') }}".replace('__', item.id)
             html += '<a href="' + src + '">';
-            html += '<img class="card-img-top" src="/storage/' + item.image + '" height="250" alt="Card image cap">';
+            html += '<img class="card-img-top" src="/storage/' + item.image + '" height="200" alt="Card image cap">';
             html += '</a>';
             html += `<div class="card-body">`;
-            html += '<h5 class="card-title">' + item.title_bn + '</h5>';
-            html += '<p class="card-text">Programme: ' + item?.programme_title_bn ?? "N/A" + '</p>';
-            html += '<p class="card-text">Batch: ' + item.batch_title_bn ?? "N/A" + '</p>';
+            html += '<h5 class="card-title">অ্যালবামের নামঃ <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
+            if (item.programme_title_bn) {
+                html += '<h6 class="card-text">প্রোগ্রাম: ' + item?.programme_title_bn ?? "" + '</h6>';
+            }
+            if (item.batch_title_bn) {
+                html += '<p class="card-text">ব্যাচ:' + item.batch_title_bn + '</p>';
+            }
             html += '</div></div></div>';
             return html;
         };
@@ -120,7 +122,7 @@
         };
 
         let baseUrl = '{{route('web-api.model-resources')}}';
-        const skillVideoFetch = searchAPI({
+        const galleryAlbumFetch = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\GalleryCategory::class)}}",
             columns: 'title_en|title_bn|image|batch.title_bn|programme.title_bn|institute_id'
         });
@@ -142,7 +144,7 @@
                 filters['batch_id'] = batch;
             }
 
-            skillVideoFetch(url, filters)?.then(function (response) {
+            galleryAlbumFetch(url, filters)?.then(function (response) {
                 console.table('response', response);
                 $('.overlay').hide();
                 window.scrollTo(0, 0);

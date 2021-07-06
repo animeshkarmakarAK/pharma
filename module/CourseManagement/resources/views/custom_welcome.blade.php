@@ -232,13 +232,15 @@
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
                                             <div class="card-body">
                                                 <h5 class="card-title float-left">{{ $galleryCategory->title_bn }}</h5>
-                                                <h6 class="float-right">{{ optional($galleryCategory->programme)->title_bn . " ". optional($galleryCategory->batch)->title_bn }}</h6>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             @endforeach
                         </ul>
+                        <div class="row justify-content-center">
+                            <a href="{{ route('course_management::gallery-categories') }}" class="btn btn-primary">আরও দেখুন</a>
+                        </div>
                     </div>
                 @else
                     <div class="col-md-12">

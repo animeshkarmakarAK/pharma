@@ -87,8 +87,9 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="modal-footer justify-content-start">
+                        <div class="modal-footer justify-content-between">
                             <h5>{{$gallery->content_title}}</h5>
+                            <h5>{{$gallery->created_at->format('d-m-Y')}}</h5>
                         </div>
                     </div>
                 </div>
