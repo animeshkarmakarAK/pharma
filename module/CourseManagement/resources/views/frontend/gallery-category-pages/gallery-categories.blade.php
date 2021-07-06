@@ -127,10 +127,14 @@
 
         function albumSearch(url = baseUrl) {
             $('.overlay').show();
+            let currentInstitute = {!! $currentInstitute !!};
             let programme = $('#programme_id').val();
             let batch = $('#batch_id').val();
 
             const filters = {};
+            if (currentInstitute) {
+                filters['institute_id'] = currentInstitute.id;
+            }
             if (programme?.toString()?.length) {
                 filters['programme_id'] = programme;
             }

@@ -42,11 +42,11 @@ class GalleryCategoryService
                 'int',
                 'exists:institutes,id'
             ],
-            'programme_id' => ['required',
+            'programme_id' => [
                 'nullable',
                 'int',
                 'exists:programmes,id'
-            ],
+            ],  
             'batch_id' => [
                 'nullable',
                 'int',
