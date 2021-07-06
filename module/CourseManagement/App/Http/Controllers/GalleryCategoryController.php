@@ -171,16 +171,18 @@ class GalleryCategoryController extends Controller
         return \view(self::VIEW_PATH . 'featured', compact('albums'));
     }
 
-    public function changeFeaturedGalleries(Request $request): JsonResponse
+    public function updateFeaturedGalleries(Request $request): JsonResponse
     {
         $galleryCategoryId = $request->data["id"];
         $maxFeaturedGallery = $request->data["maxFeaturedGallery"];
         $isFeatured = $request->data["featured"];
         $isFeatured = $isFeatured == "true";
         $galleryCategory = GalleryCategory::find($galleryCategoryId);
-        $galleryCategories = GalleryCategory::where('institute_id', $galleryCategory->institute_id)->get();
+        $galleryCategories = GalleryCategory::where('institute_id', $galleryCategory->institute_id)
+            ->where('featured', 1)
+            ->get();
 
-        if ($isFeatured && count($galleryCategories) > $maxFeaturedGallery) {
+        if ($isFeatured && count($galleryCategories) >= $maxFeaturedGallery) {
             return response()->json([
                 'message' => 'Max ' . $maxFeaturedGallery . ' features are supported',
                 'alertType' => 'error',

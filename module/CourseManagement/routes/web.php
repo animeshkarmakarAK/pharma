@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::resource('visitor-feedback', Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class)->only(['index', 'destroy', 'show']);
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
-    Route::post('featured-galleries', [\Module\CourseManagement\App\Http\Controllers\GalleryCategoryController::class, 'changeFeaturedGalleries'])->name('gallery-album.change-featured');
+    Route::post('featured-galleries', [\Module\CourseManagement\App\Http\Controllers\GalleryCategoryController::class, 'updateFeaturedGalleries'])->name('gallery-album.change-featured');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {

@@ -73,15 +73,15 @@
         const template = function (item) {
             let html = ` <div class="col-md-3">`;
             html += `<div class="card">`;
-            let src = "{{route('course_management::gallery_categories', '__')}}".replace('__', item.id)
-            html += '<a href="' + src + '>';
+            let src = "{{ route('course_management::gallery-category', '__') }}".replace('__', item.id)
+            html += '<a href="' + src + '">';
             html += '<img class="card-img-top" src="/storage/' + item.image + '" alt="Card image cap">';
             html += '</a>';
             html += `<div class="card-body">`;
             html += '<h5 class="card-title">' + item.title_bn + '</h5>';
             html += '<p class="card-text">Programme: ' + item?.programme_title_bn ?? "N/A" + '</p>';
-            html += '<p class="card-text">Batch: ' + item.batch_title_bn+ '</p>';
-            html += '</div></div>';
+            html += '<p class="card-text">Batch: ' + item.batch_title_bn?.length ? " " : item.batch_title_bn+ '</p>';
+            html += '</div></div></div>';
             return html;
         };
 
@@ -109,7 +109,7 @@
                             columns: columns,
                             paginate: true,
                             page: 1,
-                            per_page: 16,
+                            per_page: 5,
                             filters,
                         }
                     }
@@ -125,7 +125,7 @@
             columns: 'title_en|title_bn|image|batch.title_bn|programme.title_bn|institute_id'
         });
 
-        function videoSearch(url = baseUrl) {
+        function albumSearch(url = baseUrl) {
             $('.overlay').show();
             let programme = $('#programme_id').val();
             let batch = $('#batch_id').val();
@@ -167,18 +167,18 @@
         }
 
         $(document).ready(function () {
-            videoSearch();
+            albumSearch();
 
             $(document).on('click', '.pagination .page-link', function (e) {
                 e.preventDefault();
                 let url = $(this).attr('href');
                 if (url) {
-                    videoSearch(url);
+                    albumSearch(url);
                 }
             });
 
             $('#gallery-album-search-btn').on('click', function () {
-                videoSearch();
+                albumSearch();
             });
         });
     </script>
