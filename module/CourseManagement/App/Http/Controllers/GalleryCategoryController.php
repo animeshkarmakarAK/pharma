@@ -173,22 +173,22 @@ class GalleryCategoryController extends Controller
 
     public function changeFeaturedGalleries(Request $request): JsonResponse
     {
-        $featured = optional($request->data)["featured"];
-        $dropped = optional($request->data)["dropped"];
+        $galleryCategoryId = $request->data["id"];
+        $maxFeaturedGallery = $request->data["maxFeaturedGallery"];
+        $isFeatured = $request->data["featured"];
+        $isFeatured = $isFeatured == "true";
+        $galleryCategory = GalleryCategory::find($galleryCategoryId);
+        $galleryCategories = GalleryCategory::where('institute_id', $galleryCategory->institute_id)->get();
 
-        //dropped to featured
-        if (!empty($dropped)) {
-            foreach ($dropped as $id) {
-                GalleryCategory::where('id', $id)->update(['featured' => '0']);
-            }
+        if ($isFeatured && count($galleryCategories) > $maxFeaturedGallery) {
+            return response()->json([
+                'message' => 'Max ' . $maxFeaturedGallery . ' features are supported',
+                'alertType' => 'error',
+            ]);
         }
+        //update the feature
+        $galleryCategory->update(['featured' => $isFeatured]);
 
-        //update status featured
-        if (!empty($featured)) {
-            foreach ($featured as $id) {
-                GalleryCategory::where('id', $id)->update(['featured' => '1']);
-            }
-        }
         return response()->json([
             'message' => __('generic.object_updated_successfully', ['object' => 'Featured Galleries']),
             'alertType' => 'success',

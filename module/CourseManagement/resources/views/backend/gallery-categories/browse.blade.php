@@ -8,9 +8,6 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">Album List</h3>
                         <div class="card-tools">
-                            @can('update', \Module\CourseManagement\App\Models\Gallery::class)
-                               <button type="button" name="update-featured-gallery" id="update-featured-gallery" class="btn btn-sm btn-success btn-rounded">Update featured albums</button>
-                            @endcan
                             @can('create', \Module\CourseManagement\App\Models\Gallery::class)
                                 <a href="{{route('course_management::admin.gallery-categories.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
@@ -135,7 +132,6 @@
 
             function checkMaxFeaturedGallery() {
                 let nFeaturedGalleries = $('input[type="checkbox"]:checked').length;
-                console.table('checked', nFeaturedGalleries);
                 return nFeaturedGalleries <= maxFeaturedGallery;
             }
 
@@ -148,20 +144,42 @@
 
             $(document).ready(function () {
                 $(document).on('click', '.feature-checkbox', function (e) {
-                    if (!checkMaxFeaturedGallery() && $(this).is(':checked')) {
-                        e.preventDefault();
-                        showToasterAlert({
-                            alertType: "error",
-                            message: "Max " + maxFeaturedGallery + " features are supported!",
-                        });
-                        return false;
+                    let id = $(this).attr('id');
+                    let data = {
+                        id: id,
+                        maxFeaturedGallery: maxFeaturedGallery,
+                    };
+                    if ($(this).is(':checked')) {
+                       data.featured = true;
+                    }else {
+                        data.featured = false;
                     }
+
+                    updateFeature(data);
+
+                    // if (!checkMaxFeaturedGallery() && $(this).is(':checked')) {
+                    //     e.preventDefault();
+                    //     showToasterAlert({
+                    //         alertType: "error",
+                    //         message: "Max " + maxFeaturedGallery + " features are supported!",
+                    //     });
+                    //     return false;
+                    // }
                 })
             })
 
 
-            $(document).on('click', '#update-featured-gallery', function (event) {
+            function updateFeature(data) {
+                const url = "{!! route('course_management::admin.gallery-album.change-featured')!!}";
+                let posting = $.post(url, {data: data});
+                posting.done(function (response) {
+                    //show success alert
+                    showToasterAlert(response);
+                    datatable.draw();
+                });
+            }
 
+            $(document).on('click', '#update-featured-gallery', function (event) {
                 // Stop form from submitting normally
                 event.preventDefault();
 
