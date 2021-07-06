@@ -44,7 +44,7 @@
                                         id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
                             </div>
                         </div>
-                        <div class="row justify-content-center" id="container-album">
+                        <div class="row" id="container-album">
 
                         </div>
                         <div class="row mb-5">
@@ -75,12 +75,12 @@
             html += `<div class="card">`;
             let src = "{{ route('course_management::gallery-category', '__') }}".replace('__', item.id)
             html += '<a href="' + src + '">';
-            html += '<img class="card-img-top" src="/storage/' + item.image + '" alt="Card image cap">';
+            html += '<img class="card-img-top" src="/storage/' + item.image + '" height="250" alt="Card image cap">';
             html += '</a>';
             html += `<div class="card-body">`;
             html += '<h5 class="card-title">' + item.title_bn + '</h5>';
             html += '<p class="card-text">Programme: ' + item?.programme_title_bn ?? "N/A" + '</p>';
-            html += '<p class="card-text">Batch: ' + item.batch_title_bn?.length ? " " : item.batch_title_bn+ '</p>';
+            html += '<p class="card-text">Batch: ' + item.batch_title_bn ?? "N/A" + '</p>';
             html += '</div></div></div>';
             return html;
         };
@@ -144,7 +144,7 @@
                 window.scrollTo(0, 0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
-                    html += '<div class="text-center" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center h3">কোন গ্যালারি খুঁজে পাওয়া যায়নি!</div>';
+                    html += '<div class="col-md-12 justify-content-center"><div class="text-center h3">কোন অ্যালবাম খুঁজে পাওয়া যায়নি!</div></div>';
                 }
                 $.each(response.data?.data, function (i, item) {
                     html += template(item);
