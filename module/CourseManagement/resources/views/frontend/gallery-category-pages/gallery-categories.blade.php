@@ -40,33 +40,27 @@
                                 </select>
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-success" id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
+                                <button class="btn btn-success"
+                                        id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
                             </div>
                         </div>
+                        <div class="row justify-content-center" id="container-album">
 
-                        <div class="card-body bg-gray-light">
-                            <div class="row">
-                                @foreach($galleryCategories as $galleryCategory)
-                                    <div class="col-md-3">
-                                        <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
-                                            <div class="card mr-1 text-center">
-                                                <div
-                                                    style="background: url('{{asset('/storage/'. $galleryCategory->image)}}') no-repeat center center / cover; height: 180px">
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $galleryCategory->title_bn }}</h5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                @endforeach
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <div class="prev-next-button float-right">
+
+                                </div>
+                                <div class="overlay" style="display: none">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 
@@ -76,7 +70,113 @@
 
 @push('js')
     <script>
+        const template = function (item) {
+            console.log(item);
+            let html = ` <div class="col-md-3">`;
+            html += `<div class="card">`;
+            html += '<img class="card-img-top" src="/storage/' + item.image + '" alt="Card image cap">';
+            html += `<div class="card-body">`;
+            html += '<h5 class="card-title">' + item.title_bn + '</h5>';
+            html += '<p class="card-text">' + item?.programme?.title_bn + '</p>';
+            html += '</div></div>';
+            return html;
+        };
 
+        const paginatorLinks = function (link) {
+            let html = '';
+            if (link.active) {
+                html += '<li class="page-item active"><a class="page-link">' + link.label + '</a></li>';
+            } else if (!link.url) {
+                html += '<li class="page-item"><a class="page-link">' + link.label + '</a></li>';
+            } else {
+                html += '<li class="page-item"><a class="page-link" href="' + link.url + '">' + link.label + '</a></li>';
+            }
+            return html;
+        }
+
+        const searchAPI = function ({model, columns}) {
+            return function (url, filters = {}) {
+                return $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        resource: {
+                            model: model,
+                            columns: columns,
+                            paginate: true,
+                            page: 1,
+                            per_page: 16,
+                            filters,
+                        }
+                    }
+                }).done(function (response) {
+                    return response;
+                });
+            };
+        };
+
+        let baseUrl = '{{route('web-api.model-resources')}}';
+        const skillVideoFetch = searchAPI({
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\GalleryCategory::class)}}",
+            columns: 'title_en|title_bn|image|batch_id|programme_id|institute_id'
+        });
+
+        function videoSearch(url = baseUrl) {
+            $('.overlay').show();
+            let programme = $('#programme_id').val();
+            let batch = $('#batch_id').val();
+
+            const filters = {};
+            if (programme?.toString()?.length) {
+                filters['programme_id'] = programme;
+            }
+            if (batch?.toString()?.length) {
+                filters['batch_id'] = batch;
+            }
+
+            skillVideoFetch(url, filters)?.then(function (response) {
+                $('.overlay').hide();
+                window.scrollTo(0, 0);
+                let html = '';
+                if (response?.data?.data.length <= 0) {
+                    html += '<div class="text-center" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center h3">কোন গ্যালারি খুঁজে পাওয়া যায়নি!</div>';
+                }
+                $.each(response.data?.data, function (i, item) {
+                    html += template(item);
+                });
+
+                $('#container-album').html(html);
+                // $('.prev-next-button').html(response?.pagination);
+                console.table("response", response.data.links);
+
+                let link_html = '<nav> <ul class="pagination">';
+                let links = response?.data?.links;
+                if (links.length > 3) {
+                    $.each(links, function (i, link) {
+                        link_html += paginatorLinks(link);
+                    });
+                }
+                link_html += '</ul></nav>';
+                $('.prev-next-button').html(link_html);
+            });
+        }
+
+        $(document).ready(function () {
+            videoSearch();
+
+            $(document).on('click', '.pagination .page-link', function (e) {
+                e.preventDefault();
+                let url = $(this).attr('href');
+                if (url) {
+                    videoSearch(url);
+                }
+            });
+
+            $('#gallery-album-search-btn').on('click', function () {
+                videoSearch();
+            });
+        });
     </script>
 
 @endpush
