@@ -3,7 +3,7 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use Module\CourseManagement\App\Http\Controllers\Controller;
-use Module\CourseManagement\App\Models\CourseSession;
+use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -35,10 +35,10 @@ class YearlyTrainingCalendarController extends Controller
 
     public function fiscalYear()
     {
-        $courseSessions = CourseSession::select('course_id', DB::raw('count(*) as total_course_session'))
-        ->groupBy('course_id')->get();
-        //dd($courseSessions);
-        return \view(self::VIEW_PATH.'training-calendar.fiscal-year', compact('courseSessions'));
+        //$publishedCourses = PublishCourse::active()->get();
+        $courses = Course::active()->get();
+        //dd($publishedCourses);
+        return \view(self::VIEW_PATH.'training-calendar.fiscal-year', compact('courses'));
 
     }
 

@@ -1,6 +1,25 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+
+
+class Converter
+{
+    public static $bn = ["১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০"];
+    public static $en = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+
+    public static function bn2en($number)
+    {
+        return str_replace(self::$bn, self::$en, $number);
+    }
+
+    public static function en2bn($number)
+    {
+        return str_replace(self::$en, self::$bn, $number);
+    }
+}
+
+
 @endphp
 @extends($layout)
 
@@ -16,69 +35,103 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        @php
+                            $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
+                        @endphp
                         <div class="col-md-12">
-                            <h3 class="text-center">প্রশিক্ষণ বাস্তবায়ন সময়সূচি ২০২০-২০২১</h3>
+                            <h3 class="text-center">প্রশিক্ষণ বাস্তবায়ন সময়সূচি {{ (date('m') > 6) ? Converter::en2bn(date('Y').'-'.date('Y')+1) : Converter::en2bn((date('Y')-1) .'-'.date('Y')) }}</h3>
                         </div>
                         <div class="col-md-12">
                             <div>
-                                <table class="table table-bordered table-hover floatThead-table">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" style="vertical-align: middle">ক্রমিক নং</th>
-                                            <th rowspan="2" style="vertical-align: middle">ট্রেডের নাম</th>
-                                            <th colspan="12" rowspan="1"><p class="text-center">মাস</p></th>
-                                            <th rowspan="2" style="vertical-align: middle">বাৎসরিক প্রশিক্ষণ লক্ষ্যমাত্রা
-                                            </th>
-                                            <th rowspan="2" style="vertical-align: middle">প্রশিক্ষণের ধরন</th>
-                                            <th rowspan="2" style="vertical-align: middle">প্রশিক্ষণ ভেনু</th>
-                                            <th rowspan="2" style="vertical-align: middle">ভেনু বিস্তারিত</th>
-                                        </tr>
-                                        <tr>
-
-                                            @php
-                                                $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
-                                            @endphp
-                                            <th>জুলাই<br>{{ $year-1 }}</th>
-                                            <th>অগাস্ট<br>{{ $year-1 }}</th>
-                                            <th>সেপ্টেম্:<br>{{ $year-1 }}</th>
-                                            <th>অক্টো:<br>{{ $year-1 }}</th>
-                                            <th>নভে:<br>{{ $year-1 }}</th>
-                                            <th>ডিসে:<br>{{ $year-1 }}</th>
-                                            <th>জানু:<br>{{ $year}}</th>
-                                            <th>ফেব্রু:<br>{{ $year}}</th>
-                                            <th>মার্চ<br>{{ $year}}</th>
-                                            <th>এপ্রিল<br>{{ $year}}</th>
-                                            <th>মে<br>{{ $year}}</th>
-                                            <th>জুন<br>{{ $year}}</th>
-                                        </tr>
+                                <table class="table table-bordered table-hover floatThead-table table-fixed">
+                                    <thead class="sticky-top" style="background: #f4f6f9">
+                                    <tr>
+                                        <th rowspan="2" style="vertical-align: middle">ক্রমিক নং</th>
+                                        <th rowspan="2" style="vertical-align: middle">ট্রেডের নাম</th>
+                                        <th colspan="12" rowspan="1"><p class="text-center">মাস</p></th>
+                                        <th rowspan="2" style="vertical-align: middle">বাৎসরিক প্রশিক্ষণ লক্ষ্যমাত্রা</th>
+                                        <th rowspan="2" style="vertical-align: middle">প্রশিক্ষণের ধরন</th>
+                                        <th rowspan="2" style="vertical-align: middle">প্রশিক্ষণ ভেনু</th>
+                                        <th rowspan="2" style="vertical-align: middle">ভেনু বিস্তারিত</th>
+                                    </tr>
+                                    <tr>
+                                        <th>জুলাই<br>{{ $year-1 }}</th>
+                                        <th>অগাস্ট<br>{{ $year-1 }}</th>
+                                        <th>সেপ্টেম্:<br>{{ $year-1 }}</th>
+                                        <th>অক্টো:<br>{{ $year-1 }}</th>
+                                        <th>নভে:<br>{{ $year-1 }}</th>
+                                        <th>ডিসে:<br>{{ $year-1 }}</th>
+                                        <th>জানু:<br>{{ $year}}</th>
+                                        <th>ফেব্রু:<br>{{ $year}}</th>
+                                        <th>মার্চ<br>{{ $year}}</th>
+                                        <th>এপ্রিল<br>{{ $year}}</th>
+                                        <th>মে<br>{{ $year}}</th>
+                                        <th>জুন<br>{{ $year}}</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                        $sl = 0;
+                                    $sl = 0;
                                     ?>
-                                    @foreach($courseSessions as $courseSession)
-                                    <tr>
-                                        <th >{{ ++$sl }}</th>
-                                        <th >{{ $courseSession->course->title_bn }} </th>
+                                    @foreach($courses as $course)
+                                        <tr>
+                                            <th> {{ Converter::en2bn(++$sl) }} </th>
+                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
+                                            {{--<th></th>
+                                            <th></th>--}}
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
 
-                                        <th july>10</th>
-                                        <th >10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
-                                        <th>10</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        @foreach($course->courseSessions as $courseSession)
+                                            <tr>
+                                                <th></th>
+                                                <th style="font-size: 12px">{{ $courseSession->course->title_bn }}
+                                                    (Batch-{{  $courseSession->number_of_batches}})
+                                                </th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==8 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==9 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==10 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==11 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==12 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==1 && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==2  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==3  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==4  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==5  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+                                                <th>{{ date('m', strtotime($courseSession->application_start_date))==6  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
 
-                                        <th >100</th>
-                                        <th  >অনাবাসিক</th>
-                                        <th >{{ $courseSession->total_course_session }} ভেনু</th>
-                                        <th ><a href="#">Details</a></th>
-                                    </tr>
+                                                <th></th>
+                                                <th> {{ $courseSession->course->course_fee?'আবাসিক':'অনাবাসিক'}} </th>
+                                                <th>80 ভেনু</th>
+                                                <th>
+                                                    <a href="#">
+                                                        @php
+                                                        if($courseSession->publishCourse->trainingCenter){
+                                                            echo $courseSession->publishCourse->trainingCenter->title_bn;
+                                                        }elseif($courseSession->publishCourse->branch){
+                                                            echo $courseSession->publishCourse->branch->title_bn;
+                                                        }else
+                                                            echo $courseSession->publishCourse->institute->title_bn;
+                                                        @endphp
+
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
 
 
@@ -97,6 +150,8 @@
 @endsection
 @push('css')
     <style>
+
+
 
 
     </style>
