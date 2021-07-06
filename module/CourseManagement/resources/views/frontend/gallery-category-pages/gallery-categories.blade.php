@@ -24,7 +24,7 @@
                                         data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
                                         data-label-fields="{title_en}"
                                         data-dependent-fields="#batch_id"
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="প্রোগ্রাম নির্বাচন করুন"
                                 >
                                 </select>
                             </div>
@@ -35,7 +35,7 @@
                                         data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
                                         data-label-fields="{title_en}"
                                         data-depend-on-optional="programme_id"
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="ব্যাচ নির্বাচন করুন"
                                 >
                                 </select>
                             </div>
@@ -71,13 +71,16 @@
 @push('js')
     <script>
         const template = function (item) {
-            console.log(item);
             let html = ` <div class="col-md-3">`;
             html += `<div class="card">`;
+            let src = "{{route('course_management::gallery_categories', '__')}}".replace('__', item.id)
+            html += '<a href="' + src + '>';
             html += '<img class="card-img-top" src="/storage/' + item.image + '" alt="Card image cap">';
+            html += '</a>';
             html += `<div class="card-body">`;
             html += '<h5 class="card-title">' + item.title_bn + '</h5>';
-            html += '<p class="card-text">' + item?.programme?.title_bn + '</p>';
+            html += '<p class="card-text">Programme: ' + item?.programme_title_bn ?? "N/A" + '</p>';
+            html += '<p class="card-text">Batch: ' + item.batch_title_bn+ '</p>';
             html += '</div></div>';
             return html;
         };
@@ -119,7 +122,7 @@
         let baseUrl = '{{route('web-api.model-resources')}}';
         const skillVideoFetch = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\GalleryCategory::class)}}",
-            columns: 'title_en|title_bn|image|batch_id|programme_id|institute_id'
+            columns: 'title_en|title_bn|image|batch.title_bn|programme.title_bn|institute_id'
         });
 
         function videoSearch(url = baseUrl) {
@@ -136,6 +139,7 @@
             }
 
             skillVideoFetch(url, filters)?.then(function (response) {
+                console.table('response', response);
                 $('.overlay').hide();
                 window.scrollTo(0, 0);
                 let html = '';
