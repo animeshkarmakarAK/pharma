@@ -56,11 +56,16 @@
                                     <tbody>
                                     <?php
                                     $sl = 0;
+                                    foreach ($courses as $course){
+                                        dd($course);
+                                    }
                                     ?>
-                                    @foreach($courses as $key => $course)
+                                    @foreach($courses as $course)
                                         <tr>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" >{{ ++$sl }}</th>
-                                            <th colspan="5">{{ $totalCourseVenue[$key]->course_name }}</th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ ++$sl }} </th>
+                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
+                                            {{--<th></th>
+                                            <th></th>--}}
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -69,16 +74,19 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" ></th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" > {{ $totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক' }}</th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" >{{ $totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0' }} টি কেন্দ্র</th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" >
-                                                <a href="{{ route('course_management::venue-list',$totalCourseVenue[$key]->course_id ) }}">বিস্তারিত</a>
+                                            <th></th>
+                                            <th></th>
+
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"></th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ $course->course_fee?'আবাসিক':'অনাবাসিক'}}</th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ !empty($totalVenue[$course->id]) ? $totalVenue[$course->id]:'0'}} টি কেন্দ্র</th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}">
+                                                <a href="{{ route('course_management::venue-list',$course->id ) }}"> বিস্তারিত </a>
                                             </th>
                                         </tr>
-                                        @foreach($course as $courseSession)
+                                        @foreach($course->courseSessions as $courseSession)
                                             <tr>
-                                                <th style="font-size: 12px">{{ $totalCourseVenue[$key]->course_name }}
+                                                <th style="font-size: 12px">{{ $courseSession->course->title_bn }}
                                                     (Session-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
@@ -93,6 +101,23 @@
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==4  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==5  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==6  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
+
+                                                {{--<th></th>
+                                                <th> {{ $courseSession->course->course_fee?'আবাসিক':'অনাবাসিক'}} </th>
+                                                <th>80 ভেনু</th>
+                                                <th>
+                                                    <a href="#">
+                                                        @php
+                                                        if($courseSession->publishCourse->trainingCenter){
+                                                            echo $courseSession->publishCourse->trainingCenter->title_bn;
+                                                        }elseif($courseSession->publishCourse->branch){
+                                                            echo $courseSession->publishCourse->branch->title_bn;
+                                                        }else
+                                                            echo $courseSession->publishCourse->institute->title_bn;
+                                                        @endphp
+
+                                                    </a>
+                                                </th>--}}
                                             </tr>
                                         @endforeach
                                     @endforeach
