@@ -42,6 +42,9 @@ class Youth extends AuthBaseModel
         'present_address_house_address' => 'array',
         'permanent_address_house_address' => 'array',
     ];
+    /**
+     * @var mixed
+     */
 
     public static function getUniqueAccessKey(): string
     {
@@ -81,7 +84,7 @@ class Youth extends AuthBaseModel
     }
 
     /**
-     * @return HasMany
+     * @return HasOne
      */
     public function youthRegistration(): HasOne
     {
