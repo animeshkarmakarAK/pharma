@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 trait ScopeAclTrait
 {
-    public function scopeAcl(Builder $query, string $alias = null, string $attribute = "organization_id"): Builder
+    public function scopeAcl(Builder $query, string $alias = null, string $column = 'organization_id'): Builder
     {
         if (empty($alias)) {
             $alias = $this->getTable() . '.';
@@ -21,10 +21,9 @@ trait ScopeAclTrait
         if (AuthHelper::checkAuthUser()) {
             $authUser = AuthHelper::getAuthUser();
             if ($authUser->isOrganizationUser()) {
-                $query->where($alias. $attribute, $authUser->organization_id);
+                $query->where($alias. $column, $authUser->organization_id);
             }
         }
-
         return $query;
     }
 }
