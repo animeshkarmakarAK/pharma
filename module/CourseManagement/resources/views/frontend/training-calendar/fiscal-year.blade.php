@@ -35,6 +35,7 @@ class Converter
                 </div>
                 <div class="card-body">
                     <div class="row">
+
                         @php
                             $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
                         @endphp
@@ -73,10 +74,11 @@ class Converter
                                     <?php
                                     $sl = 0;
                                     ?>
-                                    @foreach($courses as $course)
+
+                                    @foreach($courseSessions as $courseSession)
                                         <tr>
-                                            <th> {{ Converter::en2bn(++$sl) }} </th>
-                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
+                                            <th class="align-middle" rowspan=""> {{ Converter::en2bn(++$sl) }} </th>
+                                            <th colspan="3" >{{ $courseSession->title_bn }} </th>
                                             {{--<th></th>
                                             <th></th>--}}
                                             <th></th>
@@ -90,16 +92,45 @@ class Converter
                                             <th></th>
                                             <th></th>
 
+                                            <th class="align-middle" rowspan=""></th>
+                                            <th class="align-middle" rowspan="">{{'id: '. $courseSession->course_id}} {{--{{ $course->course_fee?'আবাসিক':'অনাবাসিক'}}--}}</th>
+                                            <th class="align-middle" rowspan=""> {{ !empty($totalVenue[$courseSession->id]) ? $totalVenue[$courseSession->id]:'0'}} টি কেন্দ্র</th>
+                                            <th class="align-middle" rowspan="">
+                                                <a href="{{ route('course_management::venue-list',$courseSession->course_id ) }}">Details</a>
+                                            </th>
+                                        </tr>
+                                    @endforeach
+
+
+
+                                    {{--@foreach($courses as $course)
+                                        <tr>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ Converter::en2bn(++$sl) }} </th>
+                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
+                                            --}}{{--<th></th>
+                                            <th></th>--}}{{--
                                             <th></th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"></th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ $course->course_fee?'আবাসিক':'অনাবাসিক'}}</th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ !empty($totalVenue[$course->id]) ? $totalVenue[$course->id]:'0'}} টি কেন্দ্র</th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}">
+                                                <a href="{{ route('course_management::venue-list',$course->id ) }}">Details</a>
+                                            </th>
                                         </tr>
                                         @foreach($course->courseSessions as $courseSession)
                                             <tr>
-                                                <th></th>
                                                 <th style="font-size: 12px">{{ $courseSession->course->title_bn }}
-                                                    (Batch-{{  $courseSession->number_of_batches}})
+                                                    (Session-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==8 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
@@ -114,7 +145,7 @@ class Converter
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==5  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==6  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
 
-                                                <th></th>
+                                                --}}{{--<th></th>
                                                 <th> {{ $courseSession->course->course_fee?'আবাসিক':'অনাবাসিক'}} </th>
                                                 <th>80 ভেনু</th>
                                                 <th>
@@ -129,10 +160,10 @@ class Converter
                                                         @endphp
 
                                                     </a>
-                                                </th>
+                                                </th>--}}{{--
                                             </tr>
                                         @endforeach
-                                    @endforeach
+                                    @endforeach--}}
 
 
                                     </tbody>
