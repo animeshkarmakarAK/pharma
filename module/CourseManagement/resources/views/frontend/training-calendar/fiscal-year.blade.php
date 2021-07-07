@@ -56,16 +56,10 @@
                                     <tbody>
                                     <?php
                                     $sl = 0;
-                                    foreach ($courses as $course){
-                                        dd($course);
-                                    }
                                     ?>
-                                    @foreach($courses as $course)
+                                    @foreach($courses as $key => $course)
                                         <tr>
-                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ ++$sl }} </th>
-                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
-                                            {{--<th></th>
-                                            <th></th>--}}
+                                            <th>{{ $totalCourseVenue[$key-1]->course_name }}</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -76,15 +70,9 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-
-                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"></th>
-                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ $course->course_fee?'আবাসিক':'অনাবাসিক'}}</th>
-                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ !empty($totalVenue[$course->id]) ? $totalVenue[$course->id]:'0'}} টি কেন্দ্র</th>
-                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}">
-                                                <a href="{{ route('course_management::venue-list',$course->id ) }}"> বিস্তারিত </a>
-                                            </th>
+                                            <th>{{ $totalCourseVenue[$key-1]->total_venue }}</th>
                                         </tr>
-                                        @foreach($course->courseSessions as $courseSession)
+                                        @foreach($course as $courseSession)
                                             <tr>
                                                 <th style="font-size: 12px">{{ $courseSession->course->title_bn }}
                                                     (Session-{{  $courseSession->number_of_batches}})
@@ -101,23 +89,6 @@
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==4  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==5  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==6  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
-
-                                                {{--<th></th>
-                                                <th> {{ $courseSession->course->course_fee?'আবাসিক':'অনাবাসিক'}} </th>
-                                                <th>80 ভেনু</th>
-                                                <th>
-                                                    <a href="#">
-                                                        @php
-                                                        if($courseSession->publishCourse->trainingCenter){
-                                                            echo $courseSession->publishCourse->trainingCenter->title_bn;
-                                                        }elseif($courseSession->publishCourse->branch){
-                                                            echo $courseSession->publishCourse->branch->title_bn;
-                                                        }else
-                                                            echo $courseSession->publishCourse->institute->title_bn;
-                                                        @endphp
-
-                                                    </a>
-                                                </th>--}}
                                             </tr>
                                         @endforeach
                                     @endforeach

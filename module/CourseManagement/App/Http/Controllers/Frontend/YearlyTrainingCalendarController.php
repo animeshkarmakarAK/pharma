@@ -44,17 +44,22 @@ class YearlyTrainingCalendarController extends Controller
             ->orWhere('application_start_date', 'like', '%' . ($year) . '%')
             ->get()
             ->groupBy('course_id');
-        //dd($courses);
 
-        $totalVenueCourses = DB::select('SELECT course_id,COUNT(*) as total_course from (SELECT course_id,institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
+//        dd($courses);
+//
+//        $tmp = CourseSession::select(
+//           'publish_courses.institute_id',
+//            'publish_courses.branch_id',
+//            'publish_courses.course_id',
+//            DB::raw('count(publish_courses.institute_id) as total'))
+//            ->join('publish_courses', 'course_sessions.publish_course_id', '=', 'publish_courses.id')
+//            ->groupBy('publish_courses.course_id')
+//            ->get();
+//        dd($tmp);
 
-        $totalVenue = [];
-        foreach ($totalVenueCourses as $totalVenueCourse) {
-            $totalVenue[$totalVenueCourse->course_id] = $totalVenueCourse->total_course;
-        }
+        $totalCourseVenue = DB::select('SELECT course_name, course_id,COUNT(*) as total_venue from (SELECT courses.title_en as course_name, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
 
-        //$courses = Course::active()->get();
-        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact( 'totalVenue', 'courses'));
+        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact( 'totalCourseVenue', 'courses'));
     }
 
 
