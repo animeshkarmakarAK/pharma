@@ -43,9 +43,8 @@ class YearlyTrainingCalendarController extends Controller
             ->Where('application_start_date', 'like', '%' . ($year - 1) . '%')
             ->orWhere('application_start_date', 'like', '%' . ($year) . '%')
             ->get()
-            ->groupBy('course_id');
-
-//        dd($courses);
+            ->groupBy('course_id')
+            ->values();
 //
 //        $tmp = CourseSession::select(
 //           'publish_courses.institute_id',

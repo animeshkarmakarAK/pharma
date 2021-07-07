@@ -59,7 +59,7 @@
                                     ?>
                                     @foreach($courses as $key => $course)
                                         <tr>
-                                            <th>{{ $totalCourseVenue[$key-1]->course_name }}</th>
+                                            <th>{{ $totalCourseVenue[$key]->course_name }}</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -70,7 +70,7 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th>{{ $totalCourseVenue[$key-1]->total_venue }}</th>
+                                            <th>{{ $totalCourseVenue[$key]->total_venue }}</th>
                                         </tr>
                                         @foreach($course as $courseSession)
                                             <tr>
