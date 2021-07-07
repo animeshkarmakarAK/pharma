@@ -3,23 +3,6 @@
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 
 
-class Converter
-{
-    public static $bn = ["১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০"];
-    public static $en = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-
-    public static function bn2en($number)
-    {
-        return str_replace(self::$bn, self::$en, $number);
-    }
-
-    public static function en2bn($number)
-    {
-        return str_replace(self::$en, self::$bn, $number);
-    }
-}
-
-
 @endphp
 @extends($layout)
 
@@ -40,7 +23,7 @@ class Converter
                             $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
                         @endphp
                         <div class="col-md-12">
-                            <h3 class="text-center">প্রশিক্ষণ বাস্তবায়ন সময়সূচি {{ (date('m') > 6) ? Converter::en2bn(date('Y').'-'.date('Y')+1) : Converter::en2bn((date('Y')-1) .'-'.date('Y')) }}</h3>
+                            <h3 class="text-center">প্রশিক্ষণ বাস্তবায়ন সময়সূচি {{ (date('m') > 6) ? date('Y').'-'.date('Y')+1 : (date('Y')-1) .'-'.date('Y') }}</h3>
                         </div>
                         <div class="col-md-12">
                             <div>
@@ -73,42 +56,16 @@ class Converter
                                     <tbody>
                                     <?php
                                     $sl = 0;
+                                    foreach ($courses as $course){
+                                        dd($course);
+                                    }
                                     ?>
-
-                                    @foreach($courseSessions as $courseSession)
+                                    @foreach($courses as $course)
                                         <tr>
-                                            <th class="align-middle" rowspan=""> {{ Converter::en2bn(++$sl) }} </th>
-                                            <th colspan="3" >{{ $courseSession->title_bn }} </th>
+                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ ++$sl }} </th>
+                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
                                             {{--<th></th>
                                             <th></th>--}}
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-
-                                            <th class="align-middle" rowspan=""></th>
-                                            <th class="align-middle" rowspan="">{{'id: '. $courseSession->course_id}} {{--{{ $course->course_fee?'আবাসিক':'অনাবাসিক'}}--}}</th>
-                                            <th class="align-middle" rowspan=""> {{ !empty($totalVenue[$courseSession->id]) ? $totalVenue[$courseSession->id]:'0'}} টি কেন্দ্র</th>
-                                            <th class="align-middle" rowspan="">
-                                                <a href="{{ route('course_management::venue-list',$courseSession->course_id ) }}">Details</a>
-                                            </th>
-                                        </tr>
-                                    @endforeach
-
-
-
-                                    {{--@foreach($courses as $course)
-                                        <tr>
-                                            <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ Converter::en2bn(++$sl) }} </th>
-                                            <th colspan="3" >{{ $course/*->course*/->title_bn }} </th>
-                                            --}}{{--<th></th>
-                                            <th></th>--}}{{--
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -124,7 +81,7 @@ class Converter
                                             <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ $course->course_fee?'আবাসিক':'অনাবাসিক'}}</th>
                                             <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}"> {{ !empty($totalVenue[$course->id]) ? $totalVenue[$course->id]:'0'}} টি কেন্দ্র</th>
                                             <th class="align-middle" rowspan="{{ count($course->courseSessions)+1 }}">
-                                                <a href="{{ route('course_management::venue-list',$course->id ) }}">Details</a>
+                                                <a href="{{ route('course_management::venue-list',$course->id ) }}"> বিস্তারিত </a>
                                             </th>
                                         </tr>
                                         @foreach($course->courseSessions as $courseSession)
@@ -145,7 +102,7 @@ class Converter
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==5  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==6  && date('Y', strtotime($courseSession->application_start_date))==date('Y')+1? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
 
-                                                --}}{{--<th></th>
+                                                {{--<th></th>
                                                 <th> {{ $courseSession->course->course_fee?'আবাসিক':'অনাবাসিক'}} </th>
                                                 <th>80 ভেনু</th>
                                                 <th>
@@ -160,10 +117,10 @@ class Converter
                                                         @endphp
 
                                                     </a>
-                                                </th>--}}{{--
+                                                </th>--}}
                                             </tr>
                                         @endforeach
-                                    @endforeach--}}
+                                    @endforeach
 
 
                                     </tbody>

@@ -37,59 +37,37 @@ class YearlyTrainingCalendarController extends Controller
 
     public function fiscalYear(): view
     {
-        $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
+        $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
 
-        $courseSessions = CourseSession::select(
-            'course_id',
-            'courses.title_en',
-            'courses.title_bn',
-            'course_sessions.number_of_batches',
-            DB::raw(group_concate( 'application_start_date')),
-            DB::raw('count(*) as total'),
-            DB::raw('MAX(course_sessions.id) as id'),
-        )
-            ->join('courses', 'courses.id','=','course_sessions.course_id')
-            ->Where('application_start_date','like','%'.($year-1).'%')
-            ->orWhere('application_start_date','like','%'.($year).'%')
-
-            ->groupBy(['course_id', 'application_start_date','number_of_batches'])
-            ->get();
-        dd($courseSessions);
-        /*foreach ($courseSessions as $courseSession){
-            dd($courseSession->title_en);
-        }*/
-        //return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('courseSessions'));
+        $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
+            ->Where('application_start_date', 'like', '%' . ($year - 1) . '%')
+            ->orWhere('application_start_date', 'like', '%' . ($year) . '%')
+            ->get()
+            ->groupBy('course_id');
+        //dd($courses);
 
         $totalVenueCourses = DB::select('SELECT course_id,COUNT(*) as total_course from (SELECT course_id,institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
 
         $totalVenue = [];
-        foreach ($totalVenueCourses as $totalVenueCourse){
-            $totalVenue[$totalVenueCourse->course_id]= $totalVenueCourse->total_course;
+        foreach ($totalVenueCourses as $totalVenueCourse) {
+            $totalVenue[$totalVenueCourse->course_id] = $totalVenueCourse->total_course;
         }
 
-        //($totalVenue);
-
-        $courses = Course::active()->get();
-        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('courses','totalVenue','courseSessions'));
-
-
+        //$courses = Course::active()->get();
+        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact( 'totalVenue', 'courses'));
     }
+
+
     public function venueList($id): view
     {
-        //$publishedCourses = PublishCourse::all()->groupBy(['training_center_id', 'branch_id','institute_id']);
-        $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
-        $publishedCourses = PublishCourse::where(['course_id'=>$id])
+        $publishedCourses = PublishCourse::select(
+            'institute_id',
+            'branch_id',
+            'training_center_id'
+        )
+            ->where(['course_id'=>$id])
+            ->groupBy(['institute_id', 'branch_id', 'training_center_id'])
             ->get();
-        //$publishedCourses = (array)$publishedCourses;
-        //dd($publishedCourses);
-
-        /*$result = $publishedCourses->groupBy(['training_center_id', 'branch_id','institute_id', function ($item) {
-            return $item[''];
-        }], $preserveKeys = true);
-
-        dd($result);*/
-
-
         return \view(self::VIEW_PATH . 'training-calendar.venue-list', compact('publishedCourses'));
 
     }
