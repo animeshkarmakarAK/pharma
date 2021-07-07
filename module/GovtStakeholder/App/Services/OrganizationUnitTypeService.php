@@ -62,7 +62,7 @@ class OrganizationUnitTypeService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|OrganizationUnitType $organizationUnitType */
 
-        $organizationUnitType = OrganizationUnitType::select([
+        $organizationUnitType = OrganizationUnitType::acl()->select([
             'organization_unit_types.id',
             'organization_unit_types.title_en',
             'organization_unit_types.title_bn',

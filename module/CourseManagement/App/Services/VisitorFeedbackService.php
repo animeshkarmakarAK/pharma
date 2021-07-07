@@ -5,8 +5,6 @@ namespace Module\CourseManagement\App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use Module\CourseManagement\App\Models\VisitorFeedback;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -63,7 +61,7 @@ class VisitorFeedbackService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|VisitorFeedback $visitorFeedbacks */
-        $visitorFeedback = VisitorFeedback::select(
+        $visitorFeedback = VisitorFeedback::acl()->select(
             [
                 'visitor_feedback.id as id',
                 'institutes.title_en as institute_name',

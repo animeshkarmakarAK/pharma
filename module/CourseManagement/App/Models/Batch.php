@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,11 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
  * @property Carbon end_date
  * @property Carbon start_time
  * @property Carbon end_time
+ *@method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 
 class Batch extends Model

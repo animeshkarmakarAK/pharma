@@ -63,7 +63,7 @@ class VideoCategoryService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|VideoCategory $videoCategory */
 
-        $videoCategories = VideoCategory::select([
+        $videoCategories = VideoCategory::acl()->select([
             'video_categories.id as id',
             'video_categories.title_en',
             'video_categories.title_bn',

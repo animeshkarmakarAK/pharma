@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Models;
 
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Carbon\Carbon;
@@ -22,6 +23,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int form_type
  * @property Carbon read_at
  * @property-read Institute institute
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class VisitorFeedback extends BaseModel
 {

@@ -143,7 +143,7 @@ class OrganizationUnitService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|OrganizationUnit $organizationUnit */
 
-        $organizationUnit = OrganizationUnit::select([
+        $organizationUnit = OrganizationUnit::acl()->select([
             'organization_units.id',
             'organization_units.title_en',
             'organization_units.title_bn',

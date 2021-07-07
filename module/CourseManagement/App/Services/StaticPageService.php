@@ -53,7 +53,7 @@ class StaticPageService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|StaticPage $staticPage */
 
-        $staticPage = StaticPage::select([
+        $staticPage = StaticPage::acl()->select([
             'static_pages.id as id',
             'static_pages.title_en',
             'static_pages.institute_id',
@@ -66,8 +66,6 @@ class StaticPageService
             'static_pages.updated_at'
         ]);
         $staticPage->join('institutes', 'static_pages.institute_id', 'institutes.id');
-        $staticPage->acl();
-
 
         return DataTables::eloquent($staticPage)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (StaticPage $staticPage) use ($authUser) {

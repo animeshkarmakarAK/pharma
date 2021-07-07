@@ -23,6 +23,11 @@ use Illuminate\Support\Carbon;
  * @property string|null google_map_src
  * @property string logo
  * @property string|null config
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class Institute extends BaseModel
 {

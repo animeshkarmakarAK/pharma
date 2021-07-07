@@ -23,6 +23,11 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string|null youtube_video_id
  * @property string|null youtube_video_url
  * @property string|null uploaded_video_path
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class Video extends BaseModel
 {

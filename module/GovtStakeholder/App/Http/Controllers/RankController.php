@@ -130,7 +130,6 @@ class RankController extends BaseController
         ]);
     }
 
-
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->rankService->getRankLists($request);

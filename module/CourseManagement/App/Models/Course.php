@@ -5,6 +5,7 @@ namespace Module\CourseManagement\App\Models;
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,6 +24,11 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
  * @property string prerequisite
  * @property string eligibility
  * @property File cover_image
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 
 class Course extends BaseModel

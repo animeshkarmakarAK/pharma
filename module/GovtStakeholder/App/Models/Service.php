@@ -3,8 +3,10 @@
 namespace Module\GovtStakeholder\App\Models;
 
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Module\GovtStakeholder\App\Traits\ScopeAclTrait;
 
 /**
  * Class Service
@@ -13,12 +15,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string title_en
  * @property string title_bn
  * @property-read Organization organization
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization acl()
+ * @method static Builder|Organization active()
+ * @method static Builder|Organization newModelQuery()
+ * @method static Builder|Organization newQuery()
+ * @method static Builder|Organization query()
  */
 
 
 class Service extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait;
+    use HasFactory, ScopeRowStatusTrait, ScopeAclTrait;
 
     protected $guarded = ['id'];
 

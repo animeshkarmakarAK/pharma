@@ -2,11 +2,8 @@
 
 namespace Module\CourseManagement\App\Services;
 
-use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
-use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\YouthBatch;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

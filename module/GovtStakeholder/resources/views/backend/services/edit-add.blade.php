@@ -51,6 +51,9 @@
                                 </div>
                             </div>
 
+                            @if($authUser->isOrganizationUser())
+                                <input type="hidden" name="organization_id" value="{{ $authUser->organization_id }}">
+                            @else
                             <div class="form-group col-md-6">
                                 <label for="organization_id">Organization Name <span style="color: red">*</span></label>
                                 <select class="form-control select2-ajax-wizard"
@@ -61,11 +64,11 @@
                                         @if($edit && !empty($service->organization_id))
                                         data-preselected-option="{{json_encode(['text' =>  $service->organization->title_en, 'id' =>  $service->organization_id])}}"
                                         @endif
-                                        data-placeholder="Select option"
+                                        data-placeholder="Select organization"
                                 >
-                                    <option selected value="">Select</option>
                                 </select>
                             </div>
+                            @endif
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"

@@ -6,10 +6,12 @@ use App\Traits\LocDistrictBelongsToRelation;
 use App\Traits\LocDivisionBelongsToRelation;
 use App\Traits\LocUpazilaBelongsToRelation;
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Module\GovtStakeholder\App\Traits\ScopeAclTrait;
 
 /**
  * Class OrganizationUnit
@@ -29,10 +31,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int employee_size
  * @property-read Organization organization
  * @property-read OrganizationUnitType organizationUnitType
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization acl()
+ * @method static Builder|Organization active()
+ * @method static Builder|Organization newModelQuery()
+ * @method static Builder|Organization newQuery()
+ * @method static Builder|Organization query()
  */
 class OrganizationUnit extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait, LocDistrictBelongsToRelation, LocDivisionBelongsToRelation, LocUpazilaBelongsToRelation;
+    use HasFactory, ScopeRowStatusTrait, LocDistrictBelongsToRelation, LocDivisionBelongsToRelation, LocUpazilaBelongsToRelation, ScopeAclTrait;
 
     protected $guarded = ['id'];
 
@@ -84,7 +91,7 @@ class OrganizationUnit extends BaseModel
         return $this->hasMany(HumanResource::class);
     }
 
-    public function statistics():HasOne
+    public function statistics(): HasOne
     {
         return $this->hasOne(organizationUnitStatistic::class);
     }

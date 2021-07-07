@@ -51,7 +51,7 @@ class BatchService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Batch $batches */
-        $batches = Batch::select(
+        $batches = Batch::acl()->select(
             [
                 'batches.id as id',
                 'batches.title_en as batches.title_en',
@@ -70,7 +70,6 @@ class BatchService
         );
         $batches->join('institutes', 'batches.institute_id', '=', 'institutes.id');
         $batches->join('courses', 'batches.course_id', '=', 'courses.id');
-        $batches->acl();
 
         return DataTables::eloquent($batches)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Batch $batch) use ($authUser){

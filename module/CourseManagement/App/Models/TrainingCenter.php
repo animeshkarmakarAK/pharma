@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Models;
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int branch_id
  * @property string|null address
  * @property string|null google_map_src
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class TrainingCenter extends BaseModel
 {

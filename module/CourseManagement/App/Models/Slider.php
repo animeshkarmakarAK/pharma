@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int is_button_available
  * @property string button_text
  * @property string slider
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class Slider extends BaseModel
 {

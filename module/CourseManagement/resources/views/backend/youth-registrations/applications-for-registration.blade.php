@@ -79,11 +79,11 @@
                                             <i class="fas fa-sort-amount-down-alt"></i>
                                             Filter</label>
                                     </div>
-                                    <div class="col-md-3">
-                                        @if($authUser->isInstituteUser())
-                                            <input type="hidden" id="institute_id" name="institute_id"
-                                                   value="{{$authUser->institute_id}}">
-                                        @else
+                                    @if($authUser->isInstituteUser())
+                                        <input type="hidden" id="institute_id" name="institute_id"
+                                               value="{{$authUser->institute_id}}">
+                                    @else
+                                        <div class="col-md-3">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="institute_id"
                                                     id="institute_id"
@@ -93,8 +93,9 @@
                                                     data-placeholder="Select institute"
                                             >
                                             </select>
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
+
 
                                     <div class="col-md-3">
                                         <select class="form-control select2-ajax-wizard"
@@ -120,7 +121,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="offset-md-1 col-md-3 mt-2">
+                                    <div class="col-md-3">
                                         <select class="form-control select2-ajax-wizard"
                                                 name="programme_id"
                                                 id="programme_id"
@@ -151,7 +152,6 @@
                                     <div class="col-md-1 mt-2">
                                         <button class="btn btn-primary" id="reset-btn">Reset</button>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -173,7 +173,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 @if($batches->count())
-                    <form id="add-to-batch-form" method="post" action="{{route('course_management::admin.youth.add-to-batch')}}">
+                    <form id="add-to-batch-form" method="post"
+                          action="{{route('course_management::admin.youth.add-to-batch')}}">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Select Batch</h5>
@@ -211,7 +212,8 @@
                     <div class="modal-body">
                         @can('create', \Module\CourseManagement\App\Models\Batch::class)
                             <div class="d-block mt-5 mb-5 text-center">
-                                <a href="{{route('course_management::admin.batches.create')}}" class="btn btn-sm btn-success">
+                                <a href="{{route('course_management::admin.batches.create')}}"
+                                   class="btn btn-sm btn-success">
                                     <i class="fa fa-plus-circle"></i> Create New Batch
                                 </a>
                             </div>

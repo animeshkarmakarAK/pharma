@@ -52,7 +52,7 @@ class PublishCourseService
     public function getListDataForDatatable(Request $request): JsonResponse
     {
         /** @var Builder|PublishCourse $publishCourses */
-        $publishCourses = PublishCourse::select([
+        $publishCourses = PublishCourse::acl()->select([
             'publish_courses.id as id',
             'publish_courses.course_id',
             'publish_courses.institute_id',
@@ -73,7 +73,6 @@ class PublishCourseService
         $publishCourses->leftJoin('programmes', 'publish_courses.programme_id', '=', 'programmes.id');
         $publishCourses->leftJoin('branches', 'publish_courses.branch_id', '=', 'branches.id');
         $publishCourses->leftJoin('training_centers', 'publish_courses.training_center_id', '=', 'training_centers.id');
-        $publishCourses->acl();
 
         return DataTables::eloquent($publishCourses)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (PublishCourse $publishCourse) {

@@ -3,9 +3,11 @@
 namespace Module\GovtStakeholder\App\Models;
 
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Module\GovtStakeholder\App\Traits\ScopeAclTrait;
 
 /**
  * Class OrganizationUnitType
@@ -15,10 +17,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int organization_id
  * @property-read HumanResourceTemplate humanResourceTemplate
  * @property-read Organization organization
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization acl()
+ * @method static Builder|Organization active()
+ * @method static Builder|Organization newModelQuery()
+ * @method static Builder|Organization newQuery()
+ * @method static Builder|Organization query()
  */
 class OrganizationUnitType extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait;
+    use HasFactory, ScopeRowStatusTrait, ScopeAclTrait;
 
     protected $guarded = ['id'];
 

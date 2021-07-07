@@ -130,7 +130,7 @@ class VideoService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Video $videos */
 
-        $videos = Video::select([
+        $videos = Video::acl()->select([
             'videos.id as id',
             'videos.title_en',
             'videos.title_bn',

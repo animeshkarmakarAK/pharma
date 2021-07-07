@@ -76,7 +76,7 @@ class InstituteService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Institute $institutes */
 
-        $institutes = Institute::acl()->select([
+        $institutes = Institute::acl('', 'id')->select([
             'institutes.id as id',
             'institutes.title_en',
             'institutes.title_bn',
@@ -86,7 +86,6 @@ class InstituteService
             'institutes.created_at',
             'institutes.updated_at'
         ]);
-        $institutes->acl();
 
         return DataTables::eloquent($institutes)
             ->addColumn('action', static function (Institute $institute) use ($authUser) {

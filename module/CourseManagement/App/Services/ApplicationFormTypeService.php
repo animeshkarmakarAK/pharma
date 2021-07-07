@@ -42,7 +42,6 @@ class ApplicationFormTypeService
      */
     public function updateApplicationFormType(ApplicationFormType $applicationFormType, Request $request): ApplicationFormType
     {
-        //dd($request->all());
         $data = [];
         $data['title_en'] = $request->title_en;
         $data['title_bn'] = $request->title_bn;
@@ -118,7 +117,7 @@ class ApplicationFormTypeService
     public function getListDataForDatatable(Request $request): JsonResponse
     {
         /** @var Builder|ApplicationFormType $applicationFromType */
-        $applicationFromType = ApplicationFormType::select([
+        $applicationFromType = ApplicationFormType::acl()->select([
             'application_form_types.id as id',
             'application_form_types.title_en',
             'application_form_types.title_bn',
@@ -129,7 +128,6 @@ class ApplicationFormTypeService
         ]);
         $applicationFromType->join('row_status', 'application_form_types.row_status', 'row_status.code');
         $applicationFromType->join('institutes', 'application_form_types.institute_id', '=', 'institutes.id');
-        $applicationFromType->acl();
 
         return DataTables::eloquent($applicationFromType)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (ApplicationFormType $applicationFromType) {

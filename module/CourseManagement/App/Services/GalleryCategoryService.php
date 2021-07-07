@@ -38,7 +38,8 @@ class GalleryCategoryService
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
             'title_bn' => ['required', 'string', 'max:191'],
-            'institute_id' => ['required',
+            'institute_id' => [
+                'required',
                 'int',
                 'exists:institutes,id'
             ],
@@ -115,7 +116,7 @@ class GalleryCategoryService
         $authUser = AuthHelper::getAuthUser();
 
         /** @var Builder|GalleryCategory $galleryCategories */
-        $galleryCategories = GalleryCategory::select([
+        $galleryCategories = GalleryCategory::acl()->select([
             'gallery_categories.id',
             'gallery_categories.title_en',
             'gallery_categories.title_bn',

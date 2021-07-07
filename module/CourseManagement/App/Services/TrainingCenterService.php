@@ -57,7 +57,7 @@ class TrainingCenterService
         $authUser = AuthHelper::getAuthUser();
 
         /** @var Builder|TrainingCenter $trainingCenters */
-        $trainingCenters = TrainingCenter::select([
+        $trainingCenters = TrainingCenter::acl()->select([
             'training_centers.id as id',
             'training_centers.title_en',
             'training_centers.title_bn',
@@ -70,7 +70,6 @@ class TrainingCenterService
         $trainingCenters->join('institutes', 'training_centers.institute_id', '=', 'institutes.id')
             ->leftJoin('branches', 'training_centers.branch_id', '=', 'branches.id')
             ->leftJoin('users', 'training_centers.created_by', '=', 'users.id');
-        $trainingCenters->acl();
 
         return DataTables::eloquent($trainingCenters)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (TrainingCenter $trainingCenter) use ($authUser) {

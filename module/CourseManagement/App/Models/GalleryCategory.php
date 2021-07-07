@@ -5,11 +5,13 @@ namespace Module\CourseManagement\App\Models;
 use App\Models\RowStatus;
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Module\CourseManagement\App\Traits\ScopeAclTrait;
 
 /**
  * Class GalleryCategory
@@ -31,10 +33,15 @@ use Illuminate\Support\Carbon;
  * @property-read Batch batch
  * @property-read Collection|Gallery galleries
  * @property-read RowStatus rowStatus
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class GalleryCategory extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait, CreatedByUpdatedByRelationTrait;
+    use HasFactory, ScopeRowStatusTrait, CreatedByUpdatedByRelationTrait, ScopeAclTrait;
 
     protected $guarded = ['id'];
     const DEFAULT_IMAGE = 'gallery-category/default.jpg';

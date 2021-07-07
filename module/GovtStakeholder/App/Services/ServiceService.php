@@ -57,7 +57,7 @@ class ServiceService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Service $servicees */
-        $servicees = Service::select(
+        $servicees = Service::acl()->select(
             [
                 'services.id as id',
                 'services.title_en',

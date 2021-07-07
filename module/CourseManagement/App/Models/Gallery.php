@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Models;
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon archive_date
  * @property string you_tube_video_id
  * @property-read GalleryCategory galleryCategory
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 class Gallery extends BaseModel
 {

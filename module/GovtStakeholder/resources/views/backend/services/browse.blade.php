@@ -66,7 +66,7 @@
                     {
                         title: "Organization Name",
                         data: "organization_title_en",
-                        name: "organizations.title_en"
+                        name: "organizations.title_en",
                     },
                     {
                         title: "Action",

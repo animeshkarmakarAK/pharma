@@ -71,7 +71,7 @@ class ProgrammeService
     public function programmeGetDataTable(Request $request): JsonResponse
     {
         $authUser = AuthHelper::getAuthUser();
-        $programmes = Programme::select(
+        $programmes = Programme::acl()->select(
             [
                 'programmes.id as id',
                 'programmes.title_en',
@@ -84,9 +84,7 @@ class ProgrammeService
                 'programmes.updated_at',
             ]
         )
-            ->join('institutes', 'programmes.institute_id', '=', 'institutes.id')
-            ->acl();
-
+            ->join('institutes', 'programmes.institute_id', '=', 'institutes.id');
         return DataTables::eloquent($programmes)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Programme $programme) use ($authUser) {
                 $str = '';

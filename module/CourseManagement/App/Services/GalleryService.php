@@ -115,7 +115,7 @@ class GalleryService
         $authUser = AuthHelper::getAuthUser();
 
         /** @var Builder|Gallery $galleries */
-        $galleries = Gallery::select([
+        $galleries = Gallery::acl()->select([
             'galleries.id as id',
             'galleries.content_title',
             'galleries.content_type',
@@ -124,7 +124,6 @@ class GalleryService
         ]);
         $galleries->join('gallery_categories', 'galleries.gallery_category_id', 'gallery_categories.id');
         $galleries->join('institutes', 'galleries.institute_id', 'institutes.id');
-        $galleries->acl();
 
         return DataTables::eloquent($galleries)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Gallery $gallery) use ($authUser) {

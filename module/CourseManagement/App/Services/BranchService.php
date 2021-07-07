@@ -63,7 +63,7 @@ class BranchService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Branch $branches */
-        $branches = Branch::select(
+        $branches = Branch::acl()->select(
             [
                 'branches.id as id',
                 'branches.title_en',
@@ -75,7 +75,6 @@ class BranchService
             ]
         );
         $branches->leftJoin('institutes', 'branches.institute_id', '=', 'institutes.id');
-        $branches->acl();
 
         return DataTables::eloquent($branches)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Branch $branch) use ($authUser) {
