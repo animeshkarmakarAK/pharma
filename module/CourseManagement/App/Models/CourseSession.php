@@ -35,4 +35,10 @@ class CourseSession extends BaseModel
     {
         return $this->belongsTo(PublishCourse::class);
     }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
+    }
+
 }
