@@ -3,7 +3,6 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use Module\CourseManagement\App\Http\Controllers\Controller;
-use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Illuminate\Contracts\View\View;
