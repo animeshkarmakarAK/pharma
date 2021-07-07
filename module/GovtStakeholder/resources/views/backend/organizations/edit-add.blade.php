@@ -109,7 +109,7 @@
                                         @endif
                                         data-placeholder="Select option"
                                 >
-                                    <option selected disabled>Select Institute</option>
+                                    <option selected disabled>Select Organization Type</option>
                                 </select>
                             </div>
 

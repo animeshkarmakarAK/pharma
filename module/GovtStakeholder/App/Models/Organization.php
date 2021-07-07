@@ -6,6 +6,8 @@ use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Module\GovtStakeholder\App\Traits\ScopeAclTrait;
+use PhpParser\Builder;
 
 /**
  * Class Organization
@@ -25,10 +27,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string domain
  * @property int organization_type_id
  * @property-read OrganizationType organizationType
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization acl()
+ * @method static Builder|Organization active()
+ * @method static Builder|Organization newModelQuery()
+ * @method static Builder|Organization newQuery()
+ * @method static Builder|Organization query()
  */
 class Organization extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait, CreatedByUpdatedByRelationTrait;
+    use HasFactory, ScopeRowStatusTrait, CreatedByUpdatedByRelationTrait, ScopeAclTrait;
 
     const DEFAULT_LOGO = 'organizations/default.jpg';
     const LOGO_FOLDER_NAME = 'organizations';

@@ -128,7 +128,7 @@ class OrganizationService
         $authUser = AuthHelper::getAuthUser();
 
         /** @var Builder|Organization $organization */
-        $organization = Organization::select([
+        $organization = Organization::acl($attribute = 'id')->select([
             'organizations.id',
             'organizations.title_en',
             'organizations.title_bn',
@@ -156,7 +156,6 @@ class OrganizationService
             }))
             ->rawColumns(['action'])
             ->toJson();
-
     }
 
 
@@ -164,6 +163,4 @@ class OrganizationService
     {
         return $organization->delete();
     }
-
-
 }
