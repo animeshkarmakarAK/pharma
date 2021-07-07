@@ -23,7 +23,8 @@
                             $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
                         @endphp
                         <div class="col-md-12">
-                            <h3 class="text-center">প্রশিক্ষণ বাস্তবায়ন সময়সূচি {{ (date('m') > 6) ? date('Y').'-'.date('Y')+1 : (date('Y')-1) .'-'.date('Y') }}</h3>
+                            <h3 class="text-center">প্রশিক্ষণ বাস্তবায়ন
+                                সময়সূচি {{ (date('m') > 6) ? date('Y').'-'.date('Y')+1 : (date('Y')-1) .'-'.date('Y') }}</h3>
                         </div>
                         <div class="col-md-12">
                             <div>
@@ -33,7 +34,8 @@
                                         <th rowspan="2" style="vertical-align: middle">ক্রমিক নং</th>
                                         <th rowspan="2" style="vertical-align: middle">ট্রেডের নাম</th>
                                         <th colspan="12" rowspan="1"><p class="text-center">মাস</p></th>
-                                        <th rowspan="2" style="vertical-align: middle">বাৎসরিক প্রশিক্ষণ লক্ষ্যমাত্রা</th>
+                                        <th rowspan="2" style="vertical-align: middle">বাৎসরিক প্রশিক্ষণ লক্ষ্যমাত্রা
+                                        </th>
                                         <th rowspan="2" style="vertical-align: middle">প্রশিক্ষণের ধরন</th>
                                         <th rowspan="2" style="vertical-align: middle">প্রশিক্ষণ ভেনু</th>
                                         <th rowspan="2" style="vertical-align: middle">ভেনু বিস্তারিত</th>
@@ -59,7 +61,7 @@
                                     ?>
                                     @foreach($courses as $key => $course)
                                         <tr>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" >{{ ++$sl }}</th>
+                                            <th class="align-middle" rowspan="{{ count($course)+1 }}">{{ ++$sl }}</th>
                                             <th colspan="5">{{ $totalCourseVenue[$key]->course_name }}</th>
                                             <th></th>
                                             <th></th>
@@ -69,10 +71,14 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" ></th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" > {{ $totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক' }}</th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" >{{ $totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0' }} টি কেন্দ্র</th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}" >
+                                            <th class="align-middle" rowspan="{{ count($course)+1 }}"></th>
+                                            <th class="align-middle"
+                                                rowspan="{{ count($course)+1 }}"> {{ $totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক' }}</th>
+                                            <th class="align-middle"
+                                                rowspan="{{ count($course)+1 }}">{{ $totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0' }}
+                                                টি কেন্দ্র
+                                            </th>
+                                            <th class="align-middle" rowspan="{{ count($course)+1 }}">
                                                 <a href="{{ route('course_management::venue-list',$totalCourseVenue[$key]->course_id ) }}">বিস্তারিত</a>
                                             </th>
                                         </tr>
@@ -113,8 +119,6 @@
 @endsection
 @push('css')
     <style>
-
-
 
 
     </style>
