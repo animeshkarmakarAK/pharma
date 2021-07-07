@@ -1,13 +1,11 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
-
-
 @endphp
+
 @extends($layout)
 
 @section('content')
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -28,7 +26,8 @@
                         </div>
                         <div class="col-md-12">
                             <div>
-                                <table class="table table-bordered table-hover floatThead-table table-fixed">
+                                <table
+                                    class="table table-responsive table-bordered table-hover floatThead-table table-fixed">
                                     <thead class="sticky-top" style="background: #f4f6f9">
                                     <tr>
                                         <th rowspan="2" style="vertical-align: middle">ক্রমিক নং</th>
@@ -102,16 +101,12 @@
                                             </tr>
                                         @endforeach
                                     @endforeach
-
-
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
