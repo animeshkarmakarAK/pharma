@@ -88,9 +88,8 @@
                                     @if($edit)
                                     data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                     @endif
-                                    data-placeholder="Select User Type"
+                                    data-placeholder="নির্বাচন করুন"
                             >
-                                <option selected disabled>Select User Type</option>
                             </select>
                         </div>
                     </div>

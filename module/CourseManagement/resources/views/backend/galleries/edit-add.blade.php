@@ -45,9 +45,8 @@
                                         @if($edit && $gallery->gallery_category_id)
                                         data-preselected-option="{{json_encode(['text' => $gallery->galleryCategory->title_en, 'id' => $gallery->gallery_category_id])}}"
                                         @endif
-                                        data-placeholder="Select option"
+                                        data-placeholder="নির্বাচন করুন"
                                 >
-                                    <option selected value="">Select Gallery Type</option>
                                 </select>
                             </div>
 

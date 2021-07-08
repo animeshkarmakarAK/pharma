@@ -38,9 +38,8 @@
                                             @if ($userType->role)
                                             data-preselected-option="{{json_encode(['text' =>  optional($userType->role)->title_en, 'id' =>  optional($userType->role)->id])}}"
                                             @endif
-                                            data-placeholder="Select option"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Default Role</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-12 text-right">

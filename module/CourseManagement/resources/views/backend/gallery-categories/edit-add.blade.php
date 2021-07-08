@@ -74,9 +74,8 @@
                                             @if($edit && $galleryCategory->institute_id)
                                             data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title_en, 'id' => $galleryCategory->institute_id])}}"
                                             @endif
-                                            data-placeholder="Select option"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected value="">Select Institute</option>
                                     </select>
                                 </div>
                             @endif
