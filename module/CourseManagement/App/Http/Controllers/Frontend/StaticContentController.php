@@ -3,7 +3,6 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
-
 use Module\CourseManagement\App\Http\Controllers\BaseController;
 use Module\CourseManagement\App\Models\StaticPage;
 
@@ -18,6 +17,6 @@ class StaticContentController extends BaseController
         }
         $staticContent = $staticContent->firstOrFail();
 
-        return view('frontend.static-contents.browse', compact('staticContent'));
+        return view('course_management::frontend.static-contents.browse', compact('staticContent'));
     }
 }

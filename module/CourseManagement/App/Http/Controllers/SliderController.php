@@ -69,7 +69,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider): View
     {
-        return view('backend.sliders.edit-add')->with([
+        return view(self::VIEW_PATH .'edit-add')->with([
             'slider' => $slider,
         ]);
     }
