@@ -84,7 +84,7 @@
                                         @foreach($course as $courseSession)
                                             <tr>
                                                 <th style="font-size: 12px">{{ $totalCourseVenue[$key]->course_name }}
-                                                    (Session-{{  $courseSession->number_of_batches}})
+                                                    (Batch-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==8 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
