@@ -3,7 +3,6 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
-
 use Module\CourseManagement\App\Http\Controllers\BaseController;
 use Module\CourseManagement\App\Models\StaticPage;
 
