@@ -64,10 +64,18 @@
                 initialView: 'dayGridMonth',
                 initialDate,
                 displayEventTime: false,
+                customButtons: {
+                    myCustomButton: {
+                        text: 'Year',
+                        click: function() {
+                            window.location= '{{ route('course_management::fiscal-year') }}';
+                        }
+                    }
+                },
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,timelineCustom'
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,myCustomButton'
                 },
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
@@ -79,10 +87,12 @@
                         failureCallback([]);
                     })
                 },
+
                 eventClick: function (calEvent, jsEvent, view) {
                     const {publish_course_id} = calEvent.event.extendedProps;
                     courseDetailsModalOpen(publish_course_id);
-                }
+                },
+
             });
             calendar.render();
         });
