@@ -21,7 +21,7 @@
                                         <h1 class='big fadeInDownBig animated'>{{ $slider->title }}</h1>
                                         <p class='normal fadeInUpBig animated delay-point-five-s'>{{ $slider->sub_title }}</p>
                                         @if($slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES && !empty($slider->link))
-                                            <a href='/sc/{{ $slider->link }}'>{{ $slider->button_text }}</a>
+                                            <a href='{{route('course_management::static-content.show', $slider->link)}}'>{{ $slider->button_text }}</a>
                                         @endif
                                     </div>
                                     <div class='col-md-7 animate pos-sta hidden-xs hidden-sm slider-right-content'>
@@ -239,7 +239,8 @@
                             @endforeach
                         </ul>
                         <div class="row justify-content-center">
-                            <a href="{{ route('course_management::gallery-categories') }}" class="btn btn-primary">আরও দেখুন</a>
+                            <a href="{{ route('course_management::gallery-categories') }}" class="btn btn-primary">আরও
+                                দেখুন</a>
                         </div>
                     </div>
                 @else
