@@ -59,7 +59,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Active status') }}</p>
                     <div class="input-box">
-                        {!! $galleryCategory->active == 1 ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>' !!}
+                        {!! $galleryCategory->row_status == 1 ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>' !!}
                     </div>
                 </div>
             </div>
