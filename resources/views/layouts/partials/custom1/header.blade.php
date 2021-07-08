@@ -97,22 +97,22 @@
                 <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
                     <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
                 </li>
-                <li class="nav-item {{ request()->is('courses-search*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::course_search') }}" class="btn ">কোর্স সমূহ</a>
                 </li>
-                <li class="nav-item {{ request()->is('training-calender*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="btn ">প্রশিক্ষণ বর্ষপঞ্জি</a>
                 </li>
-                <li class="nav-item {{ request()->is('skill-videos*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::youth.skill_videos') }}" class="btn ">ভিডিও সমূহ</a>
                 </li>
-                <li class="nav-item {{ request()->is('advice-page*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/advice-page*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
                 </li>
-                <li class="nav-item {{ request()->is('general-ask-page*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::general-ask-page') }}" class="btn">সাধারণ জিজ্ঞাসা</a>
                 </li>
-                <li class="nav-item {{ request()->is('contact-us-page*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::contact-us-page') }}" class="btn">যোগাযোগ</a>
                 </li>
             </ul>
