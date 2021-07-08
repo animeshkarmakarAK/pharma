@@ -20,7 +20,7 @@
                                     <div class='col-sm-12 col-md-5 animate slider-left-content'>
                                         <h1 class='big fadeInDownBig animated'>{{ $slider->title }}</h1>
                                         <p class='normal fadeInUpBig animated delay-point-five-s'>{{ $slider->sub_title }}</p>
-                                        @if($slider->is_button_available == \App\Models\Slider::IS_BUTTON_AVAILABLE_YES && !empty($slider->link))
+                                        @if($slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES && !empty($slider->link))
                                             <a href='/sc/{{ $slider->link }}'>{{ $slider->button_text }}</a>
                                         @endif
                                     </div>
