@@ -304,8 +304,6 @@
                             <td class="text-bold">Guradian NID:</td>
                             <td>{{ !empty($guardian) ? $guardian->nid : 'N/A'}}</td>
                         </tr>
-
-
                         <tr>
                             <td colspan="8"></td>
                         </tr>
