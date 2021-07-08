@@ -35,7 +35,7 @@
                             {{--<input type="hidden" name="id" id="id" value="{{$edit ? $gallery->id : ''}}">--}}
 
                             <div class="form-group col-md-6">
-                                <label for="gallery_category_id">Gallery Category <span
+                                <label for="gallery_category_id">Gallery Album <span
                                         style="color: red"> * </span></label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="gallery_category_id"

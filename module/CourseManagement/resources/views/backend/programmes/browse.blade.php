@@ -8,7 +8,7 @@
                         <h3 class="card-title font-weight-bold">Programmes List</h3>
 
                         <div class="card-tools">
-                            @can('create', \App\Models\Programme::class)
+                            @can('create', \Module\CourseManagement\App\Models\Programme::class)
                                 <a href="{{route('course_management::admin.programmes.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new

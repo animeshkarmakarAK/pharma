@@ -13,7 +13,7 @@
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Institute' : 'Update Institute' }}</h3>
 
                         <div class="card-tools">
-                            @can('viewAny', \App\Models\Institute::class)
+                            @can('viewAny', \Module\CourseManagement\App\Models\Institute::class)
                                 <a href="{{route('course_management::admin.institutes.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
