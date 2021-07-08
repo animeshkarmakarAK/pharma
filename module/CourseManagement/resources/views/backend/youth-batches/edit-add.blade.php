@@ -53,7 +53,7 @@
                                     <label for="institute_id">Institute Name</label>
                                     <select class="form-control custom-input-box select2" name="institute_id"
                                             id="institute_id" required>
-                                        <option value="" selected>Select Institute</option>
+                                        <option value="" selected>নির্বাচন করুন</option>
                                         @foreach($institutes as $institute)
                                             <option
                                                 value="{{ $institute->id}}" {{ $edit && $batch->institute_id == $institute->id ? 'selected':''}}>{{ $institute->title_en }}</option>

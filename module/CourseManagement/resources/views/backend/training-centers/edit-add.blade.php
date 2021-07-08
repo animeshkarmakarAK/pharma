@@ -77,7 +77,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $trainingCenter->institute->title_en, 'id' =>  $trainingCenter->institute->id])}}"
                                                 @endif
-                                                data-placeholder="Select Institute"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -93,7 +93,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  !empty($trainingCenter->branch->title_en)?$trainingCenter->branch->title_en:'', 'id' =>  !empty($trainingCenter->branch->id)?$trainingCenter->branch->id:''])}}"
                                             @endif
-                                            data-placeholder="Select Branch"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                 </div>

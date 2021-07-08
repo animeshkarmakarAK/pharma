@@ -44,9 +44,8 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->institute->title_en, 'id' =>  $publishCourse->institute->id])}}"
                                             @endif
-                                            data-placeholder="Select Institute"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Institute</option>
                                     </select>
                                 </div>
                             @endif
@@ -65,9 +64,8 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->applicationFormType->title_en, 'id' =>  $publishCourse->applicationFormType->id])}}"
                                             @endif
-                                            data-placeholder="Select Application Form Type"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Application Form Type</option>
                                     </select>
                                 </div>
                             </div>
@@ -84,9 +82,8 @@
                                             @if($edit && $publishCourse->branch)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->branch->title_en, 'id' =>  $publishCourse->branch->id])}}"
                                             @endif
-                                            data-placeholder="Select Branch"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Branch</option>
                                     </select>
                                 </div>
                             </div>
@@ -105,9 +102,8 @@
                                             @if($edit && $publishCourse->trainingCenter)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->trainingCenter->title_en, 'id' =>  $publishCourse->trainingCenter->id])}}"
                                             @endif
-                                            data-placeholder="Select Training Center"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Training Center</option>
                                     </select>
                                 </div>
                             </div>
@@ -124,9 +120,8 @@
                                             @if($edit && $publishCourse->programme)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->programme->title_en, 'id' =>  $publishCourse->programme->id])}}"
                                             @endif
-                                            data-placeholder="Select Programme"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Programme</option>
                                     </select>
                                 </div>
                             </div>
@@ -144,9 +139,8 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->course->title_en, 'id' =>  $publishCourse->course->id])}}"
                                             @endif
-                                            data-placeholder="Select Course"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Course</option>
                                     </select>
                                 </div>
                             </div>

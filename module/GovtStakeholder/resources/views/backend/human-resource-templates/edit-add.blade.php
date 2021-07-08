@@ -65,7 +65,7 @@
                                             @if($edit && $humanResourceTemplate->organization)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->organization->title_en, 'id' => $humanResourceTemplate->organization->id])}}"
                                             @endif
-                                            data-placeholder="Select Organization"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                 </div>
@@ -83,7 +83,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->organizationUnitType->title_en, 'id' => $humanResourceTemplate->organizationUnitType->id])}}"
                                             @endif
-                                            data-placeholder="Select Organization Unit Type"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                 </div>
@@ -103,7 +103,7 @@
                                             data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->parent->title_en, 'id' => $humanResourceTemplate->parent->id])}}"
                                             @endif
                                             @endif
-                                            data-placeholder="Select Parent"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="text" name="parent_id" id="hidden_parent_id" disabled>
@@ -121,7 +121,7 @@
                                             @if($edit && $humanResourceTemplate->rank)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->rank->title_en, 'id' => $humanResourceTemplate->rank->id])}}"
                                             @endif
-                                            data-placeholder="Select Rank"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                 </div>
@@ -172,7 +172,7 @@
                                             @if($edit && $humanResourceTemplate->skills)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResourceTemplate->skills->title_en, 'id' => $humanResourceTemplate->skills->id])}}"
                                             @endif
-                                            data-placeholder="Select Skills"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                 </div>

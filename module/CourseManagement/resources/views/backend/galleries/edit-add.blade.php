@@ -71,7 +71,7 @@
                                         <label for="institute_id">{{ __('Institute Name') }}<span
                                                 style="color: red"> * </span></label>
                                         <select name="institute_id" id="institute_id" class="form-control select2"
-                                                data-placeholder="Select Institute">
+                                                data-placeholder="নির্বাচন করুন">
                                             <option></option>
                                             @foreach($institutes as $institute)
                                                 <option

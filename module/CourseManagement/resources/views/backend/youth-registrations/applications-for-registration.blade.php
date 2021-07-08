@@ -90,7 +90,7 @@
                                                     data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                     data-label-fields="{title_en}"
                                                     data-dependent-fields="#branch_id"
-                                                    data-placeholder="Select institute"
+                                                    data-placeholder="নির্বাচন করুন"
                                             >
                                             </select>
                                         </div>
@@ -104,7 +104,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on="institute_id"
-                                                data-placeholder="Select Branch"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -116,7 +116,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="Select Training Center"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -128,7 +128,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="Select Programme"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -140,7 +140,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="Select Course"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
