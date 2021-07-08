@@ -100,7 +100,7 @@
                 <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active' : '' }}">
                     <a href="{{ route('course_management::course_search') }}" class="btn ">কোর্স সমূহ</a>
                 </li>
-                <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') | request()->is('course-management/fiscal-year*')  ? 'active' : '' }}">
                     <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="btn ">প্রশিক্ষণ বর্ষপঞ্জি</a>
                 </li>
                 <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active' : '' }}">
