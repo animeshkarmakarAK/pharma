@@ -70,7 +70,9 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th class="align-middle" rowspan="{{ count($course)+1 }}"></th>
+                                            <th class="align-middle" rowspan="{{ count($course)+1 }}">
+                                                {{ $totalAnnualTrainingTarget[$totalCourseVenue[$key]->course_id] }}
+                                            </th>
                                             <th class="align-middle"
                                                 rowspan="{{ count($course)+1 }}"> {{ $totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক' }}</th>
                                             <th class="align-middle"
@@ -84,7 +86,7 @@
                                         @foreach($course as $courseSession)
                                             <tr>
                                                 <th style="font-size: 12px">{{ $totalCourseVenue[$key]->course_name }}
-                                                    (Batch-{{  $courseSession->number_of_batches}})
+                                                    (Session-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==8 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
