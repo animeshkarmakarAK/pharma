@@ -176,10 +176,13 @@ class UserService
             'users.created_at',
             'users.updated_at'
         ]);
-        $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
+        $users->join('user_types', 'users.user_type_id', '=', 'user_types.code');
         $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
         $users->leftJoin('organizations', 'users.organization_id', '=', 'organizations.id');
         $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
+        if ($authUser->isInstituteUser() || $authUser->isOrganizationUser()) {
+            $users->where('users.user_type_id', $authUser->user_type_id);
+        }
 
         return DataTables::eloquent($users)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (User $user) use ($authUser) {

@@ -86,7 +86,7 @@ class User extends AuthBaseModel
      */
     public function userType(): BelongsTo
     {
-        return $this->belongsTo(UserType::class, 'user_type_id');
+        return $this->belongsTo(UserType::class, 'code');
     }
 
     /**
