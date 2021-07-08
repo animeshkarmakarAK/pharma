@@ -45,7 +45,7 @@
                 <tr>
                     <td class="border-0"></td>
                     <td><span
-                            class="text-bold">Registration Number:</span>{{ $youthRegistrationData->registration_no ?? 'N/A' }}
+                            class="text-bold">Registration Number: </span>{{ $youthRegistrationData->registration_no ?? 'N/A' }}
                     </td>
                     <td colspan="3"></td>
                 </tr>
@@ -137,11 +137,11 @@
                     <td class="border-0"></td>
                     <td class="text-bold border-0">Physically Disable:</td>
                     <td class="border-top-0 border-bottom">
-                        {{ $youthSelfInfo->disable_status == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'Yes' : 'No' }}
+                        {{ $youthSelfInfo->disable_status == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'Yes' : 'No' }}
                     </td>
 
                     <td class="text-bold border-0">Ethnic Minority:</td>
-                    <td class="border-top-0 border-bottom">{{ $youthSelfInfo->ethnic_group == \App\Models\Youth::ETHNIC_GROUP_YES ? 'Yes' : 'No' }}</td>
+                    <td class="border-top-0 border-bottom">{{ $youthSelfInfo->ethnic_group == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES ? 'Yes' : 'No' }}</td>
                 </tr>
 
                 <tr>
@@ -152,8 +152,8 @@
 
                 <tr>
                     <td class="border-0"></td>
-                    <td colspan="2" class="text-bold custom-bg-gradient-info">Present Address</td>
-                    <td colspan="2" class="text-bold custom-bg-gradient-info">permanent Address</td>
+                    <td colspan="2" class="text-bold custom-bg-gradient-info lead">Present Address</td>
+                    <td colspan="2" class="text-bold custom-bg-gradient-info lead">permanent Address</td>
                 </tr>
 
                 <tr>
@@ -200,7 +200,7 @@
 
                 <tr>
                     <td class="border-0"></td>
-                    <td colspan="4" class="custom-bg-gradient-info text-bold">Academic Qualification</td>
+                    <td colspan="4" class="custom-bg-gradient-info text-bold lead">Academic Qualification</td>
                 </tr>
                 <tr>
                     <table class="table table-bordered custom-bg-gradient-info">
@@ -221,23 +221,23 @@
                                     <td class="border-0"></td>
                                     <td class="text-center">
                                         @switch($academicQualification->examination)
-                                            @case(\App\Models\YouthAcademicQualification::EXAMINATION_SSC)
+                                            @case(\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC)
                                             {{ $academicQualification->getExamination() .'/'. $academicQualification->getSSCExaminationName() }}
                                             @break
-                                            @case(\App\Models\YouthAcademicQualification::EXAMINATION_HSC)
+                                            @case(\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC)
                                             {{ $academicQualification->getExamination() .'/'. $academicQualification->getHSCExaminationName() }}
                                             @break
-                                            @case(\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION)
+                                            @case(\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION)
                                             {{ $academicQualification->getExamination() .'/'. $academicQualification->getGraduationExaminationName() }}
                                             @break
-                                            @case(\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS)
+                                            @case(\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS)
                                             {{ $academicQualification->getExamination() .'/'. $academicQualification->getMastersExaminationName() }}
                                             @break
                                         @endswitch
                                     </td>
 
                                     <td class="text-center">
-                                        @if($academicQualification->examination == \App\Models\YouthAcademicQualification::EXAMINATION_SSC || $academicQualification->examination == \App\Models\YouthAcademicQualification::EXAMINATION_HSC)
+                                        @if($academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC || $academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC)
                                             {{ $academicQualification->getExaminationTakingBoard() }}
                                         @else
                                             {{ $academicQualification->getCurrentUniversity() }}
@@ -280,7 +280,7 @@
                         </tr>
                         <tr>
                             <td class="border-0"></td>
-                            <td colspan="7" class="custom-bg-gradient-info text-bold">Additional Information</td>
+                            <td colspan="7" class="custom-bg-gradient-info text-bold lead">Additional Information</td>
                         </tr>
                         <tr>
                             <td class="border-0"></td>
@@ -320,40 +320,39 @@
                         </tr>
                         <tr>
                             <td class="border-0"></td>
-                            <td colspan="7" class="custom-bg-gradient-info text-bold">Work Information</td>
+                            <td colspan="7" class="custom-bg-gradient-info text-bold lead">Work Information</td>
                         </tr>
 
                         <tr>
                             <td class="border-0"></td>
-                            <td class="text-bold text-primary">Main occupation:</td>
+                            <td class="text-bold">Main occupation:</td>
                             <td colspan="6">{{ $youthSelfInfo->main_occupation ?? 'Not specified' }}</td>
                         </tr>
 
                         <tr>
                             <td class="border-0"></td>
-                            <td class="text-bold text-primary">Other occupation:</td>
+                            <td class="text-bold">Other occupation:</td>
                             <td colspan="6">{{ $youthSelfInfo->other_occupations ?? 'Not specified' }}</td>
                         </tr>
 
                         <tr>
                             <td class="border-0"></td>
-                            <td class="text-bold text-primary">Personal Monthly Income:</td>
+                            <td class="text-bold">Personal Monthly Income:</td>
                             <td colspan="6">{{ $youthSelfInfo->personal_monthly_income ?? 'Not specified' }}</td>
                         </tr>
 
                         <tr>
                             <td class="border-0"></td>
-                            <td class="text-bold text-primary">Currently Employed:</td>
+                            <td class="text-bold">Currently Employed:</td>
                             <td colspan="6">{{ $youthRegistrationData->getYouthCurrentEmploymentStatus() ?? 'N/A' }}</td>
                         </tr>
 
-
                     </table>
+                </tr>
                 <tr>
                     <td class="border-0"></td>
                     <td class="text-bold">Youth signature</td>
                 </tr>
-
                 <tr>
                     <td class="border-0"></td>
                     <td>
@@ -361,8 +360,6 @@
                             src="{{ asset('storage/'. $youthRegistrationData->student_signature_pic)}}"
                             height="50" width="200" alt="youth signature"></td>
                 </tr>
-                </tr>
-
             </table>
         </div>
     </div>

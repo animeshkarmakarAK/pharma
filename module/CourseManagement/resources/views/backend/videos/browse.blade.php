@@ -52,12 +52,12 @@
                         visible: true,
                     },
                     {
-                        title: "Title (Bn)",
+                        title: "Title (En)",
                         data: "title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Title (En)",
+                        title: "Title (Bn)",
                         data: "title_bn",
                         name: "title_bn"
                     },

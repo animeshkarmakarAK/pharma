@@ -47,7 +47,7 @@
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
                                 <h4>হেল্প ডেস্ক {{--<i class="fa fa-question"></i> --}}</h4>
                                 <p><i class="fa fa-phone"></i>
-                                    <a href="tel:{{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}">
+                                    <a href="tel:{{!empty($currentInstitute->primary_phone) ? $currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}">
                                         {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}
                                     </a>
                                 </p>

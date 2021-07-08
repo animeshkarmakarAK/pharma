@@ -70,7 +70,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Active Status') }}</p>
                     <div class="input-box">
-                        {{ $video->getCurrentRowStatus(true) }}
+                        {!! $video->getCurrentRowStatus(true) !!}
                     </div>
                 </div>
             </div>
