@@ -454,7 +454,7 @@
                                             data-label-fields="{title}"
                                             data-depend-on="loc_division_id:#present_address_division_id"
                                             data-dependent-fields="#present_address_upazila_id"
-                                            data-placeholder="Select District"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="number" id="hidden_present_address_district_id"
@@ -534,7 +534,7 @@
                                             data-model="{{base64_encode(App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
                                             data-dependent-fields="#permanent_address_district_id|#permanent_address_upazila_id"
-                                            data-placeholder="Select Division"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="number" name="address[permanent][permanent_address_division_id]"
@@ -551,7 +551,7 @@
                                             data-label-fields="{title}"
                                             data-depend-on="loc_division_id:#permanent_address_division_id"
                                             data-dependent-fields="#permanent_address_upazila_id"
-                                            data-placeholder="Select District"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="number" name="address[permanent][permanent_address_district_id]"
@@ -568,7 +568,7 @@
                                             data-model="{{base64_encode(App\Models\LocUpazila::class)}}"
                                             data-label-fields="{title}"
                                             data-depend-on="loc_district_id:#permanent_address_district_id"
-                                            data-placeholder="Select Upazila"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="hidden" name="address[permanent][permanent_address_upazila_id]"

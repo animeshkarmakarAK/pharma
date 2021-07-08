@@ -88,9 +88,8 @@
                                             @if($edit && $video->videoCategory)
                                             data-preselected-option="{{json_encode(['text' =>  $video->videoCategory->title_en, 'id' =>  $video->videoCategory->id])}}"
                                             @endif
-                                            data-placeholder="select video category"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option value="">select video category</option>
                                     </select>
                                 </div>
                             </div>
