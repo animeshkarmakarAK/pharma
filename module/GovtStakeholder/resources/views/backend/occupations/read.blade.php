@@ -37,6 +37,12 @@
                         {{ $occupation->jobSector->title_en }}
                     </div>
                 </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Active Status') }}</p>
+                    <div class="input-box">
+                        {!! $occupation->getCurrentRowStatus(true)  !!}
+                    </div>
+                </div>
             </div>
         </div>
 
