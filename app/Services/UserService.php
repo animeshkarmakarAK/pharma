@@ -176,7 +176,7 @@ class UserService
             'users.created_at',
             'users.updated_at'
         ]);
-        $users->join('user_types', 'users.user_type_id', '=', 'user_types.code');
+        $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
         $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
         $users->leftJoin('organizations', 'users.organization_id', '=', 'organizations.id');
         $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
