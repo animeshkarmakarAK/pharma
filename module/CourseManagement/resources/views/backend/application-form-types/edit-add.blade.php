@@ -165,14 +165,10 @@
                                                     <input type="checkbox"
                                                            id="occupation_c" {{ $edit ? $applicationFormType->occupation=='1'?'checked': '' : '' }}>
                                                     <label for="occupation_c"> Occupation Information </label>
-
                                                 </div>
                                             </div>
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-12">
@@ -332,7 +328,6 @@
                 }
             })
         });
-
     </script>
 @endpush
 
