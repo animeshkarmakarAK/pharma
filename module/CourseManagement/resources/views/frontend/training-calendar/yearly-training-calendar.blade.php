@@ -40,6 +40,9 @@
             max-width: 1100px;
             margin: 40px auto;
         }
+        .fc-daygrid-day-number {
+            font-size: x-large;
+        }
     </style>
 @endpush
 @push('js')
@@ -87,7 +90,6 @@
                         failureCallback([]);
                     })
                 },
-
                 eventClick: function (calEvent, jsEvent, view) {
                     const {publish_course_id} = calEvent.event.extendedProps;
                     courseDetailsModalOpen(publish_course_id);
