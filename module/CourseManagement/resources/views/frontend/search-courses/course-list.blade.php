@@ -263,7 +263,7 @@
                             columns: columns,
                             paginate: true,
                             page: 1,
-                            per_page: 25,
+                            per_page: 5,
                             filters
                         }
                     }
@@ -385,7 +385,7 @@
 
             $('.course_overlay').show();
             courseFetch(filters, resetPage, url)?.then(function (response) {
-                console.log('search')
+                console.table('course search', response);
                 $('.course_overlay').hide();
                 $('#course_pagination').html(response?.data?.next_page_url);
                 let html = '';
@@ -471,6 +471,7 @@
 
             $('.program_overlay').show();
             programmeFetch(filters, resetPage, url)?.then(function (response) {
+
                 $('.program_overlay').hide();
                 $('#program_pagination').html(response?.data?.next_page_url);
                 let html = '';
@@ -482,13 +483,12 @@
                         description: item.institute_title_bn,
                         selector: 'programme',
                     });
-
-                    if (resetPage) {
-                        $('#program_name_list').html(html);
-                    } else {
-                        $('#program_name_list').append(html);
-                    }
                 });
+                if (resetPage) {
+                    $('#program_name_list').html(html);
+                } else {
+                    $('#program_name_list').append(html);
+                }
             });
         }
 
@@ -561,9 +561,11 @@
                 }
             });
             $('#program_name').keyup(function () {
-                let search = $(this).val();
-                if (search?.length) {
-                    programmeSearch(search);
+                let searchString = $(this).val();
+                if (searchString?.length) {
+                    programmeSearch(searchString);
+                }else {
+                    programmeSearch();
                 }
             })
 
