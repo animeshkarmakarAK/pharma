@@ -1,4 +1,14 @@
+@php
+    $currentInstitute = domainConfig('institute');
+    $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+    $currentFileName = "Login";
+@endphp
+
 @extends('master::layouts.custom1')
+@section('title')
+    {{ !empty($currentInstitute) ? strtoupper($currentInstitute->title_en)."-".$currentFileName : env('APP_NAME')."-".$currentFileName }}
+@endsection
+
 @section('header', '')
 @section('footer', '')
 
@@ -16,7 +26,7 @@
                     </a>
                     <h2 class="pt-4 pb-4"
                         style="color: #636f41">{{ !empty($currentInstitute)? $currentInstitute->title_en : 'নাইস-৩ প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' }}
-                        </h2>
+                    </h2>
                 </div>
                 <div class="col-sm-4 mx-auto">
                     <form class="login-form" action="{{route('admin.login')}}" method="post">
@@ -112,10 +122,12 @@
                 margin: 0;
                 font-size: 14px;
             }
-            .help-desk p a, .support p a{
+
+            .help-desk p a, .support p a {
                 color: #6c6c6c;
             }
-            .help-desk p a:hover, .support p a:hover{
+
+            .help-desk p a:hover, .support p a:hover {
                 color: #976666;
             }
 

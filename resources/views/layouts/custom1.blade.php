@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
 
-    <title>BITAC HOME</title>
+    <title>@yield('title')</title>
 
     <!-- Bootstrap v4 with admin-lte v3 -->
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
