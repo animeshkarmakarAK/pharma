@@ -128,9 +128,8 @@
                                                 @if($edit && $staticPage->institute)
                                                 data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->title_en, 'id' =>  $staticPage->institute->id])}}"
                                                 @endif
-                                                data-placeholder="Select Institute"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
-                                            <option selected disabled>Select Institute</option>
                                         </select>
                                     </div>
                                 </div>

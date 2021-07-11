@@ -70,7 +70,7 @@
                                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                                     data-label-fields="{title_en}"
                                                     data-dependent-fields="#branch_id|#training_center_id|#programme_id|#course_id"
-                                                    data-placeholder="Select Institute"
+                                                    data-placeholder="নির্বাচন করুন"
                                             >
                                             </select>
                                         </div>
@@ -84,7 +84,7 @@
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="Select Branch"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -97,7 +97,7 @@
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="branch_id|institute_id"
-                                                data-placeholder="Select Training Center"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -110,7 +110,7 @@
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="Select Programme"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -123,7 +123,7 @@
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
                                                 data-label-fields="{course.title_en}"
                                                 data-depend-on-optional="institute_id|branch_id|training_center_id|programme_id"
-                                                data-placeholder="Select Course"
+                                                data-placeholder="নির্বাচন করুন"
                                                 value="1"
                                         >
                                         </select>
@@ -436,7 +436,7 @@
                                             data-model="{{base64_encode(App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
                                             data-dependent-fields="#present_address_district_id|#present_address_upazila_id"
-                                            data-placeholder="Select Division"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
 
@@ -454,7 +454,7 @@
                                             data-label-fields="{title}"
                                             data-depend-on="loc_division_id:#present_address_division_id"
                                             data-dependent-fields="#present_address_upazila_id"
-                                            data-placeholder="Select District"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="number" id="hidden_present_address_district_id"
@@ -534,7 +534,7 @@
                                             data-model="{{base64_encode(App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
                                             data-dependent-fields="#permanent_address_district_id|#permanent_address_upazila_id"
-                                            data-placeholder="Select Division"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="number" name="address[permanent][permanent_address_division_id]"
@@ -551,7 +551,7 @@
                                             data-label-fields="{title}"
                                             data-depend-on="loc_division_id:#permanent_address_division_id"
                                             data-dependent-fields="#permanent_address_upazila_id"
-                                            data-placeholder="Select District"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="number" name="address[permanent][permanent_address_district_id]"
@@ -568,7 +568,7 @@
                                             data-model="{{base64_encode(App\Models\LocUpazila::class)}}"
                                             data-label-fields="{title}"
                                             data-depend-on="loc_district_id:#permanent_address_district_id"
-                                            data-placeholder="Select Upazila"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                     <input type="hidden" name="address[permanent][permanent_address_upazila_id]"

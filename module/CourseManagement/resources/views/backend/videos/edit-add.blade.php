@@ -69,7 +69,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $video->institute->title_en, 'id' =>  $video->institute->id])}}"
                                                 @endif
-                                                data-placeholder="Select Institute"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -88,9 +88,8 @@
                                             @if($edit && $video->videoCategory)
                                             data-preselected-option="{{json_encode(['text' =>  $video->videoCategory->title_en, 'id' =>  $video->videoCategory->id])}}"
                                             @endif
-                                            data-placeholder="select video category"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option value="">select video category</option>
                                     </select>
                                 </div>
                             </div>

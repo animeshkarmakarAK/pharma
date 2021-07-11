@@ -77,14 +77,13 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
-                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 @if($edit && $programme->institute)
                                                 data-preselected-option="{{json_encode(['text' => $programme->institute->title_en, 'id' => $programme->institute_id])}}"
                                                 @endif
-                                                data-placeholder="Select option"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
-                                            <option selected disabled>Select Institute</option>
                                         </select>
                                     </div>
                                 @endif

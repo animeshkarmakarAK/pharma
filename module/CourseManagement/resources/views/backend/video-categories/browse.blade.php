@@ -8,7 +8,7 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">video Category List</h3>
                         <div class="card-tools">
-                            @can('create', \App\Models\VideoCategory::class)
+                            @can('create', \Module\CourseManagement\App\Models\VideoCategory::class)
                                 <a href="{{route('course_management::admin.video-categories.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new

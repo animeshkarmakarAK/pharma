@@ -107,9 +107,8 @@
                                         @if($edit)
                                         data-preselected-option="{{json_encode(['text' =>  $organization->organizationType->title_en, 'id' =>  $organization->organizationType->id])}}"
                                         @endif
-                                        data-placeholder="Select option"
+                                        data-placeholder="নির্বাচন করুন"
                                 >
-                                    <option selected disabled>Select Organization Type</option>
                                 </select>
                             </div>
 

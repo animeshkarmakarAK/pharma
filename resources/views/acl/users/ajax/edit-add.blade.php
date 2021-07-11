@@ -88,9 +88,8 @@
                                     @if($edit)
                                     data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                     @endif
-                                    data-placeholder="Select User Type"
+                                    data-placeholder="নির্বাচন করুন"
                             >
-                                <option selected disabled>Select User Type</option>
                             </select>
                         </div>
                     </div>
@@ -104,9 +103,8 @@
                                     id="user_type_id"
                                     data-model="{{base64_encode(App\Models\UserType::class)}}"
                                     data-label-fields="{title}"
-                                    data-placeholder="Select User Type"
+                                    data-placeholder="নির্বাচন করুন"
                             >
-                                <option selected disabled>Select User Type</option>
                             </select>
                         </div>
                     </div>
@@ -124,9 +122,8 @@
                                 @if($edit && $user->institute)
                                 data-preselected-option="{{json_encode(['text' =>  $user->institute->title_en, 'id' =>  $user->institute->id])}}"
                                 @endif
-                                data-placeholder="Select Institute"
+                                data-placeholder="নির্বাচন করুন"
                         >
-                            <option selected disabled>Select Institute</option>
                         </select>
                     </div>
                 </div>
@@ -143,9 +140,8 @@
                                 @if($edit && $user->organization)
                                 data-preselected-option="{{json_encode(['text' =>  $user->organization->title_en, 'id' =>  $user->organization->id])}}"
                                 @endif
-                                data-placeholder="Select Organization"
+                                data-placeholder="নির্বাচন করুন"
                         >
-                            <option selected disabled>Select Organization</option>
                         </select>
                     </div>
                 </div>
@@ -162,9 +158,8 @@
                                 @if($edit && $user->locDistrict)
                                 data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title_en, 'id' =>  $user->locDistrict->id])}}"
                                 @endif
-                                data-placeholder="Select District"
+                                data-placeholder="নির্বাচন করুন"
                         >
-                            <option selected disabled>Select District</option>
                         </select>
                     </div>
                 </div>

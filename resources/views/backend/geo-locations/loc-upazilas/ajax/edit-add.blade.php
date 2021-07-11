@@ -46,9 +46,8 @@
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locUpazila->division->title, 'id' =>  $locUpazila->division->id])}}"
                             @endif
-                            data-placeholder="Select Division"
+                            data-placeholder="নির্বাচন করুন"
                     >
-                        <option selected disabled>{{ __('Select Division') }}</option>
                     </select>
                 </div>
                 <div class="col-sm-6 col-md-4">
@@ -62,9 +61,8 @@
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locUpazila->district->title, 'id' =>  $locUpazila->district->id])}}"
                             @endif
-                            data-placeholder="Select District"
+                            data-placeholder="নির্বাচন করুন"
                     >
-                        <option selected disabled>{{ __('Select District') }}</option>
                     </select>
                 </div>
 

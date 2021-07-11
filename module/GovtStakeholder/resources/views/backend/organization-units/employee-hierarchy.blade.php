@@ -93,7 +93,7 @@
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResource::class)}}"
                                         data-filters="{{json_encode(['organization_unit_id' => optional($humanResources)["organization_unit_id"], 'id' => ['type' => 'not-equal', 'value' => "__"]])}}"
                                         data-label-fields="{title_en}"
-                                        data-placeholder="Select Parent"
+                                        data-placeholder="নির্বাচন করুন"
                                 >
                                 </select>
                                 <input type="text" name="parent_id" id="hidden_parent_id" hidden disabled>
@@ -108,7 +108,7 @@
                                         id="rank_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Rank::class)}}"
                                         data-label-fields="{title_en}"
-                                        data-placeholder="Select Rank"
+                                        data-placeholder="নির্বাচন করুন"
                                 >
                                 </select>
                             </div>
@@ -155,7 +155,7 @@
                                         id="skill_ids"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Skill::class)}}"
                                         data-label-fields="{title_en}"
-                                        data-placeholder="Select Skills"
+                                        data-placeholder="নির্বাচন করুন"
                                 >
                                 </select>
                             </div>

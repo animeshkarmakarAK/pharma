@@ -64,7 +64,7 @@
                                         @if($edit && !empty($service->organization_id))
                                         data-preselected-option="{{json_encode(['text' =>  $service->organization->title_en, 'id' =>  $service->organization_id])}}"
                                         @endif
-                                        data-placeholder="Select organization"
+                                        data-placeholder="নির্বাচন করুন"
                                 >
                                 </select>
                             </div>

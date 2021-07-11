@@ -9,7 +9,7 @@
                         <h3 class="card-title font-weight-bold">Institutes List</h3>
 
                         <div class="card-tools">
-                            @can('create', \App\Models\Institute::class)
+                            @can('create', \Module\CourseManagement\App\Models\Institute::class)
                                 <a href="{{route('course_management::admin.institutes.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new

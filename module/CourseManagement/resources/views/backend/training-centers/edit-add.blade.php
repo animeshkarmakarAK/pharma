@@ -71,13 +71,13 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
-                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-dependent-fields="#branch_id"
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $trainingCenter->institute->title_en, 'id' =>  $trainingCenter->institute->id])}}"
                                                 @endif
-                                                data-placeholder="Select Institute"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
@@ -87,13 +87,13 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="branch_id"
                                             id="branch_id"
-                                            data-model="{{base64_encode(App\Models\Branch::class)}}"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  !empty($trainingCenter->branch->title_en)?$trainingCenter->branch->title_en:'', 'id' =>  !empty($trainingCenter->branch->id)?$trainingCenter->branch->id:''])}}"
                                             @endif
-                                            data-placeholder="Select Branch"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
                                 </div>

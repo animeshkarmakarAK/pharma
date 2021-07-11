@@ -60,9 +60,8 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $batch->institute->title_en, 'id' =>  $batch->institute->id])}}"
                                             @endif
-                                            data-placeholder="Select Institute"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Institute</option>
                                     </select>
                                 </div>
                             @endif
@@ -80,9 +79,8 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $batch->course->title_en, 'id' =>  $batch->course->id])}}"
                                             @endif
-                                            data-placeholder="Select Course"
+                                            data-placeholder="নির্বাচন করুন"
                                     >
-                                        <option selected disabled>Select Course</option>
                                     </select>
                                 </div>
                             </div>

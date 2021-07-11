@@ -24,7 +24,7 @@ class RankTypeSeeder extends Seeder
             0 =>
                 array(
                     'id' => 1,
-                    'organization_id' => '5',
+                    'organization_id' => '1',
                     'title_en' => 'Chief of Army Staff',
                     'title_bn' => 'সেনাপ্রধান',
                     'description' => 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface',
@@ -33,7 +33,7 @@ class RankTypeSeeder extends Seeder
             1 =>
                 array(
                     'id' => 2,
-                    'organization_id' => '5',
+                    'organization_id' => '2',
                     'title_en' => 'Chief of General Staff',
                     'title_bn' => 'চিফ অফ জেনারেল স্টাফ',
                     'description' => 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface',

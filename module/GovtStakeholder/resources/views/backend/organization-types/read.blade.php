@@ -10,10 +10,16 @@
                         <h3 class="card-title font-weight-bold">{{ __('Organization Type') }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('govt_stakeholder::admin.organization-types.index')}}"
-                               class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-backward"></i> Back to list
-                            </a>
+                            <div class="btn-group">
+                                <a href="{{route('govt_stakeholder::admin.organization-types.edit', [$organizationType->id])}}"
+                                   class="btn btn-sm btn-outline-primary btn-rounded">
+                                    <i class="fas fa-plus-circle"></i> {{ __('Edit Job Sector') }}
+                                </a>
+                                <a href="{{route('govt_stakeholder::admin.organization-types.index')}}"
+                                   class="btn btn-sm btn-outline-primary btn-rounded">
+                                    <i class="fas fa-backward"></i> Back to list
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -41,10 +47,7 @@
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">{{ __('Status') }}</p>
                             <div class="input-box">
-                                {{ $organizationType->row_status == 0 ? 'Inactive' : 'Active'}}
-{{--
-                                {{ $organizationType->currentRowStatus(true)}}
---}}
+                                {!! $organizationType->getCurrentRowStatus(true) !!}
 
                             </div>
                         </div>

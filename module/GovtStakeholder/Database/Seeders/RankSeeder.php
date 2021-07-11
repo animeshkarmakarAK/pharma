@@ -24,7 +24,7 @@ class RankSeeder extends Seeder
             0 =>
                 array(
                     'id' => 1,
-                    'organization_id' => '5',
+                    'organization_id' => '1',
                     'title_en' => 'General',
                     'title_bn' => 'জেনারেল',
                     'rank_type_id' => '1',
@@ -35,7 +35,7 @@ class RankSeeder extends Seeder
             1 =>
                 array(
                     'id' => 2,
-                    'organization_id' => '5',
+                    'organization_id' => '2',
                     'title_en' => 'Lieutenant general',
                     'title_bn' => 'লেফটেন্যান্ট জেনারেল',
                     'rank_type_id' => '2',

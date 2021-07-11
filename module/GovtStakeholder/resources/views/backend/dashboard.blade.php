@@ -320,7 +320,7 @@
                                     data-filters="{{json_encode(['id' => $authUser->loc_district_id])}}"
                                     data-preselected-option="{{json_encode(['text' =>  $authUser->locDistrict->title_en, 'id' =>  $authUser->loc_district_id])}}"
                                     data-label-fields="{title_en}"
-                                    data-placeholder="Select District"
+                                    data-placeholder="নির্বাচন করুন"
                             >
                             </select>
                         @elseif($authUser->isDivcomUser())
@@ -340,7 +340,7 @@
                                     id="loc_district_id"
                                     data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                     data-label-fields="{title_en}"
-                                    data-placeholder="Select District"
+                                    data-placeholder="নির্বাচন করুন"
                             >
                             </select>
                         @endif

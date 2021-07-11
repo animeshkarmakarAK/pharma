@@ -62,10 +62,9 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->LocUpazila->title_en, 'id' =>  $upazilaJobStatistic->loc_upazila_id])}}"
                                             @endif
-                                            data-placeholder="Select option"
+                                            data-placeholder="নির্বাচন করুন"
                                         {{ $edit? 'disabled':'' }}
                                     >
-                                        <option selected disabled>Select Upazila</option>
                                     </select>
                                 </div>
                             </div>

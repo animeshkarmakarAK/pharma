@@ -95,9 +95,8 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $slider->institute->title_en, 'id' =>  $slider->institute->id])}}"
                                                 @endif
-                                                data-placeholder="Select Institute"
+                                                data-placeholder="নির্বাচন করুন"
                                         >
-                                            <option selected disabled>Select Institute</option>
                                         </select>
                                     </div>
                                 </div>
