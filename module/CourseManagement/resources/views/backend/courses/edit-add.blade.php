@@ -266,6 +266,7 @@
         const EDIT = !!'{{$edit}}';
 
         const editAddForm = $('.edit-add-form');
+
         editAddForm.validate({
             rules: {
                 title_en: {
@@ -274,6 +275,10 @@
                 title_bn: {
                     required: true,
                     pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                },
+                cover_image: {
+                    required: !EDIT,
+                    accept: "image/*",
                 },
                 code: {
                     required: true,
@@ -293,10 +298,6 @@
                 fee: {
                     required: true,
                     min: 0
-                },
-                cover_image: {
-                    required: !EDIT,
-                    accept: "image/*",
                 },
                 duration: {
                     required: true,
@@ -320,11 +321,11 @@
                 },
                 evaluation_system: {
                     required: true,
-                    maxLength: 300,
+                    maxlength: 300,
                 },
                 description: {
                     required: false,
-                    maxLength: 500,
+                    maxlength: 500,
                 },
                 eligibility: {
                     required: false,
@@ -332,16 +333,14 @@
                 prerequisite: {
                     required: false,
                 },
-
-
             },
             messages: {
+                cover_image: {
+                    required: "Cover image is required",
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 },
-                code: {
-                    remote: "Code already in use!",
-                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
@@ -360,12 +359,10 @@
         }
 
         $(document).ready(function () {
-            $('#cover_image').change(function () {
-                readURL(this); //preview image
+            $('#cover_image').change(async function () {
+                await readURL(this); //preview image
                 editAddForm.validate().element("#cover_image");
             });
         })
     </script>
 @endpush
-
-
