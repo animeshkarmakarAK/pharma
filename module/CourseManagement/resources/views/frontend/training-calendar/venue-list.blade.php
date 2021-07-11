@@ -92,18 +92,19 @@
 
     <script type="text/javascript">
 
-
-        //search
         const searchAPI = function ({model, columns}) {
             return function (url, filters = {}) {
                 return $.ajax({
                     url: url,
-                    type: "GET",
+                    type: "POST",
                     data: {
                         _token: '{{csrf_token()}}',
                         resource: {
                             model: model,
                             columns: columns,
+                            paginate: true,
+                            page: 1,
+                            per_page: 16,
                             filters,
                         }
                     }
@@ -114,66 +115,43 @@
         };
 
         let baseUrl = '{{route('web-api.model-resources')}}';
-
-        const venueFetch = searchAPI({
-            model: "<?php echo e(base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)); ?>",
-            columns: 'branch.title_bn|training_centre.title_bn|institute.title_bn'
+        const courseVenueFetch = searchAPI({
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
+            columns: 'id|course.title_bn'
         });
 
-        function venueSearch(search = '', resetPage = true, url = null) {
+        function courseVenueSearch(url = baseUrl) {
+            $('.overlay').show();
+            let searchQuery = $('#venue_name').val();
+
             const filters = {};
-            let course = $('#course_id').val();
-            filters['course_id'] = course;
-            if (search?.toString()?.length) {
-                filters['title_bn'] = {
+            if (searchQuery?.toString()?.length) {
+                filters['course.title_en'] = {
                     type: 'contain',
-                    value: search
+                    value: searchQuery
+                };
+                filters['course.title_bn'] = {
+                    type: 'contain',
+                    value: searchQuery
+                };
+                filters['branch.address'] = {
+                    type: 'contain',
+                    value: searchQuery
                 };
             }
-            /*let domainInstitute = $('#domain-institute').val();
-            if (domainInstitute?.toString()?.length) {
-                filters['institute_id'] = domainInstitute;
-            }*/
 
-            console.log(filters);
-
-            $('.venue_overlay').show();
-            venueFetch(url,filters)?.then(function (response) {
-
-                $('.venue_overlay').hide();
-                //$('#program_pagination').html(response?.data?.next_page_url);
-                let html = '';
-                $.each(response.data.data, function (i, item) {
-                    html += template({
-                        id: item.id,
-                        //imageUrl: '{{asset('/storage/')}}/' + item.logo,
-                        title: item.title_bn,
-                        description: item.institute_title_bn,
-                        selector: 'programme',
-                    });
-                });
-                if (resetPage) {
-                    $('#venue_name_list').html(html);
-                } else {
-                    $('#venue_name_list').append(html);
-                }
+            courseVenueFetch(url, filters)?.then(function (response) {
+                $('.overlay').hide();
+                window.scrollTo(0,0);
             });
         }
 
-
         $(document).ready(function () {
-            $('#venue_name').keyup(function () {
-                let searchString = $(this).val();
-                if (searchString?.length) {
-                    venueSearch(searchString);
-                } else {
-                    venueSearch();
-                }
+            courseVenueSearch();
 
-            })
-        })
-
+            $('#venue_name').on('keyup', function () {
+                courseVenueSearch();
+            });
+        });
     </script>
-
-
 @endpush
