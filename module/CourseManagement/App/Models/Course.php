@@ -20,6 +20,12 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
  * @property string code
  * @property int institute_id
  * @property double course_fee
+ * @property string course_duration
+ * @property string target_group
+ * @property string course_objects
+ * @property string course_contents
+ * @property string training_methodology
+ * @property string evaluation_system
  * @property string description
  * @property string prerequisite
  * @property string eligibility

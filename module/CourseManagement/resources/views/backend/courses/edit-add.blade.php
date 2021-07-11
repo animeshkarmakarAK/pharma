@@ -116,47 +116,106 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_fee">{{ __('Course Fee') }}<span
+                                    <label for="fee">{{ __('Course Fee') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="course_fee"
-                                           name="course_fee"
-                                           value="{{ $edit ? $course->course_fee : old('course_fee') }}"
+                                    <input type="text" class="form-control" id="fee"
+                                           name="fee"
+                                           value="{{ $edit ? $course->fee : old('fee') }}"
                                            placeholder="{{ __('Course Fee') }}">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="description">{{ __('Course Description')  }}<span
-                                            class="required">*</span></label>
-                                    <textarea class="form-control" id="description"
-                                              name="description"
-                                              rows="3"
-                                              value="{{ $edit ? $course->description : old('description') }}"
-                                              placeholder="{{ __('Description') }}">{{ $edit ? $course->description : old('description') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="prerequisite">{{ __('Course Prerequisite') }}<span
+                                    <label for="duration">{{ __('Course Duration') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="text" class="form-control" id="duration"
+                                           name="duration"
+                                           value="{{ $edit ? $course->duration : old('duration') }}"
+                                           placeholder="{{ __('Course Duration') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="target_group">{{ __('Target Group')  }}<span
                                             class="required">*</span></label>
+                                    <textarea class="form-control" id="target_group"
+                                              name="target_group"
+                                              rows="3"
+                                              placeholder="{{ __('Target Group') }}">{{ $edit ? $course->target_group : old('target_group') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="objects">{{ __('Course Objects')  }}<span
+                                            class="required">*</span></label>
+                                    <textarea class="form-control" id="objects"
+                                              name="objects"
+                                              rows="3"
+                                              placeholder="{{ __('Course Objects') }}">{{ $edit ? $course->objects : old('objects') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contents">{{ __('Course Contents')  }}<span
+                                            class="required">*</span></label>
+                                    <textarea class="form-control" id="contents"
+                                              name="contents"
+                                              rows="3"
+                                              placeholder="{{ __('Course Contents') }}">{{ $edit ? $course->contents : old('contents') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="training_methodology">{{ __('Training Methodology')  }}<span
+                                            class="required">*</span></label>
+                                    <textarea class="form-control" id="training_methodology"
+                                              name="training_methodology"
+                                              rows="3"
+                                              placeholder="{{ __('Training Methodology') }}">{{ $edit ? $course->training_methodology : old('training_methodology') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="evaluation_system">{{ __('Evaluation System')  }}<span
+                                            class="required">*</span></label>
+                                    <textarea class="form-control" id="evaluation_system"
+                                              name="evaluation_system"
+                                              rows="3"
+                                              placeholder="{{ __('Evaluation System') }}">{{ $edit ? $course->evaluation_system : old('evaluation_system') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="prerequisite">{{ __('Course Prerequisite') }}</label>
                                     <textarea rows="3" class="form-control" id="prerequisite"
                                               name="prerequisite"
-                                              value="{{ $edit ? $course->prerequisite : old('prerequisite') }}"
                                               placeholder="{{ __('Prerequisite') }}">{{ $edit ? $course->prerequisite : old('prerequisite') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="eligibility">{{ __('Eligibility') }}<span
-                                            class="required">*</span></label>
+                                    <label for="eligibility">{{ __('Eligibility') }}</label>
                                     <textarea rows="3" class="form-control" id="eligibility"
                                               name="eligibility"
-                                              value="{{ $edit ? $course->eligibility : old('eligibility') }}"
                                               placeholder="{{ __('Eligibility') }}">{{ $edit ? $course->eligibility : old('eligibility') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="description">{{ __('Course Description')  }}</label>
+                                    <textarea class="form-control" id="description"
+                                              name="description"
+                                              rows="3"
+                                              placeholder="{{ __('Description') }}">{{ $edit ? $course->description : old('description') }}</textarea>
                                 </div>
                             </div>
 
@@ -214,7 +273,7 @@
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
+                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
                 },
                 code: {
                     required: true,
@@ -231,22 +290,47 @@
                 institute_id: {
                     required: true,
                 },
-                course_fee: {
+                fee: {
                     required: true,
-                    min: 1
+                    min: 0
                 },
                 cover_image: {
                     required: !EDIT,
                     accept: "image/*",
                 },
-                description: {
+                duration: {
                     required: true,
+                    maxlength: 30,
+                },
+                target_group: {
+                    required: true,
+                    maxlength: 300,
+                },
+                objects: {
+                    required: true,
+                    maxlength: 1000,
+                },
+                contents: {
+                    required: true,
+                    maxlength: 300,
+                },
+                training_methodology: {
+                    required: true,
+                    maxlength: 300,
+                },
+                evaluation_system: {
+                    required: true,
+                    maxLength: 300,
+                },
+                description: {
+                    required: false,
+                    maxLength: 500,
                 },
                 eligibility: {
-                    required: true,
+                    required: false,
                 },
                 prerequisite: {
-                    required: true,
+                    required: false,
                 },
 
 

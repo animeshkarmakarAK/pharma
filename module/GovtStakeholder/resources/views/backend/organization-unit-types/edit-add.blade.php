@@ -130,7 +130,7 @@
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
+                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
                 },
                 row_status: {
                     required: EDIT

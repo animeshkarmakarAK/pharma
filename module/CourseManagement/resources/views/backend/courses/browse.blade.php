@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Courses List</h3>
+                        <h3 class="card-title font-weight-bold">Course List</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Course::class)
                                 <a href="{{route('course_management::admin.courses.create')}}"
@@ -52,12 +52,12 @@
                         visible: true,
                     },
                     {
-                        title: "Title (Bn)",
+                        title: "Title (En)",
                         data: "title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Title (En)",
+                        title: "Title (Bn)",
                         data: "title_bn",
                         name: "title_bn"
                     },
@@ -73,7 +73,46 @@
                         name: "institutes.title_en",
                         visible: false,
                     },
-
+                    {
+                        title: "Fee",
+                        data: "fee",
+                        name: "fee",
+                    },
+                    {
+                        title: "Duration",
+                        data: "duration",
+                        name: "duration",
+                    },
+                    {
+                        title: "Target Group",
+                        data: "target_group",
+                        name: "target_group",
+                        visible: false,
+                    },
+                    {
+                        title: "Objects",
+                        data: "objects",
+                        name: "objects",
+                        visible: false,
+                    },
+                    {
+                        title: "Contents",
+                        data: "contents",
+                        name: "contents",
+                        visible: false,
+                    },
+                    {
+                        title: "Training Methodology",
+                        data: "training_methodology",
+                        name: "training_methodology",
+                        visible: false,
+                    },
+                    {
+                        title: "Evaluation System",
+                        data: "evaluation_system",
+                        name: "evaluation_system",
+                        visible: false,
+                    },
                     {
                         title: "Action",
                         data: "action",

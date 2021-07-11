@@ -176,7 +176,8 @@
                     required: true
                 },
                 title_bn: {
-                    required: true
+                    required: true,
+                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
                 },
                 institute_id: {
                     required: true

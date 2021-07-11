@@ -35,7 +35,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Title(BN)') }}</p>
                     <div class="input-box">
-                        {{$rank->title_bn ? $rank->title_bn: ''}}
+                        {{$rank->title_bn ? $rank->title_bn : ''}}
                     </div>
                 </div>
 

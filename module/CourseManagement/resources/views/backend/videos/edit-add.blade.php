@@ -249,7 +249,7 @@
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff]{1,191}$",
+                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
                 },
                 video_type: {
                     required: true

@@ -49,34 +49,64 @@ class CourseService
                 'string',
                 'max:191'
             ],
-            'description' => [
-                'required',
-                'string',
-                'max:500'
-            ],
-            'prerequisite' => [
-                'required',
-                'string',
-                'max:300'
-            ],
-            'eligibility' => [
-                'required',
-                'string',
-                'max:300'
-            ],
             'code' => [
                 'required',
                 'string',
                 'max:191',
-                'unique:courses,code,' . $id
+                'unique:courses,code,'.$id
+            ],
+            'fee' => [
+                'required',
+                'min:0'
+            ],
+            'duration' => [
+                'required',
+                'string',
+                'max: 30',
+            ],
+            'target_group' => [
+                'required',
+                'string',
+                'max: 300',
+            ],
+            'objects' => [
+                'required',
+                'string',
+                'max: 1000',
+            ],
+            'contents' => [
+                'required',
+                'string',
+                'max: 300',
+            ],
+            'training_methodology' => [
+                'required',
+                'string',
+                'max: 300',
+            ],
+            'evaluation_system' => [
+                'required',
+                'string',
+                'max: 300',
+            ],
+            'description' => [
+                'nullable',
+                'string',
+                'max:500'
+            ],
+            'prerequisite' => [
+                'nullable',
+                'string',
+                'max:300'
+            ],
+            'eligibility' => [
+                'nullable',
+                'string',
+                'max:300'
             ],
             'institute_id' => [
                 'required',
                 'int'
-            ],
-            'course_fee' => [
-                'required',
-                'min:1'
             ],
             'cover_image' => [
                 'nullable',
@@ -139,17 +169,23 @@ class CourseService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Course $courses */
 
-        $courses = Course::select([
+        $courses = Course::acl()->select([
             'courses.id as id',
             'courses.title_en',
             'courses.title_bn',
+            'courses.duration',
             'courses.code',
+            'courses.fee',
+            'courses.target_group',
+            'courses.contents',
+            'courses.objects',
+            'courses.training_methodology',
+            'courses.evaluation_system',
             'courses.created_at',
             'courses.updated_at',
             'institutes.title_en as institute_title',
         ]);
         $courses->join('institutes', 'courses.institute_id', '=', 'institutes.id');
-        $courses->acl();
 
         return DataTables::eloquent($courses)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Course $course) use ($authUser) {

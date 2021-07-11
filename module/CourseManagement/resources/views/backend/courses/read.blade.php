@@ -40,6 +40,13 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Institute Name') }}</p>
+                    <div class="input-box">
+                        {{ $course->institute->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Code') }}</p>
                     <div class="input-box">
                         {{ $course->code }}
@@ -47,36 +54,81 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Institute Name') }}</p>
+                    <p class="label-text">{{ __('Course Fee') }}</p>
                     <div class="input-box">
-                        {{ $course->institute->title_en }}
+                        {{ $course->fee }}
                     </div>
                 </div>
+
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Course Description')  }}</p>
+                    <p class="label-text">{{ __('Course Duration') }}</p>
                     <div class="input-box">
-                        {{ $course->description }}
+                        {{ $course->duration }}
                     </div>
                 </div>
+
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Target Group')  }}</p>
+                    <div class="input-box">
+                        {{ $course->target_group }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Objects')  }}</p>
+                    <div class="input-box">
+                        {{ $course->objects }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Contents')  }}</p>
+                    <div class="input-box">
+                        {{ $course->contents }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Methodology')  }}</p>
+                    <div class="input-box">
+                        {{ $course->training_methodology }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Evaluation System')  }}</p>
+                    <div class="input-box">
+                        {{ $course->evaluation_system }}
+                    </div>
+                </div>
+
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Prerequisite') }}</p>
                     <div class="input-box">
-                        {{ $course->prerequisite }}
+                        {{ $course->prerequisite ?? "N/A"}}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Eligibility') }}</p>
                     <div class="input-box">
-                        {{ $course->eligibility }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Active Status') }}</p>
-                    <div class="input-box">
-                        {{ $course->row_status == \Module\CourseManagement\App\Models\Course::ROW_STATUS_ACTIVE ? 'Active' : 'Not Active'}}
+                        {{ $course->eligibility ?? "N/A"}}
                     </div>
                 </div>
 
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Description')  }}</p>
+                    <div class="input-box">
+                        {{ $course->description ?? "N/A" }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Active Status') }}</p>
+                    <div class="input-box">
+                        {!! $course->getCurrentRowStatus(true) !!}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
