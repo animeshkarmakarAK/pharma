@@ -59,10 +59,12 @@
                                     $sl = 0;
                                     @endphp
 
+                                    @if($totalCourseVenue)
+
                                     @foreach($courses as $key => $course)
                                         <tr>
                                             <th class="align-middle" rowspan="{{ count($course)+1 }}">{{ ++$sl }}</th>
-                                            <th colspan="5">{{ $totalCourseVenue[$key]->course_name }}</th>
+                                            <th colspan="5">{{ $totalCourseVenue? $totalCourseVenue[$key]->course_name:'' }}</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -72,21 +74,22 @@
                                             <th></th>
                                             <th></th>
                                             <th class="align-middle" rowspan="{{ count($course)+1 }}">
-                                                {{ $totalAnnualTrainingTarget[$totalCourseVenue[$key]->course_id] }}
+                                                {{ $totalCourseVenue? $totalAnnualTrainingTarget[$totalCourseVenue[$key]->course_id] :'' }}
                                             </th>
                                             <th class="align-middle"
-                                                rowspan="{{ count($course)+1 }}"> {{ $totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক' }}</th>
+                                                rowspan="{{ count($course)+1 }}"> {{ $totalCourseVenue? ($totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক'):'' }}</th>
                                             <th class="align-middle"
-                                                rowspan="{{ count($course)+1 }}">{{ $totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0' }}
+                                                rowspan="{{ count($course)+1 }}">{{ $totalCourseVenue? ($totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0'):'' }}
                                                 টি কেন্দ্র
                                             </th>
                                             <th class="align-middle" rowspan="{{ count($course)+1 }}">
-                                                <a href="{{ route('course_management::venue-list',$totalCourseVenue[$key]->course_id ) }}">বিস্তারিত</a>
+                                                <a href="{{ route('course_management::venue-list', $totalCourseVenue?$totalCourseVenue[$key]->course_id:'' ) }}">বিস্তারিত</a>
                                             </th>
                                         </tr>
+
                                         @foreach($course as $courseSession)
                                             <tr>
-                                                <th style="font-size: 12px">{{ $totalCourseVenue[$key]->course_name }}
+                                                <th style="font-size: 12px">{{  $totalCourseVenue?$totalCourseVenue[$key]->course_name:'' }}
                                                     (Session-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
@@ -104,6 +107,7 @@
                                             </tr>
                                         @endforeach
                                     @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
