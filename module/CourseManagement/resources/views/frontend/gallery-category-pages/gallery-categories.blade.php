@@ -111,7 +111,7 @@
                             columns: columns,
                             paginate: true,
                             page: 1,
-                            per_page: 5,
+                            per_page: 8,
                             filters,
                         }
                     }
