@@ -25,7 +25,7 @@
                             alt="Institute Logo" data-extra-logo="">
                     </a>
                     <h2 class="pt-4 pb-4"
-                        style="color: #636f41">{{ !empty($currentInstitute)? $currentInstitute->title_en : 'নাইস-৩ প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' }}
+                        style="color: #636f41">{{ !empty($currentInstitute)? $currentInstitute->title_bn.' প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' : 'নাইস-৩ প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' }}
                     </h2>
                 </div>
                 <div class="col-sm-4 mx-auto">

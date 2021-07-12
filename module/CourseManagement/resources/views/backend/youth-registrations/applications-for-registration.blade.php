@@ -241,6 +241,12 @@
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script>
         $(document).ready(function () {
+
+            if (!($('#institute_id').attr('type') == "hidden")) {
+                $('#programme_id').parent().addClass(' mt-2 offset-md-1');
+            }else {
+                $('#course_id').parent().addClass(' offset-md-1');
+            }
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.youth.registrations.datatable') }}',
                 order: [[2, "asc"]],

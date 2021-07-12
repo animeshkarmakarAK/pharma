@@ -28,7 +28,7 @@ class CourseSeeder extends Seeder
                     'institute_id' => array_rand($institutes),
                     'title_en' => 'Graphic Design',
                     'title_bn' => 'গ্রাফিক্স ডিজাইন',
-                    'fee' => '500',
+                    'course_fee' => '500',
                     'objects' => "Introduction to different types of welding processes;
                                             l Identification of different metals;
                                             l Preparation of different types of welding joints;

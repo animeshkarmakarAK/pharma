@@ -115,11 +115,11 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="fee">{{ __('Course Fee') }}<span
+                                    <label for="course_fee">{{ __('Course Fee') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="fee"
-                                           name="fee"
-                                           value="{{ $edit ? $course->fee : old('fee') }}"
+                                    <input type="text" class="form-control" id="course_fee"
+                                           name="course_fee"
+                                           value="{{ $edit ? $course->course_fee : old('course_fee') }}"
                                            placeholder="{{ __('Course Fee') }}">
                                 </div>
                             </div>
@@ -300,7 +300,7 @@
                 institute_id: {
                     required: true,
                 },
-                fee: {
+                course_fee: {
                     required: true,
                     min: 0
                 },

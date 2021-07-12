@@ -55,7 +55,7 @@ class CourseService
                 'max:191',
                 'unique:courses,code,'.$id
             ],
-            'fee' => [
+            'course_fee' => [
                 'required',
                 'min:0'
             ],
@@ -175,7 +175,7 @@ class CourseService
             'courses.title_bn',
             'courses.duration',
             'courses.code',
-            'courses.fee',
+            'courses.course_fee',
             'courses.target_group',
             'courses.contents',
             'courses.objects',

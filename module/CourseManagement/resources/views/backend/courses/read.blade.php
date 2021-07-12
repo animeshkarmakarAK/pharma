@@ -56,7 +56,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Fee') }}</p>
                     <div class="input-box">
-                        {{ $course->fee }}
+                        {{ $course->course_fee }}
                     </div>
                 </div>
 

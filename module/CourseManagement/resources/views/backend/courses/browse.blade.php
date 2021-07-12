@@ -74,9 +74,9 @@
                         visible: false,
                     },
                     {
-                        title: "Fee",
-                        data: "fee",
-                        name: "fee",
+                        title: "Course Fee",
+                        data: "course_fee",
+                        name: "course_fee",
                     },
                     {
                         title: "Duration",
