@@ -59,7 +59,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info">
-                        <h1 class="text-center text-primary mt-4">পছন্দের কোর্স খুঁজুন</h1>
+                        <h2 class="text-center text-primary font-weight-lighter mt-4">পছন্দের কোর্স খুঁজুন</h2>
                     </div>
                     <div class="card-body bg-gray-light">
                         <div class="row justify-content-center">

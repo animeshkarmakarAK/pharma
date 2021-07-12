@@ -81,7 +81,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info">
-                        <h1 class="text-center text-primary">প্রশিক্ষণ বাস্তবায়ন সময়সূচি</h1>
+                        <h2 class="text-center text-primary font-weight-lighter">প্রশিক্ষণ বাস্তবায়ন সময়সূচি</h2>
                     </div>
                 </div>
                 <div id='calendar'></div>
