@@ -104,7 +104,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on="institute_id"
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="Branch"
                                         >
                                         </select>
                                     </div>
@@ -116,7 +116,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="Training Center"
                                         >
                                         </select>
                                     </div>
@@ -128,7 +128,7 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="Programme"
                                         >
                                         </select>
                                     </div>
@@ -140,14 +140,14 @@
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
                                                 data-label-fields="{title_en}"
                                                 data-depend-on-optional="institute_id"
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="Course"
                                         >
                                         </select>
                                     </div>
 
                                     <div class="col-md-3 mt-2">
                                         <input class="flat-date" id="date-filter" name="start_date"
-                                               type="text" placeholder="select date">
+                                               type="text" placeholder="Select Date">
                                     </div>
                                     <div class="col-md-1 mt-2">
                                         <button class="btn btn-primary" id="reset-btn">Reset</button>

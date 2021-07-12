@@ -2,6 +2,9 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\PublishCourse;
@@ -18,7 +21,7 @@ class YearlyTrainingCalendarController extends Controller
         return \view(self::VIEW_PATH . 'training-calendar.yearly-training-calendar');
     }
 
-    public function allEvent()
+    public function allEvent(Request $request)
     {
         $currentInstitute = domainConfig('institute');
         $courseSessions = PublishCourse::select([
@@ -31,8 +34,19 @@ class YearlyTrainingCalendarController extends Controller
         $courseSessions->join('courses', 'publish_courses.course_id', '=', 'courses.id');
         $courseSessions->where('publish_courses.institute_id', '=', $currentInstitute->id);
 
+        if (!empty($request->input('institute_id'))) {
+            $courseSessions->where('publish_courses.institute_id', $request->input('institute_id'));
+        }
+        if (!empty($request->input('branch_id'))) {
+            $courseSessions->where('publish_courses.branch_id', $request->input('branch_id'));
+        }
+        if (!empty($request->input('training_center_id'))) {
+            $courseSessions->where('publish_courses.training_center_id', $request->input('training_center_id'));
+        }
+
         return $courseSessions->get()->toArray();
     }
+
 
     public function fiscalYear(): view
     {
@@ -62,29 +76,42 @@ class YearlyTrainingCalendarController extends Controller
             DB::raw('SUM(course_sessions.max_seat_available) as total_seat'),
 
         )
-            ->join('courses','course_sessions.course_id','courses.id')
+            ->join('courses', 'course_sessions.course_id', 'courses.id')
             ->groupBy('course_id')
-            ->pluck('total_seat','course_id');
+            ->pluck('total_seat', 'course_id');
 
 
-
-
-        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('totalCourseVenue', 'courses','totalAnnualTrainingTarget'));
+        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('totalCourseVenue', 'courses', 'totalAnnualTrainingTarget'));
     }
 
 
-    public function venueList($id): view
+    public function venueList(Request $request, $id): view
     {
+        $query = $request->query('search');
         $publishedCourses = PublishCourse::select(
-            'institute_id',
-            'branch_id',
-            'training_center_id'
+            'publish_courses.institute_id',
+            'publish_courses.branch_id',
+            'publish_courses.training_center_id',
+            'publish_courses.course_id',
         )
-            ->where(['course_id' => $id])
-            ->groupBy(['institute_id', 'branch_id', 'training_center_id'])
+            ->join('institutes', 'publish_courses.institute_id', '=', 'institutes.id')
+            ->leftJoin('branches', 'publish_courses.branch_id', '=', 'branches.id')
+            ->leftJoin('training_centers', 'publish_courses.training_center_id', '=', 'training_centers.id')
+            ->where(['publish_courses.course_id' => $id])
+            ->where(function ($result) use ($query) {
+                $result
+                    ->where('training_centers.title_bn', 'LIKE', '%' . $query . '%')
+                    ->orWhere('branches.title_bn', 'LIKE', '%' . $query . '%')
+                    ->orwhere('institutes.title_bn', 'LIKE', '%' . $query . '%')
+                    ->orWhere('training_centers.address', 'LIKE', '%' . $query . '%')
+                    ->orWhere('branches.address', 'LIKE', '%' . $query . '%')
+                    ->orWhere('institutes.address', 'LIKE', '%' . $query . '%')
+                    ->orWhere('institutes.primary_mobile', 'LIKE', '%' . $query . '%');
+            })
+            ->groupBy(['publish_courses.institute_id', 'publish_courses.branch_id', 'publish_courses.training_center_id', 'publish_courses.course_id'])
             ->get();
-        return \view(self::VIEW_PATH . 'training-calendar.venue-list', compact('publishedCourses'));
 
+        return \view(self::VIEW_PATH . 'training-calendar.venue-list', compact('publishedCourses'));
     }
 
 }
