@@ -52,15 +52,14 @@ class YearlyTrainingCalendarController extends Controller
     {
         $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
 
+
         //$courses = CourseSession::join('publish_courses', 'course_sessions.course_id', 'publish_courses.course_id')
         $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
-            ->Where('application_start_date', 'like', '%' . ($year - 1) . '%')
-            ->orWhere('application_start_date', 'like', '%' . ($year) . '%')
+            ->Where('course_sessions.application_start_date', 'like', '%' . ($year-1) . '%')
+            ->orWhere('course_sessions.application_start_date', 'like', '%' . ($year) . '%')
             ->get()
             ->groupBy('course_id')
             ->values();
-
-       // dd($courses);
 //
 //        $tmp = CourseSession::select(
 //           'publish_courses.institute_id',
@@ -72,7 +71,7 @@ class YearlyTrainingCalendarController extends Controller
 //            ->get();
 //        dd($tmp);
 
-        $totalCourseVenue = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_en as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
+        $totalCourseVenue = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_bn as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
 
         $totalAnnualTrainingTarget = CourseSession::select(
             'course_id',
