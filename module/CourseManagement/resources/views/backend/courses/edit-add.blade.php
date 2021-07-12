@@ -267,6 +267,18 @@
 
         const editAddForm = $('.edit-add-form');
 
+        jQuery.validator.setDefaults({
+            focusInvalid: false,
+            invalidHandler: function (form, validator) {
+                if (!validator.numberOfInvalids()) {
+                    return;
+                }
+                $('html, body').animate({
+                    scrollTop: $(validator.errorList[0].element).offset().top
+                }, 200);
+            }
+        });
+
         editAddForm.validate({
             rules: {
                 title_en: {
