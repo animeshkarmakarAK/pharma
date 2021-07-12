@@ -25,7 +25,7 @@
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">কোর্সের নাম </p>
                             <div class="input-box" id="course_title">
-                                {{optional($publishCourse->course)->title_en}}
+                                {{optional($publishCourse->course)->title_bn}}
                             </div>
                         </div>
 
@@ -36,9 +36,51 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">কোর্স সময়কাল</p>
+                            <div class="input-box" id="course_duration">
+                                {{optional($publishCourse->course)->course_duration}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">যাদের জন্য কোর্স</p>
+                            <div class="input-box" id="target_group">
+                                {{optional($publishCourse->course)->target_group}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">কোর্সের লক্ষ্য</p>
+                            <div class="input-box" id="objects">
+                                {{optional($publishCourse->course)->objects}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">কোর্স বিষয়বস্তু</p>
+                            <div class="input-box" id="contents">
+                                {{optional($publishCourse->course)->contents}}
+                            </div>
+                        </div>
+
+                            <div class="col-md-6 custom-view-box">
+                                <p class="label-text">প্রশিক্ষণ পদ্ধতি</p>
+                                <div class="input-box" id="training_methodology">
+                                    {{optional($publishCourse->course)->training_methodology}}
+                                </div>
+                            </div>
+
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">মূল্যায়ন পদ্ধতি</p>
+                            <div class="input-box" id="evaluation_system">
+                                {{optional($publishCourse->course)->evaluation_system}}
+                            </div>
+                        </div>
+
                         <div class="col-md-12 custom-view-box">
                             <p class="label-text">কোর্সের বর্ণনা</p>
-                            <div class="input-box" id="course_discription">
+                            <div class="input-box" id="description">
                                 <p>{{optional($publishCourse->course)->description}}</p>
                             </div>
                         </div>
@@ -55,9 +97,9 @@
                             </div>
                         </div>
                         <div class="col-md-6 custom-view-box">
-                            <p class="label-text">একটিভ স্ট্যাটাস</p>
+                            <p class="label-text">অ্যাক্টিভ স্ট্যাটাস</p>
                             <div class="input-box" id="active_status">
-                                {{optional($publishCourse->course)->row_status == 1 ? 'Active' : 'Inactive'}}
+                                {!! $publishCourse->getCurrentRowStatus(true) !!}
                             </div>
                         </div>
                         <div class="col-md-6 custom-view-box">
@@ -81,7 +123,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Course session list</h2>
+                    <h2 class="card-title">কোর্স সেশন তালিকা</h2>
                 </div>
                 @if($publishCourse->courseSessions)
                     <div class="card-body">
@@ -89,8 +131,8 @@
                             <table class="table table-striped table-hover table-sm">
                                 <thead>
                                 <tr>
-                                    <th>রেজিস্ট্রেশান শুরু</th>
-                                    <th>রেজিস্ট্রেশান শেষ</th>
+                                    <th>নিবন্ধন শুরু</th>
+                                    <th>নিবন্ধন শেষ</th>
                                     <th>ক্লাস শুরু</th>
                                     <th>মোট আসন</th>
                                     <th>&nbsp;</th>

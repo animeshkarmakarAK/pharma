@@ -373,6 +373,7 @@
             async function courseDetailsModalOpen(courseId) {
                 let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', courseId));
                 if (response?.length) {
+                    console.log(response);
                     $("#course_details_modal").find(".modal-content").html(response);
                 } else {
                     let notFound = `<div class="alert alert-danger">Not Found</div>

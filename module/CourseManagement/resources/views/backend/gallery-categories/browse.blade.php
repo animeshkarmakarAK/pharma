@@ -8,7 +8,7 @@
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">Album List</h3>
                         <div class="card-tools">
-                            @can('create', \Module\CourseManagement\App\Models\Gallery::class)
+                            @can('create', \Module\CourseManagement\App\Models\GalleryCategory::class)
                                 <a href="{{route('course_management::admin.gallery-categories.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
