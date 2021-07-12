@@ -52,7 +52,6 @@ class YearlyTrainingCalendarController extends Controller
     {
         $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
 
-
         //$courses = CourseSession::join('publish_courses', 'course_sessions.course_id', 'publish_courses.course_id')
         $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
             ->Where('course_sessions.application_start_date', 'like', '%' . ($year-1) . '%')
