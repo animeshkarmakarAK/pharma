@@ -60,32 +60,32 @@ class CourseService
                 'min:0'
             ],
             'duration' => [
-                'required',
+                'nullable',
                 'string',
                 'max: 30',
             ],
             'target_group' => [
-                'required',
+                'nullable',
                 'string',
                 'max: 300',
             ],
             'objects' => [
-                'required',
+                'nullable',
                 'string',
                 'max: 1000',
             ],
             'contents' => [
-                'required',
+                'nullable',
                 'string',
                 'max: 300',
             ],
             'training_methodology' => [
-                'required',
+                'nullable',
                 'string',
                 'max: 300',
             ],
             'evaluation_system' => [
-                'required',
+                'nullable',
                 'string',
                 'max: 300',
             ],

@@ -82,6 +82,7 @@
                         title: "Duration",
                         data: "duration",
                         name: "duration",
+                        visible: false,
                     },
                     {
                         title: "Target Group",

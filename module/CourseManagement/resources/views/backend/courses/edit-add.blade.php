@@ -33,8 +33,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cover_image">{{ __('Upload Cover Image') }}<span
-                                            class="required">*</span></label>
+                                    <label for="cover_image">{{ __('Upload Cover Image') }}</label>
                                     <div class="input-group">
                                         <div class="cover-image-upload-section">
                                             <div class="avatar-preview text-center">
@@ -127,8 +126,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="duration">{{ __('Course Duration') }}<span
-                                            style="color: red"> * </span></label>
+                                    <label for="duration">{{ __('Course Duration') }}</label>
                                     <input type="text" class="form-control" id="duration"
                                            name="duration"
                                            value="{{ $edit ? $course->duration : old('duration') }}"
@@ -138,8 +136,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="target_group">{{ __('Target Group')  }}<span
-                                            class="required">*</span></label>
+                                    <label for="target_group">{{ __('Target Group')  }}</label>
                                     <textarea class="form-control" id="target_group"
                                               name="target_group"
                                               rows="3"
@@ -149,8 +146,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="objects">{{ __('Course Objects')  }}<span
-                                            class="required">*</span></label>
+                                    <label for="objects">{{ __('Course Objects')  }}</label>
                                     <textarea class="form-control" id="objects"
                                               name="objects"
                                               rows="3"
@@ -160,8 +156,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="contents">{{ __('Course Contents')  }}<span
-                                            class="required">*</span></label>
+                                    <label for="contents">{{ __('Course Contents')  }}</label>
                                     <textarea class="form-control" id="contents"
                                               name="contents"
                                               rows="3"
@@ -171,8 +166,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="training_methodology">{{ __('Training Methodology')  }}<span
-                                            class="required">*</span></label>
+                                    <label for="training_methodology">{{ __('Training Methodology')  }}</label>
                                     <textarea class="form-control" id="training_methodology"
                                               name="training_methodology"
                                               rows="3"
@@ -182,8 +176,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="evaluation_system">{{ __('Evaluation System')  }}<span
-                                            class="required">*</span></label>
+                                    <label for="evaluation_system">{{ __('Evaluation System')  }}</label>
                                     <textarea class="form-control" id="evaluation_system"
                                               name="evaluation_system"
                                               rows="3"
@@ -289,7 +282,7 @@
                     pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
                 },
                 cover_image: {
-                    required: !EDIT,
+                    required: false,
                     accept: "image/*",
                 },
                 code: {
@@ -312,27 +305,27 @@
                     min: 0
                 },
                 duration: {
-                    required: true,
+                    required: false,
                     maxlength: 30,
                 },
                 target_group: {
-                    required: true,
+                    required: false,
                     maxlength: 300,
                 },
                 objects: {
-                    required: true,
+                    required: false,
                     maxlength: 1000,
                 },
                 contents: {
-                    required: true,
+                    required: false,
                     maxlength: 300,
                 },
                 training_methodology: {
-                    required: true,
+                    required: false,
                     maxlength: 300,
                 },
                 evaluation_system: {
-                    required: true,
+                    required: false,
                     maxlength: 300,
                 },
                 description: {
