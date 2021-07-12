@@ -238,10 +238,6 @@
                                 </div>
                             @endforeach
                         </ul>
-                        <div class="row justify-content-center">
-                            <a href="{{ route('course_management::gallery-categories') }}" class="btn btn-primary">আরও
-                                দেখুন</a>
-                        </div>
                     </div>
                 @else
                     <div class="col-md-12">

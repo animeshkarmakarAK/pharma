@@ -14,7 +14,7 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-1 offset-1">
-                            <i class="fa fa-filter">Filter</i>
+                            <i class="fa fa-filter">ফিল্টার</i>
                         </div>
                         <div class="form-group col-md-3">
                             <select class="form-control select2-ajax-wizard"
