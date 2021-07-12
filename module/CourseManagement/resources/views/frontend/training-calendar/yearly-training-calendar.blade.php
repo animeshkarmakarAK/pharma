@@ -174,8 +174,6 @@
             //calendar filter by Branch & Training Centre
             $('#course-session-filter-btn').on('click', function () {
                 delete calendar;
-
-                let institute = $('#institute_id').val();
                 let branch_id = $('#branch_id').val();
                 let training_center_id = $('#training_center_id').val();
 
