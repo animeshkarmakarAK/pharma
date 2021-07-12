@@ -248,7 +248,7 @@
                 @endif
             </div>
         </div>
-        @if(!empty($galleryCategories->count()>4))
+        @if(!empty($galleryCategories->count() >= 4))
             <div class="col-md-12 text-center margin-10">
                 <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">আরও গ্যালারি
                     দেখুন</a>
