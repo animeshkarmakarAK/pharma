@@ -89,7 +89,7 @@
                                                     id="institute_id"
                                                     data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
                                                     data-label-fields="{title_en}"
-                                                    data-dependent-fields="#branch_id"
+                                                    data-dependent-fields="#branch_id|#course_id"
                                                     data-placeholder="নির্বাচন করুন"
                                             >
                                             </select>

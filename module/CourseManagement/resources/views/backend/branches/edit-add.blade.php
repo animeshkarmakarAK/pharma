@@ -69,7 +69,7 @@
                             </div>
 
                             @if($authUser->isInstituteUser())
-                                <input type="hidden" id="institute_id" name="institute_id"
+                                <input type="hidden" id="institute_id" name="institute_id" id="institute_id"
                                        value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">

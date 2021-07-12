@@ -68,7 +68,7 @@
                                                             <input required="required" maxlength="255" id="name"
                                                                    class="form-control" type="text" name="name"
                                                                    aria-required="true">
-                                                            <input type="hidden" name="institute_id"
+                                                            <input type="hidden" name="institute_id" id="institute_id"
                                                                    value="{{$currentInstitute->id}}">
                                                             <input type="hidden" name="form_type"
                                                                    value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_CONTACT}}">

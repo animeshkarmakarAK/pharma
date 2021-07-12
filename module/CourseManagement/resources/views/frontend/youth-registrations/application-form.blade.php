@@ -26,7 +26,8 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('course_management::youth-registrations.store') }}" method="POST" class="youthRegistrationForm"
+            <form action="{{ route('course_management::youth-registrations.store') }}" method="POST"
+                  class="youthRegistrationForm"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-12">
@@ -50,15 +51,19 @@
                                 </div>
 
                                 @if(!empty($publishCourse))
-                                    <input type="hidden" name="institute_id" value="{{$publishCourse->institute_id}}">
-                                    <input type="hidden" name="branch_id" value="{{$publishCourse->branch_id}}">
-                                    <input type="hidden" name="training_center_id"
+                                    <input type="hidden" name="institute_id" id="institute_id"
+                                           value="{{$publishCourse->institute_id}}">
+                                    <input type="hidden" name="branch_id" id="branch_id"
+                                           value="{{$publishCourse->branch_id}}">
+                                    <input type="hidden" name="training_center_id" id="training_center_id"
                                            value="{{$publishCourse->training_center_id}}">
-                                    <input type="hidden" name="programme_id" value="{{$publishCourse->programme_id}}">
-                                    <input type="hidden" name="course_id" value="{{$publishCourse->course_id}}">
+                                    <input type="hidden" name="programme_id" id="programme_id"
+                                           value="{{$publishCourse->programme_id}}">
+                                    <input type="hidden" name="course_id" id="course_id"
+                                           value="{{$publishCourse->course_id}}">
                                 @else
                                     @if(!empty(domainConfig('institute')))
-                                        <input type="hidden" name="institute_id"
+                                        <input type="hidden" name="institute_id" id="institute_id"
                                                value="{{ domainConfig('institute')->id }}">
                                     @else
                                         <div class="form-group col-md-6">
