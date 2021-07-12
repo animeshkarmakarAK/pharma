@@ -195,7 +195,7 @@
                 @else
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
-                            Course not found.
+                            কোন কোর্স পাওয়া যায়নি!
                         </div>
                     </div>
                 @endif
@@ -246,7 +246,7 @@
                 @else
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
-                            কোন গ্যালারি পাওয়া যাইনি.
+                            কোন গ্যালারি পাওয়া যাইনি!
                         </div>
                     </div>
                 @endif

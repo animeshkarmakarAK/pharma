@@ -55,9 +55,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php
+                                    @php
                                     $sl = 0;
-                                    ?>
+                                    @endphp
                                     @foreach($courses as $key => $course)
                                         <tr>
                                             <th class="align-middle" rowspan="{{ count($course)+1 }}">{{ ++$sl }}</th>
