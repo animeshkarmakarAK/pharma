@@ -69,7 +69,7 @@ class YearlyTrainingCalendarController extends Controller
 //            ->get();
 //        dd($tmp);
 
-        $totalCourseVenue = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_en as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
+        $totalCourseVenue = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_en as course_name,courses.fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
 
         $totalAnnualTrainingTarget = CourseSession::select(
             'course_id',
