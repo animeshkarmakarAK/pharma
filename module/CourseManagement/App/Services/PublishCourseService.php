@@ -53,7 +53,7 @@ class PublishCourseService
         ];
 
         $messages = [
-            'course_sessions.*.session_name_bn.regex' => "Session name(Bangla) should be in Bangla",
+            'course_sessions.*.session_name_bn.regex' => "Session Name(Bangla) is required in Bangla",
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
