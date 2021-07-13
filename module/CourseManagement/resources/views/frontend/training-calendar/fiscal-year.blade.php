@@ -67,7 +67,7 @@
 
                                         @foreach($courses as $key => $course)
                                             <tr>
-                                                <th class="align-middle"
+                                                <th class="text-center"
                                                     rowspan="{{ count($course)+1 }}">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$sl) }}</th>
                                                 <th colspan="5">{{ optional($totalCourseVenue[$key])->course_name}}</th>
                                                 <th></th>
@@ -78,16 +78,16 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th class="align-middle" rowspan="{{ count($course)+1 }}">
+                                                <th class="align-middle text-center" rowspan="{{ count($course)+1 }}">
                                                     {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($totalCourseVenue? $totalAnnualTrainingTarget[$totalCourseVenue[$key]->course_id] :'0') }}
                                                 </th>
-                                                <th class="align-middle"
+                                                <th class="align-middle text-center"
                                                     rowspan="{{ count($course)+1 }}"> {{ $totalCourseVenue? ($totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক'):'' }}</th>
-                                                <th class="align-middle"
+                                                <th class="align-middle text-center"
                                                     rowspan="{{ count($course)+1 }}">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($totalCourseVenue? ($totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0'):'') }}
                                                     টি কেন্দ্র
                                                 </th>
-                                                <th class="align-middle" rowspan="{{ count($course)+1 }}">
+                                                <th class="align-middle text-center" rowspan="{{ count($course)+1 }}">
                                                     <a href="{{ route('course_management::venue-list', $totalCourseVenue?$totalCourseVenue[$key]->course_id:'' ) }}">বিস্তারিত</a>
                                                 </th>
                                             </tr>
