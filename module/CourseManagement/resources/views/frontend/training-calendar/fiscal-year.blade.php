@@ -60,7 +60,7 @@
                                     @foreach($courses as $key => $course)
                                         <tr>
                                             <th class="align-middle" rowspan="{{ count($course)+1 }}">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$sl) }}</th>
-                                            <th colspan="5">{{ $totalCourseVenue? $totalCourseVenue[$key]->course_name:'' }}</th>
+                                            <th colspan="5">{{ optional($totalCourseVenue[$key])->course_name}}</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -85,7 +85,7 @@
 
                                         @foreach($course as $courseSession)
                                             <tr>
-                                                <th style="font-size: 12px">
+                                                <th style="font-size: 12px">{{ $courseSession->course->title_bn }}
                                                     (Session-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'') }}</th>

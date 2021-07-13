@@ -2,9 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\PublishCourse;
@@ -52,14 +50,16 @@ class YearlyTrainingCalendarController extends Controller
     {
         $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
         $from = date(($year-1).'-07-01');
-        $to = date($year.'-6-30');
+        $to = date($year.'-06-30');
 
         //$courses = CourseSession::join('publish_courses', 'course_sessions.course_id', 'publish_courses.course_id')
         $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
             ->whereBetween('course_sessions.application_start_date', [$from, $to])
             ->get()
-            ->groupBy('course_id')
-            ->values();
+            ->groupBy('course_id');
+
+        //dd($courses);
+
 //
 //        $tmp = CourseSession::select(
 //           'publish_courses.institute_id',
@@ -71,7 +71,14 @@ class YearlyTrainingCalendarController extends Controller
 //            ->get();
 //        dd($tmp);
 
-        $totalCourseVenue = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_bn as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
+        $totalCourseVenues = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_bn as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
+
+
+
+        $totalCourseVenue = [];
+        foreach ($totalCourseVenues as $venueCourse){
+            $totalCourseVenue[$venueCourse->course_id] = $venueCourse;
+        }
 
         $totalAnnualTrainingTarget = CourseSession::select(
             'course_id',
