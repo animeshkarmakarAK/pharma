@@ -13,7 +13,7 @@
                         <h1 class="text-center text-primary mt-4">গ্যালারীর অ্যালবাম সমূহ</h1>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-1 offset-1">
+                        <div class="col-md-1 offset-1 text-primary">
                             <i class="fa fa-filter">ফিল্টার</i>
                         </div>
                         <div class="form-group col-md-3">
