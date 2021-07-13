@@ -33,7 +33,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected string $redirectTo = '/';
+    protected string $redirectTo = '/admin';
     protected string $currentGuardName = 'web';
 
     /**
