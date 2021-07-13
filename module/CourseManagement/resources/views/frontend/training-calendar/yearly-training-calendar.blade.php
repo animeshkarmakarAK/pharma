@@ -28,7 +28,8 @@
                             </div>--}}
 
                             @if(!empty($currentInstitute))
-                                <input type="hidden" name="institute_id" id="institute_id" value="{{ $currentInstitute->id }}">
+                                <input type="hidden" name="institute_id" id="institute_id"
+                                       value="{{ $currentInstitute->id }}">
                             @else
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -76,7 +77,8 @@
                             </div>
 
                             <div class="col-md-1">
-                                <button class="btn btn-success" id="course-session-filter-btn">{{ __('অনুসন্ধান') }}</button>
+                                <button class="btn btn-success"
+                                        id="course-session-filter-btn">{{ __('অনুসন্ধান') }}</button>
                             </div>
 
                             <div class="col">
@@ -116,6 +118,7 @@
             max-width: 1100px;
             margin: 40px auto;
         }
+
         .fc-daygrid-day-number {
             font-size: x-large;
         }
@@ -146,8 +149,8 @@
                 customButtons: {
                     myCustomButton: {
                         text: 'year',
-                        click: function() {
-                            window.location= '{{ route('course_management::fiscal-year') }}';
+                        click: function () {
+                            window.location = '{{ route('course_management::fiscal-year') }}';
                         }
                     }
                 },
@@ -175,8 +178,6 @@
             calendar.render();
 
 
-
-
             //calendar filter by Branch & Training Centre
             $('#course-session-filter-btn').on('click', function () {
                 delete calendar;
@@ -190,8 +191,8 @@
                     customButtons: {
                         myCustomButton: {
                             text: 'year',
-                            click: function() {
-                                window.location= '{{ route('course_management::fiscal-year') }}';
+                            click: function () {
+                                window.location = '{{ route('course_management::fiscal-year') }}';
                             }
                         }
                     },
@@ -200,10 +201,10 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay,myCustomButton'
                     },
-                    events: function (fetchInfo, successCallback, failureCallback){
+                    events: function (fetchInfo, successCallback, failureCallback) {
                         $.ajax({
                             url: '{{route('course_management::yearly-training-calendar.all-event')}}',
-                            data: { branch_id: branch_id, training_center_id: training_center_id },
+                            data: {branch_id: branch_id, training_center_id: training_center_id},
                             type: "POST",
                         }).done(function (response) {
                             successCallback(response);
