@@ -37,7 +37,7 @@ class PublishCourseService
             'title_bn' => 'nullable|int',
             'application_form_type_id' => ['required', 'int'],
             'branch_id' => ['nullable', 'int'],
-            'course_sessions' => ["required","array","min:1"],
+            'course_sessions' => ["required", "array", "min:1"],
             'course_sessions.*.session_name_en' => ['required', 'string', 'max:30'],
             'course_sessions.*.session_name_bn' => [
                 'required',
