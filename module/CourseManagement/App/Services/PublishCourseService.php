@@ -38,6 +38,13 @@ class PublishCourseService
             'application_form_type_id' => ['required', 'int'],
             'branch_id' => ['nullable', 'int'],
             'course_sessions' => ["required","array","min:1"],
+            'course_sessions.*.session_name_en' => ['required', 'string', 'max:30'],
+            'course_sessions.*.session_name_bn' => [
+                'required',
+                'string',
+                'max:30',
+                'regex:/^[\x{0980}-\x{09FF}\s\-\*!@#%\+=\._\^\'()]*$/u',
+            ],
             'course_sessions.*.number_of_batches' => ['required', 'int'],
             'course_sessions.*.application_start_date' => ['required', 'date'],
             'course_sessions.*.application_end_date' => ['required', 'date'],
@@ -45,7 +52,11 @@ class PublishCourseService
             'course_sessions.*.max_seat_available' => ['required', 'int']
         ];
 
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+        $messages = [
+            'course_sessions.*.session_name_bn.regex' => "Session name(Bangla) should be in Bangla",
+        ];
+
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
     }
 
 
@@ -110,6 +121,9 @@ class PublishCourseService
         return $publishCourse;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function deletePublishCourse(PublishCourse $publishCourse): PublishCourse
     {
         if (!$publishCourse->delete()) {

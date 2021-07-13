@@ -216,166 +216,192 @@
     @endphp
 
 
-@push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+    @push('js')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
 
-    <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
+        <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
-    <script>
-        const EDIT = !!'{{$edit}}';
-        let SL = 0;
+        <script>
+            const EDIT = !!'{{$edit}}';
+            let SL = 0;
 
-        function addRow(data = {}) {
-            let courseSession = _.template($('#course-sessions').html());
-            let courseSessionContentElm = $(".course-session-contents");
-            courseSessionContentElm.append(courseSession({sl: SL, data: data, edit: EDIT}))
-            courseSessionContentElm.find('.flat-date').each(function () {
-                $(this).flatpickr({
-                    altInput: false,
-                    altFormat: "j F, Y",
-                    dateFormat: "Y-m-d",
+            function addRow(data = {}) {
+                let courseSession = _.template($('#course-sessions').html());
+                console.table('course session template:', courseSession);
+                let courseSessionContentElm = $(".course-session-contents");
+                courseSessionContentElm.append(courseSession({sl: SL, data: data, edit: EDIT}))
+                courseSessionContentElm.find('.flat-date').each(function () {
+                    $(this).flatpickr({
+                        altInput: false,
+                        altFormat: "j F, Y",
+                        dateFormat: "Y-m-d",
+                    });
+                });
+                $.validator.addClassRules("number_of_batches", {required: true});
+                $.validator.addClassRules("application_start_date", {required: true});
+                $.validator.addClassRules("application_end_date", {required: true});
+                $.validator.addClassRules("course_start_date", {required: true});
+                $.validator.addClassRules("max_seat_available", {required: true});
+                SL++;
+            }
+
+            function deleteRow(slNo) {
+                let sessionELm = $("#session-no-" + slNo);
+                if (sessionELm.find('.delete_status').length) {
+                    sessionELm.find('.delete_status').val(1);
+                    sessionELm.hide();
+                } else {
+                    sessionELm.remove();
+                }
+            }
+
+            $(document).ready(function () {
+                @if($edit && $publishCourse->courseSessions->count())
+                @foreach($publishCourse->courseSessions as $session)
+                addRow(@json($session));
+                @endforeach
+                @else
+                addRow();
+                @endif
+
+                $(document).on('click', '.add-more-sessions-btn', function () {
+                    addRow();
                 });
             });
-            $.validator.addClassRules("number_of_batches", {required: true});
-            $.validator.addClassRules("application_start_date", {required: true});
-            $.validator.addClassRules("application_end_date", {required: true});
-            $.validator.addClassRules("course_start_date", {required: true});
-            $.validator.addClassRules("max_seat_available", {required: true});
-            SL++;
-        }
 
-        function deleteRow(slNo) {
-            let sessionELm = $("#session-no-" + slNo);
-            if (sessionELm.find('.delete_status').length) {
-                sessionELm.find('.delete_status').val(1);
-                sessionELm.hide();
-            } else {
-                sessionELm.remove();
-            }
-        }
-
-        $(document).ready(function () {
-            @if($edit && $publishCourse->courseSessions->count())
-            @foreach($publishCourse->courseSessions as $session)
-            addRow(@json($session));
-            @endforeach
-            @else
-            addRow();
-            @endif
-
-            $(document).on('click', '.add-more-sessions-btn', function () {
-                addRow();
+            const editAddForm = $('.edit-add-form');
+            editAddForm.validate({
+                rules: {
+                    institute_id: {
+                        required: true
+                    },
+                    course_id: {
+                        required: true
+                    },
+                    application_form_type_id: {
+                        required: true
+                    },
+                    max_seat_available: {
+                        required: true,
+                        number: true,
+                        min: 1,
+                    },
+                },
+                submitHandler: function (htmlForm) {
+                    $('.overlay').show();
+                    htmlForm.submit();
+                }
             });
-        });
 
-        const editAddForm = $('.edit-add-form');
-        editAddForm.validate({
-            rules: {
-                institute_id: {
-                    required: true
-                },
-                course_id: {
-                    required: true
-                },
-                application_form_type_id: {
-                    required: true
-                },
-                max_seat_available: {
-                    required: true,
-                    number: true,
-                    min: 1,
-                },
-            },
-            submitHandler: function (htmlForm) {
-                $('.overlay').show();
-                htmlForm.submit();
-            }
-        });
+        </script>
 
-    </script>
-
-    <script type="text/template" id="course-sessions">
-        <div class="card" id="session-no-<%=sl%>">
-            <div class="card-header d-flex justify-content-between">
-                <h5>Session <%=(sl+1)%></h5>
-                <div class="card-tools">
-                    <button type="button"
-                            onclick="deleteRow(<%=sl%>)"
-                            class="btn btn-warning less-session-btn float-right mr-2"><i
-                            class="fa fa-minus-circle fa-fw"></i></button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <% if(edit && data.id) { %>
-                    <input type="hidden" id="course_session_<%=data.id%>" name="course_sessions[<%=sl%>][id]"
-                           value="<%=data.id%>">
-                    <input type="hidden" name="course_sessions[<%=sl%>][delete]" class="delete_status" value="0"/>
-                    <% } %>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="number_of_batches">{{ __('Number of Batches') }} <span
-                                    style="color: red"> * </span></label>
-                            <input type="number"
-                                   class="form-control number_of_batches"
-                                   name="course_sessions[<%=sl%>][number_of_batches]"
-                                   value="<%=edit ? data.number_of_batches : ''%>">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label
-                                for="application_start_date">{{ __('Application Start Date') }} <span
-                                    style="color: red"> * </span></label>
-                            <input type="text"
-                                   class="flat-date flat-date-custom-bg form-control application_start_date"
-                                   name="course_sessions[<%=sl%>][application_start_date]"
-                                   value="<%=edit ? data.application_start_date : ''%>">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label
-                                for="application_end_date">{{ __('Application End Date') }} <span
-                                    style="color: red"> * </span></label>
-                            <input type="text"
-                                   class="flat-date flat-date-custom-bg form-control application_end_date"
-                                   name="course_sessions[<%=sl%>][application_end_date]"
-                                   value="<%=edit ? data.application_end_date : ''%>"
-                            >
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="course_start_date">{{ __('Course Start Date') }} <span
-                                    style="color: red"> * </span></label>
-                            <input type="text"
-                                   class="flat-date flat-date-custom-bg form-control course_start_date"
-                                   name="course_sessions[<%=sl%>][course_start_date]"
-                                   value="<%=edit ? data.course_start_date : ''%>"
-                            >
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label
-                                for="max_seat_available">{{ __('Max Student Enrollment') }} <span
-                                    style="color: red"> * </span></label>
-                            <input type="number"
-                                   class="form-control max_seat_available"
-                                   name="course_sessions[<%=sl%>][max_seat_available]"
-                                   value="<%=edit ? data.max_seat_available : ''%>"
-                            >
-                        </div>
+        <script type="text/template" id="course-sessions">
+            <div class="card" id="session-no-<%=sl%>">
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="session-name-english"><%= edit ? data.session_name_en : "Session " + sl+1%></h5>
+                    <div class="card-tools">
+                        <button type="button"
+                                onclick="deleteRow(<%=sl%>)"
+                                class="btn btn-warning less-session-btn float-right mr-2"><i
+                                class="fa fa-minus-circle fa-fw"></i></button>
                     </div>
                 </div>
+                <div class="card-body">
+                    <div class="row">
+                        <% if(edit && data.id) { %>
+                        <input type="hidden" id="course_session_<%=data.id%>" name="course_sessions[<%=sl%>][id]"
+                               value="<%=data.id%>">
+                        <input type="hidden" name="course_sessions[<%=sl%>][delete]" class="delete_status" value="0"/>
+                        <% } %>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="session_name_en">{{ __('Session Name(English)') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="text"
+                                       class="form-control session_name_en"
+                                       name="course_sessions[<%=sl%>][session_name_en]"
+                                       value="<%=edit ? data.session_name_en : ''%>"
+                                       onkeyup="$('.session-name-english').html($(this).val())">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="session_name_bn">{{ __('Session Name(Bangla)') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="text"
+                                       class="form-control session_name_bn"
+                                       name="course_sessions[<%=sl%>][session_name_bn]"
+                                       value="<%=edit ? data.session_name_bn : ''%>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="number_of_batches">{{ __('Number of Batches') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="number"
+                                       class="form-control number_of_batches"
+                                       name="course_sessions[<%=sl%>][number_of_batches]"
+                                       value="<%=edit ? data.number_of_batches : ''%>">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="application_start_date">{{ __('Application Start Date') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="text"
+                                       class="flat-date flat-date-custom-bg form-control application_start_date"
+                                       name="course_sessions[<%=sl%>][application_start_date]"
+                                       value="<%=edit ? data.application_start_date : ''%>">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="application_end_date">{{ __('Application End Date') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="text"
+                                       class="flat-date flat-date-custom-bg form-control application_end_date"
+                                       name="course_sessions[<%=sl%>][application_end_date]"
+                                       value="<%=edit ? data.application_end_date : ''%>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="course_start_date">{{ __('Course Start Date') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="text"
+                                       class="flat-date flat-date-custom-bg form-control course_start_date"
+                                       name="course_sessions[<%=sl%>][course_start_date]"
+                                       value="<%=edit ? data.course_start_date : ''%>"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="max_seat_available">{{ __('Max Student Enrollment') }} <span
+                                        style="color: red"> * </span></label>
+                                <input type="number"
+                                       class="form-control max_seat_available"
+                                       name="course_sessions[<%=sl%>][max_seat_available]"
+                                       value="<%=edit ? data.max_seat_available : ''%>"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </script>
-@endpush
+        </script>
+    @endpush
 
 
