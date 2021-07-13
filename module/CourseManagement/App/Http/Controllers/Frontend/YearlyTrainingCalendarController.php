@@ -4,7 +4,6 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use Module\CourseManagement\App\Http\Controllers\Controller;
-use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Illuminate\Contracts\View\View;
@@ -57,35 +56,23 @@ class YearlyTrainingCalendarController extends Controller
             ->get()
             ->groupBy('course_id');
 
-        /*        $tmp = CourseSession::select(
-                   'publish_courses.institute_id',
-                    'publish_courses.branch_id',
-                    'publish_courses.course_id',
-                    DB::raw('count(publish_courses.institute_id) as total'))
-                    ->join('publish_courses', 'course_sessions.publish_course_id', '=', 'publish_courses.id')
-                    ->groupBy('publish_courses.course_id')
-                    ->get();
-                dd($tmp);*/
-
         $totalCourseVenues = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_bn as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
-
-        //dd($totalCourseVenues);
-
 
         /*$totalCourseVenues = Course::join('publish_courses', 'publish_courses.course_id', 'courses.id')
             ->select([
                 'publish_courses.course_id',
                 'courses.title_bn as course_name',
                 'courses.course_fee as course_fee',
-                DB::raw('count(course_id) as total_venue'),
+                DB::raw('count(publish_courses.course_id) as total_venue'),
 
             ])
             ->groupBy('publish_courses.course_id')
-            //->groupBy('publish_courses.course_id','publish_courses.institute_id','publish_courses.branch_id','publish_courses.training_center_id',)
-            ->get()->toArray();*/
-        //dd($totalCourseVenues);
+            ->get()->toArray();
 
-
+        $totalCourseVenue = [];
+        foreach ($totalCourseVenues as $venueCourse) {
+            $totalCourseVenue[$venueCourse['course_id']] = (object)$venueCourse;
+        }*/
 
         $totalCourseVenue = [];
         foreach ($totalCourseVenues as $venueCourse) {
@@ -103,7 +90,6 @@ class YearlyTrainingCalendarController extends Controller
 
         return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('totalCourseVenue', 'courses', 'totalAnnualTrainingTarget'));
     }
-
 
     public function venueList(Request $request, $id): view
     {
