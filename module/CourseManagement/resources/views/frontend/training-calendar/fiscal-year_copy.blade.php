@@ -95,7 +95,7 @@
                                         </tr>
                                         @foreach($course->courseSessions as $courseSession)
                                             <tr>
-                                                <th style="font-size: 12px">{{ $courseSession->course->title_bn }}
+                                                <th style="font-size: 12px">
                                                     (Session-{{  $courseSession->number_of_batches}})
                                                 </th>
                                                 <th>{{ date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'' }}</th>
