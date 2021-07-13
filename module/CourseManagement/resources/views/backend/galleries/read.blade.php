@@ -45,7 +45,7 @@
 
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title">{{ __('Gallery') }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('Gallery') }}</h3>
 
                         <div class="card-tools">
                             <div class="btn-group">

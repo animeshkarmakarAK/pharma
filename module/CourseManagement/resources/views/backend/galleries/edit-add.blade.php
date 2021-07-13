@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title">{{ ! $edit ? 'Add Gallery' : 'Update Gallery' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ ! $edit ? 'Add Gallery' : 'Update Gallery' }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.galleries.index')}}"

@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title">{{ $edit ? 'Update Slider' : 'Add Slider' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit ? 'Update Slider' : 'Add Slider' }}</h3>
 
                         <div class="card-tools">
                             @can('viewAny', Module\CourseManagement\App\Models\Slider::class)
