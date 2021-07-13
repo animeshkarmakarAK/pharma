@@ -17,6 +17,8 @@ class CreateCourseSessionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('course_id')->index('course_sessions_fk_course_id');
             $table->unsignedInteger('publish_course_id')->index('course_sessions_fk_publish_course_id');
+            $table->string('session_name_en');
+            $table->string('session_name_bn');
             $table->unsignedTinyInteger('number_of_batches');
             $table->dateTime('application_start_date');
             $table->dateTime('application_end_date');

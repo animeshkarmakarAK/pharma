@@ -24,12 +24,12 @@
             <div class="row card-body">
 
                 @if(!$authUser->isInstituteUser())
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Institute Name') }}</p>
-                    <div class="input-box">
-                        {{ $publishCourse->institute->title_en }}
+                    <div class="col-md-6 custom-view-box">
+                        <p class="label-text">{{ __('Institute Name') }}</p>
+                        <div class="input-box">
+                            {{ $publishCourse->institute->title_en }}
+                        </div>
                     </div>
-                </div>
                 @endif
 
                 <div class="col-md-6 custom-view-box">
@@ -84,54 +84,66 @@
                                 <div class="col-md-12 course-session-contents">
                                     @php
                                         $session = 0;
-
                                     @endphp
                                     @foreach($courseSessions as $courseSession)
-                                    <div class="card" id="session-no-0">
-                                        <div class="card-header d-flex justify-content-between">
-                                            <h5>Session {{ ++$session }}</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-
-                                                <div class="col-md-6 custom-view-box">
-                                                    <p class="label-text">{{ __('Number of Batches') }}</p>
-                                                    <div class="input-box">
-                                                        {{ $courseSession->number_of_batches }}
+                                        <div class="card" id="session-no-0">
+                                            <div class="card-header d-flex justify-content-between">
+                                                <h5>{{ $courseSession->session_name_en }} </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Session Name(English)') }}</p>
+                                                        <div class="input-box">
+                                                            {{ $courseSession->session_name_en }}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-6 custom-view-box">
-                                                    <p class="label-text">{{ __('Application Start Date') }}</p>
-                                                    <div class="input-box">
-                                                        {{ date('Y-m-d', strtotime($courseSession->application_start_date)) }}
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Session Name(Bangla)') }}</p>
+                                                        <div class="input-box">
+                                                            {{ $courseSession->session_name_bn }}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-6 custom-view-box">
-                                                    <p class="label-text">{{ __('Application End Date') }}</p>
-                                                    <div class="input-box">
-                                                        {{ date('Y-m-d', strtotime($courseSession->application_end_date)) }}
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Number of Batches') }}</p>
+                                                        <div class="input-box">
+                                                            {{ $courseSession->number_of_batches }}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-6 custom-view-box">
-                                                    <p class="label-text">{{ __('Course Start Date') }}</p>
-                                                    <div class="input-box">
-                                                        {{ date('Y-m-d', strtotime($courseSession->course_start_date)) }}
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Application Start Date') }}</p>
+                                                        <div class="input-box">
+                                                            {{ date('Y-m-d', strtotime($courseSession->application_start_date)) }}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-6 custom-view-box">
-                                                    <p class="label-text">{{ __('Max Student Enrollment') }}</p>
-                                                    <div class="input-box">
-                                                        {{ $courseSession->max_seat_available }}
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Application End Date') }}</p>
+                                                        <div class="input-box">
+                                                            {{ date('Y-m-d', strtotime($courseSession->application_end_date)) }}
+                                                        </div>
                                                     </div>
-                                                </div>
 
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Course Start Date') }}</p>
+                                                        <div class="input-box">
+                                                            {{ date('Y-m-d', strtotime($courseSession->course_start_date)) }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{ __('Max Student Enrollment') }}</p>
+                                                        <div class="input-box">
+                                                            {{ $courseSession->max_seat_available }}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
 
                                 </div>
