@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info">
-                        <h1 class="text-center text-primary">কেন্দ্রের তালিকা সমূহ</h1>
+                        <h3 class="text-center text-primary font-weight-lighter">কেন্দ্রের তালিকা সমূহ</h3>
                     </div>
                 </div>
                 <div class="card-body">
@@ -40,12 +40,13 @@
                                             <div id="venue-list">
                                                 <ul class="center-list" id="center_list">
                                                     <?php
-                                                    $sl=0;
+                                                    $sl = 0;
                                                     ?>
                                                     @foreach($publishedCourses as $publishedCourse)
                                                         <li style="list-style: none;">
                                                             <p>
-                                                                {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$sl) }}) {{ $publishedCourse->trainingCenter? $publishedCourse->trainingCenter->title_bn.',':''}}
+                                                                {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$sl) }}
+                                                                ) {{ $publishedCourse->trainingCenter? $publishedCourse->trainingCenter->title_bn.',':''}}
                                                                 {{ $publishedCourse->branch? $publishedCourse->branch->title_bn.',':''}}
                                                                 {{ $publishedCourse->institute? $publishedCourse->institute->title_bn: ''}}
                                                             </p>
@@ -67,7 +68,13 @@
                                                             </address>
                                                             <hr>
                                                         </li>
+
                                                     @endforeach
+                                                    @if(!count($publishedCourses))
+                                                        <h5 class="text-danger text-center p-5">দুঃখিত কোনো ভ্যানু পাওয়া
+                                                            যায়নি</h5>
+                                                    @endif
+
                                                 </ul>
                                                 {{--{{$publishedCourses->links()}}--}}
 
