@@ -14,8 +14,8 @@
                         @php
                             $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
                         @endphp
-                        <h3 class="text-center text-primary font-weight-lighter">প্রশিক্ষণ বাস্তবায়ন
-                            সময়সূচি {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.date('Y')+1) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}</h3>
+                        <h2 class="text-center text-primary font-weight-lighter mt-4">প্রশিক্ষণ বাস্তবায়ন
+                            সময়সূচি {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.date('Y')+1) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}</h2>
                     </div>
                 </div>
                 <div class="card-body">
@@ -64,10 +64,9 @@
                                     @endphp
 
                                     @if($totalCourseVenue)
-
                                         @foreach($courses as $key => $course)
                                             <tr>
-                                                <th class="align-middle"
+                                                <th class="text-center"
                                                     rowspan="{{ count($course)+1 }}">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$sl) }}</th>
                                                 <th colspan="5">{{ optional($totalCourseVenue[$key])->course_name}}</th>
                                                 <th></th>
@@ -78,16 +77,16 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th class="align-middle" rowspan="{{ count($course)+1 }}">
+                                                <th class="align-middle text-center" rowspan="{{ count($course)+1 }}">
                                                     {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($totalCourseVenue? $totalAnnualTrainingTarget[$totalCourseVenue[$key]->course_id] :'0') }}
                                                 </th>
-                                                <th class="align-middle"
+                                                <th class="align-middle text-center"
                                                     rowspan="{{ count($course)+1 }}"> {{ $totalCourseVenue? ($totalCourseVenue[$key]->course_fee?'আবাসিক':'অনাবাসিক'):'' }}</th>
-                                                <th class="align-middle"
+                                                <th class="align-middle text-center"
                                                     rowspan="{{ count($course)+1 }}">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($totalCourseVenue? ($totalCourseVenue[$key]? $totalCourseVenue[$key]->total_venue :'0'):'') }}
                                                     টি কেন্দ্র
                                                 </th>
-                                                <th class="align-middle" rowspan="{{ count($course)+1 }}">
+                                                <th class="align-middle text-center" rowspan="{{ count($course)+1 }}">
                                                     <a href="{{ route('course_management::venue-list', $totalCourseVenue?$totalCourseVenue[$key]->course_id:'' ) }}">বিস্তারিত</a>
                                                 </th>
                                             </tr>
@@ -112,6 +111,14 @@
                                                 </tr>
                                             @endforeach
                                         @endforeach
+                                    @else
+                                        <tr>
+                                            <th colspan="18">
+                                                <div class="alert text-danger text-center">
+                                                    কোনো ডেটা পাওয়া যায়নি!
+                                                </div>
+                                            </th>
+                                        </tr>
                                     @endif
                                     </tbody>
                                 </table>
