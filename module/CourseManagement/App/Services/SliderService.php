@@ -35,11 +35,6 @@ class SliderService
                 'string',
                 'max:191',
             ],
-            'description' => [
-                'required',
-                'string',
-                'max:500',
-            ],
             'link' => [
                 'nullable',
                 'requiredIf:is_button_available,' . Slider::IS_BUTTON_AVAILABLE_YES,
@@ -113,7 +108,6 @@ class SliderService
             'sliders.link',
             'sliders.button_text',
             'sliders.slider as slider',
-            'sliders.description',
             'sliders.created_at',
             'sliders.updated_at',
             'sliders.institute_id',

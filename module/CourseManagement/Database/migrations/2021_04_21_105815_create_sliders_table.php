@@ -18,7 +18,6 @@ class CreateSlidersTable extends Migration
             $table->unsignedInteger('institute_id')->index('static_assets_fk_institute_id');
             $table->string('title', 191);
             $table->string('sub_title', 191);
-            $table->string('description', 255)->nullable();
             $table->unsignedTinyInteger('is_button_available')->default(0);
             $table->string('button_text', 20)->nullable();
             $table->string('link', 191)->nullable();

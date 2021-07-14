@@ -176,17 +176,6 @@
                                 </div>
                             @endif
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="description">{{ __('Slider Description') }}<span
-                                            class="required">*</span></label>
-                                    <textarea class="form-control" id="description" name="description"
-                                              rows="3"
-                                              placeholder="{{ __('Description') }}">{{ $edit ? $slider->description : old('description') }}</textarea>
-                                </div>
-                            </div>
-
-
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
                                         class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
