@@ -705,21 +705,6 @@
         "parameters": null
     },
     {
-        "id": 94,
-        "menu_id": 3,
-        "title": "Visitor Feedback Managment",
-        "title_lang_key": null,
-        "permission_key": null,
-        "url": "",
-        "target": "_self",
-        "icon_class": "fas fa-comment-alt",
-        "color": "#000000",
-        "parent_id": null,
-        "order": 12,
-        "route": "course_management::admin.visitor-feedback.index",
-        "parameters": null
-    },
-    {
         "id": 95,
         "menu_id": 3,
         "title": "Visitor Feedback",
