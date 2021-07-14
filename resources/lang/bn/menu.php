@@ -2,6 +2,7 @@
 
 return [
     'dashboard' => 'ডাশবোর্ড',
+    'visitor_feedback' => 'ভিজিটর ফিডব্যাক',
     'tools' => 'টুলস',
     'menu_builder' => 'মেনু বিল্ডার',
 

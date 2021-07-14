@@ -2,6 +2,7 @@
 
 return [
     'dashboard' => 'Dashboard',
+    'visitor_feedback' => 'Visitor Feedback',
 
     //user management
     'user_management' => 'User Management',

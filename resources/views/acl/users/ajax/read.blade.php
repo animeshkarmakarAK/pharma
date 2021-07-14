@@ -32,13 +32,13 @@
                            class="btn btn-sm btn-outline-warning rounded-0 border-left-0 dt-edit button-from-view"><i
                                 class="fas fa-edit"></i> {{ __('generic.edit_button_label') }}</a>
                     @endcan
-                    @can('delete', $user)
+                    {{--@can('delete', $user)
                         <a href="javascript:;"
                            class="btn btn-sm btn-outline-danger delete rounded-0">
                             <i class="fas fa-trash"></i>
                             {{ __('generic.delete_button_label') }}
                         </a>
-                    @endcan
+                    @endcan--}}
                     @can('viewUserPermission', $user)
                         <a href="{{route('admin.users.permissions', $user)}}"
                            class="btn btn-sm btn-outline-info rounded-0 border-right-0">
