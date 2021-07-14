@@ -53,58 +53,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        $users = User::all();
-        if (!$users->count()) {
-            // Admin
-            $user = new User();
-            /** @var UserType $userType */
-            $userType = UserType::where('code', User::USER_TYPE_SUPER_USER_CODE)->firstOrFail();
-            $user->fill([
-                'user_type_id' => $userType->code,
-                'role_id' => $userType->default_role_id,
-                'name_en' => 'Admin',
-                'name_bn' => 'Admin',
-                'email' => 'admin@gmail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password')
-            ]);
-            $user->save();
-
-            //DC
-            $user1 = new User();
-            /** @var UserType $userType */
-            $userType = UserType::where('code', User::USER_TYPE_DC_USER_CODE)->firstOrFail();
-            $user1->fill([
-                'user_type_id' => $userType->code,
-                'role_id' => $userType->default_role_id,
-                'name_en' => 'DC',
-                'name_bn' => 'ডিসি',
-                'loc_district_id' => '18',
-                'email' => 'dc@gmail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password')
-            ]);
-            $user1->save();
-
-            //Organization
-            $user2 = new User();
-            /** @var UserType $userType */
-            $userType = UserType::where('code', User::USER_TYPE_ORGANIZATION_USER_CODE)->firstOrFail();
-            $user2->fill([
-                'user_type_id' => $userType->code,
-                'role_id' => $userType->default_role_id,
-                'name_en' => 'Beximco',
-                'name_bn' => 'বেক্সিমকো',
-                'loc_district_id' => 1,
-                'email' => 'dc@gmail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password')
-            ]);
-            $user2->save();
-        }
-
         return view('master::acl.auth.custom1.login');
-
     }
 
     /**
