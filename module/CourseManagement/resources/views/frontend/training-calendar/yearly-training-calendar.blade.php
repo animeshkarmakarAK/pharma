@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info">
-                        <h3 class="text-center text-primary font-weight-lighter">প্রশিক্ষণ বাস্তবায়ন সময়সূচি</h3>
+                        <h2 class="text-center text-primary font-weight-lighter mt-4">প্রশিক্ষণ বাস্তবায়ন সময়সূচি</h2>
                     </div>
                 </div>
                 <div class="row">

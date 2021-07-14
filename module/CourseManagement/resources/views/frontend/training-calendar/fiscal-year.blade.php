@@ -14,8 +14,8 @@
                         @php
                             $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
                         @endphp
-                        <h3 class="text-center text-primary font-weight-lighter">প্রশিক্ষণ বাস্তবায়ন
-                            সময়সূচি {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.date('Y')+1) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}</h3>
+                        <h2 class="text-center text-primary font-weight-lighter mt-4">প্রশিক্ষণ বাস্তবায়ন
+                            সময়সূচি {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.date('Y')+1) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}</h2>
                     </div>
                 </div>
                 <div class="card-body">

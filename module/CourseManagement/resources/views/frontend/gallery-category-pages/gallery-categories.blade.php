@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card shadow">
                     <div class="card-header custom-bg-gradient-info">
-                        <h1 class="text-center text-primary mt-4">গ্যালারীর অ্যালবাম সমূহ</h1>
+                        <h2 class="text-center text-primary font-weight-lighter mt-4">গ্যালারীর অ্যালবাম সমূহ</h2>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-1 offset-1">
