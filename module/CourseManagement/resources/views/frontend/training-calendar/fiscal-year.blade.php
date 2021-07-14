@@ -64,7 +64,6 @@
                                     @endphp
 
                                     @if($totalCourseVenue)
-
                                         @foreach($courses as $key => $course)
                                             <tr>
                                                 <th class="text-center"
@@ -112,6 +111,14 @@
                                                 </tr>
                                             @endforeach
                                         @endforeach
+                                    @else
+                                        <tr>
+                                            <th colspan="18">
+                                                <div class="alert text-danger text-center">
+                                                    কোনো ডেটা পাওয়া যায়নি!
+                                                </div>
+                                            </th>
+                                        </tr>
                                     @endif
                                     </tbody>
                                 </table>
