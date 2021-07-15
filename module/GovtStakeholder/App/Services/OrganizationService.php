@@ -50,7 +50,7 @@ class OrganizationService
 
             'description' => [
                 'nullable',
-                'max:255',
+                'max:5000',
             ],
             'organization_type_id' => [
                 'required',

@@ -82,7 +82,7 @@ class VideoService
             'description' => [
                 'nullable',
                 'string',
-                'max:500',
+                'max:5000',
             ],
             'video_type' => [
                 'required',

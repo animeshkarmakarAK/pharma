@@ -37,9 +37,9 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Link') }}</p>
+                    <p class="label-text">{{ __('Link(Page Id)') }}</p>
                     <div class="input-box">
-                        {{ $slider->link_text ?? 'N/A'}}
+                        {{ $slider->link ?? 'N/A'}}
                     </div>
                 </div>
 

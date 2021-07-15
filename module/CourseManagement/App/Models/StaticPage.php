@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string title_bn
  * @property string page_id
  * @property string page_contents
+ * @property int row_status
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()
  * @method static Builder|Institute newModelQuery()

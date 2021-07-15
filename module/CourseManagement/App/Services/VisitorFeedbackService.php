@@ -51,7 +51,7 @@ class VisitorFeedbackService
             'comment' => [
                 'required',
                 'string',
-                'max:2000'
+                'max:5000'
             ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

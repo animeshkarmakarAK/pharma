@@ -28,7 +28,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('contact_person_mobile', 20)->nullable();
             $table->string('contact_person_email', 191)->nullable();
             $table->string('contact_person_designation', 191)->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('logo', 191)->nullable();
             $table->string('domain', 191)->nullable();
             $table->unsignedInteger('organization_type_id')->nullable()->index('organizations_fk_organization_type_id');

@@ -20,7 +20,7 @@ class CreateVisitorFeedbackTable extends Migration
             $table->string('mobile', 191)->nullable();
             $table->string('email', 191)->nullable();
             $table->string('address', 2000)->nullable();
-            $table->string('comment', 2000)->nullable();
+            $table->text('comment')->nullable();
             $table->unsignedTinyInteger('form_type')->comment('FORM_TYPE_FEEDBACK = 1, FORM_TYPE_CONTACT = 2');
             $table->dateTime('read_at')->nullable();
             $table->tinyInteger('row_status')->default(1)->comment('ACTIVE_STATUS = 1; INACTIVE_STATUS = 0; DELETED_STATUS = 99;');

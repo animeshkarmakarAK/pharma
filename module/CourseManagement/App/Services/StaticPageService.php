@@ -41,7 +41,11 @@ class StaticPageService
                     }
                 }
             ],
-            'page_contents' => ['required', 'string'],
+            'page_contents' => [
+                'required',
+                'string',
+                'max:5000'
+            ],
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

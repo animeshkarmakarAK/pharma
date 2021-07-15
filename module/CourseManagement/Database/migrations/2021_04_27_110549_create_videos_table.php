@@ -19,7 +19,7 @@ class CreateVideosTable extends Migration
             $table->unsignedInteger('video_category_id')->nullable();
             $table->string('title_en', 191);
             $table->string('title_bn', 191);
-            $table->string('description', 255)->nullable();
+            $table->text('description')->nullable();
             $table->unsignedTinyInteger('video_type')->default(0)->comment('youtube => 1, uploaded => 2');
             $table->string('youtube_video_url', 255)->nullable();
             $table->string('youtube_video_id', 20)->nullable();

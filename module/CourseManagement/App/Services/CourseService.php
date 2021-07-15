@@ -67,42 +67,42 @@ class CourseService
             'target_group' => [
                 'nullable',
                 'string',
-                'max: 300',
+                'max: 5000',
             ],
             'objects' => [
                 'nullable',
                 'string',
-                'max: 1000',
+                'max: 5000',
             ],
             'contents' => [
                 'nullable',
                 'string',
-                'max: 300',
+                'max: 5000',
             ],
             'training_methodology' => [
                 'nullable',
                 'string',
-                'max: 300',
+                'max: 5000',
             ],
             'evaluation_system' => [
                 'nullable',
                 'string',
-                'max: 300',
+                'max: 5000',
             ],
             'description' => [
                 'nullable',
                 'string',
-                'max:500'
+                'max:5000'
             ],
             'prerequisite' => [
                 'nullable',
                 'string',
-                'max:300'
+                'max:5000'
             ],
             'eligibility' => [
                 'nullable',
                 'string',
-                'max:300'
+                'max:5000'
             ],
             'institute_id' => [
                 'required',

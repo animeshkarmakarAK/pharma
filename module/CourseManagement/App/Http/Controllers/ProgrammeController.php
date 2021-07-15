@@ -10,8 +10,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Psy\Util\Json;
-use function MongoDB\BSON\toJSON;
 
 class ProgrammeController extends Controller
 {

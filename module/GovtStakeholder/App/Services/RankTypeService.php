@@ -52,7 +52,7 @@ class RankTypeService
             'description' => [
                 'nullable',
                 'string',
-                'max:255',
+                'max:5000',
             ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

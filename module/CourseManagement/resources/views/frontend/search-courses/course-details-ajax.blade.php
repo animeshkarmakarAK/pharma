@@ -39,7 +39,7 @@
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">কোর্স সময়কাল</p>
                             <div class="input-box" id="course_duration">
-                                {{optional($publishCourse->course)->course_duration}}
+                                {{optional($publishCourse->course)->duration}}
                             </div>
                         </div>
 
