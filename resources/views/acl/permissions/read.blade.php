@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    View Permission
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">

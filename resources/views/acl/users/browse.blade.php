@@ -1,5 +1,8 @@
 @extends('master::layouts.master')
 
+@section('title')
+    User List
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -107,6 +110,7 @@
 
             $(document, 'td').on('click', '.delete', function (e) {
                 $('#delete_form')[0].action = $(this).data('action');
+                console.log($('#delete_form')[0].action)
                 $('#delete_modal').modal('show');
             });
 
@@ -204,7 +208,8 @@
                 $(".edit-add-form").validate({
                     rules: {
                         name_en: {
-                            required: true
+                            required: true,
+                            pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
                         },
                         name_bn: {
                             required: true,

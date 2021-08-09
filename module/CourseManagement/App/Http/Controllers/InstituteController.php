@@ -37,7 +37,6 @@ class InstituteController extends Controller
     {
         $instituteValidatedData = $this->instituteService->validator($request)->validate();
 
-
         try {
             $this->instituteService->createInstitute($instituteValidatedData);
         } catch (\Throwable $exception) {
@@ -48,10 +47,11 @@ class InstituteController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.institutes.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Institute']),
             'alert-type' => 'success'
         ]);
+
     }
 
     public function edit(Request $request, Institute $institute): View

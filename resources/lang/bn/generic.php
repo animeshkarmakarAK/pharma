@@ -149,5 +149,6 @@ return [
     'already_exist' => ':Key has already been added.',
     'back' => 'Back',
     'row_status' => 'Status',
-    'Ethnic_group_ask'=>'Is Ethnic Group Ask'
+    'Ethnic_group_ask'=>'Is Ethnic Group Ask',
+    'lang'=>'ভাষা সফলভাবে পরিবর্তিত হয়েছে'
 ];

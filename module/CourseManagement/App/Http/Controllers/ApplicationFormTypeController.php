@@ -65,7 +65,7 @@ class ApplicationFormTypeController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.application-form-types.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Application form type']),
             'alert-type' => 'success'
         ]);
@@ -117,7 +117,7 @@ class ApplicationFormTypeController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.application-form-types.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Application form type']),
             'alert-type' => 'success'
         ]);

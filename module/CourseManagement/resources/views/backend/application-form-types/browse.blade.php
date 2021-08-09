@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    Application Form Types List
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -49,12 +53,12 @@
                         visible: true,
                     },
                     {
-                        title: "Title (Bn)",
+                        title: "Title (En)",
                         data: "title_en",
                         name: "application_form_types.title_en"
                     },
                     {
-                        title: "Title (En)",
+                        title: "Title (Bn)",
                         data: "title_bn",
                         name: "application_form_types.title_bn"
                     },

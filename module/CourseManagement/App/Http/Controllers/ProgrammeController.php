@@ -61,7 +61,8 @@ class ProgrammeController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return back()->with([
+
+        return redirect()->route('course_management::admin.programmes.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Programme']),
             'alert-type' => 'success'
         ]);
@@ -111,7 +112,7 @@ class ProgrammeController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.programmes.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Programme']),
             'alert-type' => 'success'
         ]);

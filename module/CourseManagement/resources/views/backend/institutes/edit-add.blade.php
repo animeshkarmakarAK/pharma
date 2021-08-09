@@ -4,6 +4,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Institute' : 'Update Institute' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

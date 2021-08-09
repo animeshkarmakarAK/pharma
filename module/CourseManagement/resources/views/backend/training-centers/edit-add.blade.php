@@ -121,7 +121,8 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
                 },
                 title_bn: {
                     required: true,
@@ -132,6 +133,9 @@
                 },
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 }

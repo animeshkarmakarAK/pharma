@@ -2,6 +2,11 @@
     $edit = !empty($role->id);
 @endphp
 @extends('master::layouts.master')
+
+@section('title')
+    {{ $edit?'Edit Role':'Create Role' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

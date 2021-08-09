@@ -1,4 +1,7 @@
 @extends('master::layouts.master')
+@section('title')
+    User Types
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">

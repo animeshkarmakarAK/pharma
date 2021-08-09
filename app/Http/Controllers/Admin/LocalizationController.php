@@ -19,6 +19,6 @@ class LocalizationController extends BaseController
             return back()->with(['message' => 'Something Wrong. Please Try Again', 'alert-type' => 'error']);
         }
 
-        return back()->with(['message' => 'Language Successfully Changed', 'alert-type' => 'success']);
+        return back()->with(['message' => __('generic.lang'), 'alert-type' => 'success']);
     }
 }

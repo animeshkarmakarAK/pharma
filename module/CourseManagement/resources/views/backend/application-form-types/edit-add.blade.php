@@ -6,13 +6,17 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Application Form Type' : 'Update Application Form Type' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Application Form Type' : 'Update application Form Type' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Application Form Type' : 'Update Application Form Type' }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.application-form-types.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
@@ -247,7 +251,8 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
                 },
                 title_bn: {
                     required: true,
@@ -259,6 +264,9 @@
                 },
             },
             messages: {
+                title_en: {
+                    pattern: "Please fill this field in English"
+                },
                 title_bn: {
                     pattern: "Please fill this field in Bangla"
                 },

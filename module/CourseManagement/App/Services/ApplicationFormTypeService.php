@@ -132,9 +132,9 @@ class ApplicationFormTypeService
         return DataTables::eloquent($applicationFromType)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (ApplicationFormType $applicationFromType) {
                 $str = '';
-                $str .= '<a href="' . route('course_management::admin.application-form-types.show', $applicationFromType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
-                $str .= '<a href="' . route('course_management::admin.application-form-types.edit', $applicationFromType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
-                $str .= '<a href="#" data-action="' . route('course_management::admin.application-form-types.destroy', $applicationFromType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                $str .= '<a href="' . route('course_management::admin.application-form-types.show', $applicationFromType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> '.__('generic.read_button_label').'</a>';
+                $str .= '<a href="' . route('course_management::admin.application-form-types.edit', $applicationFromType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> '.__('generic.edit_button_label').'</a>';
+                $str .= '<a href="#" data-action="' . route('course_management::admin.application-form-types.destroy', $applicationFromType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> '.__('generic.delete_button_label').'</a>';
                 return $str;
             }))
             ->rawColumns(['action'])

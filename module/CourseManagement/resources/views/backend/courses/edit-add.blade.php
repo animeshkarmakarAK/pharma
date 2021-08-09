@@ -6,6 +6,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Course' : 'Update Course' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -275,7 +279,8 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
                 },
                 title_bn: {
                     required: true,
@@ -342,6 +347,10 @@
             messages: {
                 cover_image: {
                     required: "Cover image is required",
+                    accept: "Please upload valid image file only"
+                },
+                title_en: {
+                    pattern: "This field is required in English.",
                 },
                 title_bn: {
                     pattern: "This field is required in Bangla.",

@@ -2,6 +2,11 @@
     $edit = !empty($permission->id);
 @endphp
 @extends('master::layouts.master')
+
+@section('title')
+    {{ $edit?'Edit Permission':'Create Permission' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
