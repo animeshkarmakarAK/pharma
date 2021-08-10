@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    Youth Registration
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -179,7 +183,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="email"> ইমেল <span class="required">*</span>
+                                    <label for="email">ইমেইল <span class="required">*</span>
                                         :</label>
                                     <input type="text" class="form-control" name="email" id="email"
                                            value="{{ old('email') }}" placeholder="ইমেল">
@@ -281,7 +285,7 @@
 
 
                                 <div class="form-group col-md-6">
-                                    <label for="nid">এন.আই.ডি নং :</label>
+                                    <label for="nid">এন.আই.ডি নং <span class="required">*</span>:</label>
                                     <input type="text" class="form-control" name="nid" id="nid" value="{{ old('nid') }}"
                                            placeholder="এন.আই.ডি নং">
                                 </div>
@@ -442,7 +446,7 @@
                                             id="present_address_division_id"
                                             data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
-                                            data-dependent-fields="#present_address_district_id|#present_address_upazila_id"
+{{--                                            data-dependent-fields="#present_address_district_id|#present_address_upazila_id"--}}
                                             data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
@@ -454,7 +458,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="present_address_district_id">জেলা<span
                                             class="required">*</span> :</label>
-                                    <select class="form-control select2-ajax-wizard"
+                                    <select class="form-control select2-ajax-wizard" disabled
                                             name="address[present][present_address_district_id]"
                                             id="present_address_district_id"
                                             data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
@@ -471,7 +475,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="present_address_upazila_id">উপজেলা/থানা<span
                                             class="required">*</span> :</label>
-                                    <select class="form-control select2-ajax-wizard"
+                                    <select class="form-control select2-ajax-wizard" disabled
                                             name="address[present][present_address_upazila_id]"
                                             id="present_address_upazila_id"
                                             data-model="{{base64_encode(\App\Models\LocUpazila::class)}}"
@@ -543,7 +547,7 @@
                                             id="permanent_address_division_id"
                                             data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
-                                            data-dependent-fields="#permanent_address_district_id|#permanent_address_upazila_id"
+{{--                                            data-dependent-fields="#permanent_address_district_id|#permanent_address_upazila_id"--}}
                                             data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
@@ -554,7 +558,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="permanent_address_district_id">জেলা<span
                                             class="required">*</span> :</label>
-                                    <select class="form-control select2-ajax-wizard"
+                                    <select class="form-control select2-ajax-wizard" disabled
                                             name="address[permanent][permanent_address_district_id]"
                                             id="permanent_address_district_id"
                                             data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
@@ -572,7 +576,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="permanent_address_upazila_id">উপজেলা/থানা<span
                                             class="required">*</span> :</label>
-                                    <select class="form-control select2-ajax-wizard"
+                                    <select class="form-control select2-ajax-wizard" disabled
                                             name="address[permanent][permanent_address_upazila_id]"
                                             id="permanent_address_upazila_id"
                                             data-model="{{base64_encode(\App\Models\LocUpazila::class)}}"
@@ -1648,6 +1652,7 @@
             rules: {
                 name_en: {
                     required: true,
+                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
                 },
                 name_bn: {
                     required: true,
@@ -1712,6 +1717,7 @@
                     required: function () {
                         return $('#passport_number').val() == "" && $('#birth_reg_no').val() == "";
                     },
+                    pattern: "^(\\d{10}|\\d{14}|\\d{17})$",
                 },
                 birth_reg_no: {
                     required: function () {
@@ -1748,13 +1754,15 @@
                 "academicQualification[jsc][roll_no]": {
                     required: function () {
                         return $('#jsc_examination_info').prop('checked');
-                    }
+                    },
+                    pattern: "^[1-9]\\d*$",
                 },
 
                 "academicQualification[jsc][reg_no]": {
                     required: function () {
                         return $('#jsc_examination_info').prop('checked');
-                    }
+                    },
+                    pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[jsc][result]": {
                     required: function () {
@@ -1793,13 +1801,15 @@
                 "academicQualification[ssc][roll_no]": {
                     required: function () {
                         return $('#ssc_examination_info').prop('checked');
-                    }
+                    },
+                    pattern: "^[1-9]\\d*$",
                 },
 
                 "academicQualification[ssc][reg_no]": {
                     required: function () {
                         return $('#ssc_examination_info').prop('checked');
-                    }
+                    },
+                    pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[ssc][result]": {
                     required: function () {
@@ -1846,12 +1856,14 @@
                 "academicQualification[hsc][roll_no]": {
                     required: function () {
                         return $('#hsc_examination_info').prop('checked');
-                    }
+                    },
+                    pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[hsc][reg_no]": {
                     required: function () {
                         return $('#hsc_examination_info').prop('checked');
-                    }
+                    },
+                    pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[hsc][group]": {
                     required: function () {
@@ -1989,6 +2001,8 @@
                 },
                 "address[present][present_address_house_address][postal_code]": {
                     required: true,
+                    pattern: "^[1-9]\\d*$",
+
                 },
                 "address[present][present_address_house_address][village_name]": {
                     required: true,
@@ -2007,6 +2021,7 @@
                 },
                 "address[permanent][permanent_address_house_address][postal_code]": {
                     required: true,
+                    pattern: "^[1-9]\\d*$",
                 },
                 "address[permanent][permanent_address_house_address][village_name]": {
                     required: true,
@@ -2094,12 +2109,50 @@
                 },
             },
             messages: {
+                name_en: {
+                    pattern: "Please fill this field in English.",
+                },
                 nid: {
                     required: "Provide either NID number or birth certificate number or passport number",
+                    pattern: "Please use maximum length 10/14/17 digits number of NID",
                 },
                 email: {
                     remote: "This email address already in used!",
-                }
+                },
+                student_pic: {
+                    accept: "Please upload valid image file only",
+                    youthPictureSize: "Please upload valid image that will 300x300px",
+                },
+                student_signature_pic: {
+                    accept: "Please upload valid image file only",
+                    youthSignatureSize: "Please upload valid image that will 300x80px",
+                },
+                "address[present][present_address_house_address][postal_code]": {
+                    pattern: "Please valid postal code",
+
+                },
+                "address[permanent][permanent_address_house_address][postal_code]": {
+                    pattern: "Please valid postal code",
+                },
+                "academicQualification[jsc][roll_no]":{
+                    pattern: "Please inter valid Roll Number"
+                },
+                "academicQualification[ssc][roll_no]":{
+                    pattern: "Please inter valid Roll Number"
+                },
+                "academicQualification[hsc][roll_no]":{
+                    pattern: "Please inter valid Roll Number"
+                },
+                "academicQualification[jsc][reg_no]":{
+                    pattern: "Please inter valid Registration Number"
+                },
+                "academicQualification[ssc][reg_no]":{
+                    pattern: "Please inter valid Registration Number"
+                },
+                "academicQualification[hsc][reg_no]":{
+                    pattern: "Please inter valid Registration Number"
+                },
+
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
@@ -2500,6 +2553,32 @@
                 }
             });
 
+
+            $(function(){
+                $('#present_address_division_id').on('change',function (){
+                    if($('#present_address_district_id').prop('disabled', true)){
+                        $('#present_address_district_id').prop('disabled', false);
+                    }
+                });
+
+                $('#present_address_district_id').on('change',function (){
+                    if($('#present_address_upazila_id').prop('disabled', true)){
+                        $('#present_address_upazila_id').prop('disabled', false);
+                    }
+                });
+
+                $('#permanent_address_division_id').on('change',function (){
+                    if($('#permanent_address_district_id').prop('disabled', true)){
+                        $('#permanent_address_district_id').prop('disabled', false);
+                    }
+                });
+
+                $('#permanent_address_district_id').on('change',function (){
+                    if($('#permanent_address_upazila_id').prop('disabled', true)){
+                        $('#permanent_address_upazila_id').prop('disabled', false);
+                    }
+                });
+            })();
 
         });
 

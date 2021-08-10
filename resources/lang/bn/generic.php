@@ -150,5 +150,6 @@ return [
     'back' => 'Back',
     'row_status' => 'Status',
     'Ethnic_group_ask'=>'Is Ethnic Group Ask',
-    'lang'=>'ভাষা সফলভাবে পরিবর্তিত হয়েছে'
+    'lang'=>'ভাষা সফলভাবে পরিবর্তিত হয়েছে',
+    'youths_button_label'=>'ইয়ুথ সমূহ',
 ];

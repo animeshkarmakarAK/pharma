@@ -134,6 +134,7 @@ return [
     'back' => 'Back',
     'row_status' => 'Status',
     'Ethnic_group_ask'=>'Is Ethnic Group Ask',
-    'lang'=>'Language Successfully Changed'
+    'lang'=>'Language Successfully Changed',
+    'youths_button_label'=>'youths',
 ];
 

@@ -65,8 +65,9 @@ class BatchController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Batch added']),
+
+        return redirect()->route('course_management::admin.batches.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'Batch']),
             'alert-type' => 'success'
         ]);
     }

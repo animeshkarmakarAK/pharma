@@ -101,7 +101,6 @@ class ProgrammeController extends Controller
     public function update(Request $request, Programme $programme): RedirectResponse
     {
         $programmeValidate = $this->programmeService->validator($request, $programme->id)->validate();
-
         try {
             $this->programmeService->updateProgramme($programme, $programmeValidate);
         } catch (\Throwable $exception) {

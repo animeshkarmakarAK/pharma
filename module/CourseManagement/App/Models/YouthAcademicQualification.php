@@ -27,8 +27,20 @@ class YouthAcademicQualification extends BaseModel
     use HasFactory, CreatedByUpdatedByRelationTrait;
     protected $guarded = ['id'];
 
+    public function getJSCExaminationName(): string
+    {
+        $examinationName = '';
 
-        public function getSSCExaminationName(): string
+        $arr = self::getJSCExaminationOptions();
+
+        if (empty($arr[$this->examination_name])) return $examinationName;
+
+        return $arr[$this->examination_name];
+
+    }
+
+
+    public function getSSCExaminationName(): string
         {
             $examinationName = '';
 
@@ -141,6 +153,16 @@ class YouthAcademicQualification extends BaseModel
             self::SSC_EXAMINATION_SSC_OR_DAKHIL_VOCATIONAL => __('SSC/Dakhil Vocational'),
             self::SSC_EXAMINATION_O_LEVEL => __('O level Cambridge'),
             self::SSC_EXAMINATION_SSC_EQUIVALENT => __('SSC Equivalent'),
+        ];
+    }
+
+    public const JSC_EXAMINATION_JSC = 1;
+    public const JDC_EXAMINATION_JDC = 2;
+    public static function getJSCExaminationOptions(): array
+    {
+        return [
+            self::JSC_EXAMINATION_JSC => __('JSC'),
+            self::JDC_EXAMINATION_JDC => __('JDC'),
         ];
     }
 

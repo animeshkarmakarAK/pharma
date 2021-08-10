@@ -6,6 +6,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Batch' : 'Update Batch' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -109,7 +113,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="start_date">{{ __('Batch Start Date') }} <span style="color: red">*</span></label>
-                                    <input type="text" class="flat-date flat-date-custom-bg" id="start_date"
+                                    <input type="text" class="flat-date flat-date-custom-bg start_date" id="start_date"
                                            name="start_date"
                                            value="{{ $edit ? $batch->start_date : old('start_date') }}"
                                     >
@@ -184,7 +188,8 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
                 },
                 title_bn: {
                     required: true,
@@ -219,6 +224,7 @@
                 },
                 end_date: {
                     required: true,
+                    greaterThan: ".start_date"
                 },
                 start_time: {
                     required: true,
@@ -229,6 +235,9 @@
 
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English."
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla."
                 },
@@ -238,7 +247,6 @@
                 htmlForm.submit();
             }
         });
-
 
     </script>
 @endpush

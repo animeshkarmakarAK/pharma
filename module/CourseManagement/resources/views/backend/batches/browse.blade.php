@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Batches List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -50,9 +54,14 @@
                         visible: true,
                     },
                     {
-                        title: "Batch Title",
-                        data: "batches.title_en",
-                        name: "batches.title_en"
+                        title: "Title (En)",
+                        data: "title_en",
+                        name: "batches.title_en",
+                    },
+                    {
+                        title: "Title (Bn)",
+                        data: "title_bn",
+                        name: "batches.title_bn",
                     },
                     {
                         title: "Institute Name",

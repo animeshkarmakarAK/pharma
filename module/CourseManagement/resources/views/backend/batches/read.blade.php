@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Batch') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">

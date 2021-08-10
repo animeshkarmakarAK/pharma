@@ -6,13 +6,17 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Create Config Course' : 'Update Course Config' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Config Course' : 'Update Course Config' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Create Config Course' : 'Update Course Config' }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.publish-courses.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
@@ -237,11 +241,29 @@
                         dateFormat: "Y-m-d",
                     });
                 });
+
+
                 $.validator.addClassRules("number_of_batches", {required: true});
-                $.validator.addClassRules("application_start_date", {required: true});
-                $.validator.addClassRules("application_end_date", {required: true});
-                $.validator.addClassRules("course_start_date", {required: true});
+                $.validator.addClassRules("application_start_date", {
+                    required: true,
+                });
+                $.validator.addClassRules("application_end_date", {
+                    required: true,
+                    greaterThan: ".application_start_date",
+                });
+                $.validator.addClassRules("course_start_date", {
+                    required: true,
+                    greaterThan: ".application_end_date",
+                });
                 $.validator.addClassRules("max_seat_available", {required: true});
+                $.validator.addClassRules("session_name_en", {
+                    required: true,
+                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                });
+                $.validator.addClassRules("session_name_bn", {
+                    required: true,
+                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                });
                 SL++;
             }
 

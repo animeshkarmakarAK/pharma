@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Models\LocDivision;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Youth;
@@ -41,6 +42,7 @@ class YouthRegistrationController extends Controller
             if (!$publishCourse) {
                 $publishCourse = [];
             }
+
             $publishCourse->load([
                 'institute',
                 'course',

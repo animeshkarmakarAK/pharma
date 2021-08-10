@@ -3,6 +3,11 @@
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 @extends('master::layouts.master')
+
+@section('title')
+    {{ __('Course Config') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">

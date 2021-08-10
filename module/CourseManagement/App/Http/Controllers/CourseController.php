@@ -52,7 +52,6 @@ class CourseController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $courseValidatedData = $this->courseService->validator($request)->validate();
-
         try {
             $this->courseService->createCourse($courseValidatedData);
         } catch (\Throwable $exception) {
@@ -63,7 +62,7 @@ class CourseController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.courses.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Course']),
             'alert-type' => 'success'
         ]);
@@ -97,7 +96,6 @@ class CourseController extends Controller
     public function update(Request $request, Course $course): RedirectResponse
     {
         $this->courseService->validator($request, $course->id)->validate();
-
         try {
             $this->courseService->updateCourse($course, $request);
         } catch (\Throwable $exception) {
@@ -108,7 +106,7 @@ class CourseController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.courses.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Course']),
             'alert-type' => 'success'
         ]);
