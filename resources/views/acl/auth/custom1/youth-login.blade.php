@@ -30,7 +30,7 @@
                                        type="text" autocomplete="off"
                                        name="access_key"
                                        id="access_key"
-                                       placeholder="Enter your access key">
+                                       placeholder="আপনার এক্সেস কী লিখুন">
                             </div>
                         </div>
 
@@ -39,8 +39,8 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12">
-                                Forget access key? <a href="{{route('course_management::youth.password-reset')}}">Recover now</a>
+                            <div class="col-12 mt-2">
+                                এক্সেস-কী ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরদ্ধার করুন</a>
                             </div>
                         </div>
                         <div class="row">

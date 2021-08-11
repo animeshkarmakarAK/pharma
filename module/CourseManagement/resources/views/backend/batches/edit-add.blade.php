@@ -184,6 +184,7 @@
             return new Date(start_date) < new Date(end_date);
         },'Batch end date must be after batch start date');
 
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {

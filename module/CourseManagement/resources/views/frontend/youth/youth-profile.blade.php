@@ -40,7 +40,7 @@
                             <div class="text-center">
                                 <i class="fa fa-phone"></i>
                             </div>
-                            <p class="medium-text ml-2">{{ __('generic.phone')  }}</p>
+                            <p class="medium-text ml-2 text-primary">{{ __('generic.phone')  }}</p>
                         </div>
                         <div class="phone">
                             <p class="medium-text">{{ $youth->mobile ? $youth->mobile : "N/A" }}</p>
@@ -49,9 +49,9 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="text-center">
-                                <i class="fa fa-envelope text-primary"></i>
+                                <i class="fa fa-envelope"></i>
                             </div>
-                            <p class="medium-text ml-2 text-primary">{{ __('generic.email') }}</p>
+                            <p class="medium-text ml-2 text-primary">{{ __('ই-মেইল') }}</p>
                         </div>
                         <div class="email">
                             <p class="medium-text">{{ $youth->email ?? "N/A"}}</p>

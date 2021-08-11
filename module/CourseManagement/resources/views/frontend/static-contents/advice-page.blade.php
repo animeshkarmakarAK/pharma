@@ -74,7 +74,7 @@
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="comment" rows="4"
-                                                                  required="required" id="comment"
+                                                                  id="comment"
                                                                   aria-required="true"></textarea>
                                                         </div>
                                                     </div>
@@ -157,24 +157,62 @@
 
 @push('js')
     <script>
+        $.validator.addMethod(
+            "nameValidation",
+            function (value, element) {
+                let regexp = /^[a-zA-Z0-9()[^-_-. ]+$/i;
+                let regexp1 = /^[\s-'\u0980-\u09ff)(. _-]{1,255}$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক নাম লিখুন"
+        );
+
+        $.validator.addMethod(
+            "mobileValidation",
+            function (value, element) {
+                let regexp1 = /^(?:\+88|88)?(01[3-9]\d{8})$/i;
+                let regexp = /^(?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8})$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক মোবাইল নাম্বার লিখুন"
+        );
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    nameValidation: true,
                 },
                 mobile: {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 email: {
                     required: true,
                     email: true
+                },
+                comment: {
+                    required: true,
                 }
             },
             messages: {
+                name: {
+                    required: "এখানে আপনার নাম লিখুন।"
+                },
                 mobile: {
-                    pattern: "Please inter valid mobile number",
+                    required: "এখানে আপনার মোবাইল নাম্বার লিখুন।",
+                },
+                email: {
+                    required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
+                    email: true
+                },
+                comment: {
+                    required: "এখানে আপনার মতামত লিখুন।",
                 }
             },
             submitHandler: function (htmlForm) {

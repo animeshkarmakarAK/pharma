@@ -408,6 +408,7 @@
                 }
 
                 $.each(response.data.data, function (i, item) {
+                    console.log(item)
                     html += template({
                         id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.course_cover_image,

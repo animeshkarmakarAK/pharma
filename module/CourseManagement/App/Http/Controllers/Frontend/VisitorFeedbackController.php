@@ -48,7 +48,7 @@ class VisitorFeedbackController extends Controller
             ]);
         }
         return back()->with([
-            'message' => __('<strong>Success!</strong> Your message has been sent successfully.'),
+            'message' => __('আপনার মতামতটি সঠিকভাবে পাঠানো হয়েছে!'),
             'alert-type' => 'success'
         ]);
 

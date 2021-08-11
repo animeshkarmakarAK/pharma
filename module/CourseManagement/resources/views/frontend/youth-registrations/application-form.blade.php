@@ -1627,6 +1627,30 @@
             "Invalid signature size. Size must be 300 * 80",
         );
 
+        $.validator.addMethod(
+            "nidBn",
+            function (value, element) {
+                let regexp = /^([০-৯]{10}|[০-৯]{14}|[০-৯]{17})$/i;
+                let regexp1 = /^(\d{10}|\d{14}|\d{17})$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "Please use maximum length 10/14/17 digits number of NID"
+        );
+
+        $.validator.addMethod(
+            "villageName",
+            function (value, element) {
+                let regexp = /^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$/i;
+                let regexp1 = /^[\s-'\u0980-\u09ff!@#$%^&*)(+=._-]{1,255}$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "Please input valid information"
+        );
+
         youthRegistrationForm.validate({
             errorElement: "em",
             onkeyup: false,
@@ -1717,7 +1741,8 @@
                     required: function () {
                         return $('#passport_number').val() == "" && $('#birth_reg_no').val() == "";
                     },
-                    pattern: "^(\\d{10}|\\d{14}|\\d{17})$",
+                    //pattern: "^(\\d{10}|\\d{14}|\\d{17})$",
+                    nidBn: true,
                 },
                 birth_reg_no: {
                     required: function () {
@@ -2006,6 +2031,8 @@
                 },
                 "address[present][present_address_house_address][village_name]": {
                     required: true,
+                    villageName: true,
+
                 },
                 "address[present][present_address_house_address][house_and_road]": {
                     required: true,
@@ -2114,7 +2141,6 @@
                 },
                 nid: {
                     required: "Provide either NID number or birth certificate number or passport number",
-                    pattern: "Please use maximum length 10/14/17 digits number of NID",
                 },
                 email: {
                     remote: "This email address already in used!",

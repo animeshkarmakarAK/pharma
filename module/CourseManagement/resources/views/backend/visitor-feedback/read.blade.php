@@ -63,7 +63,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Type') }}</p>
                     <div class="input-box">
-                        {{ $visitorFeedback->type==\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK?'Feedback':'Contact' }}
+                        {{ $visitorFeedback->form_type==\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK?'Feedback':'Contact' }}
                     </div>
                 </div>
 

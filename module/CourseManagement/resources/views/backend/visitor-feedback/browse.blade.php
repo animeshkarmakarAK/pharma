@@ -58,7 +58,6 @@
             .filter-area{
                 position: absolute;
                 padding: 0 60px;
-
             }
         }
         .filter-area{
@@ -122,7 +121,7 @@
                     {
                         title: "Type",
                         data: "form_type",
-                        name: "visitor_feedback.form_type"
+                        name: "visitor_feedback.form_type",
                     },
                     {
                         title: "View Status",
