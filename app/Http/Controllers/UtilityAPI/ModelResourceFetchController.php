@@ -29,7 +29,6 @@ class ModelResourceFetchController extends BaseController
         $modelResService->applyFilters($query);
         $modelResService->applySearch($query, $request);
         $modelResService->applyScopes($query);
-
         return $modelResService->getResults($query, $request);
     }
 }

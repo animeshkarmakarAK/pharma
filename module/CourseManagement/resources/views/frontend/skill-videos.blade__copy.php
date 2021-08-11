@@ -7,76 +7,78 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="row justify-content-center mt-3">
-                    <div class="col-md-1">
-                        <p class="font-weight-bold text-primary">ফিল্টার <i class="fa fa-filter"></i></p>
-                    </div>
+                <form>
+                    <div class="row justify-content-center mt-3">
+                        <div class="col-md-1">
+                            <p class="font-weight-bold text-primary">ফিল্টার <i class="fa fa-filter"></i></p>
+                        </div>
 
-                    <div class="col-md-3">
-                        <input type="search" name="search" id="search" class="form-control rounded-0"
-                               placeholder="সার্চ...">
-                    </div>
+                        <div class="col-md-3">
+                            <input type="search" name="search" id="search" class="form-control rounded-0"
+                                   placeholder="সার্চ...">
+                        </div>
 
-                    @if(!empty($currentInstitute))
-                        <input type="hidden" name="institute_id" id="institute_id" value="{{ $currentInstitute->id }}">
-                    @else
+                        @if(!empty($currentInstitute))
+                            <input type="hidden" name="institute_id" id="institute_id" value="{{ $currentInstitute->id }}">
+                        @else
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="institute_id"
+                                            id="institute_id"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
+                                            data-label-fields="{title_en}"
+                                            data-dependent-fields="#video_id|#video_category_id"
+                                            data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
+                                    >
+                                        <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <select class="form-control select2-ajax-wizard"
-                                        name="institute_id"
-                                        id="institute_id"
-                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                        data-label-fields="{title_bn}"
-                                        data-dependent-fields="#video_id|#video_category_id"
-                                        data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
+                                        name="video_category_id"
+                                        id="video_category_id"
+                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\VideoCategory::class)}}"
+                                        data-label-fields="{title_en}"
+                                        data-depend-on="institute_id"
+                                        data-dependent-fields="#video_id"
+                                        data-placeholder="ভিডিও ক্যাটাগরি সিলেক্ট করুন"
                                 >
-                                    <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
+                                    <option value="">ভিডিও ক্যাটাগরি সিলেক্ট করুন</option>
                                 </select>
                             </div>
                         </div>
-                    @endif
 
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <select class="form-control select2-ajax-wizard"
-                                    name="video_category_id"
-                                    id="video_category_id"
-                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\VideoCategory::class)}}"
-                                    data-label-fields="{title_bn}"
-                                    data-depend-on="institute_id"
-                                    data-dependent-fields="#video_id"
-                                    data-placeholder="ভিডিও ক্যাটাগরি সিলেক্ট করুন"
-                            >
-                                <option value="">ভিডিও ক্যাটাগরি সিলেক্ট করুন</option>
-                            </select>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control select2-ajax-wizard"
+                                        name="video_id"
+                                        id="video_id"
+                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}"
+                                        data-label-fields="{title_en} - {institute_id}"
+                                        data-depend-on-optional="institute_id"
+                                        data-placeholder="ভিডিও সিলেক্ট করুন"
+                                >
+                                    <option value="">ভিডিও সিলেক্ট করুন</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <button class="btn btn-success" id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
+                        </div>
+
+                        <div class="col">
+                            <div class="overlay" style="display: none">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <select class="form-control select2-ajax-wizard"
-                                    name="video_id"
-                                    id="video_id"
-                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}"
-                                    data-label-fields="{title_bn} - {institute_id}"
-                                    data-depend-on-optional="institute_id"
-                                    data-placeholder="ভিডিও সিলেক্ট করুন"
-                            >
-                                <option value="">ভিডিও সিলেক্ট করুন</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-1">
-                        <button class="btn btn-success" id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
-                    </div>
-
-                    <div class="col">
-                        <div class="overlay" style="display: none">
-                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                </form>
 
             </div>
         </div>
@@ -119,22 +121,12 @@
         };
 
         const paginatorLinks = function (link) {
-            console.log(link)
-            if(link.label=='pagination.previous'){
-                link.label='Previous'
-            }
-            if(link.label=='pagination.next'){
-                link.label='Next'
-            }
+            console.log(link.label)
             let html = '';
             if (link.active) {
-                html += '<li class="page-item active">' +
-                    '<a class="page-link">' + link.label + '</a>' +
-                    '</li>';
+                html += '<li class="page-item active"><a class="page-link">' + link.label + '</a></li>';
             } else if (!link.url) {
-                html += '<li class="page-item">' +
-                    '<a class="page-link">' + link.label + '</a>' +
-                    '</li>';
+                html += '<li class="page-item"><a class="page-link">' + link.label + '</a></li>';
             } else {
                 html += '<li class="page-item"><a class="page-link" href="' + link.url + '">' + link.label + '</a></li>';
             }
@@ -195,7 +187,7 @@
 
             skillVideoFetch(url, filters)?.then(function (response) {
                 $('.overlay').hide();
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
                     html += '<div class="text-center mt-5" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
@@ -206,7 +198,7 @@
 
                 $('#container-skill-videos').html(html);
                 // $('.prev-next-button').html(response?.pagination);
-                console.table("response",response.data.links);
+                console.table("response", response.data.links);
 
                 let link_html = '<nav> <ul class="pagination">';
                 let links = response?.data?.links;
@@ -234,10 +226,6 @@
             $('#skill-video-search-btn').on('click', function () {
                 videoSearch();
             });
-
-            /*let previous = $('.page-link').html('pagination.previous');
-            console.log('previous: '+previous);*/
-
         });
     </script>
 @endpush
