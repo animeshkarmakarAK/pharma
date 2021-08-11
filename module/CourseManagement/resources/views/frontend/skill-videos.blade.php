@@ -235,9 +235,6 @@
                 videoSearch();
             });
 
-            /*let previous = $('.page-link').html('pagination.previous');
-            console.log('previous: '+previous);*/
-
         });
     </script>
 @endpush
