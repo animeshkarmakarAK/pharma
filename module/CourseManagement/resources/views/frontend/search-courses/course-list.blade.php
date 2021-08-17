@@ -3,6 +3,10 @@
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
 
+@section('title')
+    কোর্স সমূহ
+@endsection
+
 @extends($layout)
 @push('css')
     <style>
@@ -67,7 +71,7 @@
                                 <input type="hidden" id="domain-institute" value="{{ domainConfig('institute')->id }}">
                             @else
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card" style="height: 100%">
                                         <div class="card-header bg-success">
                                             <h4 class="text-center">প্রতিষ্ঠান সমূহ</h4>
                                         </div>
@@ -87,7 +91,7 @@
                                 </div>
                             @endif
                             <div class="col-md-3">
-                                <div class="card">
+                                <div class="card" style="height: 100%">
                                     <div class="card-header bg-info">
                                         <h4 class="text-center">কোর্স সমূহ</h4>
                                     </div>
@@ -106,7 +110,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card">
+                                <div class="card" style="height: 100%">
                                     <div class="card-header bg-warning">
                                         <h4 class="text-center"> প্রোগ্রাম সমূহ</h4>
                                     </div>
@@ -308,7 +312,7 @@
 
         const template = function ({id, imageUrl, title, description, selector}) {
             return `<div class="media mb-2 p-2 shadow-sm ${selector} courses-search-custom" data-id="${id}">
-                                <img class="d-flex img-rounded align-self-start mr-3" src="${imageUrl}" alt="Student" style="width: 40px;">
+                                <img class="d-flex img-rounded align-self-start mr-3" src="${imageUrl}" alt="Student" style="width: 40px; height: 40px">
                                 <div class="media-body">
                                     <h6 class="mt-0 font-weight-bold">${title}</h6>
                                     <p>${description}</p>
@@ -322,7 +326,7 @@
         });
         const courseFetch = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
-            columns: 'id|institute.title_bn|course.title_bn|course.cover_image'
+            columns: 'id|institute.title_bn|course.title_bn|course.title_en|course.cover_image'
         });
         const courseFetchForProgramme = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
@@ -365,16 +369,20 @@
             });
         }
 
-        function courseSearch(search = '', institute_id = '', el = '#course_name_list', url = null, resetPage = true) {
+        function courseSearch(search = '', search_institute = '', institute_id = '', el = '#course_name_list', url = null, resetPage = true) {
+            console.log(search)
+
             const filters = {};
             if (search?.toString()?.length) {
-                filters['title_bn'] = {
+                filters['course.title_bn'] = {
                     type: 'contain',
                     value: search
                 };
             }
+
+
             if (institute_id?.toString()?.length) {
-                filters['institute_id'] = institute_id;
+                filters['institute.institute_id'] = institute_id;
             }
             filters['row_status'] = '{{\Module\CourseManagement\App\Models\Course::ROW_STATUS_ACTIVE}}'
 
@@ -390,23 +398,6 @@
                 $('#course_pagination').html(response?.data?.next_page_url);
                 let html = '';
 
-                if (resetPage) {
-                    let muktoPathCoursesFiltered = muktoPathCourses;
-                    if (search.toString().length) {
-                        muktoPathCoursesFiltered = muktoPathCoursesFiltered.filter((item) => item.course_alias_name.includes(search));
-                    }
-
-                    $.each(muktoPathCoursesFiltered, function (i, item) {
-                        html += template({
-                            id: item.id,
-                            imageUrl: muktoPathImageBasePath + item.thumnail?.file_encode_path,
-                            title: item.course_alias_name,
-                            description: item.institution_name_bn,
-                            selector: 'course mukto-path',
-                        });
-                    });
-                }
-
                 $.each(response.data.data, function (i, item) {
                     console.log(item)
                     html += template({
@@ -417,6 +408,11 @@
                         selector: 'course',
                     });
                 });
+
+                let itemLength = response.data.data.length;
+                if(!itemLength){
+                    html = '<p class="text-danger text-center">কোন কোর্স পাওয়া যায়নি</p>';
+                }
 
                 if (resetPage) {
                     $(el ? el : '#course_name_list_modal').html(html);
@@ -429,7 +425,7 @@
         function courseSearchForProgramme(search = '', programme_id = '') {
             const filters = {};
             if (search?.toString()?.length) {
-                filters['title_bn'] = {
+                filters['course.title_bn'] = {
                     type: 'contain',
                     value: search
                 };
@@ -441,10 +437,12 @@
             if (domainInstitute?.toString()?.length) {
                 filters['institute_id'] = domainInstitute;
             }
+            console.log('Test: ')
 
             courseFetchForProgramme(filters)?.then(function (response) {
                 let html = '';
                 $.each(response.data.data, function (i, item) {
+
                     html += template({
                         id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.course_cover_image,
@@ -453,11 +451,19 @@
                         selector: 'course',
                     });
                 });
+
+                let itemLength = response.data.data.length;
+                if(!itemLength){
+                    html = '<p class="text-danger text-center">কোন কোর্স পাওয়া যায়নি</p>';
+                }
+
+
                 $('#course_name_list_modal').html(html);
             });
         }
 
         function programmeSearch(search = '', resetPage = true, url = null) {
+            console.log(search)
             const filters = {};
             if (search?.toString()?.length) {
                 filters['title_bn'] = {
@@ -485,6 +491,12 @@
                         selector: 'programme',
                     });
                 });
+
+                let itemLength = response.data.data.length;
+                if(!itemLength){
+                    html = '<p class="text-danger text-center">কোন প্রোগ্রাম পাওয়া যায়নি</p>';
+                }
+
                 if (resetPage) {
                     $('#program_name_list').html(html);
                 } else {
@@ -565,7 +577,7 @@
                 let searchString = $(this).val();
                 if (searchString?.length) {
                     programmeSearch(searchString);
-                }else {
+                } else {
                     programmeSearch();
                 }
             })

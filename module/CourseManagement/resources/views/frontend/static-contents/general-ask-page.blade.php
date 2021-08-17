@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    সাধারণ জিজ্ঞাসা
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

@@ -1,4 +1,9 @@
 @extends('master::layouts.custom1')
+
+@section('title')
+    ইয়ুথ লগইন
+@endsection
+
 @section('header', '')
 @section('footer', '')
 

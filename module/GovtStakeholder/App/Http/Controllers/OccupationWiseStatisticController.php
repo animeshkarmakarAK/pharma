@@ -60,7 +60,8 @@ class OccupationWiseStatisticController extends BaseController
                 'alert-type' => 'error'
             ]);
         }
-        return back()->with([
+
+        return redirect()->route('govt_stakeholder::admin.occupation-wise-statistics.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Occupation Wise Statistic']),
             'alert-type' => 'success'
         ]);
@@ -107,7 +108,7 @@ class OccupationWiseStatisticController extends BaseController
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('govt_stakeholder::admin.occupation-wise-statistics.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Occupation Wise Statistic']),
             'alert-type' => 'success'
         ]);

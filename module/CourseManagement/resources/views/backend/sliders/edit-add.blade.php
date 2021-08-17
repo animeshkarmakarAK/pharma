@@ -4,6 +4,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ $edit ? 'Update Slider' : 'Add Slider' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -40,7 +44,7 @@
                                                 <div class="avatar-preview text-center">
                                                     <label for="slider">
                                                         <img class=""
-                                                             src="{{$edit && $slider->slider ? asset('storage/'.$slider->slider) : 'https://via.placeholder.com/850x350?text=Slider+Picture'}}"
+                                                             src="{{$edit && $slider->slider ? asset('storage/'.$slider->slider) : 'https://via.placeholder.com/850x350?text=Upload+Slider+Image'}}"
                                                              style="width: 100%; height: 200px"
                                                              alt="Slider Image"/>
                                                         <span class="p-1 bg-gray"
@@ -194,6 +198,7 @@
 
 @push('js')
     <x-generic-validation-error-toastr/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/filesize/3.5.11/filesize.min.js"></script>
 
     <script>
 
@@ -206,8 +211,14 @@
                 let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth == 1920;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "Invalid picture size. Size must be  1080 * 1920",
+            "Invalid picture size. Size must be 1920x1080px",
         );
+
+        $.validator.addMethod('filesize', function (value, element, param) {
+            return this.optional(element) || (element.files[0].size <= param)
+        }, function(size){
+            return "Please upload maximum 512Kb Image size";
+        });
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -234,10 +245,12 @@
             },
             rules: {
                 title: {
-                    required: true
+                    required: true,
+                    maxlength: 191
                 },
                 sub_title: {
-                    required: true
+                    required: true,
+                    maxlength: 191
                 },
                 institute_id: {
                     required: true,
@@ -267,7 +280,13 @@
                     },
                     accept: "image/*",
                     sliderSize: true,
+                    filesize: 1000*512,
                 },
+            },
+            messages: {
+                slider:{
+                    accept: "Please upload valid image file",
+                }
             },
 
             submitHandler: function (htmlForm) {

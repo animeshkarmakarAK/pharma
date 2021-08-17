@@ -85,11 +85,19 @@
                                     </div>
 
                                     <div class="card-body">
-
                                         <div class="col-12 card-body row">
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="jsc" id="jsc"
+                                                           value="{{ $edit ? $applicationFormType->jsc:0 }}">
+                                                    <input type="checkbox"
+                                                           id="jsc_c" {{ $edit ? $applicationFormType->jsc=='1'?'checked': '' : '' }}>
+                                                    <label for="jsc_c">JSC Exam </label>
 
+                                                </div>
+                                            </div>
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <input type="hidden" name="ssc" id="ssc"
                                                            value="{{ $edit ? $applicationFormType->ssc:0 }}">
@@ -100,7 +108,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <input type="hidden" name="hsc" id="hsc"
                                                            value="{{ $edit ? $applicationFormType->hsc:0 }}">
@@ -278,8 +286,31 @@
         });
 
         $(document).ready(function () {
-            $('#ssc_c').on('click', function () {
+            $('#jsc_c').on('click', function () {
                 if ($(this).prop('checked') == false) {
+                    $('#ssc_c').prop('checked', false);
+                    $('#hsc_c').prop('checked', false);
+                    $('#honors_c').prop('checked', false);
+                    $('#masters_c').prop('checked', false);
+
+                    $("#jsc").val(0);
+                    $("#ssc").val(0);
+                    $("#hsc").val(0);
+                    $("#honors").val(0);
+                    $("#masters").val(0);
+                }else{
+                    $('#jsc_c').prop('checked', true);
+                    $("#jsc").val(1);
+                }
+            })
+
+            $('#ssc_c').on('click', function () {
+                if ($(this).prop('checked') == true) {
+                    $('#jsc_c').prop('checked', true);
+
+                    $("#jsc").val(1);
+                    $("#ssc").val(1);
+                }else{
                     $('#hsc_c').prop('checked', false);
                     $('#honors_c').prop('checked', false);
                     $('#masters_c').prop('checked', false);
@@ -288,14 +319,15 @@
                     $("#hsc").val(0);
                     $("#honors").val(0);
                     $("#masters").val(0);
-
                 }
             })
 
             $('#hsc_c').on('click', function () {
                 if ($(this).prop('checked') == true) {
+                    $('#jsc_c').prop('checked', true);
                     $('#ssc_c').prop('checked', true);
 
+                    $("#jsc").val(1);
                     $("#ssc").val(1);
                     $("#hsc").val(1);
                 } else {
@@ -309,9 +341,11 @@
 
             $('#honors_c').on('click', function () {
                 if ($(this).prop('checked') == true) {
+                    $('#jsc_c').prop('checked', true);
                     $('#ssc_c').prop('checked', true);
                     $('#hsc_c').prop('checked', true);
 
+                    $("#jsc").val(1);
                     $("#ssc").val(1);
                     $("#hsc").val(1);
                     $("#honors").val(1);
@@ -324,10 +358,12 @@
 
             $('#masters_c').on('click', function () {
                 if ($(this).prop('checked') == true) {
+                    $('#jsc_c').prop('checked', true);
                     $('#ssc_c').prop('checked', true);
                     $('#hsc_c').prop('checked', true);
                     $('#honors_c').prop('checked', true);
 
+                    $("#jsc").val(1);
                     $("#ssc").val(1);
                     $("#hsc").val(1);
                     $("#honors").val(1);

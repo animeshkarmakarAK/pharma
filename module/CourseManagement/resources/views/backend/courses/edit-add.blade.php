@@ -10,6 +10,10 @@
     {{ ! $edit ? 'Add Course' : 'Update Course' }}
 @endsection
 
+@section('title')
+    {{ ! $edit ? 'Add Course' : 'Update Course' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

@@ -32,4 +32,5 @@ class VideoCategory extends BaseModel
     {
         return $this->belongsTo(Institute::class);
     }
+
 }

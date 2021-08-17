@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    অ্যালবাম - ({{ $galleryCategory->title_bn }})
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -47,8 +51,9 @@
                                         </div>
                                     @endforeach
                                 @else
-                                    <div class="col-md-12 m-5">
-                                        <h5 class="text-center text-danger">এই অ্যালবামে কোন ছবি নেই</h5>
+                                    <div class="col-md-12 m-5 text-center">
+                                        <i class="fas fa-sad-tear fa-2x"></i>
+                                        <h5 class="text-danger">এই অ্যালবামটি এখন খালি!</h5>
                                     </div>
                                 @endif
 

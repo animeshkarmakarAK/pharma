@@ -96,13 +96,13 @@ class OccupationWiseStatisticService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OccupationWiseStatistic $occupationWiseStatistic) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $occupationWiseStatistic)) {
-                    $str .= '<a href="' . route('govt_stakeholder::admin.occupation-wise-statistics.show', $occupationWiseStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.occupation-wise-statistics.show', $occupationWiseStatistic->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i>  ' . __('generic.read_button_label') . '</a>';
                 }
                 if ($authUser->can('update', $occupationWiseStatistic)) {
-                    $str .= '<a href="' . route('govt_stakeholder::admin.occupation-wise-statistics.edit', $occupationWiseStatistic->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
+                    $str .= '<a href="' . route('govt_stakeholder::admin.occupation-wise-statistics.edit', $occupationWiseStatistic->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i>  ' . __('generic.edit_button_label') . '</a>';
                 }
                 if ($authUser->can('delete', $occupationWiseStatistic)) {
-                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.occupation-wise-statistics.destroy', $occupationWiseStatistic->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
+                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.occupation-wise-statistics.destroy', $occupationWiseStatistic->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i>  ' . __('generic.delete_button_label') . '</a>';
                 }
 
                 return $str;

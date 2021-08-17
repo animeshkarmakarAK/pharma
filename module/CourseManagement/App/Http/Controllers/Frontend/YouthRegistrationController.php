@@ -51,6 +51,7 @@ class YouthRegistrationController extends Controller
                 'branch',
                 'applicationFormType'
             ]);
+
         }
 
         $institutes = DB::table('institutes')
@@ -59,7 +60,7 @@ class YouthRegistrationController extends Controller
             ->where('courses.row_status', Course::ROW_STATUS_ACTIVE)
             ->distinct()
             ->get();
-
+        //dd($publishCourse);
         return \view(self::VIEW_PATH . 'application-form')->with([
             'institutes' => $institutes,
             'divisions' => $divisions,

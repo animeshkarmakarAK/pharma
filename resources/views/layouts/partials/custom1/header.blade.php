@@ -40,7 +40,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('course_management::youth.login-form') }}"
                        id="bd-versions">
-                        <i class="far fa-user"></i>&nbsp; ইউথ লগইন
+                        <i class="far fa-user"></i>&nbsp; ইয়ুথ লগইন
                     </a>
                 </li>
                 <li class="nav-item dropdown">

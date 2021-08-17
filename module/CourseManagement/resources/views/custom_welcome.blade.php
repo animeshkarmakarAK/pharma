@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    প্রথম পাতা
+@endsection
+
 @section('content')
     <div class="container-fluid slider-area">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

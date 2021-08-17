@@ -5,6 +5,11 @@
 @endphp
 
 @extends('master::layouts.master')
+
+@section('title')
+    {{ $edit?'Edit Occupation Wise Statistic':'Create Occupation Wise Statistic'}}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -116,6 +121,20 @@
     </div>
     @include('master::utils.delete-confirm-modal')
 @endsection
+
+@push('css')
+    <style>
+        #survey_date-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+    </style>
+@endpush
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
@@ -130,7 +149,6 @@
                 },
 
             },
-
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
                 htmlForm.submit();

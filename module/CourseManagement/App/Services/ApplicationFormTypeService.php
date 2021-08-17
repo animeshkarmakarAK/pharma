@@ -20,17 +20,23 @@ class ApplicationFormTypeService
     public function createApplicationFormType(array $data): ApplicationFormType
     {
         if($data['masters']==1){
+            $data['jsc']=1;
             $data['ssc']=1;
             $data['hsc']=1;
             $data['honors']=1;
         }
         if($data['honors']==1){
+            $data['jsc']=1;
             $data['ssc']=1;
             $data['hsc']=1;
         }
 
         if($data['hsc']==1){
+            $data['jsc']=1;
             $data['ssc']=1;
+        }
+        if($data['ssc']==1){
+            $data['jsc']=1;
         }
         return ApplicationFormType::create($data);
     }
@@ -46,6 +52,7 @@ class ApplicationFormTypeService
         $data['title_en'] = $request->title_en;
         $data['title_bn'] = $request->title_bn;
         $data['institute_id'] = $request->institute_id;
+        $data['jsc'] = $request->jsc;
         $data['ssc'] = $request->ssc;
         $data['hsc'] = $request->hsc;
         $data['honors'] = $request->honors;
@@ -59,17 +66,24 @@ class ApplicationFormTypeService
 
 
         if($data['masters']==1){
+            $data['jsc']=1;
             $data['ssc']=1;
             $data['hsc']=1;
             $data['honors']=1;
         }
 
         if($data['honors']==1){
+            $data['jsc']=1;
             $data['ssc']=1;
             $data['hsc']=1;
         }
         if($data['hsc']==1){
+            $data['jsc']=1;
             $data['ssc']=1;
+        }
+
+        if($data['ssc']==1){
+            $data['jsc']=1;
         }
 
         $applicationFormType->update($data);
@@ -99,6 +113,7 @@ class ApplicationFormTypeService
             'ethnic' => 'boolean',
             'freedom_fighter' => 'boolean',
             'disable_status' => 'Boolean',
+            'jsc' => 'boolean',
             'ssc' => 'boolean',
             'hsc' => 'boolean',
             'honors' => 'boolean',

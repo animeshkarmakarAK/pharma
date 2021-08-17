@@ -105,6 +105,7 @@ class ApplicationFormTypeController extends Controller
      */
     public function update(Request $request, ApplicationFormType $applicationFormType): RedirectResponse
     {
+        //dd($request->all());
         $this->applicationFormTypeService->validator($request, $applicationFormType->id)->validate();
 
         try {

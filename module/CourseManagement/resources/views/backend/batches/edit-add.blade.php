@@ -170,6 +170,15 @@
         .flat-date-custom-bg, .flat-time-custom-bg{
             background-color: #fafdff !important;
         }
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #institute_id-error, #application_form_type_id-error, #course_id-error, #start_date-error, #end_date-error, #start_time-error, #end_time-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
     </style>
 @endpush
 

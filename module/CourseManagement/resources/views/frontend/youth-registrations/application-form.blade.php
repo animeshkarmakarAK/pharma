@@ -5,7 +5,7 @@
 @extends($layout)
 
 @section('title')
-    Youth Registration
+    ইয়ুথ রেজিস্ট্রেশন
 @endsection
 
 @section('content')
@@ -198,7 +198,6 @@
                                            placeholder="জন্ম তারিখ">
                                 </div>
 
-
                                 <div class="form-group col-md-6">
                                     <label for="marital_status">বৈবাহিক অবস্থা <span
                                             class="required">*</span> :</label>
@@ -217,7 +216,6 @@
                                         <label for="marital_status_single" class="custom-control-label">অবিবাহিত</label>
                                     </div>
                                 </div>
-
 
                                 <div class="form-group col-md-6">
                                     <label for="religion">ধর্ম<span class="required">*</span> :</label>
@@ -272,7 +270,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group col-md-6">
                                     <label for="nationality"> জাতীয়তা <span class="required">*</span>
                                         :</label>
@@ -283,13 +280,11 @@
                                     </select>
                                 </div>
 
-
                                 <div class="form-group col-md-6">
                                     <label for="nid">এন.আই.ডি নং <span class="required">*</span>:</label>
                                     <input type="text" class="form-control" name="nid" id="nid" value="{{ old('nid') }}"
                                            placeholder="এন.আই.ডি নং">
                                 </div>
-
 
                                 <div class="form-group col-md-6">
                                     <label for="birth_reg_no">জন্ম সনদ :</label>
@@ -303,18 +298,36 @@
                                            value="{{ old('passport_number') }}" placeholder="পাসপোর্ট নাম্বার">
                                 </div>
 
-                                <div class="form-group col-md-6 freedom-fighter-status-information">
-                                    <label for="freedom_fighter_status">মুক্তিযোদ্ধা তথ্য<span
-                                            class="required">*</span>
-                                        :</label>
-                                    <select name="freedom_fighter_status" id="freedom_fighter_status" class="select2">
-                                        <option value=""></option>
-                                        @foreach(\Module\CourseManagement\App\Models\YouthFamilyMemberInfo::getFreedomFighterStatusOptions() as $key=>$value)
-                                            <option
-                                                value="{{ $key }}" {{ $key == old('freedom_fighter_status') ? 'selected' : '' }}>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @if(!empty($publishCourse))
+                                    <div class="form-group col-md-6 freedom-fighter-status-information">
+                                        <label for="freedom_fighter_status">মুক্তিযোদ্ধা তথ্য<span
+                                                class="required">*</span>
+                                            :</label>
+                                        <select name="freedom_fighter_status" id="freedom_fighter_status"
+                                                class="select2">
+                                            <option value=""></option>
+                                            @foreach(\Module\CourseManagement\App\Models\YouthFamilyMemberInfo::getFreedomFighterStatusOptions() as $key=>$value)
+                                                <option
+                                                    value="{{ $key }}" {{ $key == old('freedom_fighter_status') ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @else
+                                    <div class="form-group col-md-6 freedom-fighter-status-information">
+                                        <label for="freedom_fighter_status">মুক্তিযোদ্ধা তথ্য<span
+                                                class="required">*</span>
+                                            :</label>
+                                        <select name="freedom_fighter_status" id="freedom_fighter_status"
+                                                class="select2">
+                                            <option value=""></option>
+                                            @foreach(\Module\CourseManagement\App\Models\YouthFamilyMemberInfo::getFreedomFighterStatusOptions() as $key=>$value)
+                                                <option
+                                                    value="{{ $key }}" {{ $key == old('freedom_fighter_status') ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
 
 
                                 <div class="form-group col-md-6 physical-disability-information">
@@ -351,28 +364,58 @@
                                 </div>
 
 
-                                <div class="form-group col-md-6 ethnic-group-information">
-                                    <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
-                                            class="required">*</span>:</label>
-                                    <div class="input-group">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" name="ethnic_group"
-                                                   class="custom-control-input"
-                                                   value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
-                                                   id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="ethnic_group_yes">হ্যাঁ</label>
+
+                                @if(!empty($publishCourse))
+                                    @if(!empty($publishCourse->applicationFormType->ethnic))
+                                        <div class="form-group col-md-6 ethnic-group-information">
+                                            <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
+                                                    class="required">*</span>:</label>
+                                            <div class="input-group">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="ethnic_group"
+                                                           class="custom-control-input"
+                                                           value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
+                                                           id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                           for="ethnic_group_yes">হ্যাঁ</label>
+                                                </div>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="ethnic_group"
+                                                           class="custom-control-input"
+                                                           value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
+                                                           id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
+                                                    <label class="custom-control-label" for="ethnic_group_no">না</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @else
+                                    <div class="form-group col-md-6 ethnic-group-information">
+                                        <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
+                                                class="required">*</span>:</label>
+                                        <div class="input-group">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" name="ethnic_group"
+                                                       class="custom-control-input"
+                                                       value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
+                                                       id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="ethnic_group_yes">হ্যাঁ</label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" name="ethnic_group"
+                                                       class="custom-control-input"
+                                                       value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
+                                                       id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="ethnic_group_no">না</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="input-group">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" name="ethnic_group"
-                                                   class="custom-control-input"
-                                                   value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
-                                                   id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="ethnic_group_no">না</label>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endif
+
                             </div>
                             <div class="form-row justify-content-between">
                                 <div class="form-group col-md-6">
@@ -446,7 +489,7 @@
                                             id="present_address_division_id"
                                             data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
-{{--                                            data-dependent-fields="#present_address_district_id|#present_address_upazila_id"--}}
+                                            {{--                                            data-dependent-fields="#present_address_district_id|#present_address_upazila_id"--}}
                                             data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
@@ -547,7 +590,7 @@
                                             id="permanent_address_division_id"
                                             data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
-{{--                                            data-dependent-fields="#permanent_address_district_id|#permanent_address_upazila_id"--}}
+                                            {{--                                            data-dependent-fields="#permanent_address_district_id|#permanent_address_upazila_id"--}}
                                             data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
@@ -623,16 +666,18 @@
                     </div>
                 </div>
 
+
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header custom-bg-gradient-info academic-qualifications">
                             <h3 class="card-title font-weight-bold text-primary"><i
-                                    class="fa fa-address-book"> </i> শিক্ষাগত যোগ্যতা</h3>
+                                    class="fa fa-address-book"> </i> শিক্ষাগত যোগ্যতা </h3>
                         </div>
                         <div class="card-body row">
                             <div class="col-md-6 academic-qualification-jsc">
                                 <div class="card col-md-12 custom-bg-gradient-info">
-                                    <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
+                                    <div class="card-header" role="button" aria-expanded="false"
+                                         data-toggle="collapse"
                                          data-target=".jsc_collapse" aria-controls=".jsc_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">জে.এস.সি/সমমান
                                             <div class="form-check ml-3">
@@ -695,12 +740,14 @@
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <input type="text" id="jsc_reg_no"
-                                                       name="academicQualification[jsc][reg_no]" class="form-control"
+                                                       name="academicQualification[jsc][reg_no]"
+                                                       class="form-control"
                                                        value="{{ old('academicQualification.jsc.reg_no') }}">
                                             </div>
                                         </div>
 
-                                        <input type="hidden" name="academicQualification[jsc][result]" value="5">
+                                        <input type="hidden" name="academicQualification[jsc][result]"
+                                               value="5">
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_result" class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
@@ -713,7 +760,8 @@
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">পাসের বছর<span
+                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">পাসের
+                                                বছর<span
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[jsc][passing_year]"
@@ -729,10 +777,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6 academic-qualification-ssc">
                                 <div class="card col-md-12 custom-bg-gradient-info">
-                                    <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
+                                    <div class="card-header" role="button" aria-expanded="false"
+                                         data-toggle="collapse"
                                          data-target=".ssc_collapse" aria-controls=".ssc_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">এস.এস.সি/সমমান/A-লেভেল
                                             <div class="form-check ml-3">
@@ -797,7 +845,8 @@
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <input type="text" id="ssc_reg_no"
-                                                       name="academicQualification[ssc][reg_no]" class="form-control"
+                                                       name="academicQualification[ssc][reg_no]"
+                                                       class="form-control"
                                                        value="{{ old('academicQualification.ssc.reg_no') }}">
                                             </div>
                                         </div>
@@ -806,7 +855,8 @@
                                             <label for="ssc_result" class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <select name="academicQualification[ssc][result]" id="ssc_result"
+                                                <select name="academicQualification[ssc][result]"
+                                                        id="ssc_result"
                                                         class="select2">
                                                     <option value=""></option>
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
@@ -822,7 +872,8 @@
                                                 <input type="number" name="academicQualification[ssc][grade]"
                                                        id="ssc_gpa" class="form-control"
                                                        width="10" placeholder="জি.পি.এ"
-                                                       value="{{ old('academicQualification.ssc.grade') }}" hidden>
+                                                       value="{{ old('academicQualification.ssc.grade') }}"
+                                                       hidden>
                                             </div>
                                         </div>
 
@@ -842,7 +893,8 @@
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="ssc_passing_year" class="col-md-4 col-form-label">পাসের বছর<span
+                                            <label for="ssc_passing_year" class="col-md-4 col-form-label">পাসের
+                                                বছর<span
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[ssc][passing_year]"
@@ -858,10 +910,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6 academic-qualification-hsc">
                                 <div class="card custom-bg-gradient-info col-md-12">
-                                    <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
+                                    <div class="card-header" role="button" aria-expanded="false"
+                                         data-toggle="collapse"
                                          data-target=".hsc_collapse" aria-controls=".hsc_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">এইচ.এস.সি/সমমান
                                             <div class="form-check ml-3">
@@ -935,7 +987,8 @@
                                             <label for="hsc_result" class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <select name="academicQualification[hsc][result]" id="hsc_result"
+                                                <select name="academicQualification[hsc][result]"
+                                                        id="hsc_result"
                                                         class="select2">
                                                     <option></option>
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
@@ -951,7 +1004,8 @@
                                                 <input type="number" name="academicQualification[hsc][grade]"
                                                        id="hsc_gpa" class="form-control"
                                                        width="10" placeholder="জি.পি.এ"
-                                                       value="{{ old('academicQualification.hsc.grade') }}" hidden>
+                                                       value="{{ old('academicQualification.hsc.grade') }}"
+                                                       hidden>
                                             </div>
                                         </div>
 
@@ -971,7 +1025,8 @@
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="hsc_passing_year" class="col-md-4 col-form-label">পাসের বছর
+                                            <label for="hsc_passing_year" class="col-md-4 col-form-label">পাসের
+                                                বছর
                                                 <span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[hsc][passing_year]"
@@ -987,14 +1042,16 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6 academic-qualification-graduation">
                                 <div class="card col-md-12 custom-bg-gradient-info">
-                                    <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
-                                         data-target=".graduation_collapse" aria-controls=".graduation_collapse">
+                                    <div class="card-header" role="button" aria-expanded="false"
+                                         data-toggle="collapse"
+                                         data-target=".graduation_collapse"
+                                         aria-controls=".graduation_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">স্নাতক লেভেল
                                             <div class="form-check ml-3">
-                                                <input class="form-check-input" name="graduation_examination_info"
+                                                <input class="form-check-input"
+                                                       name="graduation_examination_info"
                                                        id="graduation_examination_info"
                                                        type="checkbox" {{ old('graduation_examination_info') == "on" ? 'checked' : '' }}>
                                                 <label class="form-check-label">
@@ -1004,15 +1061,18 @@
                                         </h3>
                                     </div>
                                     <div class="card-body graduation_collapse collapse hide">
-                                        <input type="hidden" name="academicQualification[graduation][examination]"
+                                        <input type="hidden"
+                                               name="academicQualification[graduation][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION }}">
 
                                         <div class="form-row form-group">
-                                            <label for="graduation_examination_name" class="col-md-4 col-form-label">পরীক্ষা<span
+                                            <label for="graduation_examination_name"
+                                                   class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
                                             <div class="col-md-8">
-                                                <select name="academicQualification[graduation][examination_name]"
-                                                        id="graduation_examination_name" class="select2">
+                                                <select
+                                                    name="academicQualification[graduation][examination_name]"
+                                                    id="graduation_examination_name" class="select2">
                                                     <option value=""></option>
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getGraduationExaminationOptions() as $key => $value)
                                                         <option
@@ -1026,7 +1086,8 @@
                                             <label for="graduation_subject" class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
                                                     class="required">*</span></label>
                                             <div class="col-md-8">
-                                                <input type="text" name="academicQualification[graduation][subject]"
+                                                <input type="text"
+                                                       name="academicQualification[graduation][subject]"
                                                        id="graduation_subject" class="form-control"
                                                        value="{{ old('academicQualification.graduation.subject')}}">
                                             </div>
@@ -1051,7 +1112,8 @@
 
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_result"
-                                                   class="col-md-4 col-form-label">ফলাফল<span class="required">*</span></label>
+                                                   class="col-md-4 col-form-label">ফলাফল<span
+                                                    class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[graduation][result]"
                                                         id="graduation_result" class="select2">
@@ -1063,7 +1125,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="number" name="academicQualification[graduation][grade]"
+                                                <input type="number"
+                                                       name="academicQualification[graduation][grade]"
                                                        id="graduation_cgpa"
                                                        class="form-control" width="10" placeholder="সি.জি.পি.এ"
                                                        value="{{ old('academicQualification.graduation.grade')}}"
@@ -1073,7 +1136,8 @@
 
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="graduation_passing_year" class="col-md-4 col-form-label">পাসের
+                                            <label for="graduation_passing_year"
+                                                   class="col-md-4 col-form-label">পাসের
                                                 বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[graduation][passing_year]"
@@ -1088,11 +1152,13 @@
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="graduation_course_duration" class="col-md-4 col-form-label">কোর্স
+                                            <label for="graduation_course_duration"
+                                                   class="col-md-4 col-form-label">কোর্স
                                                 সময়কাল<span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <select name="academicQualification[graduation][course_duration]"
-                                                        id="graduation_course_duration" class="select2">
+                                                <select
+                                                    name="academicQualification[graduation][course_duration]"
+                                                    id="graduation_course_duration" class="select2">
                                                     <option></option>
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationCourseDurationOptions() as $key => $value)
                                                         <option
@@ -1104,10 +1170,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6 academic-qualification-masters">
                                 <div class="card col-md-12 custom-bg-gradient-info">
-                                    <div class="card-header" role="button" aria-expanded="false" data-toggle="collapse"
+                                    <div class="card-header" role="button" aria-expanded="false"
+                                         data-toggle="collapse"
                                          data-target=".masters_collapse" aria-controls=".masters_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">স্নাতকোত্তর লেভেল
                                             <div class="form-check ml-3">
@@ -1124,7 +1190,8 @@
                                         <input type="hidden" name="academicQualification[masters][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS }}">
                                         <div class="form-row form-group">
-                                            <label for="masters_examination_name" class="col-md-4 col-form-label">পরীক্ষা<span
+                                            <label for="masters_examination_name"
+                                                   class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
                                             <div class="col-md-8">
                                                 <select name="academicQualification[masters][examination_name]"
@@ -1143,7 +1210,8 @@
                                                    class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
                                                     class="required">*</span></label>
                                             <div class="col-md-8">
-                                                <input type="text" name="academicQualification[masters][subject]"
+                                                <input type="text"
+                                                       name="academicQualification[masters][subject]"
                                                        id="masters_subject"
                                                        class="form-control" {{ old('academicQualification.masters.subject') }}>
                                             </div>
@@ -1166,7 +1234,8 @@
 
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="masters_result" class="col-md-4 col-form-label">ফলাফল<span
+                                            <label for="masters_result"
+                                                   class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[masters][result]"
@@ -1179,10 +1248,12 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="number" name="academicQualification[masters][grade]"
+                                                <input type="number"
+                                                       name="academicQualification[masters][grade]"
                                                        id="masters_cgpa"
                                                        class="form-control" width="10" placeholder="সি.জি.পি.এ"
-                                                       value="{{ old('academicQualification.masters.grade') }}" hidden>
+                                                       value="{{ old('academicQualification.masters.grade') }}"
+                                                       hidden>
                                             </div>
                                         </div>
 
@@ -1203,7 +1274,8 @@
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="masters_course_duration" class="col-md-4 col-form-label">কোর্স
+                                            <label for="masters_course_duration"
+                                                   class="col-md-4 col-form-label">কোর্স
                                                 সময়কাল<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[masters][course_duration]"
@@ -1223,62 +1295,62 @@
                     </div>
                 </div>
 
+                <div class="col-md-12 occupation-information">
+                        <div class="card">
+                            <div class="card-header custom-bg-gradient-info">
+                                <h3 class="card-title font-weight-bold text-primary"><i
+                                        class="fa fa-address-book fa-fw"> </i> পেশাগত তথ্য</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <label for="main_occupation">প্রধান পেশা</label>
+                                        <input type="text" name="main_occupation" class="form-control"
+                                               value="{{ old('main_occupation') }}">
+                                    </div>
 
-                <div class="col-md-12  occupation-information">
-                    <div class="card">
-                        <div class="card-header custom-bg-gradient-info">
-                            <h3 class="card-title font-weight-bold text-primary"><i
-                                    class="fa fa-address-book fa-fw"> </i> পেশাগত তথ্য</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <label for="main_occupation">প্রধান পেশা</label>
-                                    <input type="text" name="main_occupation" class="form-control"
-                                           value="{{ old('main_occupation') }}">
-                                </div>
+                                    <div class="col-md-4">
+                                        <label for="other_occupation">অন্যান্য পেশা</label>
+                                        <input type="text" name="other_occupations" class="form-control"
+                                               value="{{ old('other_occupations') }}">
+                                    </div>
 
-                                <div class="col-md-4">
-                                    <label for="other_occupation">অন্যান্য পেশা</label>
-                                    <input type="text" name="other_occupations" class="form-control"
-                                           value="{{ old('other_occupations') }}">
-                                </div>
+                                    <div class="col-md-4">
+                                        <label for="personal_monthly_income">মাসিক আয়</label>
+                                        <input type="number" name="personal_monthly_income" class="form-control"
+                                               value="{{ old('personal_monthly_income') }}">
+                                    </div>
 
-                                <div class="col-md-4">
-                                    <label for="personal_monthly_income">মাসিক আয়</label>
-                                    <input type="number" name="personal_monthly_income" class="form-control"
-                                           value="{{ old('personal_monthly_income') }}">
-                                </div>
+                                    <div class="col-md-4">
+                                        <label for="year_of_experience">অভিজ্ঞতার বছর</label>
+                                        <input type="number" name="year_of_experience" class="form-control"
+                                               value="{{ old('year_of_experience') }}">
+                                    </div>
 
-                                <div class="col-md-4">
-                                    <label for="year_of_experience">অভিজ্ঞতার বছর</label>
-                                    <input type="number" name="year_of_experience" class="form-control"
-                                           value="{{ old('year_of_experience') }}">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="current_employment_status">বর্তমানে
-                                            কর্মরত?<span class="required">*</span>:</label>
-                                        <div class="input-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" name="current_employment_status"
-                                                       class="custom-control-input"
-                                                       value="{{ \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_YES }}"
-                                                       id="currently_employed_yes" {{ old('current_employment_status') == \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_YES ? 'checked' : '' }}>
-                                                <label class="custom-control-label"
-                                                       for="currently_employed_yes">হ্যাঁ</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="current_employment_status">বর্তমানে
+                                                কর্মরত?<span class="required">*</span>:</label>
+                                            <div class="input-group">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="current_employment_status"
+                                                           class="custom-control-input"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_YES }}"
+                                                           id="currently_employed_yes" {{ old('current_employment_status') == \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_YES ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                           for="currently_employed_yes">হ্যাঁ</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" name="current_employment_status"
-                                                       class="custom-control-input"
-                                                       value="{{ \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_NO }}"
-                                                       id="currently_employed_no" {{ old('current_employment_status') == \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_NO ? 'checked' : '' }}>
+                                            <div class="input-group">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" name="current_employment_status"
+                                                           class="custom-control-input"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_NO }}"
+                                                           id="currently_employed_no" {{ old('current_employment_status') == \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_NO ? 'checked' : '' }}>
 
-                                                <label class="custom-control-label"
-                                                       for="currently_employed_no">না</label>
+                                                    <label class="custom-control-label"
+                                                           for="currently_employed_no">না</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1286,7 +1358,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
                 <div class="col-md-12">
                     <div class="card">
@@ -1307,7 +1378,8 @@
                                                     <div class="form-group">
                                                         <label for="father_name">নাম:<span
                                                                 class="required">*</span></label>
-                                                        <input type="text" name="familyMember[father][member_name_en]"
+                                                        <input type="text"
+                                                               name="familyMember[father][member_name_en]"
                                                                id="father_name"
                                                                value="{{ old('familyMember.father.member_name_en') }}"
                                                                class="form-control">
@@ -1365,7 +1437,8 @@
                                                     <div class="form-group">
                                                         <label for="mother_name">নাম:<span
                                                                 class="required">*</span></label>
-                                                        <input type="text" name="familyMember[mother][member_name_en]"
+                                                        <input type="text"
+                                                               name="familyMember[mother][member_name_en]"
                                                                value="{{ old('familyMember.mother.member_name_en') }}"
                                                                id="mother_name"
                                                                class="form-control">
@@ -1463,7 +1536,8 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="guardian_date_of_birth">অভিভাবকের জন্মতারিখ<span
+                                                        <label for="guardian_date_of_birth">অভিভাবকের
+                                                            জন্মতারিখ<span
                                                                 class="required">*</span>:</label>
                                                         <input type="text"
                                                                name="familyMember[guardian][date_of_birth]"
@@ -1515,76 +1589,77 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header custom-bg-gradient-info">
-                            <h3 class="card-title font-weight-bold text-primary"><i
-                                    class="fa fa-address-book fa-fw"> </i> অন্যান্য তথ্য</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <div class="custom-control custom-checkbox ml-2">
-                                        <input class="custom-control-input" type="checkbox"
-                                               id="have_family_own_house"
-                                               name="have_family_own_house"
-                                               value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE }}" {{ old('have_family_own_house') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE ? 'selected' : '' }}>
-                                        <label for="have_family_own_house" class="custom-control-label">
-                                            পরিবারের নিজস্ব বাড়ি আছে?</label>
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header custom-bg-gradient-info">
+                                <h3 class="card-title font-weight-bold text-primary"><i
+                                        class="fa fa-address-book fa-fw"> </i> অন্যান্য তথ্য</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="custom-control custom-checkbox ml-2">
+                                            <input class="custom-control-input" type="checkbox"
+                                                   id="have_family_own_house"
+                                                   name="have_family_own_house"
+                                                   value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE }}" {{ old('have_family_own_house') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE ? 'selected' : '' }}>
+                                            <label for="have_family_own_house" class="custom-control-label">
+                                                পরিবারের নিজস্ব বাড়ি আছে?</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-md-4">
-                                    <div class="custom-control custom-checkbox ml-2">
-                                        <input class="custom-control-input" type="checkbox"
-                                               id="have_family_own_land"
-                                               name="have_family_own_land"
-                                               value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND }}" {{ old('have_family_own_land') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND ? 'selected' : ''}}>
-                                        <label for="have_family_own_land" class="custom-control-label">
-                                            পরিবারের নিজস্ব জমি আছে?</label>
+                                    <div class="form-group col-md-4">
+                                        <div class="custom-control custom-checkbox ml-2">
+                                            <input class="custom-control-input" type="checkbox"
+                                                   id="have_family_own_land"
+                                                   name="have_family_own_land"
+                                                   value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND }}" {{ old('have_family_own_land') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND ? 'selected' : ''}}>
+                                            <label for="have_family_own_land" class="custom-control-label">
+                                                পরিবারের নিজস্ব জমি আছে?</label>
+                                        </div>
                                     </div>
-                                </div>
 
 
-                                <div class="form-group col-md-4">
-                                    <div class="form-group">
-                                        <label for="number_of_siblings">ভাই-বোনের সংখ্যা</label>
-                                        <input type="number" class="form-control" name="number_of_siblings"
-                                               id="number_of_siblings" value="{{ old('number_of_siblings') }}">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="number_of_siblings">ভাই-বোনের সংখ্যা</label>
+                                            <input type="number" class="form-control" name="number_of_siblings"
+                                                   id="number_of_siblings" value="{{ old('number_of_siblings') }}">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-md-4">
-                                    <div class="custom-control custom-checkbox ml-2">
-                                        <input class="custom-control-input" type="checkbox"
-                                               id="recommended_by_organization"
-                                               name="recommended_by_organization"
-                                               value="{{ \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION }}" {{ old('recommended_by_organization') == \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION ? 'selected' : '' }}>
-                                        <label for="recommended_by_organization" class="custom-control-label">
-                                            কোন প্রতিষ্ঠান/সংস্থা দ্বারা প্রস্তাবিত?</label>
+                                    <div class="form-group col-md-4">
+                                        <div class="custom-control custom-checkbox ml-2">
+                                            <input class="custom-control-input" type="checkbox"
+                                                   id="recommended_by_organization"
+                                                   name="recommended_by_organization"
+                                                   value="{{ \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION }}" {{ old('recommended_by_organization') == \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION ? 'selected' : '' }}>
+                                            <label for="recommended_by_organization" class="custom-control-label">
+                                                কোন প্রতিষ্ঠান/সংস্থা দ্বারা প্রস্তাবিত?</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class=" form-group col-md-4 recommended_org_name_field">
-                                    <label for="recommended_org_name">প্রতিষ্ঠান/সংস্থা নাম</label>
-                                    <input type="text" name="recommended_org_name" id="recommended_org_name"
-                                           class="form-control" value="{{ old('recommended_org_name') }}">
+                                    <div class=" form-group col-md-4 recommended_org_name_field">
+                                        <label for="recommended_org_name">প্রতিষ্ঠান/সংস্থা নাম</label>
+                                        <input type="text" name="recommended_org_name" id="recommended_org_name"
+                                               class="form-control" value="{{ old('recommended_org_name') }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <input type="submit" class="btn btn-primary float-right" value="আবেদন করুন">
-                        </div>
-                        <div class="overlay" style="display: none">
-                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <input type="submit" class="btn btn-primary float-right" value="আবেদন করুন">
+                            </div>
+                            <div class="overlay" style="display: none">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>
@@ -2160,22 +2235,22 @@
                 "address[permanent][permanent_address_house_address][postal_code]": {
                     pattern: "Please valid postal code",
                 },
-                "academicQualification[jsc][roll_no]":{
+                "academicQualification[jsc][roll_no]": {
                     pattern: "Please inter valid Roll Number"
                 },
-                "academicQualification[ssc][roll_no]":{
+                "academicQualification[ssc][roll_no]": {
                     pattern: "Please inter valid Roll Number"
                 },
-                "academicQualification[hsc][roll_no]":{
+                "academicQualification[hsc][roll_no]": {
                     pattern: "Please inter valid Roll Number"
                 },
-                "academicQualification[jsc][reg_no]":{
+                "academicQualification[jsc][reg_no]": {
                     pattern: "Please inter valid Registration Number"
                 },
-                "academicQualification[ssc][reg_no]":{
+                "academicQualification[ssc][reg_no]": {
                     pattern: "Please inter valid Registration Number"
                 },
-                "academicQualification[hsc][reg_no]":{
+                "academicQualification[hsc][reg_no]": {
                     pattern: "Please inter valid Registration Number"
                 },
 
@@ -2330,6 +2405,8 @@
             applicationFormTypeFetch(filters)?.then(function (response) {
                 let data = response.data[0];
 
+                console.log(response.data[0]);
+
                 if (data?.length <= 0) {
                     showAllFormFields();
                 } else {
@@ -2343,16 +2420,13 @@
             let present_address_division_text = $('#present_address_division_id option:selected').text();
             $('#permanent_address_division_id').append(new Option(present_address_division_text, present_address_division_value, true, true)).trigger('change');
 
-
             let present_address_district_value = $('#present_address_district_id option:selected').val();
             let present_address_district_text = $('#present_address_district_id option:selected').text();
             $('#permanent_address_district_id').append(new Option(present_address_district_text, present_address_district_value, true, true)).trigger('change');
 
-
             let present_address_upazila_value = $('#present_address_upazila_id option:selected').val();
             let present_address_upazila_text = $('#present_address_upazila_id option:selected').text();
             $('#permanent_address_upazila_id').append(new Option(present_address_upazila_text, present_address_upazila_value, true, true)).trigger('change');
-
 
             $('#permanent_address_postal_code').val($('#present_address_postal_code').val());
             $('#permanent_address_village_name').val($('#present_address_village_name').val());
@@ -2378,7 +2452,6 @@
         function disablePermanetAddressFields() {
             $('#hidden_permanent_address_division_id').val($('#permanent_address_division_id').val()).prop('disabled', false);
             $('#permanent_address_division_id').prop('disabled', true);
-
 
             $('#hidden_permanent_address_district_id').val($('#present_address_district_id').val()).prop('disabled', false);
             $('#permanent_address_district_id').prop('disabled', true);
@@ -2442,7 +2515,6 @@
                 let instituteId = $(this).val();
                 getApplicationFormType(instituteId);
             })
-
 
             $('.recommended_org_name_field').css('visibility', 'hidden');
 
@@ -2580,27 +2652,27 @@
             });
 
 
-            $(function(){
-                $('#present_address_division_id').on('change',function (){
-                    if($('#present_address_district_id').prop('disabled', true)){
+            $(function () {
+                $('#present_address_division_id').on('change', function () {
+                    if ($('#present_address_district_id').prop('disabled', true)) {
                         $('#present_address_district_id').prop('disabled', false);
                     }
                 });
 
-                $('#present_address_district_id').on('change',function (){
-                    if($('#present_address_upazila_id').prop('disabled', true)){
+                $('#present_address_district_id').on('change', function () {
+                    if ($('#present_address_upazila_id').prop('disabled', true)) {
                         $('#present_address_upazila_id').prop('disabled', false);
                     }
                 });
 
-                $('#permanent_address_division_id').on('change',function (){
-                    if($('#permanent_address_district_id').prop('disabled', true)){
+                $('#permanent_address_division_id').on('change', function () {
+                    if ($('#permanent_address_district_id').prop('disabled', true)) {
                         $('#permanent_address_district_id').prop('disabled', false);
                     }
                 });
 
-                $('#permanent_address_district_id').on('change',function (){
-                    if($('#permanent_address_upazila_id').prop('disabled', true)){
+                $('#permanent_address_district_id').on('change', function () {
+                    if ($('#permanent_address_upazila_id').prop('disabled', true)) {
                         $('#permanent_address_upazila_id').prop('disabled', false);
                     }
                 });

@@ -3,6 +3,12 @@
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
 @extends($layout)
+
+@section('title')
+    ভিডিও সমূহ
+@endsection
+
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -198,7 +204,7 @@
                 window.scrollTo(0,0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
-                    html += '<div class="text-center mt-5" "><div class="fa fa-sad-tear" style="font-size: 20px;"></div><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
+                    html += '<div class="text-center mt-5" "><div class="fa fa-sad-tear fa-2x"></div><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
                 }
                 $.each(response.data?.data, function (i, item) {
                     html += template(item);

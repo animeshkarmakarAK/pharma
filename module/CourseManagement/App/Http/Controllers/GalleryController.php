@@ -63,8 +63,7 @@ class GalleryController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-
-        return back()->with([
+        return redirect()->route('course_management::admin.galleries.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Gallery']),
             'alert-type' => 'success'
         ]);
@@ -116,7 +115,7 @@ class GalleryController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.galleries.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Gallery']),
             'alert-type' => 'success'
         ]);

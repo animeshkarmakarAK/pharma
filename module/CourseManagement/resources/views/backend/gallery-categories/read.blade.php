@@ -6,6 +6,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Album') }}
+@endsection
+
 @section('content')
 
 

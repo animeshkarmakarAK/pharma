@@ -65,8 +65,9 @@ class GalleryCategoryController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Gallery Category']),
+
+        return redirect()->route('course_management::admin.gallery-categories.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'Gallery Album']),
             'alert-type' => 'success'
         ]);
     }
@@ -115,8 +116,8 @@ class GalleryCategoryController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Gallery Category']),
+        return redirect()->route('course_management::admin.gallery-categories.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Gallery Album']),
             'alert-type' => 'success'
         ]);
     }

@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    প্রশিক্ষণ বর্ষপঞ্জি
+@endsection
+
 @section('content')
 
     <div class="container-fluid">
@@ -37,7 +41,7 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title_bn}"
                                                 data-dependent-fields="#video_id|#video_category_id"
                                                 data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                         >
@@ -53,7 +57,7 @@
                                             name="branch_id"
                                             id="branch_id"
                                             data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title_bn}"
                                             data-depend-on="institute_id"
                                             data-dependent-fields="#training_centre_id"
                                             data-placeholder="ব্রাঞ্চ সিলেক্ট করুন"
@@ -68,7 +72,7 @@
                                             name="training_center_id"
                                             id="training_center_id"
                                             data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en} - {institute_id}"
+                                            data-label-fields="{title_bn}"
                                             data-depend-on-optional="institute_id"
                                             data-placeholder="ট্রেনিং সেন্টারে সিলেক্ট করুন"
                                     >
@@ -125,22 +129,26 @@
     </style>
 @endpush
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
     <script>
         async function courseDetailsModalOpen(publishCourseId) {
             let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', publishCourseId));
+
             if (response?.length) {
                 $("#course_details_modal").find(".modal-content").html(response);
             } else {
                 let notFound = `<div class="alert alert-danger">Not Found</div>`
                 $("#course_details_modal").find(".modal-content").html(notFound);
             }
+
             $("#course_details_modal").modal('show');
         }
 
         $(function () {
             let calendarEl = document.getElementById('calendar');
             let initialDate = '{{date('Y-m-d')}}';
+            let initialLocaleCode = 'bn';
 
             let calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -148,7 +156,7 @@
                 displayEventTime: false,
                 customButtons: {
                     myCustomButton: {
-                        text: 'year',
+                        text: 'বছর',
                         click: function () {
                             window.location = '{{ route('course_management::fiscal-year') }}';
                         }
@@ -159,11 +167,13 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,myCustomButton'
                 },
+                locale: initialLocaleCode,
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
                         url: '{{route('course_management::yearly-training-calendar.all-event')}}',
                         type: "POST",
                     }).done(function (response) {
+                        console.log(response)
                         successCallback(response);
                     }).fail(function (xhr) {
                         failureCallback([]);
