@@ -60,7 +60,7 @@ class YouthRegistrationController extends Controller
             ->where('courses.row_status', Course::ROW_STATUS_ACTIVE)
             ->distinct()
             ->get();
-        //dd($publishCourse);
+        //dd($publishCourse->application_form_type_id);
         return \view(self::VIEW_PATH . 'application-form')->with([
             'institutes' => $institutes,
             'divisions' => $divisions,

@@ -65,6 +65,8 @@
                                            value="{{$publishCourse->programme_id}}">
                                     <input type="hidden" name="course_id" id="course_id"
                                            value="{{$publishCourse->course_id}}">
+                                    <input type="hidden" name="application_form_type_id" id=""
+                                           value="{{$publishCourse->application_form_type_id}}">
                                 @else
                                     @if(!empty(domainConfig('institute')))
                                         <input type="hidden" name="institute_id" id="institute_id"
@@ -363,58 +365,28 @@
                                     </div>
                                 </div>
 
-
-
-                                @if(!empty($publishCourse))
-                                    @if(!empty($publishCourse->applicationFormType->ethnic))
-                                        <div class="form-group col-md-6 ethnic-group-information">
-                                            <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
-                                                    class="required">*</span>:</label>
-                                            <div class="input-group">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" name="ethnic_group"
-                                                           class="custom-control-input"
-                                                           value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
-                                                           id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
-                                                    <label class="custom-control-label"
-                                                           for="ethnic_group_yes">হ্যাঁ</label>
-                                                </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" name="ethnic_group"
-                                                           class="custom-control-input"
-                                                           value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
-                                                           id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
-                                                    <label class="custom-control-label" for="ethnic_group_no">না</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @else
-                                    <div class="form-group col-md-6 ethnic-group-information">
-                                        <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
-                                                class="required">*</span>:</label>
-                                        <div class="input-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" name="ethnic_group"
-                                                       class="custom-control-input"
-                                                       value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
-                                                       id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="ethnic_group_yes">হ্যাঁ</label>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" name="ethnic_group"
-                                                       class="custom-control-input"
-                                                       value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
-                                                       id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="ethnic_group_no">না</label>
-                                            </div>
+                                <div class="form-group col-md-6 ethnic-group-information">
+                                    <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
+                                            class="required">*</span>:</label>
+                                    <div class="input-group">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="ethnic_group"
+                                                   class="custom-control-input"
+                                                   value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
+                                                   id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="ethnic_group_yes">হ্যাঁ</label>
                                         </div>
                                     </div>
-                                @endif
+                                    <div class="input-group">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="ethnic_group"
+                                                   class="custom-control-input"
+                                                   value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
+                                                   id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="ethnic_group_no">না</label>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                             <div class="form-row justify-content-between">
@@ -1359,7 +1331,7 @@
                         </div>
                     </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12 guardian-information">
                     <div class="card">
                         <div class="card-header custom-bg-gradient-info">
                             <h3 class="card-title font-weight-bold text-primary"><i
@@ -2390,23 +2362,26 @@
 
         const applicationFormTypeFetch = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\ApplicationFormType::class)}}",
-            columns: 'id|freedom_fighter|disable_status|jsc|ssc|hsc|honors|masters|occupation|guardian|row_status',
+            columns: 'id|freedom_fighter|ethnic|disable_status|jsc|ssc|hsc|honors|masters|occupation|guardian|row_status',
         });
 
-        function getApplicationFormType(instituteId) {
-            if (!instituteId) {
+        const publishCourseFetch = searchAPI({
+            model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
+            columns: 'id|application_form_type_id',
+        });
+
+        function getApplicationFormType(applicationFormTypeId) {
+            if (!applicationFormTypeId) {
                 showAllFormFields();
                 return false;
             }
 
             let filters = {};
-            filters['institute_id'] = instituteId;
+            filters['id'] = applicationFormTypeId;
 
             applicationFormTypeFetch(filters)?.then(function (response) {
                 let data = response.data[0];
-
                 console.log(response.data[0]);
-
                 if (data?.length <= 0) {
                     showAllFormFields();
                 } else {
@@ -2506,15 +2481,34 @@
                 setFormFields(applicationFormType);
             }
 
-            if ($('input[name="institute_id"]').val() !== "") {
+            /*if ($('input[name="institute_id"]').val() !== "") {
                 let instituteId = $('input[name="institute_id"]').val();
                 getApplicationFormType(instituteId);
+            }*/
+
+            if ($('input[name="application_form_type_id"]').val() !== "") {
+                let applicationFormTypeId = $('input[name="application_form_type_id"]').val();
+                getApplicationFormType(applicationFormTypeId);
             }
 
-            $('#institute_id').on('change', function () {
+            /*$('#institute_id').on('change', function () {
                 let instituteId = $(this).val();
                 getApplicationFormType(instituteId);
-            })
+            });*/
+
+            $('#course_id').on('change', function () {
+                let publishCourseId = $(this).val();
+                console.log("Miladul: "+publishCourseId);
+                let filters = {};
+                filters['id'] = publishCourseId;
+
+                publishCourseFetch(filters)?.then(function (response) {
+                    let applicationFormTypeId = response.data[0].application_form_type_id;
+                    console.log("application_form_type_id = "+applicationFormTypeId);
+                    getApplicationFormType(applicationFormTypeId);
+
+                });
+            });
 
             $('.recommended_org_name_field').css('visibility', 'hidden');
 
