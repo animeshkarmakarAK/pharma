@@ -305,8 +305,8 @@
 
             .responsive_menu_btn {
                 border: 2px solid #333 !important;
-                border-radius: 50%;
-                padding: 10px 10px;
+                /*border-radius: 50%;
+                padding: 10px 10px;*/
             }
 
             .responsive_menu_btn:focus {

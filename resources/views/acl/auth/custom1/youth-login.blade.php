@@ -48,7 +48,7 @@
                                 এক্সেস-কী ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরদ্ধার করুন</a>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row pl-3">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
                                 <h4> হেল্প ডেস্ক</h4>
                                 <p><i class="fa fa-phone"></i>

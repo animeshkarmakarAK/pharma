@@ -33,7 +33,7 @@
                                                       method="POST" class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
-                                                        <label for="name" class="col-sm-2 control-label text-right">নাম
+                                                        <label for="name" class="col-sm-2 control-label">নাম
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
                                                             <input required="required" maxlength="255" id="name"
@@ -47,7 +47,7 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
 
-                                                        <label for="mobile" class="col-sm-2 control-label text-right">মোবাইল
+                                                        <label for="mobile" class="col-sm-2 control-label">মোবাইল
                                                             নম্বর
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
@@ -57,7 +57,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="email" class="col-sm-2 control-label text-right"
+                                                        <label for="email" class="col-sm-2 control-label"
                                                                aria-required="true">ইমেইল <span
                                                                 style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_email">
@@ -66,7 +66,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="address" class="col-sm-2 control-label text-right">ঠিকানা</label>
+                                                        <label for="address" class="col-sm-2 control-label">ঠিকানা</label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="address" rows="2"
                                                                   id="address"></textarea>
@@ -74,7 +74,7 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
                                                         <label for="suggestion"
-                                                               class="col-sm-2 control-label text-right">মতামত
+                                                               class="col-sm-2 control-label">মতামত
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="comment" rows="4"
@@ -83,7 +83,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <div class="col-md-12 text-right">
+                                                        <div class="col-md-12 text-center">
                                                             <div class="submit">
                                                                 <input type="submit" class="btn btn-default btn_save"
                                                                        value="সংরক্ষণ করুন">

@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="col-md-1">
-                        <button class="btn btn-success" id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
+                        <button class="btn btn-success mb-2" id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
                     </div>
 
                     <div class="col">

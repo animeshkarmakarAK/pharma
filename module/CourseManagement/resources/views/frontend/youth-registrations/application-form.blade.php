@@ -203,7 +203,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="marital_status">বৈবাহিক অবস্থা <span
                                             class="required">*</span> :</label>
-                                    <div class="custom-control custom-radio">
+                                    <div class="custom-control  custom-radio">
                                         <input class="custom-control-input" type="radio" id="marital_status_married"
                                                name="marital_status"
                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED }}"
@@ -2268,6 +2268,12 @@
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
             }
         }
+
+
+        $("#image_upload_field").change(function () {
+            readURL(this);
+        });
+
 
 
         $("#student_pic").change(function () {

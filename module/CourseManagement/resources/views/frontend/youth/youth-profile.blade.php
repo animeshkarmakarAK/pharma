@@ -329,16 +329,18 @@
     <script src="{{ asset('jsfiles/pdfmake.min.js') }}"></script>
     <script type="text/javascript">
         function Export() {
-            html2canvas(document.getElementById('youth-profile'), {
+            html2canvas($('#youth-profile'), {
+                allowTaint: true,
+                logging:true,
                 onrendered: function (canvas) {
                     let data = canvas.toDataURL();
                     let docDefinition = {
                         content: [{
                             image: data,
                             width: 500,
-                        }]
+                        }],
                     };
-                    pdfMake.createPdf(docDefinition).download("_profile.pdf");
+                    pdfMake.createPdf(docDefinition).download("your-profile-pdf");
                 }
             });
         }

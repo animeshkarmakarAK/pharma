@@ -13,7 +13,7 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                     <img id="cover_image" class="img-fluid" alt="Responsive image"
@@ -64,12 +64,12 @@
                             </div>
                         </div>
 
-                            <div class="col-md-6 custom-view-box">
-                                <p class="label-text">প্রশিক্ষণ পদ্ধতি</p>
-                                <div class="input-box" id="training_methodology">
-                                    {{optional($publishCourse->course)->training_methodology}}
-                                </div>
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">প্রশিক্ষণ পদ্ধতি</p>
+                            <div class="input-box" id="training_methodology">
+                                {{optional($publishCourse->course)->training_methodology}}
                             </div>
+                        </div>
 
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">মূল্যায়ন পদ্ধতি</p>
@@ -148,10 +148,9 @@
                                         <td>
                                             @if($session->course_start_date && $session->course_start_date->gt(now()))
                                                 <button type="button"
-                                                        class="btn btn-success course-apply-btn"
+                                                        class="btn btn-success course-apply-btn "
                                                         onclick="window.location.href = `{{route('course_management::youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
-                                                >
-                                                    আবেদন করুন
+                                                >আবেদন করুন
                                                 </button>
                                             @endif
                                         </td>
