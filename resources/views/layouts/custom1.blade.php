@@ -17,7 +17,6 @@
         .site-header {
             background: #4B77BE;
         }
-
         .top_hr {
             background: #a4cd72;
             height: 4px;
@@ -36,7 +35,6 @@
         .menu-text {
             line-height: 7px;
         }
-
         .menu-text-one {
             /*padding: 10px 0 0 0;*/
             font-size: 1.2rem;
@@ -44,33 +42,26 @@
             line-height: 12px;
             color: #636363;
         }
-
         .menu-text-two {
-
             letter-spacing: 1px;
             font-weight: bold;
             /* line-height: 2px; */
             color: #6b6464;
         }
-
         .main-menu-right {
             margin-right: 15px;
         }
-
         .main-menu-right li a {
             color: #5d5959;
         }
-
         .main-menu-right li.active a {
             color: #4B77BE;
             transition: .4s;
         }
-
         .main-menu-right li a:hover {
             color: #4B77BE;
             transition: .4s;
         }
-
         /*sliders css*/
         .slider-left-content h1 {
             color: #4B77BE;
@@ -78,11 +69,9 @@
             font-weight: bold;
             margin-bottom: 50px;
         }
-
         .slider-left-content p {
             margin-bottom: 45px;
         }
-
         .slider-left-content a {
             background: #4B77BE;
             padding: 15px 25px;
@@ -91,7 +80,6 @@
             letter-spacing: 2px;
             transition: .4s;
         }
-
         .slider-left-content a:hover {
             background: #4c4c4c;
             border: 1px solid #4c4c4c;

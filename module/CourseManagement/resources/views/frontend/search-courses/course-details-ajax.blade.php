@@ -13,7 +13,7 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                     <img id="cover_image" class="img-fluid" alt="Responsive image"
@@ -120,7 +120,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">কোর্স সেশন তালিকা</h2>
@@ -145,10 +145,10 @@
                                         <td>{{optional($session->application_end_date)->format('d/m/Y')}}</td>
                                         <td>{{optional($session->course_start_date)->format('d/m/Y')}}</td>
                                         <td>{{$session->max_seat_available}}</td>
-                                        <td>
+                                        <td colspan="3">
                                             @if($session->course_start_date && $session->course_start_date->gt(now()))
                                                 <button type="button"
-                                                        class="btn btn-success course-apply-btn "
+                                                        class="btn btn-success btn-block course-apply-btn inline-block"
                                                         onclick="window.location.href = `{{route('course_management::youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
                                                 >আবেদন করুন
                                                 </button>

@@ -38,8 +38,6 @@
                         <div class="col-12 mt-2">
                             <a href="{{route('course_management::youth.login-form')}}">লগইন করুন</a>
                         </div>
-                    </form>
-                    <form>
                         <div class="row pl-3">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
                                 <h4> হেল্প ডেস্ক</h4>

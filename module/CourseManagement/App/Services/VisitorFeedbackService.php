@@ -41,7 +41,7 @@ class VisitorFeedbackService
             'mobile' => [
                 'required',
                 'string',
-                //'regex:/^((?:\+88|88)?(01[3-9]\d{8}))|((?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8}))$/',
+                'regex:/^((?:\+88|88)?(01[3-9]\d{8}))|((?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8}))$/',
                 'min:11',
                 'max:17'
             ],
@@ -60,7 +60,12 @@ class VisitorFeedbackService
                 'max:5000'
             ],
         ];
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+
+        $messages = [
+            "mobile.regex" => "invalid mobile number",
+        ];
+
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
     }
 
     public function getVisitorFeedbackLists(Request $request): JsonResponse

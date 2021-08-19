@@ -93,6 +93,7 @@
                                     <label
                                         for="publish_date">{{ __('Publish Date') }} <span
                                             style="color: red"> * </span></label>
+                                    <input type="hidden" id="today">
                                     <input type="text"
                                            class="flat-datetime form-control publish_date"
                                            name="publish_date"
@@ -293,6 +294,7 @@
                 },
                 publish_date: {
                     required: true,
+                    greaterThan: '#today'
                 },
                 archive_date: {
                     required: true,
@@ -311,9 +313,14 @@
                         }
                     }
                 },
+                publish_date: {
+                    greaterThan: 'Publish Date will not be less than today',
+                },
+
                 archive_date: {
-                    greaterThan: "Please select date greater than publish date"
-                }
+                    greaterThan: "Please select Archive Date greater than Publish Date"
+                },
+
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
@@ -358,6 +365,44 @@
                 videoFieldDisplay(parseInt(this.value));
             });
         });
+
+        let today = new Date();
+        today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-1)).slice(-2);
+        console.log('Today: '+today)
+        $('#today').val(today+ " 12:00");
+
+        $('#institute_id').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+        $('.publish_date').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
+        $('#archive_date').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
+        $('#is_youtube_video_yes').on('click', function (){
+            $('#content_path').prop( "disabled", true);
+            $('#you_tube_video_id').prop( "disabled", false);
+        })
+
+        $('#is_youtube_video_no').on('click', function (){
+            $('#content_path').prop( "disabled", false);
+            $('#you_tube_video_id').prop( "disabled", true);
+
+        })
+
+
     </script>
 @endpush
 

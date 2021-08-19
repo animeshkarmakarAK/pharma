@@ -13,7 +13,7 @@
                         class="card-header custom-bg-gradient-info">
                         <div class="card-title float-left font-weight-bold text-primary">বিস্তারিত</div>
                         <div class="youth-access-key float-right d-inline-flex">
-                            <p class="label-text font-weight-bold">অ্যাক্সেস কি: </p>
+                            <p class="label-text font-weight-bold">এক্সেস-কী &nbsp;:&nbsp; </p>
                             <div class="font-weight-bold">
                                 {{ "  ".$youth->access_key ?? 'N/A' }}
                             </div>
@@ -63,7 +63,7 @@
             <div class="col-md-8">
                 <div class="card bg-white">
                     <div class="card-header custom-bg-gradient-info text-primary">
-                        <h3 class="card-title font-weight-bold">তথ্য</h3>
+                        <h3 class="card-title font-weight-bold">ব্যাক্তিগত তথ্য</h3>
 
                         <div class="card-tools">
                             <a href="#" class="btn btn-sm btn-outline-warning" onclick="Export()">

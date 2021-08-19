@@ -75,7 +75,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Publish Status') }}</p>
                     <div class="input-box">
-                        {{ $publishCourse->rowStatus->title }}
+                        {!! $publishCourse->getCurrentRowStatus(true) !!}
                     </div>
                 </div>
 

@@ -20,10 +20,12 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('course_management::admin.gallery-categories.edit', [$galleryCategory->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.gallery-categories.edit', [$galleryCategory->id])}}"
+                           class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Album') }}
                         </a>
-                        <a href="{{route('course_management::admin.gallery-categories.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('course_management::admin.gallery-categories.index')}}"
+                           class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
                     </div>
@@ -54,16 +56,38 @@
                         </div>
                     </div>
                 @endif
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Programme') }}</p>
+                    <div class="input-box">
+                        {{ !empty($galleryCategory->programme->title_en) }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Batch') }}</p>
+                    <div class="input-box">
+                        {{ !empty($galleryCategory->batch->title_en) }}
+                    </div>
+                </div>
+
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Featured status') }}</p>
                     <div class="input-box">
                         {!! $galleryCategory->featured == 1 ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>' !!}
                     </div>
                 </div>
-                <div class="col-md-6 custom-view-box">
+                <div class="col-md-6 custom-view-box mt-2">
                     <p class="label-text">{{ __('Active status') }}</p>
                     <div class="input-box">
                         {!! $galleryCategory->row_status == 1 ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>' !!}
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-2 custom-view-box">
+                    <p class="label-text">{{ __('Cover Image') }}</p>
+                    <div class="input-box">
+                        <img src="{{ asset("storage/{$galleryCategory->image}") }}" alt="Cover Image" title="" height="22px"  />
                     </div>
                 </div>
             </div>

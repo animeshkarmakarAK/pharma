@@ -141,4 +141,15 @@ class OccupationWiseStatisticController extends BaseController
     {
         return $this->occupationWiseStatisticService->getServiceLists($request);
     }
+
+
+    public function checkOccupationWiseStatistics(Request $request): JsonResponse
+    {
+        $occupationWiseStatistic = OccupationWiseStatistic::where(['survey_date' => $request->survey_date])->first();
+        if ($occupationWiseStatistic == null) {
+            return response()->json(true);
+        } else {
+            return response()->json('Report is already created for this Month!');
+        }
+    }
 }

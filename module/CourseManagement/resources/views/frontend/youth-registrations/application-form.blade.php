@@ -398,7 +398,7 @@
                                             class="fa fa-times" style="color: #CCCCCC"></i> ৩০০ হতে হবে)</p>
                                     <div class="input-group">
                                         <div class="profile-upload-section">
-                                            <div class="avatar-preview text-center">
+                                            <div class="avatar-preview student_pic text-center">
                                                 <label for="student_pic">
                                                     <img class="figure-img"
                                                          src="https://via.placeholder.com/350x350?text=Student+Picture"
@@ -423,7 +423,7 @@
                                             class="fa fa-times" style="color: #CCCCCC"></i> ৮০ হতে হবে)</p>
                                     <div class="input-group">
                                         <div class="profile-upload-section">
-                                            <div class="avatar-preview text-center">
+                                            <div class="avatar-preview student_signature_pic text-center">
                                                 <label for="student_signature_pic">
                                                     <img class="loading-img"
                                                          src="https://via.placeholder.com/350x350?text=Student+Signature"
@@ -506,7 +506,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="present_address_postal_code">ডাকঘর<span
                                             class="required">*</span> :</label>
-                                    <input type="number"
+                                    <input type="text"
                                            name="address[present][present_address_house_address][postal_code]"
                                            id="present_address_postal_code" class="form-control"
                                            value="{{ old('address.present.present_address_house_address.postal_code') }}"
@@ -607,7 +607,7 @@
                                 <div class="col-md-4 form-group">
                                     <label for="permanent_address_postal_code">ডাকঘর<span
                                             class="required">*</span> :</label>
-                                    <input type="number"
+                                    <input type="text"
                                            name="address[permanent][permanent_address_house_address][postal_code]"
                                            id="permanent_address_postal_code" class="form-control"
                                            value="{{ old('address.permanent.permanent_address_house_address.postal_code') }}"
@@ -646,8 +646,8 @@
                                     class="fa fa-address-book"> </i> শিক্ষাগত যোগ্যতা </h3>
                         </div>
                         <div class="card-body row">
-                            <div class="col-md-6 academic-qualification-jsc">
-                                <div class="card col-md-12 custom-bg-gradient-info">
+                            <div class="col-md-6 academic-qualification-jsc mb-2">
+                                <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
                                          data-toggle="collapse"
                                          data-target=".jsc_collapse" aria-controls=".jsc_collapse">
@@ -749,8 +749,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 academic-qualification-ssc">
-                                <div class="card col-md-12 custom-bg-gradient-info">
+                            <div class="col-md-6 academic-qualification-ssc mb-2">
+                                <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
                                          data-toggle="collapse"
                                          data-target=".ssc_collapse" aria-controls=".ssc_collapse">
@@ -882,8 +882,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 academic-qualification-hsc">
-                                <div class="card custom-bg-gradient-info col-md-12">
+                            <div class="col-md-6 academic-qualification-hsc mb-2">
+                                <div class="card custom-bg-gradient-info col-md-12" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
                                          data-toggle="collapse"
                                          data-target=".hsc_collapse" aria-controls=".hsc_collapse">
@@ -1014,8 +1014,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 academic-qualification-graduation">
-                                <div class="card col-md-12 custom-bg-gradient-info">
+                            <div class="col-md-6 academic-qualification-graduation mb-2">
+                                <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
                                          data-toggle="collapse"
                                          data-target=".graduation_collapse"
@@ -1142,8 +1142,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 academic-qualification-masters">
-                                <div class="card col-md-12 custom-bg-gradient-info">
+                            <div class="col-md-6 academic-qualification-masters mb-2">
+                                <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
                                          data-toggle="collapse"
                                          data-target=".masters_collapse" aria-controls=".masters_collapse">
@@ -1647,11 +1647,23 @@
         $.validator.addMethod(
             "langBN",
             function (value, element) {
-                let regexp = /^[\s-'\u0980-\u09ff]+$/i;
+                let regexp = /^[\s'\u0980-\u09ff]+$/i;
                 let re = new RegExp(regexp);
                 return this.optional(element) || re.test(value);
             },
             "Please fill this field in Bangla."
+        );
+
+        $.validator.addMethod(
+            "textEnBnWithoutSpecialChar",
+            function (value, element) {
+                let en = /^[a-zA-Z ]*$/i;
+                let bn = /^[\s'\u0980-\u09ff]+$/i;
+                let reEn = new RegExp(en);
+                let reBn = new RegExp(bn);
+                return this.optional(element) || reEn.test(value)|| reBn.test(value);
+            },
+            "textEnBnWithoutSpecialChar is require"
         );
 
         $.validator.addMethod(
@@ -1661,7 +1673,7 @@
                 let isWidthMatched = document.getElementsByTagName('img')[1].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "Invalid picture. Size must be 300 * 300",
+            "৩০০x৩০০ পিক্সেল ছবি উপলোড করুন",
         );
 
         $.validator.addMethod(
@@ -1671,7 +1683,7 @@
                 let isWidthMatched = document.getElementsByTagName('img')[2].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "Invalid signature size. Size must be 300 * 80",
+            "৩০০x৮০ পিক্সেল ছবি উপলোড করুন",
         );
 
         $.validator.addMethod(
@@ -1683,7 +1695,19 @@
                 let re1 = new RegExp(regexp1);
                 return this.optional(element) || re.test(value) || re1.test(value);
             },
-            "Please use maximum length 10/14/17 digits number of NID"
+            "সঠিক এনআইডি ব্যবহার করুন"
+        );
+
+        $.validator.addMethod(
+            "houseOrRoadNumber",
+            function (value, element) {
+                let en = /^[0-9a-zA-Z ]*$/i;
+                let bn = /^[\s'\u0980-\u09ff\\০-৯]+$/i;
+                let reEn = new RegExp(en);
+                let reBn = new RegExp(bn);
+                return this.optional(element) || reEn.test(value)|| reBn.test(value);
+            },
+            "houseOrRoadNumber is require"
         );
 
         $.validator.addMethod(
@@ -1696,6 +1720,18 @@
                 return this.optional(element) || re.test(value) || re1.test(value);
             },
             "Please input valid information"
+        );
+
+        $.validator.addMethod(
+            "mobileValidation",
+            function (value, element) {
+                let regexp1 = /^(?:\+88|88)?(01[3-9]\d{8})$/i;
+                let regexp = /^(?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8})$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক মোবাইল নাম্বার লিখুন"
         );
 
         youthRegistrationForm.validate({
@@ -1723,11 +1759,12 @@
             rules: {
                 name_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                    pattern: /^[a-zA-Z ]*$/,
                 },
                 name_bn: {
                     required: true,
-                    langBN: true,
+                    //langBN: true,
+                    pattern: /^[\s'\u0980-\u09ff]+$/,
                     maxlength: 30,
                 },
                 number_of_siblings: {
@@ -1741,7 +1778,8 @@
                 },
                 mobile: {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    //pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 email: {
                     required: true,
@@ -1813,6 +1851,7 @@
                     accept: "image/*",
                     youthSignatureSize: true,
                 },
+
                 "academicQualification[jsc][examination_name]": {
                     required: function () {
                         return $('#jsc_examination_info').prop('checked');
@@ -2073,16 +2112,16 @@
                 },
                 "address[present][present_address_house_address][postal_code]": {
                     required: true,
-                    pattern: "^[1-9]\\d*$",
-
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "address[present][present_address_house_address][village_name]": {
                     required: true,
-                    villageName: true,
+                    textEnBnWithoutSpecialChar: true,
 
                 },
                 "address[present][present_address_house_address][house_and_road]": {
                     required: true,
+                    houseOrRoadNumber: true,
                 },
                 "address[permanent][permanent_address_division_id]": {
                     required: true,
@@ -2095,13 +2134,15 @@
                 },
                 "address[permanent][permanent_address_house_address][postal_code]": {
                     required: true,
-                    pattern: "^[1-9]\\d*$",
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "address[permanent][permanent_address_house_address][village_name]": {
                     required: true,
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "address[permanent][permanent_address_house_address][house_and_road]": {
                     required: true,
+                    houseOrRoadNumber: true,
                 },
                 ethnic_group: {
                     required: function () {
@@ -2184,46 +2225,147 @@
             },
             messages: {
                 name_en: {
-                    pattern: "Please fill this field in English.",
+                    required: "এখানে আপনার নাম ইংরেজিতে লিখুন",
+                    pattern: "এখানে আপনার সঠিক নামটি ইংরেজিতে লিখুন",
+                },
+                name_bn: {
+                    required: "এখানে আপনার নাম বাংলায় লিখুন",
+                    pattern: "এখানে আপনার সঠিক নামটি বাংলায় লিখুন",
+                },
+                mobile:{
+                    required: "এখানে আপনার মোবাইল নাম্বারটি দিন",
+                },
+                gender: {
+                    required: "লিঙ্গ নির্বাচন করুন",
+                },
+                religion: {
+                    required: "আপনার ধর্ম নির্বাচন করুন",
+                },
+                marital_status: {
+                    required: "আপনার বৈবাহিক অবস্থা  নির্বাচন করুন",
+                },
+                nationality: {
+                    required: "আপনার জাতীয়তা প্রদান করুন",
                 },
                 nid: {
-                    required: "Provide either NID number or birth certificate number or passport number",
+                    required: "এখানে এনআইডি নম্বর প্রদান করুন  [ অথবা নিচের জন্ম সনদ নম্বর/পাসপোর্ট নম্বর যেকোনো একটি ঘর পূর্ণ করুন ]",
+                },
+                birth_reg_no: {
+                    required: "এখানে জন্ম সনদ নম্বর প্রদান করুন",
+                },
+                passport_number:{
+                    required: "এখানে পাসপোর্ট নম্বর প্রদান করুন",
                 },
                 email: {
-                    remote: "This email address already in used!",
+                    required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
+                    pattern: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
+                    email: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
+                },
+                date_of_birth: {
+                    required: "এখানে আপনার জন্ম তারিখ দিন",
                 },
                 student_pic: {
-                    accept: "Please upload valid image file only",
-                    youthPictureSize: "Please upload valid image that will 300x300px",
+                    required: "এখানে আপনার ছবি যুক্ত করুন",
+                    accept: "এখানে বৈধ ছবি যুক্ত করুন[ইমেজ ফাইল শুধু]",
+                    //youthPictureSize: "৩০০x৩০০ পিক্সেল ছবি উপলোড করুন",
                 },
                 student_signature_pic: {
-                    accept: "Please upload valid image file only",
-                    youthSignatureSize: "Please upload valid image that will 300x80px",
+                    required: "এখানে আপনার সাক্ষর যুক্ত করুন",
+                    accept: "এখানে বৈধ সাক্ষর যুক্ত করুন[ইমেজ ফাইল শুধু]",
+                    //youthSignatureSize: "৩০০x৮০ পিক্সেল ছবি উপলোড করুন",
                 },
-                "address[present][present_address_house_address][postal_code]": {
-                    pattern: "Please valid postal code",
+                "address[present][present_address_division_id]": {
+                    required: "বিভাগ নির্বাচন করুন",
+                },
+                "address[present][present_address_district_id]": {
+                    required: "জেলা নির্বাচন করুন",
+                },
+                "address[present][present_address_upazila_id]": {
+                    required: "উপজেলা/থানা নির্বাচন করুন",
+                },
 
+                "address[present][present_address_house_address][postal_code]": {
+                    required: "এখানে ডাকঘর প্রদান করুন",
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক ডাকঘর প্রদান করুন"
                 },
+
+                "address[present][present_address_house_address][village_name]": {
+                    required: "এখানে গ্রাম/মহল্লা/এলাকা প্রদান করুন",
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক গ্রাম/মহল্লা/এলাকা প্রদান করুন"
+                },
+                "address[present][present_address_house_address][house_and_road]": {
+                    required: "এখানে বাড়ি নং/রোড প্রদান করুন",
+                    houseOrRoadNumber: "এখানে সঠিক বাড়ি নং/রোড প্রদান করুন",
+                },
+
                 "address[permanent][permanent_address_house_address][postal_code]": {
-                    pattern: "Please valid postal code",
+                    required: "এখানে ডাকঘর প্রদান করুন",
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক ডাকঘর প্রদান করুন"
                 },
+                "address[permanent][permanent_address_house_address][village_name]": {
+                    required: "এখানে গ্রাম/মহল্লা/এলাকা প্রদান করুন",
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক গ্রাম/মহল্লা/এলাকা প্রদান করুন"
+                },
+                "address[permanent][permanent_address_house_address][house_and_road]": {
+                    required: "এখানে বাড়ি নং/রোড প্রদান করুন",
+                    houseOrRoadNumber: "এখানে সঠিক বাড়ি নং/রোড প্রদান করুন",
+                },
+
+                "address[permanent][permanent_address_division_id]": {
+                    required: "বিভাগ নির্বাচন করুন",
+                },
+                "address[permanent][permanent_address_district_id]": {
+                    required: "জেলা নির্বাচন করুন",
+                },
+                "address[permanent][permanent_address_upazila_id]": {
+                    required: "উপজেলা/থানা নির্বাচন করুন",
+                },
+
+                "academicQualification[jsc][examination_name]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[ssc][examination_name]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[hsc][examination_name]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[jsc][board]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[ssc][board]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[hsc][board]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+
+
+
+
                 "academicQualification[jsc][roll_no]": {
-                    pattern: "Please inter valid Roll Number"
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    pattern: "এখানে সঠিক রোল নাম্বার দিন"
                 },
                 "academicQualification[ssc][roll_no]": {
-                    pattern: "Please inter valid Roll Number"
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    pattern: "এখানে সঠিক রোল নাম্বার দিন"
                 },
                 "academicQualification[hsc][roll_no]": {
-                    pattern: "Please inter valid Roll Number"
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    pattern: "এখানে সঠিক রোল নাম্বার দিন"
                 },
                 "academicQualification[jsc][reg_no]": {
-                    pattern: "Please inter valid Registration Number"
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    pattern: "এখানে সঠিক রেজিস্ট্রেশন নাম্বার দিন"
                 },
                 "academicQualification[ssc][reg_no]": {
-                    pattern: "Please inter valid Registration Number"
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    pattern: "এখানে সঠিক রেজিস্ট্রেশন নাম্বার দিন"
                 },
                 "academicQualification[hsc][reg_no]": {
-                    pattern: "Please inter valid Registration Number"
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    pattern: "এখানে সঠিক রেজিস্ট্রেশন নাম্বার দিন"
                 },
 
             },
@@ -2259,31 +2401,29 @@
             }
         });
 
+        $(document).ready(function () {
+            $("#student_pic").change(async function () {
+                await readURL(this); //preview image
+                youthRegistrationForm.validate().element("#student_pic");
+            });
+
+            $("#student_signature_pic").change( async function () {
+                await readURL(this);
+                youthRegistrationForm.validate().element("#student_signature_pic");
+            });
+        })
+
         function readURL(input) {
-            if (input.files && input.files[0]) {
+            return new Promise(function (resolve, reject) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
-                    $(input).parent().find('.avatar-preview img').attr('src', e.target.result);
-                }
+                reader.onload = (e) => {
+                    $("." + input.id + ' img').attr('src', e.target.result);
+                    resolve(e.target.result);
+                };
+                reader.onerror = reject;
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
-            }
+            });
         }
-
-
-        $("#image_upload_field").change(function () {
-            readURL(this);
-        });
-
-
-
-        $("#student_pic").change(function () {
-            readURL(this); //preview image
-        });
-
-        $("#student_signature_pic").change(function () {
-            readURL(this);
-        });
-
 
         function setFormFields(restrictedField) {
             const ON = 1;

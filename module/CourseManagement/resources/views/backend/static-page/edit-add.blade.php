@@ -140,7 +140,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="page_id">{{ __('Page Id')}}<span
+                                    <label for="page_id">{{ __('Page ID')}}<span
                                             style="color: red"> * </span></label>
                                     <input type="text"
                                            {{--{{($edit && $staticPage->institute_id) ?'': 'disabled'}}--}} class="form-control"
@@ -312,7 +312,7 @@
             toolbar_sticky: true,
             image_advtab: true,
             importcss_append: true,
-            height: 600,
+            height: 300,
             image_caption: true,
             quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
             noneditable_noneditable_class: 'mceNonEditable',
@@ -328,6 +328,10 @@
             convert_urls: true,
             plugins: 'code',
         });
+
+        if($('#tinymce p').val().length>0){
+            $('#page_contents').valid();
+        }
 
     </script>
 @endpush

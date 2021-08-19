@@ -41,7 +41,7 @@ class YouthLoginController
             return $request->wantsJson()
                 ? new JsonResponse([], 204)
                 : redirect()->intended(route('/'))
-                    ->with(['message' => 'লগইন সাকসেসফুল.', 'alert-type' => 'success']);
+                    ->with(['message' => 'লগইন সফল হয়েছে', 'alert-type' => 'success']);
         }
 
         return redirect()->back()

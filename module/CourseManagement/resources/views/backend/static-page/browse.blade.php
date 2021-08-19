@@ -72,7 +72,7 @@
                         name: "title_bn"
                     },
                     {
-                        title: "Page Id",
+                        title: "Page ID",
                         data: "page_id",
                         name: "page_id"
                     },

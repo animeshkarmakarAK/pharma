@@ -64,7 +64,7 @@
                                     name="video_id"
                                     id="video_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}"
-                                    data-label-fields="{title_bn} - {institute_id}"
+                                    data-label-fields="{title_bn}"
                                     data-depend-on-optional="institute_id"
                                     data-placeholder="ভিডিও সিলেক্ট করুন"
                             >
@@ -204,7 +204,7 @@
                 window.scrollTo(0,0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
-                    html += '<div class="text-center mt-5" "><div class="fa fa-sad-tear fa-2x"></div><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
+                    html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
                 }
                 $.each(response.data?.data, function (i, item) {
                     html += template(item);
