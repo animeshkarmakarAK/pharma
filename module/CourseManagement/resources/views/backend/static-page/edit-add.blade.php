@@ -220,7 +220,7 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -332,6 +332,19 @@
         if($('#tinymce p').val().length>0){
             $('#page_contents').valid();
         }
+
+        $('#page_contents').on('change', function() {
+            $(this).valid();
+        });
+
+        /*$('#page_contents').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });*/
+
+        $('#tinyeditor_ifr').contents().find('body').text()
 
     </script>
 @endpush

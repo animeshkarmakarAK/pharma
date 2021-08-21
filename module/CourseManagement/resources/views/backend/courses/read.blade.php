@@ -110,20 +110,20 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Prerequisite') }}</p>
                     <div class="input-box">
-                        {{ $course->prerequisite ?? "N/A"}}
+                        {{ $course->prerequisite ?? ""}}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Eligibility') }}</p>
                     <div class="input-box">
-                        {{ $course->eligibility ?? "N/A"}}
+                        {{ $course->eligibility ?? ""}}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Description')  }}</p>
                     <div class="input-box">
-                        {{ $course->description ?? "N/A" }}
+                        {{ $course->description ?? "" }}
                     </div>
                 </div>
 

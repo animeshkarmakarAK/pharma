@@ -168,7 +168,7 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,

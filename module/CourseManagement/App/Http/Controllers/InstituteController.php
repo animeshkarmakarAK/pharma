@@ -80,7 +80,7 @@ class InstituteController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.institutes.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Institute']),
             'alert-type' => 'success'
         ]);

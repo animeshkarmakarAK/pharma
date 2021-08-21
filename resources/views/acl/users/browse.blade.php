@@ -39,6 +39,18 @@
 
 @push('css')
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
+
+    <style>
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #user_type_id-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+    </style>
 @endpush
 
 @push('js')
@@ -209,7 +221,7 @@
                     rules: {
                         name_en: {
                             required: true,
-                            pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                            pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                         },
                         name_bn: {
                             required: true,
@@ -249,6 +261,9 @@
                         },
                     },
                     messages: {
+                        name_en: {
+                            pattern: "Please fill this field in English."
+                        },
                         name_bn: {
                             pattern: "Please fill this field in Bangla."
                         },
@@ -268,6 +283,7 @@
                         })
                             .done(function (responseData) {
                                 toastr.success(responseData.message);
+                                editAddModal.modal('hide');
                             })
                             .fail(window.ajaxFailedResponseHandler)
                             .always(function () {

@@ -51,7 +51,7 @@
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $video->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title in Bangla') }}">
+                                           placeholder="{{ __('Title') }}">
                                 </div>
                             </div>
 
@@ -250,7 +250,7 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,

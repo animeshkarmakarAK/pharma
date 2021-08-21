@@ -68,12 +68,6 @@
                         name: "institutes.title_en",
                         visible: false,
                     },
-
-                    {
-                        title: "Active Status",
-                        data: "row_status",
-                        name: "row_status.code"
-                    },
                     {
                         title: "Action",
                         data: "action",

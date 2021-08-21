@@ -39,6 +39,7 @@
                             @else
                                 <div class="form-group col-md-6">
                                     <label for="institute_id">Institute Name <span style="color: red"> * </span></label>
+                                    <input type="hidden" id="today" name="today">
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
                                             id="institute_id"
@@ -238,6 +239,15 @@
             const EDIT = !!'{{$edit}}';
             let SL = 0;
 
+            let today = new Date();
+            today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-1)).slice(-2);
+            console.log('Today: '+today)
+            $('#today').val(today);
+
+            $('.application_start_date').on('change', function (){
+                console.log($('.application_start_date').val())
+            })
+
             function addRow(data = {}) {
                 let courseSession = _.template($('#course-sessions').html());
                 console.table('course session template:', courseSession);
@@ -251,10 +261,30 @@
                     });
                 });
 
+                $.validator.addMethod(
+                    "sessionNameEn",
+                    function (value, element) {
+                        let regexp = "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$";
+                        let re = new RegExp(regexp);
+                        return this.optional(element) || re.test(value);
+                    },
+                    "Please fill this field in English."
+                );
+                $.validator.addMethod(
+                    "sessionNameBn",
+                    function (value, element) {
+                        let regexp = "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$";
+                        let re = new RegExp(regexp);
+                        return this.optional(element) || re.test(value);
+                    },
+                    "This field is required in Bangla."
+                );
+
 
                 $.validator.addClassRules("number_of_batches", {required: true});
                 $.validator.addClassRules("application_start_date", {
                     required: true,
+                    greaterThan: '#today',
                 });
                 $.validator.addClassRules("application_end_date", {
                     required: true,
@@ -265,13 +295,27 @@
                     greaterThan: ".application_end_date",
                 });
                 $.validator.addClassRules("max_seat_available", {required: true});
+
                 $.validator.addClassRules("session_name_en", {
                     required: true,
-                    pattern: "^[a-zA-Z0-9$@$!%*?&#()[/{}^-_. +]+$",
+                    sessionNameEn: true,
                 });
                 $.validator.addClassRules("session_name_bn", {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                    sessionNameBn: true,
+                });
+
+
+                $('#course-sessions').validate({
+                    messages: {
+                        "course_sessions[sl][application_start_date]":{
+                            greaterThan: "Baal"
+                        }
+                    },
+                    submitHandler: function (htmlForm) {
+                        $('.overlay').show();
+                        htmlForm.submit();
+                    }
                 });
                 SL++;
             }
@@ -388,6 +432,7 @@
                                 <input type="text"
                                        class="flat-date flat-date-custom-bg form-control application_start_date"
                                        name="course_sessions[<%=sl%>][application_start_date]"
+                                       id="course_sessions[<%=sl%>][application_start_date]"
                                        value="<%=edit ? data.application_start_date : ''%>">
                             </div>
                         </div>

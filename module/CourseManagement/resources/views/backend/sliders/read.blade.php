@@ -58,7 +58,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Active Status') }}</p>
                     <div class="input-box">
-                        {{ $slider->row_status == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE ? "Active" : "Inactive" }}
+                        {!! $slider->getCurrentRowStatus(true) !!}
                     </div>
                 </div>
 

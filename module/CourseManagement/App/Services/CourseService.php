@@ -181,6 +181,7 @@ class CourseService
             'courses.objects',
             'courses.training_methodology',
             'courses.evaluation_system',
+            'courses.row_status',
             'courses.created_at',
             'courses.updated_at',
             'institutes.title_en as institute_title',
@@ -202,7 +203,10 @@ class CourseService
                 }
                 return $str;
             }))
-            ->rawColumns(['action'])
+            ->editColumn('row_status', function (Course $course) {
+                return $course->getCurrentRowStatus(true);
+            })
+            ->rawColumns(['action','row_status'])
             ->toJson();
     }
 }

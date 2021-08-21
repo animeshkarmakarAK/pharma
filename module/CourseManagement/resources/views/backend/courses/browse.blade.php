@@ -119,6 +119,14 @@
                         visible: false,
                     },
                     {
+                        title: "Status",
+                        data: "row_status",
+                        name: "courses.row_status",
+                        orderable: false,
+                        searchable: false,
+                        visible: true
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         name: "action",

@@ -354,6 +354,9 @@
                 'mobile_numbers[]': {
                     pattern: 'Please enter valid mobile number',
                 },
+                logo: {
+                    accept: 'Please upload valid image file',
+                },
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

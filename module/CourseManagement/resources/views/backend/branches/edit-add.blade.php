@@ -106,6 +106,21 @@
     @include('utils.delete-confirm-modal')
 
 @endsection
+
+@push('css')
+    <style>
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #institute_id-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+    </style>
+@endpush
+
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
@@ -117,7 +132,7 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$",
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,

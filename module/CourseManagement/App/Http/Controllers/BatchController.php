@@ -118,8 +118,8 @@ class BatchController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Batch updated']),
+        return redirect()->route('course_management::admin.batches.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Batch']),
             'alert-type' => 'success'
         ]);
     }
