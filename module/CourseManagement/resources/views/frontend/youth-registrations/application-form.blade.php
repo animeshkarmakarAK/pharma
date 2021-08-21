@@ -16,8 +16,7 @@
                     <div class="card card mb-0">
                         <div class="card-body">
                             <div class="text-info text-center">
-                                You are applying for the <strong>{{optional($publishCourse->course)->title_en}}</strong>
-                                course
+                                আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ আবেদন করছেন
                             </div>
                         </div>
                     </div>
@@ -132,7 +131,7 @@
                                                 name="course_id"
                                                 id="course_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
-                                                data-label-fields="{course.title_en}"
+                                                data-label-fields="{course.title_bn}"
                                                 data-depend-on-optional="institute_id|branch_id|training_center_id|programme_id"
                                                 data-placeholder="নির্বাচন করুন"
                                         >
@@ -143,22 +142,22 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="gender">লিঙ্গ<span class="required">*</span> :</label>
-                                    <div class="d-md-flex">
-                                        <div class="custom-control custom-radio ml-2">
+                                    <div class="d-md-flex form-control">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_male"
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE }}"
                                                 {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
                                             <label for="gender_male" class="custom-control-label">পুরুষ</label>
                                         </div>
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_female"
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
                                                 {{ old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
                                             <label for="gender_female" class="custom-control-label">মহিলা</label>
                                         </div>
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_hermaphrodite"
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_HERMAPHRODITE }}"
@@ -166,7 +165,7 @@
                                             <label for="gender_hermaphrodite"
                                                    class="custom-control-label">উভলিঙ্গ</label>
                                         </div>
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_transgender"
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER }}"
@@ -203,33 +202,37 @@
                                 <div class="form-group col-md-6">
                                     <label for="marital_status">বৈবাহিক অবস্থা <span
                                             class="required">*</span> :</label>
-                                    <div class="custom-control  custom-radio">
-                                        <input class="custom-control-input" type="radio" id="marital_status_married"
-                                               name="marital_status"
-                                               value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED }}"
-                                            {{ old('marital_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED ? 'checked' : '' }}>
-                                        <label for="marital_status_married" class="custom-control-label">বিবাহিত</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" id="marital_status_single"
-                                               name="marital_status"
-                                               value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo:: MARITAL_STATUS_SINGLE}}"
-                                            {{ old('marital_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_SINGLE ? 'checked' : '' }}>
-                                        <label for="marital_status_single" class="custom-control-label">অবিবাহিত</label>
+                                    <div class="form-control">
+                                        <div class="custom-control  custom-radio d-inline-block mr-3">
+                                            <input class="custom-control-input" type="radio" id="marital_status_married"
+                                                   name="marital_status"
+                                                   value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED }}"
+                                                {{ old('marital_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED ? 'checked' : '' }}>
+                                            <label for="marital_status_married"
+                                                   class="custom-control-label">বিবাহিত</label>
+                                        </div>
+                                        <div class="custom-control custom-radio d-inline-block mr-3">
+                                            <input class="custom-control-input" type="radio" id="marital_status_single"
+                                                   name="marital_status"
+                                                   value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo:: MARITAL_STATUS_SINGLE}}"
+                                                {{ old('marital_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_SINGLE ? 'checked' : '' }}>
+                                            <label for="marital_status_single"
+                                                   class="custom-control-label">অবিবাহিত</label>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="religion">ধর্ম<span class="required">*</span> :</label>
-                                    <div class="d-md-flex">
-                                        <div class="custom-control custom-radio ml-2">
+                                    <div class="d-md-flex form-control">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_islam"
                                                    name="religion"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM }}"
                                                 {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM ? 'checked' : '' }}>
                                             <label for="religion_islam" class="custom-control-label">ইসলাম</label>
                                         </div>
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_hindu"
                                                    name="religion"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_HINDU }}"
@@ -237,7 +240,7 @@
 
                                             <label for="religion_hindu" class="custom-control-label">হিন্দু</label>
                                         </div>
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_christian"
                                                    name="religion"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN }}"
@@ -246,7 +249,7 @@
                                                    class="custom-control-label">খ্রিস্টান</label>
                                         </div>
 
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_buddhist"
                                                    name="religion"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST }}"
@@ -254,7 +257,7 @@
                                             <label for="religion_buddhist" class="custom-control-label">বৌদ্ধ</label>
                                         </div>
 
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_jain"
                                                    name="religion"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_JAIN }}"
@@ -262,7 +265,7 @@
                                             <label for="religion_jain" class="custom-control-label">জৈন</label>
                                         </div>
 
-                                        <div class="custom-control custom-radio ml-2">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_other"
                                                    name="religion"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS }}"
@@ -331,30 +334,18 @@
                                 @endif
 
 
-
                                 <div class="form-group col-md-6 physical-disability-information">
-                                    <label for="disable_status">শারীরিক প্রতিবন্ধী?<span
-                                            class="required">*</span> :</label>
-                                    <div class="input-group">
-                                        <div class="custom-control custom-radio">
+                                    <label for="disable_status">শারীরিক প্রতিবন্ধী?
+                                        <span class="required">*</span>:</label>
+                                    <div class="input-group form-control">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input type="radio" name="disable_status"
                                                    class="custom-control-input"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
                                                    id="physically_disable" {{ old('disable_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="physically_disable">হ্যাঁ</label>
                                         </div>
-                                        <div class="col">
-                                            <select name="physical_disabilities" id="physical_disabilities"
-                                                    class="select2" multiple>
-                                                @foreach(\Module\CourseManagement\App\Models\YouthFamilyMemberInfo::getPhysicalDisabilityOptions() as $key => $value)
-                                                    <option
-                                                        value="{{ $key }}" {{ $key == old('physical_disabilities') ? 'selected': '' }}>{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="custom-control custom-radio">
+                                        <div class="custom-control custom-radio mr-3">
                                             <input type="radio" name="disable_status"
                                                    class="custom-control-input"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT }}"
@@ -363,27 +354,36 @@
                                             <label class="custom-control-label" for="physically_not_disable">না</label>
                                         </div>
                                     </div>
+                                    <div class="mt-2">
+                                        <select name="physical_disabilities" id="physical_disabilities"
+                                                class="select2" multiple>
+                                            @foreach(\Module\CourseManagement\App\Models\YouthFamilyMemberInfo::getPhysicalDisabilityOptions() as $key => $value)
+                                                <option
+                                                    value="{{ $key }}" {{ $key == old('physical_disabilities') ? 'selected': '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-md-6 ethnic-group-information">
                                     <label for="ethnic_group">ক্ষুদ্র নৃগোষ্ঠী?<span
                                             class="required">*</span>:</label>
-                                    <div class="input-group">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" name="ethnic_group"
-                                                   class="custom-control-input"
-                                                   value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
-                                                   id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="ethnic_group_yes">হ্যাঁ</label>
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" name="ethnic_group"
-                                                   class="custom-control-input"
-                                                   value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
-                                                   id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="ethnic_group_no">না</label>
+                                    <div class="form-control">
+                                        <div class="input-group">
+                                            <div class="custom-control custom-radio d-inline-block mr-3">
+                                                <input type="radio" name="ethnic_group"
+                                                       class="custom-control-input"
+                                                       value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES }}"
+                                                       id="ethnic_group_yes" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="ethnic_group_yes">হ্যাঁ</label>
+                                            </div>
+                                            <div class="custom-control custom-radio d-inline-block mr-3">
+                                                <input type="radio" name="ethnic_group"
+                                                       class="custom-control-input"
+                                                       value="{{ \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO }}"
+                                                       id="ethnic_group_no" {{ old('ethnic_group') == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_NO? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="ethnic_group_no">না</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1268,43 +1268,44 @@
                 </div>
 
                 <div class="col-md-12 occupation-information">
-                        <div class="card">
-                            <div class="card-header custom-bg-gradient-info">
-                                <h3 class="card-title font-weight-bold text-primary"><i
-                                        class="fa fa-address-book fa-fw"> </i> পেশাগত তথ্য</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="col-md-4">
-                                        <label for="main_occupation">প্রধান পেশা</label>
-                                        <input type="text" name="main_occupation" class="form-control"
-                                               value="{{ old('main_occupation') }}">
-                                    </div>
+                    <div class="card">
+                        <div class="card-header custom-bg-gradient-info">
+                            <h3 class="card-title font-weight-bold text-primary"><i
+                                    class="fa fa-address-book fa-fw"> </i> পেশাগত তথ্য</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-md-4 mb-2">
+                                    <label for="main_occupation">প্রধান পেশা</label>
+                                    <input type="text" name="main_occupation" class="form-control"
+                                           value="{{ old('main_occupation') }}">
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <label for="other_occupation">অন্যান্য পেশা</label>
-                                        <input type="text" name="other_occupations" class="form-control"
-                                               value="{{ old('other_occupations') }}">
-                                    </div>
+                                <div class="col-md-4 mb-2">
+                                    <label for="other_occupation">অন্যান্য পেশা</label>
+                                    <input type="text" name="other_occupations" class="form-control"
+                                           value="{{ old('other_occupations') }}">
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <label for="personal_monthly_income">মাসিক আয়</label>
-                                        <input type="number" name="personal_monthly_income" class="form-control"
-                                               value="{{ old('personal_monthly_income') }}">
-                                    </div>
+                                <div class="col-md-4 mb-2">
+                                    <label for="personal_monthly_income">মাসিক আয়</label>
+                                    <input type="number" name="personal_monthly_income" class="form-control"
+                                           value="{{ old('personal_monthly_income') }}">
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <label for="year_of_experience">অভিজ্ঞতার বছর</label>
-                                        <input type="number" name="year_of_experience" class="form-control"
-                                               value="{{ old('year_of_experience') }}">
-                                    </div>
+                                <div class="col-md-4 mb-2">
+                                    <label for="year_of_experience">অভিজ্ঞতার বছর</label>
+                                    <input type="number" name="year_of_experience" class="form-control"
+                                           value="{{ old('year_of_experience') }}">
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="current_employment_status">বর্তমানে
-                                                কর্মরত?<span class="required">*</span>:</label>
+                                <div class="col-md-4 mb-2">
+                                    <div class="form-group">
+                                        <label for="current_employment_status">বর্তমানে
+                                            কর্মরত?</label>
+                                        <div class="form-control">
                                             <div class="input-group">
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio d-inline-block mr-3">
                                                     <input type="radio" name="current_employment_status"
                                                            class="custom-control-input"
                                                            value="{{ \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_YES }}"
@@ -1312,9 +1313,7 @@
                                                     <label class="custom-control-label"
                                                            for="currently_employed_yes">হ্যাঁ</label>
                                                 </div>
-                                            </div>
-                                            <div class="input-group">
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio d-inline-block mr-3">
                                                     <input type="radio" name="current_employment_status"
                                                            class="custom-control-input"
                                                            value="{{ \Module\CourseManagement\App\Models\YouthRegistration::CURRENT_EMPLOYMENT_STATUS_NO }}"
@@ -1325,11 +1324,13 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
                 <div class="col-md-12 guardian-information">
                     <div class="card">
@@ -1429,7 +1430,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="mothers_nid">এন.আই.ডি নং::<span
+                                                        <label for="mothers_nid">এন.আই.ডি নং:<span
                                                                 class="required">*</span></label>
                                                         <input type="text" name="familyMember[mother][nid]"
                                                                id="mothers_nid"
@@ -1457,11 +1458,13 @@
                                 <div class="col-md-12 guardian-information">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="form-group form-check-inline">
+                                            <div class="form-group">
                                                 <label for="guardian"
-                                                       class="font-weight-bold">অভিভাবক: </label>
-                                                <div class="input-group">
-                                                    <div class="custom-control custom-radio ml-5">
+                                                       class="font-weight-bold">অভিভাবক:<span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="input-group form-control">
+                                                    <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
                                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_FATHER }}"
                                                                id="guardian-father"
@@ -1469,10 +1472,8 @@
                                                         <label for="guardian-father"
                                                                class="custom-control-label">পিতা</label>
                                                     </div>
-                                                </div>
 
-                                                <div class="input-group">
-                                                    <div class="custom-control custom-radio ml-5">
+                                                    <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
                                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_MOTHER }}"
                                                                id="guardian-mother"
@@ -1480,9 +1481,8 @@
                                                         <label for="guardian-mother"
                                                                class="custom-control-label">মাতা</label>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <div class="custom-control custom-radio ml-5">
+
+                                                    <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
                                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER }}"
                                                                id="guardian-other"
@@ -1491,9 +1491,11 @@
                                                                class="custom-control-label">অন্যান্য</label>
                                                     </div>
                                                 </div>
+
                                             </div>
+
                                         </div>
-                                        <div class="card-body guardian-info">
+                                        <div class="card-body guardian-info" style="display: none">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -1562,76 +1564,76 @@
                 </div>
 
 
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header custom-bg-gradient-info">
-                                <h3 class="card-title font-weight-bold text-primary"><i
-                                        class="fa fa-address-book fa-fw"> </i> অন্যান্য তথ্য</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <div class="custom-control custom-checkbox ml-2">
-                                            <input class="custom-control-input" type="checkbox"
-                                                   id="have_family_own_house"
-                                                   name="have_family_own_house"
-                                                   value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE }}" {{ old('have_family_own_house') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE ? 'selected' : '' }}>
-                                            <label for="have_family_own_house" class="custom-control-label">
-                                                পরিবারের নিজস্ব বাড়ি আছে?</label>
-                                        </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header custom-bg-gradient-info">
+                            <h3 class="card-title font-weight-bold text-primary"><i
+                                    class="fa fa-address-book fa-fw"> </i> অন্যান্য তথ্য</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input class="custom-control-input" type="checkbox"
+                                               id="have_family_own_house"
+                                               name="have_family_own_house"
+                                               value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE }}" {{ old('have_family_own_house') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_HOUSE ? 'selected' : '' }}>
+                                        <label for="have_family_own_house" class="custom-control-label">
+                                            পরিবারের নিজস্ব বাড়ি আছে?</label>
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-md-4">
-                                        <div class="custom-control custom-checkbox ml-2">
-                                            <input class="custom-control-input" type="checkbox"
-                                                   id="have_family_own_land"
-                                                   name="have_family_own_land"
-                                                   value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND }}" {{ old('have_family_own_land') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND ? 'selected' : ''}}>
-                                            <label for="have_family_own_land" class="custom-control-label">
-                                                পরিবারের নিজস্ব জমি আছে?</label>
-                                        </div>
+                                <div class="form-group col-md-4">
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input class="custom-control-input" type="checkbox"
+                                               id="have_family_own_land"
+                                               name="have_family_own_land"
+                                               value="{{ \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND }}" {{ old('have_family_own_land') == \Module\CourseManagement\App\Models\YouthRegistration::HAVE_FAMILY_OWN_LAND ? 'selected' : ''}}>
+                                        <label for="have_family_own_land" class="custom-control-label">
+                                            পরিবারের নিজস্ব জমি আছে?</label>
                                     </div>
+                                </div>
 
 
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="number_of_siblings">ভাই-বোনের সংখ্যা</label>
-                                            <input type="number" class="form-control" name="number_of_siblings"
-                                                   id="number_of_siblings" value="{{ old('number_of_siblings') }}">
-                                        </div>
+                                <div class="form-group col-md-4">
+                                    <div class="form-group">
+                                        <label for="number_of_siblings">ভাই-বোনের সংখ্যা</label>
+                                        <input type="number" class="form-control" name="number_of_siblings"
+                                               id="number_of_siblings" value="{{ old('number_of_siblings') }}">
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-md-4">
-                                        <div class="custom-control custom-checkbox ml-2">
-                                            <input class="custom-control-input" type="checkbox"
-                                                   id="recommended_by_organization"
-                                                   name="recommended_by_organization"
-                                                   value="{{ \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION }}" {{ old('recommended_by_organization') == \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION ? 'selected' : '' }}>
-                                            <label for="recommended_by_organization" class="custom-control-label">
-                                                কোন প্রতিষ্ঠান/সংস্থা দ্বারা প্রস্তাবিত?</label>
-                                        </div>
+                                <div class="form-group col-md-4">
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input class="custom-control-input" type="checkbox"
+                                               id="recommended_by_organization"
+                                               name="recommended_by_organization"
+                                               value="{{ \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION }}" {{ old('recommended_by_organization') == \Module\CourseManagement\App\Models\YouthRegistration::RECOMMENDED_BY_ORGANIZATION ? 'selected' : '' }}>
+                                        <label for="recommended_by_organization" class="custom-control-label">
+                                            কোন প্রতিষ্ঠান/সংস্থা দ্বারা প্রস্তাবিত?</label>
                                     </div>
+                                </div>
 
-                                    <div class=" form-group col-md-4 recommended_org_name_field">
-                                        <label for="recommended_org_name">প্রতিষ্ঠান/সংস্থা নাম</label>
-                                        <input type="text" name="recommended_org_name" id="recommended_org_name"
-                                               class="form-control" value="{{ old('recommended_org_name') }}">
-                                    </div>
+                                <div class=" form-group col-md-4 recommended_org_name_field">
+                                    <label for="recommended_org_name">প্রতিষ্ঠান/সংস্থা নাম</label>
+                                    <input type="text" name="recommended_org_name" id="recommended_org_name"
+                                           class="form-control" value="{{ old('recommended_org_name') }}">
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <input type="submit" class="btn btn-primary float-right" value="আবেদন করুন">
-                            </div>
-                            <div class="overlay" style="display: none">
-                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-                            </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="submit" class="btn btn-primary float-right" value="আবেদন করুন">
+                        </div>
+                        <div class="overlay" style="display: none">
+                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>
@@ -1661,7 +1663,7 @@
                 let bn = /^[\s'\u0980-\u09ff]+$/i;
                 let reEn = new RegExp(en);
                 let reBn = new RegExp(bn);
-                return this.optional(element) || reEn.test(value)|| reBn.test(value);
+                return this.optional(element) || reEn.test(value) || reBn.test(value);
             },
             "textEnBnWithoutSpecialChar is require"
         );
@@ -1705,9 +1707,20 @@
                 let bn = /^[\s'\u0980-\u09ff\\০-৯]+$/i;
                 let reEn = new RegExp(en);
                 let reBn = new RegExp(bn);
-                return this.optional(element) || reEn.test(value)|| reBn.test(value);
+                return this.optional(element) || reEn.test(value) || reBn.test(value);
             },
             "houseOrRoadNumber is require"
+        );
+        $.validator.addMethod(
+            "birthOrPassport",
+            function (value, element) {
+                let en = /^[0-9a-zA-Z ]*$/i;
+                let bn = /^[\s'\u0980-\u09ff\\০-৯]+$/i;
+                let reEn = new RegExp(en);
+                let reBn = new RegExp(bn);
+                return this.optional(element) || reEn.test(value) || reBn.test(value);
+            },
+            "birthOrPassport is true"
         );
 
         $.validator.addMethod(
@@ -1830,6 +1843,7 @@
                     nidBn: true,
                 },
                 birth_reg_no: {
+                    birthOrPassport: true,
                     required: function () {
                         return $('#passport_number').val() == "" && $('#nid').val() == "";
                     },
@@ -1838,6 +1852,7 @@
                     required: function () {
                         return $('#birth_reg_no').val() == "" && $('#nid').val() == "";
                     },
+                    birthOrPassport: true,
                 },
 
                 student_pic: {
@@ -2159,10 +2174,11 @@
                 },
                 "familyMember[father][nid]": {
                     required: true,
+                    nidBn:true,
                 },
                 "familyMember[father][mobile]": {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 "familyMember[father][date_of_birth]": {
                     required: true,
@@ -2172,10 +2188,11 @@
                 },
                 "familyMember[mother][nid]": {
                     required: true,
+                    nidBn:true,
                 },
                 "familyMember[mother][mobile]": {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 "familyMember[mother][date_of_birth]": {
                     required: true,
@@ -2199,7 +2216,7 @@
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
                     },
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 "familyMember[guardian][relation_with_youth]": {
                     required: function () {
@@ -2209,7 +2226,8 @@
                 "familyMember[guardian][nid]": {
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
-                    }
+                    },
+                    nidBn:true,
                 },
 
                 current_employment_status: {
@@ -2232,7 +2250,7 @@
                     required: "এখানে আপনার নাম বাংলায় লিখুন",
                     pattern: "এখানে আপনার সঠিক নামটি বাংলায় লিখুন",
                 },
-                mobile:{
+                mobile: {
                     required: "এখানে আপনার মোবাইল নাম্বারটি দিন",
                 },
                 gender: {
@@ -2252,14 +2270,31 @@
                 },
                 birth_reg_no: {
                     required: "এখানে জন্ম সনদ নম্বর প্রদান করুন",
+                    birthOrPassport: "এখানে আপনার সঠিক জন্ম সনদ নম্বর লিখুন",
                 },
-                passport_number:{
+                passport_number: {
                     required: "এখানে পাসপোর্ট নম্বর প্রদান করুন",
+                    birthOrPassport: "এখানে আপনার সঠিক পাসপোর্ট নম্বর লিখুন",
                 },
                 email: {
                     required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
                     pattern: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
                     email: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
+                },
+                institute_id: {
+                    required: "একটি ইনস্টিটিউট সিলেক্ট করুন",
+                },
+                course_id: {
+                    required: "একটি কোর্সে সিলেক্ট করুন",
+                },
+                disable_status: {
+                    required: "যেকোনো একটি সিলেক্ট  করুন",
+                },
+                ethnic_group: {
+                    required: "যেকোনো একটি সিলেক্ট  করুন",
+                },
+                freedom_fighter_status: {
+                    required: "মুক্তিযোদ্ধা তথ্য সিলেক্ট  করুন",
                 },
                 date_of_birth: {
                     required: "এখানে আপনার জন্ম তারিখ দিন",
@@ -2330,6 +2365,12 @@
                 "academicQualification[hsc][examination_name]": {
                     required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
                 },
+                "academicQualification[graduation][examination_name]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[masters][examination_name]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
                 "academicQualification[jsc][board]": {
                     required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
                 },
@@ -2339,10 +2380,101 @@
                 "academicQualification[hsc][board]": {
                     required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
                 },
+                "academicQualification[ssc][result]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[hsc][result]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[graduation][result]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[masters][result]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
 
+                "academicQualification[jsc][passing_year]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[ssc][passing_year]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[hsc][passing_year]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[graduation][passing_year]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[masters][passing_year]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[jsc][grade]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    min: "সর্বনিন্ম 1.00",
+                    max: "সর্বোচ্চ 5.00",
+                },
 
+                "academicQualification[ssc][grade]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
 
+                    min: "সর্বনিন্ম 1.00",
+                    max: function () {
+                        if ($('#ssc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return "সর্বোচ্চ 4.00"
+                        }
+                        if ($('#ssc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return "সর্বোচ্চ 5.00";
+                        }
+                    },
+                },
 
+                "academicQualification[hsc][grade]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+
+                    min: "সর্বনিন্ম 1.00",
+                    max: function () {
+                        if ($('#hsc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return "সর্বোচ্চ 4.00"
+                        }
+                        if ($('#hsc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return "সর্বোচ্চ 5.00";
+                        }
+                    },
+                },
+
+                "academicQualification[graduation][grade]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+
+                    min: "সর্বনিন্ম 1.00",
+                    max: function () {
+                        if ($('#graduation_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return "সর্বোচ্চ 4.00"
+                        }
+                        if ($('#graduation_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return "সর্বোচ্চ 5.00";
+                        }
+                    },
+                },
+
+                "academicQualification[masters][grade]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                    min: "সর্বনিন্ম 1.00",
+                    max: function () {
+                        if ($('#masters_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return "সর্বোচ্চ 4.00"
+                        }
+                        if ($('#masters_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return "সর্বোচ্চ 5.00";
+                        }
+                    },
+                },
+
+                "academicQualification[ssc][group]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[hsc][group]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
                 "academicQualification[jsc][roll_no]": {
                     required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
                     pattern: "এখানে সঠিক রোল নাম্বার দিন"
@@ -2367,6 +2499,73 @@
                     required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
                     pattern: "এখানে সঠিক রেজিস্ট্রেশন নাম্বার দিন"
                 },
+                "academicQualification[graduation][subject]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[masters][subject]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[graduation][institute]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[masters][institute]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[graduation][course_duration]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                "academicQualification[masters][course_duration]": {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
+                },
+                current_employment_status: {
+                    required: "যেকোনো একটি সিলেক্ট করুন",
+                },
+                "familyMember[father][member_name_en]": {
+                    required: "এখানে আপনার পিতার নাম লিখুন",
+                },
+                "familyMember[father][date_of_birth]": {
+                    required: "এখানে আপনার পিতার জন্ম তারিখ লিখুন",
+                },
+                "familyMember[father][nid]": {
+                    required: "এখানে আপনার পিতার এনআইডি লিখুন",
+                },
+                "familyMember[father][mobile]": {
+                    required: "এখানে আপনার পিতার মোবাইল নম্বর লিখুন",
+                },
+                "familyMember[mother][member_name_en]": {
+                    required: "এখানে আপনার মাতার নাম লিখুন",
+                },
+                "familyMember[mother][date_of_birth]": {
+                    required: "এখানে আপনার মাতার জন্ম তারিখ লিখুন",
+                },
+                "familyMember[mother][nid]": {
+                    required: "এখানে আপনার মাতার এনআইডি লিখুন",
+                },
+                "familyMember[mother][mobile]": {
+                    required: "এখানে আপনার মাতার মোবাইল নম্বর লিখুন",
+                },
+                guardian: {
+                    required: "আপনার অভিভাবক সিলেক্ট করুন",
+                },
+
+
+                "familyMember[guardian][member_name_en]": {
+                    required: "অভিভাবকের নাম লিখুন"
+                },
+                "familyMember[guardian][date_of_birth]": {
+                    required: "অভিভাবকের জন্মতারিখ লিখুন"
+                },
+                "familyMember[guardian][mobile]": {
+                    required: "অভিভাবকের মোবাইল লিখুন",
+                },
+                "familyMember[guardian][relation_with_youth]": {
+                    required: "অভিভাবকের আপনার সাথে সম্পর্ক লিখুন"
+                },
+                "familyMember[guardian][nid]": {
+                    required: "অভিভাবকের এন.আই.ডি লিখুন"
+                },
+
+
 
             },
             submitHandler: function (htmlForm) {
@@ -2407,7 +2606,7 @@
                 youthRegistrationForm.validate().element("#student_pic");
             });
 
-            $("#student_signature_pic").change( async function () {
+            $("#student_signature_pic").change(async function () {
                 await readURL(this);
                 youthRegistrationForm.validate().element("#student_signature_pic");
             });
@@ -2644,13 +2843,13 @@
 
             $('#course_id').on('change', function () {
                 let publishCourseId = $(this).val();
-                console.log("Miladul: "+publishCourseId);
+                console.log("Miladul: " + publishCourseId);
                 let filters = {};
                 filters['id'] = publishCourseId;
 
                 publishCourseFetch(filters)?.then(function (response) {
                     let applicationFormTypeId = response.data[0].application_form_type_id;
-                    console.log("application_form_type_id = "+applicationFormTypeId);
+                    console.log("application_form_type_id = " + applicationFormTypeId);
                     getApplicationFormType(applicationFormTypeId);
 
                 });
@@ -2816,6 +3015,33 @@
                         $('#permanent_address_upazila_id').prop('disabled', false);
                     }
                 });
+
+                $('#date_of_birth').on('change', function () {
+                    if($(this).val()!=""){
+                        $(this).valid();
+                    }
+                });
+                $('#nationality').on('change', function () {
+                    if($(this).val()!=""){
+                        $(this).valid();
+                    }
+                });
+                $('#fathers_date_of_birth').on('change', function () {
+                    if($(this).val()!=""){
+                        $(this).valid();
+                    }
+                });
+                $('#mothers_date_of_birth').on('change', function () {
+                    if($(this).val()!=""){
+                        $(this).valid();
+                    }
+                });
+                $('#guardian_date_of_birth').on('change', function () {
+                    if($(this).val()!=""){
+                        $(this).valid();
+                    }
+                });
+
             })();
 
         });

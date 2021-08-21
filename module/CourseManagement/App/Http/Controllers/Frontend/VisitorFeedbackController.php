@@ -35,8 +35,9 @@ class VisitorFeedbackController extends Controller
         return view(self::VIEW_PATH . 'read', compact('visitorFeedback'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+        //dd($request->all());
         $validatedData = $this->visitorFeedbackService->validator($request)->validate();
         try {
             $this->visitorFeedbackService->createVisitorFeedback($validatedData);

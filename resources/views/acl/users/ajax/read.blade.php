@@ -53,17 +53,6 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="text-center">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <p class="medium-text ml-2">{{ __('generic.phone')  }}</p>
-                    </div>
-                    <div class="phone">
-                        <p class="medium-text">{{ $user->mobile ? $user->mobile : "017585939" }}</p>
-                    </div>
-                </div>
-                <div class="card-header">
-                    <div class="row">
-                        <div class="text-center">
                             <i class="fa fa-envelope text-primary"></i>
                         </div>
                         <p class="medium-text ml-2 text-primary">{{ __('generic.email') }}</p>

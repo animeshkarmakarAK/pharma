@@ -24,9 +24,10 @@ class YouthRegistrationService
         $youth = array_merge($youth, $presentAddress);
         $youth = array_merge($youth, $permanentAddress);
 
-
         $youth['access_key'] = Youth::getUniqueAccessKey();
-        $youth = Youth::create($youth);
+        if(!$youth = Youth::create($youth)){
+            throw ValidationException::withMessages(['publish_course_id' => 'Youth creation failed!']);
+        }
 
 
         $youth_registration_info = Arr::only($data, ['institute_id', 'branch_id', 'programme_id', 'training_center_id',
@@ -44,7 +45,6 @@ class YouthRegistrationService
             $filename = FileHandler::storePhoto($youth_registration_info['student_signature_pic'], 'student');
             $youth_registration_info['student_signature_pic'] = 'student/' . $filename;
         }
-
         if (isset($data['student_pic'])) {
             $filename = FileHandler::storePhoto($youth_registration_info['student_pic'], 'student', 'signature_' . $youth->access_key);
             $youth_registration_info['student_pic'] = 'student/' . $filename;
@@ -54,7 +54,9 @@ class YouthRegistrationService
 
         $skipGuardian = false;
 
+
         foreach ($data['familyMember'] as $key => $familyMember) {
+
             if (($skipGuardian && $key == 'guardian') || (empty($data['guardian']) && $key == "guardian")) continue;
 
             if (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_FATHER && $key == 'father') {
@@ -66,8 +68,12 @@ class YouthRegistrationService
             } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_OTHER && $key == 'guardian') {
                 $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_OTHER;
             }
+            dd($data);
+
             $youth->youthFamilyMemberInfo()->create($familyMember);
         }
+
+
 
         /**
          * youth self info

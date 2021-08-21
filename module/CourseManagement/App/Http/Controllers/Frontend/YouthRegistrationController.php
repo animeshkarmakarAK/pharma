@@ -104,10 +104,12 @@ class YouthRegistrationController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $this->youthRegistrationService->validator($request)->validate();
+
+        $validated = $this->youthRegistrationService->validator($request)->validate();
+        //dd($validated);
         DB::beginTransaction();
         try {
-            $youth = $this->youthRegistrationService->createRegistration($request->all());
+            $youth = $this->youthRegistrationService->createRegistration($validated);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();

@@ -278,6 +278,16 @@
                     }
                 });
             }
+
+            //$("#edit-add-modal").modal({"backdrop": "static"});
+
+            $('.submit-btn').submit(function(e) {
+                e.preventDefault();
+                // Coding
+                $('#edit-add-modal').modal('toggle'); //or  $('#IDModal').modal('hide');
+                return false;
+            });
+
         });
 
 
