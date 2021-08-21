@@ -78,7 +78,7 @@
                                                     name="institute_id"
                                                     id="institute_id"
                                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                                    data-label-fields="{title_en}"
+                                                    data-label-fields="{title_bn}"
                                                     data-dependent-fields="#branch_id|#training_center_id|#programme_id|#course_id"
                                                     data-placeholder="নির্বাচন করুন"
                                             >
@@ -92,7 +92,7 @@
                                                 name="branch_id"
                                                 id="branch_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title_bn}"
                                                 data-depend-on-optional="institute_id"
                                                 data-placeholder="নির্বাচন করুন"
                                         >
@@ -105,7 +105,7 @@
                                                 name="training_center_id"
                                                 id="training_center_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title_bn}"
                                                 data-depend-on-optional="branch_id|institute_id"
                                                 data-placeholder="নির্বাচন করুন"
                                         >
@@ -118,7 +118,7 @@
                                                 name="programme_id"
                                                 id="programme_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title_bn}"
                                                 data-depend-on-optional="institute_id"
                                                 data-placeholder="নির্বাচন করুন"
                                         >
