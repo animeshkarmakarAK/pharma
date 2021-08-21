@@ -68,9 +68,9 @@ class YouthRegistrationService
             } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_OTHER && $key == 'guardian') {
                 $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_OTHER;
             }
-            dd($data);
 
             $youth->youthFamilyMemberInfo()->create($familyMember);
+
         }
 
 
