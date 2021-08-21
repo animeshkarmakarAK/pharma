@@ -16,6 +16,17 @@ use Illuminate\Validation\ValidationException;
 
 class YouthRegistrationService
 {
+    private function guardian($p1, $p2) {
+        if (empty($p1)) {
+            return false;
+        }
+        if ($p1 == $p2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function createRegistration(array $data)
     {
         $presentAddress = data_get($data, 'address.present');
@@ -28,7 +39,6 @@ class YouthRegistrationService
         if(!$youth = Youth::create($youth)){
             throw ValidationException::withMessages(['publish_course_id' => 'Youth creation failed!']);
         }
-
 
         $youth_registration_info = Arr::only($data, ['institute_id', 'branch_id', 'programme_id', 'training_center_id',
             'course_id', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status',
@@ -59,25 +69,31 @@ class YouthRegistrationService
 
             if (($skipGuardian && $key == 'guardian') || (empty($data['guardian']) && $key == "guardian")) continue;
 
-            if (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_FATHER && $key == 'father') {
-                $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_FATHER;
-                $skipGuardian = true;
-            } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_MOTHER && $key == 'mother') {
-                $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_MOTHER;
-                $skipGuardian = true;
+            if ($key == 'father') {
+                if ($this->guardian($data['guardian'], YouthFamilyMemberInfo::GUARDIAN_FATHER)) {
+                    $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_FATHER;
+                    $skipGuardian = true;
+                }
+                $familyMember['relation_with_youth'] = "father";
+
+            } elseif ($key == 'mother') {
+                if ($this->guardian($data['guardian'], YouthFamilyMemberInfo::GUARDIAN_MOTHER)) {
+                    $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_MOTHER;
+                    $skipGuardian = true;
+                }
+                $familyMember['relation_with_youth'] = "mother";
             } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_OTHER && $key == 'guardian') {
                 $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_OTHER;
             }
 
             $youth->youthFamilyMemberInfo()->create($familyMember);
-
         }
-
 
 
         /**
          * youth self info
          */
+
         $youth_self_info = Arr::only($data, ['mobile', 'educational_qualification', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
             'freedom_fighter_status', 'nid', 'birth_certificate_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
@@ -88,6 +104,7 @@ class YouthRegistrationService
             $disabilities = $youth_self_info['physical_disabilities'];
             $youth_self_info['physical_disabilities'] = collect($disabilities)->toJson();
         }
+
         $youth->youthFamilyMemberInfo()->create($youth_self_info);
 
         foreach ($data['academicQualification'] as $key => $academicQualification) {
