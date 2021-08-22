@@ -2849,7 +2849,7 @@
 
             $('#course_id').on('change', function () {
                 let publishCourseId = $(this).val();
-                console.log("Miladul: " + publishCourseId);
+                console.log("publishCourseId: " + publishCourseId);
                 let filters = {};
                 filters['id'] = publishCourseId;
 
