@@ -280,16 +280,20 @@
                     "This field is required in Bangla."
                 );
 
+                $.validator.addMethod("cGreaterThan", $.validator.methods.greaterThan,
+                    "application start date must be greater than today");
 
                 $.validator.addClassRules("number_of_batches", {required: true});
                 $.validator.addClassRules("application_start_date", {
                     required: true,
-                    greaterThan: '#today',
+                    cGreaterThan: '#today',
                 });
+
                 $.validator.addClassRules("application_end_date", {
                     required: true,
                     greaterThan: ".application_start_date",
                 });
+
                 $.validator.addClassRules("course_start_date", {
                     required: true,
                     greaterThan: ".application_end_date",
