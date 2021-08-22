@@ -304,19 +304,6 @@
                     required: true,
                     sessionNameBn: true,
                 });
-
-
-                $('#course-sessions').validate({
-                    messages: {
-                        "course_sessions[sl][application_start_date]":{
-                            greaterThan: "Baal"
-                        }
-                    },
-                    submitHandler: function (htmlForm) {
-                        $('.overlay').show();
-                        htmlForm.submit();
-                    }
-                });
                 SL++;
             }
 

@@ -104,9 +104,7 @@ class YouthRegistrationController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-
         $validated = $this->youthRegistrationService->validator($request)->validate();
-        //dd($validated);
         DB::beginTransaction();
         try {
             $youth = $this->youthRegistrationService->createRegistration($validated);

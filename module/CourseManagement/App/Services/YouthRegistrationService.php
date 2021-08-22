@@ -45,11 +45,14 @@ class YouthRegistrationService
             'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land',
             'number_of_siblings', 'student_signature_pic', 'student_pic']);
 
-        $publishCourse = PublishCourse::where('course_id', $data['course_id'])->first();
+        $publishCourse = PublishCourse::where('id', $data['course_id'])->first();
         if (!$publishCourse) {
             throw ValidationException::withMessages(['publish_course_id' => 'course config not found.']);
         }
+
         $youth_registration_info['publish_course_id'] = $publishCourse->id;
+
+
 
         if (isset($data['student_signature_pic'])) {
             $filename = FileHandler::storePhoto($youth_registration_info['student_signature_pic'], 'student');
@@ -59,11 +62,14 @@ class YouthRegistrationService
             $filename = FileHandler::storePhoto($youth_registration_info['student_pic'], 'student', 'signature_' . $youth->access_key);
             $youth_registration_info['student_pic'] = 'student/' . $filename;
         }
-        $youth->youthRegistration()->create($youth_registration_info);
 
+        $youth->youthRegistration()->create($youth_registration_info);
 
         $skipGuardian = false;
 
+        if(empty($data['guardian'])){
+            $data['guardian'] = null;
+        }
 
         foreach ($data['familyMember'] as $key => $familyMember) {
 
@@ -89,15 +95,16 @@ class YouthRegistrationService
             $youth->youthFamilyMemberInfo()->create($familyMember);
         }
 
-
         /**
          * youth self info
          */
 
-        $youth_self_info = Arr::only($data, ['mobile', 'educational_qualification', 'personal_monthly_income',
+
+        $youth_self_info = Arr::only($data, ['mobile', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
             'freedom_fighter_status', 'nid', 'birth_certificate_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
         $youth_self_info['relation_with_youth'] = "self";
+
 
         $disabilities = null;
         if (isset($youth_self_info['disable_status']) && $youth_self_info['disable_status'] == YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES) {
@@ -109,6 +116,7 @@ class YouthRegistrationService
 
         foreach ($data['academicQualification'] as $key => $academicQualification) {
             if ($academicQualification['examination_name'] == null) continue;
+
             $youth->youthAcademicQualifications()->create($academicQualification);
         }
 
@@ -159,6 +167,7 @@ class YouthRegistrationService
             'have_family_own_land' => 'nullable|int',
             'recommended_by_organization' => 'nullable|int',
             'recommended_org_name' => 'nullable|string|max:191',
+            'academicQualification' => 'nullable',
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

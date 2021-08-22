@@ -1302,7 +1302,7 @@
                                 <div class="col-md-4 mb-2">
                                     <div class="form-group">
                                         <label for="current_employment_status">বর্তমানে
-                                            কর্মরত?</label>
+                                            কর্মরত? <span class="required">*</span></label>
                                         <div class="form-control">
                                             <div class="input-group">
                                                 <div class="custom-control custom-radio d-inline-block mr-3">
@@ -1332,7 +1332,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 guardian-information">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header custom-bg-gradient-info">
                             <h3 class="card-title font-weight-bold text-primary"><i
@@ -2240,6 +2240,9 @@
                         return $('#recommended_by_organization').prop('checked') == true;
                     }
                 },
+                year_of_experience: {
+                    number: true,
+                },
             },
             messages: {
                 name_en: {
@@ -2564,6 +2567,9 @@
                 "familyMember[guardian][nid]": {
                     required: "অভিভাবকের এন.আই.ডি লিখুন"
                 },
+                year_of_experience: {
+                   number: "সঠিক অভিজ্ঞতার বছর লিখুন"
+                },
 
 
 
@@ -2851,15 +2857,16 @@
                     let applicationFormTypeId = response.data[0].application_form_type_id;
                     console.log("application_form_type_id = " + applicationFormTypeId);
                     getApplicationFormType(applicationFormTypeId);
-
                 });
+
+
+
             });
 
             $('.recommended_org_name_field').css('visibility', 'hidden');
 
             $('#recommended_by_organization').on('change', function () {
                 $('#recommended_by_organization').prop('checked') == true ? $('.recommended_org_name_field').css('visibility', 'visible') : $('.recommended_org_name_field').css('visibility', 'hidden');
-                ;
             });
 
 
@@ -3015,36 +3022,36 @@
                         $('#permanent_address_upazila_id').prop('disabled', false);
                     }
                 });
-
-                $('#date_of_birth').on('change', function () {
-                    if($(this).val()!=""){
-                        $(this).valid();
-                    }
-                });
-                $('#nationality').on('change', function () {
-                    if($(this).val()!=""){
-                        $(this).valid();
-                    }
-                });
-                $('#fathers_date_of_birth').on('change', function () {
-                    if($(this).val()!=""){
-                        $(this).valid();
-                    }
-                });
-                $('#mothers_date_of_birth').on('change', function () {
-                    if($(this).val()!=""){
-                        $(this).valid();
-                    }
-                });
-                $('#guardian_date_of_birth').on('change', function () {
-                    if($(this).val()!=""){
-                        $(this).valid();
-                    }
-                });
-
-            })();
-
+            });
         });
+
+
+        $('#date_of_birth').on('change', function () {
+            if($(this).val()!=""){
+                $(this).valid();
+            }
+        });
+        $('#nationality').on('change', function () {
+            if($(this).val()!=""){
+                $(this).valid();
+            }
+        });
+        $('#fathers_date_of_birth').on('change', function () {
+            if($(this).val()!=""){
+                $(this).valid();
+            }
+        });
+        $('#mothers_date_of_birth').on('change', function () {
+            if($(this).val()!=""){
+                $(this).valid();
+            }
+        });
+        $('#guardian_date_of_birth').on('change', function () {
+            if($(this).val()!=""){
+                $(this).valid();
+            }
+        });
+
 
     </script>
 @endpush
