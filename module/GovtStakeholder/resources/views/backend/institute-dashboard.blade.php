@@ -158,9 +158,13 @@
         </div>
     </div>
 
-    <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
-        <div class="modal-dialog" style="max-width: 100%;">
-            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+    <div class="row">
+        <div class="col-sm-10 mx-auto">
+            <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
+                <div class="modal-dialog" style="max-width: 100%;">
+                    <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -767,9 +771,10 @@
             min-width: 192px;
         }
 
-        svg{
+        svg {
             margin-bottom: 50px !important;
         }
+
         .map_content_top {
             padding: 15px 10px 0px 10px;
             line-height: 2px;
@@ -936,6 +941,7 @@
             margin-left: 0 !important;
             margin-top: 5px !important;
         }
+
         .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
             position: relative;
             min-height: 0;

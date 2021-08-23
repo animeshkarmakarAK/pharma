@@ -119,7 +119,7 @@
             }
             html += '</div>';
             html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
-            html += item.title_en;
+            html += item.title_bn;
             html += '</div></div>';
             return html;
         };
@@ -172,7 +172,7 @@
         let baseUrl = '{{route('web-api.model-resources')}}';
         const skillVideoFetch = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}",
-            columns: 'youtube_video_id|uploaded_video_path|title_en|video_type'
+            columns: 'youtube_video_id|uploaded_video_path|title_en|title_bn|video_type'
         });
 
         function videoSearch(url = baseUrl) {
@@ -184,7 +184,7 @@
 
             const filters = {};
             if (searchQuery?.toString()?.length) {
-                filters['title_en'] = {
+                filters['title_bn'] = {
                     type: 'contain',
                     value: searchQuery
                 };
