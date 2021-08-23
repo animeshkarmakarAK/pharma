@@ -127,6 +127,7 @@ class YouthRegistrationService
     {
         $rules = [
             'name_en' => 'required|string|max:191',
+            'name_bn' => 'required|string|max:191',
             'mobile' => 'required|string|max:20',
             'email' => 'required|string|max:191|email|unique:youths',
             'address.present.present_address_division_id' => 'required|int',
