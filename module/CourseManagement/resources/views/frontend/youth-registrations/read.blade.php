@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Youth(') .$youth->name_en.')' }}
+@endsection
+
 @section('content')
     <style>
         img {
@@ -221,6 +225,9 @@
                                     <td class="border-0"></td>
                                     <td class="text-center">
                                         @switch($academicQualification->examination)
+                                            @case(\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC)
+                                            {{ $academicQualification->getExamination() .'/'. $academicQualification->getJSCExaminationName() }}
+                                            @break
                                             @case(\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC)
                                             {{ $academicQualification->getExamination() .'/'. $academicQualification->getSSCExaminationName() }}
                                             @break
@@ -237,14 +244,14 @@
                                     </td>
 
                                     <td class="text-center">
-                                        @if($academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC || $academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC)
+                                        @if($academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC || $academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC || $academicQualification->examination == \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC)
                                             {{ $academicQualification->getExaminationTakingBoard() }}
                                         @else
                                             {{ $academicQualification->getCurrentUniversity() }}
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        {{ $academicQualification->getExaminationGroup() ? $academicQualification->getExaminationGroup() : $academicQualification->subject }}
+                                        {{ ($academicQualification->getExaminationGroup() ? $academicQualification->getExaminationGroup() : $academicQualification->subject) ?:'N/A' }}
                                     </td>
 
                                     <td class="text-center">

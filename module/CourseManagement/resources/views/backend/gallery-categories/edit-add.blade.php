@@ -8,6 +8,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Album' : 'Update Album' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -211,6 +215,7 @@
             rules: {
                 title_en: {
                     required: true,
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -220,6 +225,14 @@
                     required: true,
                 },
 
+            },
+            messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
+                title_bn: {
+                    pattern: "This field is required in Bangla.",
+                },
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

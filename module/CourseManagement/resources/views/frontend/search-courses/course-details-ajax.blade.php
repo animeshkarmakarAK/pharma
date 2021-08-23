@@ -13,7 +13,7 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                     <img id="cover_image" class="img-fluid" alt="Responsive image"
@@ -64,12 +64,12 @@
                             </div>
                         </div>
 
-                            <div class="col-md-6 custom-view-box">
-                                <p class="label-text">প্রশিক্ষণ পদ্ধতি</p>
-                                <div class="input-box" id="training_methodology">
-                                    {{optional($publishCourse->course)->training_methodology}}
-                                </div>
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">প্রশিক্ষণ পদ্ধতি</p>
+                            <div class="input-box" id="training_methodology">
+                                {{optional($publishCourse->course)->training_methodology}}
                             </div>
+                        </div>
 
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">মূল্যায়ন পদ্ধতি</p>
@@ -120,7 +120,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">কোর্স সেশন তালিকা</h2>
@@ -145,13 +145,12 @@
                                         <td>{{optional($session->application_end_date)->format('d/m/Y')}}</td>
                                         <td>{{optional($session->course_start_date)->format('d/m/Y')}}</td>
                                         <td>{{$session->max_seat_available}}</td>
-                                        <td>
+                                        <td colspan="3">
                                             @if($session->course_start_date && $session->course_start_date->gt(now()))
-                                                <button type="button"
-                                                        class="btn btn-success course-apply-btn"
+                                                <button type="button" style="min-width: 130px;"
+                                                        class="btn btn-success btn-block course-apply-btn"
                                                         onclick="window.location.href = `{{route('course_management::youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
-                                                >
-                                                    আবেদন করুন
+                                                >আবেদন করুন
                                                 </button>
                                             @endif
                                         </td>

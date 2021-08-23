@@ -4,6 +4,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Institute' : 'Update Institute' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -349,6 +353,9 @@
                 },
                 'mobile_numbers[]': {
                     pattern: 'Please enter valid mobile number',
+                },
+                logo: {
+                    accept: 'Please upload valid image file',
                 },
             },
             submitHandler: function (htmlForm) {

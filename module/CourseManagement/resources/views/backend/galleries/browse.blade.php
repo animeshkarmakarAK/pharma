@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Gallery List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -93,3 +97,7 @@
         });
     </script>
 @endpush
+
+
+
+

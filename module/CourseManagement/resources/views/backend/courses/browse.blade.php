@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Course List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -113,6 +117,14 @@
                         data: "evaluation_system",
                         name: "evaluation_system",
                         visible: false,
+                    },
+                    {
+                        title: "Status",
+                        data: "row_status",
+                        name: "courses.row_status",
+                        orderable: false,
+                        searchable: false,
+                        visible: true
                     },
                     {
                         title: "Action",

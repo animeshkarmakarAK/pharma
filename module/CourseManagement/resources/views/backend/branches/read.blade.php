@@ -4,6 +4,10 @@
 @endphp
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Branch') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">

@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Application Form Type') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">
@@ -40,24 +44,6 @@
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">Ethnic Group Field Show</p>
-                    <div class="input-box">
-                        {{$applicationFormType->ethnic=='1'?'Yes':'No' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">Freedom Fighter Field Show</p>
-                    <div class="input-box">
-                        {{$applicationFormType->freedom_fighter=='1'?'Yes':'No' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">Physical Disability Field Show</p>
-                    <div class="input-box">
-                        {{$applicationFormType->disable_status=='1'?'Yes':'No' }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
                     <p class="label-text">SSC Exam Field Show</p>
                     <div class="input-box">
                         {{$applicationFormType->ssc=='1'?'Yes':'No' }}
@@ -81,6 +67,42 @@
                         {{$applicationFormType->masters=='1'?'Yes':'No' }}
                     </div>
                 </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">Physical Disability Field Show</p>
+                    <div class="input-box">
+                        {{$applicationFormType->disable_status=='1'?'Yes':'No' }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">Occupation Information Field</p>
+                    <div class="input-box">
+                        {{$applicationFormType->occupation=='1'?'Yes':'No' }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">Ethnic Group Field Show</p>
+                    <div class="input-box">
+                        {{$applicationFormType->ethnic=='1'?'Yes':'No' }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">Freedom Fighter Field Show</p>
+                    <div class="input-box">
+                        {{$applicationFormType->freedom_fighter=='1'?'Yes':'No' }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">Guardian Information Field</p>
+                    <div class="input-box">
+                        {{$applicationFormType->guardian=='1'?'Yes':'No' }}
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

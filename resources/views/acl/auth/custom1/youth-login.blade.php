@@ -1,4 +1,9 @@
 @extends('master::layouts.custom1')
+
+@section('title')
+    ইয়ুথ লগইন
+@endsection
+
 @section('header', '')
 @section('footer', '')
 
@@ -30,7 +35,7 @@
                                        type="text" autocomplete="off"
                                        name="access_key"
                                        id="access_key"
-                                       placeholder="Enter your access key">
+                                       placeholder="আপনার এক্সেস কী লিখুন">
                             </div>
                         </div>
 
@@ -39,11 +44,11 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12">
-                                Forget access key? <a href="{{route('course_management::youth.password-reset')}}">Recover now</a>
+                            <div class="col-12 mt-2">
+                                এক্সেস-কী ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরদ্ধার করুন</a>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row pl-3">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
                                 <h4> হেল্প ডেস্ক</h4>
                                 <p><i class="fa fa-phone"></i>
@@ -59,8 +64,10 @@
                             </div>
                             <div class="col-md-6 col-sm-5 support pt-4">
                                 <h4>কারিগরি সহায়তায়</h4>
-                                <p><a class="tech_support" href="http://www.softbdltd.com" target="_blank">SoftBD
-                                        Ltd.</a>
+                                <p>
+                                    <a class="tech_support" href="http://www.softbdltd.com" target="_blank">
+                                        <img src="https://softbdltd.com/images/logo.png" height="35px" width="135px">
+                                    </a>
                                 </p>
                             </div>
                             <div class="col-md-12">

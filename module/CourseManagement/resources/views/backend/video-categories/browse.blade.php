@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Video Category List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -52,14 +56,14 @@
                         visible: true,
                     },
                     {
-                        title: "Title (Bn)",
+                        title: "Title (En)",
                         data: "title_en",
-                        name: "title_en"
+                        name: "video_categories.title_en"
                     },
                     {
-                        title: "Title (En)",
+                        title: "Title (Bn)",
                         data: "title_bn",
-                        name: "title_bn"
+                        name: "video_categories.title_bn"
                     },
 
                     {
@@ -70,21 +74,21 @@
                     },
                     {
                         title: "Parent Category",
-                        data: "video_parent_category_title_en",
-                        name: "video_categories.title_en",
-                        visible: false,
+                        name: "video_categories.parent_id",
+                        data: "parent",
+                        visible: true,
                     },
                     {
                         title: "Active Status",
                         data: "row_status",
-                        name: "videoCategories.row_status",
+                        name: "video_categories.row_status",
                         visible: false,
                     },
 
                     {
                         title: "Action",
                         data: "action",
-                        name: "action",
+                        name: "video_categories.action",
                         orderable: false,
                         searchable: false,
                         visible: true

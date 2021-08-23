@@ -128,7 +128,7 @@ class YouthController extends Controller
 
         if (empty($youth)) {
             return back()->with([
-                'message' => __('Email address not found!'),
+                'message' => __('ইমেইল এড্রেস পাওয়া যায়নি!'),
                 'alert-type' => 'error'
             ])->withInput();
         }
@@ -141,13 +141,13 @@ class YouthController extends Controller
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
-                'message' => __('email send failed'),
+                'message' => __('ইমেইল প্রেরণ ব্যর্থ হয়েছে'),
                 'alert-type' => 'error'
             ])->withInput();
         }
 
         return back()->with([
-            'message' => __('A recovery email sent to your email'),
+            'message' => __('রিকোভারির জন্য আপনাকে ইমেইল করা হয়েছে'),
             'alert-type' => 'success'
         ]);
     }
@@ -159,7 +159,7 @@ class YouthController extends Controller
         if ($youth == null) {
             return response()->json(true);
         }
-        return response()->json("email already been taken!");
+        return response()->json("এই ই-মেইল টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
 
 }

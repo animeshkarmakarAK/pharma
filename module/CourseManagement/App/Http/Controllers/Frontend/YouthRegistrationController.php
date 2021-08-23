@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Models\LocDivision;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Youth;
@@ -41,6 +42,7 @@ class YouthRegistrationController extends Controller
             if (!$publishCourse) {
                 $publishCourse = [];
             }
+
             $publishCourse->load([
                 'institute',
                 'course',
@@ -49,6 +51,7 @@ class YouthRegistrationController extends Controller
                 'branch',
                 'applicationFormType'
             ]);
+
         }
 
         $institutes = DB::table('institutes')
@@ -57,7 +60,7 @@ class YouthRegistrationController extends Controller
             ->where('courses.row_status', Course::ROW_STATUS_ACTIVE)
             ->distinct()
             ->get();
-
+        //dd($publishCourse->application_form_type_id);
         return \view(self::VIEW_PATH . 'application-form')->with([
             'institutes' => $institutes,
             'divisions' => $divisions,
@@ -101,10 +104,10 @@ class YouthRegistrationController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $this->youthRegistrationService->validator($request)->validate();
+        $validated = $this->youthRegistrationService->validator($request)->validate();
         DB::beginTransaction();
         try {
-            $youth = $this->youthRegistrationService->createRegistration($request->all());
+            $youth = $this->youthRegistrationService->createRegistration($validated);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();

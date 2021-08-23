@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Static Page List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -68,7 +72,7 @@
                         name: "title_bn"
                     },
                     {
-                        title: "Page Id",
+                        title: "Page ID",
                         data: "page_id",
                         name: "page_id"
                     },

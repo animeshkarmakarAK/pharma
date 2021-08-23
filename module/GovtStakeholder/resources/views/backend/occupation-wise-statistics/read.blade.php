@@ -4,6 +4,10 @@
 @endphp
 @extends('master::layouts.master')
 
+@section('title')
+    Occupation Wise Statistic For {{date("M Y", strtotime($occupationWiseStatistic->survey_date))}}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">

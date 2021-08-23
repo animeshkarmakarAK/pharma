@@ -6,13 +6,17 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Create Config Course' : 'Update Course Config' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Config Course' : 'Update Course Config' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Create Config Course' : 'Update Course Config' }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.publish-courses.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
@@ -35,6 +39,7 @@
                             @else
                                 <div class="form-group col-md-6">
                                     <label for="institute_id">Institute Name <span style="color: red"> * </span></label>
+                                    <input type="hidden" id="today" name="today">
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
                                             id="institute_id"
@@ -212,6 +217,15 @@
         .flat-date-custom-bg {
             background-color: #fafdff !important;
         }
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #institute_id-error, #application_form_type_id-error, #course_id-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
     </style>
     @endphp
 
@@ -225,6 +239,15 @@
             const EDIT = !!'{{$edit}}';
             let SL = 0;
 
+            let today = new Date();
+            today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-1)).slice(-2);
+            console.log('Today: '+today)
+            $('#today').val(today);
+
+            $('.application_start_date').on('change', function (){
+                console.log($('.application_start_date').val())
+            })
+
             function addRow(data = {}) {
                 let courseSession = _.template($('#course-sessions').html());
                 console.table('course session template:', courseSession);
@@ -237,11 +260,58 @@
                         dateFormat: "Y-m-d",
                     });
                 });
+
+                $.validator.addMethod(
+                    "sessionNameEn",
+                    function (value, element) {
+                        let regexp = "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$";
+                        let re = new RegExp(regexp);
+                        return this.optional(element) || re.test(value);
+                    },
+                    "Please fill this field in English."
+                );
+                $.validator.addMethod(
+                    "sessionNameBn",
+                    function (value, element) {
+                        let regexp = "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$";
+                        let re = new RegExp(regexp);
+                        return this.optional(element) || re.test(value);
+                    },
+                    "This field is required in Bangla."
+                );
+
+                $.validator.addMethod("cGreaterThan", $.validator.methods.greaterThan,
+                    "Application start date must be greater than today");
+                $.validator.addMethod("cApplicationEndDate", $.validator.methods.greaterThan,
+                    "Application end date must be greater than Application start date");
+                $.validator.addMethod("cCourseStartDate", $.validator.methods.greaterThan,
+                    "Course start date must be greater than Application end date");
+
                 $.validator.addClassRules("number_of_batches", {required: true});
-                $.validator.addClassRules("application_start_date", {required: true});
-                $.validator.addClassRules("application_end_date", {required: true});
-                $.validator.addClassRules("course_start_date", {required: true});
+                $.validator.addClassRules("application_start_date", {
+                    required: true,
+                    cGreaterThan: '#today',
+                });
+
+                $.validator.addClassRules("application_end_date", {
+                    required: true,
+                    cApplicationEndDate: ".application_start_date",
+                });
+
+                $.validator.addClassRules("course_start_date", {
+                    required: true,
+                    cCourseStartDate: ".application_end_date",
+                });
                 $.validator.addClassRules("max_seat_available", {required: true});
+
+                $.validator.addClassRules("session_name_en", {
+                    required: true,
+                    sessionNameEn: true,
+                });
+                $.validator.addClassRules("session_name_bn", {
+                    required: true,
+                    sessionNameBn: true,
+                });
                 SL++;
             }
 
@@ -357,6 +427,7 @@
                                 <input type="text"
                                        class="flat-date flat-date-custom-bg form-control application_start_date"
                                        name="course_sessions[<%=sl%>][application_start_date]"
+                                       id="course_sessions[<%=sl%>][application_start_date]"
                                        value="<%=edit ? data.application_start_date : ''%>">
                             </div>
                         </div>

@@ -4,11 +4,15 @@
 @endphp
 @extends('master::layouts.master')
 
+@section('title')
+    Visitor Feedback
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header text-primary custom-bg-gradient-info">
-                <h3 class="card-title font-weight-bold">Branch</h3>
+                <h3 class="card-title font-weight-bold">Visitor Feedback</h3>
 
                 <div class="card-tools">
                     <div class="btn-group">
@@ -63,7 +67,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Type') }}</p>
                     <div class="input-box">
-                        {{ $visitorFeedback->type==\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK?'Feedback':'Contact' }}
+                        {{ $visitorFeedback->form_type==\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK?'Feedback':'Contact' }}
                     </div>
                 </div>
 

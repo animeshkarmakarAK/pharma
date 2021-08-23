@@ -3,6 +3,11 @@
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 @extends('master::layouts.master')
+
+@section('title')
+    {{ __('Course Config') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">
@@ -70,7 +75,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Course Publish Status') }}</p>
                     <div class="input-box">
-                        {{ $publishCourse->rowStatus->title }}
+                        {!! $publishCourse->getCurrentRowStatus(true) !!}
                     </div>
                 </div>
 

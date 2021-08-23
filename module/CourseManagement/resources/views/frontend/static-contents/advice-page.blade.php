@@ -4,11 +4,15 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    পরামর্শ
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card pt-5 pb-5 mb-0">
+                <div class="card pt-5 pb-5 mb-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 mx-auto advice-form">
@@ -29,7 +33,7 @@
                                                       method="POST" class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
-                                                        <label for="name" class="col-sm-2 control-label text-right">নাম
+                                                        <label for="name" class="col-sm-2 control-label">নাম
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
                                                             <input required="required" maxlength="255" id="name"
@@ -43,7 +47,7 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
 
-                                                        <label for="mobile" class="col-sm-2 control-label text-right">মোবাইল
+                                                        <label for="mobile" class="col-sm-2 control-label">মোবাইল
                                                             নম্বর
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
@@ -53,7 +57,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="email" class="col-sm-2 control-label text-right"
+                                                        <label for="email" class="col-sm-2 control-label"
                                                                aria-required="true">ইমেইল <span
                                                                 style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_email">
@@ -62,7 +66,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="address" class="col-sm-2 control-label text-right">ঠিকানা</label>
+                                                        <label for="address" class="col-sm-2 control-label">ঠিকানা</label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="address" rows="2"
                                                                   id="address"></textarea>
@@ -70,16 +74,16 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
                                                         <label for="suggestion"
-                                                               class="col-sm-2 control-label text-right">মতামত
+                                                               class="col-sm-2 control-label">মতামত
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="comment" rows="4"
-                                                                  required="required" id="comment"
+                                                                  id="comment"
                                                                   aria-required="true"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <div class="col-md-12 text-right">
+                                                        <div class="col-md-12 text-center">
                                                             <div class="submit">
                                                                 <input type="submit" class="btn btn-default btn_save"
                                                                        value="সংরক্ষণ করুন">
@@ -157,24 +161,62 @@
 
 @push('js')
     <script>
+        $.validator.addMethod(
+            "nameValidation",
+            function (value, element) {
+                let regexp = /^[a-zA-Z0-9()[^-_-. ]+$/i;
+                let regexp1 = /^[\s-'\u0980-\u09ff)(. _-]{1,255}$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক নাম লিখুন"
+        );
+
+        $.validator.addMethod(
+            "mobileValidation",
+            function (value, element) {
+                let regexp1 = /^(?:\+88|88)?(01[3-9]\d{8})$/i;
+                let regexp = /^(?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8})$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক মোবাইল নাম্বার লিখুন"
+        );
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    nameValidation: true,
                 },
                 mobile: {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 email: {
                     required: true,
                     email: true
+                },
+                comment: {
+                    required: true,
                 }
             },
             messages: {
+                name: {
+                    required: "এখানে আপনার নাম লিখুন।"
+                },
                 mobile: {
-                    pattern: "Please inter valid mobile number",
+                    required: "এখানে আপনার মোবাইল নাম্বার লিখুন।",
+                },
+                email: {
+                    required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
+                    email: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন"
+                },
+                comment: {
+                    required: "এখানে আপনার মতামত লিখুন।",
                 }
             },
             submitHandler: function (htmlForm) {

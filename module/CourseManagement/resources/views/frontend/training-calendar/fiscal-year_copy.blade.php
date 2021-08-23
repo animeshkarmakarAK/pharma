@@ -6,6 +6,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    প্রশিক্ষণ বাস্তবায়ন সময়সূচি
+@endsection
+
 @section('content')
 
     <div class="container-fluid">

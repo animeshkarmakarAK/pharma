@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    Visitor Feedback List
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -58,7 +62,6 @@
             .filter-area{
                 position: absolute;
                 padding: 0 60px;
-
             }
         }
         .filter-area{
@@ -122,7 +125,7 @@
                     {
                         title: "Type",
                         data: "form_type",
-                        name: "visitor_feedback.form_type"
+                        name: "visitor_feedback.form_type",
                     },
                     {
                         title: "View Status",

@@ -5,6 +5,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Programmes') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">

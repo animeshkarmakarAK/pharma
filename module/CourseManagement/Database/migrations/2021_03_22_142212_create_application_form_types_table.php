@@ -21,6 +21,7 @@ class CreateApplicationFormTypesTable extends Migration
             $table->tinyInteger('ethnic')->nullable()->default(0)->comment("1 => in ethnic group, 2 => not in ethnic group");
             $table->tinyInteger('freedom_fighter')->nullable()->default(0);
             $table->tinyInteger('disable_status')->nullable()->default(0)->comment('1 => disable  2 => not disable');
+            $table->tinyInteger('jsc')->nullable()->default(0)->comment('is passed jsc');
             $table->tinyInteger('ssc')->nullable()->default(0)->comment('is passed ssc');
             $table->tinyInteger('hsc')->nullable()->default(0)->comment('is passed hsc');
             $table->tinyInteger('honors')->nullable()->default(0)->comment('is passed honors');

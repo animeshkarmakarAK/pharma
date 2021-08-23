@@ -1,4 +1,10 @@
 @extends('master::layouts.master')
+
+@section('title')
+    {{ __('Training Center List') }}
+@endsection
+
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

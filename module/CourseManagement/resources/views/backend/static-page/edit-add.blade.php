@@ -8,9 +8,12 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Static Page' : 'Update Static Page' }}
+@endsection
+
 @section('style')
     <style>
-
         figure.image {
             display: inline-block;
             border: 1px solid gray;
@@ -137,10 +140,10 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="page_id">{{ __('Page Id')}}<span
+                                    <label for="page_id">{{ __('Page ID')}}<span
                                             style="color: red"> * </span></label>
                                     <input type="text"
-                                           {{($edit && $staticPage->institute_id) ?'': 'disabled'}} class="form-control"
+                                           {{--{{($edit && $staticPage->institute_id) ?'': 'disabled'}}--}} class="form-control"
                                            id="page_id"
                                            name="page_id"
                                            value="{{ $edit ? $staticPage->page_id : '' }}"
@@ -182,13 +185,13 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-        $("#institute_id").change(function () {
+        /*$("#institute_id").change(function () {
             if (this.value > 0) {
                 $('#page_id').prop('disabled', false)
             } else {
                 $('#page_id').prop('disabled', true)
             }
-        })
+        })*/
 
         const editAddForm = $('.edit-add-form');
 
@@ -216,7 +219,8 @@
             },
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -251,6 +255,15 @@
                         return !editorContent?.length;
                     }
                 }
+            },
+            messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
+                title_bn: {
+                    pattern: "This field is required in Bangla.",
+                },
+
             },
 
             submitHandler: function (htmlForm) {
@@ -299,7 +312,7 @@
             toolbar_sticky: true,
             image_advtab: true,
             importcss_append: true,
-            height: 600,
+            height: 300,
             image_caption: true,
             quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
             noneditable_noneditable_class: 'mceNonEditable',
@@ -315,6 +328,23 @@
             convert_urls: true,
             plugins: 'code',
         });
+
+        if($('#tinymce p').val().length>0){
+            $('#page_contents').valid();
+        }
+
+        $('#page_contents').on('change', function() {
+            $(this).valid();
+        });
+
+        /*$('#page_contents').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });*/
+
+        $('#tinyeditor_ifr').contents().find('body').text()
 
     </script>
 @endpush

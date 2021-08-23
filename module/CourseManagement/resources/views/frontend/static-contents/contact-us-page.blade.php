@@ -4,11 +4,15 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    যোগাযোগ
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-0">
+                <div class="card mb-2">
                     <div class="container">
                         <div class="row mt-5 mb-5">
                             <div class="col-md-6 contact-us-form-area">
@@ -27,7 +31,7 @@
                                                       class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
-                                                        <label for="receiver" class="col-sm-2 control-label text-right">প্রাপক
+                                                        <label for="receiver" class="col-sm-2 control-label">প্রাপক
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
                                                             <select required="required" name="receiver" class="form-control"
@@ -62,7 +66,7 @@
                                                     <hr>
 
                                                     <div class="form-group row" aria-required="true">
-                                                        <label for="name" class="col-sm-2 control-label text-right">নাম
+                                                        <label for="name" class="col-sm-2 control-label">নাম
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
                                                             <input required="required" maxlength="255" id="name"
@@ -76,7 +80,7 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
 
-                                                        <label for="mobile" class="col-sm-2 control-label text-right">মোবাইল
+                                                        <label for="mobile" class="col-sm-2 control-label">মোবাইল
                                                             নম্বর
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
@@ -86,7 +90,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="email" class="col-sm-2 control-label text-right"
+                                                        <label for="email" class="col-sm-2 control-label"
                                                                aria-required="true">ইমেইল <span
                                                                 style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_email">
@@ -96,7 +100,7 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
                                                         <label for="suggestion"
-                                                               class="col-sm-2 control-label text-right">মতামত
+                                                               class="col-sm-2 control-label">মতামত
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="comment" rows="7"
@@ -105,7 +109,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <div class="col-md-12 text-right">
+                                                        <div class="col-md-12 text-center">
                                                             <div class="submit">
                                                                 <input type="submit" class="btn btn-default btn_save"
                                                                        value="সংরক্ষণ করুন">
@@ -165,7 +169,6 @@
                                                     <div class="mt-2" style="display: block;">
                                                         <div class="">
                                                             <iframe class="google_map_src_iframe" frameborder="0"
-                                                                    height="370px"
                                                                     src="{{ $currentInstitute->google_map_src? $currentInstitute->google_map_src :'No Map' }}"
                                                                     style="border:0; height: 353px;"
                                                                     width="100%"></iframe>
@@ -188,29 +191,35 @@
                             <div class="container">
                                 <div class="row">
                                     <!-- Addresse-->
-                                    <div class="col-md-4 contact-box">
-                                        <i class="fas fa-map-marked template-contact-icon"></i>
-                                        <p>বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র<br>
-                                            (বিটাক) ১১৬ (খ), তেজগাঁও শিল্প এলাকা <br>
-                                            <span style="margin-left: 70px;">ঢাকা - ১২০৮</span></p>
+                                    <div class="col-md-4 contact-box text-center">
+                                        <div class="d-inline-flex">
+                                            <i class="fas fa-map-marked template-contact-icon"></i>
+                                            <p style="text-align: justify">বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র<br>
+                                                (বিটাক) ১১৬ (খ), তেজগাঁও শিল্প এলাকা <br>
+                                                <span style="margin-left: 70px;">ঢাকা - ১২০৮</span>
+                                            </p>
+                                        </div>
                                     </div>
 
                                     <!--     Phone Numbers-->
-                                    <div class="col-md-4 contact-box">
-                                        {{--<img src="http://skills.gov.bd/bitac_cms/img/icons/location.png" alt="icon" class="template-contact-icon">--}}
-                                        <i class="fas fa-phone-square-alt template-contact-icon"></i>
-
-                                        <p>+৮৮-০২-৮৮৭০৬৮০<br>
-                                            +৮৮-০২-৮৮৭০২৬৬</p>
+                                    <div class="col-md-4 contact-box text-center">
+                                        <div class="d-inline-flex">
+                                            <i class="fas fa-phone-square-alt template-contact-icon"></i>
+                                            <p>+৮৮-০২-৮৮৭০৬৮০<br>
+                                                +৮৮-০২-৮৮৭০২৬৬</p>
+                                        </div>
                                     </div>
 
                                     <!-- Email Details -->
-                                    <div class="col-md-4 contact-box">
-                                        {{--<img src="http://skills.gov.bd/bitac_cms/img/icons/location.png" alt="icon" class="template-contact-icon">--}}
-                                        <i class="fas fa-envelope-open-text template-contact-icon"></i>
-                                        <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
-                                              onMouseOut="this.style.color='#212529'"
-                                              href="mailto:ict@bitac.gov.bd"><span> ict@bitac.gov.bd</span></a></p>
+                                    <div class="col-md-4 contact-box text-center">
+                                        <div class="d-inline-flex">
+                                            <i class="fas fa-envelope-open-text template-contact-icon"></i>
+                                            <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
+                                                  onMouseOut="this.style.color='#212529'"
+                                                  href="mailto:ict@bitac.gov.bd"><span> ict@bitac.gov.bd</span></a>
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +266,7 @@
             border: 1px solid #f9f9f9;
             padding: 20px;
             box-shadow: 0 0 15px #eee;
-            min-height: 550px;
+            min-height: 100%;
         }
 
         .contact-us-bottom-area {
@@ -284,24 +293,62 @@
 
 @push('js')
     <script>
+        $.validator.addMethod(
+            "nameValidation",
+            function (value, element) {
+                let regexp = /^[a-zA-Z0-9()[^-_-. ]+$/i;
+                let regexp1 = /^[\s-'\u0980-\u09ff)(. _-]{1,255}$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক নাম লিখুন"
+        );
+
+        $.validator.addMethod(
+            "mobileValidation",
+            function (value, element) {
+                let regexp1 = /^(?:\+88|88)?(01[3-9]\d{8})$/i;
+                let regexp = /^(?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8})$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "আপনার সঠিক মোবাইল নাম্বার লিখুন"
+        );
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    nameValidation: true,
                 },
                 mobile: {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 email: {
                     required: true,
                     email: true
+                },
+                comment: {
+                    required: true,
                 }
             },
             messages: {
+                name: {
+                    required: "এখানে আপনার নাম লিখুন।"
+                },
                 mobile: {
-                    pattern: "Please inter valid mobile number",
+                    required: "এখানে আপনার মোবাইল নাম্বার লিখুন।",
+                },
+                email: {
+                    required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
+                    email: true
+                },
+                comment: {
+                    required: "এখানে আপনার মতামত লিখুন।",
                 }
             },
             submitHandler: function (htmlForm) {

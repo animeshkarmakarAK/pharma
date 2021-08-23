@@ -5,6 +5,11 @@
 @endphp
 
 @extends('master::layouts.master')
+
+@section('title')
+    {{ $edit?'Edit Branch':'Create Branch' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -101,6 +106,21 @@
     @include('utils.delete-confirm-modal')
 
 @endsection
+
+@push('css')
+    <style>
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #institute_id-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+    </style>
+@endpush
+
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
@@ -111,7 +131,8 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -122,6 +143,9 @@
                 },
             },
             messages: {
+                title_en: {
+                        pattern: "This field is required in English.",
+                },
                 title_bn: {
                         pattern: "This field is required in Bangla.",
                 }

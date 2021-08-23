@@ -1,12 +1,16 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Videos List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">videos List</h3>
+                        <h3 class="card-title font-weight-bold">Videos List</h3>
                         <div class="card-tools">
                             @can('create', Module\CourseManagement\App\Models\Video::class)
                                 <a href="{{route('course_management::admin.videos.create')}}"

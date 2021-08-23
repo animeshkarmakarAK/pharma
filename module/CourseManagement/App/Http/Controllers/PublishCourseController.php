@@ -88,8 +88,8 @@ class PublishCourseController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'course publish']),
+        return redirect()->route('course_management::admin.publish-courses.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'Course Publish']),
             'alert-type' => 'success'
         ]);
     }
@@ -151,8 +151,8 @@ class PublishCourseController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Course Config']),
+        return redirect()->route('course_management::admin.publish-courses.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Course Publish']),
             'alert-type' => 'success'
         ]);
     }

@@ -49,8 +49,8 @@ class StaticPageController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'staticPage']),
+        return redirect()->route('course_management::admin.static-page.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'Static Page']),
             'alert-type' => 'success'
         ]);
     }
@@ -83,8 +83,8 @@ class StaticPageController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'StaticPage']),
+        return redirect()->route('course_management::admin.static-page.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Static Page']),
             'alert-type' => 'success'
         ]);
     }

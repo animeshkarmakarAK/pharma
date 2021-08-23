@@ -1,6 +1,8 @@
 @extends('master::layouts.master')
 
-
+@section('title')
+    {{ __('Gallery') }}
+@endsection
 
 @section('content')
     <div class="container-fluid">

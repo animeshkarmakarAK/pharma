@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Institutes List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -12,7 +16,7 @@
                             @can('create', \Module\CourseManagement\App\Models\Institute::class)
                                 <a href="{{route('course_management::admin.institutes.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> Add New
                                 </a>
                             @endcan
                         </div>
@@ -52,12 +56,12 @@
                         visible: true,
                     },
                     {
-                        title: "Title (Bn)",
+                        title: "Title (En)",
                         data: "title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Title (En)",
+                        title: "Title (Bn)",
                         data: "title_bn",
                         name: "title_bn"
                     },

@@ -57,7 +57,7 @@ class SliderController extends Controller
             ])->withInput();
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.sliders.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Slider']),
             'alert-type' => 'success'
         ]);
@@ -105,7 +105,7 @@ class SliderController extends Controller
             ])->withInput();
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.sliders.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Slider']),
             'alert-type' => 'success'
         ]);

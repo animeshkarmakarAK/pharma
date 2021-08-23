@@ -4,6 +4,10 @@
 @endphp
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Youth List') }}
+@endsection
+
 @push('css')
     <style>
         .select2 {
@@ -186,7 +190,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="assign_batch_id">Select Batch</label>
+                                <label for="assign_batch_id">Select Batch <span
+                                        style="color: red"> * </span></label>
                                 <select name="batch_id" id="assign_batch_id" class="select2">
                                     <option selected disabled>Select Batch</option>
                                     @foreach($batches as $batch)
@@ -245,7 +250,7 @@
 
             if (!($('#institute_id').attr('type') == "hidden")) {
                 $('#programme_id').parent().addClass(' mt-2 offset-md-1');
-            }else {
+            } else {
                 $('#course_id').parent().addClass(' offset-md-1');
             }
             let params = serverSideDatatableFactory({
@@ -277,6 +282,11 @@
                         title: "Name (En)",
                         data: "name_en",
                         name: "youths.name_en"
+                    },
+                    {
+                        title: "Name (Bn)",
+                        data: "name_bn",
+                        name: "youths.name_bn"
                     },
                     {
                         title: "Application Date",
@@ -368,7 +378,6 @@
                 $('.flat-date').val(null).change();
             })
 
-
             datatable.on('select deselect', function (e, dt, type, indexes) {
                 if (type === 'row') {
                     let selectedRows = datatable.rows({selected: true}).count();
@@ -402,7 +411,12 @@
             addToBatchForm.validate({
                 rules: {
                     batch_id: {
-                        required: true
+                        required: true,
+                    }
+                },
+                messages: {
+                    batch_id: {
+                        required: "Please select Batch",
                     }
                 },
                 submitHandler: function (htmlForm) {

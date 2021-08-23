@@ -1,5 +1,9 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Video Category') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">
@@ -45,7 +49,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Parent Category')  }}</p>
                     <div class="input-box">
-                        {{ optional(Module\CourseManagement\App\Models\Video::find($videoCategory->parent_id))->title_en }}
+                        {{ optional(Module\CourseManagement\App\Models\VideoCategory::find($videoCategory->parent_id))->title_en }}
                     </div>
                 </div>
 

@@ -3,6 +3,10 @@
     $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
 
+@section('title')
+    কোর্স সমূহ
+@endsection
+
 @extends($layout)
 @push('css')
     <style>
@@ -48,6 +52,20 @@
             left: 35%;
             bottom: -75%;
         }
+
+
+        .modal-dialog {
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: auto;
+        }
+        /*@media(max-width: 768px) {
+            .modal-dialog {
+                min-height: calc(100vh - 20px);
+            }
+        }*/
     </style>
 @endpush
 
@@ -57,7 +75,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card mb-2">
                     <div class="card-header custom-bg-gradient-info">
                         <h2 class="text-center text-primary font-weight-lighter mt-4">পছন্দের কোর্স খুঁজুন</h2>
                     </div>
@@ -67,7 +85,7 @@
                                 <input type="hidden" id="domain-institute" value="{{ domainConfig('institute')->id }}">
                             @else
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card" style="height: 100%">
                                         <div class="card-header bg-success">
                                             <h4 class="text-center">প্রতিষ্ঠান সমূহ</h4>
                                         </div>
@@ -87,7 +105,7 @@
                                 </div>
                             @endif
                             <div class="col-md-3">
-                                <div class="card">
+                                <div class="card" style="height: 100%">
                                     <div class="card-header bg-info">
                                         <h4 class="text-center">কোর্স সমূহ</h4>
                                     </div>
@@ -106,7 +124,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card">
+                                <div class="card" style="height: 100%">
                                     <div class="card-header bg-warning">
                                         <h4 class="text-center"> প্রোগ্রাম সমূহ</h4>
                                     </div>
@@ -162,75 +180,84 @@
     </div>
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
-        <div class="modal-dialog" style="max-width: 80%;">
-            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+        <div class="row">
+            <div class="col-sm-10 mx-auto">
+                <div class="modal-dialog" style="max-width: 100%;">
+                    <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal_for_mukto_path" role="dialog">
-        <div class="modal-dialog" style="max-width: 80%;">
-            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
-                <div class="modal-header custom-bg-gradient-info">
-                    <div style=" height:40px;">
-                        <h4 style="text-align: center; margin-top: 5px">কোর্সের বর্ণনা</h4>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                                    <img id="mp_cover_image" class="img-fluid" alt="Responsive image"
-                                         src="http://lorempixel.com/900/300/"
-                                         style="height: 300px; width: 100%">
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">কোর্সের নাম </p>
-                                            <div class="input-box" id="mp_course_title"></div>
+        <div class="row">
+            <div class="col-sm-10 mx-auto">
+                <div class="modal-dialog" style="max-width: 100%;">
+                    <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                        <div class="modal-header custom-bg-gradient-info">
+                            <div style=" height:40px;">
+                                <h4 style="text-align: center; margin-top: 5px">কোর্সের বর্ণনা</h4>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="{{ __('voyager::generic.close') }}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
+                                            <img id="mp_cover_image" class="img-fluid" alt="Responsive image"
+                                                 src="http://lorempixel.com/900/300/"
+                                                 style="height: 300px; width: 100%">
                                         </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">কোর্সের নাম </p>
+                                                    <div class="input-box" id="mp_course_title"></div>
+                                                </div>
 
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">কোর্স ফি</p>
-                                            <div class="input-box" id="mp_course_fee"></div>
-                                        </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">কোর্স ফি</p>
+                                                    <div class="input-box" id="mp_course_fee"></div>
+                                                </div>
 
-                                        <div class="col-md-12 custom-view-box">
-                                            <p class="label-text">কোর্সের বর্ণনা</p>
-                                            <div class="input-box" id="mp_course_description"></div>
-                                        </div>
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">পূর্বশর্ত </p>
-                                            <div class="input-box" id="mp_prerequisite"></div>
-                                        </div>
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">পূর্ব যোগ্যতা</p>
-                                            <div class="input-box" id="mp_eligibility"></div>
-                                        </div>
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">ইন্সটিটিউটের নাম </p>
-                                            <div class="input-box" id="mp_institute_name_field"></div>
+                                                <div class="col-md-12 custom-view-box">
+                                                    <p class="label-text">কোর্সের বর্ণনা</p>
+                                                    <div class="input-box" id="mp_course_description"></div>
+                                                </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">পূর্বশর্ত </p>
+                                                    <div class="input-box" id="mp_prerequisite"></div>
+                                                </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">পূর্ব যোগ্যতা</p>
+                                                    <div class="input-box" id="mp_eligibility"></div>
+                                                </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">ইন্সটিটিউটের নাম </p>
+                                                    <div class="input-box" id="mp_institute_name_field"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-lg btn-success">আবেদন করুন</button>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-lg btn-success">আবেদন করুন</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 @push('js')
@@ -308,7 +335,7 @@
 
         const template = function ({id, imageUrl, title, description, selector}) {
             return `<div class="media mb-2 p-2 shadow-sm ${selector} courses-search-custom" data-id="${id}">
-                                <img class="d-flex img-rounded align-self-start mr-3" src="${imageUrl}" alt="Student" style="width: 40px;">
+                                <img class="d-flex img-rounded align-self-start mr-3" src="${imageUrl}" alt="Student" style="width: 40px; height: 40px">
                                 <div class="media-body">
                                     <h6 class="mt-0 font-weight-bold">${title}</h6>
                                     <p>${description}</p>
@@ -322,7 +349,7 @@
         });
         const courseFetch = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
-            columns: 'id|institute.title_bn|course.title_bn|course.cover_image'
+            columns: 'id|institute.title_bn|course.title_bn|course.title_en|course.cover_image'
         });
         const courseFetchForProgramme = searchAPI({
             model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
@@ -365,16 +392,20 @@
             });
         }
 
-        function courseSearch(search = '', institute_id = '', el = '#course_name_list', url = null, resetPage = true) {
+        function courseSearch(search = '', search_institute = '', institute_id = '', el = '#course_name_list', url = null, resetPage = true) {
+            console.log(search)
+
             const filters = {};
             if (search?.toString()?.length) {
-                filters['title_bn'] = {
+                filters['course.title_bn'] = {
                     type: 'contain',
                     value: search
                 };
             }
+
+
             if (institute_id?.toString()?.length) {
-                filters['institute_id'] = institute_id;
+                filters['institute.institute_id'] = institute_id;
             }
             filters['row_status'] = '{{\Module\CourseManagement\App\Models\Course::ROW_STATUS_ACTIVE}}'
 
@@ -390,24 +421,8 @@
                 $('#course_pagination').html(response?.data?.next_page_url);
                 let html = '';
 
-                if (resetPage) {
-                    let muktoPathCoursesFiltered = muktoPathCourses;
-                    if (search.toString().length) {
-                        muktoPathCoursesFiltered = muktoPathCoursesFiltered.filter((item) => item.course_alias_name.includes(search));
-                    }
-
-                    $.each(muktoPathCoursesFiltered, function (i, item) {
-                        html += template({
-                            id: item.id,
-                            imageUrl: muktoPathImageBasePath + item.thumnail?.file_encode_path,
-                            title: item.course_alias_name,
-                            description: item.institution_name_bn,
-                            selector: 'course mukto-path',
-                        });
-                    });
-                }
-
                 $.each(response.data.data, function (i, item) {
+                    console.log(item)
                     html += template({
                         id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.course_cover_image,
@@ -416,6 +431,11 @@
                         selector: 'course',
                     });
                 });
+
+                let itemLength = response.data.data.length;
+                if(!itemLength){
+                    html = '<p class="text-danger text-center">কোন কোর্স পাওয়া যায়নি</p>';
+                }
 
                 if (resetPage) {
                     $(el ? el : '#course_name_list_modal').html(html);
@@ -428,7 +448,7 @@
         function courseSearchForProgramme(search = '', programme_id = '') {
             const filters = {};
             if (search?.toString()?.length) {
-                filters['title_bn'] = {
+                filters['course.title_bn'] = {
                     type: 'contain',
                     value: search
                 };
@@ -440,10 +460,12 @@
             if (domainInstitute?.toString()?.length) {
                 filters['institute_id'] = domainInstitute;
             }
+            console.log('Test: ')
 
             courseFetchForProgramme(filters)?.then(function (response) {
                 let html = '';
                 $.each(response.data.data, function (i, item) {
+
                     html += template({
                         id: item.id,
                         imageUrl: '{{asset('/storage/')}}/' + item.course_cover_image,
@@ -452,11 +474,19 @@
                         selector: 'course',
                     });
                 });
+
+                let itemLength = response.data.data.length;
+                if(!itemLength){
+                    html = '<p class="text-danger text-center">কোন কোর্স পাওয়া যায়নি</p>';
+                }
+
+
                 $('#course_name_list_modal').html(html);
             });
         }
 
         function programmeSearch(search = '', resetPage = true, url = null) {
+            console.log(search)
             const filters = {};
             if (search?.toString()?.length) {
                 filters['title_bn'] = {
@@ -484,6 +514,12 @@
                         selector: 'programme',
                     });
                 });
+
+                let itemLength = response.data.data.length;
+                if(!itemLength){
+                    html = '<p class="text-danger text-center">কোন প্রোগ্রাম পাওয়া যায়নি</p>';
+                }
+
                 if (resetPage) {
                     $('#program_name_list').html(html);
                 } else {
@@ -564,7 +600,7 @@
                 let searchString = $(this).val();
                 if (searchString?.length) {
                     programmeSearch(searchString);
-                }else {
+                } else {
                     programmeSearch();
                 }
             })

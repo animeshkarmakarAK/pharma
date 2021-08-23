@@ -1,11 +1,14 @@
 @extends('master::layouts.master')
 
+@section('title')
+    {{ __('Static Page') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header text-primary custom-bg-gradient-info">
-                <h3 class="card-title">Static Page</h3>
-
+                <h3 class="card-title font-weight-bold">Static Page</h3>
                 <div class="card-tools">
                     <div class="btn-group">
                         <a href="{{route('course_management::admin.static-page.edit', [$staticPage->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">

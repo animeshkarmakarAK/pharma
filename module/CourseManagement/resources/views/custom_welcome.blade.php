@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    প্রথম পাতা
+@endsection
+
 @section('content')
     <div class="container-fluid slider-area">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -248,7 +252,7 @@
                 @endif
             </div>
         </div>
-        @if(!empty($galleryCategories->count() > 4))
+        @if(!empty($galleryCategories->count() >= 4))
             <div class="col-md-12 text-center margin-10">
                 <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">আরও গ্যালারি
                     দেখুন</a>
@@ -258,8 +262,12 @@
 
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
-        <div class="modal-dialog" style="max-width: 80%;">
-            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+        <div class="row">
+            <div class="col-sm-10 mx-auto">
+                <div class="modal-dialog" style="max-width: 100%">
+                    <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -301,8 +309,8 @@
 
             .responsive_menu_btn {
                 border: 2px solid #333 !important;
-                border-radius: 50%;
-                padding: 10px 10px;
+                /*border-radius: 50%;
+                padding: 10px 10px;*/
             }
 
             .responsive_menu_btn:focus {

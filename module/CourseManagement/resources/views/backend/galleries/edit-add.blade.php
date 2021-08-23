@@ -7,6 +7,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Gallery' : 'Update Gallery' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -89,8 +93,9 @@
                                     <label
                                         for="publish_date">{{ __('Publish Date') }} <span
                                             style="color: red"> * </span></label>
+                                    <input type="hidden" id="today">
                                     <input type="text"
-                                           class="flat-datetime form-control"
+                                           class="flat-datetime form-control publish_date"
                                            name="publish_date"
                                            id="publish_date"
                                            value="{{$edit ? $gallery->publish_date : old('publish_date')}}">
@@ -144,7 +149,8 @@
                                                id="is_youtube_video_yes"
                                                value="1"
                                             {{ ($edit && $gallery->is_youtube_video) || old('is_youtube_video')  ? 'checked' : '' }}>
-                                        <label for="is_youtube_video_yes" class="custom-control-label col-4">Youtube Video</label>
+                                        <label for="is_youtube_video_yes" class="custom-control-label col-4">Youtube
+                                            Video</label>
                                     </div>
 
                                 </div>
@@ -165,7 +171,7 @@
 
                             <div class="form-group col-md-6" id="file_upload"
                                  style="display:{{(($edit && (\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type || $gallery->is_youtube_vide)) || ((old('is_youtube_video')!=null && !old('is_youtube_video'))|| old('content_type') == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)) ? 'block' : 'none' }}">
-                                <label for="content_path">Gallery Content</label>
+                                <label for="content_path">Gallery Content <span style="color: red"> * </span></label>
                                 <input type="file" class="form-control custom-input-box" name="content_path"
                                        id="content_path"
                                        value="{{$edit ? $gallery->content_path : old('content_path')}}">
@@ -287,11 +293,34 @@
                     pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
                 },
                 publish_date: {
-                    required: false,
+                    required: true,
+                    greaterThan: '#today'
                 },
                 archive_date: {
-                    required: false,
+                    required: true,
+                    greaterThan: ".publish_date"
                 },
+            },
+            messages:{
+                content_path: {
+                    accept: function () {
+                        if ($('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) {
+                            return "Please upload valid Image";
+                        } else {
+                            if ($('input[name="is_youtube_video"]:checked').val()) {
+                                return "Please upload valid video";
+                            }
+                        }
+                    }
+                },
+                publish_date: {
+                    greaterThan: 'Publish Date will not be less than today',
+                },
+
+                archive_date: {
+                    greaterThan: "Please select Archive Date greater than Publish Date"
+                },
+
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
@@ -305,7 +334,7 @@
                 if (!id) {
                     $("#youtube_id").css('display', 'none');
                     $("#file_upload").css('display', 'block');
-                } else{
+                } else {
                     $("#youtube_id").css('display', 'block');
                     $("#file_upload").css('display', 'none');
                 }
@@ -315,14 +344,18 @@
                 let content_type = this.value;
                 $("#youtube_id").css('display', 'none');
 
-                if ({{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO}} == content_type) {
+                if ({{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO}} == content_type
+            )
+                {
                     $("#video_type").css('display', 'block');
                     $("#file_upload").css('display', 'none');
                     if ($("#is_youtube_video").val()) {
                         videoFieldDisplay(parseInt($('input[name="is_youtube_video').val()));
                     }
 
-                } else {
+                }
+            else
+                {
                     $("#video_type").css('display', 'none');
                     $("#file_upload").css('display', 'block');
                 }
@@ -332,6 +365,44 @@
                 videoFieldDisplay(parseInt(this.value));
             });
         });
+
+        let today = new Date();
+        today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-1)).slice(-2);
+        console.log('Today: '+today)
+        $('#today').val(today+ " 12:00");
+
+        $('#institute_id').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+        $('.publish_date').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
+        $('#archive_date').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
+        $('#is_youtube_video_yes').on('click', function (){
+            $('#content_path').prop( "disabled", true);
+            $('#you_tube_video_id').prop( "disabled", false);
+        })
+
+        $('#is_youtube_video_no').on('click', function (){
+            $('#content_path').prop( "disabled", false);
+            $('#you_tube_video_id').prop( "disabled", true);
+
+        })
+
+
     </script>
 @endpush
 

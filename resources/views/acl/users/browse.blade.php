@@ -1,5 +1,8 @@
 @extends('master::layouts.master')
 
+@section('title')
+    User List
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -36,6 +39,18 @@
 
 @push('css')
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
+
+    <style>
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #user_type_id-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+    </style>
 @endpush
 
 @push('js')
@@ -107,6 +122,7 @@
 
             $(document, 'td').on('click', '.delete', function (e) {
                 $('#delete_form')[0].action = $(this).data('action');
+                console.log($('#delete_form')[0].action)
                 $('#delete_modal').modal('show');
             });
 
@@ -204,14 +220,16 @@
                 $(".edit-add-form").validate({
                     rules: {
                         name_en: {
-                            required: true
+                            required: true,
+                            pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                         },
                         name_bn: {
                             required: true,
                             pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
                         },
                         email: {
-                            required: true
+                            required: true,
+                            email: true,
                         },
                         user_type_id: {
                             required: true
@@ -244,8 +262,14 @@
                         },
                     },
                     messages: {
+                        name_en: {
+                            pattern: "Please fill this field in English."
+                        },
                         name_bn: {
                             pattern: "Please fill this field in Bangla."
+                        },
+                        email: {
+                            email: "Please enter valid email address",
                         },
                     },
                     submitHandler: function (htmlForm) {
@@ -263,6 +287,7 @@
                         })
                             .done(function (responseData) {
                                 toastr.success(responseData.message);
+                                editAddModal.modal('hide');
                             })
                             .fail(window.ajaxFailedResponseHandler)
                             .always(function () {
@@ -273,6 +298,16 @@
                     }
                 });
             }
+
+            //$("#edit-add-modal").modal({"backdrop": "static"});
+
+            $('.submit-btn').submit(function(e) {
+                e.preventDefault();
+                // Coding
+                $('#edit-add-modal').modal('toggle'); //or  $('#IDModal').modal('hide');
+                return false;
+            });
+
         });
 
 

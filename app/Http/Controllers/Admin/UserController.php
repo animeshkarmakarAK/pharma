@@ -59,7 +59,9 @@ class UserController extends BaseController
             return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'user']), 'alert-type' => 'success']);
+        //return redirect()->route('admin.users.index')
+
+        return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
 
     /**
@@ -103,17 +105,23 @@ class UserController extends BaseController
      *  Remove the specified resource from storage.
      *
      * @param User $user
-     * @return JsonResponse
+     * @return RedirectResponse
      */
-    public function destroy(User $user): JsonResponse
+    public function destroy(User $user): RedirectResponse
     {
         try {
             $this->userService->deleteUser($user);
         } catch (\Exception $exception) {
-            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
         }
 
-        return response()->json(['message' => __('generic.object_deleted_successfully', ['object' => 'Permission']), 'alert-type' => 'success']);
+        return back()->with([
+            'message' => __('generic.object_deleted_successfully', ['object' => 'User']),
+            'alert-type' => 'success'
+        ]);
     }
 
     public function getDatatable(Request $request): JsonResponse

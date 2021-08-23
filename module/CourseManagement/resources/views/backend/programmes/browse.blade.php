@@ -1,4 +1,9 @@
 @extends('master::layouts.master')
+
+@section('title')
+    {{ __('Programmes List') }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

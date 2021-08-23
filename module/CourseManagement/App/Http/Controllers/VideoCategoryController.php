@@ -62,7 +62,7 @@ class VideoCategoryController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.video-categories.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Video Category']),
             'alert-type' => 'success'
         ]);
@@ -112,7 +112,7 @@ class VideoCategoryController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.video-categories.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Video Category']),
             'alert-type' => 'success'
         ]);

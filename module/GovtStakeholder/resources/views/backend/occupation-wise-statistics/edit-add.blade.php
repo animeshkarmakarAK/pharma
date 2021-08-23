@@ -5,6 +5,11 @@
 @endphp
 
 @extends('master::layouts.master')
+
+@section('title')
+    {{ $edit?'Edit Occupation Wise Statistic':'Create Occupation Wise Statistic'}}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -36,14 +41,15 @@
                                     <input type="text"
                                            class="form-control flat-month"
                                            name="survey_date"
+                                           data-survey-date="{{ $edit ? $occupationWiseStatistic->survey_date : '' }}"
                                            id="survey_date"
                                            {{$edit?'disabled':''}}
                                            value="{{!$edit? old('survey_date')?old('survey_date'):'':$occupationWiseStatistic->survey_date}}">
+                                    <span id="survey_date_error_msg" class="text-danger"></span>
                                 </div>
                             </div>
 
-
-
+                            <fieldset id="occupation-fieldset">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -53,8 +59,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-
                                 @foreach($occupations as $index=>$occupation)
                                     @php
                                         $statistic = $edit && !empty($occupationWiseStatistics[$occupation->id]) ? $occupationWiseStatistics[$occupation->id] : null;
@@ -107,6 +111,7 @@
                                 <button type="submit"
                                         class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
                             </div>
+                            </fieldset>
                         </form>
                     </div>
                 </div>
@@ -116,6 +121,20 @@
     </div>
     @include('master::utils.delete-confirm-modal')
 @endsection
+
+@push('css')
+    <style>
+        #survey_date-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+    </style>
+@endpush
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
@@ -128,14 +147,33 @@
                 survey_date: {
                     required: true,
                 },
-
             },
-
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
                 htmlForm.submit();
             }
         });
+
+        $('#survey_date').on('change', function (){
+            $('#survey_date-error').remove();
+            let surveyDate = $(this).val();
+            let saveData = $.ajax({
+                type: 'POST',
+                url: "{{ route('govt_stakeholder::admin.occupation-wise-statistic-check') }}",
+                data: {survey_date:surveyDate},
+                dataType: "text",
+                success: function(resultData) {
+                    console.log(resultData)
+                    if(resultData!='true'){
+                        $('#occupation-fieldset').attr('disabled', true);
+                        $('#survey_date_error_msg').html(resultData.substr(1,resultData.length-2));
+                    }else{
+                        $('#occupation-fieldset').attr('disabled', false);
+                        $('#survey_date_error_msg').html('');
+                    }
+                }
+            });
+        })
 
     </script>
 @endpush

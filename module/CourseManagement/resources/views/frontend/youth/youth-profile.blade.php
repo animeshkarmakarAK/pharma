@@ -13,7 +13,7 @@
                         class="card-header custom-bg-gradient-info">
                         <div class="card-title float-left font-weight-bold text-primary">বিস্তারিত</div>
                         <div class="youth-access-key float-right d-inline-flex">
-                            <p class="label-text font-weight-bold">অ্যাক্সেস কি: </p>
+                            <p class="label-text font-weight-bold">এক্সেস-কী &nbsp;:&nbsp; </p>
                             <div class="font-weight-bold">
                                 {{ "  ".$youth->access_key ?? 'N/A' }}
                             </div>
@@ -40,7 +40,7 @@
                             <div class="text-center">
                                 <i class="fa fa-phone"></i>
                             </div>
-                            <p class="medium-text ml-2">{{ __('generic.phone')  }}</p>
+                            <p class="medium-text ml-2 text-primary">{{ __('generic.phone')  }}</p>
                         </div>
                         <div class="phone">
                             <p class="medium-text">{{ $youth->mobile ? $youth->mobile : "N/A" }}</p>
@@ -49,9 +49,9 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="text-center">
-                                <i class="fa fa-envelope text-primary"></i>
+                                <i class="fa fa-envelope"></i>
                             </div>
-                            <p class="medium-text ml-2 text-primary">{{ __('generic.email') }}</p>
+                            <p class="medium-text ml-2 text-primary">{{ __('ই-মেইল') }}</p>
                         </div>
                         <div class="email">
                             <p class="medium-text">{{ $youth->email ?? "N/A"}}</p>
@@ -63,7 +63,7 @@
             <div class="col-md-8">
                 <div class="card bg-white">
                     <div class="card-header custom-bg-gradient-info text-primary">
-                        <h3 class="card-title font-weight-bold">তথ্য</h3>
+                        <h3 class="card-title font-weight-bold">ব্যাক্তিগত তথ্য</h3>
 
                         <div class="card-tools">
                             <a href="#" class="btn btn-sm btn-outline-warning" onclick="Export()">
@@ -329,16 +329,18 @@
     <script src="{{ asset('jsfiles/pdfmake.min.js') }}"></script>
     <script type="text/javascript">
         function Export() {
-            html2canvas(document.getElementById('youth-profile'), {
+            html2canvas($('#youth-profile'), {
+                allowTaint: true,
+                logging:true,
                 onrendered: function (canvas) {
                     let data = canvas.toDataURL();
                     let docDefinition = {
                         content: [{
                             image: data,
                             width: 500,
-                        }]
+                        }],
                     };
-                    pdfMake.createPdf(docDefinition).download("_profile.pdf");
+                    pdfMake.createPdf(docDefinition).download("your-profile-pdf");
                 }
             });
         }

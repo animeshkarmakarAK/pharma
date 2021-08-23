@@ -4,6 +4,11 @@
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 @extends('master::layouts.master')
+
+@section('title')
+    {{ $edit?'Edit Training Center':'Create Training Center' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -35,14 +40,14 @@
                                     <input type="text" class="form-control custom-input-box" name="title_en"
                                            id="title_en"
                                            value="{{$edit ? $trainingCenter->title_en : old('title_en')}}"
-                                           placeholder="Enter your training center name in English" required>
+                                           placeholder="Title" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="title_bn">Title (Bn) <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="title_bn"
                                            id="title_bn"
                                            value="{{$edit ? $trainingCenter->title_bn : old('title_bn')}}"
-                                           placeholder="Enter your training center name in Bengali" required>
+                                           placeholder="Title" required>
                                 </div>
 
                                 <div class="col-sm-6">
@@ -121,7 +126,8 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -132,6 +138,9 @@
                 },
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 }

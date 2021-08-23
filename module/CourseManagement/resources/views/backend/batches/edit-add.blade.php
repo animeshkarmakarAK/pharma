@@ -6,6 +6,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Batch' : 'Update Batch' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -34,6 +38,7 @@
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $batch->title_en : old('title_en') }}">
+                                    <input type="hidden" id="today">
                                 </div>
                             </div>
 
@@ -109,7 +114,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="start_date">{{ __('Batch Start Date') }} <span style="color: red">*</span></label>
-                                    <input type="text" class="flat-date flat-date-custom-bg" id="start_date"
+                                    <input type="text" class="flat-date flat-date-custom-bg start_date" id="start_date"
                                            name="start_date"
                                            value="{{ $edit ? $batch->start_date : old('start_date') }}"
                                     >
@@ -166,6 +171,15 @@
         .flat-date-custom-bg, .flat-time-custom-bg{
             background-color: #fafdff !important;
         }
+        .has-error{
+            position: relative;
+            padding: 0px 0 12px 0;
+        }
+        #institute_id-error, #application_form_type_id-error, #course_id-error, #start_date-error, #end_date-error, #start_time-error, #end_time-error{
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
     </style>
 @endpush
 
@@ -175,16 +189,18 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-        $.validator.addMethod('dateGreaterThan', function (start_date, end_date) {
+        /*$.validator.addMethod('dateGreaterThan', function (start_date, end_date) {
 
             return new Date(start_date) < new Date(end_date);
-        },'Batch end date must be after batch start date');
+        },'Batch end date must be after batch start date');*/
+
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -216,9 +232,11 @@
                 },
                 start_date: {
                     required: true,
+                    greaterThan: "#today"
                 },
                 end_date: {
                     required: true,
+                    greaterThan: ".start_date"
                 },
                 start_time: {
                     required: true,
@@ -229,15 +247,62 @@
 
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English."
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla."
                 },
+                start_date: {
+                    greaterThan: 'Start Date will be greater than Today',
+                },
+                end_date: {
+                    greaterThan: 'End Date will not be less than Start Date',
+                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
                 htmlForm.submit();
             }
         });
+
+        let today = new Date();
+        today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-0)).slice(-2);
+        $('#today').val(today);
+        console.log($('#today').val())
+
+        $('#start_date').on('change', function (){
+            console.log($('.start_date').val());
+        })
+
+
+        $('#start_date').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
+        $('#end_date').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
+        $('#start_time').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+        $('#end_time').change(function(){
+            if ($(this).val()!="")
+            {
+                $(this).valid();
+            }
+        });
+
 
 
     </script>

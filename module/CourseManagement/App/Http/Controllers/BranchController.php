@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Branch;
 use Module\CourseManagement\App\Services\BranchService;
@@ -39,13 +40,7 @@ class BranchController extends Controller
         return view(self::VIEW_PATH . 'edit-add', compact('branch'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
-     */
+
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->branchService->validator($request)->validate();
@@ -59,7 +54,8 @@ class BranchController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return back()->with([
+
+        return redirect()->route('course_management::admin.branches.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'Branch']),
             'alert-type' => 'success'
         ]);
@@ -87,7 +83,7 @@ class BranchController extends Controller
      * @param Request $request
      * @param int $id
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function update(Request $request, Branch $branch): RedirectResponse
     {
@@ -103,7 +99,7 @@ class BranchController extends Controller
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('course_management::admin.branches.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'Branch']),
             'alert-type' => 'success'
         ]);

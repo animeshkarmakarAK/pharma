@@ -67,17 +67,22 @@ class VideoCategoryService
             'video_categories.id as id',
             'video_categories.title_en',
             'video_categories.title_bn',
-            'parent.title_en as video_parent_category_title_en',
+            'video_categories.parent_id',
+//            'parent.title_en as video_parent_category_title_en',
             'video_categories.created_at',
             'video_categories.updated_at',
             'institutes.title_en as institute_name',
             'video_categories.row_status',
         ]);
 
-        $videoCategories->join('institutes', 'video_categories.institute_id', 'institutes.id');
-        $videoCategories->leftJoin('video_categories as parent', 'video_categories.id', 'parent.parent_id');
+        $videoCategories->join('institutes', 'video_categories.institute_id','=', 'institutes.id');
+//        $videoCategories->leftJoin('video_categories as parent', 'parent.parent_id','=', 'video_categories.id');
 
         return DataTables::eloquent($videoCategories)
+            ->addColumn('parent', static function(VideoCategory  $videoCategory){
+                $parent = VideoCategory::find($videoCategory->parent_id);
+                return $parent ? $parent->title_en : "N/A";
+            })
             ->addColumn('action', static function (VideoCategory $videoCategory) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $videoCategory)) {
@@ -96,7 +101,7 @@ class VideoCategoryService
             ->editColumn('row_status', function (VideoCategory $videoCategory) {
                 return $videoCategory->getCurrentRowStatus(true);
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'parent'])
             ->toJson();
     }
 }

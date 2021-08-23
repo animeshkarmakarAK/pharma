@@ -223,7 +223,7 @@
 
                 @endif
                 <div class="col-sm-12 text-right">
-                    <button type="submit" class="btn btn-success">{{$edit ? 'Update' : 'Create'}}</button>
+                    <button type="submit" class="btn btn-success j8">{{$edit ? 'Update' : 'Create'}}</button>
                 </div>
             </form>
         </div><!-- /.card-body -->

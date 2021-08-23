@@ -38,6 +38,9 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('organization-units/vacancy-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'vacantStatisticsOfOrganizationUnit'])->name('organization-units.statistics-datatable');
     Route::post('occupations/unemployed-people-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,'unemploymentStatisticOccupationWise'])->name('occupations.statistics-datatable');
 
+    Route::post('occupations/occupation-wise-statistic-check', [\Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class, 'checkOccupationWiseStatistics'])->name('occupation-wise-statistic-check');
+
+
     Route::resources([
         'organization-types' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationTypeController::class,
         'organizations' => \Module\GovtStakeholder\App\Http\Controllers\OrganizationController::class,

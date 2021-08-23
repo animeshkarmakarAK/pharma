@@ -6,6 +6,10 @@
 
 @extends('master::layouts.master')
 
+@section('title')
+    {{ ! $edit ? 'Add Video' : 'Update Video' }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -47,7 +51,7 @@
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $video->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title in Bangla') }}">
+                                           placeholder="{{ __('Title') }}">
                                 </div>
                             </div>
 
@@ -245,7 +249,8 @@
             },
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
                 },
                 title_bn: {
                     required: true,
@@ -275,11 +280,17 @@
                 },
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 },
                 youtube_video_id: {
                     pattern: "invalid youtube video url",
+                },
+                uploaded_video_path: {
+                    accept: "Please upload valid video file"
                 }
             },
             submitHandler: function (htmlForm) {

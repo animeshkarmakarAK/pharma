@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <input name="access_key" id="access_key" type="text" class="form-control"
-                                           placeholder="Enter your access key">
+                                           placeholder="আপনার এক্সেস কী লিখুন">
                                     <div class="input-group-append">
                                         <div class="input-group-text input-group-text-border">
                                             <i class="fas fa-key"></i>

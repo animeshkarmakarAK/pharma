@@ -63,8 +63,9 @@ class TrainingCenterController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Training center']),
+
+        return redirect()->route('course_management::admin.training-centers.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'Training Center']),
             'alert-type' => 'success'
         ]);
     }
@@ -112,11 +113,10 @@ class TrainingCenterController extends Controller
             ]);
         }
 
-        return back()->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Training center']),
+        return redirect()->route('course_management::admin.training-centers.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Training Center']),
             'alert-type' => 'success'
         ]);
-
     }
 
     /**
