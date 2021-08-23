@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-0">
+                <div class="card mb-2">
                     <div class="container">
                         <div class="row mt-5 mb-5">
                             <div class="col-md-6 contact-us-form-area">
@@ -194,7 +194,7 @@
                                     <div class="col-md-4 contact-box text-center">
                                         <div class="d-inline-flex">
                                             <i class="fas fa-map-marked template-contact-icon"></i>
-                                            <p>বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র<br>
+                                            <p style="text-align: justify">বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র<br>
                                                 (বিটাক) ১১৬ (খ), তেজগাঁও শিল্প এলাকা <br>
                                                 <span style="margin-left: 70px;">ঢাকা - ১২০৮</span>
                                             </p>

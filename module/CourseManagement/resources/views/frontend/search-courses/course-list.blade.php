@@ -75,7 +75,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card mb-2">
                     <div class="card-header custom-bg-gradient-info">
                         <h2 class="text-center text-primary font-weight-lighter mt-4">পছন্দের কোর্স খুঁজুন</h2>
                     </div>
