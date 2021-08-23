@@ -1675,7 +1675,7 @@
                 let isWidthMatched = document.getElementsByTagName('img')[1].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "৩০০x৩০০ পিক্সেল ছবি উপলোড করুন",
+            "৩০০x৩০০ পিক্সেল ছবি আপলোড করুন",
         );
 
         $.validator.addMethod(
@@ -1685,7 +1685,7 @@
                 let isWidthMatched = document.getElementsByTagName('img')[2].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "৩০০x৮০ পিক্সেল ছবি উপলোড করুন",
+            "৩০০x৮০ পিক্সেল ছবি আপলোড করুন",
         );
 
         $.validator.addMethod(
@@ -1697,7 +1697,7 @@
                 let re1 = new RegExp(regexp1);
                 return this.optional(element) || re.test(value) || re1.test(value);
             },
-            "সঠিক এনআইডি ব্যবহার করুন"
+            "সঠিক এন.আই.ডি ব্যবহার করুন"
         );
 
         $.validator.addMethod(
