@@ -228,7 +228,8 @@
                             pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
                         },
                         email: {
-                            required: true
+                            required: true,
+                            email: true,
                         },
                         user_type_id: {
                             required: true
@@ -266,6 +267,9 @@
                         },
                         name_bn: {
                             pattern: "Please fill this field in Bangla."
+                        },
+                        email: {
+                            email: "Please enter valid email address",
                         },
                     },
                     submitHandler: function (htmlForm) {
