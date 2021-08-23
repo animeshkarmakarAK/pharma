@@ -281,7 +281,11 @@
                 );
 
                 $.validator.addMethod("cGreaterThan", $.validator.methods.greaterThan,
-                    "application start date must be greater than today");
+                    "Application start date must be greater than today");
+                $.validator.addMethod("cApplicationEndDate", $.validator.methods.greaterThan,
+                    "Application end date must be greater than Application start date");
+                $.validator.addMethod("cCourseStartDate", $.validator.methods.greaterThan,
+                    "Course start date must be greater than Application end date");
 
                 $.validator.addClassRules("number_of_batches", {required: true});
                 $.validator.addClassRules("application_start_date", {
@@ -291,12 +295,12 @@
 
                 $.validator.addClassRules("application_end_date", {
                     required: true,
-                    greaterThan: ".application_start_date",
+                    cApplicationEndDate: ".application_start_date",
                 });
 
                 $.validator.addClassRules("course_start_date", {
                     required: true,
-                    greaterThan: ".application_end_date",
+                    cCourseStartDate: ".application_end_date",
                 });
                 $.validator.addClassRules("max_seat_available", {required: true});
 
