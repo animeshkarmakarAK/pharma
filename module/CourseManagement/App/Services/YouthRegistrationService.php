@@ -53,7 +53,6 @@ class YouthRegistrationService
         $youth_registration_info['publish_course_id'] = $publishCourse->id;
 
 
-
         if (isset($data['student_signature_pic'])) {
             $filename = FileHandler::storePhoto($youth_registration_info['student_signature_pic'], 'student');
             $youth_registration_info['student_signature_pic'] = 'student/' . $filename;
@@ -66,6 +65,7 @@ class YouthRegistrationService
         $youth->youthRegistration()->create($youth_registration_info);
 
         $skipGuardian = false;
+
 
         if(empty($data['guardian'])){
             $data['guardian'] = null;

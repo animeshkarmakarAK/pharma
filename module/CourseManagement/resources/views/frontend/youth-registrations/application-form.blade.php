@@ -63,7 +63,7 @@
                                     <input type="hidden" name="programme_id" id="programme_id"
                                            value="{{$publishCourse->programme_id}}">
                                     <input type="hidden" name="course_id" id="course_id"
-                                           value="{{$publishCourse->course_id}}">
+                                           value="{{$publishCourse->id}}">
                                     <input type="hidden" name="application_form_type_id" id=""
                                            value="{{$publishCourse->application_form_type_id}}">
                                 @else
