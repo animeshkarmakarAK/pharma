@@ -180,75 +180,84 @@
     </div>
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
-        <div class="modal-dialog" style="max-width: 80%;">
-            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+        <div class="row">
+            <div class="col-sm-10 mx-auto">
+                <div class="modal-dialog" style="max-width: 100%;">
+                    <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal_for_mukto_path" role="dialog">
-        <div class="modal-dialog" style="max-width: 80%;">
-            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
-                <div class="modal-header custom-bg-gradient-info">
-                    <div style=" height:40px;">
-                        <h4 style="text-align: center; margin-top: 5px">কোর্সের বর্ণনা</h4>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                                    <img id="mp_cover_image" class="img-fluid" alt="Responsive image"
-                                         src="http://lorempixel.com/900/300/"
-                                         style="height: 300px; width: 100%">
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">কোর্সের নাম </p>
-                                            <div class="input-box" id="mp_course_title"></div>
+        <div class="row">
+            <div class="col-sm-10 mx-auto">
+                <div class="modal-dialog" style="max-width: 100%;">
+                    <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
+                        <div class="modal-header custom-bg-gradient-info">
+                            <div style=" height:40px;">
+                                <h4 style="text-align: center; margin-top: 5px">কোর্সের বর্ণনা</h4>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="{{ __('voyager::generic.close') }}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
+                                            <img id="mp_cover_image" class="img-fluid" alt="Responsive image"
+                                                 src="http://lorempixel.com/900/300/"
+                                                 style="height: 300px; width: 100%">
                                         </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">কোর্সের নাম </p>
+                                                    <div class="input-box" id="mp_course_title"></div>
+                                                </div>
 
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">কোর্স ফি</p>
-                                            <div class="input-box" id="mp_course_fee"></div>
-                                        </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">কোর্স ফি</p>
+                                                    <div class="input-box" id="mp_course_fee"></div>
+                                                </div>
 
-                                        <div class="col-md-12 custom-view-box">
-                                            <p class="label-text">কোর্সের বর্ণনা</p>
-                                            <div class="input-box" id="mp_course_description"></div>
-                                        </div>
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">পূর্বশর্ত </p>
-                                            <div class="input-box" id="mp_prerequisite"></div>
-                                        </div>
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">পূর্ব যোগ্যতা</p>
-                                            <div class="input-box" id="mp_eligibility"></div>
-                                        </div>
-                                        <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">ইন্সটিটিউটের নাম </p>
-                                            <div class="input-box" id="mp_institute_name_field"></div>
+                                                <div class="col-md-12 custom-view-box">
+                                                    <p class="label-text">কোর্সের বর্ণনা</p>
+                                                    <div class="input-box" id="mp_course_description"></div>
+                                                </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">পূর্বশর্ত </p>
+                                                    <div class="input-box" id="mp_prerequisite"></div>
+                                                </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">পূর্ব যোগ্যতা</p>
+                                                    <div class="input-box" id="mp_eligibility"></div>
+                                                </div>
+                                                <div class="col-md-6 custom-view-box">
+                                                    <p class="label-text">ইন্সটিটিউটের নাম </p>
+                                                    <div class="input-box" id="mp_institute_name_field"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <button type="button" class="btn btn-lg btn-success">আবেদন করুন</button>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-lg btn-success">আবেদন করুন</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 @push('js')

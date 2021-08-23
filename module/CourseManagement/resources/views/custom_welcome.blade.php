@@ -262,7 +262,7 @@
 
 
     <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
-        <div class="modal-dialog" style="max-width: 80%;">
+        <div class="modal-dialog">
             <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
             </div>
         </div>
