@@ -201,19 +201,8 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-        if(!EDIT){
-            console.log(' not edit')
-        }else{
-            console.log(' edit')
-        }
 
         console.log('Edit: '+ !EDIT? "#today":'test',)
-
-        /*$.validator.addMethod('dateGreaterThan', function (start_date, end_date) {
-
-            return new Date(start_date) < new Date(end_date);
-        },'Batch end date must be after batch start date');*/
-
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -277,8 +266,6 @@
                     greaterThan: function (){
                         if(!EDIT){
                             return 'Start Date will be greater than Today'
-                        }else{
-                            return 'Start Date will be greater than Created Day'
                         }
                     },
                 },
@@ -293,13 +280,7 @@
         });
 
 
-        if(EDIT){
-            let oldStartDate = new Date($('#start_date').val());
-            oldStartDate = oldStartDate.getFullYear() + '-' + ("0" + (oldStartDate.getMonth() + 1)).slice(-2) + '-' + ("0" + (oldStartDate.getDate() - 1)).slice(-2);
-            console.log('oldStartDate: '+oldStartDate)
-            $('#today').val(oldStartDate);
-            console.log('Today: '+$('#today').val())
-        }else{
+        if(!EDIT){
             let today = new Date();
             today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
             $('#today').val(today);

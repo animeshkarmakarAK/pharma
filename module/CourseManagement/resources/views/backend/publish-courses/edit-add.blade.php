@@ -244,6 +244,7 @@
             console.log('Today: '+today)
             $('#today').val(today);
 
+
             $('.application_start_date').on('change', function (){
                 console.log($('.application_start_date').val())
             })
