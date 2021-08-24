@@ -16,7 +16,8 @@
                     <div class="card card mb-0">
                         <div class="card-body">
                             <div class="text-info text-center">
-                                আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ আবেদন করছেন
+                                আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ আবেদন
+                                করছেন
                             </div>
                         </div>
                     </div>
@@ -2174,7 +2175,7 @@
                 },
                 "familyMember[father][nid]": {
                     required: true,
-                    nidBn:true,
+                    nidBn: true,
                 },
                 "familyMember[father][mobile]": {
                     required: true,
@@ -2188,7 +2189,7 @@
                 },
                 "familyMember[mother][nid]": {
                     required: true,
-                    nidBn:true,
+                    nidBn: true,
                 },
                 "familyMember[mother][mobile]": {
                     required: true,
@@ -2227,7 +2228,7 @@
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
                     },
-                    nidBn:true,
+                    nidBn: true,
                 },
 
                 current_employment_status: {
@@ -2568,9 +2569,8 @@
                     required: "অভিভাবকের এন.আই.ডি লিখুন"
                 },
                 year_of_experience: {
-                   number: "সঠিক অভিজ্ঞতার বছর লিখুন"
+                    number: "সঠিক অভিজ্ঞতার বছর লিখুন"
                 },
-
 
 
             },
@@ -2683,6 +2683,7 @@
             $('.freedom-fighter-status-information').show()
             $('.physical-disability-information').show()
         }
+
 
         const searchAPI = function ({model, columns}) {
             const config = {
@@ -2832,20 +2833,11 @@
                 setFormFields(applicationFormType);
             }
 
-            /*if ($('input[name="institute_id"]').val() !== "") {
-                let instituteId = $('input[name="institute_id"]').val();
-                getApplicationFormType(instituteId);
-            }*/
 
             if ($('input[name="application_form_type_id"]').val() !== "") {
                 let applicationFormTypeId = $('input[name="application_form_type_id"]').val();
                 getApplicationFormType(applicationFormTypeId);
             }
-
-            /*$('#institute_id').on('change', function () {
-                let instituteId = $(this).val();
-                getApplicationFormType(instituteId);
-            });*/
 
             $('#publish_course_id').on('change', function () {
                 let publishCourseId = $(this).val();
@@ -2858,8 +2850,6 @@
                     console.log("application_form_type_id = " + applicationFormTypeId);
                     getApplicationFormType(applicationFormTypeId);
                 });
-
-
 
             });
 
@@ -2878,7 +2868,6 @@
                     $("#physical_disabilities").parent().show();
                 }
             });
-
 
             $('#permanent_address_same_as_present_address').on('click', function () {
                 if ($(this).prop('checked')) {
@@ -3027,27 +3016,27 @@
 
 
         $('#date_of_birth').on('change', function () {
-            if($(this).val()!=""){
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
         $('#nationality').on('change', function () {
-            if($(this).val()!=""){
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
         $('#fathers_date_of_birth').on('change', function () {
-            if($(this).val()!=""){
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
         $('#mothers_date_of_birth').on('change', function () {
-            if($(this).val()!=""){
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
         $('#guardian_date_of_birth').on('change', function () {
-            if($(this).val()!=""){
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
