@@ -153,7 +153,6 @@ class YouthRegistrationService
             'programme_id' => 'nullable|int',
             'publish_course_id' => 'required|int',
             'institute_id' => 'required|int',
-            'programme_id' => 'nullable|int',
             'religion' => 'required|int',
             'freedom_fighter_status' => 'sometimes|nullable|int',
             'nationality' => 'required|string',
