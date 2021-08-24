@@ -146,6 +146,14 @@ class YouthRegistrationService
             'familyMember.mother.nid' => 'required|string|max:191',
             'familyMember.mother.date_of_birth' => 'required|date',
             'familyMember.mother.mobile' => 'required|string',
+
+            'familyMember.guardian.member_name_en' => 'nullable|string|max:191',
+            'familyMember.guardian.nid' => 'nullable|string|max:191',
+            'familyMember.guardian.date_of_birth' => 'nullable|date',
+            'familyMember.guardian.mobile' => 'nullable|string',
+            'familyMember.guardian.relation_with_youth' => 'nullable|string',
+            'guardian' => 'nullable|int',
+
             'gender' => 'required|int',
             'marital_status' => 'required|int',
             'branch_id' => 'nullable|int',
@@ -158,7 +166,6 @@ class YouthRegistrationService
             'nationality' => 'required|string',
             'student_pic' => 'required',
             'student_signature_pic' => 'required',
-            'guardian' => 'nullable|int',
             'main_occupation' => 'nullable|string',
             'other_occupation' => 'nullable|string',
             'personal_monthly_income' => 'nullable|int',
