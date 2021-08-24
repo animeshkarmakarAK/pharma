@@ -274,7 +274,13 @@
                     pattern: "This field is required in Bangla."
                 },
                 start_date: {
-                    greaterThan: 'Start Date will be greater than Today',
+                    greaterThan: function (){
+                        if(!EDIT){
+                            return 'Start Date will be greater than Today'
+                        }else{
+                            return 'Start Date will be greater than Created Day'
+                        }
+                    },
                 },
                 end_date: {
                     greaterThan: 'End Date will not be less than Start Date',
@@ -286,10 +292,19 @@
             }
         });
 
-        let today = new Date();
-        today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
-        $('#today').val(today);
-        console.log($('#today').val())
+
+        if(EDIT){
+            let oldStartDate = new Date($('#start_date').val());
+            oldStartDate = oldStartDate.getFullYear() + '-' + ("0" + (oldStartDate.getMonth() + 1)).slice(-2) + '-' + ("0" + (oldStartDate.getDate() - 1)).slice(-2);
+            console.log('oldStartDate: '+oldStartDate)
+            $('#today').val(oldStartDate);
+            console.log('Today: '+$('#today').val())
+        }else{
+            let today = new Date();
+            today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
+            $('#today').val(today);
+            console.log($('#today').val())
+        }
 
         $('#start_date').on('change', function () {
             console.log($('.start_date').val());

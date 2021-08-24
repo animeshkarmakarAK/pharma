@@ -170,7 +170,7 @@
                             </div>
 
                             <div class="form-group col-md-6" id="file_upload"
-                                 style="display:{{(($edit && (\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type || $gallery->is_youtube_vide)) || ((old('is_youtube_video')!=null && !old('is_youtube_video'))|| old('content_type') == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)) ? 'block' : 'none' }}">
+                                 style="display:{{ (($edit && (\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type || $gallery->is_youtube_vide)) || ((old('is_youtube_video')!=null && !old('is_youtube_video'))|| old('content_type') == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE) || ($edit && ($gallery->is_youtube_vide == 0 && $gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO)) ) ? 'block' : 'none' }}">
                                 <label for="content_path">Gallery Content <span style="color: red"> * </span></label>
                                 <input type="file" class="form-control custom-input-box" name="content_path"
                                        id="content_path"
