@@ -45,6 +45,7 @@ class GalleryService
      */
     public function validator(Request $request): Validator
     {
+       // dd($request->all());
         $contentType = Gallery::CONTENT_TYPES;
         $rules = [
             'gallery_category_id' => ['required', 'int', 'exists:gallery_categories,id'],
@@ -59,7 +60,7 @@ class GalleryService
 
         if ($request->content_type == Gallery::CONTENT_TYPE_IMAGE) {
             $rules['content_path'] = ['required_without:id', 'mimes:jpg,bmp,png'];
-        } elseif (Gallery::CONTENT_TYPE_VIDEO == $request->content_type && $request->is_youtube_video ==0) {
+        } elseif (Gallery::CONTENT_TYPE_VIDEO == $request->content_type && $request->is_youtube_video ==0 && $request->_method != 'put') {
             $rules['content_path'] = ['required_without:id', 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4'];
         }
         elseif (Gallery::CONTENT_TYPE_VIDEO == $request->content_type && $request->is_youtube_video ==1) {

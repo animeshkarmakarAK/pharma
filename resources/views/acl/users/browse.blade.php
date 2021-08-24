@@ -286,7 +286,12 @@
                             processData: false,
                         })
                             .done(function (responseData) {
-                                toastr.success(responseData.message);
+                                console.log(responseData)
+                                if(responseData.message == 'Something wrong. Please try again'){
+                                    toastr.error(responseData.message);
+                                }else{
+                                    toastr.success(responseData.message);
+                                }
                                 editAddModal.modal('hide');
                             })
                             .fail(window.ajaxFailedResponseHandler)

@@ -62,8 +62,8 @@
                                            value="{{$publishCourse->training_center_id}}">
                                     <input type="hidden" name="programme_id" id="programme_id"
                                            value="{{$publishCourse->programme_id}}">
-                                    <input type="hidden" name="course_id" id="course_id"
-                                           value="{{$publishCourse->course_id}}">
+                                    <input type="hidden" name="publish_course_id" id="publish_course_id"
+                                           value="{{$publishCourse->id}}">
                                     <input type="hidden" name="application_form_type_id" id=""
                                            value="{{$publishCourse->application_form_type_id}}">
                                 @else
@@ -79,7 +79,7 @@
                                                     id="institute_id"
                                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                                     data-label-fields="{title_bn}"
-                                                    data-dependent-fields="#branch_id|#training_center_id|#programme_id|#course_id"
+                                                    data-dependent-fields="#branch_id|#training_center_id|#programme_id|#publish_course_id"
                                                     data-placeholder="নির্বাচন করুন"
                                             >
                                             </select>
@@ -126,10 +126,10 @@
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="course_id">কোর্স<span class="required">*</span> :</label>
+                                        <label for="publish_course_id">কোর্স<span class="required">*</span> :</label>
                                         <select class="form-control select2-ajax-wizard"
-                                                name="course_id"
-                                                id="course_id"
+                                                name="publish_course_id"
+                                                id="publish_course_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
                                                 data-label-fields="{course.title_bn}"
                                                 data-depend-on-optional="institute_id|branch_id|training_center_id|programme_id"
@@ -1675,7 +1675,7 @@
                 let isWidthMatched = document.getElementsByTagName('img')[1].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "৩০০x৩০০ পিক্সেল ছবি উপলোড করুন",
+            "৩০০x৩০০ পিক্সেল ইমেজ আপলোড করুন",
         );
 
         $.validator.addMethod(
@@ -1685,7 +1685,7 @@
                 let isWidthMatched = document.getElementsByTagName('img')[2].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "৩০০x৮০ পিক্সেল ছবি উপলোড করুন",
+            "৩০০x৮০ পিক্সেল ইমেজ আপলোড করুন",
         );
 
         $.validator.addMethod(
@@ -1697,7 +1697,7 @@
                 let re1 = new RegExp(regexp1);
                 return this.optional(element) || re.test(value) || re1.test(value);
             },
-            "সঠিক এনআইডি ব্যবহার করুন"
+            "সঠিক এন.আই.ডি ব্যবহার করুন [শুধুমাত্র ১০/১৪/১৭ সংখ্যার এন.আই.ডি প্রদান করুন]"
         );
 
         $.validator.addMethod(
@@ -1802,7 +1802,7 @@
                 institute_id: {
                     required: true,
                 },
-                course_id: {
+                publish_course_id: {
                     required: true,
                 },
                 gender: {
@@ -2287,7 +2287,7 @@
                 institute_id: {
                     required: "একটি ইনস্টিটিউট সিলেক্ট করুন",
                 },
-                course_id: {
+                publish_course_id: {
                     required: "একটি কোর্সে সিলেক্ট করুন",
                 },
                 disable_status: {
@@ -2304,12 +2304,12 @@
                 },
                 student_pic: {
                     required: "এখানে আপনার ছবি যুক্ত করুন",
-                    accept: "এখানে বৈধ ছবি যুক্ত করুন[ইমেজ ফাইল শুধু]",
+                    accept: "এখানে বৈধ ছবি যুক্ত করুন",
                     //youthPictureSize: "৩০০x৩০০ পিক্সেল ছবি উপলোড করুন",
                 },
                 student_signature_pic: {
                     required: "এখানে আপনার সাক্ষর যুক্ত করুন",
-                    accept: "এখানে বৈধ সাক্ষর যুক্ত করুন[ইমেজ ফাইল শুধু]",
+                    accept: "এখানে বৈধ ছবি যুক্ত করুন",
                     //youthSignatureSize: "৩০০x৮০ পিক্সেল ছবি উপলোড করুন",
                 },
                 "address[present][present_address_division_id]": {
@@ -2847,7 +2847,7 @@
                 getApplicationFormType(instituteId);
             });*/
 
-            $('#course_id').on('change', function () {
+            $('#publish_course_id').on('change', function () {
                 let publishCourseId = $(this).val();
                 console.log("publishCourseId: " + publishCourseId);
                 let filters = {};

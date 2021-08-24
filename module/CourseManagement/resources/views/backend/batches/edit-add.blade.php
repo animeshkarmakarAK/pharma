@@ -18,7 +18,8 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Batch' : 'Update Batch' }}</h3>
                         <div>
-                            <a href="{{route('course_management::admin.batches.index')}}" class="btn btn-sm btn-rounded btn-outline-primary">
+                            <a href="{{route('course_management::admin.batches.index')}}"
+                               class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
                         </div>
@@ -34,7 +35,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title (En) ') }} <span style="color: red">*</span></label>
+                                    <label for="title_en">{{ __('Title (En) ') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $batch->title_en : old('title_en') }}">
@@ -44,7 +46,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Title (Bn) ') }} <span style="color: red">*</span></label>
+                                    <label for="title_bn">{{ __('Title (Bn) ') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $batch->title_bn : old('title_bn') }}">
@@ -52,7 +55,8 @@
                             </div>
 
                             @if($authUser->isInstituteUser())
-                                <input type="hidden" id="institute_id" name="institute_id" value="{{$authUser->institute_id}}">
+                                <input type="hidden" id="institute_id" name="institute_id"
+                                       value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
                                     <label for="institute_id">Institute Name <span style="color: red">*</span></label>
@@ -74,7 +78,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_id">{{ __('Course Name') }} <span style="color: red">*</span></label>
+                                    <label for="course_id">{{ __('Course Name') }} <span
+                                            style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="course_id"
                                             id="course_id"
@@ -103,7 +108,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="max_student_enrollment">{{ __('Max Student Enrollment') }} <span style="color: red">*</span></label>
+                                    <label for="max_student_enrollment">{{ __('Max Student Enrollment') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="number" class="form-control" id="max_student_enrollment"
                                            name="max_student_enrollment"
                                            value="{{ $edit ? $batch->max_student_enrollment : old('max_student_enrollment') }}"
@@ -113,7 +119,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="start_date">{{ __('Batch Start Date') }} <span style="color: red">*</span></label>
+                                    <label for="start_date">{{ __('Batch Start Date') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="text" class="flat-date flat-date-custom-bg start_date" id="start_date"
                                            name="start_date"
                                            value="{{ $edit ? $batch->start_date : old('start_date') }}"
@@ -123,7 +130,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="end_date">{{ __('Batch End Date') }} <span style="color: red">*</span></label>
+                                    <label for="end_date">{{ __('Batch End Date') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="date" class="flat-date flat-date-custom-bg" id="end_date"
                                            name="end_date"
                                            value="{{ $edit ? $batch->end_date : old('end_date') }}"
@@ -133,7 +141,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="start_time">{{ __('Batch Start Time') }} <span style="color: red">*</span></label>
+                                    <label for="start_time">{{ __('Batch Start Time') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="time" class="flat-time flat-time-custom-bg" id="start_time"
                                            name="start_time"
                                            value="{{ $edit ? $batch->start_time : old('start_time') }}"
@@ -143,7 +152,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="end_time">{{ __('Batch End Time') }} <span style="color: red">*</span></label>
+                                    <label for="end_time">{{ __('Batch End Time') }} <span
+                                            style="color: red">*</span></label>
                                     <input type="time" class="flat-time flat-time-custom-bg" id="end_time"
                                            name="end_time"
                                            value="{{ $edit ? $batch->end_time : old('end_time') }}">
@@ -168,14 +178,16 @@
 @endsection
 @push('css')
     <style>
-        .flat-date-custom-bg, .flat-time-custom-bg{
+        .flat-date-custom-bg, .flat-time-custom-bg {
             background-color: #fafdff !important;
         }
-        .has-error{
+
+        .has-error {
             position: relative;
-            padding: 0px 0 12px 0;
+            padding: 0 0 12px 0;
         }
-        #institute_id-error, #application_form_type_id-error, #course_id-error, #start_date-error, #end_date-error, #start_time-error, #end_time-error{
+
+        #institute_id-error, #application_form_type_id-error, #course_id-error, #start_date-error, #end_date-error, #start_time-error, #end_time-error {
             position: absolute;
             left: 6px;
             bottom: -9px;
@@ -188,6 +200,14 @@
 
     <script>
         const EDIT = !!'{{$edit}}';
+
+        if(!EDIT){
+            console.log(' not edit')
+        }else{
+            console.log(' edit')
+        }
+
+        console.log('Edit: '+ !EDIT? "#today":'test',)
 
         /*$.validator.addMethod('dateGreaterThan', function (start_date, end_date) {
 
@@ -267,43 +287,37 @@
         });
 
         let today = new Date();
-        today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-0)).slice(-2);
+        today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
         $('#today').val(today);
         console.log($('#today').val())
 
-        $('#start_date').on('change', function (){
+        $('#start_date').on('change', function () {
             console.log($('.start_date').val());
         })
 
 
-        $('#start_date').change(function(){
-            if ($(this).val()!="")
-            {
+        $('#start_date').change(function () {
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
 
-        $('#end_date').change(function(){
-            if ($(this).val()!="")
-            {
+        $('#end_date').change(function () {
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
 
-        $('#start_time').change(function(){
-            if ($(this).val()!="")
-            {
+        $('#start_time').change(function () {
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
-        $('#end_time').change(function(){
-            if ($(this).val()!="")
-            {
+        $('#end_time').change(function () {
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
-
-
 
     </script>
 @endpush

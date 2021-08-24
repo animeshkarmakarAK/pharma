@@ -101,7 +101,7 @@ class VideoCategoryService
             ->editColumn('row_status', function (VideoCategory $videoCategory) {
                 return $videoCategory->getCurrentRowStatus(true);
             })
-            ->rawColumns(['action', 'parent'])
+            ->rawColumns(['action', 'parent', 'row_status'])
             ->toJson();
     }
 }

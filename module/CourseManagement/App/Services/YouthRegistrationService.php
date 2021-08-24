@@ -16,7 +16,8 @@ use Illuminate\Validation\ValidationException;
 
 class YouthRegistrationService
 {
-    private function guardian($p1, $p2) {
+    private function guardian($p1, $p2)
+    {
         if (empty($p1)) {
             return false;
         }
@@ -31,48 +32,45 @@ class YouthRegistrationService
     {
         $presentAddress = data_get($data, 'address.present');
         $permanentAddress = data_get($data, 'address.permanent');
-        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile','email', 'ethnic_group']);
+        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile', 'email', 'ethnic_group']);
         $youth = array_merge($youth, $presentAddress);
         $youth = array_merge($youth, $permanentAddress);
 
         $youth['access_key'] = Youth::getUniqueAccessKey();
-        if(!$youth = Youth::create($youth)){
+        if (!$youth = Youth::create($youth)) {
             throw ValidationException::withMessages(['publish_course_id' => 'Youth creation failed!']);
         }
 
         $youth_registration_info = Arr::only($data, ['institute_id', 'branch_id', 'programme_id', 'training_center_id',
-            'course_id', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status',
+            'publish_course_id', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status',
             'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land',
             'number_of_siblings', 'student_signature_pic', 'student_pic']);
 
-        $publishCourse = PublishCourse::where('id', $data['course_id'])->first();
+        $publishCourse = PublishCourse::where('id', $data['publish_course_id'])->first();
         if (!$publishCourse) {
             throw ValidationException::withMessages(['publish_course_id' => 'course config not found.']);
         }
 
         $youth_registration_info['publish_course_id'] = $publishCourse->id;
 
-
-
         if (isset($data['student_signature_pic'])) {
             $filename = FileHandler::storePhoto($youth_registration_info['student_signature_pic'], 'student');
             $youth_registration_info['student_signature_pic'] = 'student/' . $filename;
         }
+
         if (isset($data['student_pic'])) {
             $filename = FileHandler::storePhoto($youth_registration_info['student_pic'], 'student', 'signature_' . $youth->access_key);
             $youth_registration_info['student_pic'] = 'student/' . $filename;
         }
 
         $youth->youthRegistration()->create($youth_registration_info);
-
         $skipGuardian = false;
 
-        if(empty($data['guardian'])){
+        if (empty($data['guardian'])) {
             $data['guardian'] = null;
         }
 
         foreach ($data['familyMember'] as $key => $familyMember) {
-
             if (($skipGuardian && $key == 'guardian') || (empty($data['guardian']) && $key == "guardian")) continue;
 
             if ($key == 'father') {
@@ -98,7 +96,6 @@ class YouthRegistrationService
         /**
          * youth self info
          */
-
 
         $youth_self_info = Arr::only($data, ['mobile', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
@@ -151,7 +148,7 @@ class YouthRegistrationService
             'branch_id' => 'nullable|int',
             'training_center_id' => 'nullable|int',
             'programme_id' => 'nullable|int',
-            'course_id' => 'required|int',
+            'publish_course_id' => 'required|int',
             'institute_id' => 'required|int',
             'religion' => 'required|int',
             'freedom_fighter_status' => 'sometimes|nullable|int',

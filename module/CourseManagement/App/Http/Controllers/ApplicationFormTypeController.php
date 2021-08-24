@@ -137,6 +137,12 @@ class ApplicationFormTypeController extends Controller
         try {
             $this->applicationFormTypeService->deleteApplicationFormType($applicationFormType);
         } catch (\Throwable $exception) {
+            if(!empty($exception->errorInfo[1]==1451)){
+                return back()->with([
+                    'message' => __('This application form type already assigned to publish course, Please delete published course'),
+                    'alert-type' => 'error'
+                ]);
+            }
             Log::debug($exception->getMessage());
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),

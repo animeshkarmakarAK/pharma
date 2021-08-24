@@ -265,7 +265,7 @@
                 },
                 content_path: {
                     required: function () {
-                        if ((!$('input[name="is_youtube_video"]:checked').val() || $('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) && !EDIT) {
+                        if ((!$('input[name="is_youtube_video"]:checked').val() || $('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}} || $('#content_path').val()=='') && !EDIT) {
                             return true
                         } else {
                             return false
@@ -301,7 +301,7 @@
                     greaterThan: ".publish_date"
                 },
             },
-            messages:{
+            messages: {
                 content_path: {
                     accept: function () {
                         if ($('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}}) {
@@ -345,17 +345,14 @@
                 $("#youtube_id").css('display', 'none');
 
                 if ({{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO}} == content_type
-            )
-                {
+                ) {
                     $("#video_type").css('display', 'block');
                     $("#file_upload").css('display', 'none');
                     if ($("#is_youtube_video").val()) {
                         videoFieldDisplay(parseInt($('input[name="is_youtube_video').val()));
                     }
 
-                }
-            else
-                {
+                } else {
                     $("#video_type").css('display', 'none');
                     $("#file_upload").css('display', 'block');
                 }
@@ -367,38 +364,35 @@
         });
 
         let today = new Date();
-        today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-1)).slice(-2);
-        console.log('Today: '+today)
-        $('#today').val(today+ " 12:00");
+        today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 1)).slice(-2);
+        console.log('Today: ' + today)
+        $('#today').val(today + " 12:00");
 
-        $('#institute_id').change(function(){
-            if ($(this).val()!="")
-            {
+        $('#institute_id').change(function () {
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
-        $('.publish_date').change(function(){
-            if ($(this).val()!="")
-            {
-                $(this).valid();
-            }
-        });
-
-        $('#archive_date').change(function(){
-            if ($(this).val()!="")
-            {
+        $('.publish_date').change(function () {
+            if ($(this).val() != "") {
                 $(this).valid();
             }
         });
 
-        $('#is_youtube_video_yes').on('click', function (){
-            $('#content_path').prop( "disabled", true);
-            $('#you_tube_video_id').prop( "disabled", false);
+        $('#archive_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
+        $('#is_youtube_video_yes').on('click', function () {
+            $('#content_path').prop("disabled", true);
+            $('#you_tube_video_id').prop("disabled", false);
         })
 
-        $('#is_youtube_video_no').on('click', function (){
-            $('#content_path').prop( "disabled", false);
-            $('#you_tube_video_id').prop( "disabled", true);
+        $('#is_youtube_video_no').on('click', function () {
+            $('#content_path').prop("disabled", false);
+            $('#you_tube_video_id').prop("disabled", true);
 
         })
 
