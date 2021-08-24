@@ -59,8 +59,6 @@ class UserController extends BaseController
             return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
 
-        //return redirect()->route('admin.users.index')
-
         return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
 

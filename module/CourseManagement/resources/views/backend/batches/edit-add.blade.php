@@ -201,6 +201,14 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
+        if(!EDIT){
+            console.log(' not edit')
+        }else{
+            console.log(' edit')
+        }
+
+        console.log('Edit: '+ !EDIT? "#today":'test',)
+
         /*$.validator.addMethod('dateGreaterThan', function (start_date, end_date) {
 
             return new Date(start_date) < new Date(end_date);

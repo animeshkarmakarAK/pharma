@@ -17,7 +17,7 @@
                     <div class="btn-group">
                         <a href="{{route('course_management::admin.publish-courses.edit', [$publishCourse->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-plus-circle"></i> {{ __('Edit Permission') }}
+                            <i class="fas fa-plus-circle"></i> {{ __('Edit Course Config') }}
                         </a>
                         <a href="{{route('course_management::admin.publish-courses.index')}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
