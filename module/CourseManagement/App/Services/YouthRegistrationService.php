@@ -89,7 +89,6 @@ class YouthRegistrationService
             } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_OTHER && $key == 'guardian') {
                 $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_OTHER;
             }
-
             $youth->youthFamilyMemberInfo()->create($familyMember);
         }
 
@@ -153,6 +152,8 @@ class YouthRegistrationService
             'familyMember.guardian.mobile' => 'nullable|string',
             'familyMember.guardian.relation_with_youth' => 'nullable|string',
             'guardian' => 'nullable|int',
+            'disable_status' => 'nullable',
+            'physical_disabilities' => 'nullable',
 
             'gender' => 'required|int',
             'marital_status' => 'required|int',
