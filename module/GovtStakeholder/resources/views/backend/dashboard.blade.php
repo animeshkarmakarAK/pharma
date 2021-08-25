@@ -110,7 +110,6 @@
         }
 
 
-        /**************************************************************/
         /*************************Map CSS******************************/
         /**************************************************************/
         #bangladesh {
@@ -201,7 +200,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="{{--{{ route('govt_stakeholder::admin.institutes.index') }}--}}">104{{--{{ $stickerCount['total_institute']? $stickerCount['total_institute']:'0' }}--}}</a>
+                        {{ $totalOrganizationUnit }}
                     </div>
                     <div class="sticker-title">
                         শিল্প প্রতিষ্ঠান
@@ -217,7 +216,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        100
+                        0
                     </div>
                     <div class="sticker-title">
                         কর্মরত
@@ -234,7 +233,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="#">44</a>
+                        <a href="#">0</a>
 
                     </div>
                     <div class="sticker-title">
@@ -252,7 +251,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="#">345</a>
+                        <a href="#">0</a>
                     </div>
                     <div class="sticker-title">
                         কর্মহীন
@@ -269,7 +268,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="#">231</a>
+                        <a href="#">0</a>
                     </div>
                     <div class="sticker-title">
                         প্রশিক্ষণ প্রতিষ্ঠান
@@ -552,15 +551,18 @@
                     },
                     {
                         data: "total_new_recruits",
-                        name: "total_new_recruits"
+                        name: "total_new_recruits",
+                        defaultContent: 0
                     },
                     {
                         data: "total_occupied_position",
-                        name: "total_occupied_position"
+                        name: "total_occupied_position",
+                        defaultContent: 0
                     },
                     {
                         data: "total_vacancy",
-                        name: "total_vacancy"
+                        name: "total_vacancy",
+                        defaultContent: 0
                     },
                     {
                         data: "survey_date",

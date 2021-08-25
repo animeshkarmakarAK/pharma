@@ -13,6 +13,7 @@ use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Programme;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Models\Youth;
+use Module\GovtStakeholder\App\Models\OrganizationUnit;
 use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 
 class DashboardController
@@ -26,7 +27,7 @@ class DashboardController
         $incrementDate = Carbon::now()->subMonths(6)->startOfMonth();
         $endDate = Carbon::now();
 
-        for ($i=0;$i<6;$i++){
+        for ($i = 0; $i < 6; $i++) {
             $months[$incrementDate->format('F')] = [];
             $incrementDate->addMonth();
         }
@@ -40,6 +41,7 @@ class DashboardController
         if ($authUser->isDivcomUser()) {
             $employmentStatistic->where('loc_upazilas.loc_division_id', $authUser->loc_division_id);
         }
+
         $employmentStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
         $employmentStatistic->select([DB::raw("SUM(upazila_job_statistics.total_unemployed) as total_unemployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as total_employed"),
@@ -54,7 +56,7 @@ class DashboardController
 
         $results = [];
         foreach ($months as $month => $values) {
-            if(empty($employmentStatistic[$month])){
+            if (empty($employmentStatistic[$month])) {
                 $results[$month] = [
                     'total_unemployed' => 0,
                     'total_employed' => 0,
@@ -63,7 +65,7 @@ class DashboardController
                     'total_skilled_youth' => 0,
                     'survey_date' => $month
                 ];
-            }else{
+            } else {
                 $results[$month] = $employmentStatistic[$month]->toArray();
             }
         }
@@ -107,8 +109,13 @@ class DashboardController
             return view('govt_stakeholder::backend.institute-dashboard', compact('data'));
         }
 
+        if ($authUser->isDCUser()) {
+            $totalOrganizationUnit = OrganizationUnit::where('loc_district_id', $authUser->loc_district_id)->count();
+        } else {
+            $totalOrganizationUnit = OrganizationUnit::count();
+        }
 
-        return view('govt_stakeholder::backend.dashboard', compact('data'));
+        return view('govt_stakeholder::backend.dashboard', compact('data', 'totalOrganizationUnit'));
     }
 
 
@@ -133,7 +140,7 @@ class DashboardController
         if ($request->input('division_id')) {
             $upazilaJobStatistics->join('loc_divisions', 'loc_upazilas.loc_division_id', 'loc_divisions.id');
             $upazilaJobStatistics->where('loc_divisions.id', $request->input('division_id'));
-        }else {
+        } else {
             $upazilaJobStatistics->join('loc_districts', 'loc_upazilas.loc_district_id', 'loc_districts.id');
             $upazilaJobStatistics->where('loc_districts.id', $request->input('district_id'));
         }
