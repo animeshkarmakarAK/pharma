@@ -345,7 +345,7 @@
                         @endif
 
                         <div id="bd_map_d3" style="display: none"></div>
-                        <div class="map_info" style="display: none">
+                        <div class="map_info" style="display: none; position: absolute; height: 200px; z-index: 999;">
                             <div class="map_content_top">
                                 <p><b><span id="district"></span></b></p>
                             </div>
@@ -650,7 +650,7 @@
                 setTimeout(function () {
                     datatable2.draw();
                 }, 200)
-            })
+            });
 
             //datatable for employed statistics
 
@@ -793,7 +793,6 @@
                 .domain(employment_statistic_data_group)
                 .range(["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"]);
 
-            console.log('width', width)
             // Add X axis --> it is a date format
             let x = d3.scaleBand()
                 .domain(xaxisLabels)
@@ -918,7 +917,7 @@
 
         (function () {
             /**
-             * This block is for colum graph
+             * This block is for column graph
              **/
             if (data == [] || !data.job_sector_statistic) {
                 $("#job_sector_statistic").html('No Data Found')
@@ -1163,24 +1162,35 @@
                         .range([0, 300]);
 
                     let yAxis = d3.svg.axis()
-                        .scale(y)
+                        .scale(y*0.1)
                         .tickValues(colorScale.domain())
                         .orient("right");
 
                     bangladesh.selectAll("path")
                         .data(json.features)
-                        .enter().append("path")
+                        .enter()
+                        .append("path")
                         .attr("d", path)
                         .style("opacity", 0.5)
                         .attr('class', 'bd')
                         .filter((d) => d.properties[mapType] == divisionOrDistrictName)
                         .attr("class", "labels")
                         .on('mouseover', function (d, i) {
+                            let dd = d;
                             let districtId = $('#loc_district_id').val();
                             let upazilaName = d.properties.ADM3_EN;
                             let upazilaStatistics = selectedDistroctData.find((item) => item?.upazila_title?.toString().toLowerCase() === upazilaName.toLowerCase());
                             if ($('.map_info').hide()) {
                                 $('.map_info').show();
+
+                                d3.select('.map_info')
+                                .style("top", function (d) {
+                                    let scrollHeight = Math.ceil(window.scrollY / 100 * 5);
+                                    // return -50 + scrollHeight + "px";
+                                    // console.log(window.scrollY - 400 + "px");
+                                    return window.scrollY - 300 + "px";
+                                });
+
                                 $('#map_message').hide();
                                 $("#district").text(function () {
                                     return isDivisionMap ? d.properties.ADM2_EN + "district" :  d.properties.ADM3_EN + " Thana";
@@ -1218,14 +1228,14 @@
                             }
 
                             d3.select(this).transition().duration(300)
-                                .style("opacity", 0.5);
+                                .style("opacity", 0.5)
+
                             div.transition().duration(300)
                                 .style("opacity", 0);
                         })
 
                         .forEach(a => {
                             a.forEach(v => {
-                                // console.log(v)
                                 let r = Math.floor(100 + Math.random() * 155)
                                 let g = Math.floor(100 + Math.random() * 55)
                                 let b = Math.floor(100 + Math.random() * 55)
