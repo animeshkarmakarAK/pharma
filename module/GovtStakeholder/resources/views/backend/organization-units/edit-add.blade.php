@@ -295,11 +295,12 @@
         editAddForm.validate({
             rules: {
                 title_en: {
-                    required: true
+                    required: true,
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 organization_id: {
                     required: true,
@@ -351,6 +352,9 @@
                 }
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 },

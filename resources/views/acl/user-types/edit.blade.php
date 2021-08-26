@@ -65,7 +65,8 @@
         editAddForm.validate({
             rules: {
                 title: {
-                    required: true
+                    required: true,
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 code: {
                     required: true
@@ -76,6 +77,9 @@
                 status: {
                     required: true
                 }
+            },
+            messages: {
+                title: "Please fill this field in English."
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

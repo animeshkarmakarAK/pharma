@@ -219,17 +219,29 @@
             function registerValidator(edit) {
                 $(".edit-add-form").validate({
                     rules: {
+                        profile_pic: {
+                            accept: "image/*",
+                        },
                         name_en: {
                             required: true,
-                            pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
+                            pattern: /^[a-zA-Z0-9 ]*$/,
                         },
                         name_bn: {
                             required: true,
-                            pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
+                            pattern: /^[\s'\u0980-\u09ff]+$/,
                         },
                         email: {
                             required: true,
-                            email: true,
+                            pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+                            /*remote: {
+                                param: {
+                                    type: "post",
+                                    url: "{{ route('admin.users.check-unique-user-email') }}",
+                                },
+                                depends: function (element) {
+                                    return $(element).val() !== $('#email').attr('data-unique-user-email');
+                                }
+                            },*/
                         },
                         user_type_id: {
                             required: true
@@ -262,14 +274,14 @@
                         },
                     },
                     messages: {
+                        profile_pic: {
+                            accept: "Please input valid image file",
+                        },
                         name_en: {
                             pattern: "Please fill this field in English."
                         },
                         name_bn: {
                             pattern: "Please fill this field in Bangla."
-                        },
-                        email: {
-                            email: "Please enter valid email address",
                         },
                     },
                     submitHandler: function (htmlForm) {
@@ -303,15 +315,6 @@
                     }
                 });
             }
-
-            //$("#edit-add-modal").modal({"backdrop": "static"});
-
-            $('.submit-btn').submit(function(e) {
-                e.preventDefault();
-                // Coding
-                $('#edit-add-modal').modal('toggle'); //or  $('#IDModal').modal('hide');
-                return false;
-            });
 
         });
 

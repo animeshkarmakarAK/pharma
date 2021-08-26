@@ -168,11 +168,11 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 institute_id: {
                     required: true

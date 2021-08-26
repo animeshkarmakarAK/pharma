@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="user-image text-center">
                         <img
-                            src="https://t3.ftcdn.net/jpg/02/94/62/14/360_F_294621430_9dwIpCeY1LqefWCcU23pP9i11BgzOS0N.jpg"
+                            src="{{ !empty($user->profile_pic)? asset("storage/{$user->profile_pic}"):'https://www.kindpng.com/picc/m/451-4517876_default-profile-hd-png-download.png' }}"
                             height="100" width="100" class="rounded-circle" alt="Cinque Terre">
                     </div>
                     <div class="d-flex justify-content-center user-info normal-line-height mt-3">
