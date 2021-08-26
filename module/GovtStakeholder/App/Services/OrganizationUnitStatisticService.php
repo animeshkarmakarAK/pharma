@@ -100,6 +100,7 @@ class OrganizationUnitStatisticService
 
     public function getStatistics(Request $request): JsonResponse
     {
+        /** @var organizationUnitStatistic|Builder $organizationUnitStatistics */
         $organizationUnitStatistics = organizationUnitStatistic::select(
             [
                 'organization_unit_statistics.id',
@@ -107,23 +108,27 @@ class OrganizationUnitStatisticService
                 'organization_unit_statistics.total_vacancy',
                 'organization_unit_statistics.total_occupied_position',
                 'organization_unit_statistics.survey_date',
-                'organization_units.title_en as organization_unit_name',
-                'organization_unit_types.title_en as organization_unit_type_name',
+                'organization_units.title_bn as organization_unit_name',
+                'organization_unit_types.title_bn as organization_unit_type_name',
             ]);
 
-        if ($request->input('month')) {
-            $organizationUnitStatistics->whereMonth('survey_date', $request->input('month'));
-        }
+        $organizationUnitStatistics->rightJoin('organization_units', function($query) use($request) {
+            $query->on('organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
+            if ($request->input('month')) {
+                $query->whereMonth('survey_date', $request->input('month'));
+            }
 
-        $organizationUnitStatistics->join('organization_units', 'organization_unit_statistics.organization_unit_id', '=', 'organization_units.id');
-        $organizationUnitStatistics->join('organization_unit_types', 'organization_units.organization_unit_type_id', '=', 'organization_unit_types.id');
+            if ($request->input('loc_division_id')) {
+                $query->where('organization_units.loc_division_id', $request->input('loc_division_id'));
+            }
 
-        if ($request->input('loc_division_id')) {
-            $organizationUnitStatistics->where('organization_units.loc_division_id', $request->input('loc_division_id'));
-        }
-        if ($request->input('loc_district_id')) {
-            $organizationUnitStatistics->where('organization_units.loc_district_id', $request->input('loc_district_id'));
-        }
+            if ($request->input('loc_district_id')) {
+                $query->where('organization_units.loc_district_id', $request->input('loc_district_id'));
+            }
+        });
+
+        $organizationUnitStatistics->leftJoin('organization_unit_types', 'organization_units.organization_unit_type_id', '=', 'organization_unit_types.id');
+
         return DataTables::eloquent($organizationUnitStatistics)
             ->editColumn('survey_date', function () {
                 return "";
@@ -133,8 +138,8 @@ class OrganizationUnitStatisticService
 
     public function unemploymentStatistic(Request $request): JsonResponse
     {
-        $organizationUnitStatistics = organizationUnitStatistic::join('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id', 'organization_unit_name')
-            ->selectRaw('sum(total_new_recruits) as sum_new_recruits, sum(total_vacancy) as sum_vacancy, sum(total_occupied_position) as sum_occupied_position, organization_units.title_en as organization_unit_name');
+        $organizationUnitStatistics = organizationUnitStatistic::leftJoin('organization_units','organization_unit_statistics.organization_unit_id', '=', 'organization_units.id')->groupBy('organization_unit_id', 'organization_unit_name')
+            ->selectRaw('sum(total_new_recruits) as sum_new_recruits, sum(total_vacancy) as sum_vacancy, sum(total_occupied_position) as sum_occupied_position, organization_units.title_bn as organization_unit_name');
 
         if ($request->input('loc_division_id')) {
             $organizationUnitStatistics->where('organization_units.loc_division_id', $request->input('loc_division_id'));

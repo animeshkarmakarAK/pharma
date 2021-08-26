@@ -598,7 +598,6 @@
         }
 
 
-
         // Toggle children on click.
 
         function click(d) {
