@@ -32,10 +32,11 @@ class BatchService
 
     public function validator(Request $request, $id = null): Validator
     {
+
         $rules = [
             'title_en' => 'required|string|max:191',
             'title_bn' => 'required|string|max: 191',
-            'code' => 'required|string|max: 191|unique:batches,code,'.$id,
+            'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'institute_id' => 'required|int',
             'course_id' => 'required|int',
             'max_student_enrollment' => ['required', 'int'],
@@ -44,6 +45,12 @@ class BatchService
             'start_time' => ['required'],
             'end_time' => ['required'],
         ];
+
+        if (!empty($id)) {
+            $rules['start_date'] = [
+                'start_date' => ['required', 'date']
+            ];
+        }
 
         $customMessages = [
             'start_date.after' => 'Start Date will must be greater than Today'
@@ -77,19 +84,19 @@ class BatchService
         $batches->join('courses', 'batches.course_id', '=', 'courses.id');
 
         return DataTables::eloquent($batches)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Batch $batch) use ($authUser){
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Batch $batch) use ($authUser) {
                 $str = '';
-                if($authUser->can('view',$batch)){
+                if ($authUser->can('view', $batch)) {
                     $str .= '<a href="' . route('course_management::admin.batches.show', $batch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }
-                if($authUser->can('viewBachYouth', $batch)) {
+                if ($authUser->can('viewBachYouth', $batch)) {
                     $str .= '<a href="' . route('course_management::admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('generic.youths_button_label') . '</a>';
                 }
 
-                if($authUser->can('update',$batch)){
+                if ($authUser->can('update', $batch)) {
                     $str .= '<a href="' . route('course_management::admin.batches.edit', $batch->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . '</a>';
                 }
-                if($authUser->can('delete',$batch)){
+                if ($authUser->can('delete', $batch)) {
                     $str .= '<a href="#" data-action="' . route('course_management::admin.batches.destroy', $batch->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 return $str;
