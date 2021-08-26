@@ -759,7 +759,7 @@
                 item['time'] = '' + (index + 1)
                 return item
             })
-            let employment_statistic_data_group = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'নতুন দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
+            let employment_statistic_data_group = [{total_unemployed: 'কর্মহীন'}, {total_employed: 'কর্মরত'}, {total_skilled_youth: 'দক্ষ জনবল'}, {total_vacancy: 'কর্মখালি'}, {total_new_recruitment: 'নিয়োগ'}]
 
 
             // Reformat the data: we need an array of arrays of {x, y} tuples
@@ -869,7 +869,9 @@
                 .data(dataReady)
                 .enter()
                 .append('g')
-                .append("text")
+                .append("text", function (d) {
+                    return d;
+                })
                 .attr("class", function (d) {
                     return d.key
                 })

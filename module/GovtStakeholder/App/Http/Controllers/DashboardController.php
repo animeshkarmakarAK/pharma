@@ -18,24 +18,63 @@ use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 
 class DashboardController
 {
-    private function getEmployeesEmploymentInformation($jobSectorStatistic): array
+    private function getEmployeesEmploymentInformation($jobSectorStatistic, $authUser): array
     {
-        $jobSectorStatistic->where(function ($query) {
-            $query->whereMonth('survey_date', Carbon::now()->month)
-                ->whereYear('survey_date', Carbon::now()->year);
+        $jobSectorStatistic->where(function ($query) use ($authUser) {
+            $query->whereMonth('upazila_job_statistics.survey_date', Carbon::now()->month)
+                ->whereYear('upazila_job_statistics.survey_date', Carbon::now()->year);
+
+            if ($authUser->isDCUser()) {
+                $query->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+            }
+
+            if ($authUser->isDivcomUser()) {
+                $query->where('loc_upazilas.loc_division_id', $authUser->loc_division_id);
+            }
         })
-            ->orWhere(function ($query) {
+            ->orWhere(function ($query) use ($authUser) {
                 $lastMonth = Carbon::now()->subMonth();
-                $query->whereMonth('survey_date', $lastMonth->month)
-                    ->whereYear('survey_date', $lastMonth->year);
+                $query->whereMonth('upazila_job_statistics.survey_date', $lastMonth->month)
+                    ->whereYear('upazila_job_statistics.survey_date', $lastMonth->year);
+
+                if ($authUser->isDCUser()) {
+                    $query->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+                }
+
+                if ($authUser->isDivcomUser()) {
+                    $query->where('loc_upazilas.loc_division_id', $authUser->loc_division_id);
+                }
             });
 
         $data = [];
         $data['totalUnemployed'] = $jobSectorStatistic->sum('total_unemployed');
         $data['totalEmployed'] = $jobSectorStatistic->sum('total_employed');
         $data['totalVacant'] = $jobSectorStatistic->sum('total_vacancy');
+
         return $data;
     }
+
+    private function redirectToInstituteUserDashboard(): array
+    {
+        $totalInstitute = Institute::active()->count();
+        $totalYouth = Youth::active()->count();
+        $totalCourse = Course::acl()->active()->count();
+        $totalBranch = Branch::acl()->active()->count();
+        $totalTrainingCenter = TrainingCenter::acl()->active()->count();
+        $totalProgramme = Programme::acl()->active()->count();
+        $totalBatch = Batch::acl()->count();
+
+        $data = [];
+        $data['total_institute'] = $totalInstitute;
+        $data['total_youth'] = $totalYouth;
+        $data['total_course'] = $totalCourse;
+        $data['total_branch'] = $totalBranch;
+        $data['total_training_center'] = $totalTrainingCenter;
+        $data['total_programme'] = $totalProgramme;
+        $data['totalBatch'] = $totalBatch;
+        return $data;
+    }
+
 
     public function dashboard()
     {
@@ -96,13 +135,11 @@ class DashboardController
         $jobSectorStatistic = UpazilaJobStatistic::query();
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
 
-        $lastTwoMonthsEmploymentInfos = [];
+        $lastTwoMonthsEmploymentInfos = $this->getEmployeesEmploymentInformation($jobSectorStatistic, $authUser);
+
         if ($authUser->isDCUser()) {
-            $jobSectorStatistic->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
-            /**
-             * if current month info or last current month info exist then get info
-             */
-            $lastTwoMonthsEmploymentInfos = $this->getEmployeesEmploymentInformation($jobSectorStatistic);
+            /** if current month info or last current month info exist then get info */
+            $lastTwoMonthsEmploymentInfos = $this->getEmployeesEmploymentInformation($jobSectorStatistic, $authUser);
         }
 
         if ($authUser->isDivcomUser()) {
@@ -119,23 +156,8 @@ class DashboardController
         $data['job_sector_statistic'] = $jobSectorStatistic->get()->toArray();
 
         if ($authUser->isInstituteUser()) {
-            $totalInstitute = Institute::active()->count();
-            $totalYouth = Youth::active()->count();
-            $totalCourse = Course::acl()->active()->count();
-            $totalBranch = Branch::acl()->active()->count();
-            $totalTrainingCenter = TrainingCenter::acl()->active()->count();
-            $totalProgramme = Programme::acl()->active()->count();
-            $totalBatch = Batch::acl()->count();
-
-            $data = [];
-            $data['total_institute'] = $totalInstitute;
-            $data['total_youth'] = $totalYouth;
-            $data['total_course'] = $totalCourse;
-            $data['total_branch'] = $totalBranch;
-            $data['total_training_center'] = $totalTrainingCenter;
-            $data['total_programme'] = $totalProgramme;
-            $data['totalBatch'] = $totalBatch;
-            return view('govt_stakeholder::backend.institute-dashboard', compact('data'));
+            $data = $this->redirectToInstituteUserDashboard();
+            return \view('govt_stakeholder::backend.institute-dashboard', compact('data'));
         }
 
         if ($authUser->isDCUser()) {
@@ -146,7 +168,7 @@ class DashboardController
 
         return view('govt_stakeholder::backend.dashboard', with([
             'data' => $data,
-            'totalOrganizationUnit' =>$totalOrganizationUnit,
+            'totalOrganizationUnit' => $totalOrganizationUnit,
             'lastTwoMonthsEmploymentInfos' => $lastTwoMonthsEmploymentInfos
         ]));
     }
