@@ -144,11 +144,6 @@
                     required: true,
                 }
             },
-            messages: {
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
-                }
-            },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
                 htmlForm.submit();

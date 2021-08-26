@@ -258,9 +258,12 @@
 
             },
             messages: {
+                title_en: {
+                    pattern: "This field is required in English.",
+                },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
-                }
+                },
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

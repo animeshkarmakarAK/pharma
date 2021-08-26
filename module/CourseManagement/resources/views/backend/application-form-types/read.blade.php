@@ -44,6 +44,12 @@
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
+                    <p class="label-text">JSC Exam Field Show</p>
+                    <div class="input-box">
+                        {{$applicationFormType->jsc=='1'?'Yes':'No' }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
                     <p class="label-text">SSC Exam Field Show</p>
                     <div class="input-box">
                         {{$applicationFormType->ssc=='1'?'Yes':'No' }}
