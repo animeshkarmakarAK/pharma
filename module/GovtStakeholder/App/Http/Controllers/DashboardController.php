@@ -18,6 +18,25 @@ use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 
 class DashboardController
 {
+    private function getEmployeesEmploymentInformation($jobSectorStatistic): array
+    {
+        $jobSectorStatistic->where(function ($query) {
+            $query->whereMonth('survey_date', Carbon::now()->month)
+                ->whereYear('survey_date', Carbon::now()->year);
+        })
+            ->orWhere(function ($query) {
+                $lastMonth = Carbon::now()->subMonth();
+                $query->whereMonth('survey_date', $lastMonth->month)
+                    ->whereYear('survey_date', $lastMonth->year);
+            });
+
+        $data = [];
+        $data['totalUnemployed'] = $jobSectorStatistic->sum('total_unemployed');
+        $data['totalEmployed'] = $jobSectorStatistic->sum('total_employed');
+        $data['totalVacant'] = $jobSectorStatistic->sum('total_vacancy');
+        return $data;
+    }
+
     public function dashboard()
     {
         $authUser = AuthHelper::getAuthUser();
@@ -77,12 +96,19 @@ class DashboardController
         $jobSectorStatistic = UpazilaJobStatistic::query();
         $jobSectorStatistic->join('loc_upazilas', 'upazila_job_statistics.loc_upazila_id', '=', 'loc_upazilas.id');
 
+        $lastTwoMonthsEmploymentInfos = [];
         if ($authUser->isDCUser()) {
             $jobSectorStatistic->where('loc_upazilas.loc_district_id', $authUser->loc_district_id);
+            /**
+             * if current month info or last current month info exist then get info
+             */
+            $lastTwoMonthsEmploymentInfos = $this->getEmployeesEmploymentInformation($jobSectorStatistic);
         }
+
         if ($authUser->isDivcomUser()) {
             $jobSectorStatistic->where('loc_upazilas.loc_division_id', $authUser->loc_division_id);
         }
+
         $jobSectorStatistic->join('job_sectors', 'upazila_job_statistics.job_sector_id', '=', 'job_sectors.id');
         $jobSectorStatistic->select(['upazila_job_statistics.job_sector_id as group', 'job_sectors.title_bn as sector', DB::raw("SUM(upazila_job_statistics.total_unemployed) as UnEmployed"),
             DB::raw("SUM(upazila_job_statistics.total_employed) as Employed")])
@@ -118,7 +144,11 @@ class DashboardController
             $totalOrganizationUnit = OrganizationUnit::count();
         }
 
-        return view('govt_stakeholder::backend.dashboard', compact('data', 'totalOrganizationUnit'));
+        return view('govt_stakeholder::backend.dashboard', with([
+            'data' => $data,
+            'totalOrganizationUnit' =>$totalOrganizationUnit,
+            'lastTwoMonthsEmploymentInfos' => $lastTwoMonthsEmploymentInfos
+        ]));
     }
 
 

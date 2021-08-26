@@ -153,7 +153,7 @@
         .map_info {
             display: inline-block;
             position: absolute;
-            bottom: 6px;
+            /*bottom: 6px;*/
             right: 6px;
             opacity: .8;
             font-size: 12px;
@@ -216,7 +216,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        0
+                        {{ $lastTwoMonthsEmploymentInfos["totalEmployed"] }}
                     </div>
                     <div class="sticker-title">
                         কর্মরত
@@ -233,7 +233,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="#">0</a>
+                        {{ $lastTwoMonthsEmploymentInfos["totalVacant"] }}
 
                     </div>
                     <div class="sticker-title">
@@ -251,7 +251,7 @@
                     </div>
 
                     <div class="sticker-count">
-                        <a href="#">0</a>
+                        {{ $lastTwoMonthsEmploymentInfos["totalUnemployed"] }}
                     </div>
                     <div class="sticker-title">
                         কর্মহীন
