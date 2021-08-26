@@ -198,4 +198,13 @@ class UserController extends BaseController
             'alert-type' => 'success'
         ]);
     }
+
+    public function checkUserEmailUniqueness(Request $request): JsonResponse
+    {
+        $youth = User::where('email', $request->email)->first();
+        if ($youth == null) {
+            return response()->json(true);
+        }
+        return response()->json("This email address already in use");
+    }
 }

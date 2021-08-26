@@ -1773,7 +1773,7 @@
             rules: {
                 name_en: {
                     required: true,
-                    pattern: /^[a-zA-Z ]*$/,
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 name_bn: {
                     required: true,
@@ -2172,6 +2172,7 @@
                 },
                 "familyMember[father][member_name_en]": {
                     required: true,
+                    pattern: /^[a-zA-Z0-9 ]*$|[\s'\u0980-\u09ff]+$/,
                 },
                 "familyMember[father][nid]": {
                     required: true,
