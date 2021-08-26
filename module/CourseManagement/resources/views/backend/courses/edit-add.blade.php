@@ -125,7 +125,7 @@
                                 <div class="form-group">
                                     <label for="course_fee">{{ __('Course Fee') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="course_fee"
+                                    <input type="number" class="form-control" id="course_fee"
                                            name="course_fee"
                                            value="{{ $edit ? $course->course_fee : old('course_fee') }}"
                                            placeholder="{{ __('Course Fee') }}">
@@ -311,7 +311,7 @@
                 },
                 course_fee: {
                     required: true,
-                    min: 0
+                    number: true,
                 },
                 duration: {
                     required: false,
@@ -358,6 +358,9 @@
                 },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
+                },
+                course_fee: {
+                    number: 'Please enter your course fee [Only number]',
                 },
             },
             submitHandler: function (htmlForm) {

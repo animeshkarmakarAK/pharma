@@ -201,19 +201,8 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-        if(!EDIT){
-            console.log(' not edit')
-        }else{
-            console.log(' edit')
-        }
 
         console.log('Edit: '+ !EDIT? "#today":'test',)
-
-        /*$.validator.addMethod('dateGreaterThan', function (start_date, end_date) {
-
-            return new Date(start_date) < new Date(end_date);
-        },'Batch end date must be after batch start date');*/
-
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -274,7 +263,11 @@
                     pattern: "This field is required in Bangla."
                 },
                 start_date: {
-                    greaterThan: 'Start Date will be greater than Today',
+                    greaterThan: function (){
+                        if(!EDIT){
+                            return 'Start Date will be greater than Today'
+                        }
+                    },
                 },
                 end_date: {
                     greaterThan: 'End Date will not be less than Start Date',
@@ -286,10 +279,13 @@
             }
         });
 
-        let today = new Date();
-        today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
-        $('#today').val(today);
-        console.log($('#today').val())
+
+        if(!EDIT){
+            let today = new Date();
+            today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
+            $('#today').val(today);
+            console.log($('#today').val())
+        }
 
         $('#start_date').on('change', function () {
             console.log($('.start_date').val());
