@@ -319,27 +319,27 @@
                 },
                 target_group: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 objects: {
                     required: false,
-                    maxlength: 1000,
+                    maxlength: 5000,
                 },
                 contents: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 training_methodology: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 evaluation_system: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 description: {
                     required: false,
-                    maxlength: 500,
+                    maxlength: 5000,
                 },
                 eligibility: {
                     required: false,
