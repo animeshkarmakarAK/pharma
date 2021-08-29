@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    ইয়ুথ প্রোফাইল
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row youth-profile" id="youth-profile">
@@ -133,7 +137,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">পোস্টঅফিস কোড</p>
+                                            <p class="label-text">পোস্ট অফিস</p>
                                             <div class="input-box">
                                                 {{ $youth->present_address_house_address['postal_code'] ?? "" }}
                                             </div>
@@ -172,7 +176,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 custom-view-box">
-                                            <p class="label-text">পোস্টঅফিস কোড</p>
+                                            <p class="label-text">পোস্ট অফিস</p>
                                             <div class="input-box">
                                                 {{ $youth->permanent_address_house_address['postal_code'] ?? "" }}
                                             </div>

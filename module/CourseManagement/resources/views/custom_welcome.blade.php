@@ -282,9 +282,9 @@
             }
 
             .slider-area {
-                background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg) no-repeat center;
+                /*background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg) no-repeat center;*/
                 background-size: cover;
-                padding: 100px 0;
+                padding: 50px 0;
             }
 
             .blink {

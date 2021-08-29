@@ -250,6 +250,7 @@
             })
 
             function addRow(data = {}) {
+                console.log(SL)
                 let courseSession = _.template($('#course-sessions').html());
                 console.table('course session template:', courseSession);
                 let courseSessionContentElm = $(".course-session-contents");
@@ -289,19 +290,21 @@
                     "Course start date must be greater than Application end date");
 
                 $.validator.addClassRules("number_of_batches", {required: true});
+                //course_sessions[<%=sl%>][application_start_date]
                 $.validator.addClassRules("application_start_date", {
                     required: true,
-                    cGreaterThan: '#today',
+                    //cGreaterThan: '#today',
                 });
 
                 $.validator.addClassRules("application_end_date", {
                     required: true,
+                    //cApplicationEndDate: ".application_start_date",
                     cApplicationEndDate: ".application_start_date",
                 });
 
                 $.validator.addClassRules("course_start_date", {
                     required: true,
-                    cCourseStartDate: ".application_end_date",
+                    //cCourseStartDate: ".application_end_date",
                 });
                 $.validator.addClassRules("max_seat_available", {required: true});
 
@@ -369,7 +372,7 @@
         <script type="text/template" id="course-sessions">
             <div class="card" id="session-no-<%=sl%>">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="session-name-english"><%= edit ? data.session_name_en : "Session " + sl+1%></h5>
+                    <h5 class="session-name-english"><%= edit ? data.session_name_en : "Session " + (sl+1)%></h5>
                     <div class="card-tools">
                         <button type="button"
                                 onclick="deleteRow(<%=sl%>)"

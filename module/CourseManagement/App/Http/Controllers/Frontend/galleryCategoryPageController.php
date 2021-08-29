@@ -4,6 +4,7 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 
+use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
 
 class galleryCategoryPageController
@@ -24,7 +25,12 @@ class galleryCategoryPageController
 
     public function singleGalleryCategoryPage(GalleryCategory $galleryCategory)
     {
-        $galleries = $galleryCategory->galleries;
+        $galleryCategoryId = $galleryCategory->id;
+        $today = Date('y-m-d H:i:s');
+        $galleries = Gallery::where('gallery_category_id',$galleryCategoryId);
+        $galleries = $galleries->where('publish_date','<=',$today);
+        $galleries = $galleries->where('archive_date','>=',$today)->get();
+        //$galleries = $galleryCategory->galleries;
         return view(self::VIEW_PATH . 'gallery-category', compact('galleryCategory', 'galleries'));
     }
 }

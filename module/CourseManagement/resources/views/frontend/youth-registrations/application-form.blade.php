@@ -143,7 +143,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="gender">লিঙ্গ<span class="required">*</span> :</label>
-                                    <div class="d-md-flex form-control">
+                                    <div class="d-md-flex form-control" style="display: inline-table;">
                                         <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_male"
                                                    name="gender"
@@ -225,7 +225,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="religion">ধর্ম<span class="required">*</span> :</label>
-                                    <div class="d-md-flex form-control">
+                                    <div class="d-md-flex form-control" style="display: inline-table;">
                                         <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_islam"
                                                    name="religion"
@@ -1426,7 +1426,7 @@
                                                                name="familyMember[mother][date_of_birth]"
                                                                id="mothers_date_of_birth"
                                                                value="{{ old('familyMember.mother.date_of_birth') }}"
-                                                               class="flat-date">
+                                                               class="flat-date form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -2172,7 +2172,7 @@
                 },
                 "familyMember[father][member_name_en]": {
                     required: true,
-                    pattern: /^[a-zA-Z0-9 ]*$|[\s'\u0980-\u09ff]+$/,
+                    textEnBnWithoutSpecialChar:true,
                 },
                 "familyMember[father][nid]": {
                     required: true,
@@ -2187,6 +2187,7 @@
                 },
                 "familyMember[mother][member_name_en]": {
                     required: true,
+                    textEnBnWithoutSpecialChar:true,
                 },
                 "familyMember[mother][nid]": {
                     required: true,
@@ -2207,7 +2208,8 @@
                 "familyMember[guardian][member_name_en]": {
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
-                    }
+                    },
+                    textEnBnWithoutSpecialChar:true,
                 },
                 "familyMember[guardian][date_of_birth]": {
                     required: function () {
@@ -2527,6 +2529,7 @@
                 },
                 "familyMember[father][member_name_en]": {
                     required: "এখানে আপনার পিতার নাম লিখুন",
+                    textEnBnWithoutSpecialChar: "এখানে আপনার পিতার সঠিক নাম লিখুন",
                 },
                 "familyMember[father][date_of_birth]": {
                     required: "এখানে আপনার পিতার জন্ম তারিখ লিখুন",
@@ -2539,6 +2542,7 @@
                 },
                 "familyMember[mother][member_name_en]": {
                     required: "এখানে আপনার মাতার নাম লিখুন",
+                    textEnBnWithoutSpecialChar: "এখানে আপনার মাতার সঠিক নাম লিখুন",
                 },
                 "familyMember[mother][date_of_birth]": {
                     required: "এখানে আপনার মাতার জন্ম তারিখ লিখুন",
@@ -2553,9 +2557,9 @@
                     required: "আপনার অভিভাবক সিলেক্ট করুন",
                 },
 
-
                 "familyMember[guardian][member_name_en]": {
-                    required: "অভিভাবকের নাম লিখুন"
+                    required: "এখানে আপনার অভিভাবকের নাম লিখুন",
+                    textEnBnWithoutSpecialChar: "এখানে আপনার অভিভাবকের সঠিক নাম লিখুন",
                 },
                 "familyMember[guardian][date_of_birth]": {
                     required: "অভিভাবকের জন্মতারিখ লিখুন"

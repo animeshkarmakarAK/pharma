@@ -84,6 +84,22 @@
                 $('#delete_form')[0].action = $(this).data('action');
                 $('#delete_modal').modal('show');
             });
+
+            let myDate = '2021-05'
+
+            updateFeature(myDate);
+
+            function updateFeature(data) {
+                const url = "{!! route('govt_stakeholder::admin.occupation-wise-statistics.datatable')!!}";
+                let posting = $.post(url, {data: data});
+                posting.done(function (response) {
+                    datatable.draw();
+                });
+            }
+
+
+
+
         });
     </script>
 @endpush

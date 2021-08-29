@@ -152,4 +152,17 @@ return [
     'Ethnic_group_ask'=>'Is Ethnic Group Ask',
     'lang'=>'ভাষা সফলভাবে পরিবর্তিত হয়েছে',
     'youths_button_label'=>'ইয়ুথ সমূহ',
+    'total_course'=>'মোট কোর্স',
+    'total_enroll'=>'মোট এনরোল',
+    'certificate_issue'=>'সনদপত্র ইসু',
+    'trending_course'=>'ট্রেন্ডিং কোর্স',
+    'industry_demand'=>'ইন্ডাস্ট্রির চাহিদা',
+    'total_batch'=>'ব্যাচের সংখ্যা',
+    'running_student'=>'রানিং স্টুডেন্ট',
+    'number_of_trainers'=>'প্রশিক্ষকের সংখ্যা',
+    'most_demandable_course'=>'সর্বাধিক ডিমান্ডেবল কোর্স',
+    'institute_calender'=>'ইনস্টিটিউট ক্যালেন্ডার',
+    'trending_jobs'=>'কাজের ট্রেন্ডস',
+    'map'=>'মানচিত্র',
+
 ];
