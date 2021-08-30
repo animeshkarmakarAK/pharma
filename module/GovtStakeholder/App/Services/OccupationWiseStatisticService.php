@@ -83,7 +83,7 @@ class OccupationWiseStatisticService
             [
                 'institutes.title_en as institute_title_en',
                 DB::raw('MAX(occupation_wise_statistics.id) as id'),
-                'occupation_wise_statistics.survey_date',
+                DB::raw('DATE_FORMAT(occupation_wise_statistics.survey_date, "%M %Y") as survey_date'),
             ]
         );
         $occupationWiseStatistics->join('institutes', 'occupation_wise_statistics.institute_id', '=', 'institutes.id');
@@ -91,6 +91,14 @@ class OccupationWiseStatisticService
             'survey_date',
             'institute_id',
         );
+
+        /*$searchBySurveyDate = $request->input('search');
+        $searchBySurveyDate =  strtotime($searchBySurveyDate['value']);
+        $searchBySurveyDate =  Date('Y-m', $searchBySurveyDate);
+        if (!empty($request->input('search')['value'])) {
+            $occupationWiseStatistics->where('occupation_wise_statistics.survey_date', '=', $searchBySurveyDate);
+        }*/
+
 
         return DataTables::eloquent($occupationWiseStatistics)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OccupationWiseStatistic $occupationWiseStatistic) use ($authUser) {
@@ -107,9 +115,6 @@ class OccupationWiseStatisticService
 
                 return $str;
             }))
-            ->editColumn('survey_date', function (OccupationWiseStatistic $occupationWiseStatistic) {
-                return Date('M Y', strtotime($occupationWiseStatistic['survey_date']));
-            })
             ->rawColumns(['action'])
             ->toJson();
     }

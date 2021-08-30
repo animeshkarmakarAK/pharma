@@ -399,13 +399,12 @@
             if (search?.toString()?.length) {
                 filters['course.title_bn'] = {
                     type: 'contain',
-                    value: search
+                    value: search,
                 };
             }
 
-
             if (institute_id?.toString()?.length) {
-                filters['institute.institute_id'] = institute_id;
+                filters['institute.id'] = institute_id;
             }
             filters['row_status'] = '{{\Module\CourseManagement\App\Models\Course::ROW_STATUS_ACTIVE}}'
 
@@ -417,7 +416,7 @@
             $('.course_overlay').show();
             courseFetch(filters, resetPage, url)?.then(function (response) {
                 console.table('course search', response);
-                $('.course_overlay').hide();
+                $('.course_overlay').remove();
                 $('#course_pagination').html(response?.data?.next_page_url);
                 let html = '';
 
@@ -502,7 +501,7 @@
             $('.program_overlay').show();
             programmeFetch(filters, resetPage, url)?.then(function (response) {
 
-                $('.program_overlay').hide();
+                $('.program_overlay').remove();
                 $('#program_pagination').html(response?.data?.next_page_url);
                 let html = '';
                 $.each(response.data.data, function (i, item) {

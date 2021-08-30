@@ -62,7 +62,7 @@
                                                                 style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_email">
                                                             <input maxlength="50" id="email" class="form-control"
-                                                                   type="email" name="email">
+                                                                   type="text" name="email">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -97,18 +97,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="col-md-1"></div>
-                            <div class="col-md-3 advice-download-area">
-                                <div class="download-area">
-                                    <img src="{{asset('/assets/company/images/pdf-logo.png')}}" width="70%"
-                                         title="Advice details">
-                                </div>
-                                <div class="text-center">
-                                    <a href="{{asset('/assets/company/images/pdf-logo.png')}}" class="btn btn-default"
-                                       title="Download general-ask details" download>Download
-                                    </a>
-                                </div>
-                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -185,6 +173,18 @@
             "আপনার সঠিক মোবাইল নাম্বার লিখুন"
         );
 
+        $.validator.addMethod(
+            "textEnBnWithoutSpecialChar",
+            function (value, element) {
+                let en = /^[a-zA-Z .,?]*$/i;
+                let bn = /^[\s'\u0980-\u09ff]+$/i;
+                let reEn = new RegExp(en);
+                let reBn = new RegExp(bn);
+                return this.optional(element) || reEn.test(value) || reBn.test(value);
+            },
+            "textEnBnWithoutSpecialChar is require"
+        );
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
@@ -198,10 +198,11 @@
                 },
                 email: {
                     required: true,
-                    email: true
+                    pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
                 },
                 comment: {
                     required: true,
+                    textEnBnWithoutSpecialChar:true,
                 }
             },
             messages: {
@@ -213,10 +214,11 @@
                 },
                 email: {
                     required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
-                    email: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন"
+                    pattern: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
                 },
                 comment: {
                     required: "এখানে আপনার মতামত লিখুন।",
+                    textEnBnWithoutSpecialChar: "অনুগ্রহ করে স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন"
                 }
             },
             submitHandler: function (htmlForm) {

@@ -110,7 +110,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="section-heading">একনজরে</h2>
-                    <p class="text-center">বিটাক প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান</p>
+                    <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }} প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান</p>
                     <div class="template-space"></div>
                 </div>
                 <div class="company-stats col-md-12">
@@ -161,7 +161,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="section-heading text-dark"> কোর্স সমূহ </h2>
-                    <p class="text-center">মোটিভেশনাল ওয়ার্কসপ অনুষ্ঠান হতে নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়</p>
+                    <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }} এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়</p>
                     <div class="template-space"></div>
                 </div>
             </div>
@@ -219,7 +219,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="section-heading text-dark">গ্যালারি</h2>
-                    <p class="text-center">বিটাক পরিচালিত চলমান কতিপয় কর্মসূচির ছবি</p>
+                    <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }} পরিচালিত চলমান কতিপয় কর্মসূচির ছবি</p>
                     <div class="template-space"></div>
                 </div>
             </div>
@@ -282,9 +282,9 @@
             }
 
             .slider-area {
-                background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg) no-repeat center;
+                /*background: url(http://skills.gov.bd/bitac_cms/template_one/img/white-bg.jpg) no-repeat center;*/
                 background-size: cover;
-                padding: 100px 0;
+                padding: 50px 0;
             }
 
             .blink {

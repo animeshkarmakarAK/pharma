@@ -1,4 +1,7 @@
 @extends('master::layouts.custom1')
+@section('title', 'এক্সেস-কী পুনরুদ্ধার')
+
+
 @section('header', '')
 @section('footer', '')
 
@@ -33,7 +36,7 @@
                                        placeholder="আপনার ইমেইল লিখুন">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block submit_btn">এক্সেস-কী পুনরদ্ধার করুন
+                        <button type="submit" class="btn btn-primary btn-block submit_btn">এক্সেস-কী পুনরুদ্ধার করুন
                         </button>
                         <div class="col-12 mt-2">
                             <a href="{{route('course_management::youth.login-form')}}">লগইন করুন</a>
@@ -183,7 +186,13 @@
                 rules: {
                     email: {
                         required: true,
-                        pattern: /\w+@\w+.\w+/
+                        pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+                    },
+                },
+                messages: {
+                    email: {
+                        required: "এখানে আপনার ই-মেইল এড্রেস লিখুন",
+                        pattern: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
                     },
                 },
                 submitHandler: function (htmlForm) {

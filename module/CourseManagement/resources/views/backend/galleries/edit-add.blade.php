@@ -265,7 +265,7 @@
                 },
                 content_path: {
                     required: function () {
-                        if ((!$('input[name="is_youtube_video"]:checked').val() || $('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}} || $('#content_path').val()=='') && !EDIT) {
+                        if ((!$('input[name="is_youtube_video"]:checked').val() || $('input[name="content_type"]:checked').val() == {{\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE}} || $('#content_path').val() == '') && !EDIT) {
                             return true
                         } else {
                             return false
@@ -294,7 +294,11 @@
                 },
                 publish_date: {
                     required: true,
-                    greaterThan: '#today'
+                    greaterThan: function () {
+                        if(!EDIT){
+                            return '#today';
+                        }
+                    }
                 },
                 archive_date: {
                     required: true,

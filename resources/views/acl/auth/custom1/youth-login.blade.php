@@ -45,7 +45,7 @@
 
                         <div class="row">
                             <div class="col-12 mt-2">
-                                এক্সেস-কী ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরদ্ধার করুন</a>
+                                এক্সেস-কী ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরুদ্ধার করুন</a>
                             </div>
                         </div>
                         <div class="row pl-3">
@@ -194,6 +194,13 @@
                 rules: {
                     access_key: {
                         required: true,
+                        pattern: /^[0-9]*$/,
+                    },
+                },
+                messages: {
+                    access_key: {
+                        required: "এখানে আপনার এক্সেস-কী লিখুন",
+                        pattern: "এখানে আপনার সঠিক এক্সেস-কী লিখুন",
                     },
                 },
                 submitHandler: function (htmlForm) {

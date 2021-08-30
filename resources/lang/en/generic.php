@@ -136,5 +136,17 @@ return [
     'Ethnic_group_ask'=>'Is Ethnic Group Ask',
     'lang'=>'Language Successfully Changed',
     'youths_button_label'=>'youths',
+    'total_course'=>'Total Course',
+    'total_enroll'=>'Total Enroll',
+    'certificate_issue'=>'Certificate Issue',
+    'trending_course'=>'Trending Course',
+    'industry_demand'=>'Industry Demand',
+    'total_batch'=>'Total Batch',
+    'running_student'=>'Running Student',
+    'number_of_trainers'=>'Number Of Trainers',
+    'most_demandable_course'=>'Most Demandable Courses',
+    'institute_calender'=>'Institute Calender',
+    'trending_jobs'=>'Trending Jobs',
+    'map'=>'Map',
 ];
 

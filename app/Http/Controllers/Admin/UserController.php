@@ -207,4 +207,15 @@ class UserController extends BaseController
         }
         return response()->json("This email address already in use");
     }
+
+
+    public function checkUserEmail(Request $request): JsonResponse
+    {
+        $user = User::where(['email' => $request->email])->first();
+        if ($user == null) {
+            return response()->json(true);
+        } else {
+            return response()->json('Email already in use!');
+        }
+    }
 }

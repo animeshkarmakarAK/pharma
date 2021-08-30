@@ -6,16 +6,17 @@
         <div class="navbar-nav-scroll">
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="mailto:{{ $currentInstitute->email? $currentInstitute->email:'training@bitac.gov.bd' }}"
+                    <a class="nav-link text-white" href="mailto:{{ $currentInstitute->email? $currentInstitute->email:'' }}"
                        onclick="ga('send', 'event', 'Navbar', 'Community links', 'Bootstrap');">
                         <i class="fa fa-paper-plane"></i>&nbsp;
-                        {{ $currentInstitute->email? $currentInstitute->email:'training@bitac.gov.bd' }}</a>
+                        {{ $currentInstitute->email? $currentInstitute->email:'' }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="tel:{{ $currentInstitute->primary_phone }}"
                        onclick="">
                         <i class="fas fa-phone-volume"></i>
-                        {{ $currentInstitute->primary_phone }}</a>
+                        {{ $currentInstitute->primary_phone }}
+                    </a>
                 </li>
             </ul>
         </div>

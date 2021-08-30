@@ -4,6 +4,10 @@
 @endphp
 @extends($layout)
 
+@section('title')
+    {{ $staticContent->title_bn }}
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">

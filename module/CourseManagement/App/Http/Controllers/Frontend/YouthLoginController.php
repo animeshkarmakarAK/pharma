@@ -55,6 +55,6 @@ class YouthLoginController
         }
 
         return redirect()->route('/')
-            ->with(['message' => 'লগআউট সফল হয়েছে.', 'alert-type' => 'success']);
+            ->with(['message' => 'সফলভাবে লগ আউট হয়েছে.', 'alert-type' => 'success']);
     }
 }

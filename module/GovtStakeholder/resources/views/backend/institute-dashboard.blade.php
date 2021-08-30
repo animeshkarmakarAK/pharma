@@ -17,7 +17,7 @@
                      style="background: rgb(188,97,235);
                             background: linear-gradient(55deg,rgba(188,97,235,1) 24%, rgba(215,106,225,1) 71%);">
                     <h1><b>{{ $data['total_course']? $data['total_course']:'0' }}</b></h1>
-                    <p>মোট কোর্স</p>
+                    <p>{{ __('generic.total_course') }}</p>
                 </div>
             </div>
             <div class="col-md-3">
@@ -25,7 +25,7 @@
                      style="background: rgb(123,142,207);
                             background: linear-gradient(55deg, rgba(123,142,207,1) 24%, rgba(94,127,241,1) 71%);">
                     <h1><b>{{ $data['total_youth']? $data['total_youth']:'0' }}</b></h1>
-                    <p>মোট এনরোল</p>
+                    <p>{{ __('generic.total_enroll') }}</p>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                      style="background: rgb(75,255,243);
                             background: linear-gradient(1deg,rgba(75,255,243,1) 22%, rgba(53,217,206,1) 71%);">
                     <h1><b>{{ $data['total_course']? $data['total_course']:'0' }}</b></h1>
-                    <p>সনদপত্র ইসু</p>
+                    <p>{{ __('generic.certificate_issue') }}</p>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
                 <div class="p-3 text-center rounded mb-2 text-white"
                      style="background: rgb(253,134,71);background: linear-gradient(146deg, rgba(253,134,71,1) 22%, rgba(252,159,110,1) 71%);">
                     <h1><b>{{ $data['total_course']? $data['total_course']:'0' }}</b></h1>
-                    <p>ট্রেন্ডিং কোর্স</p>
+                    <p>{{ __('generic.trending_course') }}</p>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
                 <div class="p-3 text-center rounded mb-2 text-white"
                      style="background: rgb(51,192,128);background: linear-gradient(233deg, rgba(51,192,128,1) 22%, rgba(89,205,153,1) 71%);">
                     <h1><b>{{ $data['total_course']? $data['total_course']:'0' }}</b></h1>
-                    <p>ইন্ডাস্ট্রির চাহিদা</p>
+                    <p>{{ __('generic.industry_demand') }}</p>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                 <div class="p-3 text-center rounded mb-2 text-white"
                      style="background: rgb(248,114,177);background: linear-gradient(75deg, rgba(248,114,177,1) 22%, rgba(222,32,122,1) 71%);">
                     <h1><b>{{ $data['totalBatch']? $data['totalBatch']:'0' }}</b></h1>
-                    <p>ব্যাচের সংখ্যা</p>
+                    <p>{{ __('generic.total_batch') }}</p>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                 <div class="p-3 text-center rounded mb-2 text-white"
                      style="background: rgb(237,65,65);background: linear-gradient(180deg, rgba(237,65,65,1) 22%, rgba(240,107,107,1) 71%);">
                     <h1><b>{{ $data['total_course']? $data['total_course']:'0' }}</b></h1>
-                    <p>রানিং স্টুডেন্ট</p>
+                    <p>{{ __('generic.running_student') }}</p>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
                 <div class="p-3 text-center rounded mb-2 text-white"
                      style="background: rgb(222,19,193);background: linear-gradient(113deg, rgba(222,19,193,1) 22%, rgba(243,104,224,1) 71%);">
                     <h1><b>{{ $data['total_course']? $data['total_course']:'0' }}</b></h1>
-                    <p>প্রশিক্ষকের সংখ্যা</p>
+                    <p>{{ __('generic.number_of_trainers') }}</p>
                 </div>
             </div>
 
@@ -84,7 +84,7 @@
             <div class="col-md-8">
                 <div class="card" style="border-radius: 10px; height: 100%">
                     <div style="margin: 10px">
-                        <h3 class="card-title font-weight-bold" style="margin-top: 20px">সর্বাধিক ডিমান্ডেবল কোর্স</h3>
+                        <h3 class="card-title font-weight-bold" style="margin-top: 20px">{{ __('generic.most_demandable_course') }}</h3>
                     </div>
                     <div class="card-body">
                         <div id="my_data"></div>
@@ -94,7 +94,7 @@
             <div class="col-md-4">
                 <div class="card" style="border-radius: 10px; height: 100%">
                     <div class="card-body">
-                        <label>ইনস্টিটিউট ক্যালেন্ডার</label>
+                        <label>{{ __('generic.institute_calender') }}</label>
                         <div id='calendar'></div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
             <div class="col-md-8">
                 <div class="card" style="border-radius: 10px; height: 100%">
                     <div class="card-header">
-                        <h3 class="card-title font-weight-bold" style="margin-top: 20px">কাজের ট্রেন্ডস</h3>
+                        <h3 class="card-title font-weight-bold" style="margin-top: 20px">{{ __('generic.trending_jobs') }}</h3>
                         <div class="card-tools">
                             <select class="form-control" style="">
                                 <option value="1" selected>2021</option>
@@ -126,7 +126,7 @@
             <div class="col-md-4">
                 <div class="card" style=" border-radius: 10px; height: 100%">
                     <div class="card-body">
-                        <label>মানচিত্র</label>
+                        <label>{{ __('generic.map') }}</label>
                         <div id="bd_map_d3"></div>
                         <div class="map_info" style="display: none">
                             <div class="map_content_top">

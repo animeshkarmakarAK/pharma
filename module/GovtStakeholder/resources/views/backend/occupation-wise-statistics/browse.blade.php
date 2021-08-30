@@ -75,8 +75,9 @@
                         searchable: false,
                         visible: true
                     }
-                ]
+                ],
             });
+
             const datatable = $('#dataTable').DataTable(params);
             bindDatatableSearchOnPresEnterOnly(datatable);
 
@@ -84,7 +85,19 @@
                 $('#delete_form')[0].action = $(this).data('action');
                 $('#delete_modal').modal('show');
             });
+
+
+            //Search by Survey Date
+            /*params.ajax.data = d => {
+                d.search.value = $('input[type="search"]').val();
+            };
+
+            $(document).on("keyup", 'input[type="search"]', function () {
+                datatable.draw();
+            });*/
+
         });
+
     </script>
 @endpush
 

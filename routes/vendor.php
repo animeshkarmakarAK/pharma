@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('/users/{user}/roles', [App\Http\Controllers\Admin\UserController::class, 'userRoleSync'])->name('users.role-sync');
     Route::get('/users/{user}/permissions', [App\Http\Controllers\Admin\UserController::class, 'userPermissionIndex'])->name('users.permissions');
     Route::post('/users/{user}/permissions', [App\Http\Controllers\Admin\UserController::class, 'userPermissionSync'])->name('users.permission-sync');
+    Route::get('/check-user-email', [\App\Http\Controllers\Admin\UserController::class, 'checkUserEmail'])->name('check-user-email');
 
     Route::get('roles/{role}/permissions', [App\Http\Controllers\RoleController::class, 'rolePermissionIndex'])->name('roles.permissions');
     Route::post('roles/{role}/permissions', [App\Http\Controllers\RoleController::class, 'rolePermissionSync'])->name('roles.permission-sync');

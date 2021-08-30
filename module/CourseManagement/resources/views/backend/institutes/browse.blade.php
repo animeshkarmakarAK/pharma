@@ -78,7 +78,8 @@
                     {
                         title: "Address",
                         data: "address",
-                        name: "address"
+                        name: "address",
+                        visible: false
                     },
                     {
                         title: "Action",

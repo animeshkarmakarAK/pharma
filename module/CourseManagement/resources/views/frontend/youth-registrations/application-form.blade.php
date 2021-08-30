@@ -143,7 +143,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="gender">লিঙ্গ<span class="required">*</span> :</label>
-                                    <div class="d-md-flex form-control">
+                                    <div class="d-md-flex form-control" style="display: inline-table;">
                                         <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_male"
                                                    name="gender"
@@ -225,7 +225,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="religion">ধর্ম<span class="required">*</span> :</label>
-                                    <div class="d-md-flex form-control">
+                                    <div class="d-md-flex form-control" style="display: inline-table;">
                                         <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="religion_islam"
                                                    name="religion"
@@ -663,7 +663,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body jsc_collapse collapse hide">
+                                    <div class="card-body jsc_collapse {{--collapse--}} hide">
 
                                         <input type="hidden" name="academicQualification[jsc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC }}">
@@ -680,6 +680,7 @@
                                                     <option value="2">JDC</option>
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -695,6 +696,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -705,18 +707,19 @@
                                                        id="jsc_roll" class="form-control"
                                                        value="{{ old('academicQualification.jsc.roll_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="jsc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
-                                                নং<span
-                                                    class="required">*</span></label>
+                                            <label for="jsc_reg_no" class="col-md-4 col-form-label">
+                                                রেজিস্ট্রেশান নং <span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <input type="text" id="jsc_reg_no"
                                                        name="academicQualification[jsc][reg_no]"
                                                        class="form-control"
                                                        value="{{ old('academicQualification.jsc.reg_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <input type="hidden" name="academicQualification[jsc][result]"
@@ -730,12 +733,12 @@
                                                        width="10" placeholder="জি.পি.এ"
                                                        value="{{ old('academicQualification.jsc.grade') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">পাসের
-                                                বছর<span
-                                                    class="required">*</span></label>
+                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">
+                                                পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[jsc][passing_year]"
                                                         id="jsc_passing_year" class="select2">
@@ -746,6 +749,7 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -766,7 +770,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body ssc_collapse collapse hide">
+                                    <div class="card-body ssc_collapse {{--collapse--}} hide">
 
                                         <input type="hidden" name="academicQualification[ssc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC }}">
@@ -785,6 +789,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -800,6 +805,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -810,6 +816,7 @@
                                                        id="ssc_roll" class="form-control"
                                                        value="{{ old('academicQualification.ssc.roll_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -822,6 +829,7 @@
                                                        class="form-control"
                                                        value="{{ old('academicQualification.ssc.reg_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -848,6 +856,7 @@
                                                        value="{{ old('academicQualification.ssc.grade') }}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -863,6 +872,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -879,6 +889,7 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -899,7 +910,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body hsc_collapse collapse hide">
+                                    <div class="card-body hsc_collapse {{--collapse--}} hide">
 
                                         <input type="hidden" name="academicQualification[hsc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
@@ -918,6 +929,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -933,6 +945,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -943,6 +956,7 @@
                                                        id="hsc_roll" class="form-control"
                                                        value="{{ old('academicQualification.hsc.roll_no')}}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -954,6 +968,7 @@
                                                        id="hsc_reg_no" class="form-control"
                                                        value="{{ old('academicQualification.hsc.reg_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -980,6 +995,7 @@
                                                        value="{{ old('academicQualification.hsc.grade') }}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -995,6 +1011,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1011,6 +1028,7 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1033,7 +1051,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body graduation_collapse collapse hide">
+                                    <div class="card-body graduation_collapse {{--collapse--}} hide">
                                         <input type="hidden"
                                                name="academicQualification[graduation][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION }}">
@@ -1053,6 +1071,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1064,6 +1083,7 @@
                                                        id="graduation_subject" class="form-control"
                                                        value="{{ old('academicQualification.graduation.subject')}}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1080,6 +1100,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
 
@@ -1105,13 +1126,13 @@
                                                        value="{{ old('academicQualification.graduation.grade')}}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
-
 
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_passing_year"
-                                                   class="col-md-4 col-form-label">পাসের
-                                                বছর<span class="required">*</span></label>
+                                                   class="col-md-4 col-form-label">
+                                                পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[graduation][passing_year]"
                                                         id="graduation_passing_year" class="select2">
@@ -1122,12 +1143,13 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_course_duration"
-                                                   class="col-md-4 col-form-label">কোর্স
-                                                সময়কাল<span class="required">*</span></label>
+                                                   class="col-md-4 col-form-label">
+                                                কোর্স সময়কাল<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select
                                                     name="academicQualification[graduation][course_duration]"
@@ -1139,6 +1161,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1159,7 +1182,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body masters_collapse collapse hide">
+                                    <div class="card-body masters_collapse {{--collapse--}} hide">
                                         <input type="hidden" name="academicQualification[masters][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS }}">
                                         <div class="form-row form-group">
@@ -1176,6 +1199,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1188,6 +1212,7 @@
                                                        id="masters_subject"
                                                        class="form-control" {{ old('academicQualification.masters.subject') }}>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1203,6 +1228,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
 
@@ -1228,12 +1254,12 @@
                                                        value="{{ old('academicQualification.masters.grade') }}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
-
                                         <div class="form-row form-group mt-2">
-                                            <label for="masters_passing_year" class="col-md-4 col-form-label">পাসের
-                                                বছর<span class="required">*</span></label>
+                                            <label for="masters_passing_year" class="col-md-4 col-form-label">
+                                                পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[masters][passing_year]"
                                                         class="select2">
@@ -1244,6 +1270,8 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
+
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1260,6 +1288,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1426,7 +1455,7 @@
                                                                name="familyMember[mother][date_of_birth]"
                                                                id="mothers_date_of_birth"
                                                                value="{{ old('familyMember.mother.date_of_birth') }}"
-                                                               class="flat-date">
+                                                               class="flat-date form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -1647,10 +1676,12 @@
         const youthRegistrationForm = $('.youthRegistrationForm');
         const GUARDIAN_INFO_OTHER = {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
 
+        let applicationFormTypeData;
+
         $.validator.addMethod(
             "langBN",
             function (value, element) {
-                let regexp = /^[\s'\u0980-\u09ff]+$/i;
+                let regexp = /^[\s\u0980-\u09ff]+$/i;
                 let re = new RegExp(regexp);
                 return this.optional(element) || re.test(value);
             },
@@ -1870,94 +1901,92 @@
 
                 "academicQualification[jsc][examination_name]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][board]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][roll_no]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.jsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
 
                 "academicQualification[jsc][reg_no]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.jsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[jsc][result]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][group]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][passing_year]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][grade]": {
                     required: function () {
-                        return !$('#jsc_gpa').prop('hidden') && $("#jsc_examination_info").prop('checked');
+                        return !!applicationFormTypeData?.jsc;
                     },
-
                     min: 1,
                     max: 5
                 },
 
                 "academicQualification[ssc][examination_name]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][board]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][roll_no]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.ssc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
 
                 "academicQualification[ssc][reg_no]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.ssc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[ssc][result]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][group]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][passing_year]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][grade]": {
                     required: function () {
-                        return !$('#ssc_gpa').prop('hidden') && $("#ssc_examination_info").prop('checked');
+                        return !$('#ssc_gpa').prop('hidden') && !!applicationFormTypeData?.ssc;
                     },
-
                     min: 1,
                     max: function () {
                         if ($('#ssc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -1971,47 +2000,46 @@
 
                 "academicQualification[hsc][examination_name]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][board]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
 
                 "academicQualification[hsc][roll_no]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.hsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[hsc][reg_no]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.hsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[hsc][group]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][passing_year]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][result]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][grade]": {
                     required: function () {
-                        return !$('#hsc_gpa').prop('hidden') && $("#hsc_examination_info").prop('checked');
+                        return !$('#hsc_gpa').prop('hidden') && !!applicationFormTypeData?.hsc;
                     },
-
                     min: 1,
                     max: function () {
                         if ($('#hsc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -2024,32 +2052,32 @@
                 },
                 "academicQualification[graduation][examination_name]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[graduation][institute]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[graduation][subject]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[graduation][result]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
 
                 "academicQualification[graduation][grade]": {
                     required: function () {
-                        return !$('#graduation_cgpa').prop('hidden') && $("#graduation_examination_info").prop('checked');
+                        return !$('#graduation_cgpa').prop('hidden') && !!applicationFormTypeData?.honors;
                     },
                     min: 1,
                     max: function () {
@@ -2063,38 +2091,38 @@
                 },
                 "academicQualification[graduation][passing_year]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
                 "academicQualification[graduation][course_duration]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[masters][examination_name]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][institute]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][subject]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][result]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][grade]": {
                     required: function () {
-                        return !$('#masters_cgpa').prop('hidden') && $("#masters_examination_info").prop('checked');
+                        return !$('#masters_cgpa').prop('hidden') && !!applicationFormTypeData?.masters;
                     },
                     min: 1,
                     max: function () {
@@ -2108,13 +2136,13 @@
                 },
                 "academicQualification[masters][passing_year]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][course_duration]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
 
                 "address[present][present_address_division_id]": {
@@ -2172,7 +2200,7 @@
                 },
                 "familyMember[father][member_name_en]": {
                     required: true,
-                    pattern: /^[a-zA-Z0-9 ]*$|[\s'\u0980-\u09ff]+$/,
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[father][nid]": {
                     required: true,
@@ -2187,6 +2215,7 @@
                 },
                 "familyMember[mother][member_name_en]": {
                     required: true,
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[mother][nid]": {
                     required: true,
@@ -2207,7 +2236,8 @@
                 "familyMember[guardian][member_name_en]": {
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
-                    }
+                    },
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[guardian][date_of_birth]": {
                     required: function () {
@@ -2527,6 +2557,7 @@
                 },
                 "familyMember[father][member_name_en]": {
                     required: "এখানে আপনার পিতার নাম লিখুন",
+                    textEnBnWithoutSpecialChar: "এখানে আপনার পিতার সঠিক নাম লিখুন",
                 },
                 "familyMember[father][date_of_birth]": {
                     required: "এখানে আপনার পিতার জন্ম তারিখ লিখুন",
@@ -2539,6 +2570,7 @@
                 },
                 "familyMember[mother][member_name_en]": {
                     required: "এখানে আপনার মাতার নাম লিখুন",
+                    textEnBnWithoutSpecialChar: "এখানে আপনার মাতার সঠিক নাম লিখুন",
                 },
                 "familyMember[mother][date_of_birth]": {
                     required: "এখানে আপনার মাতার জন্ম তারিখ লিখুন",
@@ -2553,9 +2585,9 @@
                     required: "আপনার অভিভাবক সিলেক্ট করুন",
                 },
 
-
                 "familyMember[guardian][member_name_en]": {
-                    required: "অভিভাবকের নাম লিখুন"
+                    required: "এখানে আপনার অভিভাবকের নাম লিখুন",
+                    textEnBnWithoutSpecialChar: "এখানে আপনার অভিভাবকের সঠিক নাম লিখুন",
                 },
                 "familyMember[guardian][date_of_birth]": {
                     required: "অভিভাবকের জন্মতারিখ লিখুন"
@@ -2734,12 +2766,14 @@
 
             applicationFormTypeFetch(filters)?.then(function (response) {
                 let data = response.data[0];
-                console.log(response.data[0]);
+                console.log(data)
+                applicationFormTypeData = data;
                 if (data?.length <= 0) {
                     showAllFormFields();
                 } else {
                     setFormFields(data);
                 }
+                console.log(applicationFormTypeData)
             });
         }
 
