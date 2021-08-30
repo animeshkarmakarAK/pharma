@@ -252,6 +252,7 @@
                 },
                 end_time: {
                     required: true,
+                    greaterThan: "#start_time"
                 },
 
             },
@@ -271,7 +272,10 @@
                 },
                 end_date: {
                     greaterThan: 'End Date will not be less than Start Date',
-                }
+                },
+                end_time: {
+                    greaterThan: 'End Time will not be less than Start Time',
+                },
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

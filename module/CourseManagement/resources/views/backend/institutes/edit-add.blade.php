@@ -37,7 +37,7 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Institute Name') . '(English)' }}<span style="color: red"> * </span></label>
+                                    <label for="name">{{ __('Name') . '(English)' }}<span style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $institute->title_en : old('title_en') }}"
@@ -47,7 +47,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Institute Name') . '(Bangla)' }}<span
+                                    <label for="name">{{ __('Name') . '(Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
@@ -58,7 +58,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Institute Code') }}<span
+                                    <label for="name">{{ __('Code') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="code"
                                            name="code"
@@ -71,7 +71,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Institute Domain') }}<span
+                                    <label for="domain">{{ __('Domain') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="domain"
                                            name="domain"
@@ -147,7 +147,6 @@
                                 </div>
                             @endif
 
-
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="primary_mobile">{{ __('Primary Mobile') }}<span
@@ -219,7 +218,18 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="address">{{ __('Institute Address') }}</label>
+                                    <label for="email">{{ __('Email') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="text" class="form-control" id="email"
+                                           name="email"
+                                           value="{{ $edit ? $institute->email : old('email') }}"
+                                           placeholder="{{ __('Email') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="address">{{ __('Address') }}</label>
                                     <textarea class="form-control" id="address" name="address"
                                               rows="3">{{ $edit ? $institute->address : old('address') }}</textarea>
                                 </div>
@@ -230,6 +240,14 @@
                                     <label for="google_map_src">{{ __('Google Map src') }}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
                                               rows="3">{{ $edit ? $institute->google_map_src : old('google_map_src') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="description">{{ __('Description') }}</label>
+                                    <textarea class="form-control" id="description" name="description"
+                                              rows="3">{{ $edit ? $institute->description : old('description') }}</textarea>
                                 </div>
                             </div>
 
@@ -290,6 +308,30 @@
             "Invalid logo size. Size must be 80 * 80",
         );
 
+        $.validator.addMethod(
+            "mobileValidation",
+            function (value, element) {
+                let regexp1 = /^(?:\+88|88)?(01[3-9]\d{8})$/i;
+                let regexp = /^(?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8})$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "Please enter valid mobile number"
+        );
+
+        $.validator.addMethod(
+            "phoneValidation",
+            function (value, element) {
+                let regexp = /^[0-9[+-]+$/i;
+                let regexp1 = /^[\s-'\u0980-\u09ff+-]{1,255}$/i;
+                let re = new RegExp(regexp);
+                let re1 = new RegExp(regexp1);
+                return this.optional(element) || re.test(value) || re1.test(value);
+            },
+            "Please enter valid phone number"
+        );
+
         editAddForm.validate({
             rules: {
                 title_en: {
@@ -299,6 +341,11 @@
                 title_bn: {
                     required: true,
                     pattern: /^[\s'\u0980-\u09ff]+$/,
+                },
+                email: {
+                    required: true,
+                    pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+                    //remote: "{!! route('course_management::youth.check-unique-email') !!}",
                 },
                 code: {
                     required: true,
@@ -317,17 +364,21 @@
                     pattern: /^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/,
                 },
                 primary_phone: {
-                    pattern: /^[0-9]*$/,
+                    //pattern: /^[0-9]*$/,
+                    phoneValidation: true,
                 },
                 'phone_numbers[]': {
-                    pattern: /^[0-9]*$/,
+                    //pattern: /^[0-9]*$/,
+                    phoneValidation: true,
                 },
                 primary_mobile: {
                     required: true,
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    //pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 'mobile_numbers[]': {
-                    pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    //pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
+                    mobileValidation: true,
                 },
                 logo: {
                     required: !EDIT,
@@ -342,21 +393,25 @@
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 },
+                email: {
+                    required: "Please enter an email address",
+                    pattern: "Please enter valid email address"
+                },
                 code: {
                     required: "This field is required",
                     remote: "Code already in use!",
                 },
                 primary_phone: {
-                    pattern: 'Please enter valid mobile number',
+                    //pattern: 'Please enter valid phone number',
                 },
                 'phone_numbers[]': {
-                    pattern: 'Please enter valid phone number',
+                    //pattern: 'Please enter valid phone number',
                 },
                 primary_mobile: {
-                    pattern: 'Please enter valid mobile number',
+                    //pattern: 'Please enter valid mobile number',
                 },
                 'mobile_numbers[]': {
-                    pattern: 'Please enter valid mobile number',
+                    //pattern: 'Please enter valid mobile number',
                 },
                 logo: {
                     accept: 'Please upload valid image file',

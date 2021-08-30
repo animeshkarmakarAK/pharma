@@ -25,7 +25,7 @@
                                     name="programme_id"
                                     id="programme_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
-                                    data-label-fields="{title_en}"
+                                    data-label-fields="{title_bn}"
                                     data-dependent-fields="#batch_id"
                                     data-placeholder="প্রোগ্রাম নির্বাচন করুন"
                             >
@@ -36,7 +36,7 @@
                                     name="batch_id"
                                     id="batch_id"
                                     data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
-                                    data-label-fields="{title_en}"
+                                    data-label-fields="{title_bn}"
                                     data-depend-on-optional="programme_id"
                                     data-placeholder="ব্যাচ নির্বাচন করুন"
                             >
@@ -154,7 +154,7 @@
                 window.scrollTo(0, 0);
                 let html = '';
                 if (response?.data?.data.length <= 0) {
-                    html += '<div class="col-md-12 justify-content-center"><div class="text-center h3">কোন অ্যালবাম খুঁজে পাওয়া যায়নি!</div></div>';
+                    html += '<div class="col-md-12 text-center mt-5"><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন অ্যালবাম খুঁজে পাওয়া যায়নি!</div></div>';
                 }
                 $.each(response.data?.data, function (i, item) {
                     html += template(item);

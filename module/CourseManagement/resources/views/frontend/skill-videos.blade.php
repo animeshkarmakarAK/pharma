@@ -244,9 +244,15 @@
                 }
             });
 
+            $("#search").on("keyup change", function(e) {
+                videoSearch();
+            })
+
             $('#skill-video-search-btn').on('click', function () {
                 videoSearch();
             });
+
+
 
         });
     </script>

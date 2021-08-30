@@ -38,7 +38,8 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cover_image">{{ __('Upload Slider Image') }}</label>
+                                    <label for="cover_image">{{ __('Upload Slider Image') }}<span
+                                            class="required">*</span></label>
                                     <div class="input-group">
                                         <div class="slider-upload-section">
                                             <div class="avatar-preview text-center">
@@ -59,31 +60,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{--<div class="col-md-12">
-                                <div class="row justify-content-center align-content-center">
-                                    <div class="form-group" style="width: 50vw; height: 200px">
-                                        <div class="input-group">
-                                            <div class="slider-upload-section">
-                                                <div class="avatar-preview text-center">
-                                                    <label for="slider">
-                                                        <img class=""
-                                                             src="{{$edit && $slider->slider ? asset('storage/'.$slider->slider) : 'https://via.placeholder.com/850x350?text=Upload+Slider+Image'}}"
-                                                             style="width: 100%; height: 200px"
-                                                             alt="Slider Image"/>
-                                                        <span class="p-1 bg-gray"
-                                                              style="position: absolute; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%; overflow: hidden">
-                                                        <i class="fa fa-pencil-alt text-white"></i>
-                                                    </span>
-                                                    </label>
-                                                </div>
-                                                <input type="file" name="slider" style="display: none"
-                                                       id="slider">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>--}}
 
                             <div class="col-sm-6">
                                 <div class="form-group">

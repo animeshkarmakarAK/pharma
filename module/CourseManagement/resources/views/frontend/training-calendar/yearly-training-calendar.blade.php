@@ -204,7 +204,7 @@
                     displayEventTime: false,
                     customButtons: {
                         myCustomButton: {
-                            text: 'year',
+                            text: 'বছর',
                             click: function () {
                                 window.location = '{{ route('course_management::fiscal-year') }}';
                             }
@@ -215,6 +215,7 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay,myCustomButton'
                     },
+                    locale: initialLocaleCode,
                     events: function (fetchInfo, successCallback, failureCallback) {
                         $.ajax({
                             url: '{{route('course_management::yearly-training-calendar.all-event')}}',

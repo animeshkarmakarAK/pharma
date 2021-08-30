@@ -34,6 +34,11 @@ class InstituteService
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
             'title_bn' => ['required', 'string', 'max:191'],
+            'email' => [
+                'required',
+                'string',
+                'regex:/^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/',
+            ],
             'code' => ['required', 'string', 'max:191', 'unique:institutes,code,' . $id],
             'domain' => [
                 'required',
@@ -46,20 +51,29 @@ class InstituteService
             'google_map_src' => ['nullable', 'string'],
             'primary_phone' => [
                 'nullable',
-                'regex:/^[0-9]*$/'
+                //'regex:/^[0-9]*$/'
             ],
             'phone_numbers' => ['array'],
-            'phone_numbers.*' => ['nullable', 'string', 'regex:/^[0-9]*$/'],
-            'primary_mobile' => ['required', 'string', 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
+            'phone_numbers.*' => ['nullable', 'string', /*'regex:/^[0-9]*$/'*/],
+            'primary_mobile' => [
+                'required',
+                'string',
+                'regex:/(^((?:\+88|88)?(01[3-9]\d{8}))$)|(^((\x{09EE}\x{09EE})|(\+\x{09EE}\x{09EE}))?[\x{09E6}-\x{09EF}]{11})$/u',
+            ],
             'mobile_numbers' => ['array'],
-            'mobile_numbers.*' => ['nullable', 'string', 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
+            'mobile_numbers.*' => [
+                'nullable',
+                'string',
+                'regex:/(^((?:\+88|88)?(01[3-9]\d{8}))$)|(^((\x{09EE}\x{09EE})|(\+\x{09EE}\x{09EE}))?[\x{09E6}-\x{09EF}]{11})$/u',
+            ],
             'logo' => [
                 new RequiredIf($id == null),
                 'image',
                 'mimes:jpeg,jpg,png,gif',
                 'max:500',
                 //'dimensions:width=80,height=80'
-            ]
+            ],
+            'description'=>['nullable', 'string']
         ];
 
         $messages = [

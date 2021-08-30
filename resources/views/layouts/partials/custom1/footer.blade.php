@@ -9,8 +9,9 @@
                 <div class="footer-widget">
                     <img src="{{asset('storage/' .$currentInstitute->logo)}}" alt=""
                          class="img-responsive logo-change" style="height: 60px;">
-                    <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও স্বাবলম্বী
-                        করে তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"।</p>
+                    <p>
+                        {{  !empty($currentInstitute->description)?$currentInstitute->description:'' }}
+                    </p>
                     <span>
                             <a href="#" class="read-more"> <i class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                         </span>
@@ -23,21 +24,51 @@
                 <div class="footer-widget-address">
                     <h3>যোগাযোগ </h3>
                     <p>
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                        <span>বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র (বিটাক)<br>১১৬ (খ),তেজগাঁও শিল্প এলাকা ঢাকা - ১২০৮
-                            </span>
+                        <span>
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            {{  !empty($currentInstitute->address)?$currentInstitute->address:'' }}
+                        </span>
                     </p>
                     <p>
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <a class="footer-email" href="mailto:ict@bitac.gov.bd"><span style="font-family:'Roboto', sans-serif; font-size: 17px;"> ict@bitac.gov.bd</span></a>
+                        <a class="footer-email"
+                           href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
+                            <span style="font-family:'Roboto', sans-serif; font-size: 17px;">
+                                {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
+                            </span>
+                        </a>
                     </p>
                     <p>
-                        <i class="fas fa-phone-volume"></i>
-                        <span> +৮৮-০২-৮৮৭০৬৮০, +৮৮-০২-৮৮৭০২৬৬</span>
+                        <span>
+                            <i class="fas fa-phone-volume"></i>
+                            <a style="color: #869099;"
+                               href="tel:{{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}"
+                               onclick="">
+                                {{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}
+                            </a>
+
+                            @if(!empty($currentInstitute->phone_numbers))
+                                @foreach($currentInstitute->phone_numbers as $phoneNumber)
+                                    <a style="color: #869099;"
+                                       href="tel:{{  $phoneNumber }}"
+                                       onclick="">
+                                        , {{  $phoneNumber }}
+                                    </a>
+                                @endforeach
+                            @endif
+                            {{--+৮৮-০২-৮৮৭০৬৮০, +৮৮-০২-৮৮৭০২৬৬--}}
+                        </span>
                     </p>
                     <p>
-                        <i class="fa fa-fax" aria-hidden="true"></i>
-                        <span> +৮৮-০২-৮৮৭০৭২৮</span>
+                        <span>
+                            <i class="fa fa-fax" aria-hidden="true"></i>
+                            <a style="color: #869099;"
+                               href="tel:{{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:'' }}"
+                               onclick="">
+                                {{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:'' }}
+                            </a>
+                            {{--+৮৮-০২-৮৮৭০৭২৮--}}
+                        </span>
                     </p>
                 </div>
             </div>
