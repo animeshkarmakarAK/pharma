@@ -51,7 +51,7 @@ class GalleryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $galleryValidatedData = $this->galleryService->validator($request)->validate();
         try {

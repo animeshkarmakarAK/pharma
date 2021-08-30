@@ -244,6 +244,7 @@
             console.log('Today: '+today)
             $('#today').val(today);
 
+
             $('.application_start_date').on('change', function (){
                 console.log($('.application_start_date').val())
             })
@@ -264,7 +265,7 @@
                 $.validator.addMethod(
                     "sessionNameEn",
                     function (value, element) {
-                        let regexp = "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$";
+                        let regexp = /^[a-zA-Z0-9 ]*$/;
                         let re = new RegExp(regexp);
                         return this.optional(element) || re.test(value);
                     },
@@ -273,7 +274,7 @@
                 $.validator.addMethod(
                     "sessionNameBn",
                     function (value, element) {
-                        let regexp = "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$";
+                        let regexp = /^[\s'\u0980-\u09ff]+$/;
                         let re = new RegExp(regexp);
                         return this.optional(element) || re.test(value);
                     },

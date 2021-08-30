@@ -89,7 +89,6 @@ class YouthRegistrationService
             } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_OTHER && $key == 'guardian') {
                 $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_OTHER;
             }
-
             $youth->youthFamilyMemberInfo()->create($familyMember);
         }
 
@@ -97,19 +96,18 @@ class YouthRegistrationService
          * youth self info
          */
 
-        $youth_self_info = Arr::only($data, ['mobile', 'personal_monthly_income',
+        $youthSelfInfo = Arr::only($data, ['mobile', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
             'freedom_fighter_status', 'nid', 'birth_certificate_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
-        $youth_self_info['relation_with_youth'] = "self";
-
+        $youthSelfInfo['relation_with_youth'] = "self";
 
         $disabilities = null;
-        if (isset($youth_self_info['disable_status']) && $youth_self_info['disable_status'] == YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES) {
-            $disabilities = $youth_self_info['physical_disabilities'];
-            $youth_self_info['physical_disabilities'] = collect($disabilities)->toJson();
+        if (isset($youthSelfInfo['disable_status']) && $youthSelfInfo['disable_status'] == YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES) {
+            $disabilities = $youthSelfInfo['physical_disabilities'];
+            $youthSelfInfo['physical_disabilities'] = collect($disabilities)->toJson();
         }
 
-        $youth->youthFamilyMemberInfo()->create($youth_self_info);
+        $youth->youthFamilyMemberInfo()->create($youthSelfInfo);
 
         foreach ($data['academicQualification'] as $key => $academicQualification) {
             if ($academicQualification['examination_name'] == null) continue;
@@ -126,6 +124,10 @@ class YouthRegistrationService
             'name_en' => 'required|string|max:191',
             'name_bn' => 'required|string|max:191',
             'mobile' => 'required|string|max:20',
+            'nid' => 'nullable|string',
+            'passport_number' => 'nullable|string',
+            'birth_reg_no' => 'nullable|string',
+            'date_of_birth' => 'required|date',
             'email' => 'required|string|max:191|email|unique:youths',
             'address.present.present_address_division_id' => 'required|int',
             'address.present.present_address_district_id' => 'required|int',
@@ -143,6 +145,16 @@ class YouthRegistrationService
             'familyMember.mother.nid' => 'required|string|max:191',
             'familyMember.mother.date_of_birth' => 'required|date',
             'familyMember.mother.mobile' => 'required|string',
+
+            'familyMember.guardian.member_name_en' => 'nullable|string|max:191',
+            'familyMember.guardian.nid' => 'nullable|string|max:191',
+            'familyMember.guardian.date_of_birth' => 'nullable|date',
+            'familyMember.guardian.mobile' => 'nullable|string',
+            'familyMember.guardian.relation_with_youth' => 'nullable|string',
+            'guardian' => 'nullable|int',
+            'disable_status' => 'nullable',
+            'physical_disabilities' => 'nullable',
+
             'gender' => 'required|int',
             'marital_status' => 'required|int',
             'branch_id' => 'nullable|int',
@@ -155,7 +167,6 @@ class YouthRegistrationService
             'nationality' => 'required|string',
             'student_pic' => 'required',
             'student_signature_pic' => 'required',
-            'guardian' => 'nullable|int',
             'main_occupation' => 'nullable|string',
             'other_occupation' => 'nullable|string',
             'personal_monthly_income' => 'nullable|int',
@@ -179,8 +190,8 @@ class YouthRegistrationService
 
     public function getYouthFamilyMemberInfo(Youth $youth): array
     {
-        $father = $youth->youthFamilyMemberInfo->where('relation_with_youth', 'Father')->first();
-        $mother = $youth->youthFamilyMemberInfo->where('relation_with_youth', 'Mother')->first();
+        $father = $youth->youthFamilyMemberInfo->where('relation_with_youth', 'father')->first();
+        $mother = $youth->youthFamilyMemberInfo->where('relation_with_youth', 'mother')->first();
         $guardian = $youth->youthFamilyMemberInfo->where('is_guardian', YouthFamilyMemberInfo::GUARDIAN_OTHER)->first();
 
         if (!empty($father) && empty($guardian) && $father->is_guardian == YouthFamilyMemberInfo::GUARDIAN_FATHER) {

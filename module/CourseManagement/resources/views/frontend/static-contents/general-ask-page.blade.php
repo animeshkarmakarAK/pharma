@@ -17,60 +17,30 @@
                         <div class="row mt-5">
                             <div class="col-md-10 mx-auto">
                                 <div class="">
-                                    <h2 class="question-answer-heading">সচরাচর জিজ্ঞাস্য</h2>
-                                    <div class="panel-group question-answer-container" id="accordion">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="question-title">
-                                                    <a class="question-heading" data-toggle="collapse"
-                                                       href="#collapseExample1" role="button" aria-expanded="false"
-                                                       aria-controls="collapseExample1">
-                                                        - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }}
-                                                        ট্রেনিং ম্যানেজমেন্ট 1 ?</a>
-                                                    {{--<a data-toggle="collapse" class="question-heading" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1" > - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }} ট্রেনিং ম্যানেজমেন্ট </a>--}}
-                                                </h4>
-                                            </div>
-                                            <div id="collapseExample1" class="question-answer collapse">
-                                                <div class="panel-body">
-                                                    <p>জীবনের সর্বক্ষেত্রে যুবদের প্রতিষ্ঠার লক্ষ্যে তাদের প্রতিভার
-                                                        বিকাশ ও ক্ষমতায়ন নিশ্চিত করা। 1</p>
+                                    <h2 class="question-answer-heading">সচারাচর জিজ্ঞাস্য</h2>
+                                    @foreach($data as $key => $qa)
+                                        <div class="panel-group question-answer-container" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="question-title">
+                                                        <a class="question-heading" data-toggle="collapse"
+                                                           href="#collapseExample{{$key}}" role="button" aria-expanded="false"
+                                                           aria-controls="collapseExample1">
+                                                            {{ $qa['question'] }}
+                                                            </a>
+                                                        {{--<a data-toggle="collapse" class="question-heading" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1" > - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }} ট্রেনিং ম্যানেজমেন্ট </a>--}}
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseExample{{$key}}" class="question-answer collapse">
+                                                    <div class="panel-body">
+                                                        <p>{!! $qa['answer'] !!}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="panel-group question-answer-container" id="accordion">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="question-title">
-                                                    <a class="question-heading" data-toggle="collapse"
-                                                       href="#collapseExample2" role="button" aria-expanded="false"
-                                                       aria-controls="collapseExample2">
-                                                        - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }}
-                                                        ট্রেনিং ম্যানেজমেন্ট 2 ? </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseExample2" class="question-answer collapse">
-                                                <div class="panel-body">
-                                                    <p>জীবনের সর্বক্ষেত্রে যুবদের প্রতিষ্ঠার লক্ষ্যে তাদের প্রতিভার
-                                                        বিকাশ ও ক্ষমতায়ন নিশ্চিত করা। 2</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
-                            {{--<div class="col-md-1"></div>
-                            <div class="col-md-3 general-ask-download-area">
-                                <div class="download-area">
-                                    <img src="{{asset('/assets/company/images/pdf-logo.png')}}" width="70%"
-                                         title="Advice details">
-                                </div>
-                                <div class="text-center">
-                                    <a href="{{asset('/assets/company/images/pdf-logo.png')}}" class="btn btn-default"
-                                       title="Download general-ask details" download>Download
-                                    </a>
-                                </div>
-                            </div>--}}
                         </div>
                     </div>
                 </div>

@@ -125,7 +125,7 @@
                                 <div class="form-group">
                                     <label for="course_fee">{{ __('Course Fee') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="course_fee"
+                                    <input type="number" class="form-control" id="course_fee"
                                            name="course_fee"
                                            value="{{ $edit ? $course->course_fee : old('course_fee') }}"
                                            placeholder="{{ __('Course Fee') }}">
@@ -284,11 +284,11 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 cover_image: {
                     required: false,
@@ -311,7 +311,7 @@
                 },
                 course_fee: {
                     required: true,
-                    min: 0
+                    number: true,
                 },
                 duration: {
                     required: false,
@@ -319,27 +319,27 @@
                 },
                 target_group: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 objects: {
                     required: false,
-                    maxlength: 1000,
+                    maxlength: 5000,
                 },
                 contents: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 training_methodology: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 evaluation_system: {
                     required: false,
-                    maxlength: 300,
+                    maxlength: 5000,
                 },
                 description: {
                     required: false,
-                    maxlength: 500,
+                    maxlength: 5000,
                 },
                 eligibility: {
                     required: false,
@@ -358,6 +358,9 @@
                 },
                 title_bn: {
                     pattern: "This field is required in Bangla.",
+                },
+                course_fee: {
+                    number: 'Please enter your course fee [Only number]',
                 },
             },
             submitHandler: function (htmlForm) {

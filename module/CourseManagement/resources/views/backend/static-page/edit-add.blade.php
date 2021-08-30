@@ -185,14 +185,6 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-        /*$("#institute_id").change(function () {
-            if (this.value > 0) {
-                $('#page_id').prop('disabled', false)
-            } else {
-                $('#page_id').prop('disabled', true)
-            }
-        })*/
-
         const editAddForm = $('.edit-add-form');
 
         editAddForm.validate({
@@ -220,11 +212,11 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: "^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._ -]+$",
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 page_id: {
                     required: true,
@@ -263,6 +255,12 @@
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 },
+                page_contents: {
+                    required: function () {
+                        let editorContent = tinymce.get('page_contents').getContent();
+                        return "This field is required";
+                    }
+                }
 
             },
 
@@ -329,22 +327,15 @@
             plugins: 'code',
         });
 
-        if($('#tinymce p').val().length>0){
-            $('#page_contents').valid();
-        }
-
-        $('#page_contents').on('change', function() {
-            $(this).valid();
+        $('body').on('click', function() {
+            let editorContent = tinymce.get('page_contents').getContent();
+            if(editorContent.length>0){
+                $('#page_contents').valid(true);
+            }else{
+                $('#page_contents').valid(false);
+            }
         });
 
-        /*$('#page_contents').change(function(){
-            if ($(this).val()!="")
-            {
-                $(this).valid();
-            }
-        });*/
-
-        $('#tinyeditor_ifr').contents().find('body').text()
 
     </script>
 @endpush

@@ -70,6 +70,7 @@
                         <label for="email">{{ __('Email') }} <span style="color: red"> * </span></label>
                         <input type="email" class="form-control" id="email"
                                name="email"
+                               data-unique-user-email="{{ $edit ? $user->email : '' }}"
                                value="{{$edit ? $user->email : old('email')}}"
                                placeholder="{{ __('Email') }}">
                     </div>

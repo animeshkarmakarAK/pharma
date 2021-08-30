@@ -261,11 +261,12 @@
             rules: {
                 title_en: {
                     required: true,
-                    maxlength: 191
+                    maxlength: 191,
+                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 title_bn: {
                     required: true,
-                    pattern: "^[\\s-'\u0980-\u09ff!@#\$%\^\&*\)\(+=._-]{1,255}$",
+                    pattern: /^[\s'\u0980-\u09ff]+$/,
                     maxlength: 191,
                 },
                 domain: {
