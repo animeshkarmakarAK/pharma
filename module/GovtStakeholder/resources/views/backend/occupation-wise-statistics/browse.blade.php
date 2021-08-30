@@ -77,6 +77,7 @@
                     }
                 ],
             });
+
             const datatable = $('#dataTable').DataTable(params);
             bindDatatableSearchOnPresEnterOnly(datatable);
 
@@ -86,22 +87,13 @@
             });
 
 
+            //Search by Survey Date
+            /*params.ajax.data = d => {
+                d.search.value = $('input[type="search"]').val();
+            };
 
-            /*$("#dataTable_filter").on("keyup", 'input', function () {
-                let surveyDate = $(this).val()
-
-                function formatDate(date) {
-                    var d = new Date(date),
-                        month = '' + (d.getMonth() + 1),
-                        day = '' + d.getDate(),
-                        year = d.getFullYear();
-                    if (month.length < 2)
-                        month = '0' + month;
-                    if (day.length < 2)
-                        day = '0' + day;
-                    return [year, month, day].join('-');
-                }
-                surveyDate = formatDate(surveyDate)
+            $(document).on("keyup", 'input[type="search"]', function () {
+                datatable.draw();
             });*/
 
         });

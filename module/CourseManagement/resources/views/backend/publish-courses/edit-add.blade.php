@@ -217,11 +217,13 @@
         .flat-date-custom-bg {
             background-color: #fafdff !important;
         }
-        .has-error{
+
+        .has-error {
             position: relative;
             padding: 0px 0 12px 0;
         }
-        #institute_id-error, #application_form_type_id-error, #course_id-error{
+
+        #institute_id-error, #application_form_type_id-error, #course_id-error {
             position: absolute;
             left: 6px;
             bottom: -9px;
@@ -240,17 +242,13 @@
             let SL = 0;
 
             let today = new Date();
-            today = today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + (today.getDate()-1)).slice(-2);
-            console.log('Today: '+today)
+            today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 1)).slice(-2);
+            console.log('Today: ' + today)
             $('#today').val(today);
 
 
-            $('.application_start_date').on('change', function (){
-                console.log($('.application_start_date').val())
-            })
-
             function addRow(data = {}) {
-                console.log(SL)
+                console.log('SL: ' + SL)
                 let courseSession = _.template($('#course-sessions').html());
                 console.table('course session template:', courseSession);
                 let courseSessionContentElm = $(".course-session-contents");
@@ -272,6 +270,7 @@
                     },
                     "Please fill this field in English."
                 );
+
                 $.validator.addMethod(
                     "sessionNameBn",
                     function (value, element) {
@@ -290,22 +289,24 @@
                     "Course start date must be greater than Application end date");
 
                 $.validator.addClassRules("number_of_batches", {required: true});
-                //course_sessions[<%=sl%>][application_start_date]
                 $.validator.addClassRules("application_start_date", {
                     required: true,
                     //cGreaterThan: '#today',
                 });
 
-                $.validator.addClassRules("application_end_date", {
-                    required: true,
-                    //cApplicationEndDate: ".application_start_date",
-                    cApplicationEndDate: ".application_start_date",
-                });
+                for (let i = 0; i <= SL; i++) {
+                    $.validator.addClassRules("application_end_date" + i, {
+                        required: true,
+                        cApplicationEndDate: '.application_start_date' + i,
+                    });
 
-                $.validator.addClassRules("course_start_date", {
-                    required: true,
-                    //cCourseStartDate: ".application_end_date",
-                });
+                    $.validator.addClassRules("course_start_date" + i, {
+                        required: true,
+                        cCourseStartDate: ".application_end_date" + i,
+                    });
+                }
+
+
                 $.validator.addClassRules("max_seat_available", {required: true});
 
                 $.validator.addClassRules("session_name_en", {
@@ -429,7 +430,7 @@
                                     for="application_start_date">{{ __('Application Start Date') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
-                                       class="flat-date flat-date-custom-bg form-control application_start_date"
+                                       class="flat-date flat-date-custom-bg form-control application_start_date application_start_date<%=sl%> "
                                        name="course_sessions[<%=sl%>][application_start_date]"
                                        id="course_sessions[<%=sl%>][application_start_date]"
                                        value="<%=edit ? data.application_start_date : ''%>">
@@ -442,7 +443,7 @@
                                     for="application_end_date">{{ __('Application End Date') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
-                                       class="flat-date flat-date-custom-bg form-control application_end_date"
+                                       class="flat-date flat-date-custom-bg form-control application_end_date application_end_date<%=sl%>"
                                        name="course_sessions[<%=sl%>][application_end_date]"
                                        value="<%=edit ? data.application_end_date : ''%>"
                                 >
@@ -454,7 +455,7 @@
                                 <label for="course_start_date">{{ __('Course Start Date') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
-                                       class="flat-date flat-date-custom-bg form-control course_start_date"
+                                       class="flat-date flat-date-custom-bg form-control course_start_date<%=sl%>"
                                        name="course_sessions[<%=sl%>][course_start_date]"
                                        value="<%=edit ? data.course_start_date : ''%>"
                                 >
