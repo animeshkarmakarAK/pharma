@@ -97,6 +97,13 @@
                 @endif
 
                 <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Email') }}</p>
+                    <div class="input-box">
+                        {{ !empty($institute->email)? $institute->email: '' }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Address') }}</p>
                     <div class="input-box">
                         {{ $institute->address }}
@@ -107,6 +114,13 @@
                     <p class="label-text">{{ __('Google Map src') }}</p>
                     <div class="input-box" style="min-height: 100px;">
                         {{ $institute->google_map_src }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Description') }}</p>
+                    <div class="input-box">
+                        {{ !empty($institute->description)? $institute->description: '' }}
                     </div>
                 </div>
 

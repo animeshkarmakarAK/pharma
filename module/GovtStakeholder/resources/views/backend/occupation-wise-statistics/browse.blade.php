@@ -75,7 +75,7 @@
                         searchable: false,
                         visible: true
                     }
-                ]
+                ],
             });
             const datatable = $('#dataTable').DataTable(params);
             bindDatatableSearchOnPresEnterOnly(datatable);
@@ -85,22 +85,27 @@
                 $('#delete_modal').modal('show');
             });
 
-            let myDate = '2021-05'
-
-            updateFeature(myDate);
-
-            function updateFeature(data) {
-                const url = "{!! route('govt_stakeholder::admin.occupation-wise-statistics.datatable')!!}";
-                let posting = $.post(url, {data: data});
-                posting.done(function (response) {
-                    datatable.draw();
-                });
-            }
 
 
+            /*$("#dataTable_filter").on("keyup", 'input', function () {
+                let surveyDate = $(this).val()
 
+                function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+                    if (month.length < 2)
+                        month = '0' + month;
+                    if (day.length < 2)
+                        day = '0' + day;
+                    return [year, month, day].join('-');
+                }
+                surveyDate = formatDate(surveyDate)
+            });*/
 
         });
+
     </script>
 @endpush
 
