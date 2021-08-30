@@ -680,6 +680,7 @@
                                                     <option value="2">JDC</option>
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -695,6 +696,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -705,18 +707,19 @@
                                                        id="jsc_roll" class="form-control"
                                                        value="{{ old('academicQualification.jsc.roll_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="jsc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
-                                                নং<span
-                                                    class="required">*</span></label>
+                                            <label for="jsc_reg_no" class="col-md-4 col-form-label">
+                                                রেজিস্ট্রেশান নং <span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <input type="text" id="jsc_reg_no"
                                                        name="academicQualification[jsc][reg_no]"
                                                        class="form-control"
                                                        value="{{ old('academicQualification.jsc.reg_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <input type="hidden" name="academicQualification[jsc][result]"
@@ -730,12 +733,12 @@
                                                        width="10" placeholder="জি.পি.এ"
                                                        value="{{ old('academicQualification.jsc.grade') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">পাসের
-                                                বছর<span
-                                                    class="required">*</span></label>
+                                            <label for="jsc_passing_year" class="col-md-4 col-form-label">
+                                                পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[jsc][passing_year]"
                                                         id="jsc_passing_year" class="select2">
@@ -746,6 +749,7 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -785,6 +789,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -800,6 +805,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -810,6 +816,7 @@
                                                        id="ssc_roll" class="form-control"
                                                        value="{{ old('academicQualification.ssc.roll_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -822,6 +829,7 @@
                                                        class="form-control"
                                                        value="{{ old('academicQualification.ssc.reg_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -848,6 +856,7 @@
                                                        value="{{ old('academicQualification.ssc.grade') }}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -863,6 +872,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -879,6 +889,7 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -918,6 +929,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -933,6 +945,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -943,6 +956,7 @@
                                                        id="hsc_roll" class="form-control"
                                                        value="{{ old('academicQualification.hsc.roll_no')}}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -954,6 +968,7 @@
                                                        id="hsc_reg_no" class="form-control"
                                                        value="{{ old('academicQualification.hsc.reg_no') }}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -980,6 +995,7 @@
                                                        value="{{ old('academicQualification.hsc.grade') }}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -995,6 +1011,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1011,6 +1028,7 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1053,6 +1071,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1064,6 +1083,7 @@
                                                        id="graduation_subject" class="form-control"
                                                        value="{{ old('academicQualification.graduation.subject')}}">
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1080,6 +1100,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
 
@@ -1105,13 +1126,13 @@
                                                        value="{{ old('academicQualification.graduation.grade')}}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
-
 
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_passing_year"
-                                                   class="col-md-4 col-form-label">পাসের
-                                                বছর<span class="required">*</span></label>
+                                                   class="col-md-4 col-form-label">
+                                                পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[graduation][passing_year]"
                                                         id="graduation_passing_year" class="select2">
@@ -1122,12 +1143,13 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_course_duration"
-                                                   class="col-md-4 col-form-label">কোর্স
-                                                সময়কাল<span class="required">*</span></label>
+                                                   class="col-md-4 col-form-label">
+                                                কোর্স সময়কাল<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select
                                                     name="academicQualification[graduation][course_duration]"
@@ -1139,6 +1161,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1176,6 +1199,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1188,6 +1212,7 @@
                                                        id="masters_subject"
                                                        class="form-control" {{ old('academicQualification.masters.subject') }}>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1203,6 +1228,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
 
@@ -1228,12 +1254,12 @@
                                                        value="{{ old('academicQualification.masters.grade') }}"
                                                        hidden>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
 
-
                                         <div class="form-row form-group mt-2">
-                                            <label for="masters_passing_year" class="col-md-4 col-form-label">পাসের
-                                                বছর<span class="required">*</span></label>
+                                            <label for="masters_passing_year" class="col-md-4 col-form-label">
+                                                পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[masters][passing_year]"
                                                         class="select2">
@@ -1244,6 +1270,8 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
+
                                         </div>
 
                                         <div class="form-row form-group mt-2">
@@ -1260,6 +1288,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-4"></div>
                                         </div>
                                     </div>
                                 </div>

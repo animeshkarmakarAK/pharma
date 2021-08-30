@@ -92,6 +92,14 @@ class OccupationWiseStatisticService
             'institute_id',
         );
 
+        /*$searchBySurveyDate = $request->input('search');
+        $searchBySurveyDate =  strtotime($searchBySurveyDate['value']);
+        $searchBySurveyDate =  Date('Y-m', $searchBySurveyDate);
+        if (!empty($request->input('search')['value'])) {
+            $occupationWiseStatistics->where('occupation_wise_statistics.survey_date', '=', $searchBySurveyDate);
+        }*/
+
+
         return DataTables::eloquent($occupationWiseStatistics)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OccupationWiseStatistic $occupationWiseStatistic) use ($authUser) {
                 $str = '';

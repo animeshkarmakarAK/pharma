@@ -41,11 +41,12 @@
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
 
     <style>
-        .has-error{
+        .has-error {
             position: relative;
             padding: 0px 0 12px 0;
         }
-        #user_type_id-error{
+
+        #user_type_id-error {
             position: absolute;
             left: 6px;
             bottom: -9px;
@@ -299,9 +300,9 @@
                         })
                             .done(function (responseData) {
                                 console.log(responseData)
-                                if(responseData.message == 'Something wrong. Please try again'){
+                                if (responseData.message == 'Something wrong. Please try again') {
                                     toastr.error(responseData.message);
-                                }else{
+                                } else {
                                     toastr.success(responseData.message);
                                 }
                                 editAddModal.modal('hide');
