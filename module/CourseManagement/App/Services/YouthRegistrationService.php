@@ -177,6 +177,7 @@ class YouthRegistrationService
             'recommended_by_organization' => 'nullable|int',
             'recommended_org_name' => 'nullable|string|max:191',
             'academicQualification' => 'nullable',
+            'ethnic_group' => 'nullable',
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
