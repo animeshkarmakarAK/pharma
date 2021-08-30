@@ -76,7 +76,7 @@ class InstituteService
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Institute $institutes */
 
-        $institutes = Institute::acl('', 'id')->select([
+        $institutes = Institute::acl()->select([
             'institutes.id as id',
             'institutes.title_en',
             'institutes.title_bn',
