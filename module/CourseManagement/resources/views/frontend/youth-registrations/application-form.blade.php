@@ -663,7 +663,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body jsc_collapse collapse hide">
+                                    <div class="card-body jsc_collapse {{--collapse--}} hide">
 
                                         <input type="hidden" name="academicQualification[jsc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC }}">
@@ -770,7 +770,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body ssc_collapse collapse hide">
+                                    <div class="card-body ssc_collapse {{--collapse--}} hide">
 
                                         <input type="hidden" name="academicQualification[ssc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC }}">
@@ -910,7 +910,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body hsc_collapse collapse hide">
+                                    <div class="card-body hsc_collapse {{--collapse--}} hide">
 
                                         <input type="hidden" name="academicQualification[hsc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
@@ -1051,7 +1051,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body graduation_collapse collapse hide">
+                                    <div class="card-body graduation_collapse {{--collapse--}} hide">
                                         <input type="hidden"
                                                name="academicQualification[graduation][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION }}">
@@ -1182,7 +1182,7 @@
                                             </div>
                                         </h3>
                                     </div>
-                                    <div class="card-body masters_collapse collapse hide">
+                                    <div class="card-body masters_collapse {{--collapse--}} hide">
                                         <input type="hidden" name="academicQualification[masters][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS }}">
                                         <div class="form-row form-group">
@@ -1676,10 +1676,12 @@
         const youthRegistrationForm = $('.youthRegistrationForm');
         const GUARDIAN_INFO_OTHER = {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
 
+        let applicationFormTypeData;
+
         $.validator.addMethod(
             "langBN",
             function (value, element) {
-                let regexp = /^[\s'\u0980-\u09ff]+$/i;
+                let regexp = /^[\s\u0980-\u09ff]+$/i;
                 let re = new RegExp(regexp);
                 return this.optional(element) || re.test(value);
             },
@@ -1899,94 +1901,92 @@
 
                 "academicQualification[jsc][examination_name]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][board]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][roll_no]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.jsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
 
                 "academicQualification[jsc][reg_no]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.jsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[jsc][result]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][group]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][passing_year]": {
                     required: function () {
-                        return $('#jsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.jsc;
+                    },
                 },
                 "academicQualification[jsc][grade]": {
                     required: function () {
-                        return !$('#jsc_gpa').prop('hidden') && $("#jsc_examination_info").prop('checked');
+                        return !!applicationFormTypeData?.jsc;
                     },
-
                     min: 1,
                     max: 5
                 },
 
                 "academicQualification[ssc][examination_name]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][board]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][roll_no]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.ssc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
 
                 "academicQualification[ssc][reg_no]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.ssc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[ssc][result]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][group]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][passing_year]": {
                     required: function () {
-                        return $('#ssc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.ssc;
+                    },
                 },
                 "academicQualification[ssc][grade]": {
                     required: function () {
-                        return !$('#ssc_gpa').prop('hidden') && $("#ssc_examination_info").prop('checked');
+                        return !$('#ssc_gpa').prop('hidden') && !!applicationFormTypeData?.ssc;
                     },
-
                     min: 1,
                     max: function () {
                         if ($('#ssc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -2000,47 +2000,46 @@
 
                 "academicQualification[hsc][examination_name]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][board]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
 
                 "academicQualification[hsc][roll_no]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.hsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[hsc][reg_no]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
+                        return !!applicationFormTypeData?.hsc;
                     },
                     pattern: "^[1-9]\\d*$",
                 },
                 "academicQualification[hsc][group]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][passing_year]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][result]": {
                     required: function () {
-                        return $('#hsc_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.hsc;
+                    },
                 },
                 "academicQualification[hsc][grade]": {
                     required: function () {
-                        return !$('#hsc_gpa').prop('hidden') && $("#hsc_examination_info").prop('checked');
+                        return !$('#hsc_gpa').prop('hidden') && !!applicationFormTypeData?.hsc;
                     },
-
                     min: 1,
                     max: function () {
                         if ($('#hsc_result').val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -2053,32 +2052,32 @@
                 },
                 "academicQualification[graduation][examination_name]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[graduation][institute]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[graduation][subject]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[graduation][result]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
 
                 "academicQualification[graduation][grade]": {
                     required: function () {
-                        return !$('#graduation_cgpa').prop('hidden') && $("#graduation_examination_info").prop('checked');
+                        return !$('#graduation_cgpa').prop('hidden') && !!applicationFormTypeData?.honors;
                     },
                     min: 1,
                     max: function () {
@@ -2092,38 +2091,38 @@
                 },
                 "academicQualification[graduation][passing_year]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
                 "academicQualification[graduation][course_duration]": {
                     required: function () {
-                        return $('#graduation_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.honors;
+                    },
                 },
 
                 "academicQualification[masters][examination_name]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][institute]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][subject]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][result]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][grade]": {
                     required: function () {
-                        return !$('#masters_cgpa').prop('hidden') && $("#masters_examination_info").prop('checked');
+                        return !$('#masters_cgpa').prop('hidden') && !!applicationFormTypeData?.masters;
                     },
                     min: 1,
                     max: function () {
@@ -2137,13 +2136,13 @@
                 },
                 "academicQualification[masters][passing_year]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
                 "academicQualification[masters][course_duration]": {
                     required: function () {
-                        return $('#masters_examination_info').prop('checked');
-                    }
+                        return !!applicationFormTypeData?.masters;
+                    },
                 },
 
                 "address[present][present_address_division_id]": {
@@ -2201,7 +2200,7 @@
                 },
                 "familyMember[father][member_name_en]": {
                     required: true,
-                    textEnBnWithoutSpecialChar:true,
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[father][nid]": {
                     required: true,
@@ -2216,7 +2215,7 @@
                 },
                 "familyMember[mother][member_name_en]": {
                     required: true,
-                    textEnBnWithoutSpecialChar:true,
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[mother][nid]": {
                     required: true,
@@ -2238,7 +2237,7 @@
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
                     },
-                    textEnBnWithoutSpecialChar:true,
+                    textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[guardian][date_of_birth]": {
                     required: function () {
@@ -2767,12 +2766,14 @@
 
             applicationFormTypeFetch(filters)?.then(function (response) {
                 let data = response.data[0];
-                console.log(response.data[0]);
+                console.log(data)
+                applicationFormTypeData = data;
                 if (data?.length <= 0) {
                     showAllFormFields();
                 } else {
                     setFormFields(data);
                 }
+                console.log(applicationFormTypeData)
             });
         }
 

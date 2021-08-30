@@ -373,7 +373,7 @@
         <script type="text/template" id="course-sessions">
             <div class="card" id="session-no-<%=sl%>">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="session-name-english"><%= edit ? data.session_name_en : "Session " + (sl+1)%></h5>
+                    <h5 class="session-name-english<%=sl%>"><%= edit ? data.session_name_en : "Session " + (sl+1)%></h5>
                     <div class="card-tools">
                         <button type="button"
                                 onclick="deleteRow(<%=sl%>)"
@@ -397,7 +397,7 @@
                                        class="form-control session_name_en"
                                        name="course_sessions[<%=sl%>][session_name_en]"
                                        value="<%=edit ? data.session_name_en : ''%>"
-                                       onkeyup="$('.session-name-english').html($(this).val())">
+                                       onkeyup="$('.session-name-english<%=sl%>').html($(this).val())">
                             </div>
                         </div>
 
