@@ -80,8 +80,8 @@
 {{--<hr class="top_hr">--}}
 <div class="main-menu sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light custom_navbar_bg">
-        <a class="navbar-brand" href="{{ route('/') }}">
-            <img class="logo" src="{{asset('storage/' .$currentInstitute->logo)}}" height="70px" style="max-width: 200px">
+        <a class="navbar-brand" href="{{ route('/') }}" style="width: 250px; height: 60px; overflow: hidden;">
+            <img class="logo" src="{{asset('storage/' .$currentInstitute->logo)}}" style="width: 100%;">
         </a>
         <button class="navbar-toggler responsive_menu_btn" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
