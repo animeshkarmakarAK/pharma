@@ -340,11 +340,11 @@
                     let data = canvas.toDataURL();
                     let docDefinition = {
                         content: [{
-                            image: data,
+                            text: 'First column',
                             width: 500,
                         }],
                     };
-                    pdfMake.createPdf(docDefinition).open();
+                    pdfMake.createPdf(docDefinition).download("your-profile-pdf");
                 }
             });
         }
