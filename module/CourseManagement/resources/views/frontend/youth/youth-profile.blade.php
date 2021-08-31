@@ -337,14 +337,15 @@
                 allowTaint: true,
                 logging:true,
                 onrendered: function (canvas) {
-                    let data = canvas.toDataURL();
+                    let canvasData = canvas.toDataURL();
                     let docDefinition = {
                         content: [{
-                            image: data,
+                            image: canvasData,
                             width: 500,
                         }],
                     };
-                    pdfMake.createPdf(docDefinition).download("your-profile-pdf");
+                    const doc = pdfMake.createPdf(docDefinition);
+                    doc.getBase64((data) => { window.location.href = 'data:application/pdf;base64,' + data; });
                 }
             });
         }
