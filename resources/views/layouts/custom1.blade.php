@@ -575,6 +575,17 @@
 
 
     </style>
+    <style>
+        @media screen and (max-width: 424px) {
+            .navbar-brand{
+                max-width: 70% !important;
+                display: inline-block;
+            }
+            .navbar-brand img{
+                width: 100%;
+            }
+        }
+    </style>
     @stack('css')
 </head>
 <body class="hold-transition skin-blue sidebar-collapse">

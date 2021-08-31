@@ -325,7 +325,6 @@
             </div>
         </div>
     </div>
-    @include('utils.delete-confirm-modal')
 @endsection
 
 @push('js')
@@ -340,13 +339,17 @@
                     let data = canvas.toDataURL();
                     let docDefinition = {
                         content: [{
-                            text: 'First column',
+                            image: data,
                             width: 500,
                         }],
                     };
                     pdfMake.createPdf(docDefinition).download("your-profile-pdf");
-                }
+
+                },
+
             });
+
+
         }
     </script>
 
