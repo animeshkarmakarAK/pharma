@@ -203,14 +203,14 @@
                         </div>
                     </div>
                 @endif
-
-
-                <div class="col-md-12 text-center margin-10">
-                    {{--<a href="#" target="_blank" class="service-box-button">আরও কোর্স দেখুন</a>--}}
-                </div>
             </div>
-
         </div>
+        @if(!empty($currentInstituteCourses->count() >= 8))
+            <div class="col-md-12 text-center margin-10">
+                <a href="{{ route('course_management::course_search') }}" class="service-box-button">
+                    আরও কোর্স খুঁজুন</a>
+            </div>
+        @endif
     </section>
 
 
@@ -254,8 +254,8 @@
         </div>
         @if(!empty($galleryCategories->count() >= 4))
             <div class="col-md-12 text-center margin-10">
-                <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">আরও গ্যালারি
-                    দেখুন</a>
+                <a href="{{ route('course_management::gallery-categories') }}" class="service-box-button">
+                    আরও গ্যালারি দেখুন</a>
             </div>
         @endif
     </section>
@@ -307,14 +307,8 @@
                 }
             }
 
-            .responsive_menu_btn {
-                border: 2px solid #333 !important;
-                /*border-radius: 50%;
-                padding: 10px 10px;*/
-            }
-
             .responsive_menu_btn:focus {
-                outline: none;
+                /*outline: none;*/
             }
 
             /* Gallery section css*/
