@@ -392,7 +392,7 @@
             });
         }
 
-        function courseSearch(search = '', search_institute = '', institute_id = '', el = '#course_name_list', url = null, resetPage = true) {
+        function courseSearch(search = '', institute_id = '', el = '#course_name_list', url = null, resetPage = true) {
             console.log(search)
 
             const filters = {};
@@ -416,7 +416,7 @@
             $('.course_overlay').show();
             courseFetch(filters, resetPage, url)?.then(function (response) {
                 console.table('course search', response);
-                $('.course_overlay').remove();
+                $('.course_overlay').hide();
                 $('#course_pagination').html(response?.data?.next_page_url);
                 let html = '';
 
@@ -501,7 +501,7 @@
             $('.program_overlay').show();
             programmeFetch(filters, resetPage, url)?.then(function (response) {
 
-                $('.program_overlay').remove();
+                $('.program_overlay').hide();
                 $('#program_pagination').html(response?.data?.next_page_url);
                 let html = '';
                 $.each(response.data.data, function (i, item) {

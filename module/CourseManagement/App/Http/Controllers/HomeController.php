@@ -50,7 +50,7 @@ class HomeController extends BaseController
                 'youth_registrations' => YouthRegistration::where(['institute_id' => $currentInstitute->id])->count(),
             ];
 
-            $currentInstituteCourses = $currentInstituteCourses->limit(10)->get();
+            $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
 
             return view('course_management::custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
         }
