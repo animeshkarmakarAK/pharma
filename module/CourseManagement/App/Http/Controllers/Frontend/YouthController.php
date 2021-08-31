@@ -117,15 +117,15 @@ class YouthController extends Controller
         $data =[
           [
               "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
-              "answer" => "উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন (http://skills.gov.bd/bitac_cms/all-courses)",
+              "answer" => "উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target='_blank' href='http://skills.gov.bd/bitac_cms/all-courses'>এখানে ক্লিক করে বিস্তারিত দেখুন</a> ) ",
           ] ,
             [
                 "question" => "প্রশ্ন ২: প্রশিক্ষণের বিষয়ে বিস্তারিত জানার জন্য কোথায় যোগাযোগ করব?",
-                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন (http://skills.gov.bd/bitac_cms/contact-us)",
+                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন ( <a target='_blank' href='http://skills.gov.bd/bitac_cms/contact-us'>এখানে ক্লিক করে বিস্তারিত দেখুন</a> )",
             ],
             [
                 "question" => "প্রশ্ন ৩: প্রশিক্ষণ গ্রহণের জন্য ভর্তি ফরম কোথা থেকে এবং কিভাবে পাব?",
-                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন (http://skills.gov.bd/bitac_cms/registration)",
+                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন ( <a target='_blank' href='http://skills.gov.bd/bitac_cms/registration'>এখানে ক্লিক করে বিস্তারিত দেখুন</a>)",
             ],
             [
                 "question" => "প্রশ্ন ৪: নিজ বাড়িতে থেকে প্রশিক্ষণ গ্রহণের সুযোগ আছে কিনা?",

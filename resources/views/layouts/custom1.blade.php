@@ -96,19 +96,8 @@
             margin-top: 30px;
         }
 
-        .slider-previous-icon{
+        .slider-previous-icon, .slider-next-icon{
             color: #080808;
-            font-size: 1rem !important;
-            margin-right: 35px;
-            border: 1px solid #4B77BE;
-            padding: 10px 20px;
-        }
-        .slider-next-icon{
-            color: #080808;
-            font-size: 1rem !important;
-            margin-left: 35px;
-            border: 1px solid #4B77BE;
-            padding: 10px 20px;
         }
         .slider-previous-link, .slider-next-link{
             width: 8% !important;
