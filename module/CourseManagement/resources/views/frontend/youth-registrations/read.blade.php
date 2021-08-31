@@ -145,7 +145,7 @@
                     </td>
 
                     <td class="text-bold border-0">Ethnic Minority:</td>
-                    <td class="border-top-0 border-bottom">{{ $youthSelfInfo->ethnic_group == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES ? 'Yes' : 'No' }}</td>
+                    <td class="border-top-0 border-bottom">{{ $youth->ethnic_group == \Module\CourseManagement\App\Models\Youth::ETHNIC_GROUP_YES ? 'Yes' : 'No' }}</td>
                 </tr>
 
                 <tr>
@@ -255,7 +255,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        {{ $academicQualification->grade == null ? $academicQualification->getExaminationResult() :$academicQualification->grade . '/'. $academicQualification->getExaminationResult() }}
+                                        {{ $academicQualification->grade == null ? $academicQualification->getExaminationResult() :$academicQualification->grade . ($academicQualification->getExaminationResult()? '/'.$academicQualification->getExaminationResult():'') }}
                                     </td>
 
                                     <td class="text-center">
