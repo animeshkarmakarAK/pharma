@@ -246,7 +246,6 @@
             console.log('Today: ' + today)
             $('#today').val(today);
 
-
             function addRow(data = {}) {
                 console.log('SL: ' + SL)
                 let courseSession = _.template($('#course-sessions').html());
@@ -287,7 +286,6 @@
                     "Application end date must be greater than Application start date");
                 $.validator.addMethod("cCourseStartDate", $.validator.methods.greaterThan,
                     "Course start date must be greater than Application end date");
-
                 $.validator.addClassRules("number_of_batches", {required: true});
                 $.validator.addClassRules("application_start_date", {
                     required: true,
@@ -299,7 +297,6 @@
                         required: true,
                         cApplicationEndDate: '.application_start_date' + i,
                     });
-
                     $.validator.addClassRules("course_start_date" + i, {
                         required: true,
                         cCourseStartDate: ".application_end_date" + i,
@@ -308,7 +305,6 @@
 
 
                 $.validator.addClassRules("max_seat_available", {required: true});
-
                 $.validator.addClassRules("session_name_en", {
                     required: true,
                     sessionNameEn: true,
