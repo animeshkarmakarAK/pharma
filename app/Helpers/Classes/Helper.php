@@ -31,7 +31,7 @@ class Helper
             ];
 
             /** @var Institute $institute */
-            $institute = Institute::whereIn('domain', $urls)->first();
+            $institute = Institute::whereIn('domain', $urls)->firstOrFail();
 
             return Cache::rememberForever($institute->domain, function () use ($institute) {
                 return collect(['institute' => $institute]);
