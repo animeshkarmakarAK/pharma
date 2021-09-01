@@ -99,6 +99,7 @@ class YouthManagementService
     public function addYouthToBatch(Batch $batch, array $youths): bool
     {
         foreach ($youths as $youthRegistrationId) {
+            /** @var YouthRegistration $youthRegistration */
             $youthRegistration = YouthRegistration::findOrFail($youthRegistrationId);
             YouthBatch::updateOrCreate(
                 [
