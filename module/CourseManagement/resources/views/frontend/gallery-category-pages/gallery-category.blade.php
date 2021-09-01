@@ -30,13 +30,23 @@
                                                             <img class="img-responsive"
                                                                  style="width: 100%; height: 200px"
                                                                  src="{{asset('/storage/'. $gallery->content_path)}}">
-                                                        @else
+                                                        @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type && $gallery->is_youtube_video )
                                                             <div class="position-relative">
                                                                 <div class="iframe-layer"></div>
                                                                 <div class="iframe-class">
                                                                     <iframe width="100%" height="200px"
                                                                             style="border: none"
                                                                             src={{"https://www.youtube.com/embed/".$gallery->you_tube_video_id}}>
+                                                                    </iframe>
+                                                                </div>
+                                                            </div>
+                                                        @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type)
+                                                            <div class="position-relative">
+                                                                <div class="iframe-layer"></div>
+                                                                <div class="iframe-class">
+                                                                    <iframe width="100%" height="200px"
+                                                                            style="border: none"
+                                                                            src={{asset('storage/' .$gallery->content_path)}}>
                                                                     </iframe>
                                                                 </div>
                                                             </div>
