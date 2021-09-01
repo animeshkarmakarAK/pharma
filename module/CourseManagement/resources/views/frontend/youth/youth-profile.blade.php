@@ -70,7 +70,8 @@
                         <h3 class="card-title font-weight-bold">ব্যাক্তিগত তথ্য</h3>
 
                         <div class="card-tools">
-                            <a href="#" class="btn btn-sm btn-outline-warning" onclick="Export()">
+                            <a href="#" class="btn btn-sm btn-outline-warning"
+                               id="downloadPDF" onclick="Export()">
                                 <i class="fas fa-backward"></i> ডাউনলোড পিডিএফ
                             </a>
                         </div>
@@ -325,14 +326,47 @@
             </div>
         </div>
     </div>
-    @include('utils.delete-confirm-modal')
 @endsection
 
 @push('js')
     <script src="{{ asset('jsfiles/html2canvas.min.js') }}"></script>
-    <script src="{{ asset('jsfiles/pdfmake.min.js') }}"></script>
+    {{--<script src="{{ asset('jsfiles/pdfmake.min.js') }}"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.40/pdfmake.min.js"></script>
     <script type="text/javascript">
+
+        function getClippedRegion(image, x, y, width, height) {
+            let canvas = document.createElement("canvas"), ctx = canvas.getContext("2d");
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, x, y, width, height, 0, 0, width, height);
+
+            return {
+                image: canvas.toDataURL(),
+                width: 500
+            };
+        }
+
         function Export() {
+            html2canvas($("#youth-profile")[0], {
+                onrendered: function (canvas) {
+                    let splitAt = 775;
+                    let images = [];
+                    let y = 0;
+                    while (canvas.height > y) {
+                        images.push(getClippedRegion(canvas, 0, y, canvas.width, splitAt));
+                        y += splitAt;
+                    }
+
+                    let docDefinition = {
+                        content: images,
+                        pageSize: "LETTER"
+                    };
+                    pdfMake.createPdf(docDefinition).download("youth-profile.pdf");
+                }
+            });
+        }
+
+        /*function Export() {
             html2canvas($('#youth-profile'), {
                 allowTaint: true,
                 logging:true,
@@ -340,14 +374,15 @@
                     let data = canvas.toDataURL();
                     let docDefinition = {
                         content: [{
-                            text: 'First column',
+                            image: data,
                             width: 500,
                         }],
                     };
                     pdfMake.createPdf(docDefinition).download("your-profile-pdf");
-                }
+                },
+
             });
-        }
+        }*/
     </script>
 
 @endpush

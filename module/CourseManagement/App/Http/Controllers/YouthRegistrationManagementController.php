@@ -2,11 +2,8 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
-use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
-use Module\CourseManagement\App\Models\Youth;
-use Module\CourseManagement\App\Models\YouthRegistration;
 use Module\CourseManagement\App\Services\YouthManagementService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
