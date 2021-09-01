@@ -30,8 +30,10 @@ class Helper
                 \request()->getScheme() . '://www.' . \request()->getHttpHost() . '/',
             ];
 
-            return Cache::rememberForever($urls[0], function () use ($urls) {
-                $institute = Institute::whereIn('domain', $urls)->first();
+            /** @var Institute $institute */
+            $institute = Institute::whereIn('domain', $urls)->firstOrFail();
+
+            return Cache::rememberForever($institute->domain, function () use ($institute) {
                 return collect(['institute' => $institute]);
             });
         } catch (\Throwable $exception) {
@@ -39,23 +41,23 @@ class Helper
         }
     }
 
-    public static function forgetDomainConfig($institute): bool
+    public static function forgetDomainConfig(Institute $institute): bool
     {
-        $urls = [
-            \request()->getSchemeAndHttpHost(),
-            \request()->getScheme() . '://www.' . \request()->getHttpHost(),
-            \request()->getSchemeAndHttpHost() . '/',
-            \request()->getScheme() . '://www.' . \request()->getHttpHost() . '/',
-        ];
+//        $urls = [
+//            \request()->getSchemeAndHttpHost(),
+//            \request()->getScheme() . '://www.' . \request()->getHttpHost(),
+//            \request()->getSchemeAndHttpHost() . '/',
+//            \request()->getScheme() . '://www.' . \request()->getHttpHost() . '/',
+//        ];
 
-        return in_array($institute->domain, $urls) && Cache::forget($urls[0]);
+        return Cache::forget($institute->domain);
     }
 
     public static function getMuktoPathCourses(): array
     {
-        return array (
+        return array(
             0 =>
-                array (
+                array(
                     'wishlist_status' => 0,
                     'id' => 25,
                     'title' => 'Batch-1',
@@ -76,9 +78,9 @@ class Helper
 </html>',
                     'requirement' => '<p> </p>',
                     'course_requirment' =>
-                        array (
+                        array(
                             0 =>
-                                array (
+                                array(
                                     'info' => '',
                                     'attach' => false,
                                 ),
@@ -90,7 +92,7 @@ class Helper
                     'totalRatingCount' => 2,
                     'logo_image' => '5dbfaf79863b7.png',
                     'thumnail' =>
-                        array (
+                        array(
                             'file_name' => 'image-1-1621932386.png',
                             'file_encode_path' => 'dXNlci0xL2ltYWdlLTEtMTYyMTkzMjM4Ng==.png',
                             'owner_id' => 1,
@@ -106,7 +108,7 @@ class Helper
                     'institution_name' => 'OrangeBD Super Admin',
                     'slug' => 'Eng',
                     'courseStatistics' =>
-                        array (
+                        array(
                             'total_lesson' => 15,
                             'total_content' => 6,
                             'quiz' => 3,
@@ -115,7 +117,7 @@ class Helper
                         ),
                 ),
             1 =>
-                array (
+                array(
                     'wishlist_status' => 0,
                     'id' => 23,
                     'title' => 'Batch-1',
@@ -123,7 +125,7 @@ class Helper
                     'payment_point_amount' => NULL,
                     'enrolment_approval_status' => 0,
                     'discount' =>
-                        array (
+                        array(
                             'amount' => '',
                             'type' => '0',
                             'date' => '',
@@ -141,9 +143,9 @@ class Helper
 </html>',
                     'requirement' => '<p> </p>',
                     'course_requirment' =>
-                        array (
+                        array(
                             0 =>
-                                array (
+                                array(
                                     'info' => '',
                                     'attach' => false,
                                 ),
@@ -155,7 +157,7 @@ class Helper
                     'totalRatingCount' => 2,
                     'logo_image' => '5dbfaf79863b7.png',
                     'thumnail' =>
-                        array (
+                        array(
                             'file_name' => 'image-1-1620547108.png',
                             'file_encode_path' => 'dXNlci0xL2ltYWdlLTEtMTYyMDU0NzEwOA==.png',
                             'owner_id' => 1,
@@ -171,7 +173,7 @@ class Helper
                     'institution_name' => 'OrangeBD Super Admin',
                     'slug' => 'Eng',
                     'courseStatistics' =>
-                        array (
+                        array(
                             'total_lesson' => 4,
                             'total_content' => 4,
                             'quiz' => 0,
@@ -180,7 +182,7 @@ class Helper
                         ),
                 ),
             2 =>
-                array (
+                array(
                     'wishlist_status' => 0,
                     'id' => 22,
                     'title' => 'Batch-27',
@@ -188,7 +190,7 @@ class Helper
                     'payment_point_amount' => NULL,
                     'enrolment_approval_status' => 0,
                     'discount' =>
-                        array (
+                        array(
                             'amount' => '',
                             'type' => '0',
                             'date' => '',
@@ -199,9 +201,9 @@ class Helper
                     'details' => '',
                     'requirement' => '<p> </p>',
                     'course_requirment' =>
-                        array (
+                        array(
                             0 =>
-                                array (
+                                array(
                                     'info' => '',
                                     'attach' => false,
                                 ),
@@ -213,7 +215,7 @@ class Helper
                     'totalRatingCount' => 2,
                     'logo_image' => '5dbfaf79863b7.png',
                     'thumnail' =>
-                        array (
+                        array(
                             'file_name' => 'image-1-1610514732.jpg',
                             'file_encode_path' => 'dXNlci0xL2ltYWdlLTEtMTYxMDUxNDczMg==.jpg',
                             'owner_id' => 1,
@@ -229,7 +231,7 @@ class Helper
                     'institution_name' => 'OrangeBD Super Admin',
                     'slug' => 'Eng',
                     'courseStatistics' =>
-                        array (
+                        array(
                             'total_lesson' => 6,
                             'total_content' => 5,
                             'quiz' => 1,
@@ -238,7 +240,7 @@ class Helper
                         ),
                 ),
             3 =>
-                array (
+                array(
                     'wishlist_status' => 0,
                     'id' => 18,
                     'title' => 'Batch-1',
@@ -246,7 +248,7 @@ class Helper
                     'payment_point_amount' => 10,
                     'enrolment_approval_status' => 0,
                     'discount' =>
-                        array (
+                        array(
                             'amount' => 0,
                             'type' => '0',
                             'date' => '',
@@ -266,9 +268,9 @@ class Helper
 </html>',
                     'requirement' => '<p> </p>',
                     'course_requirment' =>
-                        array (
+                        array(
                             0 =>
-                                array (
+                                array(
                                     'info' => '',
                                     'attach' => false,
                                 ),
@@ -280,7 +282,7 @@ class Helper
                     'totalRatingCount' => 2,
                     'logo_image' => '5dbfaf79863b7.png',
                     'thumnail' =>
-                        array (
+                        array(
                             'file_name' => 'image-1-1610963435.jpg',
                             'file_encode_path' => 'dXNlci0xL2ltYWdlLTEtMTYxMDk2MzQzNQ==.jpg',
                             'owner_id' => 1,
@@ -296,7 +298,7 @@ class Helper
                     'institution_name' => 'OrangeBD Super Admin',
                     'slug' => 'Eng',
                     'courseStatistics' =>
-                        array (
+                        array(
                             'total_lesson' => 0,
                             'total_content' => 0,
                             'quiz' => 0,
