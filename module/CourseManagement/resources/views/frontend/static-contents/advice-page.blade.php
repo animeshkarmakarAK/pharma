@@ -176,8 +176,20 @@
         $.validator.addMethod(
             "textEnBnWithoutSpecialChar",
             function (value, element) {
-                let en = /^[a-zA-Z .,?]*$/i;
-                let bn = /^[\s'\u0980-\u09ff]+$/i;
+                let en = /^[a-zA-Z0-9 .,?]*$/i;
+                let bn = /^[\s'\u0980-\u09ff .,?]+$/i;
+                let reEn = new RegExp(en);
+                let reBn = new RegExp(bn);
+                return this.optional(element) || reEn.test(value) || reBn.test(value);
+            },
+            "textEnBnWithoutSpecialChar is require"
+        );
+
+        $.validator.addMethod(
+            "addressWithoutSpecialChar",
+            function (value, element) {
+                let en = /^[a-zA-Z ,./-]*$/i;
+                let bn = /^[\s'\u0980-\u09ff ,./-]+$/i;
                 let reEn = new RegExp(en);
                 let reBn = new RegExp(bn);
                 return this.optional(element) || reEn.test(value) || reBn.test(value);
@@ -200,6 +212,9 @@
                     required: true,
                     pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
                 },
+                address: {
+                    addressWithoutSpecialChar:true,
+                },
                 comment: {
                     required: true,
                     textEnBnWithoutSpecialChar:true,
@@ -216,9 +231,12 @@
                     required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
                     pattern: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
                 },
+                address: {
+                    addressWithoutSpecialChar: "এখানে আপনার সঠিক ঠিকানা লিখুন [অনুগ্রহ করে শুধু , . - / এই  স্পেশাল ক্যারেক্টার গুলা ব্যবহার করুন]",
+                },
                 comment: {
                     required: "এখানে আপনার মতামত লিখুন।",
-                    textEnBnWithoutSpecialChar: "অনুগ্রহ করে স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন"
+                    textEnBnWithoutSpecialChar: "স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন [অনুগ্রহ করে শুধু . , / এই  স্পেশাল ক্যারেক্টার গুলা ব্যবহার করুন]"
                 }
             },
             submitHandler: function (htmlForm) {
