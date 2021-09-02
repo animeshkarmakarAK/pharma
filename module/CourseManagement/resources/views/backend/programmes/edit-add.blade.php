@@ -60,7 +60,7 @@
                                     <input type="text" class="form-control custom-input-box" name="title_en"
                                            id="title_en"
                                            value="{{$edit ? $programme->title_en : old('title_en')}}"
-                                           placeholder="Name" required>
+                                           placeholder="{{ __('Title') . '(English)' }}" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -69,7 +69,7 @@
                                     <input type="text" class="form-control custom-input-box" name="title_bn"
                                            id="title_bn"
                                            value="{{$edit ? $programme->title_bn : old('title_bn')}}"
-                                           placeholder="Name" required>
+                                           placeholder="{{ __('Title') . '(Bangla)' }}" required>
                                 </div>
 
                                 @if($authUser->isInstituteUser())
@@ -131,6 +131,7 @@
                                     <label for="description">Description</label>
                                     <textarea class="form-control custom-input-box" name="description"
                                               id="description"
+                                              placeholder="Description"
                                               style="height: 100px">{{$edit ? $programme->description : old('description')}}</textarea>
 
                                 </div>

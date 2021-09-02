@@ -12,9 +12,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-2">
+                <div class="card px-5 py-4 mb-2">
                     <div class="container">
-                        <div class="row mt-5 mb-5">
+                        <div class="row">
                             <div class="col-md-6 contact-us-form-area">
                                 <div class="contact-us-form">
                                     <div class="contact-us-portlet-body form fix">
@@ -27,17 +27,20 @@
                                                 <hr>
                                             </div>
                                             <div class="col-md-12 input_area">
-                                                <form action="{{ route('course_management::visitor-feedback.store') }}" method="POST"
+                                                <form action="{{ route('course_management::visitor-feedback.store') }}"
+                                                      method="POST"
                                                       class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">
                                                         <label for="receiver" class="col-sm-2 control-label">প্রাপক
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
-                                                            <select required="required" name="receiver" class="form-control"
+                                                            <select required="required" name="receiver"
+                                                                    class="form-control"
                                                                     id="receiver">
                                                                 <optgroup label="Institute">
-                                                                    <option value="institute-{{ $currentInstitute->id }}">
+                                                                    <option
+                                                                        value="institute-{{ $currentInstitute->id }}">
                                                                         {{ $currentInstitute->title_bn }}
                                                                     </option>
                                                                 </optgroup>
@@ -103,7 +106,7 @@
                                                                class="col-sm-2 control-label">মতামত
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
-                                                        <textarea class="form-control" name="comment" rows="7"
+                                                        <textarea class="form-control" name="comment" rows="4"
                                                                   required="required" id="comment"
                                                                   aria-required="true"></textarea>
                                                         </div>
@@ -170,7 +173,7 @@
                                                         <div class="">
                                                             <iframe class="google_map_src_iframe" frameborder="0"
                                                                     src="{{ $currentInstitute->google_map_src? $currentInstitute->google_map_src :'No Map' }}"
-                                                                    style="border:0; height: 353px;"
+                                                                    style="border:0; height: 309px;"
                                                                     width="100%"></iframe>
                                                         </div>
                                                     </div>
@@ -186,46 +189,64 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contact-us-bottom-area">
-                        <aside class="light-bg contact-address">
-                            <div class="container">
-                                <div class="row">
-                                    <!-- Addresse-->
-                                    <div class="col-md-4 contact-box text-center">
-                                        <div class="d-inline-flex">
-                                            <i class="fas fa-map-marked template-contact-icon"></i>
-                                            <p style="text-align: justify">বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র<br>
-                                                (বিটাক) ১১৬ (খ), তেজগাঁও শিল্প এলাকা <br>
-                                                <span style="margin-left: 70px;">ঢাকা - ১২০৮</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <!--     Phone Numbers-->
-                                    <div class="col-md-4 contact-box text-center">
-                                        <div class="d-inline-flex">
-                                            <i class="fas fa-phone-square-alt template-contact-icon"></i>
-                                            <p>+৮৮-০২-৮৮৭০৬৮০<br>
-                                                +৮৮-০২-৮৮৭০২৬৬</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Email Details -->
-                                    <div class="col-md-4 contact-box text-center">
-                                        <div class="d-inline-flex">
-                                            <i class="fas fa-envelope-open-text template-contact-icon"></i>
-                                            <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
-                                                  onMouseOut="this.style.color='#212529'"
-                                                  href="mailto:ict@bitac.gov.bd"><span> ict@bitac.gov.bd</span></a>
-                                            </p>
-                                        </div>
-
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="contact-us-bottom-area">
+                    <aside class="light-bg contact-address">
+                        <div class="container">
+                            <div class="row">
+                                <!-- Addresse-->
+                                <div class="col-md-4 contact-box text-center">
+                                    <div class="d-inline-flex" style="max-width: 215px">
+                                        <i class="fas fa-map-marked template-contact-icon"></i>
+                                        <p style="text-align: justify">
+                                            {{  !empty($currentInstitute->address)?$currentInstitute->address:'' }}
+                                        </p>
                                     </div>
                                 </div>
-                            </div>
-                        </aside>
 
-                    </div>
+                                <!--     Phone Numbers-->
+                                <div class="col-md-4 contact-box text-center">
+                                    <div class="d-inline-flex" style="max-width: 215px">
+                                        <i class="fas fa-phone-square-alt template-contact-icon"></i>
+                                        <p>
+                                            @if(!empty($currentInstitute->phone_numbers))
+                                                @foreach($currentInstitute->phone_numbers as $phoneNumber)
+                                                    <a style="color: #869099;"
+                                                       href="tel:{{  $phoneNumber }}"
+                                                       onclick="">{{  $phoneNumber }}
+                                                    </a><br>
+                                                @endforeach
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Email Details -->
+                                <div class="col-md-4 contact-box text-center">
+                                    <div class="d-inline-flex" style="max-width: 215px">
+                                        <i class="fas fa-envelope-open-text template-contact-icon"></i>
+                                        <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
+                                              onMouseOut="this.style.color='#212529'"
+                                              href="mailto:ict@bitac.gov.bd">
+                                                <span>
+                                                    <a class="footer-email"
+                                                       href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
+                                                        <span style="font-family:'Roboto', sans-serif; font-size: 17px;">
+                                                            {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                            </a>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
                 </div>
             </div>
         </div>
@@ -362,7 +383,7 @@
                 },
                 comment: {
                     required: "এখানে আপনার মতামত লিখুন।",
-                    textEnBnWithoutSpecialChar: "অনুগ্রহ করে স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন"
+                    textEnBnWithoutSpecialChar: "স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন [অনুগ্রহ করে শুধু  . , ? এই  স্পেশাল ক্যারেক্টার গুলা ব্যবহার করুন]"
                 }
             },
             submitHandler: function (htmlForm) {

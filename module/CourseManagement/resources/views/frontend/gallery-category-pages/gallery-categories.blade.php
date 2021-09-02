@@ -12,51 +12,57 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card shadow">
+                <div class="card mb-2">
                     <div class="card-header custom-bg-gradient-info">
-                        <h2 class="text-center text-primary font-weight-lighter mt-4">গ্যালারীর অ্যালবাম সমূহ</h2>
+                        <h2 class="text-center text-primary font-weight-lighter">গ্যালারীর অ্যালবাম সমূহ</h2>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-1 offset-1 text-primary">
-                            <i class="fa fa-filter">ফিল্টার</i>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <select class="form-control select2-ajax-wizard"
-                                    name="programme_id"
-                                    id="programme_id"
-                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
-                                    data-label-fields="{title_bn}"
-                                    data-dependent-fields="#batch_id"
-                                    data-placeholder="প্রোগ্রাম নির্বাচন করুন"
-                            >
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <select class="form-control select2-ajax-wizard"
-                                    name="batch_id"
-                                    id="batch_id"
-                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
-                                    data-label-fields="{title_bn}"
-                                    data-depend-on-optional="programme_id"
-                                    data-placeholder="ব্যাচ নির্বাচন করুন"
-                            >
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-success"
-                                    id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
-                        </div>
-                    </div>
-                    <div class="row" id="container-album">
-
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-12">
-                            <div class="prev-next-button float-right">
-
+                    <div class="px-5 py-4">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <p class="text-primary">
+                                            ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                        </p>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="programme_id"
+                                                id="programme_id"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
+                                                data-label-fields="{title_bn}"
+                                                data-dependent-fields="#batch_id"
+                                                data-placeholder="প্রোগ্রাম নির্বাচন করুন"
+                                        >
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="batch_id"
+                                                id="batch_id"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
+                                                data-label-fields="{title_bn}"
+                                                data-depend-on-optional="programme_id"
+                                                data-placeholder="ব্যাচ নির্বাচন করুন"
+                                        >
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-success"
+                                                id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="overlay" style="display: none">
-                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                        </div>
+                        <div class="row" id="container-album"></div>
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <div class="prev-next-button float-right">
+
+                                </div>
+                                <div class="overlay" style="display: none">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,7 +86,7 @@
             html += '<img class="card-img-top" src="/storage/' + item.image + '" height="200" alt="Card image cap">';
             html += '</a>';
             html += `<div class="card-body">`;
-            html += '<h5 class="card-title">অ্যালবামের নামঃ <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
+            html += '<h5 class="card-title">অ্যালবাম: <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
             if (item.programme_title_bn) {
                 html += '<h6 class="card-text">প্রোগ্রাম: ' + item?.programme_title_bn ?? "" + '</h6>';
             }

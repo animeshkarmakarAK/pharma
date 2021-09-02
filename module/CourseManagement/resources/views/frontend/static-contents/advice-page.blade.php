@@ -12,11 +12,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card pt-5 pb-5 mb-2">
+                <div class="card px-5 py-4 mb-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 mx-auto advice-form">
-                                <div class="portlet light ">
+                                <div class="portlet light">
                                     <div class="advice-portlet-body form fix">
                                         <div class="form-body fix">
                                             <div class="advice-portlet-title fix">
@@ -134,7 +134,7 @@
         .advice-portlet-body {
             padding: 15px 15px;
             border: 1px solid #e1e1e1 !important;
-            border-radius: 0 0 8px 8px !important;
+            border-radius: 8px !important;
         }
 
         .download-area {
@@ -143,6 +143,12 @@
 
         .advice-download-area {
             border-left: 1px solid #e1e1e1;
+        }
+        .advice-form{
+            border: 1px solid #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 0 15px #eee;
+            min-height: 100%;
         }
     </style>
 @endpush
@@ -188,13 +194,13 @@
         $.validator.addMethod(
             "addressWithoutSpecialChar",
             function (value, element) {
-                let en = /^[a-zA-Z ,./-]*$/i;
+                let en = /^[a-zA-Z0-1 ,./-]*$/i;
                 let bn = /^[\s'\u0980-\u09ff ,./-]+$/i;
                 let reEn = new RegExp(en);
                 let reBn = new RegExp(bn);
                 return this.optional(element) || reEn.test(value) || reBn.test(value);
             },
-            "textEnBnWithoutSpecialChar is require"
+            "addressWithoutSpecialChar is require"
         );
 
         const editAddForm = $('.edit-add-form');
@@ -236,7 +242,7 @@
                 },
                 comment: {
                     required: "এখানে আপনার মতামত লিখুন।",
-                    textEnBnWithoutSpecialChar: "স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন [অনুগ্রহ করে শুধু . , / এই  স্পেশাল ক্যারেক্টার গুলা ব্যবহার করুন]"
+                    textEnBnWithoutSpecialChar: "স্পেশাল ক্যারেক্টার ছাড়া মতামত দিন [অনুগ্রহ করে শুধু . , ? এই  স্পেশাল ক্যারেক্টার গুলা ব্যবহার করুন]"
                 }
             },
             submitHandler: function (htmlForm) {
