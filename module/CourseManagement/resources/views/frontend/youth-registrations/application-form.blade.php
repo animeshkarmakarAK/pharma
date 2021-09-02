@@ -650,13 +650,13 @@
                             <div class="col-md-6 academic-qualification-jsc mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
-                                         data-toggle="collapse"
+                                         {{--data-toggle="collapse"--}}
                                          data-target=".jsc_collapse" aria-controls=".jsc_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">জে.এস.সি/সমমান
                                             <div class="form-check ml-3">
                                                 <input class="form-check-input" name="jsc_examination_info"
                                                        id="jsc_examination_info"
-                                                       type="checkbox" {{ old('jsc_examination_info') == 'on' ? 'checked' : '' }}>
+                                                       type="checkbox"checked{{-- {{ old('jsc_examination_info') == 'on' ? 'checked' : '' }}--}}>
                                                 <label class="form-check-label" for="">
                                                     <p>(পাস)</p>
                                                 </label>
@@ -757,13 +757,13 @@
                             <div class="col-md-6 academic-qualification-ssc mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
-                                         data-toggle="collapse"
+                                         {{--data-toggle="collapse"--}}
                                          data-target=".ssc_collapse" aria-controls=".ssc_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">এস.এস.সি/সমমান/A-লেভেল
                                             <div class="form-check ml-3">
                                                 <input class="form-check-input" name="ssc_examination_info"
                                                        id="ssc_examination_info"
-                                                       type="checkbox" {{ old('ssc_examination_info') == 'on' ? 'checked' : '' }}>
+                                                       type="checkbox"checked {{--{{ old('ssc_examination_info') == 'on' ? 'checked' : '' }}--}}>
                                                 <label class="form-check-label" for="">
                                                     <p>(পাস)</p>
                                                 </label>
@@ -897,13 +897,13 @@
                             <div class="col-md-6 academic-qualification-hsc mb-2">
                                 <div class="card custom-bg-gradient-info col-md-12" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
-                                         data-toggle="collapse"
+                                         {{--data-toggle="collapse"--}}
                                          data-target=".hsc_collapse" aria-controls=".hsc_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">এইচ.এস.সি/সমমান
                                             <div class="form-check ml-3">
                                                 <input class="form-check-input" name="hsc_examination_info"
                                                        id="hsc_examination_info"
-                                                       type="checkbox" {{ old('hsc_examination_info') == 'on' ? 'checked' : '' }}>
+                                                       type="checkbox"checked{{-- {{ old('hsc_examination_info') == 'on' ? 'checked' : '' }}--}}>
                                                 <label class="form-check-label" for="">
                                                     <p>(পাস)</p>
                                                 </label>
@@ -1036,7 +1036,7 @@
                             <div class="col-md-6 academic-qualification-graduation mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
-                                         data-toggle="collapse"
+                                         {{--data-toggle="collapse"--}}
                                          data-target=".graduation_collapse"
                                          aria-controls=".graduation_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">স্নাতক লেভেল
@@ -1044,7 +1044,7 @@
                                                 <input class="form-check-input"
                                                        name="graduation_examination_info"
                                                        id="graduation_examination_info"
-                                                       type="checkbox" {{ old('graduation_examination_info') == "on" ? 'checked' : '' }}>
+                                                       type="checkbox"checked{{-- {{ old('graduation_examination_info') == "on" ? 'checked' : '' }}--}}>
                                                 <label class="form-check-label">
                                                     <p>(পাস)</p>
                                                 </label>
@@ -1169,13 +1169,13 @@
                             <div class="col-md-6 academic-qualification-masters mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header" role="button" aria-expanded="false"
-                                         data-toggle="collapse"
+                                         {{--data-toggle="collapse"--}}
                                          data-target=".masters_collapse" aria-controls=".masters_collapse">
                                         <h3 class="card-title text-primary d-inline-flex">স্নাতকোত্তর লেভেল
                                             <div class="form-check ml-3">
                                                 <input class="form-check-input" name="masters_examination_info"
                                                        id="masters_examination_info"
-                                                       type="checkbox" {{ old('masters_examination_info') == "on" ? 'checked' : '' }}>
+                                                       type="checkbox"checked{{-- {{ old('masters_examination_info') == "on" ? 'checked' : '' }}--}}>
                                                 <label class="form-check-label" for="">
                                                     <p>(পাস)</p>
                                                 </label>
