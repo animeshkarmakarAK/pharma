@@ -85,6 +85,7 @@ class VisitorFeedbackService
             ]
         );
         $visitorFeedback->join('institutes', 'visitor_feedback.institute_id', '=', 'institutes.id');
+        $visitorFeedback->orderBy('id', 'DESC');
 
         $formType = $request->input('form_type');
         if (!empty($formType)) {

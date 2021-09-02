@@ -39,7 +39,7 @@
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $applicationFormType->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . '(English)' }}">
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $applicationFormType->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . '(English)' }}">
                                 </div>
                             </div>
 
@@ -185,8 +185,9 @@
                             <div class="col-12">
                                 <div class="card card-outline">
                                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                                        <h3 class="card-title font-weight-bold text-primary">Guardian information to
-                                            show</h3>
+                                        <h3 class="card-title font-weight-bold text-primary">
+                                            Others information to show
+                                        </h3>
                                     </div>
 
                                     <div class="card-body">

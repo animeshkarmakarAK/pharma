@@ -192,8 +192,8 @@
                             <div class="form-group">
                                 <label for="assign_batch_id">Select Batch <span
                                         style="color: red"> * </span></label>
-                                <select name="batch_id" id="assign_batch_id" class="select2">
-                                    <option selected disabled>Select Batch</option>
+                                <select name="batch_id" id="assign_batch_id" class="select2" data-placeholder="নির্বাচন করুন">
+                                    <option selected disabled>নির্বাচন করুন</option>
                                     @foreach($batches as $batch)
                                         <option value="{{$batch->id}}">{{$batch->title_en}}</option>
                                     @endforeach

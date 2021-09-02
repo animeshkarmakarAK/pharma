@@ -39,6 +39,7 @@
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
+                                           placeholder="{{ __('Title (En) ') }}"
                                            value="{{ $edit ? $batch->title_en : old('title_en') }}">
                                     <input type="hidden" id="today">
                                 </div>
@@ -50,6 +51,7 @@
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
+                                           placeholder="{{ __('Title (Bn) ') }}"
                                            value="{{ $edit ? $batch->title_bn : old('title_bn') }}">
                                 </div>
                             </div>
@@ -274,7 +276,7 @@
                     greaterThan: 'End Date will not be less than Start Date',
                 },
                 end_time: {
-                    greaterThan: 'End Time will not be less than Start Time',
+                    greaterThan: 'End Time will be greater than Start Time',
                 },
             },
             submitHandler: function (htmlForm) {
