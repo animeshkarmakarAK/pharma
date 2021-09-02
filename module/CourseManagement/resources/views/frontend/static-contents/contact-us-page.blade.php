@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card px-5 py-4 mb-2">
+                <div class="card py-3 mb-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6 contact-us-form-area">
@@ -198,7 +198,7 @@
                             <div class="row">
                                 <!-- Addresse-->
                                 <div class="col-md-4 contact-box text-center">
-                                    <div class="d-inline-flex" style="max-width: 215px">
+                                    <div class="d-inline-flex" style="width: 215px">
                                         <i class="fas fa-map-marked template-contact-icon"></i>
                                         <p style="text-align: justify">
                                             {{  !empty($currentInstitute->address)?$currentInstitute->address:'' }}
@@ -208,7 +208,7 @@
 
                                 <!--     Phone Numbers-->
                                 <div class="col-md-4 contact-box text-center">
-                                    <div class="d-inline-flex" style="max-width: 215px">
+                                    <div class="d-inline-flex" style="width: 215px">
                                         <i class="fas fa-phone-square-alt template-contact-icon"></i>
                                         <p>
                                             @if(!empty($currentInstitute->phone_numbers))
@@ -225,7 +225,7 @@
 
                                 <!-- Email Details -->
                                 <div class="col-md-4 contact-box text-center">
-                                    <div class="d-inline-flex" style="max-width: 215px">
+                                    <div class="d-inline-flex" style="width: 215px">
                                         <i class="fas fa-envelope-open-text template-contact-icon"></i>
                                         <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
                                               onMouseOut="this.style.color='#212529'"
