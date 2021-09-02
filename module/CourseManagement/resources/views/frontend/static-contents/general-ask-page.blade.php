@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card px-5 py-4 mb-2">
+                <div class="card py-3 mb-2">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-10 mx-auto faq-area">
