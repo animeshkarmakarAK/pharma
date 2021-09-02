@@ -71,7 +71,6 @@
 
 @section('content')
     <div id="modal"></div>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -259,6 +258,7 @@
         </div>
 
     </div>
+
 @endsection
 @push('js')
     <script>
