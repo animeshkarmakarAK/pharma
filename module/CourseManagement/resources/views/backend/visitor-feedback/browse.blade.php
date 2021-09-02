@@ -90,7 +90,7 @@
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{route('course_management::admin.visitor-feedback.datatable')}}',
-                order: [[6, "asc"]],
+                //order: [[0, "desc"]],
                 columns: [
                     {
                         title: "SL#",

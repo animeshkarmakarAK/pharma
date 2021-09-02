@@ -41,7 +41,7 @@
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $videoCategory->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . '(English)' }}">
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $videoCategory->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title in Bangla') }}">
+                                           placeholder="{{ __('Title') . '(Bangla)' }}">
                                 </div>
                             </div>
 

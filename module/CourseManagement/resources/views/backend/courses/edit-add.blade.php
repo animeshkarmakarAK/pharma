@@ -89,35 +89,35 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Course Name') . '(English)' }}<span
+                                    <label for="name">{{ __('Name') . '(English)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $course->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . '(English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Course Name') . '(Bangla)' }}<span
+                                    <label for="name">{{ __('Name') . '(Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $course->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . '(Bangla)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Course Code') }}<span
+                                    <label for="name">{{ __('Code') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="code"
                                            name="code"
                                            data-code="{{ $edit ? $course->code : '' }}"
                                            value="{{ $edit ? $course->code : old('code') }}"
-                                           placeholder="{{ __('code') }}">
+                                           placeholder="{{ __('Code') }}">
                                 </div>
                             </div>
 
@@ -197,7 +197,7 @@
                                     <label for="prerequisite">{{ __('Course Prerequisite') }}</label>
                                     <textarea rows="3" class="form-control" id="prerequisite"
                                               name="prerequisite"
-                                              placeholder="{{ __('Prerequisite') }}">{{ $edit ? $course->prerequisite : old('prerequisite') }}</textarea>
+                                              placeholder="{{ __('Course Prerequisite') }}">{{ $edit ? $course->prerequisite : old('prerequisite') }}</textarea>
                                 </div>
                             </div>
 
@@ -212,7 +212,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="description">{{ __('Course Description')  }}</label>
+                                    <label for="description">{{ __('Description')  }}</label>
                                     <textarea class="form-control" id="description"
                                               name="description"
                                               rows="3"

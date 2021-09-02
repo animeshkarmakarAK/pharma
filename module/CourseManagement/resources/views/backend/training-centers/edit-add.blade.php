@@ -40,28 +40,30 @@
                                     <input type="text" class="form-control custom-input-box" name="title_en"
                                            id="title_en"
                                            value="{{$edit ? $trainingCenter->title_en : old('title_en')}}"
-                                           placeholder="Title" required>
+                                           placeholder="Title (En)" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="title_bn">Title (Bn) <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="title_bn"
                                            id="title_bn"
                                            value="{{$edit ? $trainingCenter->title_bn : old('title_bn')}}"
-                                           placeholder="Title" required>
+                                           placeholder="Title (Bn)" required>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="address">{{ __('Address') }}</label>
                                         <textarea class="form-control" id="address" name="address"
+                                                  placeholder="Address"
                                                   rows="3">{{ $edit ? $trainingCenter->address : old('address') }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="google_map_src">{{ __('Google Map src') }}</label>
+                                        <label for="google_map_src">{{ __('Google Map scr') }}</label>
                                         <textarea class="form-control" id="google_map_src" name="google_map_src"
+                                                  placeholder="Google Map src"
                                                   rows="3">{{ $edit ? $trainingCenter->google_map_src : old('google_map_src') }}</textarea>
                                     </div>
                                 </div>

@@ -12,12 +12,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card pt-5 pb-5 mb-2">
+                <div class="card px-5 py-4 mb-2">
                     <div class="container">
-                        <div class="row mt-5">
-                            <div class="col-md-10 mx-auto">
-                                <div class="">
-                                    <h2 class="question-answer-heading">সচারাচর জিজ্ঞাস্য</h2>
+                        <div class="row">
+                            <div class="col-md-10 mx-auto faq-area">
+                                <div class="faq-area-body">
+                                    <div class="text-center">
+                                        <h3 class="question-answer-heading">সচারাচর জিজ্ঞাস্য</h3>
+                                    </div>
                                     @foreach($data as $key => $qa)
                                         <div class="panel-group question-answer-container" id="accordion">
                                             <div class="panel panel-default">
@@ -87,6 +89,17 @@
         .question-answer {
             background: #f8f9fa;
             padding: 25px 20px;
+        }
+        .faq-area{
+            border: 1px solid #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 0 15px #eee;
+            min-height: 100%;
+        }
+        .faq-area-body{
+            padding: 15px 15px;
+            border: 1px solid #e1e1e1 !important;
+            border-radius: 8px !important;
         }
     </style>
 @endpush

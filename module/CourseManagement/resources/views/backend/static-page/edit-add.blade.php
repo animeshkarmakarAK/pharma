@@ -100,7 +100,7 @@
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $staticPage->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Content Title') . '(English)' }}">
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $staticPage->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Content Title') . '(Bangla)' }}">
                                 </div>
                             </div>
 
@@ -147,7 +147,7 @@
                                            id="page_id"
                                            name="page_id"
                                            value="{{ $edit ? $staticPage->page_id : '' }}"
-                                           placeholder="{{ __('Page Id') }}">
+                                           placeholder="{{ __('Page ID')}}">
                                 </div>
                             </div>
 

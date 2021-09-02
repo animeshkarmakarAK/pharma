@@ -392,6 +392,7 @@
                                 <input type="text"
                                        class="form-control session_name_en"
                                        name="course_sessions[<%=sl%>][session_name_en]"
+                                       placeholder="{{ __('Session Name(English)') }}"
                                        value="<%=edit ? data.session_name_en : ''%>"
                                        onkeyup="$('.session-name-english<%=sl%>').html($(this).val())">
                             </div>
@@ -404,6 +405,7 @@
                                 <input type="text"
                                        class="form-control session_name_bn"
                                        name="course_sessions[<%=sl%>][session_name_bn]"
+                                       placeholder="{{ __('Session Name(Bangla)') }}"
                                        value="<%=edit ? data.session_name_bn : ''%>"
                                 >
                             </div>
@@ -416,6 +418,7 @@
                                 <input type="number"
                                        class="form-control number_of_batches"
                                        name="course_sessions[<%=sl%>][number_of_batches]"
+                                       placeholder="{{ __('Number of Batches') }}"
                                        value="<%=edit ? data.number_of_batches : ''%>">
                             </div>
                         </div>
@@ -466,6 +469,7 @@
                                 <input type="number"
                                        class="form-control max_seat_available"
                                        name="course_sessions[<%=sl%>][max_seat_available]"
+                                       placeholder="{{ __('Max Student Enrollment') }}"
                                        value="<%=edit ? data.max_seat_available : ''%>"
                                 >
                             </div>

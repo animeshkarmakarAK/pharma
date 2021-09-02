@@ -40,7 +40,7 @@
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $video->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . '(English)' }}">
                                 </div>
                             </div>
 
@@ -51,7 +51,7 @@
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $video->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . '(Bangla)' }}">
                                 </div>
                             </div>
 
@@ -130,6 +130,7 @@
                                            class="form-control"
                                            name="youtube_video_url"
                                            id="youtube_video_url"
+                                           placeholder="Youtube Video URL"
                                            value="{{ $edit ? $video->youtube_video_url : old('youtube_video_url') }}">
                                 </div>
                             </div>
@@ -171,7 +172,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Video Description')  }}</label>
+                                    <label for="name">{{ __('Description')  }}</label>
                                     <textarea class="form-control" id="description"
                                               name="description"
                                               rows="3"
