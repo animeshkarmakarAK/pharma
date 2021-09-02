@@ -182,6 +182,11 @@ class UserService
         $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
         if ($authUser->isInstituteUser() || $authUser->isOrganizationUser()) {
             $users->where('users.user_type_id', $authUser->user_type_id);
+            if($authUser->isInstituteUser()){
+                $users->where('users.institute_id', $authUser->institute_id);
+            }else{
+                $users->where('users.organization_id', $authUser->organization_id);
+            }
         }
 
         return DataTables::eloquent($users)

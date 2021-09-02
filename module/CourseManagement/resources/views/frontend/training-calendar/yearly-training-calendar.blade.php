@@ -12,24 +12,21 @@
 
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-md-12">
-                <div class="card">
+                <div class="card mb-2">
+                <div class="card mb-2">
                     <div class="card-header custom-bg-gradient-info">
                         <h2 class="text-center text-primary font-weight-lighter mt-4">প্রশিক্ষণ বাস্তবায়ন সময়সূচি</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="row justify-content-center mt-3">
-                            <div class="col-md-1">
-                                <p class="font-weight-bold text-primary">ফিল্টার <i class="fa fa-filter"></i></p>
+                    <div class="col-md-8 mx-auto">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold text-primary">
+                                    ফিল্টার <i class="fa fa-filter"></i>
+                                </p>
                             </div>
-
-                            {{--<div class="col-md-3">
-                                <input type="search" name="search" id="search" class="form-control rounded-0"
-                                       placeholder="সার্চ...">
-                            </div>--}}
 
                             @if(!empty($currentInstitute))
                                 <input type="hidden" name="institute_id" id="institute_id"
@@ -80,16 +77,16 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <button class="btn btn-success"
                                         id="course-session-filter-btn">{{ __('অনুসন্ধান') }}</button>
                             </div>
 
-                            <div class="col">
+                            {{--<div class="col">
                                 <div class="overlay" style="display: none">
                                     <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -115,12 +112,6 @@
 @push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-            font-size: 14px;
-        }
 
         #calendar {
             max-width: 1100px;
