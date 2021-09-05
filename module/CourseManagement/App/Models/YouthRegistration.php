@@ -2,9 +2,9 @@
 
 namespace Module\CourseManagement\App\Models;
 
+use App\Helpers\Classes\Helper;
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
-use Faker\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -41,7 +41,7 @@ class YouthRegistration extends BaseModel
     {
         return [
             self::CURRENT_EMPLOYMENT_STATUS_YES => __('Yes'),
-            self::CURRENT_EMPLOYMENT_STATUS_NO  => __('No'),
+            self::CURRENT_EMPLOYMENT_STATUS_NO => __('No'),
         ];
     }
 
@@ -49,8 +49,7 @@ class YouthRegistration extends BaseModel
     public function setYouthRegistrationNumber(): string
     {
         if (empty($this->youth_registration_no)) {
-            $factory = Factory::create();
-            $this->youth_registration_no = date('y') . $factory->randomNumber(6);
+            $this->youth_registration_no = Helper::randomPassword(10, true);
         }
 
         return $this->youth_registration_no;
