@@ -36,23 +36,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title') . '(English)' }}<span
+                                    <label for="title_en">{{ __('Title') . ' (English)' }}<span
                                             class="required"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $videoCategory->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title') . '(English)' }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Title') . '(Bangla)' }}<span
+                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }}<span
                                             class="required"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $videoCategory->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title') . '(Bangla)' }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -74,7 +74,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $videoCategory->institute->title_en, 'id' =>  $videoCategory->institute_id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন">
+                                                data-placeholder="{{ __('generic.select_placeholder') }}">
                                         </select>
                                     </div>
                                 </div>
@@ -93,7 +93,8 @@
                                             data-preselected-option="{{json_encode(['text' =>  optional(\Module\CourseManagement\App\Models\VideoCategory::find($videoCategory->parent_id))->title_en, 'id' =>  $videoCategory->parent_id ]) }}"
                                             data-filters="{{json_encode(['id' != $videoCategory->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন">
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
                                         <option value=""></option>
                                     </select>
                                 </div>

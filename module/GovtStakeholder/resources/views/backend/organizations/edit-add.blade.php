@@ -33,23 +33,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Organization Name') . '(English)' }}<span
+                                    <label for="title_en">{{ __('Name') . ' (English)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $organization->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Organization Name') . '(Bangla)' }}<span
+                                    <label for="title_bn">{{ __('Name') . ' (Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $organization->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -66,11 +66,11 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="fax_no">{{ __('Organization Fax ') }}</label>
+                                    <label for="fax_no">{{ __('Fax ') }}</label>
                                     <input type="text" class="form-control" id="fax_no"
                                            name="fax_no"
                                            value="{{ $edit ? $organization->fax_no : old('fax_no') }}"
-                                           placeholder="{{ __('fax_no') }}">
+                                           placeholder="{{ __('Fax') }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -107,7 +107,7 @@
                                         @if($edit)
                                         data-preselected-option="{{json_encode(['text' =>  $organization->organizationType->title_en, 'id' =>  $organization->organizationType->id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
@@ -163,6 +163,7 @@
                                     <label for="address">{{ __('Address') }}<span
                                             style="color: red"> * </span></label>
                                     <textarea class="form-control" id="address" name="address"
+                                              placeholder="{{ __('Address') }}"
                                               rows="3">{{ $edit ? $organization->address : old('address') }}</textarea>
                                 </div>
                             </div>
@@ -171,6 +172,7 @@
                                 <div class="form-group">
                                     <label for="description">{{ __('Description') }}</label>
                                     <textarea class="form-control" id="description" name="description"
+                                              placeholder="{{ __('Description') }}"
                                               rows="3">{{ $edit ? $organization->description : old('description') }}</textarea>
 
                                 </div>

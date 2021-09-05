@@ -33,23 +33,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title') . '(English)' }}<span
+                                    <label for="title_en">{{ __('Title') . ' (English)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $humanResource->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Title') . '(Bangla)' }}<span
+                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $humanResource->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -65,7 +65,7 @@
                                             @if($edit && $humanResource->humanResourceTemplate)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResource->humanResourceTemplate->title_en, 'id' => $humanResource->humanResourceTemplate->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -83,7 +83,7 @@
                                             @if($edit && $humanResource->organization)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResource->organization->title_en, 'id' => $humanResource->organization->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -101,7 +101,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResource->organizationUnit->title_en, 'id' => $humanResource->organizationUnit->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -121,7 +121,7 @@
                                             data-preselected-option="{{json_encode(['text' =>  $humanResource->parent->title_en, 'id' => $humanResource->parent->id])}}"
                                             @endif
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                     <input type="text" name="parent_id" id="hidden_parent_id" disabled>
@@ -139,7 +139,7 @@
                                             @if($edit && $humanResource->rank)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResource->rank->title_en, 'id' => $humanResource->rank->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -190,7 +190,7 @@
                                             @if($edit && $humanResource->skills)
                                             data-preselected-option="{{json_encode(['text' =>  $humanResource->skills->title_en, 'id' => $humanResource->skills->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>

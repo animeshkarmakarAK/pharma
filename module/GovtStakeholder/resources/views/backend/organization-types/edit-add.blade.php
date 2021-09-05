@@ -37,11 +37,11 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="title_bn">Title (বাংলা) <span style="color: red"> * </span></label>
+                            <label for="title_bn">Title (Bangla) <span style="color: red"> * </span></label>
                             <input type="text" class="form-control" id="title_bn"
                                    name="title_bn"
                                    value="{{$edit ? $organizationType->title_bn : old('title_bn')}}"
-                                   placeholder="Title (বাংলা)">
+                                   placeholder="Title (Bangla) ">
                         </div>
                     </div>
                     <div class="col-sm-6">

@@ -37,22 +37,22 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') . '(English)' }}<span style="color: red"> * </span></label>
+                                    <label for="name">{{ __('Name') . ' (English)' }}<span style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $institute->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') . '(Bangla)' }}<span
+                                    <label for="name">{{ __('Name') . ' (Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $institute->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -64,7 +64,7 @@
                                            name="code"
                                            data-code="{{ $edit ? $institute->code : '' }}"
                                            value="{{ $edit ? $institute->code : old('code') }}"
-                                           placeholder="{{ __('code') }}">
+                                           placeholder="{{ __('Code') }}">
 
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                     <input type="text" class="form-control" id="domain"
                                            name="domain"
                                            value="{{ $edit ? $institute->domain : old('domain') }}"
-                                           placeholder="{{ __('domain') }}">
+                                           placeholder="{{ __('Domain') }}">
                                 </div>
                             </div>
 
@@ -231,6 +231,7 @@
                                 <div class="form-group">
                                     <label for="address">{{ __('Address') }}</label>
                                     <textarea class="form-control" id="address" name="address"
+                                              placeholder="Address"
                                               rows="3">{{ $edit ? $institute->address : old('address') }}</textarea>
                                 </div>
                             </div>
@@ -239,6 +240,7 @@
                                 <div class="form-group">
                                     <label for="google_map_src">{{ __('Google Map src') }}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
+                                              placeholder="Google Map src"
                                               rows="3">{{ $edit ? $institute->google_map_src : old('google_map_src') }}</textarea>
                                 </div>
                             </div>

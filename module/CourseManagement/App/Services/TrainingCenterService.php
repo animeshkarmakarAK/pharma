@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
@@ -86,7 +87,13 @@ class TrainingCenterService
 
                 return $str;
             }))
-            ->rawColumns(['action'])
+            ->editColumn('created_at', function (TrainingCenter $trainingCenter) {
+                return Date('d M, Y h:i A', strtotime($trainingCenter['created_at']));
+            })
+            ->editColumn('updated_at', function (TrainingCenter $trainingCenter) {
+                return Date('d M, Y h:i A', strtotime($trainingCenter['updated_at']));
+            })
+            ->rawColumns(['action','created_at','updated_at'])
             ->toJson();
     }
 

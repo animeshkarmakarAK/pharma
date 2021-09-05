@@ -64,13 +64,11 @@
                         title: "Institute Name",
                         data: "institute_title",
                         name: "institutes.title_en",
-                        visible: false,
                     },
                     {
                         title: "Programme Name",
                         data: "programme_name",
                         name: "programmes.title_en",
-                        visible: false,
                     },
                     {
                         title: "Branch Name",

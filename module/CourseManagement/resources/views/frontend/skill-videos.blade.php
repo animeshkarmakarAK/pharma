@@ -21,11 +21,13 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <p class="text-primary">ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
-                                        </p>
+                                        <label
+                                            style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
+                                            ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                        </label>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 mb-3">
                                         <input type="search" name="search" id="search" class="form-control rounded-2"
                                                placeholder="সার্চ...">
                                     </div>

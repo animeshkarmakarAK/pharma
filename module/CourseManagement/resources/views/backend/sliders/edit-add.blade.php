@@ -63,7 +63,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title">{{ __('Slider Title') }}<span
+                                    <label for="title">{{ __('Title') }}<span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control" id="title"
                                            name="title"
@@ -74,12 +74,12 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Slider Sub-title') }}<span
+                                    <label for="name">{{ __('Subtitle') }}<span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control" id="sub_title"
                                            name="sub_title"
                                            value="{{ $edit ? $slider->sub_title : old('sub_title') }}"
-                                           placeholder="{{ __('Sub-title') }}">
+                                           placeholder="{{ __('Subtitle') }}">
                                 </div>
                             </div>
 
@@ -89,7 +89,7 @@
                             @else
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="institute_id">Institute(প্রতিষ্ঠান)<span
+                                        <label for="institute_id">Institute<span
                                                 class="required">*</span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -99,7 +99,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $slider->institute->title_en, 'id' =>  $slider->institute->id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -108,8 +108,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="is_button_available">Is Button Available
-                                        <span class="required">*</span>:</label>
+                                    <label for="is_button_available">Is Button Available<span class="required">*</span>:</label>
                                     <div class="custom-control custom-radio ml-2">
                                         <input class="custom-control-input" type="radio"
                                                id="is_button_available_yes"
@@ -148,7 +147,7 @@
                                     <input type="text" class="form-control" id="link"
                                            name="link"
                                            value="{{ $edit ? $slider->link : old('link') }}"
-                                           placeholder="{{ __('Link') }}">
+                                           placeholder="{{ __('Page ID') }}">
                                 </div>
                             </div>
 

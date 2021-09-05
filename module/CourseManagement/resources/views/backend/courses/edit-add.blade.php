@@ -79,7 +79,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $course->institute->title_en, 'id' =>  $course->institute->id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -89,23 +89,23 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') . '(English)' }}<span
+                                    <label for="name">{{ __('Name') . ' (English)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $course->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') . '(English)' }}">
+                                           placeholder="{{ __('Name') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') . '(Bangla)' }}<span
+                                    <label for="name">{{ __('Name') . ' (Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $course->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') . '(Bangla)' }}">
+                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
                                 </div>
                             </div>
 

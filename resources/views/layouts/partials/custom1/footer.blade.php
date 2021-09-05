@@ -8,7 +8,7 @@
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget">
                     <img src="{{asset('storage/' .$currentInstitute->logo)}}" alt=""
-                         class="img-responsive logo-change" style="height: 60px;">
+                         class="img-responsive logo-change" style="height: 60px; max-width: 100%">
                     <p>
                         {{  !empty($currentInstitute->description)?$currentInstitute->description:'' }}
                     </p>
@@ -104,19 +104,19 @@
 <footer class="footer-2">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12" style="width: auto">
+            <div class="col-6">
                 <div class="float-left">
                     <h3>পরিকল্পনা ও বাস্তবায়নে</h3>
                     <a href="#" target="_blank">
-                        <img src="{{asset('assets/company/images/footer-img/a2i_logoset.png')}}"
+                        <img src="{{asset('assets/company/images/footer-img/a2i_logoset.png')}}" style="width: 100%"
                              class="img-responsive govt-img"></a>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12" style="width: auto">
+            <div class="col-6">
                 <div class="float-right">
                     <h3> কারিগরি সহায়তায়</h3>
                     <a href="http://softbdltd.com/" target="_blank">
-                        <img src="{{asset('assets/company/images/footer-img/softbd-footer-img.png')}}"
+                        <img src="{{asset('assets/company/images/footer-img/softbd-footer-img.png')}}" style="max-width: 100%"
                              class="img-responsive soft-bd">
                     </a>
                 </div>

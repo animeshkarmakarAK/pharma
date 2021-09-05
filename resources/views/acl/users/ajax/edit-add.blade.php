@@ -58,11 +58,11 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="name_bn">Name (বাংলা) <span style="color: red"> * </span></label>
+                        <label for="name_bn">Name (Bangla) <span style="color: red"> * </span></label>
                         <input type="text" class="form-control" id="name_bn"
                                name="name_bn"
                                value="{{$edit ? $user->name_bn : old('name_bn')}}"
-                               placeholder="Name (বাংলা)">
+                               placeholder="Name (Bangla)">
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -89,7 +89,7 @@
                                     @if($edit)
                                     data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                     @endif
-                                    data-placeholder="নির্বাচন করুন"
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
                             </select>
                         </div>
@@ -106,7 +106,7 @@
                                     @if($edit && $user->institute)
                                     data-preselected-option="{{json_encode(['text' =>  $user->institute->title_en, 'id' =>  $user->institute->id])}}"
                                     @endif
-                                    data-placeholder="নির্বাচন করুন"
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
                             </select>
                         </div>
@@ -124,7 +124,7 @@
                                     @if($edit && $user->organization)
                                     data-preselected-option="{{json_encode(['text' =>  $user->organization->title_en, 'id' =>  $user->organization->id])}}"
                                     @endif
-                                    data-placeholder="নির্বাচন করুন"
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
                             </select>
                         </div>
@@ -142,7 +142,7 @@
                                     @if($edit && $user->locDistrict)
                                     data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title_en, 'id' =>  $user->locDistrict->id])}}"
                                     @endif
-                                    data-placeholder="নির্বাচন করুন"
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
                             </select>
                         </div>
@@ -160,9 +160,8 @@
                                     @if($edit && $user->locDivision)
                                     data-preselected-option="{{json_encode(['text' =>  $user->locDivision->title_en, 'id' =>  $user->locDivision->id])}}"
                                     @endif
-                                    data-placeholder="Select Division"
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
-                                <option selected disabled>Select Division</option>
                             </select>
                         </div>
                     </div>

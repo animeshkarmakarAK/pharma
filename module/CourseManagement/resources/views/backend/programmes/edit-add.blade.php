@@ -9,26 +9,6 @@
     {{ $edit?'Edit Programme':'Create Programme' }}
 @endsection
 
-@push('css')
-    <style>
-        .imgRemove {
-            position: absolute;
-            bottom: 172px;
-            left: 32%;
-            border: none;
-            font-size: 30px;
-            outline: none;
-        }
-
-        .imgRemove::after{
-            content: ' \21BA';
-            color: #fff;
-            font-weight: 900;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-    </style>
-@endpush
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -55,21 +35,21 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title_en">{{ __('Title') . '(English)' }} <span
+                                    <label for="title_en">{{ __('Title') . ' (English)' }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="title_en"
                                            id="title_en"
                                            value="{{$edit ? $programme->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Title') . '(English)' }}" required>
+                                           placeholder="{{ __('Title') . ' (English)' }}" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="title_bn">{{ __('Title') . '(Bangla)' }} <span
+                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="title_bn"
                                            id="title_bn"
                                            value="{{$edit ? $programme->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Title') . '(Bangla)' }}" required>
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}" required>
                                 </div>
 
                                 @if($authUser->isInstituteUser())
@@ -87,7 +67,7 @@
                                                 @if($edit && $programme->institute)
                                                 data-preselected-option="{{json_encode(['text' => $programme->institute->title_en, 'id' => $programme->institute_id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -149,6 +129,27 @@
     @include('utils.delete-confirm-modal')
 
 @endsection
+
+@push('css')
+    <style>
+        .imgRemove {
+            position: absolute;
+            bottom: 172px;
+            left: 32%;
+            border: none;
+            font-size: 30px;
+            outline: none;
+        }
+
+        .imgRemove::after{
+            content: ' \21BA';
+            color: #fff;
+            font-weight: 900;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+@endpush
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
     <script>

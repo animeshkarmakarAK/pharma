@@ -46,7 +46,7 @@
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locUpazila->division->title, 'id' =>  $locUpazila->division->id])}}"
                             @endif
-                            data-placeholder="নির্বাচন করুন"
+                            data-placeholder="{{ __('generic.select_placeholder') }}"
                     >
                     </select>
                 </div>
@@ -61,7 +61,7 @@
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locUpazila->district->title, 'id' =>  $locUpazila->district->id])}}"
                             @endif
-                            data-placeholder="নির্বাচন করুন"
+                            data-placeholder="{{ __('generic.select_placeholder') }}"
                     >
                     </select>
                 </div>

@@ -34,23 +34,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Name') . '(English)' }} <span
+                                    <label for="title_en">{{ __('Name') . ' (English)' }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $applicationFormType->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') . '(English)' }}">
+                                           placeholder="{{ __('Name') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Name') . '(Bangla)' }} <span
+                                    <label for="title_bn">{{ __('Name') . ' (Bangla)' }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $applicationFormType->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') . '(English)' }}">
+                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -70,7 +70,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $applicationFormType->institute->title_en, 'id' =>  $applicationFormType->institute->id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>

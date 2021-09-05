@@ -58,21 +58,21 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="title_en">{{ __('Title') . '(English)' }}<span
+                                <label for="title_en">{{ __('Title') . ' (English)' }}<span
                                         class="required"> * </span></label>
                                 <input type="text" class="form-control" id="title_en"
                                        name="title_en"
-                                       placeholder="{{ __('Name') }}">
+                                       placeholder="{{ __('Title') . ' (English)' }}">
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="title_bn">{{ __('Title') . '(Bangla)' }}<span
+                                <label for="title_bn">{{ __('Title') . ' (Bangla)' }}<span
                                         class="required"> * </span></label>
                                 <input type="text" class="form-control" id="title_bn"
                                        name="title_bn"
-                                       placeholder="{{ __('Name') }}">
+                                       placeholder="{{ __('Title') . ' (Bangla)' }}">
                             </div>
                         </div>
 
@@ -93,7 +93,7 @@
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\HumanResource::class)}}"
                                         data-filters="{{json_encode(['organization_unit_id' => optional($humanResources)["organization_unit_id"], 'id' => ['type' => 'not-equal', 'value' => "__"]])}}"
                                         data-label-fields="{title_en}"
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                                 <input type="text" name="parent_id" id="hidden_parent_id" hidden disabled>
@@ -108,7 +108,7 @@
                                         id="rank_id"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Rank::class)}}"
                                         data-label-fields="{title_en}"
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
@@ -155,7 +155,7 @@
                                         id="skill_ids"
                                         data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Skill::class)}}"
                                         data-label-fields="{title_en}"
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
