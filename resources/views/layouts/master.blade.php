@@ -109,6 +109,9 @@
         }
     </style>
     @stack('css')
+    <script>
+        windoow.select_option_placeholder = '{{__('generic.add_button_label')}}';
+    </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
