@@ -124,7 +124,7 @@ window.initializeSelect2 = function (selector) {
         /**
          * @type {*|jQuery|string}
          */
-        const placeholder = elm.data('placeholder') || 'Select options';
+        const placeholder = elm.data('placeholder') || windoow.select_option_placeholder;
 
 
         /**
