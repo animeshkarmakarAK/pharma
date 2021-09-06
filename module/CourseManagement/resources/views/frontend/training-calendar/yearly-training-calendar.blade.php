@@ -174,8 +174,8 @@
                                 url: '{{route('course_management::yearly-training-calendar.all-event')}}',
                                 type: "POST",
                             }).done(function (response) {
-                                console.log(response)
                                 successCallback(response);
+                                $('.fc-event-title').attr('title','কোর্সের বিস্তারিত দেখুন');
                             }).fail(function (xhr) {
                                 failureCallback([]);
                             });
@@ -244,18 +244,45 @@
                         filterEvent();
                     });
 
+
+                    $('.fc-event-title').click(function (){
+                        console.log($('.fc-event-title').html());
+                    });
+                    function testHover(){
+
+                    }
+
                 });
 
                 $(document).ready(function (){
-                    //alert(123)
-                   /* $('.fc-event-title').on('click', function (){
-                        alert($(this).val())
+
+                    /*$(".fc-event-title").mouseover(function() {
+                        alert(1222)
+                        //$(this).next(".hello").css('visibility', 'visible');
                     });*/
-                    $('.fc-sticky').hover(function (){
-                        console.log('sdkjfkjhg');
-                        alert($(this).val())
-                    });
+                    /*$(".show_div").mouseout(function() {
+                        $(this).next(".hello").css('visibility', 'hidden');
+                    });*/
+                    //$(".fc-event-title").click(function (){
+
+                    //});
                 });
+
+
+
+                $(".fc-event-title").mouseover(function() {
+                    alert(1222);
+                    //$(this).next(".hello").css('visibility', 'visible');
+                });
+
+               /* $(".fc-event-title-container").hover(
+                    function () {
+                        let a = $(this).next(".fc-event-title").val();
+                        console.log(a)
+                    },
+                    function () {
+                        $(this).next(".fc-event-title").fadeOut(150);
+                    });*/
 
             </script>
     @endpush

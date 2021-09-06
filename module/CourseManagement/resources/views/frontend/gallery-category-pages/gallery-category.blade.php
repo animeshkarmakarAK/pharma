@@ -124,7 +124,6 @@
             left: 0;
             top: 0;
             z-index: 0;
-            opacity: 0.4;
             background: url("http://lorempixel.com/1000/600/") no-repeat center center;
             background-size: cover;
         }
