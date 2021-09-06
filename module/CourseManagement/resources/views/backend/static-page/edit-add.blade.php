@@ -95,23 +95,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Content Title') . '(English)' }}<span
+                                    <label for="name">{{ __('Content Title') . ' (English)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $staticPage->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Content Title') . '(English)' }}">
+                                           placeholder="{{ __('Content Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Content Title') . '(Bangla)' }}<span
+                                    <label for="name">{{ __('Content Title') . ' (Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $staticPage->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Content Title') . '(Bangla)' }}">
+                                           placeholder="{{ __('Content Title') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -131,7 +131,7 @@
                                                 @if($edit && $staticPage->institute)
                                                 data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->title_en, 'id' =>  $staticPage->institute->id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -159,6 +159,7 @@
                                     <textarea class="form-control"
                                               id="page_contents"
                                               name="page_contents"
+                                              placeholder="Page Content"
                                               style="background-color: #FFFFFF">{{ $edit ? $staticPage->page_contents : '' }}</textarea>
                                 </div>
                             </div>

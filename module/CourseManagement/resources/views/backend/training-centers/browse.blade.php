@@ -92,6 +92,7 @@
                         data: "created_at",
                         name: "training_centers.created_at",
                         visible: false,
+                        searchable: false,
                     },
 
                     {
@@ -99,6 +100,7 @@
                         data: "updated_at",
                         name: "training_centers.updated_at",
                         visible: false,
+                        searchable: false,
                     },
                     {
                         title: "Action",

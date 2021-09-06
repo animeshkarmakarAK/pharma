@@ -74,12 +74,18 @@
             margin-bottom: 15px;
         }
 
+        .question-answer-container:hover .question-heading{
+            color: #fff;
+            transition: .3s;
+        }
+
         .question-heading {
             background: #4b77be;
             display: block;
             padding: 15px 15px;
-            color: #fff;
+            color: #eeeeee;
             font-size: 14px;
+            transition: .3s;
         }
 
         .question-title {

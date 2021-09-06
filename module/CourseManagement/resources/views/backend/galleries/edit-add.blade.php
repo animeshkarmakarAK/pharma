@@ -49,7 +49,7 @@
                                         @if($edit && $gallery->gallery_category_id)
                                         data-preselected-option="{{json_encode(['text' => $gallery->galleryCategory->title_en, 'id' => $gallery->gallery_category_id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
@@ -75,7 +75,7 @@
                                         <label for="institute_id">{{ __('Institute Name') }}<span
                                                 style="color: red"> * </span></label>
                                         <select name="institute_id" id="institute_id" class="form-control select2"
-                                                data-placeholder="নির্বাচন করুন">
+                                                data-placeholder="{{ __('generic.select_placeholder') }}">
                                             <option></option>
                                             @foreach($institutes as $institute)
                                                 <option
@@ -95,7 +95,7 @@
                                             style="color: red"> * </span></label>
                                     <input type="hidden" id="today">
                                     <input type="text"
-                                           class="flat-datetime form-control publish_date"
+                                           class="flat-datetime form-control publish_date flat-date-custom-bg"
                                            name="publish_date"
                                            id="publish_date"
                                            value="{{$edit ? $gallery->publish_date : old('publish_date')}}">
@@ -108,7 +108,7 @@
                                         for="archive_date">{{ __('Archive Date') }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text"
-                                           class="flat-datetime form-control"
+                                           class="flat-datetime form-control flat-date-custom-bg"
                                            name="archive_date"
                                            id="archive_date"
                                            value="{{$edit ? $gallery->archive_date : old('archive_date')}}">
@@ -220,6 +220,14 @@
         </div>
     </div>
 @endsection
+
+@push('css')
+    <style>
+        .flat-date-custom-bg {
+            background-color: #fafdff !important;
+        }
+    </style>
+@endpush
 
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>

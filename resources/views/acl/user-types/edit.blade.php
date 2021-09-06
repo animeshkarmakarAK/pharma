@@ -29,7 +29,7 @@
                                     <label for="title">Title<span style="color:red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" name="title" id="title"
                                            value="{{!empty($userType->title)?$userType->title: old('title')}}"
-                                           placeholder="Enter your User Type title" required>
+                                           placeholder="Title" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -42,7 +42,7 @@
                                             @if ($userType->role)
                                             data-preselected-option="{{json_encode(['text' =>  optional($userType->role)->title_en, 'id' =>  optional($userType->role)->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>

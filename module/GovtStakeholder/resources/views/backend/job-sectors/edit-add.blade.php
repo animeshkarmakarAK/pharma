@@ -31,22 +31,22 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . '(English)' }} <span
+                                    <label for="name">{{ __('Title') . ' (English)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_en"
                                            name="title_en"
                                            value="{{$edit ? $jobSector->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . '(Bangla)' }} <span style="color: red">*</span></label>
+                                    <label for="name">{{ __('Title') . ' (Bangla)' }} <span style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_bn"
                                            name="title_bn"
                                            value="{{$edit ? $jobSector->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
 
                                 </div>
                             </div>
@@ -56,19 +56,21 @@
                                     <div class="form-group">
                                         <label for="row_status">{{ __('Status') }}<span
                                                 style="color: red"> * </span></label>
-                                        <div class="custom-control custom-radio col-sm-6">
-                                            <input class="custom-control-input" type="radio" id="active"
-                                                   name="row_status"
-                                                   value="1"
-                                                {{ ($edit && $jobSector->row_status == \Module\GovtStakeholder\App\Models\JobSector::ROW_STATUS_ACTIVE) || (!empty(old('row_status')) && old('row_status') == 1)  ? 'checked' : '' }}>
-                                            <label for="active" class="custom-control-label">Active</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col-sm-6">
-                                            <input class="custom-control-input" type="radio" id="inactive"
-                                                   name="row_status"
-                                                   value="0"
-                                                {{ ($edit && $jobSector->row_status == \Module\GovtStakeholder\App\Models\JobSector::ROW_STATUS_INACTIVE) || (!empty(old('row_status')) && old('row_status') == 0)  ? 'checked' : '' }}>
-                                            <label for="inactive" class="custom-control-label">Inactive</label>
+                                        <div class="row form-control">
+                                            <div class="custom-control custom-radio col-sm-2 d-inline-block">
+                                                <input class="custom-control-input" type="radio" id="active"
+                                                       name="row_status"
+                                                       value="1"
+                                                    {{ ($edit && $jobSector->row_status == \Module\GovtStakeholder\App\Models\JobSector::ROW_STATUS_ACTIVE) || (!empty(old('row_status')) && old('row_status') == 1)  ? 'checked' : '' }}>
+                                                <label for="active" class="custom-control-label">Active</label>
+                                            </div>
+                                            <div class="custom-control custom-radio col-sm-2 d-inline-block">
+                                                <input class="custom-control-input" type="radio" id="inactive"
+                                                       name="row_status"
+                                                       value="0"
+                                                    {{ ($edit && $jobSector->row_status == \Module\GovtStakeholder\App\Models\JobSector::ROW_STATUS_INACTIVE) || (!empty(old('row_status')) && old('row_status') == 0)  ? 'checked' : '' }}>
+                                                <label for="inactive" class="custom-control-label">Inactive</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

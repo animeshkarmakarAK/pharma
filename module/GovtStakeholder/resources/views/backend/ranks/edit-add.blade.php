@@ -31,23 +31,23 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title') . '(English)' }} <span
+                                    <label for="title_en">{{ __('Title') . ' (English)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_en"
                                            name="title_en"
                                            value="{{$edit ? $rank->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Title English') }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Title') . '(Bangla)' }} <span
+                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_bn"
                                            name="title_bn"
                                            value="{{$edit ? $rank->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Title Bangla') }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
 
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                         @if($edit)
                                         data-preselected-option="{{json_encode(['text' =>  $rank->rankType->title_en, 'id' =>  $rank->rank_type_id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
@@ -77,7 +77,7 @@
                                         @if($edit && !empty($rank->organization_id))
                                         data-preselected-option="{{json_encode(['text' =>  $rank->organization->title_en, 'id' =>  $rank->organization_id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>

@@ -133,6 +133,12 @@
                         name: "visitor_feedback.read_at"
                     },
                     {
+                        title: "Date",
+                        data: "created_at",
+                        name: "visitor_feedback.created_at",
+                        visible: true
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         orderable: false,

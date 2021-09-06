@@ -49,50 +49,29 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->institute->title_en, 'id' =>  $publishCourse->institute->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="branch_id">{{ __('Branch') }}</label>
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="branch_id"
+                                                id="branch_id"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
+                                                data-label-fields="{title_en}"
+                                                data-depend-on="institute_id"
+                                                @if($edit && $publishCourse->branch)
+                                                data-preselected-option="{{json_encode(['text' =>  $publishCourse->branch->title_en, 'id' =>  $publishCourse->branch->id])}}"
+                                                @endif
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        >
+                                        </select>
+                                    </div>
                                 </div>
                             @endif
-
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="application_form_type_id">{{ __('Application Form Type') }}<span
-                                            style="color: red"> * </span></label>
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="application_form_type_id"
-                                            id="application_form_type_id"
-                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\ApplicationFormType::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on="institute_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $publishCourse->applicationFormType->title_en, 'id' =>  $publishCourse->applicationFormType->id])}}"
-                                            @endif
-                                            data-placeholder="নির্বাচন করুন"
-                                    >
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="branch_id">{{ __('Branch') }}</label>
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="branch_id"
-                                            id="branch_id"
-                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on="institute_id"
-                                            @if($edit && $publishCourse->branch)
-                                            data-preselected-option="{{json_encode(['text' =>  $publishCourse->branch->title_en, 'id' =>  $publishCourse->branch->id])}}"
-                                            @endif
-                                            data-placeholder="নির্বাচন করুন"
-                                    >
-                                    </select>
-                                </div>
-                            </div>
-
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -107,7 +86,7 @@
                                             @if($edit && $publishCourse->trainingCenter)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->trainingCenter->title_en, 'id' =>  $publishCourse->trainingCenter->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -125,7 +104,7 @@
                                             @if($edit && $publishCourse->programme)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->programme->title_en, 'id' =>  $publishCourse->programme->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -144,7 +123,26 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->course->title_en, 'id' =>  $publishCourse->course->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="application_form_type_id">{{ __('Application Form Type') }}<span
+                                            style="color: red"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="application_form_type_id"
+                                            id="application_form_type_id"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\ApplicationFormType::class)}}"
+                                            data-label-fields="{title_en}"
+                                            data-depend-on="institute_id"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $publishCourse->applicationFormType->title_en, 'id' =>  $publishCourse->applicationFormType->id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -387,12 +385,12 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="session_name_en">{{ __('Session Name(English)') }} <span
+                                <label for="session_name_en">{{ __('Session Name (English)') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
                                        class="form-control session_name_en"
                                        name="course_sessions[<%=sl%>][session_name_en]"
-                                       placeholder="{{ __('Session Name(English)') }}"
+                                       placeholder="{{ __('Session Name (English)') }}"
                                        value="<%=edit ? data.session_name_en : ''%>"
                                        onkeyup="$('.session-name-english<%=sl%>').html($(this).val())">
                             </div>
@@ -400,12 +398,12 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="session_name_bn">{{ __('Session Name(Bangla)') }} <span
+                                <label for="session_name_bn">{{ __('Session Name (Bangla)') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
                                        class="form-control session_name_bn"
                                        name="course_sessions[<%=sl%>][session_name_bn]"
-                                       placeholder="{{ __('Session Name(Bangla)') }}"
+                                       placeholder="{{ __('Session Name (Bangla)') }}"
                                        value="<%=edit ? data.session_name_bn : ''%>"
                                 >
                             </div>

@@ -21,9 +21,10 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <p class="text-primary">
+                                        <label
+                                            style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
                                             ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
-                                        </p>
+                                        </label>
                                     </div>
                                     <div class="form-group col-md-2">
                                         <select class="form-control select2-ajax-wizard"

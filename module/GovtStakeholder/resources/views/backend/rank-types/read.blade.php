@@ -27,14 +27,14 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title(EN)') }}</p>
+                    <p class="label-text">{{ __('Title (EN)') }}</p>
                     <div class="input-box">
                         {{ $rankType->title_en ? $rankType->title_en : '' }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title(BN)') }}</p>
+                    <p class="label-text">{{ __('Title (BN)') }}</p>
                     <div class="input-box">
                         {{ $rankType->title_bn ? $rankType->title_bn : '' }}
                     </div>

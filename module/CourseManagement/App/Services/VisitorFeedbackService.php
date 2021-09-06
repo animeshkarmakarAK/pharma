@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\VisitorFeedback;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -81,6 +82,7 @@ class VisitorFeedbackService
                 'visitor_feedback.email',
                 'visitor_feedback.form_type',
                 'visitor_feedback.read_at',
+                'visitor_feedback.created_at',
                 'visitor_feedback.row_status',
             ]
         );
@@ -110,7 +112,10 @@ class VisitorFeedbackService
             ->editColumn('form_type', function (VisitorFeedback $visitorFeedback) {
                 return $visitorFeedback->form_type == VisitorFeedback::FORM_TYPE_FEEDBACK ? 'Feedback' : 'Contact';
             })
-            ->rawColumns(['action', 'read_at', 'form_type'])
+            ->editColumn('created_at', function (VisitorFeedback $visitorFeedback) {
+                return Date('d M, Y h:i:s', strtotime($visitorFeedback['created_at']));
+            })
+            ->rawColumns(['action', 'read_at', 'form_type','created_at'])
             ->toJson();
     }
 }

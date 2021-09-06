@@ -71,7 +71,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $batch->institute->title_en, 'id' =>  $batch->institute->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -91,7 +91,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $batch->course->title_en, 'id' =>  $batch->course->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>

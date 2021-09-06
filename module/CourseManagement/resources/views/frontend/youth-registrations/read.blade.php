@@ -6,20 +6,20 @@
 
 @section('content')
     <style>
-        img {
+        youth-profile-pic img {
             margin-left: 14vw;
         }
 
-        table {
+        .table table {
             font-size: 18px;
         }
 
-        td {
+        .table td {
             border: 5px solid #f4f6f9;
             padding: 0 !important;
         }
 
-        .youth-profile-pic img {
+        .table .youth-profile-pic img {
             float: left;
             margin-left: 6vh;
         }
@@ -28,7 +28,6 @@
             line-height: 1.2;
         }
     </style>
-
 
     <div class="container">
         <div class="row ">
@@ -116,7 +115,7 @@
                     <td class="border-top-0 border-bottom">{{ $youthSelfInfo->getUserReligion() ?? ''}}</td>
 
                     <td class="text-bold border-0">Nationality:</td>
-                    <td class="border-top-0 border-bottom">{{ optional($youthSelfInfo)->nationality }}</td>
+                    <td class="border-top-0 border-bottom">{{ !empty($youthSelfInfo->nationality)? ($youthSelfInfo->nationality=='bd'?'Bangladeshi':''):'' }}</td>
                 </tr>
 
                 <tr class="custom-bg-gradient-info">
@@ -134,7 +133,7 @@
                     <td class="border-top-0 border-bottom">{{ $youthSelfInfo->passport_number ?? 'N/A' }}</td>
 
                     <td class="text-bold border-0">Freedom Fighter Status:</td>
-                    <td class="border-top-0 border-bottom">{{ $youthSelfInfo->getYouthFreedomFighterStatus() ?? ''}}</td>
+                    <td class="border-top-0 border-bottom">{{ $youthSelfInfo->getYouthFreedomFighterStatus() ? $youthSelfInfo->getYouthFreedomFighterStatus(): 'Non freedom fighter'}}</td>
                 </tr>
 
                 <tr class="custom-bg-gradient-info">
@@ -168,16 +167,16 @@
                                 class="font-weight-bold">Village/Road/House:</span> {{ !empty($youth->present_address_house_address) ? $youth->present_address_house_address['village_name'] .'/'. $youth->present_address_house_address['house_and_road']: 'N/A' }}
                             <br>
                             <span
-                                class="font-weight-bold">Post Code:</span> {{ !empty($youth->present_address_house_address) ? $youth->present_address_house_address['postal_code'] : 'N/A' }}
+                                class="font-weight-bold">Post Office:</span> {{ !empty($youth->present_address_house_address) ? $youth->present_address_house_address['postal_code'] : 'N/A' }}
                             <br>
                             <span
-                                class="font-weight-bold">Upazila/Thana:</span> {{ optional($youth->presentAddressDivision)->title_en }}
+                                class="font-weight-bold">Upazila/Thana:</span> {{  optional($youth->presentAddressUpazila)->title_en }}
                             <br>
                             <span
                                 class="font-weight-bold">District:</span> {{  optional($youth->presentAddressDistrict)->title_en }}
                             <br>
                             <span
-                                class="font-weight-bold">Division:</span> {{  optional($youth->presentAddressUpazila)->title_en }}
+                                class="font-weight-bold">Division:</span> {{ optional($youth->presentAddressDivision)->title_en }}
                             <br>
                         </p>
                     </td>
@@ -187,16 +186,16 @@
                                 class="font-weight-bold">Village/Road/House:</span> {{ !empty($youth->permanent_address_house_address) ? $youth->permanent_address_house_address['village_name'] .'/'. $youth->permanent_address_house_address['house_and_road']: 'N/A' }}
                             <br>
                             <span
-                                class="font-weight-bold">Post Code:</span> {{ !empty($youth->permanent_address_house_address) ? $youth->permanent_address_house_address['postal_code'] : 'N/A' }}
+                                class="font-weight-bold">Post Office:</span> {{ !empty($youth->permanent_address_house_address) ? $youth->permanent_address_house_address['postal_code'] : 'N/A' }}
                             <br>
                             <span
-                                class="font-weight-bold">Upazila/Thana:</span> {{ optional($youth->permanentAddressDivision)->title_en }}
+                                class="font-weight-bold">Upazila/Thana:</span> {{ optional($youth->permanentAddressUpazila)->title_en }}
                             <br>
                             <span
                                 class="font-weight-bold">District:</span> {{optional($youth->permanentAddressDistrict)->title_en }}
                             <br>
                             <span
-                                class="font-weight-bold">Division:</span> {{ optional($youth->permanentAddressUpazila)->title_en }}
+                                class="font-weight-bold">Division:</span> {{ optional($youth->permanentAddressDivision)->title_en }}
                             <br>
                         </p>
                     </td>

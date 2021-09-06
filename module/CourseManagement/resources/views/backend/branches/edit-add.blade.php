@@ -36,23 +36,23 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Branch Title') . '(English)' }} <span
+                                    <label for="name">{{ __('Title') . ' (English)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_en"
                                            name="title_en"
                                            value="{{$edit ? $branch->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Branch Title') . '(Bangla)' }} <span
+                                    <label for="name">{{ __('Title') . ' (Bangla)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_bn"
                                            name="title_bn"
                                            value="{{$edit ? $branch->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
 
                                 </div>
                             </div>
@@ -61,6 +61,7 @@
                                 <div class="form-group">
                                     <label for="address">{{ __('Address') }}</label>
                                     <textarea class="form-control" id="address" name="address"
+                                              placeholder="{{ __('Address') }}"
                                               rows="3">{{ $edit ? $branch->address : old('address') }}</textarea>
                                 </div>
                             </div>
@@ -69,6 +70,7 @@
                                 <div class="form-group">
                                     <label for="google_map_src">{{ __('Google Map src') }}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
+                                              placeholder="{{ __('Google Map src') }}"
                                               rows="3">{{ $edit ? $branch->google_map_src : old('google_map_src') }}</textarea>
                                 </div>
                             </div>
@@ -87,7 +89,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $branch->institute->title_en, 'id' =>  $branch->institute->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>

@@ -98,14 +98,14 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-6 custom-view-box">
-                                                        <p class="label-text">{{ __('Session Name(English)') }}</p>
+                                                        <p class="label-text">{{ __('Session Name (English)') }}</p>
                                                         <div class="input-box">
                                                             {{ $courseSession->session_name_en }}
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6 custom-view-box">
-                                                        <p class="label-text">{{ __('Session Name(Bangla)') }}</p>
+                                                        <p class="label-text">{{ __('Session Name (Bangla)') }}</p>
                                                         <div class="input-box">
                                                             {{ $courseSession->session_name_bn }}
                                                         </div>

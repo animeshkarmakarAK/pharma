@@ -36,21 +36,21 @@
                                     <input type="text" class="form-control" name="code" id="code"
                                            pattern="[A-Za-z0-9\w]{4,20}"
                                            value="{{$edit ? $role->code : old('code')}}"
-                                           placeholder="Enter unique code" required>
+                                           placeholder="Code" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="title_en">Title (En) <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control" name="title_en" id="title_en"
                                            value="{{$edit ? $role->title_en : old('title_en')}}"
-                                           placeholder="Enter title in English" required>
+                                           placeholder="Title (En)" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="title_bn">Title (Bn) <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control" name="title_bn" id="title_bn"
                                            value="{{$edit ? $role->title_bn : old('title_bn')}}"
-                                           placeholder="Enter title in Bengali" required>
+                                           placeholder="Title (Bn)" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -76,7 +76,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
                                     <textarea type="text" class="form-control" name="description" id="description"
-                                              placeholder="Enter description">{{$edit ? $role->description : old('description')}}</textarea>
+                                              placeholder="Description">{{$edit ? $role->description : old('description')}}</textarea>
                                 </div>
 
 
