@@ -15,10 +15,13 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                    <img id="cover_image" class="img-fluid" alt="Responsive image"
+                <div class="card-header d-flex justify-content-between custom-bg-gradient-info"
+                     style="background: url('{{asset('storage/'. optional($publishCourse->course)->cover_image)}}') no-repeat center center;
+                         background-size: cover; min-height: 40vh;"
+                >
+                    {{--<img id="cover_image" class="img-fluid" alt="Responsive image"
                          src="{{asset('storage/'. optional($publishCourse->course)->cover_image)}}"
-                         style="height: 300px; width: 100%">
+                         style="height: 300px; width: 100%">--}}
                 </div>
                 <div class="card-body">
                     <div class="row">

@@ -38,9 +38,11 @@
                                                             <select required="required" name="receiver"
                                                                     class="form-control"
                                                                     id="receiver">
-                                                                <optgroup label="Institute">
+                                                                <optgroup label="ইনস্টিটিউট">
                                                                     <option
-                                                                        value="institute-{{ $currentInstitute->id }}">
+                                                                        {{--value="institute-{{ $currentInstitute->id }}"--}}
+                                                                        value="{{ $currentInstitute->google_map_src }}"
+                                                                    >
                                                                         {{ $currentInstitute->title_bn }}
                                                                     </option>
                                                                 </optgroup>
@@ -54,10 +56,12 @@
                                                                     </optgroup>
                                                                 @endif--}}
                                                                 @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                                    <optgroup label="Training Center">
+                                                                    <optgroup label="ট্রেনিং সেন্টার">
                                                                         @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                             <option
-                                                                                value="training_center-{{ $trainingCenter->id }}">
+                                                                                {{--value="training_center-{{ $trainingCenter->id }}"--}}
+                                                                                value="{{ $trainingCenter->google_map_src }}"
+                                                                            >
                                                                                 {{ $trainingCenter->title_bn }}
                                                                             </option>
                                                                         @endforeach
@@ -143,22 +147,22 @@
                                                 <div class="">
                                                     <select name="google_map_src" class="form-control"
                                                             id="google_map_src">
-                                                        <optgroup label="Institute">
+                                                        <optgroup label="ইনস্টিটিউট">
                                                             <option value="{{ $currentInstitute->google_map_src }}">
                                                                 {{ $currentInstitute->title_bn }}
                                                             </option>
                                                         </optgroup>
-                                                        @if(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                            <optgroup label="Branch">
+                                                        {{--@if(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                            <optgroup label="ব্রাঞ্চ">
                                                                 @foreach(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
                                                                     <option value="{{ $branch->google_map_src }}">
                                                                         {{ $branch->title_bn }}
                                                                     </option>
                                                                 @endforeach
                                                             </optgroup>
-                                                        @endif
+                                                        @endif--}}
                                                         @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                            <optgroup label="Training Center">
+                                                            <optgroup label="ট্রেনিং সেন্টার">
                                                                 @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                     <option
                                                                         value="{{ $trainingCenter->google_map_src }}">
@@ -233,7 +237,8 @@
                                                 <span>
                                                     <a class="footer-email"
                                                        href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
-                                                        <span style="font-family:'Roboto', sans-serif; font-size: 17px;">
+                                                        <span
+                                                            style="font-family:'Roboto', sans-serif; font-size: 17px;">
                                                             {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
                                                         </span>
                                                     </a>
@@ -392,16 +397,23 @@
             }
         });
 
-
         //contact-us-page map jQuery
         $('#google_map_src').on('change', function () {
-            let google_map_src = $('#google_map_src').val();
+            let google_map_src = $(this).val();
             if (google_map_src === '') {
                 $('.google_map_src_iframe').attr("src", 'null');
             } else {
                 $('.google_map_src_iframe').attr("src", google_map_src);
             }
+        })
 
+        $('#receiver').on('change', function () {
+            let google_map_src = $(this).val();
+            if (google_map_src === '') {
+                $('.google_map_src_iframe').attr("src", 'null');
+            } else {
+                $('.google_map_src_iframe').attr("src", google_map_src);
+            }
         })
     </script>
 
