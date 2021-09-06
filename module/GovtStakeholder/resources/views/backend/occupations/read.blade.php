@@ -20,15 +20,15 @@
             </div>
             <div class="row card-body">
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title(Bangla)') }}</p>
+                    <p class="label-text">{{ __('Title (English)') }}</p>
                     <div class="input-box">
-                        {{ $occupation->title_bn }}
+                        {{ $occupation->title_en }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title(English)') }}</p>
+                    <p class="label-text">{{ __('Title (Bangla)') }}</p>
                     <div class="input-box">
-                        {{ $occupation->title_en }}
+                        {{ $occupation->title_bn }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">

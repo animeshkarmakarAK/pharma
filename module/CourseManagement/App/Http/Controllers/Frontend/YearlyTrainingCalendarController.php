@@ -25,6 +25,7 @@ class YearlyTrainingCalendarController extends Controller
         $courseSessions = PublishCourse::select([
             'publish_courses.id as publish_course_id',
             'courses.title_bn as title',
+            'courses.title_bn as description',//this for tooltip
             DB::raw('DATE(course_sessions.application_start_date) as start'),
             DB::raw('DATE_ADD(DATE(course_sessions.application_end_date), INTERVAL 1 Day) as end'),
         ]);

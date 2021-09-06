@@ -23,9 +23,10 @@
                         <div class="col-md-12 mb-2">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <p class="text-primary">
+                                    <label
+                                        style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
                                         ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
-                                    </p>
+                                    </label>
                                 </div>
 
                                 @if(!empty($currentInstitute))
@@ -107,6 +108,7 @@
                 </div>
             </div>
         </div>
+        <span class="tooltiptext">Tooltip text</span>
         @endsection
         @push('css')
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">
@@ -120,6 +122,12 @@
                 .fc-daygrid-day-number {
                     font-size: x-large;
                 }
+
+                .fc-daygrid-event{
+                    cursor: pointer;
+                }
+
+
             </style>
         @endpush
         @push('js')
@@ -159,7 +167,7 @@
                         headerToolbar: {
                             left: 'prev,next today',
                             center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay,myCustomButton'
+                            right: 'timeGridDay,timeGridWeek,dayGridMonth,myCustomButton'
                         },
                         locale: initialLocaleCode,
                         events: function (fetchInfo, successCallback, failureCallback) {
@@ -182,8 +190,7 @@
                     calendar.render();
 
 
-                    //calendar filter by Branch & Training Centre
-                    $('#course-session-filter-btn').on('click', function () {
+                    function filterEvent(){
                         delete calendar;
                         let branch_id = $('#branch_id').val();
                         let training_center_id = $('#training_center_id').val();
@@ -203,7 +210,7 @@
                             headerToolbar: {
                                 left: 'prev,next today',
                                 center: 'title',
-                                right: 'dayGridMonth,timeGridWeek,timeGridDay,myCustomButton'
+                                right: 'timeGridDay,timeGridWeek,dayGridMonth,myCustomButton'
                             },
                             locale: initialLocaleCode,
                             events: function (fetchInfo, successCallback, failureCallback) {
@@ -224,8 +231,31 @@
 
                         });
                         calendar1.render();
+
+                    }
+                    //calendar filter by Branch & Training Centre
+                    $('#course-session-filter-btn').on('click', function () {
+                        filterEvent();
                     });
 
+                    $('#training_center_id').on('change', function (){
+                        filterEvent();
+                    });
+                    $('#branch_id').on('change', function (){
+                        filterEvent();
+                    });
+
+                });
+
+                $(document).ready(function (){
+                    //alert(123)
+                   /* $('.fc-event-title').on('click', function (){
+                        alert($(this).val())
+                    });*/
+                    $('.fc-sticky').hover(function (){
+                        console.log('sdkjfkjhg');
+                        alert($(this).val())
+                    });
                 });
 
             </script>

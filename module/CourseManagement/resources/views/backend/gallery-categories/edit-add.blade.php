@@ -78,7 +78,7 @@
                                             @if($edit && $galleryCategory->institute_id)
                                             data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title_en, 'id' => $galleryCategory->institute_id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
@@ -97,7 +97,7 @@
                                         @if($edit && $galleryCategory->programme_id)
                                         data-preselected-option="{{json_encode(['text' => $galleryCategory->programme->title_en, 'id' => $galleryCategory->programme_id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
@@ -112,7 +112,7 @@
                                         @if($edit && $galleryCategory->batch_id)
                                         data-preselected-option="{{json_encode(['text' => $galleryCategory->batch->title_en, 'id' => $galleryCategory->batch_id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>

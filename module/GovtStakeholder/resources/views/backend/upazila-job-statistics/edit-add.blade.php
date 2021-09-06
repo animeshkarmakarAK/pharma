@@ -62,7 +62,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $upazilaJobStatistic->LocUpazila->title_en, 'id' =>  $upazilaJobStatistic->loc_upazila_id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                         {{ $edit? 'disabled':'' }}
                                     >
                                     </select>

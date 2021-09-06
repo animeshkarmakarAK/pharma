@@ -33,23 +33,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Occupation Name') . '(English)' }}<span
+                                    <label for="title_en">{{ __('Name') . ' (English)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $occupation->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Occupation Name') . '(Bangla)' }}<span
+                                    <label for="title_bn">{{ __('Name') . ' (Bangla)' }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $occupation->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') }}">
+                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -62,34 +62,36 @@
                                         @if($edit)
                                         data-preselected-option="{{json_encode(['text' =>  $occupation->jobSector->title_en, 'id' =>  $occupation->jobSector->id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>
 
                             @if($edit)
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="row_status">Active Status<span class="required">*</span>
                                             :</label>
-                                        <div class="custom-control custom-radio ml-2">
-                                            <input class="custom-control-input" type="radio"
-                                                   id="organization_unit_active"
-                                                   name="row_status"
-                                                   value="{{ \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_ACTIVE }}"
-                                                {{ ($edit && $occupation->row_status == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_ACTIVE) || (old('row_status') == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_ACTIVE) ? 'checked' : ''}}>
-                                            <label for="organization_unit_active"
-                                                   class="custom-control-label">Yes</label>
-                                        </div>
+                                        <div class="row form-control">
+                                            <div class="custom-control custom-radio mr-2 d-inline-block">
+                                                <input class="custom-control-input" type="radio"
+                                                       id="organization_unit_active"
+                                                       name="row_status"
+                                                       value="{{ \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_ACTIVE }}"
+                                                    {{ ($edit && $occupation->row_status == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_ACTIVE) || (old('row_status') == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_ACTIVE) ? 'checked' : ''}}>
+                                                <label for="organization_unit_active"
+                                                       class="custom-control-label">Yes</label>
+                                            </div>
 
-                                        <div class="custom-control custom-radio ml-2">
-                                            <input class="custom-control-input" type="radio"
-                                                   id="organization_unit_inactive"
-                                                   name="row_status"
-                                                   value="{{ \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_INACTIVE }}"
-                                                {{ ($edit && $occupation->row_status == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_INACTIVE) || (old('row_status') == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_INACTIVE) ? 'checked' : ''}}>
-                                            <label for="organization_unit_inactive"
-                                                   class="custom-control-label">No</label>
+                                            <div class="custom-control custom-radio mr-2 d-inline-block">
+                                                <input class="custom-control-input" type="radio"
+                                                       id="organization_unit_inactive"
+                                                       name="row_status"
+                                                       value="{{ \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_INACTIVE }}"
+                                                    {{ ($edit && $occupation->row_status == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_INACTIVE) || (old('row_status') == \Module\GovtStakeholder\App\Models\Occupation::ROW_STATUS_INACTIVE) ? 'checked' : ''}}>
+                                                <label for="organization_unit_inactive"
+                                                       class="custom-control-label">No</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

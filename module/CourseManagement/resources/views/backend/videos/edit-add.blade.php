@@ -35,23 +35,23 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title') . '(English)' }}<span
+                                    <label for="title_en">{{ __('Title') . ' (English)' }}<span
                                             class="required"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $video->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title') . '(English)' }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_bn">{{ __('Title') . '(Bangla)' }}<span
+                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }}<span
                                             class="required"> * </span></label>
                                     <input type="text" class="form-control" id="title_bn"
                                            name="title_bn"
                                            value="{{ $edit ? $video->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title') . '(Bangla)' }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
                                 </div>
                             </div>
 
@@ -73,7 +73,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $video->institute->title_en, 'id' =>  $video->institute->id])}}"
                                                 @endif
-                                                data-placeholder="নির্বাচন করুন"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -92,7 +92,7 @@
                                             @if($edit && $video->videoCategory)
                                             data-preselected-option="{{json_encode(['text' =>  $video->videoCategory->title_en, 'id' =>  $video->videoCategory->id])}}"
                                             @endif
-                                            data-placeholder="নির্বাচন করুন"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>

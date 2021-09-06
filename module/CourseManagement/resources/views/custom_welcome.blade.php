@@ -89,16 +89,19 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="banner-bar">
-                            <img src="{{asset('/assets/company/images/front-page-images/')}}/certificate.png" alt="icon">
+                            <img src="{{asset('/assets/company/images/front-page-images/')}}/certificate.png"
+                                 alt="icon">
                             <h3><span>দক্ষতা বৃদ্ধি</span></h3>
                             <p>সঠিক পদ্ধতিতে শিক্ষার্থীর দক্ষতা যাচাই করা এবং বৃদ্ধি করা হয় ।</p>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="banner-bar">
-                            <img src="{{asset('/assets/company/images/front-page-images/')}}/job-support.png" alt="icon">
+                            <img src="{{asset('/assets/company/images/front-page-images/')}}/job-support.png"
+                                 alt="icon">
                             <h3><span>কাজের নিশ্চয়তা</span></h3>
-                            <p>বেকার যুবদের স্বাবলম্বী করার পাশাপাশি দেশের উন্নয়নকে ত্বরান্বিত করার লক্ষ্য কাজ করছে।</p>
+                            <p>বেকার যুবদের স্বাবলম্বী করার পাশাপাশি দেশের উন্নয়নকে ত্বরান্বিত করার লক্ষ্য কাজ
+                                করছে।</p>
                         </div>
                     </div>
 
@@ -111,7 +114,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="section-heading">একনজরে</h2>
-                        <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }} প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান</p>
+                        <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
+                            প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান</p>
                         <div class="template-space"></div>
                     </div>
                     <div class="company-stats col-md-12">
@@ -119,34 +123,40 @@
                             <div class="col-md-3 col-sm-6">
                                 <div class="profile-box">
                                     <img
-                                        src="{{asset('/assets/company/images/front-page-images/')}}/1.png"
+                                        src="{{asset('/assets/company/images/front-page-images/ek-nojore-images/')}}/1.png"
                                         alt="icon">
-                                    <h4><span>{{ $institute['courses'] ? $institute['courses'] :'0' }} টি+ </span> বিষয়ে
+                                    <h4><span>{{ $institute['courses'] ? $institute['courses'] :'0' }} টি</span> বিষয়ে
                                         প্রশিক্ষণ প্রদান</h4>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6">
                                 <div class="profile-box">
-                                    <img src="{{asset('/assets/company/images/front-page-images/')}}/2.png"
-                                         alt="icon">
-                                    <h4><span>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }} টি+ </span>
+                                    <img
+                                        src="{{asset('/assets/company/images/front-page-images/ek-nojore-images/')}}/2.png"
+                                        alt="icon">
+                                    {{--<i class="fas fa-users fa-4x"></i>--}}
+                                    <h4><span>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }} জন </span>
                                         যুবক প্রশিক্ষন গ্রহন করেছেন</h4>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6">
                                 <div class="profile-box">
                                     <img
-                                        src="{{asset('/assets/company/images/front-page-images/')}}/3.png"
+                                        src="{{asset('/assets/company/images/front-page-images/ek-nojore-images/')}}/3.png"
                                         alt="icon">
+                                    {{--<i class="fas fa-university fa-4x"></i>--}}
                                     <h4>
-                                        <span>{{ $institute['training_centers']? $institute['training_centers']:'0' }} টি+ </span>
+                                        <span>{{ $institute['training_centers']? $institute['training_centers']:'0' }} টি </span>
                                         প্রশিক্ষণ কেন্দ্রে</h4>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6">
                                 <div class="profile-box">
-                                    <img src="{{asset('/assets/company/images/front-page-images/')}}/4.png" alt="icon">
-                                    <h4><span>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }} টি+ </span>
+                                    <img
+                                        src="{{asset('/assets/company/images/front-page-images/ek-nojore-images/')}}/4.png"
+                                        alt="icon">
+                                    {{--<i class="fas fa-chalkboard-teacher fa-4x"></i>--}}
+                                    <h4><span>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }} জন </span>
                                         দক্ষ প্রশিক্ষক</h4>
                                 </div>
                             </div>
@@ -162,7 +172,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="section-heading text-dark"> কোর্স সমূহ </h2>
-                        <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }} এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়</p>
+                        <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
+                            এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়</p>
                         <div class="template-space"></div>
                     </div>
                 </div>
@@ -219,7 +230,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="section-heading text-dark">গ্যালারি</h2>
-                        <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }} পরিচালিত চলমান কতিপয় কর্মসূচির ছবি</p>
+                        <p class="text-center">{{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
+                            পরিচালিত চলমান কতিপয় কর্মসূচির ছবি</p>
                         <div class="template-space"></div>
                     </div>
                 </div>
@@ -235,7 +247,10 @@
                                                 <img class="img-responsive" style="width: 100%; height: 180px"
                                                      src="{{asset('/storage/'. $galleryCategory->image)}}">
                                                 <div class="card-body">
-                                                    <h5 class="card-title float-left">{{ $galleryCategory->title_bn }}</h5>
+                                                    <h5 class="card-title float-left"
+                                                        style="height: 30px">
+                                                        {{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </a>

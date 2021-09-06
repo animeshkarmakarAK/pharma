@@ -40,20 +40,20 @@
                                     <label for="table_name">Table/Group <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control" name="table_name" id="table_name"
                                            value="{{$edit ? $permission->table_name : old('table_name')}}"
-                                           placeholder="Enter table/group" required>
+                                           placeholder="Table/Group" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="sub_group">Sub Group</label>
                                     <input type="text" class="form-control" name="sub_group" id="sub_group"
                                            value="{{$edit ? $permission->sub_group : old('sub_group')}}"
-                                           placeholder="Enter Sub Group">
+                                           placeholder="Sub Group">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="sub_group_order">Sub group order</label>
+                                    <label for="sub_group_order">Sub Group Order</label>
                                     <input type="number" class="form-control" name="sub_group_order"
                                            id="sub_group_order"
                                            value="{{$edit ? $permission->sub_group_order : old('sub_group_order')}}"
-                                           placeholder="Enter Sub Group">
+                                           placeholder="Sub Group Order">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="form-check">

@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="name_en">নাম(ইংরেজি) <span class="required">*</span> :</label>
+                                    <label for="name_en">নাম (ইংরেজি) <span class="required">*</span> :</label>
                                     <input type="text" class="form-control" name="name_en" id="name_en"
                                            value="{{ old('name_en') }}" placeholder="নাম">
                                 </div>
@@ -287,22 +287,24 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="nid">এন.আই.ডি নং <span class="required">*</span>:</label>
-                                    <input type="text" class="form-control" name="nid" id="nid" value="{{ old('nid') }}"
-                                           placeholder="এন.আই.ডি নং">
+                                    <label for="nid">এন.আই.ডি নং/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর পূর্ণ করুন] <span class="required">*</span>:</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control mb-2" name="nid" id="nid" value="{{ old('nid') }}"
+                                                   placeholder="এন.আই.ডি নং">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control mb-2" name="birth_reg_no" id="birth_reg_no"
+                                                   value="{{ old('birth_reg_no') }}" placeholder="জন্ম সনদ নাম্বার">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control mb-2" name="passport_number" id="passport_number"
+                                                   value="{{ old('passport_number') }}" placeholder="পাসপোর্ট নাম্বার">
+                                        </div>
+
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-md-6">
-                                    <label for="birth_reg_no">জন্ম সনদ :</label>
-                                    <input type="text" class="form-control" name="birth_reg_no" id="birth_reg_no"
-                                           value="{{ old('birth_reg_no') }}" placeholder="জন্ম সনদ নাম্বার">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="passport_number">পাসপোর্ট নাম্বার :</label>
-                                    <input type="text" class="form-control" name="passport_number" id="passport_number"
-                                           value="{{ old('passport_number') }}" placeholder="পাসপোর্ট নাম্বার">
-                                </div>
 
                                 @if(!empty($publishCourse))
                                     <div class="form-group col-md-6 freedom-fighter-status-information">
@@ -1735,13 +1737,13 @@
         $.validator.addMethod(
             "houseOrRoadNumber",
             function (value, element) {
-                let en = /^[0-9a-zA-Z ]*$/i;
-                let bn = /^[\s'\u0980-\u09ff\\০-৯]+$/i;
+                let en = /^[a-zA-Z0-9 ,./-]*$/i;
+                let bn = /^[\s'\u0980-\u09ff ,./-]+$/i;
                 let reEn = new RegExp(en);
                 let reBn = new RegExp(bn);
                 return this.optional(element) || reEn.test(value) || reBn.test(value);
             },
-            "houseOrRoadNumber is require"
+            "addressWithoutSpecialChar is require"
         );
         $.validator.addMethod(
             "birthOrPassport",

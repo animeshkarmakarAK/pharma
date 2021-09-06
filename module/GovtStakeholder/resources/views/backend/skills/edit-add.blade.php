@@ -31,23 +31,23 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . '(English)' }} <span
+                                    <label for="name">{{ __('Title') . ' (English)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_en"
                                            name="title_en"
                                            value="{{$edit ? $skill->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . '(Bangla)' }} <span
+                                    <label for="name">{{ __('Title') . ' (Bangla)' }} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_bn"
                                            name="title_bn"
                                            value="{{$edit ? $skill->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
 
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                         @if($edit && !empty($skill->organization_id))
                                         data-preselected-option="{{json_encode(['text' =>  $skill->organization->title_en, 'id' =>  $skill->organization_id])}}"
                                         @endif
-                                        data-placeholder="নির্বাচন করুন"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
                                 >
                                 </select>
                             </div>

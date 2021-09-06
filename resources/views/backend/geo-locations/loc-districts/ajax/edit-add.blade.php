@@ -46,7 +46,7 @@
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locDistrict->division->title, 'id' =>  $locDistrict->division->id])}}"
                             @endif
-                            data-placeholder="নির্বাচন করুন"
+                            data-placeholder="{{ __('generic.select_placeholder') }}"
                     >
                     </select>
                 </div>
