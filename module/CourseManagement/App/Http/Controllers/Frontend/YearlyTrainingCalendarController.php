@@ -31,7 +31,8 @@ class YearlyTrainingCalendarController extends Controller
         ]);
         $courseSessions->join('course_sessions', 'publish_courses.id', '=', 'course_sessions.publish_course_id');
         $courseSessions->join('courses', 'publish_courses.course_id', '=', 'courses.id');
-        $courseSessions->where('publish_courses.institute_id', '=', $currentInstitute->id);
+        $courseSessions->where(['publish_courses.institute_id' => $currentInstitute->id]);
+
 
         if (!empty($request->input('institute_id'))) {
             $courseSessions->where('publish_courses.institute_id', $request->input('institute_id'));
@@ -41,6 +42,7 @@ class YearlyTrainingCalendarController extends Controller
         }
         if (!empty($request->input('training_center_id'))) {
             $courseSessions->where('publish_courses.training_center_id', $request->input('training_center_id'));
+            $courseSessions->orWhere(['publish_courses.training_center_id' => null]);
         }
 
         return $courseSessions->get()->toArray();
