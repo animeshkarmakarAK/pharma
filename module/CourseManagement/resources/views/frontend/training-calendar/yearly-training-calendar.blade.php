@@ -108,7 +108,6 @@
                 </div>
             </div>
         </div>
-        <span class="tooltiptext">Tooltip text</span>
         @endsection
         @push('css')
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">
