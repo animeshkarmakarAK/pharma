@@ -196,8 +196,8 @@
 
         .portlet-body {
             padding: 10px 15px;
-            border-radius: 0 0 8px 8px !important;
-            border: 1px solid #4b77be;
+            border-radius: 8px !important;
+            border: 1px solid #e1e1e1 !important;
         }
 
         .banner-section {

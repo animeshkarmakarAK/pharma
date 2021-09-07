@@ -145,33 +145,35 @@
 
                                             <div class="contact-us-portlet-body form fix">
                                                 <div class="">
-                                                    <select name="google_map_src" class="form-control"
-                                                            id="google_map_src">
-                                                        <optgroup label="ইনস্টিটিউট">
-                                                            <option value="{{ $currentInstitute->google_map_src }}">
-                                                                {{ $currentInstitute->title_bn }}
-                                                            </option>
-                                                        </optgroup>
-                                                        {{--@if(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                            <optgroup label="ব্রাঞ্চ">
-                                                                @foreach(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
-                                                                    <option value="{{ $branch->google_map_src }}">
-                                                                        {{ $branch->title_bn }}
-                                                                    </option>
-                                                                @endforeach
+                                                    <div id="select-map-div">
+                                                        <select name="google_map_src" class="form-control"
+                                                                id="google_map_src">
+                                                            <optgroup label="ইনস্টিটিউট">
+                                                                <option value="{{ $currentInstitute->google_map_src }}">
+                                                                    {{ $currentInstitute->title_bn }}
+                                                                </option>
                                                             </optgroup>
-                                                        @endif--}}
-                                                        @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                            <optgroup label="ট্রেনিং সেন্টার">
-                                                                @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
-                                                                    <option
-                                                                        value="{{ $trainingCenter->google_map_src }}">
-                                                                        {{ $trainingCenter->title_bn }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </optgroup>
-                                                        @endif
-                                                    </select>
+                                                            {{--@if(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                                <optgroup label="ব্রাঞ্চ">
+                                                                    @foreach(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
+                                                                        <option value="{{ $branch->google_map_src }}">
+                                                                            {{ $branch->title_bn }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                            @endif--}}
+                                                            @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
+                                                                <optgroup label="ট্রেনিং সেন্টার">
+                                                                    @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
+                                                                        <option
+                                                                            value="{{ $trainingCenter->google_map_src }}">
+                                                                            {{ $trainingCenter->title_bn }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </optgroup>
+                                                            @endif
+                                                        </select>
+                                                    </div>
 
                                                     <div class="mt-2" style="display: block;">
                                                         <div class="">
@@ -204,7 +206,7 @@
                                 <div class="col-md-4 contact-box text-center">
                                     <div class="d-inline-flex" style="width: 215px">
                                         <i class="fas fa-map-marked template-contact-icon"></i>
-                                        <p style="text-align: justify">
+                                        <p style="text-align: justify; color: #869099;">
                                             {{  !empty($currentInstitute->address)?$currentInstitute->address:'' }}
                                         </p>
                                     </div>

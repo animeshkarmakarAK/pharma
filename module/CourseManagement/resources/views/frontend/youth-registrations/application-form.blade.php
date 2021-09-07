@@ -289,15 +289,15 @@
                                 <div class="form-group col-md-6">
                                     <label for="nid">এন.আই.ডি নং/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর পূর্ণ করুন] <span class="required">*</span>:</label>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="nid" id="nid" value="{{ old('nid') }}"
                                                    placeholder="এন.আই.ডি নং">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="birth_reg_no" id="birth_reg_no"
                                                    value="{{ old('birth_reg_no') }}" placeholder="জন্ম সনদ নাম্বার">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="passport_number" id="passport_number"
                                                    value="{{ old('passport_number') }}" placeholder="পাসপোর্ট নাম্বার">
                                         </div>
@@ -1731,7 +1731,7 @@
                 let re1 = new RegExp(regexp1);
                 return this.optional(element) || re.test(value) || re1.test(value);
             },
-            "সঠিক এন.আই.ডি ব্যবহার করুন [শুধুমাত্র ১০/১৪/১৭ সংখ্যার এন.আই.ডি প্রদান করুন]"
+            "সঠিক এন.আই.ডি ব্যবহার করুন [শুধুমাত্র ১০/১৪/১৭ সংখ্যার এন.আই.ডি প্রদান করুন] "
         );
 
         $.validator.addMethod(
@@ -1746,13 +1746,23 @@
             "addressWithoutSpecialChar is require"
         );
         $.validator.addMethod(
-            "birthOrPassport",
+            "birthRegNo",
             function (value, element) {
-                let en = /^[0-9a-zA-Z ]*$/i;
-                let bn = /^[\s'\u0980-\u09ff\\০-৯]+$/i;
+                let en = /^[0-9]*$/i;
+                let bn = /^[০-৯]*$/i;
                 let reEn = new RegExp(en);
                 let reBn = new RegExp(bn);
                 return this.optional(element) || reEn.test(value) || reBn.test(value);
+            },
+            "birthOrPassport is true"
+        );
+
+        $.validator.addMethod(
+            "passport",
+            function (value, element) {
+                let en = /^[0-9a-zA-Z]*$/i;
+                let reEn = new RegExp(en);
+                return this.optional(element) || reEn.test(value);
             },
             "birthOrPassport is true"
         );
@@ -1877,7 +1887,7 @@
                     nidBn: true,
                 },
                 birth_reg_no: {
-                    birthOrPassport: true,
+                    birthRegNo: true,
                     required: function () {
                         return $('#passport_number').val() == "" && $('#nid').val() == "";
                     },
@@ -1886,7 +1896,7 @@
                     required: function () {
                         return $('#birth_reg_no').val() == "" && $('#nid').val() == "";
                     },
-                    birthOrPassport: true,
+                    passport: true,
                 },
 
                 student_pic: {
@@ -2307,11 +2317,11 @@
                 },
                 birth_reg_no: {
                     required: "এখানে জন্ম সনদ নম্বর প্রদান করুন",
-                    birthOrPassport: "এখানে আপনার সঠিক জন্ম সনদ নম্বর লিখুন",
+                    birthRegNo: "এখানে আপনার সঠিক জন্ম সনদ নম্বর লিখুন ",
                 },
                 passport_number: {
                     required: "এখানে পাসপোর্ট নম্বর প্রদান করুন",
-                    birthOrPassport: "এখানে আপনার সঠিক পাসপোর্ট নম্বর লিখুন",
+                    passport: "এখানে আপনার সঠিক পাসপোর্ট নম্বর লিখুন ",
                 },
                 email: {
                     required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",

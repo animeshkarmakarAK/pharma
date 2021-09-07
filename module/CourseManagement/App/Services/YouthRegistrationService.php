@@ -95,7 +95,6 @@ class YouthRegistrationService
         /**
          * youth self info
          */
-        //dd($data);
 
         $youthSelfInfo = Arr::only($data, ['mobile', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
