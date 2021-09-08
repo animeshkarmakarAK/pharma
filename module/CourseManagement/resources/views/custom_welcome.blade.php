@@ -21,20 +21,20 @@
                         @foreach($sliders as $slider)
                             <div class="carousel-item  {{ ++$sl==1?'active':'' }}">
                                 <div class='container s-fix'>
-                                    <div class='row pos-rel'>
-                                        <div class='col-sm-12 col-md-5 animate slider-left-content'>
+                                    <div class='row' style="height: 50vh">
+                                        <div class='col-md-4'>
                                             <h1 class='big fadeInDownBig animated'>{{ $slider->title }}</h1>
                                             <p class='normal fadeInUpBig animated delay-point-five-s'>{{ $slider->sub_title }}</p>
                                             @if($slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES && !empty($slider->link))
-                                                <a href='{{route('course_management::static-content.show', $slider->link)}}'>{{ $slider->button_text }}</a>
+                                                <a href='{{route('course_management::static-content.show', $slider->link)}}' class="btn px-5 slider-btn mb-2">{{ $slider->button_text }}</a>
                                             @endif
                                         </div>
-                                        <div class='col-md-7 animate pos-sta hidden-xs hidden-sm slider-right-content'>
+                                        <div class='col-md-8'>
                                             <img
                                                 class="img-responsive img-right fadeInRightBig animated delay-one-point-five-s"
                                                 alt="{{ ++$sliderImageNo }}"
                                                 src="{{asset('/storage/'. $slider->slider)}}"
-                                                style="width: 50%; height: auto;"/>
+                                                style="width: 100%;"/>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                         alt="icon">
                                     {{--<i class="fas fa-users fa-4x"></i>--}}
                                     <h4><span>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }} জন </span>
-                                        যুবক প্রশিক্ষন গ্রহন করেছেন</h4>
+                                        যুবক প্রশিক্ষণ গ্রহন করেছেন</h4>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6">
@@ -147,7 +147,7 @@
                                     {{--<i class="fas fa-university fa-4x"></i>--}}
                                     <h4>
                                         <span>{{ $institute['training_centers']? $institute['training_centers']:'0' }} টি </span>
-                                        প্রশিক্ষণ কেন্দ্রে</h4>
+                                        প্রশিক্ষণ কেন্দ্র</h4>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6">
@@ -384,6 +384,12 @@
                 z-index: 9999;
                 width: 100%;
                 opacity: .0001;
+            }
+            .slider-btn{
+                background: #4b77be;
+                border-radius: 0;
+                color: #fff;
+                padding: 10px;
             }
         </style>
 

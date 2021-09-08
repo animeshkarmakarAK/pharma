@@ -126,6 +126,10 @@
                     cursor: pointer;
                 }
 
+                .fc-daygrid-day-top{
+                    justify-content: center;
+                }
+
 
             </style>
         @endpush
