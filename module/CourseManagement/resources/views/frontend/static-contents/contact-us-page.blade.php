@@ -36,7 +36,7 @@
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
                                                             <select required="required" name="receiver"
-                                                                    class="form-control"
+                                                                    class="form-control map-change"
                                                                     id="receiver">
                                                                 <optgroup label="ইনস্টিটিউট">
                                                                     <option
@@ -146,7 +146,7 @@
                                             <div class="contact-us-portlet-body form fix">
                                                 <div class="">
                                                     <div id="select-map-div">
-                                                        <select name="google_map_src" class="form-control"
+                                                        <select name="google_map_src" class="form-control map-change"
                                                                 id="google_map_src">
                                                             <optgroup label="ইনস্টিটিউট">
                                                                 <option value="{{ $currentInstitute->google_map_src }}">
@@ -400,16 +400,8 @@
         });
 
         //contact-us-page map jQuery
-        $('#google_map_src').on('change', function () {
-            let google_map_src = $(this).val();
-            if (google_map_src === '') {
-                $('.google_map_src_iframe').attr("src", 'null');
-            } else {
-                $('.google_map_src_iframe').attr("src", google_map_src);
-            }
-        })
-
-        $('#receiver').on('change', function () {
+        $('.map-change').on('change', function () {
+            $("#google_map_src,#receiver").val(this.value);
             let google_map_src = $(this).val();
             if (google_map_src === '') {
                 $('.google_map_src_iframe').attr("src", 'null');
