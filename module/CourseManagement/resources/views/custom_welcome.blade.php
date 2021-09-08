@@ -23,7 +23,7 @@
                                 <div class='container s-fix'>
                                     <div class='row' style="height: 50vh">
                                         <div class='col-md-4'>
-                                            <h1 class='big fadeInDownBig animated'>{{ $slider->title }}</h1>
+                                            <h3 class='big fadeInDownBig animated pb-3' style="color: #4b77be">{{ $slider->title }}</h3>
                                             <p class='normal fadeInUpBig animated delay-point-five-s'>{{ $slider->sub_title }}</p>
                                             @if($slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES && !empty($slider->link))
                                                 <a href='{{route('course_management::static-content.show', $slider->link)}}' class="btn px-5 slider-btn mb-2">{{ $slider->button_text }}</a>
