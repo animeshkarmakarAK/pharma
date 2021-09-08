@@ -232,7 +232,7 @@
                         return x(d.Value);
                     })
                     .attr("height", y.bandwidth())
-                    .attr("fill", "#2f49d1");
+                    .attr("fill", "rgba(227,227,227,0.71)");
 
                 let yPadding = [215, 170, 125, 80, 33]
 
@@ -246,8 +246,7 @@
                     .attr("x", 10)
                     .attr('y', function () {
                         return yPadding.pop();
-                    }).style('stroke', "#fff")
-                    .attr("font-size", "12px");
+                    }).attr("font-size", "12px");
             }
         })(d3)
 

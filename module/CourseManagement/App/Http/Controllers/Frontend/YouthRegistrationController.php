@@ -123,7 +123,8 @@ class YouthRegistrationController extends Controller
         $redirectTo = route('course_management::youth-registration.success', $accessKey);
 
         return response()->json([
-            'message' => __('generic.object_created_successfully', ['object' => 'Registration']),
+            //'message' => __('generic.object_created_successfully', ['object' => 'Registration']),
+            'message' => __('আপনার রেজিস্ট্রেশন সফল হয়েছে'),
             'alertType' => 'success',
             'accessKey' => $accessKey,
             'redirectTo' => $redirectTo,
