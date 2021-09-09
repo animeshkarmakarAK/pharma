@@ -20,16 +20,23 @@
                     @if(!empty($sliders))
                         @foreach($sliders as $slider)
                             <div class="carousel-item  {{ ++$sl==1?'active':'' }}">
-                                <div class='container s-fix'>
-                                    <div class='row' style="height: 50vh">
-                                        <div class='col-md-4'>
-                                            <h3 class='big fade show pb-4' style="color: #4b77be">{{ $slider->title }}</h3>
-                                            <p class='normal fadeInUpBig animated delay-point-five-s pb-4'>{{ $slider->sub_title }}</p>
+                                <div class='container'>
+                                    <div class='row'>
+                                        <div class='col-md-6'>
+                                            <div style="min-height: 230px; max-height: 230px">
+                                                <h5 class='pt-2' style="color: #4b77be;"
+                                                    title="{{ $slider->title }}">{{ $slider->title }}</h5>
+                                                <p class='py-2 mt-2'>{{ $slider->sub_title }}</p>
+                                            </div>
                                             @if($slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES && !empty($slider->link))
-                                                <a href='{{route('course_management::static-content.show', $slider->link)}}' class="btn px-5 slider-btn mb-2">{{ $slider->button_text }}</a>
+                                                <a href='{{route('course_management::static-content.show', $slider->link)}}'
+                                                   class="btn px-5 slider-btn mb-2">{{ $slider->button_text }}</a>
+                                            @else
+                                                <a class="btn px-5 slider-btn mb-2 " style="background: rgba(255,0,0,0); cursor: default">  &nbsp;</a>
                                             @endif
                                         </div>
-                                        <div class='col-md-8'>
+
+                                        <div class='col-md-6' style="height: 30vh">
                                             <img
                                                 class="img-responsive img-right fadeInRightBig animated delay-one-point-five-s"
                                                 alt="{{ ++$sliderImageNo }}"
@@ -385,7 +392,8 @@
                 width: 100%;
                 opacity: .0001;
             }
-            .slider-btn{
+
+            .slider-btn {
                 background: #4b77be;
                 border-radius: 0;
                 color: #fff;
