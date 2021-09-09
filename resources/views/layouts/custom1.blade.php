@@ -584,6 +584,10 @@
             .navbar-brand img{
                 width: 100%;
             }
+            .slider-content-body{
+                min-height: 270px !important;
+                max-height: 270px !important;
+            }
         }
     </style>
     @stack('css')
