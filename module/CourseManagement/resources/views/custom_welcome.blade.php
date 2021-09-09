@@ -23,7 +23,7 @@
                                 <div class='container'>
                                     <div class='row'>
                                         <div class='col-md-6'>
-                                            <div style="min-height: 230px; max-height: 230px">
+                                            <div class="slider-content-body" style="min-height: 230px; max-height: 230px">
                                                 <h5 class='pt-2' style="color: #4b77be;"
                                                     title="{{ $slider->title }}">{{ $slider->title }}</h5>
                                                 <p class='py-2 mt-2'>{{ $slider->sub_title }}</p>
