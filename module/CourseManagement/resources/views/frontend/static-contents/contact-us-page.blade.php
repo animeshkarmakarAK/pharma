@@ -348,11 +348,9 @@
         $.validator.addMethod(
             "textEnBnWithoutSpecialChar",
             function (value, element) {
-                let en = /^[a-zA-Z0-9 .,?&\n\r]*$/i;
-                let bn = /^[\s'\u0980-\u09ff .,?]+$/i;
+                let en = /^[a-zA-Z0-9 .,?&।\s'\u0980-\u09ff\n\r]*$/i;
                 let reEn = new RegExp(en);
-                let reBn = new RegExp(bn);
-                return this.optional(element) || reEn.test(value) || reBn.test(value);
+                return this.optional(element) || reEn.test(value);
             },
             "textEnBnWithoutSpecialChar is require"
         );
