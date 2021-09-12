@@ -347,6 +347,7 @@
         }
 
         function Export() {
+            $('meta').attr('name', 'viewport').attr('initial-scal', '1.0');
             html2canvas($("#youth-profile")[0], {
                 onrendered: function (canvas) {
                     let splitAt = 775;
@@ -359,30 +360,19 @@
 
                     let docDefinition = {
                         content: images,
-                        pageSize: "LETTER"
+                        pageBreak: 'after',
+                        pageSize: "A4"
                     };
                     pdfMake.createPdf(docDefinition).download("youth-profile.pdf");
+
+                    setTimeout(function(){
+                        window.location.reload(true);
+                    }, 5000);
                 }
             });
+
+
         }
-
-        /*function Export() {
-            html2canvas($('#youth-profile'), {
-                allowTaint: true,
-                logging:true,
-                onrendered: function (canvas) {
-                    let data = canvas.toDataURL();
-                    let docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500,
-                        }],
-                    };
-                    pdfMake.createPdf(docDefinition).download("your-profile-pdf");
-                },
-
-            });
-        }*/
     </script>
 
 @endpush
