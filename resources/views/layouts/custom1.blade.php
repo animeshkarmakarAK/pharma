@@ -108,7 +108,7 @@
         }
 
         section {
-            padding: 90px 0;
+            padding: 30px 0;
         }
 
         .section-heading {
