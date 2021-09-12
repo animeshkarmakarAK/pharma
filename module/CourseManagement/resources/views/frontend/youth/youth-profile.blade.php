@@ -347,8 +347,6 @@
         }
 
         function Export() {
-            //<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
             $('meta').attr('name', 'viewport').attr('initial-scal', '1.0');
             html2canvas($("#youth-profile")[0], {
                 onrendered: function (canvas) {
