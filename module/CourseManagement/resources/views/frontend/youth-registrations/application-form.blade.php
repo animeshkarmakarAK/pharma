@@ -1693,11 +1693,9 @@
         $.validator.addMethod(
             "textEnBnWithoutSpecialChar",
             function (value, element) {
-                let en = /^[a-zA-Z ]*$/i;
-                let bn = /^[\s'\u0980-\u09ff]+$/i;
+                let en = /^[a-zA-Z\s'\u0980-\u09ff ]*$/i;
                 let reEn = new RegExp(en);
-                let reBn = new RegExp(bn);
-                return this.optional(element) || reEn.test(value) || reBn.test(value);
+                return this.optional(element) || reEn.test(value);
             },
             "textEnBnWithoutSpecialChar is require"
         );
@@ -1737,11 +1735,9 @@
         $.validator.addMethod(
             "houseOrRoadNumber",
             function (value, element) {
-                let en = /^[a-zA-Z0-9 ,./-]*$/i;
-                let bn = /^[\s'\u0980-\u09ff ,./-]+$/i;
+                let en = /^[a-zA-Z0-9\s'\u0980-\u09ff\n\r ,./।-]*$/i;
                 let reEn = new RegExp(en);
-                let reBn = new RegExp(bn);
-                return this.optional(element) || reEn.test(value) || reBn.test(value);
+                return this.optional(element) || reEn.test(value);
             },
             "addressWithoutSpecialChar is require"
         );
@@ -1817,10 +1813,10 @@
                 name_en: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
+                    maxlength: 30,
                 },
                 name_bn: {
                     required: true,
-                    //langBN: true,
                     pattern: /^[\s'\u0980-\u09ff]+$/,
                     maxlength: 30,
                 },
@@ -2169,15 +2165,18 @@
                 "address[present][present_address_house_address][postal_code]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
+                    maxlength:50,
                 },
                 "address[present][present_address_house_address][village_name]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
+                    maxlength:50,
 
                 },
                 "address[present][present_address_house_address][house_and_road]": {
                     required: true,
                     houseOrRoadNumber: true,
+                    maxlength:50,
                 },
                 "address[permanent][permanent_address_division_id]": {
                     required: true,
@@ -2191,14 +2190,17 @@
                 "address[permanent][permanent_address_house_address][postal_code]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
+                    maxlength:50,
                 },
                 "address[permanent][permanent_address_house_address][village_name]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
+                    maxlength:50,
                 },
                 "address[permanent][permanent_address_house_address][house_and_road]": {
                     required: true,
                     houseOrRoadNumber: true,
+                    maxlength:50,
                 },
                 ethnic_group: {
                     required: function () {
@@ -2292,10 +2294,12 @@
                 name_en: {
                     required: "এখানে আপনার নাম ইংরেজিতে লিখুন",
                     pattern: "এখানে আপনার সঠিক নামটি ইংরেজিতে লিখুন",
+                    maxlength: "এখানে সর্বোচ্চ ৩০ টির অক্ষর লিখবেন",
                 },
                 name_bn: {
                     required: "এখানে আপনার নাম বাংলায় লিখুন",
                     pattern: "এখানে আপনার সঠিক নামটি বাংলায় লিখুন",
+                    maxlength: "এখানে সর্বোচ্চ ৩০ টির অক্ষর লিখবেন",
                 },
                 mobile: {
                     required: "এখানে আপনার মোবাইল নাম্বারটি দিন",
@@ -2368,29 +2372,35 @@
 
                 "address[present][present_address_house_address][postal_code]": {
                     required: "এখানে ডাকঘর প্রদান করুন",
-                    textEnBnWithoutSpecialChar: "এখানে সঠিক ডাকঘর প্রদান করুন"
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক ডাকঘর প্রদান করুন",
+                    maxlength: "এখানে ৫০ এর চেয়ে কম বা সমান একটি মান লিখুন।"
                 },
 
                 "address[present][present_address_house_address][village_name]": {
                     required: "এখানে গ্রাম/মহল্লা/এলাকা প্রদান করুন",
-                    textEnBnWithoutSpecialChar: "এখানে সঠিক গ্রাম/মহল্লা/এলাকা প্রদান করুন"
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক গ্রাম/মহল্লা/এলাকা প্রদান করুন",
+                    maxlength: "এখানে ৫০ এর চেয়ে কম বা সমান একটি মান লিখুন।"
                 },
                 "address[present][present_address_house_address][house_and_road]": {
                     required: "এখানে বাড়ি নং/রোড প্রদান করুন",
                     houseOrRoadNumber: "এখানে সঠিক বাড়ি নং/রোড প্রদান করুন",
+                    maxlength: "এখানে ৫০ এর চেয়ে কম বা সমান একটি মান লিখুন।"
                 },
 
                 "address[permanent][permanent_address_house_address][postal_code]": {
                     required: "এখানে ডাকঘর প্রদান করুন",
-                    textEnBnWithoutSpecialChar: "এখানে সঠিক ডাকঘর প্রদান করুন"
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক ডাকঘর প্রদান করুন",
+                    maxlength: "এখানে ৫০ এর চেয়ে কম বা সমান একটি মান লিখুন।"
                 },
                 "address[permanent][permanent_address_house_address][village_name]": {
                     required: "এখানে গ্রাম/মহল্লা/এলাকা প্রদান করুন",
-                    textEnBnWithoutSpecialChar: "এখানে সঠিক গ্রাম/মহল্লা/এলাকা প্রদান করুন"
+                    textEnBnWithoutSpecialChar: "এখানে সঠিক গ্রাম/মহল্লা/এলাকা প্রদান করুন",
+                    maxlength: "এখানে ৫০ এর চেয়ে কম বা সমান একটি মান লিখুন।"
                 },
                 "address[permanent][permanent_address_house_address][house_and_road]": {
                     required: "এখানে বাড়ি নং/রোড প্রদান করুন",
                     houseOrRoadNumber: "এখানে সঠিক বাড়ি নং/রোড প্রদান করুন",
+                    maxlength: "এখানে ৫০ এর চেয়ে কম বা সমান একটি মান লিখুন।"
                 },
 
                 "address[permanent][permanent_address_division_id]": {

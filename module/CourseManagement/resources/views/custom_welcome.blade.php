@@ -35,7 +35,6 @@
                                                 <a class="btn px-5 slider-btn mb-2 " style="background: rgba(255,0,0,0); cursor: default">  &nbsp;</a>
                                             @endif
                                         </div>
-
                                         <div class='col-md-6' style="height: 30vh">
                                             <img
                                                 class="img-responsive img-right fadeInRightBig animated delay-one-point-five-s"
@@ -87,14 +86,14 @@
         <div class="banner-section">
             <div class="container banner">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mb-2">
                         <div class="banner-bar">
                             <img src="{{asset('/assets/company/images/front-page-images/')}}/classroom.png" alt="icon">
                             <h3><span>অভিজ্ঞ প্রশিক্ষক</span></h3>
                             <p>অভিজ্ঞ প্রশিক্ষক দ্বারা কোর্স পরিচালনা ও পর্যবেক্ষণ করা হয়।</p>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mb-2">
                         <div class="banner-bar">
                             <img src="{{asset('/assets/company/images/front-page-images/')}}/certificate.png"
                                  alt="icon">
@@ -102,7 +101,7 @@
                             <p>সঠিক পদ্ধতিতে শিক্ষার্থীর দক্ষতা যাচাই করা এবং বৃদ্ধি করা হয় ।</p>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mb-2">
                         <div class="banner-bar">
                             <img src="{{asset('/assets/company/images/front-page-images/')}}/job-support.png"
                                  alt="icon">
@@ -167,7 +166,6 @@
                                         দক্ষ প্রশিক্ষক</h4>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
