@@ -330,10 +330,8 @@
 
 @push('js')
     <script src="{{ asset('jsfiles/html2canvas.min.js') }}"></script>
-    {{--<script src="{{ asset('jsfiles/pdfmake.min.js') }}"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.40/pdfmake.min.js"></script>
     <script type="text/javascript">
-
         function getClippedRegion(image, x, y, width, height) {
             let canvas = document.createElement("canvas"), ctx = canvas.getContext("2d");
             canvas.width = width;
@@ -360,18 +358,15 @@
 
                     let docDefinition = {
                         content: images,
-                        pageBreak: 'after',
-                        pageSize: "A4"
+                        pageSize: {width: 650, height: 1173},
                     };
                     pdfMake.createPdf(docDefinition).download("youth-profile.pdf");
 
-                    setTimeout(function(){
+                    setTimeout(function () {
                         window.location.reload(true);
                     }, 5000);
                 }
             });
-
-
         }
     </script>
 
