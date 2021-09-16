@@ -14,6 +14,9 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/css/OverlayScrollbars.min.css">
     <style>
+        .content-wrapper{
+            min-height: auto !important;
+        }
         .site-header {
             background: #4B77BE;
         }
@@ -503,6 +506,7 @@
             font-size: 1rem;
             color: #4B77BE;
             margin-top: 30px;
+            padding-left: 0;
         }
 
         .footer-widget-quick-links ul li {

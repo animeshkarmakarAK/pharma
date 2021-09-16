@@ -156,16 +156,16 @@
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
                                                 {{ old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
-                                            <label for="gender_female" class="custom-control-label">মহিলা</label>
+                                            <label for="gender_female" class="custom-control-label">নারী</label>
                                         </div>
-                                        <div class="custom-control custom-radio mr-3">
+                                        {{--<div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_hermaphrodite"
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_HERMAPHRODITE }}"
                                                 {{ old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_HERMAPHRODITE ? 'checked' : ''}}>
                                             <label for="gender_hermaphrodite"
                                                    class="custom-control-label">উভলিঙ্গ</label>
-                                        </div>
+                                        </div>--}}
                                         <div class="custom-control custom-radio mr-3">
                                             <input class="custom-control-input" type="radio" id="gender_transgender"
                                                    name="gender"
