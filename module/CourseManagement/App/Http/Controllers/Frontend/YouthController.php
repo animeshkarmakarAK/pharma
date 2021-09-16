@@ -178,7 +178,7 @@ class YouthController extends Controller
 
         $youthEmailAddress = $youth->email;
         $mailMsg = "Access Key Recovery Mail";
-        $mailSubject = env("MAIL_FROM_NAME") . "- Recover access key";
+        $mailSubject = "Youth - Account Recover Access Key";
         try {
             Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthRegistrationSuccessMail($mailSubject, $youth->access_key, $mailMsg));
         } catch (\Throwable $exception) {

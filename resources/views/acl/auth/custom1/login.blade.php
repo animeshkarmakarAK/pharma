@@ -70,8 +70,8 @@
                             <div class="col-md-6 col-sm-5 support pt-4">
                                 <h4>কারিগরি সহায়তায়</h4>
                                 <p>
-                                    <a class="tech_support" href="http://www.softbdltd.com" target="_blank">
-                                        <img src="https://softbdltd.com/images/logo.png" height="35px" width="135px">
+                                    <a class="tech_support" href="http://www.softbdltd.com" target="_blank" style="height: 35px">
+                                        <img src="https://softbdltd.com/images/logo.png" style="height: 100%">
                                     </a>
                                 </p>
                             </div>
