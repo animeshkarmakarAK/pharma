@@ -527,6 +527,7 @@
             font-size: 1rem;
             color: #5dc560;
             margin-top: 30px;
+            padding-left: 0;
         }
 
         .footer-widget-quick-links ul li {
