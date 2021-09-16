@@ -32,7 +32,7 @@
         }
 
         .logo {
-            margin-left: 15px;
+            padding-left: 15px;
         }
 
         .menu-text {
