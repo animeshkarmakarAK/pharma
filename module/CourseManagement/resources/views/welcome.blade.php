@@ -5,7 +5,7 @@
 @extends($layout)
 
 @section('content')
-    <div class="container-fluid slider-area">
+    <section class="container-fluid slider-area">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
@@ -65,7 +65,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-    </div>
+    </section>
 
     <section class="about-us-section">
         <div class="container">
@@ -127,7 +127,7 @@
         </div>
     </section>
 
-    <div class="banner-section">
+    <section class="banner-section">
         <div class="container banner">
             <div class="row">
                 <div class="col-sm-4">
@@ -154,7 +154,7 @@
 
             </div>
         </div>
-    </div>
+    </section>
 
     <section class="light-bg">
         <div class="container">
@@ -322,5 +322,11 @@
         </div>
     </section>
 @endsection
+
+@push('css')
+    <style>
+
+    </style>
+@endpush
 @push('js')
 @endpush

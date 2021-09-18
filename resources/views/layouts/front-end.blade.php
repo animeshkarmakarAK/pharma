@@ -15,20 +15,15 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/css/OverlayScrollbars.min.css">
 
     <style>
-        .site-header {
-            background: #683091;
-        }
-
-        .top_hr {
-            background: #a4cd72;
-            height: 4px;
-            margin: 0;
+        /*new style start*/
+        .menu-bg-color{
+            background: #671688;
             padding: 0;
         }
-
-        .main-menu {
-            height: 80px;
+        .menu-bg-color li a{
+            color: #fff;
         }
+        /*new style end*/
 
         .logo {
             margin-left: 15px;
