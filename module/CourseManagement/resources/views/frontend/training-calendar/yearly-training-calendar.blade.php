@@ -252,41 +252,7 @@
                     $('.fc-event-title').click(function (){
                         console.log($('.fc-event-title').html());
                     });
-                    function testHover(){
-
-                    }
-
                 });
-
-                $(document).ready(function (){
-
-                    /*$(".fc-event-title").mouseover(function() {
-                        alert(1222)
-                        //$(this).next(".hello").css('visibility', 'visible');
-                    });*/
-                    /*$(".show_div").mouseout(function() {
-                        $(this).next(".hello").css('visibility', 'hidden');
-                    });*/
-                    //$(".fc-event-title").click(function (){
-
-                    //});
-                });
-
-
-
-                $(".fc-event-title").mouseover(function() {
-                    alert(1222);
-                    //$(this).next(".hello").css('visibility', 'visible');
-                });
-
-               /* $(".fc-event-title-container").hover(
-                    function () {
-                        let a = $(this).next(".fc-event-title").val();
-                        console.log(a)
-                    },
-                    function () {
-                        $(this).next(".fc-event-title").fadeOut(150);
-                    });*/
 
             </script>
     @endpush
