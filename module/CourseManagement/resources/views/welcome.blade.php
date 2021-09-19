@@ -201,9 +201,12 @@
 
     <section class="container-fluid slider-area">
         <div class="container my-4">
-            <h2 class="section-heading-h2 pb-3 font-weight-bold"> কোর্স সমূহ </h2>
-            <p>মোটিভেশনাল ওয়ার্কশপ অনুষ্ঠান হতে নিম্ন বিষয়ক প্রশিক্ষণ প্রদান করা হয়</p>
-
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <h3 class="course-section-heading mb-3">কোর্স সমূহ</h3>
+                    <p>মোটিভেশনাল ওয়ার্কশপ অনুষ্ঠান হতে নিম্ন বিষয়ক প্রশিক্ষণ প্রদান করা হয়</p>
+                </div>
+            </div>
             <!--Carousel Wrapper-->
             <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
 
@@ -571,6 +574,48 @@
 
         .btn-floating {
             color: black;
+        }
+    </style>
+    <style>
+        .section-heading {
+            margin-top: 0;
+            font-weight: 500;
+            padding-bottom: 11px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1.6rem;
+        }
+
+
+        .section-heading:before {
+            width: 200px;
+            position: absolute;
+            content: "";
+            left: 46%;
+            top: 37px;
+            height: 3px;
+            margin-left: -50px;
+            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+        }
+
+        .gallery-section-heading:before {
+            width: 90px;
+            position: absolute;
+            content: "";
+            top: 37px;
+            height: 3px;
+            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+        }
+        .course-section-heading:before {
+            width: 134px;
+            position: absolute;
+            content: "";
+            top: 37px;
+            height: 3px;
+            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">

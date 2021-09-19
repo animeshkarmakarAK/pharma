@@ -147,46 +147,11 @@
             z-index: 99999;
         }
 
-        .about-us-section {
-            background: #ffffff;
-        }
 
         section {
             padding: 30px 0;
         }
 
-        .section-heading {
-            margin-top: 0;
-            font-weight: 500;
-            padding-bottom: 11px;
-            color: #333;
-            text-align: center;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 1.6rem;
-        }
-
-
-        .section-heading:before {
-            width: 200px;
-            position: absolute;
-            content: "";
-            left: 46%;
-            top: 37px;
-            height: 3px;
-            margin-left: -50px;
-            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
-        }
-
-        .gallery-section-heading:before {
-            width: 100px;
-            position: absolute;
-            content: "";
-            top: 37px;
-            height: 3px;
-            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
-        }
         .custom-btn{
             background: #9c36c6;
             padding: 10px 30px;
@@ -200,10 +165,6 @@
             border: 1px solid #383838;
             transition: .4s;
             color: #fff;
-        }
-
-        .template-space {
-            min-height: 20px;
         }
 
         h2.para-heading {
