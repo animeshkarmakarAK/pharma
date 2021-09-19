@@ -76,7 +76,7 @@
         </div>
     </section>
 
-    <section class="bg-white">
+    <section class="bg-white at-glance-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -154,12 +154,14 @@
                             করা হয় ।
                         </li>
                     </ul>
-                    <!--<a class="service-box-button"></a>-->
                 </div>
 
                 <div class="col-md-5 img-div">
-                    <img class="cr-img" src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
-                         alt="icon">
+                    <div class="image-div-2">
+                        <img class="cr-img"
+                             src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                             alt="icon">
+                    </div>
                 </div>
             </div>
         </div>
@@ -199,7 +201,7 @@
         </div>
     </section>
 
-    <section class="container-fluid slider-area">
+    <section class="container-fluid slider-area course-section">
         <div class="container my-4">
             <div class="row">
                 <div class="col-md-12 mb-3">
@@ -331,6 +333,1129 @@
                 <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
                         class="fas fa-arrow-right btn-arrow"></i></a>
             </div>
+
+            <div class="col-md-12  course-div">
+                <div class="accordion" id="accordionExample">
+                    <div class="pb-5">
+                        <a class="course-btn-dem mr-3 active" type="button" data-toggle="collapse"
+                           data-target="#popular-course"
+                           aria-expanded="true" aria-controls="popular-course">
+                            জনপ্রিয় কোর্স
+                        </a>
+                        <a class="course-btn mr-3 collapsed" type="button" data-toggle="collapse"
+                           data-target="#last-course" aria-expanded="false" aria-controls="last-course">
+                            সর্বশেষ কোর্স
+                        </a>
+                        <a class="course-btn mr-3 collapsed" type="button" data-toggle="collapse"
+                           data-target="#continue-course" aria-expanded="false" aria-controls="continue-course">
+                            চলমান কোর্স
+                        </a>
+                        <a class="course-btn mr-3 collapsed" type="button" data-toggle="collapse"
+                           data-target="#ended-course" aria-expanded="false" aria-controls="ended-course">
+                            সমাপ্ত কোর্স
+                        </a>
+                        <a class="course-btn mr-3 collapsed" type="button" data-toggle="collapse"
+                           data-target="#upcoming-gallery" aria-expanded="false" aria-controls="upcoming-gallery">
+                            আসন্ন কোর্স
+                        </a>
+                    </div>
+
+                    <div class="">
+                        {{--popular-course--}}
+                        <div id="popular-course" class="collapse show" aria-labelledby="popular-course"
+                             data-parent="#accordionExample">
+                            <!--Carousel Wrapper-->
+                            <div id="pop-crs-arrow" class="carousel slide carousel-multi-item"
+                                 data-ride="carousel">
+
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#pop-crs-arrow"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#pop-crs-arrow"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
+
+                                <!--Indicators-->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#pop-crs-arrow" data-slide-to="0" class="active"></li>
+                                    <li data-target="#pop-crs-arrow" data-slide-to="1"></li>
+
+                                </ol>
+                                <!--/.Indicators-->
+
+                                <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.Second slide-->
+                                </div>
+                                <!--/.Slides-->
+                            </div>
+                            <!--/.Carousel Wrapper-->
+
+                            <div class="col-md-12 text-center margin-10">
+                                <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
+                                        class="fas fa-arrow-right btn-arrow"></i></a>
+                            </div>
+
+                        </div>
+
+                        {{--last-course--}}
+                        <div id="last-course" class="collapse" aria-labelledby="last-course"
+                             data-parent="#accordionExample">
+                            <!--Carousel Wrapper-->
+                            <div id="last-cou-arrow" class="carousel slide carousel-multi-item"
+                                 data-ride="carousel">
+
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#last-cou-arrow"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#last-cou-arrow"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
+
+                                <!--Indicators-->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#last-cou-arrow" data-slide-to="0" class="active"></li>
+                                    <li data-target="#last-cou-arrow" data-slide-to="1"></li>
+
+                                </ol>
+                                <!--/.Indicators-->
+
+                                <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.Second slide-->
+                                </div>
+                                <!--/.Slides-->
+                            </div>
+                            <!--/.Carousel Wrapper-->
+
+                            <div class="col-md-12 text-center margin-10">
+                                <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
+                                        class="fas fa-arrow-right btn-arrow"></i></a>
+                            </div>
+                        </div>
+
+                        {{---continue course--}}
+                        <div id="continue-course" class="collapse" aria-labelledby="continue-course"
+                             data-parent="#accordionExample">
+                            <!--Carousel Wrapper-->
+                            <div id="continue-cou-arrow" class="carousel slide carousel-multi-item"
+                                 data-ride="carousel">
+
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#continue-cou-arrow"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#continue-cou-arrow"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
+
+                                <!--Indicators-->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#continue-cou-arrow" data-slide-to="0" class="active"></li>
+                                    <li data-target="#continue-cou-arrow" data-slide-to="1"></li>
+
+                                </ol>
+                                <!--/.Indicators-->
+
+                                <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.Second slide-->
+                                </div>
+                                <!--/.Slides-->
+                            </div>
+                            <!--/.Carousel Wrapper-->
+
+                            <div class="col-md-12 text-center margin-10">
+                                <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
+                                        class="fas fa-arrow-right btn-arrow"></i></a>
+                            </div>
+                        </div>
+
+                        {{---continue course--}}
+                        <div id="ended-course" class="collapse" aria-labelledby="ended-course"
+                             data-parent="#accordionExample">
+                            <!--Carousel Wrapper-->
+                            <div id="ended-cou-arrow" class="carousel slide carousel-multi-item"
+                                 data-ride="carousel">
+
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#ended-cou-arrow"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#ended-cou-arrow"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
+
+                                <!--Indicators-->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#ended-cou-arrow" data-slide-to="0" class="active"></li>
+                                    <li data-target="#ended-cou-arrow" data-slide-to="1"></li>
+
+                                </ol>
+                                <!--/.Indicators-->
+
+                                <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.Second slide-->
+                                </div>
+                                <!--/.Slides-->
+                            </div>
+                            <!--/.Carousel Wrapper-->
+
+                            <div class="col-md-12 text-center margin-10">
+                                <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
+                                        class="fas fa-arrow-right btn-arrow"></i></a>
+                            </div>
+                        </div>
+
+                        {{---continue course--}}
+                        <div id="upcoming-course" class="collapse" aria-labelledby="upcoming-course"
+                             data-parent="#accordionExample">
+                            <!--Carousel Wrapper-->
+                            <div id="upcoming-cou-arrow" class="carousel slide carousel-multi-item"
+                                 data-ride="carousel">
+
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#upcoming-cou-arrow"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#upcoming-cou-arrow"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
+
+                                <!--Indicators-->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#upcoming-cou-arrow" data-slide-to="0" class="active"></li>
+                                    <li data-target="#upcoming-cou-arrow" data-slide-to="1"></li>
+
+                                </ol>
+                                <!--/.Indicators-->
+
+                                <!--Slides-->
+                                <div class="carousel-inner" role="listbox">
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" style="float:left">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img"
+                                                             src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <p class="card-p1">বিনামূল্য</p>
+                                                        <p class="font-weight-bold">কোভিড-১৯ ও ডায়াবেটিস বিষয়ক অনলাইন
+                                                            কোর্স</p>
+                                                        <p class="font-weight-light"><i class="fas fa-clock"></i> ১
+                                                            ঘন্টায় ৩০ মিনিট</p>
+                                                        <p class="font-weight-light"><i class="fas fa-user-plus"></i>
+                                                            Student(16.1k)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--/.Second slide-->
+                                </div>
+                                <!--/.Slides-->
+                            </div>
+                            <!--/.Carousel Wrapper-->
+
+                            <div class="col-md-12 text-center margin-10">
+                                <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
+                                        class="fas fa-arrow-right btn-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
     </section>
@@ -354,89 +1479,240 @@
 
                 <div class="col-md-12">
                     <div class="accordion" id="accordionExample">
-                        <a class="custom-btn mr-3" type="button" data-toggle="collapse" data-target="#video-gallery"
-                           aria-expanded="true" aria-controls="video-gallery">
-                            ভিডিও গ্যালারি
-                        </a>
-                        <a class="custom-btn mr-3 collapsed" type="button" data-toggle="collapse"
-                           data-target="#photo-gallery" aria-expanded="false" aria-controls="photo-gallery">
-                            ভিডিও গ্যালারি
-                        </a>
+                        <div class="pb-5">
+                            <a class="custom-btn mr-3" type="button" data-toggle="collapse" data-target="#video-gallery"
+                               aria-expanded="true" aria-controls="video-gallery">
+                                ভিডিও গ্যালারি
+                            </a>
+                            <a class="custom-btn mr-3 collapsed" type="button" data-toggle="collapse"
+                               data-target="#photo-gallery" aria-expanded="false" aria-controls="photo-gallery">
+                                ছবি গ্যালারি
+                            </a>
+                        </div>
 
                         <div class="">
+                            {{--video gallery--}}
                             <div id="video-gallery" class="collapse show" aria-labelledby="video-gallery"
                                  data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <div id="carouselExampleIndicators1" class="carousel" data-ride="carousel">
-                                        <div class="carousel-inner" role="listbox" style="overflow: visible">
-                                            <div class="carousel-item active">
-                                                <div class="row">
-                                                    <div class="col-md-3 border p-3" style="min-height: 100px;">
+                                <!--Carousel Wrapper-->
+                                <div id="multi-item-example-vdo" class="carousel slide carousel-multi-item"
+                                     data-ride="carousel">
 
-                                                    </div>
-                                                    <div class="col-md-3 border p-3" style="min-height: 100px;">
+                                    <!--Controls-->
+                                    <div class="controls-top">
+                                        <a class="btn-floating left-btn-arrow" href="#multi-item-example-vdo"
+                                           data-slide="prev"><i
+                                                class="fas fa-chevron-left"></i></a>
+                                        <a class="btn-floating right-btn-arrow" href="#multi-item-example-vdo"
+                                           data-slide="next"><i
+                                                class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                    <!--/.Controls-->
 
-                                                    </div>
+                                    <!--Indicators-->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#multi-item-example-vdo" data-slide-to="0" class="active"></li>
+                                        <li data-target="#multi-item-example-vdo" data-slide-to="1"></li>
 
+                                    </ol>
+                                    <!--/.Indicators-->
+
+                                    <!--Slides-->
+                                    <div class="carousel-inner" role="listbox">
+
+                                        <!--First slide-->
+                                        <div class="carousel-item active">
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
                                                 </div>
                                             </div>
 
-                                            <div class="carousel-item">
-                                                VIDEO Item 2
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
                                             </div>
 
                                         </div>
-                                        <a class="carousel-control-prev slider-previous-link" href="#carouselExampleIndicators1"
-                                           role="button"
-                                           data-slide="prev">
-                                <span class="slider-previous-icon" aria-hidden="true">
-                                    <i class="fas fa-chevron-left"></i>
-                                </span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next slider-next-link" href="#carouselExampleIndicators1"
-                                           role="button"
-                                           data-slide="next">
-                                <span class="slider-next-icon" aria-hidden="true">
-                                    <i class="fas fa-chevron-right"></i>
-                                </span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
+                                        <!--/.First slide-->
+
+                                        <!--Second slide-->
+                                        <div class="carousel-item">
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://groupbuyseotools.org/wp-content/uploads/2017/12/videoblock.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--/.Second slide-->
                                     </div>
+                                    <!--/.Slides-->
                                 </div>
+                                <!--/.Carousel Wrapper-->
+
+                                <div class="col-md-12 text-center margin-10">
+                                    <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
+                                            class="fas fa-arrow-right btn-arrow"></i></a>
+                                </div>
+
                             </div>
+
+                            {{--image gallery--}}
                             <div id="photo-gallery" class="collapse" aria-labelledby="photo-gallery"
                                  data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <div id="carouselExampleIndicators2" class="carousel" data-ride="carousel">
-                                        <div class="carousel-inner" role="listbox" style="overflow: visible">
-                                            <div class="carousel-item active">
-                                                photo Item 1
+                                <!--Carousel Wrapper-->
+                                <div id="multi-item-example-img" class="carousel slide carousel-multi-item"
+                                     data-ride="carousel">
+
+                                    <!--Controls-->
+                                    <div class="controls-top">
+                                        <a class="btn-floating left-btn-arrow" href="#multi-item-example-img"
+                                           data-slide="prev"><i
+                                                class="fas fa-chevron-left"></i></a>
+                                        <a class="btn-floating right-btn-arrow" href="#multi-item-example-img"
+                                           data-slide="next"><i
+                                                class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                    <!--/.Controls-->
+
+                                    <!--Indicators-->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#multi-item-example-img" data-slide-to="0" class="active"></li>
+                                        <li data-target="#multi-item-example-img" data-slide-to="1"></li>
+
+                                    </ol>
+                                    <!--/.Indicators-->
+
+                                    <!--Slides-->
+                                    <div class="carousel-inner" role="listbox">
+
+                                        <!--First slide-->
+                                        <div class="carousel-item active">
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
                                             </div>
 
-                                            <div class="carousel-item">
-                                                photo Item 2
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
                                             </div>
 
                                         </div>
-                                        <a class="carousel-control-prev slider-previous-link" href="#carouselExampleIndicators2"
-                                           role="button"
-                                           data-slide="prev">
-                                <span class="slider-previous-icon" aria-hidden="true">
-                                    <i class="fas fa-chevron-left"></i>
-                                </span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next slider-next-link" href="#carouselExampleIndicators2"
-                                           role="button"
-                                           data-slide="next">
-                                <span class="slider-next-icon" aria-hidden="true">
-                                    <i class="fas fa-chevron-right"></i>
-                                </span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
+                                        <!--/.First slide-->
+
+                                        <!--Second slide-->
+                                        <div class="carousel-item">
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3" style="float:left">
+                                                <div class="card card-main mb-2">
+                                                    <img class="slider-img"
+                                                         src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                                         alt="icon">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--/.Second slide-->
                                     </div>
+                                    <!--/.Slides-->
                                 </div>
+                                <!--/.Carousel Wrapper-->
                             </div>
                         </div>
 
@@ -466,17 +1742,63 @@
             background-color: #f6f9f9;
         }
 
+        .course-div {
+            padding-top: 75px;
+        }
+
+        .course-section {
+            background: #FFFFFF;
+        }
+
+        .course-btn {
+            padding: 10px 30px;
+            color: #000;
+            border-radius: 5px;
+            transition: .4s;
+        }
+
+        .course-btn-dem {
+            background: #9c36c6;
+            color: #fff;
+            border: 1px solid #9c36c6;
+            padding: 10px 30px;
+            border-radius: 5px;
+            transition: .4s;
+        }
+
+        .course-btn:active {
+            background: #9c36c6;
+            color: #fff;
+            border: 1px solid #9c36c6;
+        }
+
+        .card-p1 {
+            color: #9c36c6;
+        }
+
         .cr-img {
-            border-radius: 115px 0 115px 0;
             height: 391px;
-            width: 443px;
-            clip-path: polygon(29% 13%, 100% 0, 100% 87%, 72% 91%, 0 100%, 0 19%);
+            width: 317px;
+            border-radius: 35px 0;
+            transform: skewY(-1deg) scale(1);
         }
 
         .img-div {
             position: absolute;
             right: 1%;
             top: -30px;
+        }
+
+        .image-div-2 {
+            height: 391px;
+            width: 317px;
+            border-radius: 55px 0;
+            transform: skewY(-10deg) scale(1);
+            background: url(https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg);
+        }
+
+        .at-glance-section {
+            padding-bottom: 110px;
         }
 
         .banner-bar {
@@ -575,6 +1897,12 @@
         .btn-floating {
             color: black;
         }
+
+        .slider-img {
+            width: 100%;
+            height: 11vw;
+            object-fit: cover;
+        }
     </style>
     <style>
         .section-heading {
@@ -609,6 +1937,7 @@
             height: 3px;
             background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
         }
+
         .course-section-heading:before {
             width: 134px;
             position: absolute;
