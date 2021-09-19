@@ -87,8 +87,8 @@
                                                     </div>
                                                     <div class="form-group row" aria-required="true">
 
-                                                        <label for="mobile" class="col-sm-2 control-label">মোবাইল
-                                                            নম্বর
+                                                        <label for="mobile" class="col-sm-2 control-label">
+                                                            মোবাইল নাম্বার
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
                                                             <input required="required" maxlength="255" id="mobile"

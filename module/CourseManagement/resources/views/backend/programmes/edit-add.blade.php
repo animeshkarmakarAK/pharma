@@ -104,6 +104,9 @@
                                                        id="logo">
                                             </div>
                                         </div>
+                                        <p class="font-italic text-secondary">(Image size must be 80x80, file type
+                                            must be jpg,bmp,png,jpeg or svg)</p>
+
                                     </div>
                                 </div>
 
@@ -141,7 +144,7 @@
             outline: none;
         }
 
-        .imgRemove::after{
+        .imgRemove::after {
             content: ' \21BA';
             color: #fff;
             font-weight: 900;
@@ -208,7 +211,7 @@
                     required: "This field is required",
                     remote: "Code already in use!",
                 },
-                logo:{
+                logo: {
                     accept: "Please upload valid image file only"
                 }
             },
@@ -240,7 +243,7 @@
             });
 
             $('.imgRemove').on('click', function () {
-                $('#logo').parent().find('.avatar-preview img').attr('src',  "https://via.placeholder.com/350x350?text=Programme+logo");
+                $('#logo').parent().find('.avatar-preview img').attr('src', "https://via.placeholder.com/350x350?text=Programme+logo");
                 $('#logo').val("").valid();
                 $(this).css('display', 'none');
             })

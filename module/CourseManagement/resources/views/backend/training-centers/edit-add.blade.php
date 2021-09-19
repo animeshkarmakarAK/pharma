@@ -88,22 +88,23 @@
                                         >
                                         </select>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="branch_id">Branch</label>
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="branch_id"
+                                                id="branch_id"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
+                                                data-label-fields="{title_en}"
+                                                data-depend-on="institute_id"
+                                                @if($edit)
+                                                data-preselected-option="{{json_encode(['text' =>  !empty($trainingCenter->branch->title_en)?$trainingCenter->branch->title_en:'', 'id' =>  !empty($trainingCenter->branch->id)?$trainingCenter->branch->id:''])}}"
+                                                @endif
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        >
+                                        </select>
+                                    </div>
                                 @endif
-                                <div class="form-group col-md-6">
-                                    <label for="branch_id">Branch</label>
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="branch_id"
-                                            id="branch_id"
-                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on="institute_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  !empty($trainingCenter->branch->title_en)?$trainingCenter->branch->title_en:'', 'id' =>  !empty($trainingCenter->branch->id)?$trainingCenter->branch->id:''])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
-                                    >
-                                    </select>
-                                </div>
+
 
                                 <div class="col-sm-12 text-right">
                                     <button type="submit"
