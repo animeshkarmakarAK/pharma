@@ -38,6 +38,7 @@
             color: #FFFFFF;
             transition: .5s;
         }
+
         /*new style end*/
 
         .logo {
@@ -96,10 +97,10 @@
         }
 
         .slider-left-content a {
-            background: #9c36c6;
+            background: #671688;
             padding: 15px 25px;
             color: #fff;
-            border: 1px solid #9c36c6;
+            border: 1px solid #671688;
             border-radius: 5px;
             letter-spacing: 2px;
             transition: .4s;
@@ -153,11 +154,11 @@
         }
 
         .custom-btn{
-            background: #9c36c6;
+            background: #671688;
             padding: 10px 30px;
             color: #fff;
             border-radius: 5px;
-            border: 1px solid #9c36c6;
+            border: 1px solid #671688;
             transition: .4s;
         }
         .custom-btn:hover{
@@ -173,7 +174,7 @@
             margin: 0 0 25px;
             font-weight: bold;
             letter-spacing: 0.5pt;
-            color: #9c36c6;
+            color: #671688;
         }
 
         ul.sidebar-list {
@@ -186,12 +187,12 @@
         }
 
         .sidebar-list li:before {
-            color: #9c36c6;
+            color: #671688;
         }
 
         .sidebar-list li i {
             /*color: #9c36c6;*/
-            color: #9c36c6;
+            color: #671688;
         }
 
         .notice-portlet {
@@ -238,7 +239,7 @@
         }
 
         .banner-bar h3 {
-            color: #9c36c6;
+            color: #671688;
         }
 
         .banner-bar h3 span {
@@ -264,7 +265,7 @@
             overflow: hidden;
         }
         .instant-view-box .custom-icon{
-            color: #9c36c6;
+            color: #671688;
 
         }
 
@@ -298,7 +299,7 @@
 
         .news-post .img-box span {
             position: absolute;
-            background: #9c36c6;
+            background: #671688;
             padding: 6px 20px;
             color: white;
             font-size: 1.1rem;
@@ -336,7 +337,7 @@
 
         .news-post .post-content-text h4 span {
             line-height: 25px;
-            color: #9c36c6;
+            color: #671688;
             display: block;
             height: 47px;
             overflow: hidden;
@@ -354,7 +355,7 @@
         .news-post .post-more a {
             padding: 5px 20px;
             color: #fff;
-            background: #9c36c6;
+            background: #671688;
             font-size: .8rem;
             transition: .5s;
         }
@@ -365,7 +366,7 @@
         }
 
         .service-box-button {
-            background: #9c36c6;
+            background: #671688;
             color: white;
             padding: 10px 25px;
             display: inline-block;
@@ -405,9 +406,9 @@
         }
 
         .submit-btn {
-            background: #9c36c6;
+            background: #671688;
             padding: 5px 15px;
-            border: 1px solid #9c36c6;
+            border: 1px solid #671688;
             border-radius: 3px;
             color: #fff;
             transition: .4s;
@@ -449,11 +450,11 @@
         }
 
         .footer-widget span a {
-            background: #9c36c6;
+            background: #671688;
             padding: 10px 30px;
             color: #fff;
             border-radius: 5px;
-            border: 1px solid #9c36c6;
+            border: 1px solid #671688;
             transition: .4s;
         }
 
@@ -470,7 +471,7 @@
         }
 
         .footer-widget-address h3 {
-            color: #9c36c6;
+            color: #671688;
             font-size: 1.1rem;
             font-weight: bold;
             margin-bottom: 30px;
@@ -482,7 +483,7 @@
         }
 
         .footer-widget-address p i {
-            color: #9c36c6;
+            color: #671688;
             float: left;
             padding: 8px 10px 0 0;
         }
@@ -495,7 +496,7 @@
         }
 
         .footer-widget-quick-links h3 {
-            color: #9c36c6;
+            color: #671688;
             font-size: 1.1rem;
             font-weight: bold;
         }
@@ -504,7 +505,7 @@
             list-style: none;
             column-count: 2;
             font-size: 1rem;
-            color: #9c36c6;
+            color: #671688;
             margin-top: 30px;
             padding-left: 0;
         }
@@ -523,7 +524,7 @@
         }
 
         .footer-widget-quick-links ul li a:hover {
-            color: #9c36c6;
+            color: #671688;
             transition: .4s;
         }
 
@@ -548,8 +549,8 @@
             bottom: 25px;
             right: 25px;
             display: none;
-            background: #9c36c6;
-            border: 1px solid #9c36c6;
+            background: #671688;
+            border: 1px solid #671688;
             color: #fff;
         }
 
@@ -559,8 +560,8 @@
         }
 
         .form-submit-btn {
-            background: #9c36c6;
-            border: 1px solid #9c36c6;
+            background: #671688;
+            border: 1px solid #671688;
             transition: .4s;
         }
 
@@ -575,7 +576,7 @@
         }
 
         .form-area i {
-            color: #9c36c6;
+            color: #671688;
         }
 
     </style>

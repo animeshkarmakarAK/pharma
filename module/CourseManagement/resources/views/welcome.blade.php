@@ -172,7 +172,6 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="banner-bar banner-bar-color-1">
-                        {{--                        <img src="https://img.icons8.com/carbon-copy/2x/image.png" alt="icon">--}}
                         <i class="fas fa-chalkboard-teacher icons"></i>
                         <h3><span>অভিজ্ঞ প্রশিক্ষক</span></h3>
                         <p class="font-weight-light">অভিজ্ঞ প্রশিক্ষক দ্বারা কোর্স পরিচালনা ও পর্যবেক্ষণ করা হয়।</p>
@@ -180,7 +179,6 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="banner-bar banner-bar-color-2">
-                        {{--                        <img src="https://img.icons8.com/carbon-copy/2x/image.png" alt="icon">--}}
                         <i class="fas fa-graduation-cap icons"></i>
                         <h3><span>দক্ষতা বৃদ্ধি</span></h3>
                         <p class="font-weight-light">সঠিক পদ্ধতিতে শিক্ষার্থীদের দক্ষতা যাচাই করা এবং বৃদ্ধি করা
@@ -189,7 +187,6 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="banner-bar banner-bar-color-3">
-                        {{--                        <img src="https://img.icons8.com/carbon-copy/2x/image.png" alt="icon">--}}
                         <i class="fas fa-briefcase icons"></i>
                         <h3><span>কাজের নিশ্চয়তা</span></h3>
                         <p class="font-weight-light">বেকার যুবকদের স্বাবলম্বী করার পাশাপাশি দেশের উন্নয়নকে ত্বরান্বিত
@@ -205,7 +202,7 @@
         <div class="container my-4">
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <h3 class="course-section-heading mb-3">কোর্স সমূহ</h3>
+                    <h3 class="course-section-heading default-heading-color mb-3">কোর্স সমূহ</h3>
                     <p>মোটিভেশনাল ওয়ার্কশপ অনুষ্ঠান হতে নিম্ন বিষয়ক প্রশিক্ষণ প্রদান করা হয়</p>
                 </div>
             </div>
@@ -234,88 +231,111 @@
 
                     <!--First slide-->
                     <div class="carousel-item active">
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-headset card-icons"></i>
-                                    <h3 class="card-h1"><span>কাস্টমার সাপোর্ট</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
+                        <div class="row">
+                            <div class="col-md-2 mx-auto">
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-headset card-icons"></i>
+                                        <h3 class="card-h1"><span>কাস্টমার সাপোর্ট</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mx-auto" >
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-paint-brush card-icons"></i>
+                                        <h3 class="card-h1"><span>গ্রাফিক্স ডিজাইন</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mx-auto" >
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-film card-icons"></i>
+                                        <h3 class="card-h1"><span>ভিডিও এডিটিং</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mx-auto" >
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-film card-icons"></i>
+                                        <h3 class="card-h1"><span>ভিডিও এডিটিং</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mx-auto">
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-palette card-icons"></i>
+                                        <h3 class="card-h1"><span>আর্ট</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-paint-brush card-icons"></i>
-                                    <h3 class="card-h1"><span>গ্রাফিক্স ডিজাইন</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-film card-icons"></i>
-                                    <h3 class="card-h1"><span>ভিডিও এডিটিং</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-palette card-icons"></i>
-                                    <h3 class="card-h1"><span>আর্ট</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <!--/.First slide-->
 
                     <!--Second slide-->
                     <div class="carousel-item">
 
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-business-time card-icons"></i>
-                                    <h3 class="card-h1"><span>বিজনেস</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
+                        <div class="row">
+                            <div class="col-md-2 mx-auto">
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-headset card-icons"></i>
+                                        <h3 class="card-h1"><span>কাস্টমার সাপোর্ট</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-headset card-icons"></i>
-                                    <h3 class="card-h1"><span>কাস্টমার সাপোর্ট</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
+                            <div class="col-md-2 mx-auto" >
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-paint-brush card-icons"></i>
+                                        <h3 class="card-h1"><span>গ্রাফিক্স ডিজাইন</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-film card-icons"></i>
-                                    <h3 class="card-h1"><span>ভিডিও এডিটিং</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
+                            <div class="col-md-2 mx-auto" >
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-film card-icons"></i>
+                                        <h3 class="card-h1"><span>ভিডিও এডিটিং</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3" style="float:left">
-                            <div class="card card-main mb-2">
-                                <div class="card-bar">
-                                    <i class="fas fa-paint-brush card-icons"></i>
-                                    <h3 class="card-h1"><span>গ্রাফিক্স ডিজাইন</span></h3>
-                                    <p class="font-weight-light card-p">৩০ কোর্স</p>
+                            <div class="col-md-2 mx-auto" >
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-film card-icons"></i>
+                                        <h3 class="card-h1"><span>ভিডিও এডিটিং</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mx-auto">
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar">
+                                        <i class="fas fa-palette card-icons"></i>
+                                        <h3 class="card-h1"><span>আর্ট</span></h3>
+                                        <p class="font-weight-light card-p">৩০ কোর্স</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1473,7 +1493,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col-md-12 mb-3">
-                    <h3 class="gallery-section-heading mb-3">গ্যালারি</h3>
+                    <h3 class="gallery-section-heading default-heading-color mb-3">গ্যালারি</h3>
                     <p>বিটাক পরিচালিত কতিপয় কর্মসূচির ছবি</p>
                 </div>
 
@@ -1758,22 +1778,22 @@
         }
 
         .course-btn-dem {
-            background: #9c36c6;
+            background: #671688;
             color: #fff;
-            border: 1px solid #9c36c6;
+            border: 1px solid #671688;
             padding: 10px 30px;
             border-radius: 5px;
             transition: .4s;
         }
 
         .course-btn:active {
-            background: #9c36c6;
+            background: #671688;
             color: #fff;
-            border: 1px solid #9c36c6;
+            border: 1px solid #671688;
         }
 
         .card-p1 {
-            color: #9c36c6;
+            color: #671688;
         }
 
         .cr-img {
@@ -1854,9 +1874,14 @@
             background-color: #c4c4c4;
         }
 
+        .card-h1{
+            font-size: 16px;
+        }
+
         .card-h1, .card-p {
             color: #000000 !important;
         }
+
 
         .card-icons {
             color: #671688;
@@ -1945,6 +1970,9 @@
             top: 37px;
             height: 3px;
             background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+        }
+        .default-heading-color{
+            color: #671688;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">
