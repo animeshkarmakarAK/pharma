@@ -8,15 +8,15 @@
             </div>
 
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-                <li class="nav-item dropdown">
-                    <a class="nav-item nav-link" href="">
+                <li class="nav-item">
+                    <a class="nav-item nav-link text-dark text-bold" href="">
                         <i class="fa fa-paper-plane"></i>&nbsp;
-                        info@dss.gov.bd
+                        support@bitac.gov.bd
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-item nav-link" href="">
-                        <i class="fas fa-phone"></i>
+                <li class="nav-item">
+                    <a class="nav-item nav-link text-dark text-bold" href="">
+                        <i class="fas fa-phone fa-flip-horizontal"></i>
                         +৮৮০২-৫৫০০৬৫৯৫, +৮৮০২-৫৫০০৬৫৯৫
                     </a>
                 </li>
