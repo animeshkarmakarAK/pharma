@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -203,6 +204,14 @@ class YouthController extends Controller
             return response()->json(true);
         }
         return response()->json("এই ই-মেইল টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+    }
+    public function checkYouthUniqueNID(Request $request): JsonResponse
+    {
+        $youth = YouthFamilyMemberInfo::where(['nid'=> $request->nid, 'relation_with_youth'=>'self'])->first();
+        if ($youth == null) {
+            return response()->json(true);
+        }
+        return response()->json("এই এন.আই.ডি নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
 
 }

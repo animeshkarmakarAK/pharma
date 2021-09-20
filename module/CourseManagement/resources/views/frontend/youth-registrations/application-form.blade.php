@@ -1822,8 +1822,8 @@
                     required: function () {
                         return $('#passport_number').val() == "" && $('#birth_reg_no').val() == "";
                     },
-                    //pattern: "^(\\d{10}|\\d{14}|\\d{17})$",
                     nidBn: true,
+                    remote: "{!! route('course_management::youth.check-unique-nid') !!}",
                 },
                 birth_reg_no: {
                     birthRegNo: true,
