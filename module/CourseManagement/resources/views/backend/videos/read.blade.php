@@ -77,6 +77,28 @@
                         {!! $video->getCurrentRowStatus(true) !!}
                     </div>
                 </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Video Content') }}</p>
+                    <div class="input-box">
+                        @if($video->video_type == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO)
+                            <div class="embed-responsive embed-responsive-16by9"
+                                 style="height: 200px; width: 100%;">
+                                <iframe class="embed-responsive-item"
+                                        src="{{ 'https://www.youtube.com/embed/'. $video->youtube_video_id .'?rel=0' }}"
+                                        allowfullscreen></iframe>
+                            </div>
+                        @elseif($video->video_type == \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO)
+                            <div class="embed-responsive embed-responsive-16by9"
+                                 style="height: 200px; width: 100%;">
+                                <video controls>
+                                    <source src="{{ '/storage/'.$video->uploaded_video_path }}"
+                                            type="video/mp4">
+                                </video>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

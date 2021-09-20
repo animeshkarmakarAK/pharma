@@ -66,6 +66,7 @@ class SliderService
                 'nullable',
                 'image',
                 'max:512',
+                'mimes:jpeg,jpg,png',
                 'dimensions:max_width=1920,max_height=1080',
             ]
         ];

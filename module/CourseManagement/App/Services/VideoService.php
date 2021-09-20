@@ -103,6 +103,8 @@ class VideoService
             'uploaded_video_path' => [
                 'nullable',
                 'required_if:video_type,'.Video::VIDEO_TYPE_UPLOADED_VIDEO,
+                'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+                'max:2048',
             ],
 
             'institute_id' => [

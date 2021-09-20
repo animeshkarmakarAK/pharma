@@ -104,7 +104,7 @@
                                                        id="logo">
                                             </div>
                                         </div>
-                                        <p class="font-italic text-secondary">(Image size must be 80x80, file type
+                                        <p class="font-italic text-secondary m-0 p-0">(Image size must be 80x80, file type
                                             must be jpg,bmp,png,jpeg or svg)</p>
 
                                     </div>
