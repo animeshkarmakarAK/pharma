@@ -116,18 +116,18 @@ class YouthController extends Controller
     public function generalAskPage(): View
     {
         $test = 'amama';
-        $data =[
-          [
-              "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
-              "answer" => 'উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target="_blank" href="'.route('course_management::course_search').'">এখানে ক্লিক করুন</a> ) ',
-          ] ,
+        $data = [
+            [
+                "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
+                "answer" => 'উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target="_blank" href="' . route('course_management::course_search') . '">এখানে ক্লিক করুন</a> ) ',
+            ],
             [
                 "question" => "প্রশ্ন ২: প্রশিক্ষণের বিষয়ে বিস্তারিত জানার জন্য কোথায় যোগাযোগ করব?",
-                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন ( <a target='_blank' href='".route('course_management::contact-us-page')."'>এখানে ক্লিক করুন</a> )",
+                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন ( <a target='_blank' href='" . route('course_management::contact-us-page') . "'>এখানে ক্লিক করুন</a> )",
             ],
             [
                 "question" => "প্রশ্ন ৩: প্রশিক্ষণ গ্রহণের জন্য ভর্তি ফরম কোথা থেকে এবং কিভাবে পাব?",
-                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন ( <a target='_blank' href='".route('course_management::youth-registrations.index')."'>এখানে ক্লিক করে অনলাইন আবেদন করুন</a>)",
+                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন ( <a target='_blank' href='" . route('course_management::youth-registrations.index') . "'>এখানে ক্লিক করে অনলাইন আবেদন করুন</a>)",
             ],
             [
                 "question" => "প্রশ্ন ৪: নিজ বাড়িতে থেকে প্রশিক্ষণ গ্রহণের সুযোগ আছে কিনা?",
@@ -205,13 +205,32 @@ class YouthController extends Controller
         }
         return response()->json("এই ই-মেইল টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
+
     public function checkYouthUniqueNID(Request $request): JsonResponse
     {
-        $youth = YouthFamilyMemberInfo::where(['nid'=> $request->nid, 'relation_with_youth'=>'self'])->first();
+        $youth = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
         if ($youth == null) {
             return response()->json(true);
         }
         return response()->json("এই এন.আই.ডি নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+    }
+
+    public function checkYouthUniqueBarthId(Request $request): JsonResponse
+    {
+        $youth = YouthFamilyMemberInfo::where(['birth_certificate_no' => $request->birth_reg_no, 'relation_with_youth' => 'self'])->first();
+        if ($youth == null) {
+            return response()->json(true);
+        }
+        return response()->json("এই জন্ম সনদ টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+    }
+
+    public function checkYouthUniquePassportId(Request $request): JsonResponse
+    {
+        $youth = YouthFamilyMemberInfo::where(['birth_certificate_no' => $request->passport_number, 'relation_with_youth' => 'self'])->first();
+        if ($youth == null) {
+            return response()->json(true);
+        }
+        return response()->json("এই জন্ম সনদ টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
 
 }
