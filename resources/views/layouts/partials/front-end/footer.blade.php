@@ -54,7 +54,7 @@
                         <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">আমাদের সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">যোগাযোগ</a></li>
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">প্রয়োজনীয় প্রশ্ন-উত্তর</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">প্রশ্ন ও উত্তর</a></li>
                         @guest
                             <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
                             <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>

@@ -92,6 +92,9 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('youth/recover-access-key-by-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
     Route::post('youth/registration-success-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRegistrationSuccess'])->name('youth.registration-success-mail');
     Route::get('youth/check-unique-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthEmailUniqueness'])->name('youth.check-unique-email');
+    Route::get('youth/check-unique-nid', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueNID'])->name('youth.check-unique-nid');
+    Route::get('youth/check-unique-barth-id', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueBarthId'])->name('youth.check-unique-barth-id');
+    Route::get('youth/check-unique-passport-no', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
     Route::get('gallery-categories', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
     Route::get('gallery-categories/{galleryCategory}', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
 });

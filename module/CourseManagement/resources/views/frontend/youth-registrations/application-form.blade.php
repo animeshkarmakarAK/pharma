@@ -287,18 +287,22 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="nid">এন.আই.ডি নাম্বার/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর পূর্ণ করুন] <span class="required">*</span>:</label>
+                                    <label for="nid">এন.আই.ডি নাম্বার/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর পূর্ণ
+                                        করুন] <span class="required">*</span>:</label>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control mb-2" name="nid" id="nid" value="{{ old('nid') }}"
+                                            <input type="text" class="form-control mb-2" name="nid" id="nid"
+                                                   value="{{ old('nid') }}"
                                                    placeholder="এন.আই.ডি নাম্বার">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control mb-2" name="birth_reg_no" id="birth_reg_no"
-                                                   value="{{ old('birth_reg_no') }}" placeholder="জন্ম সনদ নাম্বার">
+                                            <input type="text" class="form-control mb-2" name="birth_certificate_no"
+                                                   id="birth_certificate_no"
+                                                   value="{{ old('birth_certificate_no') }}" placeholder="জন্ম সনদ নাম্বার">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control mb-2" name="passport_number" id="passport_number"
+                                            <input type="text" class="form-control mb-2" name="passport_number"
+                                                   id="passport_number"
                                                    value="{{ old('passport_number') }}" placeholder="পাসপোর্ট নাম্বার">
                                         </div>
 
@@ -748,7 +752,8 @@
                             <div class="col-md-6 academic-qualification-ssc mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                     <div class="card-header">
-                                        <h3 class="card-title text-primary d-inline-flex">এস.এস.সি/সমমান/A-লেভেল (পাস) </h3>
+                                        <h3 class="card-title text-primary d-inline-flex">এস.এস.সি/সমমান/A-লেভেল
+                                            (পাস) </h3>
                                     </div>
                                     <div class="card-body ssc_collapse {{--collapse--}} hide">
 
@@ -1820,22 +1825,24 @@
                 },
                 nid: {
                     required: function () {
-                        return $('#passport_number').val() == "" && $('#birth_reg_no').val() == "";
+                        return $('#passport_number').val() == "" && $('#birth_certificate_no').val() == "";
                     },
-                    //pattern: "^(\\d{10}|\\d{14}|\\d{17})$",
                     nidBn: true,
+                    remote: "{!! route('course_management::youth.check-unique-nid') !!}",
                 },
-                birth_reg_no: {
-                    birthRegNo: true,
+                birth_certificate_no: {
                     required: function () {
                         return $('#passport_number').val() == "" && $('#nid').val() == "";
                     },
+                    birthRegNo: true,
+                    remote: "{!! route('course_management::youth.check-unique-barth-id') !!}"
                 },
                 passport_number: {
                     required: function () {
-                        return $('#birth_reg_no').val() == "" && $('#nid').val() == "";
+                        return $('#birth_certificate_no').val() == "" && $('#nid').val() == "";
                     },
                     passport: true,
+                    remote: "{!! route('course_management::youth.check-unique-passport-no') !!}"
                 },
 
                 student_pic: {
@@ -2108,18 +2115,18 @@
                 "address[present][present_address_house_address][postal_code]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
-                    maxlength:50,
+                    maxlength: 50,
                 },
                 "address[present][present_address_house_address][village_name]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
-                    maxlength:50,
+                    maxlength: 50,
 
                 },
                 "address[present][present_address_house_address][house_and_road]": {
                     required: true,
                     houseOrRoadNumber: true,
-                    maxlength:50,
+                    maxlength: 50,
                 },
                 "address[permanent][permanent_address_division_id]": {
                     required: true,
@@ -2133,17 +2140,17 @@
                 "address[permanent][permanent_address_house_address][postal_code]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
-                    maxlength:50,
+                    maxlength: 50,
                 },
                 "address[permanent][permanent_address_house_address][village_name]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
-                    maxlength:50,
+                    maxlength: 50,
                 },
                 "address[permanent][permanent_address_house_address][house_and_road]": {
                     required: true,
                     houseOrRoadNumber: true,
-                    maxlength:50,
+                    maxlength: 50,
                 },
                 ethnic_group: {
                     required: function () {
@@ -2262,7 +2269,7 @@
                 nid: {
                     required: "এখানে এনআইডি নাম্বার প্রদান করুন  [ অথবা নিচের জন্ম সনদ নাম্বার/পাসপোর্ট নাম্বার যেকোনো একটি ঘর পূর্ণ করুন ]",
                 },
-                birth_reg_no: {
+                birth_certificate_no: {
                     required: "এখানে জন্ম সনদ নাম্বার প্রদান করুন",
                     birthRegNo: "এখানে আপনার সঠিক জন্ম সনদ নাম্বার লিখুন ",
                 },
@@ -2879,44 +2886,44 @@
                     disablePermanetAddressFields();
 
 
-                    if($('#present_address_division_id').val() != ""){
+                    if ($('#present_address_division_id').val() != "") {
                         $('#permanent_address_division_id').valid();
-                    }else{
+                    } else {
                         $('#present_address_division_id').valid(false);
                         $('#permanent_address_division_id').valid(false);
                     }
 
-                    if($('#present_address_district_id').val() != ""){
+                    if ($('#present_address_district_id').val() != "") {
                         $('#permanent_address_district_id').valid();
-                    }else{
+                    } else {
                         $('#present_address_district_id').valid(false);
                         $('#permanent_address_district_id').valid(false);
                     }
 
-                    if($('#present_address_upazila_id').val() != ""){
+                    if ($('#present_address_upazila_id').val() != "") {
                         $('#permanent_address_upazila_id').valid();
-                    }else{
+                    } else {
                         $('#permanent_address_upazila_id').valid(false);
                     }
 
 
-                    if($('#present_address_postal_code').val() != ""){
+                    if ($('#present_address_postal_code').val() != "") {
                         $('#permanent_address_postal_code').valid();
-                    }else{
+                    } else {
                         $('#present_address_postal_code').valid(false);
                         $('#permanent_address_postal_code').valid(false);
                     }
 
-                    if($('#present_address_village_name').val() != ""){
+                    if ($('#present_address_village_name').val() != "") {
                         $('#permanent_address_village_name').valid();
-                    }else{
+                    } else {
                         $('#present_address_village_name').valid(false);
                         $('#permanent_address_village_name').valid(false);
                     }
 
-                    if($('#present_address_house_and_road').val() != ""){
+                    if ($('#present_address_house_and_road').val() != "") {
                         $('#permanent_address_house_and_road').valid();
-                    }else{
+                    } else {
                         $('#present_address_house_and_road').valid(false);
                         $('#permanent_address_house_and_road').valid(false);
                     }
@@ -2928,41 +2935,40 @@
                     //$('#permanent_address_division_id').attr('disabled');
 
 
-
-                    if($('#permanent_address_division_id').val() != ""){
+                    if ($('#permanent_address_division_id').val() != "") {
                         $(this).valid();
-                    }else{
+                    } else {
                         $(this).valid(false);
                     }
 
-                    if($('#permanent_address_district_id').val() != ""){
+                    if ($('#permanent_address_district_id').val() != "") {
                         $(this).valid();
-                    }else{
+                    } else {
                         $(this).valid(false);
                     }
 
-                    if($('#permanent_address_upazila_id').val() != ""){
+                    if ($('#permanent_address_upazila_id').val() != "") {
                         $(this).valid();
-                    }else{
+                    } else {
                         $(this).valid(false);
                     }
 
 
-                    if($('#permanent_address_postal_code').val() != ""){
+                    if ($('#permanent_address_postal_code').val() != "") {
                         $(this).valid();
-                    }else{
+                    } else {
                         $(this).valid(false);
                     }
 
-                    if($('#permanent_address_village_name').val() != ""){
+                    if ($('#permanent_address_village_name').val() != "") {
                         $(this).valid();
-                    }else{
+                    } else {
                         $(this).valid(false);
                     }
 
-                    if($('#permanent_address_house_and_road').val() != ""){
+                    if ($('#permanent_address_house_and_road').val() != "") {
                         $(this).valid();
-                    }else{
+                    } else {
                         $(this).valid(false);
                     }
                 }
@@ -3102,10 +3108,10 @@
             });
         });
 
-        function validationCheckSelect2 (n){
+        function validationCheckSelect2(n) {
             if ($(n).val() != "") {
                 $(n).valid();
-            }else{
+            } else {
                 $(n).valid(false);
             }
         }
@@ -3225,8 +3231,6 @@
         $('#permanent_address_upazila_id').on('change', function () {
             validationCheckSelect2(this);
         });
-
-
 
 
     </script>

@@ -345,6 +345,7 @@
         }
 
         function Export() {
+            $('#downloadPDF').hide();
             $('meta').attr('name', 'viewport').attr('initial-scal', '1.0');
             html2canvas($("#youth-profile")[0], {
                 onrendered: function (canvas) {

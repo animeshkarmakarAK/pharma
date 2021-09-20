@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Google Map src') }}</p>
+                    <p class="label-text">{{ __('Google Map SRC') }}</p>
                     <div class="input-box" style="min-height: 100px;">
                         {{ $branch->google_map_src }}
                     </div>

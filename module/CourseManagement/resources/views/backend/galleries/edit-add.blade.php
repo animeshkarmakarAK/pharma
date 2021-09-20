@@ -175,6 +175,8 @@
                                 <input type="file" class="form-control custom-input-box" name="content_path"
                                        id="content_path"
                                        value="{{$edit ? $gallery->content_path : old('content_path')}}">
+                                <p class="font-italic text-secondary m-0 p-0" id="photo-info-display">(Image file type must be jpg,jpeg,bmp or png)</p>
+                                <p class="font-italic text-secondary m-0 p-0" id="video-info-display">(Video file type must be video/avi,video/mpeg,video/quicktime,video/mp4 and max size 2Mb)</p>
                             </div>
 
                             @if($edit)
@@ -303,7 +305,7 @@
                 publish_date: {
                     required: true,
                     greaterThan: function () {
-                        if(!EDIT){
+                        if (!EDIT) {
                             return '#today';
                         }
                     }
@@ -406,7 +408,15 @@
             $('#content_path').prop("disabled", false);
             $('#you_tube_video_id').prop("disabled", true);
 
-        })
+
+            $('#video-info-display').show();
+            $('#photo-info-display').hide();
+        });
+
+        $('#Image').on('click', function () {
+            $('#video-info-display').hide();
+            $('#photo-info-display').show();
+        });
 
 
     </script>

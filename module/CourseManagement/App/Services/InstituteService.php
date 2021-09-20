@@ -71,13 +71,13 @@ class InstituteService
                 'image',
                 'mimes:jpeg,jpg,png,gif',
                 'max:500',
-                //'dimensions:width=80,height=80'
+                'dimensions:width=370,height=70'
             ],
             'description'=>['nullable', 'string']
         ];
 
         $messages = [
-            'logo.dimensions' => 'Please upload 80x80 size of image',
+            'logo.dimensions' => 'Please upload 370x70 size of image',
             'logo.max' => 'Please upload maximum 500kb size of image',
         ];
 
