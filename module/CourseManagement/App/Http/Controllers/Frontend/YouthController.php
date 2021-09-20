@@ -226,11 +226,11 @@ class YouthController extends Controller
 
     public function checkYouthUniquePassportId(Request $request): JsonResponse
     {
-        $youth = YouthFamilyMemberInfo::where(['birth_certificate_no' => $request->passport_number, 'relation_with_youth' => 'self'])->first();
+        $youth = YouthFamilyMemberInfo::where(['passport_number' => $request->passport_number, 'relation_with_youth' => 'self'])->first();
         if ($youth == null) {
             return response()->json(true);
         }
-        return response()->json("এই জন্ম সনদ টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই পাসপোর্ট নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
 
 }
