@@ -296,9 +296,9 @@
                                                    placeholder="এন.আই.ডি নাম্বার">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control mb-2" name="birth_reg_no"
-                                                   id="birth_reg_no"
-                                                   value="{{ old('birth_reg_no') }}" placeholder="জন্ম সনদ নাম্বার">
+                                            <input type="text" class="form-control mb-2" name="birth_certificate_no"
+                                                   id="birth_certificate_no"
+                                                   value="{{ old('birth_certificate_no') }}" placeholder="জন্ম সনদ নাম্বার">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="passport_number"
@@ -1825,12 +1825,12 @@
                 },
                 nid: {
                     required: function () {
-                        return $('#passport_number').val() == "" && $('#birth_reg_no').val() == "";
+                        return $('#passport_number').val() == "" && $('#birth_certificate_no').val() == "";
                     },
                     nidBn: true,
                     remote: "{!! route('course_management::youth.check-unique-nid') !!}",
                 },
-                birth_reg_no: {
+                birth_certificate_no: {
                     required: function () {
                         return $('#passport_number').val() == "" && $('#nid').val() == "";
                     },
@@ -1839,7 +1839,7 @@
                 },
                 passport_number: {
                     required: function () {
-                        return $('#birth_reg_no').val() == "" && $('#nid').val() == "";
+                        return $('#birth_certificate_no').val() == "" && $('#nid').val() == "";
                     },
                     passport: true,
                     remote: "{!! route('course_management::youth.check-unique-passport-no') !!}"
@@ -2269,7 +2269,7 @@
                 nid: {
                     required: "এখানে এনআইডি নাম্বার প্রদান করুন  [ অথবা নিচের জন্ম সনদ নাম্বার/পাসপোর্ট নাম্বার যেকোনো একটি ঘর পূর্ণ করুন ]",
                 },
-                birth_reg_no: {
+                birth_certificate_no: {
                     required: "এখানে জন্ম সনদ নাম্বার প্রদান করুন",
                     birthRegNo: "এখানে আপনার সঠিক জন্ম সনদ নাম্বার লিখুন ",
                 },

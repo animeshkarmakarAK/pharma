@@ -101,7 +101,7 @@ class YouthRegistrationService
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
             'freedom_fighter_status', 'nid', 'birth_reg_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
         $youthSelfInfo['relation_with_youth'] = "self";
-        $youthSelfInfo['birth_certificate_no'] = $youthSelfInfo['birth_reg_no'];
+//        $youthSelfInfo['birth_certificate_no'] = $youthSelfInfo['birth_reg_no'];
 
 
         $disabilities = null;
@@ -143,7 +143,16 @@ class YouthRegistrationService
                 }),
 
             ],
-            'birth_reg_no' => [
+            /*'birth_reg_no' => [
+                'nullable',
+                'string',
+                Rule::unique('youths_family_member_info')->where(function ($query) {
+                    return $query->where('relation_with_youth', 'self');
+                }),
+
+            ],*/
+
+            'birth_certificate_no' => [
                 'nullable',
                 'string',
                 Rule::unique('youths_family_member_info')->where(function ($query) {
@@ -151,6 +160,7 @@ class YouthRegistrationService
                 }),
 
             ],
+
             'date_of_birth' => 'required|date',
             'email' => 'required|string|max:191|email|unique:youths',
             'address.present.present_address_division_id' => 'required|int',
