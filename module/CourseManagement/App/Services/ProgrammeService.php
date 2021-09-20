@@ -63,6 +63,7 @@ class ProgrammeService
                 'nullable',
                 'file',
                 'mimes:jpg,bmp,png,jpeg,svg',
+                'dimensions:width=80,height=80',
             ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

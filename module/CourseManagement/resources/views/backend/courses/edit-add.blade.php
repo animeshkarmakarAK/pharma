@@ -51,7 +51,7 @@
                                                              height="300" width="100%"
                                                          alt="course cover_image"/>
                                                     <span class="p-1 bg-gray"
-                                                          style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
+                                                          style="position: relative; right: 0; bottom: 50%; /*border: 2px solid #afafaf;*/ border-radius: 50%;margin-left: -31px; overflow: hidden">
                                                         <i class="fa fa-pencil-alt text-white"></i>
                                                     </span>
                                                 </label>
@@ -60,6 +60,8 @@
                                                    id="cover_image">
                                         </div>
                                     </div>
+                                    <p class="font-italic text-secondary d-block">
+                                        (Image file type must be jpg,bmp,png,jpeg or svg)</p>
                                 </div>
                             </div>
 

@@ -287,11 +287,11 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="nid">এন.আই.ডি নং/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর পূর্ণ করুন] <span class="required">*</span>:</label>
+                                    <label for="nid">এন.আই.ডি নাম্বার/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর পূর্ণ করুন] <span class="required">*</span>:</label>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="nid" id="nid" value="{{ old('nid') }}"
-                                                   placeholder="এন.আই.ডি নং">
+                                                   placeholder="এন.আই.ডি নাম্বার">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="birth_reg_no" id="birth_reg_no"
@@ -651,21 +651,10 @@
                         <div class="card-body row">
                             <div class="col-md-6 academic-qualification-jsc mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
-                                    <div class="card-header" role="button" aria-expanded="false"
-                                         {{--data-toggle="collapse"--}}
-                                         data-target=".jsc_collapse" aria-controls=".jsc_collapse">
-                                        <h3 class="card-title text-primary d-inline-flex">জে.এস.সি/সমমান
-                                            <div class="form-check ml-3">
-                                                <input class="form-check-input" name="jsc_examination_info"
-                                                       id="jsc_examination_info"
-                                                       type="checkbox"checked{{-- {{ old('jsc_examination_info') == 'on' ? 'checked' : '' }}--}}>
-                                                <label class="form-check-label" for="">
-                                                    <p>(পাস)</p>
-                                                </label>
-                                            </div>
-                                        </h3>
+                                    <div class="card-header">
+                                        <h3 class="card-title text-primary d-inline-flex">জে.এস.সি/সমমান (পাস)</h3>
                                     </div>
-                                    <div class="card-body jsc_collapse {{--collapse--}} hide">
+                                    <div class="card-body jsc_collapse hide">
 
                                         <input type="hidden" name="academicQualification[jsc][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC }}">
@@ -674,7 +663,7 @@
                                             <label for="jsc_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[jsc][examination_name]"
                                                         id="jsc_examination_name" class="select2 form-control">
                                                     <option value=""></option>
@@ -688,7 +677,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_board" class="col-md-4 col-form-label">বোর্ড<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[jsc][board]" id="jsc_board"
                                                         class="select2">
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
@@ -758,19 +747,8 @@
                             </div>
                             <div class="col-md-6 academic-qualification-ssc mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
-                                    <div class="card-header" role="button" aria-expanded="false"
-                                         {{--data-toggle="collapse"--}}
-                                         data-target=".ssc_collapse" aria-controls=".ssc_collapse">
-                                        <h3 class="card-title text-primary d-inline-flex">এস.এস.সি/সমমান/A-লেভেল
-                                            <div class="form-check ml-3">
-                                                <input class="form-check-input" name="ssc_examination_info"
-                                                       id="ssc_examination_info"
-                                                       type="checkbox"checked {{--{{ old('ssc_examination_info') == 'on' ? 'checked' : '' }}--}}>
-                                                <label class="form-check-label" for="">
-                                                    <p>(পাস)</p>
-                                                </label>
-                                            </div>
-                                        </h3>
+                                    <div class="card-header">
+                                        <h3 class="card-title text-primary d-inline-flex">এস.এস.সি/সমমান/A-লেভেল (পাস) </h3>
                                     </div>
                                     <div class="card-body ssc_collapse {{--collapse--}} hide">
 
@@ -781,7 +759,7 @@
                                             <label for="ssc_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[ssc][examination_name]"
                                                         id="ssc_examination_name" class="select2 form-control">
                                                     <option value=""></option>
@@ -797,7 +775,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="ssc_board" class="col-md-4 col-form-label">বোর্ড<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[ssc][board]" id="ssc_board"
                                                         class="select2">
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
@@ -898,19 +876,8 @@
                             </div>
                             <div class="col-md-6 academic-qualification-hsc mb-2">
                                 <div class="card custom-bg-gradient-info col-md-12" style="height: 100%;">
-                                    <div class="card-header" role="button" aria-expanded="false"
-                                         {{--data-toggle="collapse"--}}
-                                         data-target=".hsc_collapse" aria-controls=".hsc_collapse">
-                                        <h3 class="card-title text-primary d-inline-flex">এইচ.এস.সি/সমমান
-                                            <div class="form-check ml-3">
-                                                <input class="form-check-input" name="hsc_examination_info"
-                                                       id="hsc_examination_info"
-                                                       type="checkbox"checked{{-- {{ old('hsc_examination_info') == 'on' ? 'checked' : '' }}--}}>
-                                                <label class="form-check-label" for="">
-                                                    <p>(পাস)</p>
-                                                </label>
-                                            </div>
-                                        </h3>
+                                    <div class="card-header">
+                                        <h3 class="card-title text-primary d-inline-flex">এইচ.এস.সি/সমমান (পাস) </h3>
                                     </div>
                                     <div class="card-body hsc_collapse {{--collapse--}} hide">
 
@@ -921,7 +888,7 @@
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
 
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[hsc][examination_name]"
                                                         id="hsc_examination_name" class="select2">
                                                     <option></option>
@@ -937,7 +904,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="hsc_board" class="col-md-4 col-form-label">বোর্ড<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[hsc][board]" id="hsc_board"
                                                         class="select2">
                                                     <option></option>
@@ -1037,21 +1004,8 @@
                             </div>
                             <div class="col-md-6 academic-qualification-graduation mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
-                                    <div class="card-header" role="button" aria-expanded="false"
-                                         {{--data-toggle="collapse"--}}
-                                         data-target=".graduation_collapse"
-                                         aria-controls=".graduation_collapse">
-                                        <h3 class="card-title text-primary d-inline-flex">স্নাতক লেভেল
-                                            <div class="form-check ml-3">
-                                                <input class="form-check-input"
-                                                       name="graduation_examination_info"
-                                                       id="graduation_examination_info"
-                                                       type="checkbox"checked{{-- {{ old('graduation_examination_info') == "on" ? 'checked' : '' }}--}}>
-                                                <label class="form-check-label">
-                                                    <p>(পাস)</p>
-                                                </label>
-                                            </div>
-                                        </h3>
+                                    <div class="card-header">
+                                        <h3 class="card-title text-primary d-inline-flex">স্নাতক লেভেল (পাস)</h3>
                                     </div>
                                     <div class="card-body graduation_collapse {{--collapse--}} hide">
                                         <input type="hidden"
@@ -1062,7 +1016,7 @@
                                             <label for="graduation_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select
                                                     name="academicQualification[graduation][examination_name]"
                                                     id="graduation_examination_name" class="select2">
@@ -1079,7 +1033,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_subject" class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <input type="text"
                                                        name="academicQualification[graduation][subject]"
                                                        id="graduation_subject" class="form-control"
@@ -1091,7 +1045,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_institute" class="col-md-4 col-form-label">প্রতিষ্ঠান/বিশ্ববিদ্যালয়<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[graduation][institute]"
                                                         id="graduation_institute"
                                                         class="select2">
@@ -1170,19 +1124,8 @@
                             </div>
                             <div class="col-md-6 academic-qualification-masters mb-2">
                                 <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
-                                    <div class="card-header" role="button" aria-expanded="false"
-                                         {{--data-toggle="collapse"--}}
-                                         data-target=".masters_collapse" aria-controls=".masters_collapse">
-                                        <h3 class="card-title text-primary d-inline-flex">স্নাতকোত্তর লেভেল
-                                            <div class="form-check ml-3">
-                                                <input class="form-check-input" name="masters_examination_info"
-                                                       id="masters_examination_info"
-                                                       type="checkbox"checked{{-- {{ old('masters_examination_info') == "on" ? 'checked' : '' }}--}}>
-                                                <label class="form-check-label" for="">
-                                                    <p>(পাস)</p>
-                                                </label>
-                                            </div>
-                                        </h3>
+                                    <div class="card-header">
+                                        <h3 class="card-title text-primary d-inline-flex">স্নাতকোত্তর লেভেল (পাস) </h3>
                                     </div>
                                     <div class="card-body masters_collapse {{--collapse--}} hide">
                                         <input type="hidden" name="academicQualification[masters][examination]"
@@ -1191,7 +1134,7 @@
                                             <label for="masters_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[masters][examination_name]"
                                                         id="masters_examination_name" class="select2">
                                                     <option></option>
@@ -1208,7 +1151,7 @@
                                             <label for="masters_subject"
                                                    class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <input type="text"
                                                        name="academicQualification[masters][subject]"
                                                        id="masters_subject"
@@ -1220,7 +1163,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="masters_institute" class="col-md-4 col-form-label">প্রতিষ্ঠান/বিশ্ববিদ্যালয়<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <select name="academicQualification[masters][institute]"
                                                         id="masters_institute" class="select2">
                                                     <option value=""></option>
@@ -1264,7 +1207,7 @@
                                                 পাসের বছর<span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select name="academicQualification[masters][passing_year]"
-                                                        class="select2">
+                                                        class="select2" id="masters_passing_year">
                                                     <option></option>
                                                     @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
                                                         <option
@@ -1405,7 +1348,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="fathers_nid">এন.আই.ডি নং:<span
+                                                        <label for="fathers_nid">এন.আই.ডি নাম্বার:<span
                                                                 class="required">*</span></label>
                                                         <input type="text" name="familyMember[father][nid]"
                                                                id="fathers_nid"
@@ -1462,7 +1405,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="mothers_nid">এন.আই.ডি নং:<span
+                                                        <label for="mothers_nid">এন.আই.ডি নাম্বার:<span
                                                                 class="required">*</span></label>
                                                         <input type="text" name="familyMember[mother][nid]"
                                                                id="mothers_nid"
@@ -1554,7 +1497,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="guardian_nid">অভিভাবকের এন.আই.ডি নং<span
+                                                        <label for="guardian_nid">অভিভাবকের এন.আই.ডি নাম্বার<span
                                                                 class="required">*</span>:</label>
                                                         <input type="text"
                                                                name="familyMember[guardian][nid]"
@@ -1626,11 +1569,10 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group col-md-4">
                                     <div class="form-group">
                                         <label for="number_of_siblings">ভাই-বোনের সংখ্যা</label>
-                                        <input type="number" class="form-control" name="number_of_siblings"
+                                        <input type="number" class="form-control w-50" name="number_of_siblings"
                                                id="number_of_siblings" value="{{ old('number_of_siblings') }}">
                                     </div>
                                 </div>
@@ -1647,9 +1589,10 @@
                                 </div>
 
                                 <div class=" form-group col-md-4 recommended_org_name_field">
-                                    <label for="recommended_org_name">প্রতিষ্ঠান/সংস্থা নাম</label>
+                                    <label for="recommended_org_name">প্রতিষ্ঠান/সংস্থা নাম <span
+                                            class="required">*</span>:</label>
                                     <input type="text" name="recommended_org_name" id="recommended_org_name"
-                                           class="form-control" value="{{ old('recommended_org_name') }}">
+                                           class="form-control w-50" value="{{ old('recommended_org_name') }}">
                                 </div>
                             </div>
                         </div>
@@ -2317,15 +2260,15 @@
                     required: "আপনার জাতীয়তা প্রদান করুন",
                 },
                 nid: {
-                    required: "এখানে এনআইডি নম্বর প্রদান করুন  [ অথবা নিচের জন্ম সনদ নম্বর/পাসপোর্ট নম্বর যেকোনো একটি ঘর পূর্ণ করুন ]",
+                    required: "এখানে এনআইডি নাম্বার প্রদান করুন  [ অথবা নিচের জন্ম সনদ নাম্বার/পাসপোর্ট নাম্বার যেকোনো একটি ঘর পূর্ণ করুন ]",
                 },
                 birth_reg_no: {
-                    required: "এখানে জন্ম সনদ নম্বর প্রদান করুন",
-                    birthRegNo: "এখানে আপনার সঠিক জন্ম সনদ নম্বর লিখুন ",
+                    required: "এখানে জন্ম সনদ নাম্বার প্রদান করুন",
+                    birthRegNo: "এখানে আপনার সঠিক জন্ম সনদ নাম্বার লিখুন ",
                 },
                 passport_number: {
-                    required: "এখানে পাসপোর্ট নম্বর প্রদান করুন",
-                    passport: "এখানে আপনার সঠিক পাসপোর্ট নম্বর লিখুন ",
+                    required: "এখানে পাসপোর্ট নাম্বার প্রদান করুন",
+                    passport: "এখানে আপনার সঠিক পাসপোর্ট নাম্বার লিখুন ",
                 },
                 email: {
                     required: "এখানে আপনার ই-মেইল এড্রেস লিখুন।",
@@ -2588,7 +2531,7 @@
                     required: "এখানে আপনার পিতার এনআইডি লিখুন",
                 },
                 "familyMember[father][mobile]": {
-                    required: "এখানে আপনার পিতার মোবাইল নম্বর লিখুন",
+                    required: "এখানে আপনার পিতার মোবাইল নাম্বার লিখুন",
                 },
                 "familyMember[mother][member_name_en]": {
                     required: "এখানে আপনার মাতার নাম লিখুন",
@@ -2601,7 +2544,7 @@
                     required: "এখানে আপনার মাতার এনআইডি লিখুন",
                 },
                 "familyMember[mother][mobile]": {
-                    required: "এখানে আপনার মাতার মোবাইল নম্বর লিখুন",
+                    required: "এখানে আপনার মাতার মোবাইল নাম্বার লিখুন",
                 },
                 guardian: {
                     required: "আপনার অভিভাবক সিলেক্ট করুন",
@@ -2625,6 +2568,9 @@
                 },
                 year_of_experience: {
                     number: "সঠিক অভিজ্ঞতার বছর লিখুন"
+                },
+                recommended_org_name: {
+                    required: "এই ঘরটি অবশ্যই পূরণ করতে হবে",
                 },
 
 
@@ -2851,10 +2797,10 @@
         function enablePermanentAddressFields() {
             $('#permanent_address_division_id').prop('disabled', false);
 
-            $('#permanent_address_district_id').prop('disabled', false);
+            $('#permanent_address_district_id').prop('disabled', true);
 
             $('#permanent_address_district_id').html("<option></option>");
-            $('#permanent_address_upazila_id').prop('disabled', false);
+            $('#permanent_address_upazila_id').prop('disabled', true);
 
             $('#permanent_address_upazila_id').html("<option></option>");
             $('#permanent_address_postal_code').prop('readonly', false);
@@ -2871,10 +2817,10 @@
             $('#present_address_division_id').prop('disabled', false);
             $('input[name = "present_address_division_id"]').prop('disabled', true);
 
-            $('#present_address_district_id').prop('disabled', false);
+            $('#present_address_district_id').prop('disabled', true);
             $('input[name = "present_address_district_id"]').prop('disabled', true);
 
-            $('#present_address_upazila_id').prop('disabled', false);
+            $('#present_address_upazila_id').prop('disabled', true);
             $('input[name = "present_address_upazila_id"]').prop('disabled', true);
 
             $('#present_address_postal_code').prop('readonly', false);
@@ -2931,9 +2877,94 @@
                     setPermanentAddressValue();
                     disablePresentAddressFields();
                     disablePermanetAddressFields();
+
+
+                    if($('#present_address_division_id').val() != ""){
+                        $('#permanent_address_division_id').valid();
+                    }else{
+                        $('#present_address_division_id').valid(false);
+                        $('#permanent_address_division_id').valid(false);
+                    }
+
+                    if($('#present_address_district_id').val() != ""){
+                        $('#permanent_address_district_id').valid();
+                    }else{
+                        $('#present_address_district_id').valid(false);
+                        $('#permanent_address_district_id').valid(false);
+                    }
+
+                    if($('#present_address_upazila_id').val() != ""){
+                        $('#permanent_address_upazila_id').valid();
+                    }else{
+                        $('#permanent_address_upazila_id').valid(false);
+                    }
+
+
+                    if($('#present_address_postal_code').val() != ""){
+                        $('#permanent_address_postal_code').valid();
+                    }else{
+                        $('#present_address_postal_code').valid(false);
+                        $('#permanent_address_postal_code').valid(false);
+                    }
+
+                    if($('#present_address_village_name').val() != ""){
+                        $('#permanent_address_village_name').valid();
+                    }else{
+                        $('#present_address_village_name').valid(false);
+                        $('#permanent_address_village_name').valid(false);
+                    }
+
+                    if($('#present_address_house_and_road').val() != ""){
+                        $('#permanent_address_house_and_road').valid();
+                    }else{
+                        $('#present_address_house_and_road').valid(false);
+                        $('#permanent_address_house_and_road').valid(false);
+                    }
+
                 } else {
                     enablePermanentAddressFields();
                     enablePresentAddressFields();
+
+                    //$('#permanent_address_division_id').attr('disabled');
+
+
+
+                    if($('#permanent_address_division_id').val() != ""){
+                        $(this).valid();
+                    }else{
+                        $(this).valid(false);
+                    }
+
+                    if($('#permanent_address_district_id').val() != ""){
+                        $(this).valid();
+                    }else{
+                        $(this).valid(false);
+                    }
+
+                    if($('#permanent_address_upazila_id').val() != ""){
+                        $(this).valid();
+                    }else{
+                        $(this).valid(false);
+                    }
+
+
+                    if($('#permanent_address_postal_code').val() != ""){
+                        $(this).valid();
+                    }else{
+                        $(this).valid(false);
+                    }
+
+                    if($('#permanent_address_village_name').val() != ""){
+                        $(this).valid();
+                    }else{
+                        $(this).valid(false);
+                    }
+
+                    if($('#permanent_address_house_and_road').val() != ""){
+                        $(this).valid();
+                    }else{
+                        $(this).valid(false);
+                    }
                 }
             })
 
@@ -3071,32 +3102,131 @@
             });
         });
 
+        function validationCheckSelect2 (n){
+            if ($(n).val() != "") {
+                $(n).valid();
+            }else{
+                $(n).valid(false);
+            }
+        }
+
 
         $('#date_of_birth').on('change', function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
+            validationCheckSelect2(this);
         });
         $('#nationality').on('change', function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
+            validationCheckSelect2(this);
         });
         $('#fathers_date_of_birth').on('change', function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
+            validationCheckSelect2(this);
         });
         $('#mothers_date_of_birth').on('change', function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
+            validationCheckSelect2(this);
         });
         $('#guardian_date_of_birth').on('change', function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
+            validationCheckSelect2(this);
         });
+
+        $('#jsc_examination_name').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#jsc_board').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#jsc_passing_year').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+        $('#ssc_examination_name').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#ssc_board').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#ssc_result').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#ssc_group').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#ssc_passing_year').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+        $('#hsc_examination_name').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#hsc_board').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#hsc_result').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#hsc_group').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#hsc_passing_year').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+        $('#graduation_examination_name').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#graduation_institute').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#graduation_result').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#graduation_passing_year').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#graduation_course_duration').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+        $('#masters_examination_name').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#masters_institute').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#masters_result').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#masters_passing_year').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#masters_course_duration').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+
+        $('#freedom_fighter_status').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+        $('#present_address_division_id').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#present_address_district_id').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#present_address_upazila_id').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+        $('#permanent_address_division_id').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#permanent_address_district_id').on('change', function () {
+            validationCheckSelect2(this);
+        });
+        $('#permanent_address_upazila_id').on('change', function () {
+            validationCheckSelect2(this);
+        });
+
+
 
 
     </script>

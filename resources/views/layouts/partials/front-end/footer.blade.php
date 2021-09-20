@@ -1,33 +1,3 @@
-
-<aside class="theme-bg aside-cta">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12 text-white">
-                <h3 class="text-white">নতুন কার্যক্রম সম্পর্কে জানতে</h3>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12 text-white purchase-button">
-                <form method="post" accept-charset="utf-8" action="">
-                    <div class="form-group input email">
-                        <div class="row">
-                            <div class=" com-md-2 p-2 mt-2 ">
-                                <strong for="email" class="">ইমেইল </strong>
-                            </div>
-                            <div class=" com-md-5 p-2">
-                                <input class="email-submit" placeholder="ইমেইল..." id="email" type="email"
-                                       name="email">
-                            </div>
-                            <div class=" com-md-5 p-2">
-                                <input class="submit-btn" type="submit" value="সাবস্ক্রাইব করুন" disabled style="cursor: not-allowed">
-                            </div>
-                        </div>
-                    </div>
-                    {{--<input class="submit-btn" type="submit" value="সাবস্ক্রাইব করুন" disabled style="cursor: not-allowed">--}}
-                </form>
-            </div>
-        </div>
-    </div>
-</aside>
-
 <section class="main-footer">
     <div class="container">
         <div class="row">
