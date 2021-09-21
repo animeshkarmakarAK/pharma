@@ -99,9 +99,8 @@ class YouthRegistrationService
 
         $youthSelfInfo = Arr::only($data, ['mobile', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
-            'freedom_fighter_status', 'nid', 'birth_reg_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
+            'freedom_fighter_status', 'nid', 'birth_certificate_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
         $youthSelfInfo['relation_with_youth'] = "self";
-//        $youthSelfInfo['birth_certificate_no'] = $youthSelfInfo['birth_reg_no'];
 
 
         $disabilities = null;
@@ -143,14 +142,6 @@ class YouthRegistrationService
                 }),
 
             ],
-            /*'birth_reg_no' => [
-                'nullable',
-                'string',
-                Rule::unique('youths_family_member_info')->where(function ($query) {
-                    return $query->where('relation_with_youth', 'self');
-                }),
-
-            ],*/
 
             'birth_certificate_no' => [
                 'nullable',

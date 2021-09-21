@@ -462,6 +462,7 @@
         .footer-widget p {
             margin-top: 10px;
             font-size: 1rem;
+            color: #655d5d;
         }
 
         .footer-widget span {
@@ -526,12 +527,11 @@
             column-count: 2;
             font-size: 1rem;
             color: #4B77BE;
-            margin-top: 30px;
             padding-left: 0;
         }
 
         .footer-widget-quick-links ul li {
-            line-height: 37px;
+            padding-bottom: 5px;
         }
 
         .footer-widget-quick-links ul li i {

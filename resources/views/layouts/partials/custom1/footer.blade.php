@@ -22,7 +22,7 @@
             <!--footer widget Two-->
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget-address">
-                    <h3>যোগাযোগ </h3>
+                    <h3 class="mb-3">যোগাযোগ</h3>
                     <p>
                         <span>
                             <i class="fa fa-home" aria-hidden="true"></i>
@@ -33,41 +33,34 @@
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         <a class="footer-email"
                            href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
-                            <span style="font-family:'Roboto', sans-serif; font-size: 17px;">
-                                {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
-                            </span>
+                            {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
                         </a>
                     </p>
                     <p>
-                        <span>
-                            <i class="fas fa-phone-volume"></i>
-                            <a style="color: #869099;"
-                               href="tel:{{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}"
-                               onclick="">
-                                {{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}
-                            </a>
+                        <i class="fas fa-phone-volume"></i>
+                        <a
+                           href="tel:{{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}"
+                           onclick="">
+                            {{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}
+                        </a>
 
-                            @if(!empty($currentInstitute->phone_numbers))
-                                @foreach($currentInstitute->phone_numbers as $phoneNumber)
-                                    <a style="color: #869099;"
-                                       href="tel:{{  $phoneNumber }}"
-                                       onclick="">
-                                        , {{  $phoneNumber }}
-                                    </a>
-                                @endforeach
-                            @endif
-                        </span>
+                        @if(!empty($currentInstitute->phone_numbers))
+                            @foreach($currentInstitute->phone_numbers as $phoneNumber)
+                                <a
+                                   href="tel:{{  $phoneNumber }}"
+                                   onclick="">
+                                    , {{  $phoneNumber }}
+                                </a>
+                            @endforeach
+                        @endif
                     </p>
                     <p>
-                        <span>
-                            <i class="fa fa-fax" aria-hidden="true"></i>
-                            <a style="color: #869099;"
-                               href="tel:{{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:'' }}"
-                               onclick="">
-                                {{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:'' }}
-                            </a>
-                            {{--+৮৮-০২-৮৮৭০৭২৮--}}
-                        </span>
+                        <i class="fa fa-fax" aria-hidden="true"></i>
+                        <a
+                            href="tel:{{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:'' }}"
+                            onclick="">
+                            {{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:'' }}
+                        </a>
                     </p>
                 </div>
             </div>
@@ -75,8 +68,8 @@
 
             <!--footer widget Three-->
             <div class="col-md-4 col-sm-6 footer-item">
-                <div class=" footer-widget-quick-links">
-                    <h3>গুরুত্বপূর্ণ লিঙ্ক</h3>
+                <div class="footer-widget-quick-links">
+                    <h3 class="mb-3">গুরুত্বপূর্ণ লিঙ্ক</h3>
                     <ul>
                         <li>
                             <i class="fa  fa-angle-right"></i>
@@ -86,7 +79,7 @@
                         <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">আমাদের সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">যোগাযোগ</a></li>
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">প্রশ্ন ও উত্তর</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">প্রশ্নোত্তর</a></li>
                         @guest
                             <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
                             <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>
