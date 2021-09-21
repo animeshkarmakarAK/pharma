@@ -441,6 +441,7 @@
         .footer-widget p {
             margin-top: 10px;
             font-size: 1rem;
+            color: #655d5d;
         }
 
         .footer-widget span {
@@ -473,7 +474,6 @@
             color: #4B77BE;
             font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 30px;
         }
 
         .footer-widget-address p {
@@ -487,12 +487,16 @@
             padding: 8px 10px 0 0;
         }
 
-        .footer-widget-address p span {
+        .footer-widget-address p, .footer-widget-address a {
             float: left;
+            color: #655d5d;
         }
 
-        .footer-widget-quick-links {
+        .footer-widget-address a:hover{
+            color: #4B77BE;
         }
+
+
 
         .footer-widget-quick-links h3 {
             color: #4B77BE;
@@ -505,12 +509,11 @@
             column-count: 2;
             font-size: 1rem;
             color: #4B77BE;
-            margin-top: 30px;
             padding-left: 0;
         }
 
         .footer-widget-quick-links ul li {
-            line-height: 37px;
+            padding-bottom: 5px;
         }
 
         .footer-widget-quick-links ul li i {
@@ -518,7 +521,7 @@
         }
 
         .footer-widget-quick-links ul li a {
-            color: #555;
+            color: #655d5d;
             transition: .4s;
         }
 

@@ -10,7 +10,7 @@
             <div class="carousel-inner" role="listbox" style="overflow: visible">
                 <div class="carousel-item active">
                     <div class='container'>
-                        <div class='row pos-rel'>
+                        <div class='row pos-rel px-5'>
                             <div class='col-sm-12 col-md-5 slider-left-content'>
                                 <h1 class=''>সমাজসেবা অধিদপ্তর সমাজসেবা সমাজসেবা</h1>
                                 <p>
@@ -33,7 +33,7 @@
                 <div class="carousel-item">
 
                     <div class='container s-fix'>
-                        <div class='row pos-rel'>
+                        <div class='row pos-rel px-5'>
                             <div class='col-sm-12 col-md-5 animate slider-left-content'>
                                 <h1 class='big fadeInDownBig animated'>সমাজসেবা অধিদপ্তর সমাজসেবা অধিদপ্তর</h1>
                                 <p class='normal fadeInUpBig animated delay-point-five-s'>
