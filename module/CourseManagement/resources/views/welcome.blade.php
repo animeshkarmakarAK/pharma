@@ -12,19 +12,23 @@
                     <div class='container'>
                         <div class='row pos-rel px-5'>
                             <div class='col-sm-12 col-md-5 slider-left-content mb-4'>
-                                <h1 class=''>সমাজসেবা অধিদপ্তর সমাজসেবা সমাজসেবা</h1>
-                                <p>
-                                    সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
-                                    সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
-                                    সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
-                                </p>
+                                <div style="height: 210px; overflow: hidden">
+                                    <h1 class=''>সমাজসেবা অধিদপ্তর সমাজসেবা সমাজসেবা</h1>
+                                    <p>
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার
+                                    </p>
+                                </div>
+
                                 <a href='#' target="_blank">
                                     বিস্তারিত &nbsp;
                                     <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                             <div class='col-sm-12 col-md-7'>
-                                <img class="rounded" width="100%" src="data:image/jpeg;base64,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">
+                                <img class="rounded" width="100%"
+                                     src="data:image/jpeg;base64,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">
 
                             </div>
                         </div>
@@ -35,18 +39,23 @@
                     <div class='container s-fix'>
                         <div class='row pos-rel px-5'>
                             <div class='col-sm-12 col-md-5 slider-left-content mb-4'>
-                                <h1 class='big fadeInDownBig animated'>সমাজসেবা অধিদপ্তর সমাজসেবা অধিদপ্তর</h1>
-                                <p class='normal fadeInUpBig animated delay-point-five-s'>
-                                    সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার সরকারসরকারসরকার
-                                    সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার সরকারসরকারসরকার
-                                </p>
+                                <div style="height: 210px; overflow: hidden">
+                                    <h1 class='big fadeInDownBig animated'>সমাজসেবা অধিদপ্তর সমাজসেবা অধিদপ্তর</h1>
+                                    <p class='normal fadeInUpBig animated delay-point-five-s'>
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার সরকারসরকারসরকার
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার সরকারসরকারসরকার
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার সরকারসরকারসরকার
+                                        সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী বাংলাদেশ সরকার সরকারসরকারসরকার
+                                    </p>
+                                </div>
                                 <a href='#' target="_blank">
                                     বিস্তারিত &nbsp;
                                     <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                             <div class='col-sm-12 col-md-7'>
-                                <img class="rounded" width="100%" src="https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg">
+                                <img class="rounded" width="100%"
+                                     src="https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg">
 
                             </div>
                         </div>
@@ -129,7 +138,8 @@
                     <!--Services Heading-->
                     <h2 class="section-heading-h2 pb-3 font-weight-bold"> আমাদের সম্পর্কে </h2>
                     <div>
-                        <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও স্বাবলম্বী করে
+                        <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও স্বাবলম্বী
+                            করে
                             তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"।
                             এই ওয়েব অ্যাপ্লিকেশনটি মূলত "অনলাইন কোর্স ম্যানেজমেন্ট সিস্টেম"।
                             এই প্ল্যাটফর্মে শিক্ষার্থী অতি সহজে বিভিন্ন প্রশিক্ষণ কোর্সে প্রশিক্ষণ নিয়ে স্বাবলম্বী হতে
@@ -139,10 +149,12 @@
                         <h2 class="para-heading font-weight-light">পোর্টালের লক্ষ্য/উদ্দেশ্য সমূহঃ</h2>
 
                         <ul class="sidebar-list">
-                            <li><i class="font-weight-bold lists">*</i> এই প্ল্যাটফর্মে শিক্ষার্থী বিভিন্ন প্রশিক্ষণ কোর্সের
+                            <li><i class="font-weight-bold lists">*</i> এই প্ল্যাটফর্মে শিক্ষার্থী বিভিন্ন প্রশিক্ষণ
+                                কোর্সের
                                 জন্য আবেদন করতে পারবে।
                             </li>
-                            <li><i class="font-weight-bold lists">*</i> বিভিন্ন ক্যাটাগরিতে অনেক গুলো কোর্স একসাথে পরিচালনা
+                            <li><i class="font-weight-bold lists">*</i> বিভিন্ন ক্যাটাগরিতে অনেক গুলো কোর্স একসাথে
+                                পরিচালনা
                                 ও
                                 পর্যবেক্ষণ করা সম্ভব।
                             </li>
@@ -241,7 +253,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 mx-auto" >
+                            <div class="col-md-2 mx-auto">
                                 <div class="card card-main mb-2">
                                     <div class="card-bar">
                                         <i class="fas fa-paint-brush card-icons"></i>
@@ -251,7 +263,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 mx-auto" >
+                            <div class="col-md-2 mx-auto">
                                 <div class="card card-main mb-2">
                                     <div class="card-bar">
                                         <i class="fas fa-film card-icons"></i>
@@ -261,7 +273,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 mx-auto" >
+                            <div class="col-md-2 mx-auto">
                                 <div class="card card-main mb-2">
                                     <div class="card-bar">
                                         <i class="fas fa-film card-icons"></i>
@@ -298,7 +310,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 mx-auto" >
+                            <div class="col-md-2 mx-auto">
                                 <div class="card card-main mb-2">
                                     <div class="card-bar">
                                         <i class="fas fa-paint-brush card-icons"></i>
@@ -308,7 +320,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 mx-auto" >
+                            <div class="col-md-2 mx-auto">
                                 <div class="card card-main mb-2">
                                     <div class="card-bar">
                                         <i class="fas fa-film card-icons"></i>
@@ -318,7 +330,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 mx-auto" >
+                            <div class="col-md-2 mx-auto">
                                 <div class="card card-main mb-2">
                                     <div class="card-bar">
                                         <i class="fas fa-film card-icons"></i>
@@ -1873,7 +1885,7 @@
             background-color: #c4c4c4;
         }
 
-        .card-h1{
+        .card-h1 {
             font-size: 16px;
         }
 
@@ -1929,49 +1941,67 @@
         }
     </style>
     <style>
-        .section-heading {
-            margin-top: 0;
-            font-weight: 500;
-            padding-bottom: 11px;
-            color: #333;
-            text-align: center;
-            margin-bottom: 25px;
+        /*sliders css*/
+        .slider-left-content h1 {
+            color: #000000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .slider-left-content p {
+            margin-bottom: 45px;
+            color: #6C6B76;
+        }
+
+        .slider-left-content a {
+            background: #671688;
+            padding: 15px 25px;
+            color: #fff;
+            border: 1px solid #671688;
+            border-radius: 5px;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 1.6rem;
+            transition: .4s;
+        }
+
+        .slider-left-content a:hover {
+            background: #4c4c4c;
+            border: 1px solid #4c4c4c;
+            transition: .4s;
         }
 
 
-        .section-heading:before {
-            width: 200px;
-            position: absolute;
-            content: "";
-            left: 46%;
-            top: 37px;
-            height: 3px;
-            margin-left: -50px;
-            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+        .slider-right-content img {
+            float: right;
+            height: 135px !important;
+            width: 100% !important;
+            margin-top: 150px;
         }
 
-        .gallery-section-heading:before {
-            width: 90px;
-            position: absolute;
-            content: "";
-            top: 37px;
-            height: 3px;
-            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+        .slider-previous-icon, .slider-next-icon {
+            border: 1px solid #6C6B76;
+            padding: 12px;
+            border-radius: 50%;
+        }
+        .slider-previous-icon i, .slider-next-icon i {
+            display: block;
+            width: 10px;
+            color: #6C6B76;
+            font-size: 10px;
         }
 
-        .course-section-heading:before {
-            width: 134px;
-            position: absolute;
-            content: "";
-            top: 37px;
-            height: 3px;
-            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+
+        .slider-previous-link, .slider-next-link {
+            width: 8% !important;
         }
-        .default-heading-color{
-            color: #671688;
+
+        .player-icon{
+            position: absolute !important;
+            left: 45%;
+            top: 45%;
+            font-size: 35px;
+            color: #65546B;
+            z-index: 99999;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">

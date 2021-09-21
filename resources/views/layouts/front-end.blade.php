@@ -83,71 +83,51 @@
             transition: .4s;
         }
 
-        /*sliders css*/
-        .slider-left-content h1 {
-            color: #000000;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .slider-left-content p {
-            margin-bottom: 45px;
-            color: #6C6B76;
-        }
-
-        .slider-left-content a {
-            background: #671688;
-            padding: 15px 25px;
-            color: #fff;
-            border: 1px solid #671688;
-            border-radius: 5px;
+        .section-heading {
+            margin-top: 0;
+            font-weight: 500;
+            padding-bottom: 11px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
             letter-spacing: 2px;
-            transition: .4s;
-        }
-
-        .slider-left-content a:hover {
-            background: #4c4c4c;
-            border: 1px solid #4c4c4c;
-            transition: .4s;
-        }
-
-        .slider-right-content {
-        }
-
-        .slider-right-content img {
-            float: right;
-            height: 135px !important;
-            width: 100% !important;
-            margin-top: 150px;
-        }
-
-        .slider-previous-icon, .slider-next-icon {
-            border: 1px solid #6C6B76;
-            padding: 12px;
-            border-radius: 50%;
-        }
-        .slider-previous-icon i, .slider-next-icon i {
-            display: block;
-            width: 10px;
-            color: #6C6B76;
-            font-size: 10px;
+            text-transform: uppercase;
+            font-size: 1.6rem;
         }
 
 
-        .slider-previous-link, .slider-next-link {
-            width: 8% !important;
+        .section-heading:before {
+            width: 200px;
+            position: absolute;
+            content: "";
+            left: 46%;
+            top: 37px;
+            height: 3px;
+            margin-left: -50px;
+            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
         }
 
-        .player-icon{
-            position: absolute !important;
-            left: 45%;
-            top: 45%;
-            font-size: 35px;
-            color: #65546B;
-            z-index: 99999;
+        .gallery-section-heading:before {
+            width: 90px;
+            position: absolute;
+            content: "";
+            top: 37px;
+            height: 3px;
+            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
         }
 
+        .course-section-heading:before {
+            width: 134px;
+            position: absolute;
+            content: "";
+            top: 37px;
+            height: 3px;
+            background-image: linear-gradient(to right, #33c2a7 50%, #f5a000 50%) !important;
+        }
+
+        .default-heading-color {
+            color: #671688;
+        }
 
         section {
             padding: 30px 0;
