@@ -1835,7 +1835,7 @@
                         return $('#passport_number').val() == "" && $('#nid').val() == "";
                     },
                     birthRegNo: true,
-                    remote: "{!! route('course_management::youth.check-unique-barth-id') !!}"
+                    remote: "{!! route('course_management::youth.check-unique-birth_certificate_no') !!}"
                 },
                 passport_number: {
                     required: function () {
@@ -2157,11 +2157,6 @@
                         return $('.ethnic-group-information').css('display') == 'block';
                     },
                 },
-                birth_certificate_no: {
-                    required: function () {
-                        return !$("input[name='birth_certificate_no']").prop('hidden');
-                    }
-                },
                 "familyMember[father][member_name_en]": {
                     required: true,
                     textEnBnWithoutSpecialChar: true,
@@ -2267,7 +2262,7 @@
                     required: "আপনার জাতীয়তা প্রদান করুন",
                 },
                 nid: {
-                    required: "এখানে এনআইডি নাম্বার প্রদান করুন  [ অথবা নিচের জন্ম সনদ নাম্বার/পাসপোর্ট নাম্বার যেকোনো একটি ঘর পূর্ণ করুন ]",
+                    required: "এখানে এনআইডি নাম্বার প্রদান করুন",
                 },
                 birth_certificate_no: {
                     required: "এখানে জন্ম সনদ নাম্বার প্রদান করুন",

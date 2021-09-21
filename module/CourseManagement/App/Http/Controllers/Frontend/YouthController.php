@@ -208,17 +208,17 @@ class YouthController extends Controller
 
     public function checkYouthUniqueNID(Request $request): JsonResponse
     {
-        $youth = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
-        if ($youth == null) {
+        $youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
+        if ($youthNidNo == null) {
             return response()->json(true);
         }
         return response()->json("এই এন.আই.ডি নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
 
-    public function checkYouthUniqueBarthId(Request $request): JsonResponse
+    public function checkYouthUniqueBirthCertificateNo(Request $request): JsonResponse
     {
-        $youth = YouthFamilyMemberInfo::where(['birth_certificate_no' => $request->birth_reg_no, 'relation_with_youth' => 'self'])->first();
-        if ($youth == null) {
+        $youthBirthNo = YouthFamilyMemberInfo::where(['birth_certificate_no' => $request->birth_certificate_no, 'relation_with_youth' => 'self'])->first();
+        if ($youthBirthNo == null) {
             return response()->json(true);
         }
         return response()->json("এই জন্ম সনদ টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
@@ -226,8 +226,8 @@ class YouthController extends Controller
 
     public function checkYouthUniquePassportId(Request $request): JsonResponse
     {
-        $youth = YouthFamilyMemberInfo::where(['passport_number' => $request->passport_number, 'relation_with_youth' => 'self'])->first();
-        if ($youth == null) {
+        $youthPassportNo = YouthFamilyMemberInfo::where(['passport_number' => $request->passport_number, 'relation_with_youth' => 'self'])->first();
+        if ($youthPassportNo == null) {
             return response()->json(true);
         }
         return response()->json("এই পাসপোর্ট নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
