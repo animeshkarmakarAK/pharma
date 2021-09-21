@@ -49,7 +49,7 @@
                 <tr>
                     <td class="border-0"></td>
                     <td><span
-                            class="text-bold">Registration Number: </span>{{ $youthRegistrationData->registration_no ?? 'N/A' }}
+                            class="text-bold">Registration Number: </span>{{ $youthRegistrationData->youth_registration_no ?? 'N/A' }}
                     </td>
                     <td colspan="3"></td>
                 </tr>
