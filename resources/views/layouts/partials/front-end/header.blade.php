@@ -2,7 +2,7 @@
     <div class="container">
         <header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
             <div class="navbar-nav-scroll">
-                <div class="nise3-logo" style="height: 50px">
+                <div class="nise3-logo" style="height: 70px">
                     <img src="{{asset('/assets/company/images/nise-logo.jpeg')}}" height="100%" alt="Logo"/>
                 </div>
             </div>
