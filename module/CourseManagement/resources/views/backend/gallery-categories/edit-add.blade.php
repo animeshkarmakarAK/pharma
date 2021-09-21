@@ -140,6 +140,9 @@
                                                    id="image">
                                         </div>
                                     </div>
+                                    <p class="font-italic text-secondary">
+                                        (Image file type must be jpg,bmp,png,jpeg or svg)
+                                    </p>
                                 </div>
                             </div>
 
@@ -224,6 +227,10 @@
                 institute_id: {
                     required: true,
                 },
+                image: {
+                    accept: "image/*",
+                    extension: "jpg|bmp|png|jpeg|svg"
+                }
 
             },
             messages: {
@@ -233,6 +240,10 @@
                 title_bn: {
                     pattern: "This field is required in Bangla.",
                 },
+                image:{
+                    accept:"Please upload valid image",
+                    extension:"Please upload valid image extension",
+                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

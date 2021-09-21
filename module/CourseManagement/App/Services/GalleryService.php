@@ -59,12 +59,20 @@ class GalleryService
         ];
 
         if ($request->content_type == Gallery::CONTENT_TYPE_IMAGE) {
-            $rules['content_path'] = ['required_without:id', 'mimes:jpg,bmp,png'];
+            $rules['content_path'] = [
+                'required_without:id',
+                'mimes:jpg,jpeg,bmp,png',
+
+            ];
             if(empty($request->content_path)){
                 unset($rules['content_path']);
             }
         } elseif (Gallery::CONTENT_TYPE_VIDEO == $request->content_type && $request->is_youtube_video ==0) {
-            $rules['content_path'] = ['required_without:id', 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4'];
+            $rules['content_path'] = [
+                'required_without:id',
+                'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+                'max:2048'
+            ];
             if(empty($request->content_path)){
                 unset($rules['content_path']);
             }

@@ -49,7 +49,7 @@
                                                          height="300" width="100%"
                                                          alt="Slider Image"/>
                                                     <span class="p-1 bg-gray"
-                                                          style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
+                                                          style="position: relative; right: 0; bottom: 50%; /*border: 2px solid #afafaf;*/ border-radius: 50%;margin-left: -31px; overflow: hidden">
                                                         <i class="fa fa-pencil-alt text-white"></i>
                                                     </span>
                                                 </label>
@@ -58,6 +58,9 @@
                                                    id="slider">
                                         </div>
                                     </div>
+                                    <p class="font-italic text-secondary m-0 p-0" id="video-info-display">
+                                        (Video file type must be video/avi,video/mpeg,video/quicktime,video/mp4 and max size 2Mb)
+                                    </p>
                                 </div>
                             </div>
 

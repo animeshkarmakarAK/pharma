@@ -33,7 +33,8 @@
         <div class="row ">
             <div class="col-md-12">
                 <div class="card-tools float-right">
-                    <a href="{{route('course_management::admin.youth.registrations.index')}}"
+                    <a
+                       onclick="window.history.go(-1); return false;"
                        class="btn btn-sm btn-outline-primary btn-rounded">
                         <i class="fas fa-backward"></i> Back to list
                     </a>

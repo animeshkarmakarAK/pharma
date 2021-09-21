@@ -1,33 +1,3 @@
-
-<aside class="theme-bg aside-cta">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12 text-white">
-                <h3 class="text-white">নতুন কার্যক্রম সম্পর্কে জানতে</h3>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12 text-white purchase-button">
-                <form method="post" accept-charset="utf-8" action="">
-                    <div class="form-group input email">
-                        <div class="row">
-                            <div class=" com-md-2 p-2 mt-2 ">
-                                <strong for="email" class="">ইমেইল </strong>
-                            </div>
-                            <div class=" com-md-5 p-2">
-                                <input class="email-submit" placeholder="ইমেইল..." id="email" type="email"
-                                       name="email">
-                            </div>
-                            <div class=" com-md-5 p-2">
-                                <input class="submit-btn" type="submit" value="সাবস্ক্রাইব করুন" disabled style="cursor: not-allowed">
-                            </div>
-                        </div>
-                    </div>
-                    {{--<input class="submit-btn" type="submit" value="সাবস্ক্রাইব করুন" disabled style="cursor: not-allowed">--}}
-                </form>
-            </div>
-        </div>
-    </div>
-</aside>
-
 <section class="main-footer">
     <div class="container">
         <div class="row">
@@ -48,24 +18,27 @@
             <!--footer widget Two-->
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget-address">
-                    <h3>যোগাযোগ </h3>
+                    <h3 class="mb-3">যোগাযোগ</h3>
                     <p>
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        <span>সমাজসেবা ভবন <br> ই-৮/বি-১, আগারগাঁও, শেরেবাংলা নগর,
-                                <br> ঢাকা-১২০৭, বাংলাদেশ।
-                            </span>
+                        বাংলাদেশ শিল্প কারগরি সহায়তা কেন্দ্র (বিটাক) ১১৬ (খ),তেজগাঁও শিল্প এলাকা ঢাকা - ১২০৮ ।
                     </p>
                     <p>
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <span style="font-family:'Roboto', sans-serif; font-size: 17px;"> info@dss.gov.bd</span>
+                        <a class="footer-email" href="mailto:ict@bitac.gov.bd">
+                            ict@bitac.gov.bd
+                        </a>
                     </p>
                     <p>
-                        <i class="fas fa-phone-volume"></i>
-                        <span>+৮৮০২-৫৫০০৬৫৯৫/৫৫০০৭০২০</span>
-                    </p>
-                    <p>
-                        <i class="fa fa-fax" aria-hidden="true"></i>
-                        <span>৮৮০-২-৯১৩৮৩৭৫</span>
+                        <i class="fas fa-phone fa-flip-horizontal" style="padding: 10px 0px 0px 0px;"></i> &nbsp;
+                        <a href="tel:+৮৮০২৫৫০০৬৫৯৫" onclick="">
+                            +৮৮০২৫৫০০৬৫৯৫
+                        </a>
+                        <a
+                               href="tel:+৮৮-০২-৮৮৭০৬৮০"
+                               onclick="">
+                            , +৮৮-০২-৮৮৭০৬৮০
+                        </a>
                     </p>
                 </div>
             </div>
@@ -74,7 +47,7 @@
             <!--footer widget Three-->
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class=" footer-widget-quick-links">
-                    <h3>গুরুত্বপূর্ণ লিঙ্ক</h3>
+                    <h3 class="mb-3">গুরুত্বপূর্ণ লিঙ্ক</h3>
                     <ul>
                         <li>
                             <i class="fa  fa-angle-right"></i>
@@ -84,14 +57,15 @@
                         <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">আমাদের সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">যোগাযোগ</a></li>
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">প্রয়োজনীয় প্রশ্ন-উত্তর</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">প্রশ্নোত্তর</a></li>
                         @guest
                             <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
                             <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>
                         @endguest
                         <li><i class="fa  fa-angle-right"></i> <a href="#">শর্তাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">গোপনীয়তা নীতি</a></li>
-                    </ul>
+                    </p>
+
                 </div>
             </div>
             <!--/ footer widget thre-->

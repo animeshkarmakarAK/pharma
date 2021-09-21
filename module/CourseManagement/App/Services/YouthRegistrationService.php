@@ -4,6 +4,7 @@
 namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\FileHandler;
+use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
@@ -98,9 +99,8 @@ class YouthRegistrationService
 
         $youthSelfInfo = Arr::only($data, ['mobile', 'personal_monthly_income',
             'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
-            'freedom_fighter_status', 'nid', 'birth_reg_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
+            'freedom_fighter_status', 'nid', 'birth_certificate_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
         $youthSelfInfo['relation_with_youth'] = "self";
-        $youthSelfInfo['birth_certificate_no'] = $youthSelfInfo['birth_reg_no'];
 
 
         $disabilities = null;
@@ -126,9 +126,32 @@ class YouthRegistrationService
             'name_en' => 'required|string|max:191',
             'name_bn' => 'required|string|max:191',
             'mobile' => 'required|string|max:20',
-            'nid' => 'nullable|string',
-            'passport_number' => 'nullable|string',
-            'birth_reg_no' => 'nullable|string',
+            'nid' => [
+                'nullable',
+                'string',
+                Rule::unique('youths_family_member_info')->where(function ($query) {
+                    return $query->where('relation_with_youth', 'self');
+                }),
+
+            ],
+            'passport_number' => [
+                'nullable',
+                'string',
+                Rule::unique('youths_family_member_info')->where(function ($query) {
+                    return $query->where('relation_with_youth', 'self');
+                }),
+
+            ],
+
+            'birth_certificate_no' => [
+                'nullable',
+                'string',
+                Rule::unique('youths_family_member_info')->where(function ($query) {
+                    return $query->where('relation_with_youth', 'self');
+                }),
+
+            ],
+
             'date_of_birth' => 'required|date',
             'email' => 'required|string|max:191|email|unique:youths',
             'address.present.present_address_division_id' => 'required|int',

@@ -146,6 +146,9 @@
                                            data-value="{{ $edit ? $video->uploaded_video_path : old('uploaded_video_path') }}"
                                     >
                                 </div>
+                                <p class="font-italic text-secondary m-0 p-0" id="video-msg-display">
+                                    (Video file type must be video/avi,video/mpeg,video/quicktime,video/mp4 and max size 2Mb)
+                                </p>
                             </div>
 
                             @if($edit)

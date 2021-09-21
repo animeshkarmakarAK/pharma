@@ -68,9 +68,9 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="google_map_src">{{ __('Google Map src') }}</label>
+                                    <label for="google_map_src">{{ __('Google Map SRC') }}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
-                                              placeholder="{{ __('Google Map src') }}"
+                                              placeholder="{{ __('Google Map SRC') }}"
                                               rows="3">{{ $edit ? $branch->google_map_src : old('google_map_src') }}</textarea>
                                 </div>
                             </div>

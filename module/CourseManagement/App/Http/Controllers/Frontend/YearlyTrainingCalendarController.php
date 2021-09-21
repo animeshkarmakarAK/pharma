@@ -56,26 +56,12 @@ class YearlyTrainingCalendarController extends Controller
 
         $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
             ->whereBetween('course_sessions.application_start_date', [$from, $to])
+            ->orderBy('course_sessions.application_start_date', 'asc')
             ->get()
             ->groupBy('course_id');
 
         $totalCourseVenues = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue from (SELECT  courses.title_bn as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
 
-        /*$totalCourseVenues = Course::join('publish_courses', 'publish_courses.course_id', 'courses.id')
-            ->select([
-                'publish_courses.course_id',
-                'courses.title_bn as course_name',
-                'courses.course_fee as course_fee',
-                DB::raw('count(publish_courses.course_id) as total_venue'),
-
-            ])
-            ->groupBy('publish_courses.course_id')
-            ->get()->toArray();
-
-        $totalCourseVenue = [];
-        foreach ($totalCourseVenues as $venueCourse) {
-            $totalCourseVenue[$venueCourse['course_id']] = (object)$venueCourse;
-        }*/
 
         $totalCourseVenue = [];
         foreach ($totalCourseVenues as $venueCourse) {

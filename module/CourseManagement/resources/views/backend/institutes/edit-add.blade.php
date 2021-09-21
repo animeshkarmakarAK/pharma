@@ -238,9 +238,9 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="google_map_src">{{ __('Google Map src') }}</label>
+                                    <label for="google_map_src">{{ __('Google Map SRC') }}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
-                                              placeholder="Google Map src"
+                                              placeholder="Google Map SRC"
                                               rows="3">{{ $edit ? $institute->google_map_src : old('google_map_src') }}</textarea>
                                 </div>
                             </div>
@@ -274,6 +274,9 @@
                                                    id="logo">
                                         </div>
                                     </div>
+                                    <p class="font-italic text-secondary m-0 p-0">
+                                        (Image max 500kb,size 370x70 & file type
+                                        must be jpeg,jpg,png or gif)</p>
                                 </div>
                             </div>
 
@@ -303,12 +306,15 @@
         $.validator.addMethod(
             "logoSize",
             function (value, element) {
-                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 80;
-                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 80;
+                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 70;
+                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 370;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "Invalid logo size. Size must be 80 * 80",
+            "Invalid logo size. Size must be 370 x 70",
         );
+        $.validator.addMethod('filesize', function(value, element, param) {
+            return this.optional(element) || (element.files[0].size <= param)
+        }, 'File size must be less than {0} bytes');
 
         $.validator.addMethod(
             "mobileValidation",
@@ -385,7 +391,8 @@
                 logo: {
                     required: !EDIT,
                     accept: 'image/*',
-                    // logoSize: true,
+                    filesize: 500000,
+                    logoSize: true,
                 },
             },
             messages: {
@@ -417,6 +424,7 @@
                 },
                 logo: {
                     accept: 'Please upload valid image file',
+                    filesize: "Image size max 500Kb",
                 },
             },
             submitHandler: function (htmlForm) {
