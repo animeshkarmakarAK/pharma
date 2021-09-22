@@ -1513,7 +1513,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <div class="accordion" id="galery-slider">
+                    <div class="accordion" id="gallery-slider">
                         <div class="pb-5">
                             <a class="custom-btn mr-3" type="button" data-toggle="collapse" data-target="#video-gallery"
                                aria-expanded="true" aria-controls="video-gallery">
@@ -1528,7 +1528,7 @@
                         <div class="">
                             {{--video gallery--}}
                             <div id="video-gallery" class="collapse show" aria-labelledby="video-gallery"
-                                 data-parent="#galery-slider">
+                                 data-parent="#gallery-slider">
                                 <!--Carousel Wrapper-->
                                 <div id="multi-item-example-vdo" class="carousel slide carousel-multi-item"
                                      data-ride="carousel">
@@ -1643,7 +1643,7 @@
 
                             {{--image gallery--}}
                             <div id="photo-gallery" class="collapse" aria-labelledby="photo-gallery"
-                                 data-parent="#galery-slider">
+                                 data-parent="#gallery-slider">
                                 <!--Carousel Wrapper-->
                                 <div id="multi-item-example-img" class="carousel slide carousel-multi-item"
                                      data-ride="carousel">
