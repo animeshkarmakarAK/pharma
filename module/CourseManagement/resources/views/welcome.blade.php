@@ -94,36 +94,34 @@
                 </div>
                 <div class="company-stats col-md-12">
                     <div class="row">
-                        <div class="col-md-2 "></div>
-                        <div class="col-md-2 mr-3">
+                        <div class="col-md-3">
                             <div class="instant-view-box">
                                 <i class="fas fa-user-friends fa-3x p-3 custom-icon"></i>
                                 <h1>10</h1>
                                 <p class="p-3">প্রশিক্ষণ প্রদান</p>
                             </div>
                         </div>
-                        <div class="col-md-2 mr-3">
+                        <div class="col-md-3">
                             <div class="instant-view-box">
                                 <i class="fas fa-graduation-cap fa-flip-horizontal fa-3x p-3 custom-icon"></i>
                                 <h1>10</h1>
                                 <p class="p-3">প্রশিক্ষণ গ্রহণ</p>
                             </div>
                         </div>
-                        <div class="col-md-2 mr-3">
+                        <div class="col-md-3">
                             <div class="instant-view-box">
                                 <i class="fas fa-hotel fa-3x p-3 custom-icon"></i>
                                 <h1>10</h1>
                                 <p class="p-3">প্রশিক্ষণ কেন্দ্র</p>
                             </div>
                         </div>
-                        <div class="col-md-2 mr-3">
+                        <div class="col-md-3">
                             <div class="instant-view-box">
                                 <i class="fas fa-user-tie fa-3x p-3 custom-icon"></i>
                                 <h1>10</h1>
                                 <p class="p-3">প্রশিক্ষক</p>
                             </div>
                         </div>
-                        <div class="col-md-2 "></div>
 
                     </div>
                 </div>
@@ -131,47 +129,53 @@
         </div>
     </section>
 
-    <section class="about-us-section about-section-color position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <!--Services Heading-->
-                    <h2 class="section-heading-h2 pb-3 font-weight-bold"> আমাদের সম্পর্কে </h2>
-                    <div>
-                        <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও স্বাবলম্বী
-                            করে
-                            তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"।
-                            এই ওয়েব অ্যাপ্লিকেশনটি মূলত "অনলাইন কোর্স ম্যানেজমেন্ট সিস্টেম"।
-                            এই প্ল্যাটফর্মে শিক্ষার্থী অতি সহজে বিভিন্ন প্রশিক্ষণ কোর্সে প্রশিক্ষণ নিয়ে স্বাবলম্বী হতে
-                            পাড়বে। শিক্ষার্থী
-                            তার নিজ পছন্দের বিষয়ে প্রশিক্ষণের জন্য এডমিনে কাছে অনুরোধ/আবেদন করতে পাড়বে। প্রশিক্ষণ শেষে
-                            শিক্ষার্থীকে সার্টিফিকেট প্রদান করা হবে। </p>
-                        <h2 class="para-heading font-weight-light">পোর্টালের লক্ষ্য/উদ্দেশ্য সমূহঃ</h2>
+    <section class="about-us-section about-section-color">
+        <div class="container position-relative">
+            <div>
+                <div class="row">
+                    <div class="col-md-7 col-sm-12">
+                        <!--Services Heading-->
+                        <h2 class="section-heading-h2 pb-3 font-weight-bold"> আমাদের সম্পর্কে</h2>
+                        <div>
+                            <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও
+                                স্বাবলম্বী
+                                করে
+                                তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"।
+                                এই ওয়েব অ্যাপ্লিকেশনটি মূলত "অনলাইন কোর্স ম্যানেজমেন্ট সিস্টেম"।
+                                এই প্ল্যাটফর্মে শিক্ষার্থী অতি সহজে বিভিন্ন প্রশিক্ষণ কোর্সে প্রশিক্ষণ নিয়ে স্বাবলম্বী
+                                হতে
+                                পাড়বে। শিক্ষার্থী
+                                তার নিজ পছন্দের বিষয়ে প্রশিক্ষণের জন্য এডমিনে কাছে অনুরোধ/আবেদন করতে পাড়বে। প্রশিক্ষণ
+                                শেষে
+                                শিক্ষার্থীকে সার্টিফিকেট প্রদান করা হবে। </p>
+                            <h2 class="para-heading font-weight-light">পোর্টালের লক্ষ্য/উদ্দেশ্য সমূহঃ</h2>
 
-                        <ul class="sidebar-list">
-                            <li><i class="font-weight-bold lists">*</i> এই প্ল্যাটফর্মে শিক্ষার্থী বিভিন্ন প্রশিক্ষণ
-                                কোর্সের
-                                জন্য আবেদন করতে পারবে।
-                            </li>
-                            <li><i class="font-weight-bold lists">*</i> বিভিন্ন ক্যাটাগরিতে অনেক গুলো কোর্স একসাথে
-                                পরিচালনা
-                                ও
-                                পর্যবেক্ষণ করা সম্ভব।
-                            </li>
-                            <li><i class="font-weight-bold lists">*</i> সঠিক পদ্ধতিতে শিক্ষার্থীর দক্ষতা যাচাই করা এবং
-                                বৃদ্ধি
-                                করা হয় ।
-                            </li>
-                        </ul>
+                            <ul class="sidebar-list">
+                                <li><i class="font-weight-bold lists">*</i> এই প্ল্যাটফর্মে শিক্ষার্থী বিভিন্ন প্রশিক্ষণ
+                                    কোর্সের
+                                    জন্য আবেদন করতে পারবে।
+                                </li>
+                                <li><i class="font-weight-bold lists">*</i> বিভিন্ন ক্যাটাগরিতে অনেক গুলো কোর্স একসাথে
+                                    পরিচালনা
+                                    ও
+                                    পর্যবেক্ষণ করা সম্ভব।
+                                </li>
+                                <li><i class="font-weight-bold lists">*</i> সঠিক পদ্ধতিতে শিক্ষার্থীর দক্ষতা যাচাই করা
+                                    এবং
+                                    বৃদ্ধি
+                                    করা হয় ।
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="col-md-5 img-div">
-                    <div class="image-div-2">
-                        <img class="cr-img"
-                             src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
-                             alt="icon">
+                    <div class="col-md-5 col-sm-12 img-div">
+                        <div class="image-div-2">
+                            <img class="cr-img"
+                                 src="https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg"
+                                 alt="icon">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1509,7 +1513,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <div class="accordion" id="accordionExample">
+                    <div class="accordion" id="galery-slider">
                         <div class="pb-5">
                             <a class="custom-btn mr-3" type="button" data-toggle="collapse" data-target="#video-gallery"
                                aria-expanded="true" aria-controls="video-gallery">
@@ -1524,7 +1528,7 @@
                         <div class="">
                             {{--video gallery--}}
                             <div id="video-gallery" class="collapse show" aria-labelledby="video-gallery"
-                                 data-parent="#accordionExample">
+                                 data-parent="#galery-slider">
                                 <!--Carousel Wrapper-->
                                 <div id="multi-item-example-vdo" class="carousel slide carousel-multi-item"
                                      data-ride="carousel">
@@ -1639,7 +1643,7 @@
 
                             {{--image gallery--}}
                             <div id="photo-gallery" class="collapse" aria-labelledby="photo-gallery"
-                                 data-parent="#accordionExample">
+                                 data-parent="#galery-slider">
                                 <!--Carousel Wrapper-->
                                 <div id="multi-item-example-img" class="carousel slide carousel-multi-item"
                                      data-ride="carousel">
@@ -1808,21 +1812,23 @@
         }
 
         .cr-img {
-            height: 391px;
-            width: 317px;
+            height: auto;
+            width: 100%;
             border-radius: 35px 0;
             transform: skewY(-1deg) scale(1);
         }
 
-        .img-div {
-            position: absolute;
-            right: 1%;
-            top: -30px;
+        @media (min-width: 992px) {
+            .img-div {
+                position: absolute;
+                right: 0%;
+                top: -30px;
+            }
         }
 
         .image-div-2 {
-            height: 391px;
-            width: 317px;
+            height: auto;
+            width: 100%;
             border-radius: 55px 0;
             transform: skewY(-10deg) scale(1);
             background: url(https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg);
@@ -1983,6 +1989,7 @@
             padding: 12px;
             border-radius: 50%;
         }
+
         .slider-previous-icon i, .slider-next-icon i {
             display: block;
             width: 10px;
@@ -1995,7 +2002,7 @@
             width: 8% !important;
         }
 
-        .player-icon{
+        .player-icon {
             position: absolute !important;
             left: 45%;
             top: 45%;
