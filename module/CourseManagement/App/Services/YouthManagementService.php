@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Services;
 
 
 use App\Helpers\Classes\DatatableHelper;
+use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthBatch;
@@ -37,7 +38,7 @@ class YouthManagementService
             'youths.name_en',
             'youths.name_bn',
             'youths.mobile',
-            'youths.created_at as application_date',
+            DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',
             'youth_registrations.id as youth_registration_id',
             'youth_registrations.youth_registration_no',
@@ -87,6 +88,8 @@ class YouthManagementService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
                 $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->youth_registration_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-check-circle"></i> ' . __('Accept') . ' </a>';
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-danger btn-sm"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
                 return $str;
             }))
             ->editColumn('registration_date', function (Youth $youth) {

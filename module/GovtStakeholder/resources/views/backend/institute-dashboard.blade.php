@@ -84,7 +84,8 @@
             <div class="col-md-8">
                 <div class="card" style="border-radius: 10px; height: 100%">
                     <div style="margin: 10px">
-                        <h3 class="card-title font-weight-bold" style="margin-top: 20px">{{ __('generic.most_demandable_course') }}</h3>
+                        <h3 class="card-title font-weight-bold"
+                            style="margin-top: 20px">{{ __('generic.most_demandable_course') }}</h3>
                     </div>
                     <div class="card-body">
                         <div id="my_data"></div>
@@ -105,7 +106,8 @@
             <div class="col-md-8">
                 <div class="card" style="border-radius: 10px; height: 100%">
                     <div class="card-header">
-                        <h3 class="card-title font-weight-bold" style="margin-top: 20px">{{ __('generic.trending_jobs') }}</h3>
+                        <h3 class="card-title font-weight-bold"
+                            style="margin-top: 20px">{{ __('generic.trending_jobs') }}</h3>
                         <div class="card-tools">
                             <select class="form-control" style="">
                                 <option value="1" selected>2021</option>
@@ -189,30 +191,22 @@
                     "translate(" + margin.left + "," + margin.top + ")");
 
             // Parse the Data
+            let mostDemandableCourses = {!! $data['most_demandable_courses'] !!};
+            //console.log(mostDemandableCourses);
 
-            let testData = [
-                {Country: "ওয়েল্ডিং", Value: "7148"},
-                {Country: "কম্পিউটার অপারেটিং", Value: "6653"},
-                {Country: "মোবাইল সার্ভিসিং", Value: "5162"},
-                {Country: "অফিস ব্যবস্থাপনা", Value: "4131"},
-                {Country: "বিক্রয়কর্মী", Value: "3714"}]
-
-            d3Chart(testData)
+            d3Chart(mostDemandableCourses)
 
             function d3Chart(data) {
-
                 // Add X axis
-
                 let x = newD3.scaleLinear()
                     .domain([0, 8000])
                     .range([0, width]);
-
 
                 // Y axis
                 let y = newD3.scaleBand()
                     .range([0, height])
                     .domain(data.map(function (d) {
-                        return d.Value;
+                        return d.total;
                     }))
                     .padding(.1);
                 svg.append("g")
@@ -226,10 +220,10 @@
                     .attr('class', 'bar')
                     .attr("x", x(0))
                     .attr("y", function (d) {
-                        return y(d.Value);
+                        return y(d.total);
                     })
                     .attr("width", function (d) {
-                        return x(d.Value);
+                        return x(d.total);
                     })
                     .attr("height", y.bandwidth())
                     .attr("fill", "rgba(227,227,227,0.71)");
@@ -241,7 +235,7 @@
                     .data(data)
                     .enter()
                     .append('text').text(function (d) {
-                    return d.Country;
+                    return d.course_title_bn;
                 })
                     .attr("x", 10)
                     .attr('y', function () {

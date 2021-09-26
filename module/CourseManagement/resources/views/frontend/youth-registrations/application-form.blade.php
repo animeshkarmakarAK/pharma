@@ -298,7 +298,8 @@
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="birth_certificate_no"
                                                    id="birth_certificate_no"
-                                                   value="{{ old('birth_certificate_no') }}" placeholder="জন্ম সনদ নাম্বার">
+                                                   value="{{ old('birth_certificate_no') }}"
+                                                   placeholder="জন্ম সনদ নাম্বার">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input type="text" class="form-control mb-2" name="passport_number"
@@ -667,7 +668,7 @@
                                             <label for="jsc_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[jsc][examination_name]"
                                                         id="jsc_examination_name" class="select2 form-control">
                                                     <option value=""></option>
@@ -681,7 +682,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_board" class="col-md-4 col-form-label">বোর্ড<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[jsc][board]" id="jsc_board"
                                                         class="select2">
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
@@ -697,7 +698,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_roll" class="col-md-4 col-form-label">রোল নং<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text" name="academicQualification[jsc][roll_no]"
                                                        id="jsc_roll" class="form-control"
                                                        value="{{ old('academicQualification.jsc.roll_no') }}">
@@ -708,7 +709,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_reg_no" class="col-md-4 col-form-label">
                                                 রেজিস্ট্রেশান নং <span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text" id="jsc_reg_no"
                                                        name="academicQualification[jsc][reg_no]"
                                                        class="form-control"
@@ -722,7 +723,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_result" class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="number" name="academicQualification[jsc][grade]"
                                                        id="jsc_gpa" class="form-control"
                                                        width="10" placeholder="জি.পি.এ"
@@ -734,7 +735,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="jsc_passing_year" class="col-md-4 col-form-label">
                                                 পাসের বছর<span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[jsc][passing_year]"
                                                         id="jsc_passing_year" class="select2">
                                                     <option value=""></option>
@@ -764,7 +765,7 @@
                                             <label for="ssc_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[ssc][examination_name]"
                                                         id="ssc_examination_name" class="select2 form-control">
                                                     <option value=""></option>
@@ -780,7 +781,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="ssc_board" class="col-md-4 col-form-label">বোর্ড<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[ssc][board]" id="ssc_board"
                                                         class="select2">
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
@@ -796,7 +797,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="ssc_roll" class="col-md-4 col-form-label">রোল নং<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text" name="academicQualification[ssc][roll_no]"
                                                        id="ssc_roll" class="form-control"
                                                        value="{{ old('academicQualification.ssc.roll_no') }}">
@@ -808,7 +809,7 @@
                                             <label for="ssc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
                                                 নং<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text" id="ssc_reg_no"
                                                        name="academicQualification[ssc][reg_no]"
                                                        class="form-control"
@@ -820,7 +821,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="ssc_result" class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8" id="ssc_result_div">
                                                 <select name="academicQualification[ssc][result]"
                                                         id="ssc_result"
                                                         class="select2">
@@ -834,7 +835,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="" id="ssc_gpa_div">
                                                 <input type="number" name="academicQualification[ssc][grade]"
                                                        id="ssc_gpa" class="form-control"
                                                        width="10" placeholder="জি.পি.এ"
@@ -847,7 +848,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="ssc_group" class="col-md-4 col-form-label">বিভাগ<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[ssc][group]" class="select2"
                                                         id="ssc_group">
                                                     <option value=""></option>
@@ -864,7 +865,7 @@
                                             <label for="ssc_passing_year" class="col-md-4 col-form-label">পাসের
                                                 বছর<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[ssc][passing_year]"
                                                         id="ssc_passing_year" class="select2">
                                                     <option value=""></option>
@@ -893,7 +894,7 @@
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[hsc][examination_name]"
                                                         id="hsc_examination_name" class="select2">
                                                     <option></option>
@@ -909,7 +910,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="hsc_board" class="col-md-4 col-form-label">বোর্ড<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[hsc][board]" id="hsc_board"
                                                         class="select2">
                                                     <option></option>
@@ -925,7 +926,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="hsc_roll" class="col-md-4 col-form-label">রোল নং<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text" name="academicQualification[hsc][roll_no]"
                                                        id="hsc_roll" class="form-control"
                                                        value="{{ old('academicQualification.hsc.roll_no')}}">
@@ -937,7 +938,7 @@
                                             <label for="hsc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
                                                 নং<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text" name="academicQualification[hsc][reg_no]"
                                                        id="hsc_reg_no" class="form-control"
                                                        value="{{ old('academicQualification.hsc.reg_no') }}">
@@ -948,7 +949,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="hsc_result" class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8" id="hsc_result_div">
                                                 <select name="academicQualification[hsc][result]"
                                                         id="hsc_result"
                                                         class="select2">
@@ -962,7 +963,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="" id="hsc_gpa_div">
                                                 <input type="number" name="academicQualification[hsc][grade]"
                                                        id="hsc_gpa" class="form-control"
                                                        width="10" placeholder="জি.পি.এ"
@@ -975,7 +976,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="hsc_group" class="col-md-4 col-form-label">বিভাগ<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[hsc][group]" id="hsc_group"
                                                         class="select2">
                                                     <option></option>
@@ -989,10 +990,10 @@
                                         </div>
 
                                         <div class="form-row form-group mt-2">
-                                            <label for="hsc_passing_year" class="col-md-4 col-form-label">পাসের
-                                                বছর
+                                            <label for="hsc_passing_year" class="col-md-4 col-form-label">
+                                                পাসের বছর
                                                 <span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[hsc][passing_year]"
                                                         id="hsc_passing_year" class="select2">
                                                     <option value=""></option>
@@ -1012,7 +1013,7 @@
                                     <div class="card-header">
                                         <h3 class="card-title text-primary d-inline-flex">স্নাতক লেভেল (পাস)</h3>
                                     </div>
-                                    <div class="card-body graduation_collapse {{--collapse--}} hide">
+                                    <div class="card-body graduation_collapse hide">
                                         <input type="hidden"
                                                name="academicQualification[graduation][examination]"
                                                value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION }}">
@@ -1021,7 +1022,7 @@
                                             <label for="graduation_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select
                                                     name="academicQualification[graduation][examination_name]"
                                                     id="graduation_examination_name" class="select2">
@@ -1038,7 +1039,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_subject" class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text"
                                                        name="academicQualification[graduation][subject]"
                                                        id="graduation_subject" class="form-control"
@@ -1050,7 +1051,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="graduation_institute" class="col-md-4 col-form-label">প্রতিষ্ঠান/বিশ্ববিদ্যালয়<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[graduation][institute]"
                                                         id="graduation_institute"
                                                         class="select2">
@@ -1069,9 +1070,10 @@
                                             <label for="graduation_result"
                                                    class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8" id="graduation_result_div">
                                                 <select name="academicQualification[graduation][result]"
-                                                        id="graduation_result" class="select2">
+                                                        id="graduation_result"
+                                                        class="select2">
                                                     <option value=""></option>
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
                                                         <option
@@ -1079,7 +1081,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="" id="graduation_cgpa_div">
                                                 <input type="number"
                                                        name="academicQualification[graduation][grade]"
                                                        id="graduation_cgpa"
@@ -1094,7 +1096,7 @@
                                             <label for="graduation_passing_year"
                                                    class="col-md-4 col-form-label">
                                                 পাসের বছর<span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[graduation][passing_year]"
                                                         id="graduation_passing_year" class="select2">
                                                     <option></option>
@@ -1111,7 +1113,7 @@
                                             <label for="graduation_course_duration"
                                                    class="col-md-4 col-form-label">
                                                 কোর্স সময়কাল<span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select
                                                     name="academicQualification[graduation][course_duration]"
                                                     id="graduation_course_duration" class="select2">
@@ -1139,7 +1141,7 @@
                                             <label for="masters_examination_name"
                                                    class="col-md-4 col-form-label">পরীক্ষা<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[masters][examination_name]"
                                                         id="masters_examination_name" class="select2">
                                                     <option></option>
@@ -1156,7 +1158,7 @@
                                             <label for="masters_subject"
                                                    class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="text"
                                                        name="academicQualification[masters][subject]"
                                                        id="masters_subject"
@@ -1168,7 +1170,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="masters_institute" class="col-md-4 col-form-label">প্রতিষ্ঠান/বিশ্ববিদ্যালয়<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[masters][institute]"
                                                         id="masters_institute" class="select2">
                                                     <option value=""></option>
@@ -1186,9 +1188,10 @@
                                             <label for="masters_result"
                                                    class="col-md-4 col-form-label">ফলাফল<span
                                                     class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8" id="masters_result_div">
                                                 <select name="academicQualification[masters][result]"
-                                                        id="masters_result" class="select2">
+                                                        id="masters_result"
+                                                        class="select2">
                                                     <option></option>
                                                     @foreach(\Module\CourseManagement\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
                                                         <option
@@ -1196,7 +1199,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="" id="masters_cgpa_div">
                                                 <input type="number"
                                                        name="academicQualification[masters][grade]"
                                                        id="masters_cgpa"
@@ -1210,7 +1213,7 @@
                                         <div class="form-row form-group mt-2">
                                             <label for="masters_passing_year" class="col-md-4 col-form-label">
                                                 পাসের বছর<span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[masters][passing_year]"
                                                         class="select2" id="masters_passing_year">
                                                     <option></option>
@@ -1226,9 +1229,9 @@
 
                                         <div class="form-row form-group mt-2">
                                             <label for="masters_course_duration"
-                                                   class="col-md-4 col-form-label">কোর্স
-                                                সময়কাল<span class="required">*</span></label>
-                                            <div class="col-md-6">
+                                                   class="col-md-4 col-form-label">
+                                                কোর্স সময়কাল<span class="required">*</span></label>
+                                            <div class="col-md-8">
                                                 <select name="academicQualification[masters][course_duration]"
                                                         id="masters_course_duration" class="select2">
                                                     <option></option>
@@ -1828,7 +1831,20 @@
                         return $('#passport_number').val() == "" && $('#birth_certificate_no').val() == "";
                     },
                     nidBn: true,
-                    remote: "{!! route('course_management::youth.check-unique-nid') !!}",
+                    /*remote: {
+                        url: "{!! route('course_management::youth.check-unique-nid') !!}",
+                        type: "get",
+                        data: {
+                            publish_course_id: function () {
+                                return $('#publish_course_id').val();
+                            },
+                            nid: function () {
+                                return $('#nid').val();
+                            },
+                        },
+                    }*/
+                    //remote: "{!! route('course_management::youth.check-unique-nid') !!}",
+
                 },
                 birth_certificate_no: {
                     required: function () {
@@ -2736,7 +2752,6 @@
 
             applicationFormTypeFetch(filters)?.then(function (response) {
                 let data = response.data[0];
-                console.log(data)
                 applicationFormTypeData = data;
                 if (data?.length <= 0) {
                     showAllFormFields();
@@ -2797,14 +2812,12 @@
         }
 
         function enablePermanentAddressFields() {
+            $("#permanent_address_division_id").val('').trigger('change');
             $('#permanent_address_division_id').prop('disabled', false);
 
             $('#permanent_address_district_id').prop('disabled', true);
-
-            $('#permanent_address_district_id').html("<option></option>");
             $('#permanent_address_upazila_id').prop('disabled', true);
 
-            $('#permanent_address_upazila_id').html("<option></option>");
             $('#permanent_address_postal_code').prop('readonly', false);
             $('#permanent_address_village_name').prop('readonly', false);
             $('#permanent_address_house_and_road').prop('readonly', false);
@@ -2852,7 +2865,6 @@
 
                 publishCourseFetch(filters)?.then(function (response) {
                     let applicationFormTypeId = response.data[0].application_form_type_id;
-                    console.log("application_form_type_id = " + applicationFormTypeId);
                     getApplicationFormType(applicationFormTypeId);
                 });
 
@@ -2886,6 +2898,7 @@
                     } else {
                         $('#present_address_division_id').valid(false);
                         $('#permanent_address_division_id').valid(false);
+
                     }
 
                     if ($('#present_address_district_id').val() != "") {
@@ -2926,9 +2939,6 @@
                 } else {
                     enablePermanentAddressFields();
                     enablePresentAddressFields();
-
-                    //$('#permanent_address_division_id').attr('disabled');
-
 
                     if ($('#permanent_address_division_id').val() != "") {
                         $(this).valid();
@@ -3043,8 +3053,15 @@
                 if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
                     || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                     $('#ssc_gpa').removeAttr('hidden');
+                    $('#ssc_result_div').removeAttr('class');
+                    $('#ssc_result_div').addClass('col-md-6');
+                    $('#ssc_gpa_div').addClass('col-md-2');
+
                 } else {
                     $('#ssc_gpa').attr('hidden', true);
+                    $('#ssc_result_div').removeAttr('class');
+                    $('#ssc_result_div').addClass('col-md-8');
+                    $('#ssc_gpa_div').removeAttr('class');
                 }
             });
 
@@ -3052,8 +3069,14 @@
                 if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
                     || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                     $('#hsc_gpa').removeAttr('hidden');
+                    $('#hsc_result_div').removeAttr('class');
+                    $('#hsc_result_div').addClass('col-md-6');
+                    $('#hsc_gpa_div').addClass('col-md-2');
                 } else {
                     $('#hsc_gpa').attr('hidden', true);
+                    $('#hsc_result_div').removeAttr('class');
+                    $('#hsc_result_div').addClass('col-md-8');
+                    $('#hsc_gpa_div').removeAttr('class');
                 }
             });
 
@@ -3061,8 +3084,16 @@
                 if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
                     || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                     $('#graduation_cgpa').removeAttr('hidden');
+
+                    $('#graduation_result_div').removeAttr('class');
+                    $('#graduation_result_div').addClass('col-md-6');
+                    $('#graduation_cgpa_div').addClass('col-md-2');
                 } else {
                     $('#graduation_cgpa').attr('hidden', true);
+
+                    $('#graduation_result_div').removeAttr('class');
+                    $('#graduation_result_div').addClass('col-md-8');
+                    $('#graduation_cgpa_div').removeAttr('class');
                 }
             });
 
@@ -3070,8 +3101,16 @@
                 if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
                     || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                     $('#masters_cgpa').removeAttr('hidden');
+
+                    $('#masters_result_div').removeAttr('class');
+                    $('#masters_result_div').addClass('col-md-6');
+                    $('#masters_cgpa_div').addClass('col-md-2');
                 } else {
                     $('#masters_cgpa').attr('hidden', true);
+
+                    $('#masters_result_div').removeAttr('class');
+                    $('#masters_result_div').addClass('col-md-8');
+                    $('#masters_cgpa_div').removeAttr('class');
                 }
             });
 
@@ -3081,23 +3120,50 @@
                     if ($('#present_address_district_id').prop('disabled', true)) {
                         $('#present_address_district_id').prop('disabled', false);
                     }
+
+                    $("#present_address_district_id").val('').trigger('change');
+                    $("#present_address_upazila_id").val('').trigger('change');
+
+                    if ($(this).val() == null || $(this).val() == "") {
+                        $('#present_address_district_id').prop("disabled", true);
+                        $('#present_address_upazila_id').prop("disabled", true);
+                    }
+
                 });
 
                 $('#present_address_district_id').on('change', function () {
                     if ($('#present_address_upazila_id').prop('disabled', true)) {
                         $('#present_address_upazila_id').prop('disabled', false);
                     }
+
+                    $("#present_address_upazila_id").val('').trigger('change');
+
+                    if ($(this).val() == null || $(this).val() == "") {
+                        $('#present_address_upazila_id').prop("disabled", true);
+                    }
                 });
 
                 $('#permanent_address_division_id').on('change', function () {
-                    if ($('#permanent_address_district_id').prop('disabled', true)) {
-                        $('#permanent_address_district_id').prop('disabled', false);
+                    if ($(this).val() == null || $(this).val() == "") {
+                        $("#permanent_address_district_id").val('').trigger('change');
+                        $("#permanent_address_upazila_id").val('').trigger('change');
+                        $('#permanent_address_district_id').prop("disabled", true);
+                        $('#permanent_address_upazila_id').prop("disabled", true);
+                    } else {
+                        $("#permanent_address_district_id").val('').trigger('change');
+                        $('#permanent_address_district_id').prop("disabled", false);
+                        $('#permanent_address_upazila_id').prop("disabled", true);
                     }
                 });
 
                 $('#permanent_address_district_id').on('change', function () {
-                    if ($('#permanent_address_upazila_id').prop('disabled', true)) {
-                        $('#permanent_address_upazila_id').prop('disabled', false);
+                    $("#permanent_address_upazila_id").val('').trigger('change');
+
+                    if ($(this).val() == null || $(this).val() == "") {
+
+                        $('#permanent_address_upazila_id').prop("disabled", true);
+                    } else {
+                        $('#permanent_address_upazila_id').prop("disabled", false);
                     }
                 });
             });

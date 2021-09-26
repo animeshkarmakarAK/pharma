@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\DatatableHelper;
+use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\YouthBatch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +21,7 @@ class YouthBatchService
                 'youth_registrations.youth_registration_no as youth_registrations.youth_registration_no',
                 'youth_registrations.id as youth_registration_id',
                 'youths.name_en as youth_name_en',
-                'youth_batches.enrollment_date as youth_batches.enrollment_date',
+                DB::raw('DATE_FORMAT(youth_batches.enrollment_date,"%d %b, %Y %h:%i %p") AS enrollment_date'),
             ]
         );
         $youthBatches->join('batches', 'youth_batches.batch_id', '=', 'batches.id');
@@ -39,6 +40,4 @@ class YouthBatchService
             ->rawColumns(['action'])
             ->toJson();
     }
-
-
 }

@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <p class="font-italic text-secondary d-block">
-                                        (Image file type must be jpg,bmp,png,jpeg or svg)</p>
+                                        (Image max 500kb, size 820x312 & file type must be jpg,bmp,png,jpeg or svg)</p>
                                 </div>
                             </div>
 
@@ -282,6 +282,20 @@
             }
         });
 
+        $.validator.addMethod(
+            "imageSize",
+            function (value, element) {
+                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 312;
+                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 820;
+                return this.optional(element) || (isHeightMatched && isWidthMatched);
+            },
+            "Invalid logo size. Size must be 820 x 312",
+        );
+
+        $.validator.addMethod('filesize', function(value, element, param) {
+            return this.optional(element) || (element.files[0].size <= param)
+        }, 'File size must be less than {0} bytes');
+
         editAddForm.validate({
             rules: {
                 title_en: {
@@ -295,6 +309,8 @@
                 cover_image: {
                     required: false,
                     accept: "image/*",
+                    filesize: 500000,
+                    imageSize: true,
                 },
                 code: {
                     required: true,
@@ -353,7 +369,8 @@
             messages: {
                 cover_image: {
                     required: "Cover image is required",
-                    accept: "Please upload valid image file only"
+                    accept: "Please upload valid image file only",
+                    filesize: "Image size max 500Kb",
                 },
                 title_en: {
                     pattern: "This field is required in English.",

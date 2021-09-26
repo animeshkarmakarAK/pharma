@@ -3,11 +3,13 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Mail\YouthRegistrationSuccessMail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
@@ -38,6 +40,10 @@ class YouthController extends Controller
         $youth->load([
             'youthRegistration',
         ]);
+        $academicQualifications = YouthAcademicQualification::where(['youth_id'=>$youth->id])->get();
+
+        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id'=>$youth->id, 'relation_with_youth'=>'self'])->first();
+
         $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
 
         return \view(self::VIEW_PATH . 'youth.youth-profile')->with(
@@ -47,6 +53,8 @@ class YouthController extends Controller
                 'mother' => $youthFamilyMembers['mother'],
                 'guardian' => $youthFamilyMembers['guardian'],
                 'haveYouthFamilyMembersInfo' => $youthFamilyMembers['haveYouthFamilyMembersInfo'],
+                'youthSelfInfo' => $youthSelfInfo,
+                'academicQualifications' => $academicQualifications,
             ]);
 
     }
@@ -208,8 +216,17 @@ class YouthController extends Controller
 
     public function checkYouthUniqueNID(Request $request): JsonResponse
     {
-        $youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
-        if ($youthNidNo == null) {
+        $checkYouthNid = DB::table('youths_family_member_info')
+            ->join('youth_registrations','youth_registrations.youth_id','=','youths_family_member_info.youth_id');
+
+        $checkYouthNid = $checkYouthNid->where('youths_family_member_info.relation_with_youth','self')
+            ->where('youths_family_member_info.nid',$request->nid)
+            ->where('youth_registrations.publish_course_id',$request->publish_course_id)
+            ->first();
+
+        //$youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
+
+        if ($checkYouthNid == null) {
             return response()->json(true);
         }
         return response()->json("এই এন.আই.ডি নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");

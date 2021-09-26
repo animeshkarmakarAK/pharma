@@ -61,7 +61,7 @@
                     },
                     {
                         title: "Enrollment Date",
-                        data: "youth_batches.enrollment_date",
+                        data: "enrollment_date",
                         name: "youth_batches.enrollment_date",
                     },
 

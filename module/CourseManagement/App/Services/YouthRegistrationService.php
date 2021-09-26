@@ -4,6 +4,7 @@
 namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\FileHandler;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Youth;
@@ -122,6 +123,9 @@ class YouthRegistrationService
 
     public function validator(Request $request): Validator
     {
+        $nid = $request->nid;
+        $publishCourseId = $request->publish_course_id;
+
         $rules = [
             'name_en' => 'required|string|max:191',
             'name_bn' => 'required|string|max:191',
@@ -129,9 +133,18 @@ class YouthRegistrationService
             'nid' => [
                 'nullable',
                 'string',
-                Rule::unique('youths_family_member_info')->where(function ($query) {
+                /*Rule::unique('youths_family_member_info')->where(function ($query) {
                     return $query->where('relation_with_youth', 'self');
-                }),
+                }),*/
+                /*Rule::unique('youths_family_member_info', 'nid')->where(function ($query) use ($nid, $publishCourseId) {
+                    return
+                        DB::table('youths_family_member_info')
+                            ->join('youth_registrations', 'youth_registrations.youth_id', '=', 'youths_family_member_info.youth_id')
+                            ->where('youths_family_member_info.relation_with_youth', 'self')
+                            ->where('youths_family_member_info.nid', $nid)
+                            ->where('youth_registrations.publish_course_id', $publishCourseId)
+                            ->first();
+                }),*/
 
             ],
             'passport_number' => [

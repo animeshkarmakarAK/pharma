@@ -99,19 +99,21 @@
                                                 >
                                                 </select>
                                             </div>
+
+                                            <div class="col-md-3">
+                                                <select class="form-control select2-ajax-wizard"
+                                                        name="branch_id"
+                                                        id="branch_id"
+                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
+                                                        data-label-fields="{title_en}"
+                                                        data-depend-on-optional="institute_id"
+                                                        data-placeholder="Branch"
+                                                >
+                                                </select>
+                                            </div>
                                         @endif
 
-                                        <div class="col-md-3">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="branch_id"
-                                                    id="branch_id"
-                                                    data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
-                                                    data-label-fields="{title_en}"
-                                                    data-depend-on-optional="institute_id"
-                                                    data-placeholder="Branch"
-                                            >
-                                            </select>
-                                        </div>
+
 
                                         <div class="col-md-3">
                                             <select class="form-control select2-ajax-wizard"
@@ -257,7 +259,7 @@
             }
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.youth.registrations.datatable') }}',
-                order: [[2, "asc"]],
+                order: [[4, "DESC"]],
                 serialNumberColumn: 1,
                 select: {
                     style: 'multi',
