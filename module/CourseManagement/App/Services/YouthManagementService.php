@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthBatch;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthRegistration;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
@@ -40,23 +41,27 @@ class YouthManagementService
             'youths.mobile',
             DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',
-            'youth_registrations.id as youth_registration_id',
-            'youth_registrations.youth_registration_no',
+            'youths.youth_registration_no as youth_registration_id',
+            'youths.youth_registration_no',
             'publish_courses.id as publish_courses.id',
             'institutes.title_en as institutes.title_en',
             'branches.title_en as branches.title_en',
             'training_centers.title_en as training_centers.title_en',
             'programmes.title_en as programmes.title_en',
             'courses.title_en as courses.title_en',
+            'youth_course_enrolls.id as youth_course_enroll_id',
+            'youth_course_enrolls.enroll_status',
+            'youth_course_enrolls.payment_status',
         ]);
-        $youth->join('youth_registrations', 'youths.id', '=', 'youth_registrations.youth_id');
-        $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_registrations.publish_course_id');
+        //$youth->join('youth_registrations', 'youths.id', '=', 'youth_registrations.youth_id');
+        $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
+        $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
         $youth->leftJoin('branches', 'branches.id', '=', 'publish_courses.branch_id');
         $youth->leftJoin('training_centers', 'training_centers.id', '=', 'publish_courses.training_center_id');
         $youth->leftJoin('programmes', 'programmes.id', '=', 'publish_courses.programme_id');
         $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
-        $youth->where('youth_registrations.youth_registration_no', null);
+        //$youth->where('youth_registrations.youth_registration_no', null);
 
         $instituteId = $request->input('institute_id');
         $branchId = $request->input('branch_id');
@@ -87,15 +92,27 @@ class YouthManagementService
         return DataTables::eloquent($youth)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->youth_registration_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
-                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-check-circle"></i> ' . __('Accept') . ' </a>';
-                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-danger btn-sm"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
+                $str .= '<a href="' . route('course_management::admin.youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                if($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING){
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth-course-enroll-accept', $youth->youth_course_enroll_id) . '"'.' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth-course-enroll-reject', $youth->youth_course_enroll_id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' .__('Reject') . ' </a>';
+                }
+                return $str;
+            }))
+            ->addColumn('enroll_status', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
+                $str = '';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->enroll_status == 0 ? "warning" : ($youth->enroll_status == 1 ? "success" : "danger")) . '">' . ($youth->enroll_status == 0 ? "Processing" : ($youth->enroll_status == 1 ? "Accepted" : "Rejected")) . ' </span>';
+                return $str;
+            }))
+            ->addColumn('payment_status', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
+                $str = '';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->payment_status ? "success" : "danger") . '">' . ($youth->payment_status ? "Paid" : "Unpaid") . ' </span>';
                 return $str;
             }))
             ->editColumn('registration_date', function (Youth $youth) {
                 return date('d M Y', strtotime($youth->registration_date));
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'enroll_status', 'payment_status'])
             ->toJson();
     }
 

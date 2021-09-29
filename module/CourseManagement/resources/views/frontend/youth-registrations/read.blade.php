@@ -42,14 +42,14 @@
             </div>
 
             <div class="col-md-12">
-                <h5 class="text-center">{{ $youthRegistrationData->publishCourse ? $youthRegistrationData->publishCourse->course->institute->title_en : ''}}</h5>
-                <h6 class="text-center">{{  $youthRegistrationData->publishCourse ? $youthRegistrationData->publishCourse->course->title_en : '' }}</h6>
+                <h5 class="text-center">{{ $youth->publishCourse ? $youth->publishCourse->course->institute->title_en : ''}}</h5>
+                <h6 class="text-center">{{  $youth->publishCourse ? $youth->publishCourse->course->title_en : '' }}</h6>
             </div>
             <table class="table">
                 <tr>
                     <td class="border-0"></td>
                     <td><span
-                            class="text-bold">Registration Number: </span>{{ $youthRegistrationData->youth_registration_no ?? 'N/A' }}
+                            class="text-bold">Registration Number: </span>{{ $youth->youth_registration_no ?? 'N/A' }}
                     </td>
                     <td colspan="3"></td>
                 </tr>
@@ -58,7 +58,7 @@
                     <td class="border-0"></td>
                     <td class="youth-profile-pic">
                         <img
-                            src="{{ $youthRegistrationData->student_pic ? asset('/storage/' .$youthRegistrationData->student_pic) : asset('storage/default_student_pic.jpg')}}"
+                            src="{{ $youth->student_pic ? asset('/storage/' .$youth->student_pic) : asset('storage/default_student_pic.jpg')}}"
                             height="200" width="200" alt="youth profile pic">
                     </td>
                     <td colspan="3">
@@ -116,7 +116,7 @@
                     <td class="border-top-0 border-bottom">{{ $youthSelfInfo->getUserReligion() ?? ''}}</td>
 
                     <td class="text-bold border-0">Nationality:</td>
-                    <td class="border-top-0 border-bottom">{{ !empty($youthSelfInfo->nationality)? ($youthSelfInfo->nationality=='bd'?'Bangladeshi':''):'' }}</td>
+                    <td class="border-top-0 border-bottom">{{ !empty($youthSelfInfo->nationality)? ($youthSelfInfo->nationality=='bd'?'Bangladeshi':'Other'):'' }}</td>
                 </tr>
 
                 <tr class="custom-bg-gradient-info">
@@ -349,7 +349,7 @@
                         <tr>
                             <td class="border-0"></td>
                             <td class="text-bold">Currently Employed:</td>
-                            <td colspan="6">{{ $youthRegistrationData->getYouthCurrentEmploymentStatus() ?? 'N/A' }}</td>
+                            <td colspan="6">{{ $youth->getYouthCurrentEmploymentStatus() ?? 'N/A' }}</td>
                         </tr>
 
                     </table>
@@ -362,7 +362,7 @@
                     <td class="border-0"></td>
                     <td>
                         <img
-                            src="{{ asset('storage/'. $youthRegistrationData->student_signature_pic)}}"
+                            src="{{ asset('storage/'. $youth->student_signature_pic)}}"
                             height="50" width="200" alt="youth signature"></td>
                 </tr>
             </table>

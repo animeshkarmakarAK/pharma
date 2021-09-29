@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="user-image text-center">
                             <img
-                                src="{{ asset('storage/'. $youth->youthRegistration->student_pic) }}"
+                                src="{{ asset('storage/'. $youth->student_pic) }}"
                                 height="100" width="100" class="rounded-circle" alt="Youth profile picture">
                         </div>
                         <div class="d-flex justify-content-center user-info normal-line-height mt-3">
@@ -70,7 +70,7 @@
                         </div>
                         <div class="email">
                             <img
-                                src="{{ asset('storage/'. $youth->youthRegistration->student_signature_pic) }}"
+                                src="{{ asset('storage/'. $youth->student_signature_pic) }}"
                                 height="40" alt="Youth profile picture">
                         </div>
                     </div>
@@ -168,14 +168,20 @@
 
             <div class="col-md-8 mt-2">
                 <div class="card bg-white">
-                    <div class="card-header custom-bg-gradient-info text-primary">
-                        <h3 class="card-title font-weight-bold">ব্যাক্তিগত তথ্য</h3>
-
+                    <div
+                        class="card-header custom-bg-gradient-info">
+                        <div class="card-title float-left font-weight-bold text-primary">ব্যাক্তিগত তথ্য</div>
                         <div class="card-tools">
                             <a href="#" class="btn btn-sm btn-warning"
                                id="downloadPDF" onclick="Export()">
                                 <i class="fas fa-backward"></i> ডাউনলোড পিডিএফ
                             </a>
+                        </div>
+                        <div class="youth-access-key float-right d-inline-flex">
+                            <p class="label-text font-weight-bold">&nbsp;</p>
+                            <div class="font-weight-bold">
+                                &nbsp;
+                            </div>
                         </div>
                     </div>
 
@@ -490,7 +496,7 @@
 
                     let docDefinition = {
                         content: images,
-                        pageSize: {width: 580, height: 620},
+                        pageSize: {width: 580, height: 850},
                     };
                     pdfMake.createPdf(docDefinition).download("youth-profile.pdf");
 

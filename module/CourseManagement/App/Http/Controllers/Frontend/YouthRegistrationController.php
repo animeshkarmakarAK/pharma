@@ -3,11 +3,14 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Models\LocDivision;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthRegistration;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Contracts\View\View;
@@ -15,6 +18,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use function Module\CourseManagement\App\Services\barcodeNumberExists;
+use function Module\CourseManagement\App\Services\generateBarcodeNumber;
 
 class YouthRegistrationController extends Controller
 {
@@ -70,13 +75,12 @@ class YouthRegistrationController extends Controller
     /**
      * applied youth for registration data view
      *
-     * @param $youthRegistrationId
+     * @param $youthId
      * @return View
      */
-    public function show($youthRegistrationId): View
+    public function show($youthId): View
     {
-        $youthRegistrationData = YouthRegistration::findOrFail($youthRegistrationId);
-        $youth = Youth::where('id', $youthRegistrationData->youth_id)->first();
+        $youth = Youth::findOrFail($youthId);
 
         $familyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
         $youthAcademicQualifications = $this->youthRegistrationService->getYouthAcademicQualification($youth);
@@ -84,7 +88,6 @@ class YouthRegistrationController extends Controller
 
         return \view(self::VIEW_PATH . 'read')
             ->with([
-                'youthRegistrationData' => $youthRegistrationData,
                 'father' => $familyMembers['father'],
                 'mother' => $familyMembers['mother'],
                 'guardian' => $familyMembers['guardian'],
@@ -116,7 +119,6 @@ class YouthRegistrationController extends Controller
                 'message' => __('generic.something_wrong_try_again'),
                 'alertType' => 'error'
             ]);
-
         }
 
         $accessKey = $youth->access_key;
@@ -136,4 +138,129 @@ class YouthRegistrationController extends Controller
     {
         return \view('course_management::frontend/youth-registrations/application-success-message', compact('accessKey'));
     }
+
+
+    public function acceptYouthCourseEnroll($youthCourseEnrollId)
+    {
+        $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnrollId);
+
+        /**
+         * Check youth application already rejected or not
+         * */
+        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT){
+            return back()->with([
+                'message' => __('Already rejected this application'),
+                'alert-type' => 'warning'
+            ]);
+        }
+
+        /**
+         * Check youth application already accepted or not
+         * */
+        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+            return back()->with([
+                'message' => __('Already accepted this application'),
+                'alert-type' => 'warning'
+            ]);
+        }
+
+        try {
+            /**
+             * Send mail to youth for conformation
+             * */
+            $youthEmailAddress = $youthCourseEnroll->youth->email;
+            $mailMsg = "Your application has been accepted, Please pay now within 72 hours";
+            $mailSubject = "Application status";
+            try {
+                Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthRegistrationSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg));
+            } catch (\Throwable $exception) {
+                Log::debug($exception->getMessage());
+                return back()->with([
+                    'message' => __('Something is wrong, Please try again'),
+                    'alert-type' => 'error'
+                ])->withInput();
+            }
+
+            /**
+             * Changing Enroll Status
+             * */
+            $this->youthRegistrationService->changeYouthCourseEnrollStatusAccept($youthCourseEnroll);
+
+        } catch (\Throwable $exception) {
+            return response()->json([
+                'message' => __('generic.something_wrong_try_again'),
+                'alertType' => 'error'
+            ]);
+        }
+
+
+        return redirect()->back()->with([
+            'message' => __('Youth course enroll accepted & notifying to youth'),
+            'alertType' => 'success',
+        ]);
+    }
+
+    public function rejectYouthCourseEnroll($youthCourseEnrollId)
+    {
+        $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnrollId);
+
+        /**
+         * Check youth application already accepted or not
+         * */
+        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+            return back()->with([
+                'message' => __('Already accepted this application'),
+                'alert-type' => 'warning'
+            ]);
+        }
+
+        /**
+         * Check youth application already accepted or not
+         * */
+        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT){
+            return back()->with([
+                'message' => __('Already rejected this application'),
+                'alert-type' => 'warning'
+            ]);
+        }
+
+        try {
+
+            /**
+             * Send mail to youth for conformation
+             * */
+            $youthEmailAddress = $youthCourseEnroll->youth->email;
+            $mailMsg = "Your application has been rejected, Please enroll again by your account";
+            $mailSubject = "Application status";
+            try {
+                Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthRegistrationSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg));
+            } catch (\Throwable $exception) {
+                Log::debug($exception->getMessage());
+                return back()->with([
+                    'message' => __('Something wrong try again'),
+                    'alert-type' => 'error'
+                ])->withInput();
+            }
+
+            /**
+             * Changing Enroll Status
+             * */
+            $this->youthRegistrationService->changeYouthCourseEnrollStatusReject($youthCourseEnroll);
+
+        } catch (\Throwable $exception) {
+            return response()->json([
+                'message' => __('generic.something_wrong_try_again'),
+                'alertType' => 'error'
+            ]);
+        }
+
+
+        return redirect()->back()->with([
+            'message' => __('Youth course enroll rejected & notifying to youth'),
+            'alertType' => 'success',
+        ]);
+
+
+    }
+
 }

@@ -1831,19 +1831,7 @@
                         return $('#passport_number').val() == "" && $('#birth_certificate_no').val() == "";
                     },
                     nidBn: true,
-                    /*remote: {
-                        url: "{!! route('course_management::youth.check-unique-nid') !!}",
-                        type: "get",
-                        data: {
-                            publish_course_id: function () {
-                                return $('#publish_course_id').val();
-                            },
-                            nid: function () {
-                                return $('#nid').val();
-                            },
-                        },
-                    }*/
-                    //remote: "{!! route('course_management::youth.check-unique-nid') !!}",
+                    remote: "{!! route('course_management::youth.check-unique-nid') !!}",
 
                 },
                 birth_certificate_no: {

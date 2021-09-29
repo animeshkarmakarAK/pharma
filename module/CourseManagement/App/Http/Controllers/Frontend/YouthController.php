@@ -2,7 +2,9 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Mail\YouthRegistrationSuccessMail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -31,18 +33,23 @@ class YouthController extends Controller
      * Display a listing of the resource.
      *
      * @param $id
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function index($id): View
+    public function index($id)
     {
-        $youth = Youth::findOrFail($id);
+        $youthId = auth()->guard('youth')->user()->id;
+        if ($id != $youthId) {
+            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        }
+
+        $youth = Youth::findOrFail($youthId);
 
         $youth->load([
             'youthRegistration',
         ]);
-        $academicQualifications = YouthAcademicQualification::where(['youth_id'=>$youth->id])->get();
+        $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
 
-        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id'=>$youth->id, 'relation_with_youth'=>'self'])->first();
+        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
 
         $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
 
@@ -56,7 +63,35 @@ class YouthController extends Controller
                 'youthSelfInfo' => $youthSelfInfo,
                 'academicQualifications' => $academicQualifications,
             ]);
+    }
 
+    public function youthEnrolledCourses($id){
+        $youthId = auth()->guard('youth')->user()->id;
+        if ($id != $youthId) {
+            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        }
+
+        $youth = Youth::findOrFail($youthId);
+
+        $youth->load([
+            'youthRegistration',
+        ]);
+        $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
+
+        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
+
+        $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
+
+        return \view(self::VIEW_PATH . 'youth.youth-courses')->with(
+            [
+                'youth' => $youth,
+                'father' => $youthFamilyMembers['father'],
+                'mother' => $youthFamilyMembers['mother'],
+                'guardian' => $youthFamilyMembers['guardian'],
+                'haveYouthFamilyMembersInfo' => $youthFamilyMembers['haveYouthFamilyMembersInfo'],
+                'youthSelfInfo' => $youthSelfInfo,
+                'academicQualifications' => $academicQualifications,
+            ]);
     }
 
     public function videos(): View
@@ -193,7 +228,7 @@ class YouthController extends Controller
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
-                'message' => __('ইমেইল প্রেরণ ব্যর্থ হয়েছে'),
+                'message' => __('কারিগরি সমস্যা, দয়া করে আবার চেষ্টা করুন'),
                 'alert-type' => 'error'
             ])->withInput();
         }
@@ -216,20 +251,12 @@ class YouthController extends Controller
 
     public function checkYouthUniqueNID(Request $request): JsonResponse
     {
-        $checkYouthNid = DB::table('youths_family_member_info')
-            ->join('youth_registrations','youth_registrations.youth_id','=','youths_family_member_info.youth_id');
+        $youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
 
-        $checkYouthNid = $checkYouthNid->where('youths_family_member_info.relation_with_youth','self')
-            ->where('youths_family_member_info.nid',$request->nid)
-            ->where('youth_registrations.publish_course_id',$request->publish_course_id)
-            ->first();
-
-        //$youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
-
-        if ($checkYouthNid == null) {
+        if ($youthNidNo == null) {
             return response()->json(true);
         }
-        return response()->json("এই এন.আই.ডি নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই এন.আই.ডি দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
     public function checkYouthUniqueBirthCertificateNo(Request $request): JsonResponse
@@ -238,7 +265,7 @@ class YouthController extends Controller
         if ($youthBirthNo == null) {
             return response()->json(true);
         }
-        return response()->json("এই জন্ম সনদ টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই জন্ম সনদ দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
     public function checkYouthUniquePassportId(Request $request): JsonResponse
@@ -247,7 +274,13 @@ class YouthController extends Controller
         if ($youthPassportNo == null) {
             return response()->json(true);
         }
-        return response()->json("এই পাসপোর্ট নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই পাসপোর্ট দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
+        //ইতিমধ্যে এই নম্বর দ্বারা নিবন্ধিত
+    }
+
+    public function youthCourseGetDatatable(Request $request): JsonResponse
+    {
+        return $this->youthRegistrationService->getListDataForDatatable($request);
     }
 
 }

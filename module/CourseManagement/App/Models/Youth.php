@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $permanent_address_upazila_bbs_code
  * @property string $permanent_address_house_address
  * @property string $ethnic_group
+ * @property string|null youth_registration_no
+ * @property int youth_course_enroll_id
  */
 class Youth extends AuthBaseModel
 {
@@ -56,6 +58,15 @@ class Youth extends AuthBaseModel
         }
 
         return $value;
+    }
+
+    public function setYouthRegistrationNumber(): string
+    {
+        if (empty($this->youth_registration_no)) {
+            $this->youth_registration_no = Helper::randomPassword(10, true);
+        }
+
+        return $this->youth_registration_no;
     }
 
 
@@ -120,4 +131,55 @@ class Youth extends AuthBaseModel
     {
         return $this->belongsTo(LocUpazila::class, 'permanent_address_upazila_id', 'id');
     }
+
+    public function youthCourseEnroll(): HasOne
+    {
+        return $this->hasOne(YouthCourseEnroll::class);
+    }
+
+
+    public const HAVE_FAMILY_OWN_HOUSE = 1;
+    public const HAVE_FAMILY_OWN_LAND = 1;
+    public const  RECOMMENDED_BY_ORGANIZATION = 1;
+
+
+    public const CURRENT_EMPLOYMENT_STATUS_YES = 1;
+    public const CURRENT_EMPLOYMENT_STATUS_NO = 2;
+
+    public static function getYouthCurrentEmploymentStatusOptions(): array
+    {
+        return [
+            self::CURRENT_EMPLOYMENT_STATUS_YES => __('Yes'),
+            self::CURRENT_EMPLOYMENT_STATUS_NO => __('No'),
+        ];
+    }
+
+
+    public function getYouthCurrentEmploymentStatus(): string
+    {
+        $employmentStatus = 'Not specified';
+        $employmentStatusArray = self::getYouthCurrentEmploymentStatusOptions();
+        if (empty($employmentStatusArray[$this->current_employment_status])) return $employmentStatus;
+
+        return $employmentStatusArray[$this->current_employment_status];
+    }
+
+
+    /**
+     * Unique Reg No Generate function
+     */
+    public function genRegNo(): int
+    {
+        $regNumber = mt_rand(1000000000, 9999999999);
+        if ($this->regNumberExists($regNumber)) {
+            return $this->genRegNo();
+        }
+        return $regNumber;
+    }
+    public function regNumberExists($regNumber)
+    {
+        return Youth::where(['youth_registration_no'=>$regNumber])->exists();
+    }
+
+
 }

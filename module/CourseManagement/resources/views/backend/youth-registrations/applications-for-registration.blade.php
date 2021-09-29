@@ -241,6 +241,58 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to accept it?') }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="#" id="accept-application-form" method="POST">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to reject it?') }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="#" id="reject-application-form" method="POST">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal End-->
 @endsection
 @push('css')
@@ -300,7 +352,7 @@
                     {
                         title: "Reg. No.",
                         data: "youth_registration_no",
-                        name: "youth_registrations.youth_registration_no"
+                        name: "youths.youth_registration_no"
                     },
                     {
                         title: "Institute Name",
@@ -336,6 +388,16 @@
                         defaultContent: '',
                     },
                     {
+                        title: "Enroll Status",
+                        data: "enroll_status",
+                        name: "youth_course_enrolls.enroll_status",
+                    },
+                    {
+                        title: "Payment Status",
+                        data: "payment_status",
+                        name: "youth_course_enrolls.payment_status",
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         name: "action",
@@ -356,6 +418,16 @@
             };
 
             let datatable = $('#dataTable').DataTable(params);
+
+            $(document, 'td').on('click', '.accept-application', function (e) {
+                $('#accept-application-form')[0].action = $(this).data('action');
+                $('#accept-application-modal').modal('show');
+            });
+
+            $(document, 'td').on('click', '.reject-application', function (e) {
+                $('#reject-application-form')[0].action = $(this).data('action');
+                $('#reject-application-modal').modal('show');
+            });
 
             $("#select_all_rows").click(function () {
                 let selectAll = $(this);
@@ -405,10 +477,10 @@
 
 
             $("#add-to-batch-area").click(function () {
-                addToBatchForm.find('.youth_registration_ids').remove();
+                addToBatchForm.find('.youth_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    addToBatchForm.append('<input name="youth_registration_ids[]" class="youth_registration_ids" value="' + row.youth_registration_id + '" type="hidden"/>');
+                    addToBatchForm.append('<input name="youth_ids[]" class="youth_ids" value="' + row.id + '" type="hidden"/>');
                 });
             });
             let addToBatchForm = $("#add-to-batch-form");

@@ -64,7 +64,7 @@ class YouthRegistration extends BaseModel
         return $employmentStatusArray[$this->current_employment_status];
     }
 
-    public function youth(): BelongsTo
+    /*public function youth(): BelongsTo
     {
         return $this->belongsTo(Youth::class);
     }
@@ -72,6 +72,6 @@ class YouthRegistration extends BaseModel
     public function publishCourse(): BelongsTo
     {
         return $this->belongsTo(PublishCourse::class);
-    }
+    }*/
 
 }
