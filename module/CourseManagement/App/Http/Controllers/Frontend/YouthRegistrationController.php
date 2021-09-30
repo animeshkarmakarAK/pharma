@@ -169,10 +169,11 @@ class YouthRegistrationController extends Controller
              * Send mail to youth for conformation
              * */
             $youthEmailAddress = $youthCourseEnroll->youth->email;
-            $mailMsg = "Your application has been accepted, Please pay now within 72 hours";
-            $mailSubject = "Application status";
+            $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: https://www.test.com.bd</p>";
+            $mailSubject = "Congratulations! Your application has been accepted";
+            $youthName = $youthCourseEnroll->youth->name_en;
             try {
-                Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthRegistrationSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg));
+                Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthApplicationAcceptMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
             } catch (\Throwable $exception) {
                 Log::debug($exception->getMessage());
                 return back()->with([
@@ -227,13 +228,14 @@ class YouthRegistrationController extends Controller
         try {
 
             /**
-             * Send mail to youth for conformation
+             * Send mail to youth for reject conformation
              * */
             $youthEmailAddress = $youthCourseEnroll->youth->email;
-            $mailMsg = "Your application has been rejected, Please enroll again by your account";
-            $mailSubject = "Application status";
+            $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="'.( route('course_management::course_search')).'">Courses</a></p>';
+            $mailSubject = "Your application has been rejected";
+            $youthName = $youthCourseEnroll->youth->name_en;
             try {
-                Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthRegistrationSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg));
+                Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthApplicationRejectMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
             } catch (\Throwable $exception) {
                 Log::debug($exception->getMessage());
                 return back()->with([

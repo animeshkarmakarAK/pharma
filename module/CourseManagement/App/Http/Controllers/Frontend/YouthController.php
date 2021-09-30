@@ -2,16 +2,15 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
-use App\Helpers\Classes\AuthHelper;
 use App\Mail\YouthRegistrationSuccessMail;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
@@ -65,7 +64,8 @@ class YouthController extends Controller
             ]);
     }
 
-    public function youthEnrolledCourses($id){
+    public function youthEnrolledCourses($id)
+    {
         $youthId = auth()->guard('youth')->user()->id;
         if ($id != $youthId) {
             return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
@@ -283,5 +283,110 @@ class YouthController extends Controller
         return $this->youthRegistrationService->getListDataForDatatable($request);
     }
 
+    public function youthCourseEnrollPayNow($youthCourseEnroll)
+    {
+        $YouthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnroll);
+        $youthId = $YouthCourseEnroll->youth_id;
+        $userInfo['id'] = $YouthCourseEnroll->youth_id;
+        $userInfo['mobile'] = $YouthCourseEnroll->youth->mobile;
+        $userInfo['email'] = $YouthCourseEnroll->youth->email;
+        $userInfo['address'] = "Dhaka-1212";
+        $userInfo['name'] = $YouthCourseEnroll->youth->name_en;
+
+        $paymentInfo['trID'] = $youthId . rand(100, 999);
+        $paymentInfo['amount'] = $YouthCourseEnroll->publishCourse->course->course_fee;
+        $paymentInfo['orderID'] = $YouthCourseEnroll->id;
+
+        $activeDebug = false;
+
+        $token = $this->ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug = false);
+        if (!empty($token)) {
+            $token = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=' . $token . '&trnsID=' . $paymentInfo['trID'];
+        }
+
+        return redirect($token);
+    }
+
+    public function ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug = false)
+    {
+        $marchantID = 'eporcha_test';
+        $marchantKey = 'EprCsa@tST12';
+        $mac_addr = '1.1.1.1';
+        $applicationURL = route('/');
+
+        $time = Carbon::now()->format('Y-m-d H:i:s');
+
+        $customerCleanName = preg_replace('/[^A-Za-z0-9 \-\.]/', '', $userInfo['name']);
+
+        $data = '{
+           "mer_info":{
+              "mer_reg_id":"' . $marchantID . '",
+              "mer_pas_key":"' . $marchantKey . '"
+           },
+           "req_timestamp":"' . $time . ' GMT+6",
+           "feed_uri":{
+              "s_uri":"' . $applicationURL . '/success",
+              "f_uri":"' . $applicationURL . '/fail",
+              "c_uri":"' . $applicationURL . '/cancel"
+           },
+           "cust_info":{
+              "cust_id":"' . $userInfo['id'] . '",
+              "cust_name":"' . $customerCleanName . '",
+              "cust_mobo_no":"' . $userInfo['mobile'] . '",
+              "cust_email":"' . $userInfo['email'] . '",
+              "cust_mail_addr":"' . $userInfo['address'] . '"
+           },
+           "trns_info":{
+              "trnx_id":"' . $paymentInfo['trID'] . '",
+              "trnx_amt":"' . $paymentInfo['amount'] . '",
+              "trnx_currency":"BDT",
+              "ord_id":"' . $paymentInfo['orderID'] . '",
+			  "ord_det":"course_fee"
+           },
+           "ipn_info":{
+              "ipn_channel":"1",
+              "ipn_email":"imiladul@gmail.com",
+              "ipn_uri":"' . $applicationURL . '/api/ipn-handler"
+           },
+           "mac_addr":"' . $mac_addr . '"
+        }';
+
+        $url = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1/merchant-api';
+
+        if ($activeDebug) {
+            Log::debug("Payload");
+            Log::debug($data);
+        }
+        try {
+            // Setup cURL
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+                CURLOPT_POST => TRUE,
+                CURLOPT_RETURNTRANSFER => TRUE,
+                CURLOPT_HTTPHEADER => array(
+                    //'Authorization: '.$authToken,
+                    'Content-Type: application/json'
+                ),
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0
+            ));
+
+            // Send the request
+            $response = curl_exec($ch);
+        } catch (\Exception $exception) {
+            //ipnLog("Curl request failed." . $exception->getMessage());
+        }
+
+        // Decode the response
+        $responseData = json_decode($response, TRUE);
+        return $responseData['secure_token'];
+
+    }
+
+    public function ipnHandler(Request $request){
+        dd($request->all());
+    }
 }
 

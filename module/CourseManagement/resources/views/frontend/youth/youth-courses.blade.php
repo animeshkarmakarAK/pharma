@@ -102,6 +102,36 @@
             </div>
         </div>
     </div>
+
+
+    <!-----------modal Start----------->
+    <div class="modal modal-danger fade" tabindex="-1" id="pay-now-modal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-exclamation-triangle"></i></i> {{ __('Do you want to pay now?') }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="#" id="pay-now-form" method="POST">
+                        {{--{{ method_field("DELETE") }}--}}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-----------modal End------------->
+
 @endsection
 
 @push('css')
@@ -161,9 +191,9 @@
             const datatable = $('#dataTable').DataTable(params);
             bindDatatableSearchOnPresEnterOnly(datatable);
 
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
+            $(document, 'td').on('click', '.pay-now', function (e) {
+                $('#pay-now-form')[0].action = $(this).data('action');
+                $('#pay-now-modal').modal('show');
             });
         });
     </script>

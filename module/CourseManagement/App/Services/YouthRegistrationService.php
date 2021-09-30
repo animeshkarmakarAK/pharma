@@ -284,7 +284,7 @@ class YouthRegistrationService
             ->addColumn('action', static function (YouthCourseEnroll $youthCourseEnrolls) {
                 $str = '';
                 if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status) {
-                    $str .= '<a href="#" class="btn btn-info btn-sm"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
                 }
                 return $str;
             })

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class Youth
  * @package App\Models
+ * @property int $id
  * @property string $enroll_status
  * @property string $payment_status
  */
