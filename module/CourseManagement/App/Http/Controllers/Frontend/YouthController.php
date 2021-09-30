@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
@@ -287,7 +288,7 @@ class YouthController extends Controller
     {
         $YouthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnroll);
         $youthId = $YouthCourseEnroll->youth_id;
-        $userInfo['id'] = $YouthCourseEnroll->youth_id;
+        $userInfo['id'] = $YouthCourseEnroll->id;
         $userInfo['mobile'] = $YouthCourseEnroll->youth->mobile;
         $userInfo['email'] = $YouthCourseEnroll->youth->email;
         $userInfo['address'] = "Dhaka-1212";
@@ -382,11 +383,49 @@ class YouthController extends Controller
         // Decode the response
         $responseData = json_decode($response, TRUE);
         return $responseData['secure_token'];
-
     }
 
-    public function ipnHandler(Request $request){
-        dd($request->all());
+    public function ipnHandler(Request $request)
+    {
+        $data['youth_course_enroll_id'] = $request->cust_info['cust_id'];
+        $data['cust_name'] = $request->cust_info['cust_name'];
+        $data['cust_mobo_no'] = $request->cust_info['cust_mobo_no'];
+        $data['cust_email'] = $request->cust_info['cust_email'];
+        $data['cust_mail_addr'] = $request->cust_info['cust_mail_addr'];
+
+        $data['log'] = $request->msg_det . ' msg_code:' . $request->msg_code;
+        $data['payment_type'] = $request->pi_det_info['pi_type'];
+        //$data['payment_date'] = explode(' ', $request->req_timestamp)[0];
+        $data['payment_date'] = Carbon::now();
+        $data['payment_status'] = $request->msg_code == 100 ? '1' : '2';
+
+
+        $data['transaction_id'] = $request->trnx_info['trnx_id'];
+        $data['mer_trnx_id'] = $request->trnx_info['mer_trnx_id'];
+        $data['amount'] = $request->trnx_info['trnx_amt'];
+        $data['curr'] = $request->trnx_info['curr'];
+        $data['pi_trnx_id'] = $request->trnx_info['pi_trnx_id'];
+        //$data['pi_charge'] = $request->trnx_info['pi_charge'];
+        $data['ekpay_charge'] = $request->trnx_info['ekpay_charge'];
+        $data['pi_discount'] = $request->trnx_info['pi_discount'];
+        $data['total_ser_chrg'] = $request->trnx_info['total_ser_chrg'];
+        $data['discount'] = $request->trnx_info['discount'];
+        $data['promo_discount'] = $request->trnx_info['promo_discount'];
+        $data['total_pabl_amt'] = $request->trnx_info['total_pabl_amt'];
+
+        $payment = new Payment();
+        $payment->fill($data);
+        $payment->save();
+
+        $youthCourseEnroll = YouthCourseEnroll::findOrFail($data['youth_course_enroll_id']);
+        $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
+
+        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+            $youthCourseEnroll->update($newData);
+        }
+
+
+
     }
 }
 
