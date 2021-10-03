@@ -101,12 +101,12 @@ class YouthManagementService
             }))
             ->addColumn('enroll_status', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->enroll_status == 0 ? "warning" : ($youth->enroll_status == 1 ? "success" : "danger")) . '">' . ($youth->enroll_status == 0 ? "Processing" : ($youth->enroll_status == 1 ? "Accepted" : "Rejected")) . ' </span>';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? "warning enroll-processing" : ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? "success enroll-accept" : "danger enroll-reject")) . '">' . ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? "Processing" : ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? "Accepted" : "Rejected")) . ' </span>';
                 return $str;
             }))
             ->addColumn('payment_status', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->payment_status ? "success" : "danger") . '">' . ($youth->payment_status ? "Paid" : "Unpaid") . ' </span>';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->payment_status ? "success payment-paid" : "danger payment-unpaid") . '">' . ($youth->payment_status ? "Paid" : "Unpaid") . ' </span>';
                 return $str;
             }))
             ->editColumn('registration_date', function (Youth $youth) {

@@ -114,7 +114,6 @@
                                         @endif
 
 
-
                                         <div class="col-md-3">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="training_center_id"
@@ -242,7 +241,8 @@
         </div>
     </div>
 
-    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal" role="dialog" data-backdrop="static">
+    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal" role="dialog"
+         data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header custom-bg-gradient-info">
@@ -268,7 +268,8 @@
         </div>
     </div>
 
-    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal" role="dialog" data-backdrop="static">
+    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal" role="dialog"
+         data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header custom-bg-gradient-info">
@@ -320,11 +321,17 @@
                 columns: [
                     {
                         title: "<input type='checkbox' id='select_all_rows' />",
+                        render: function (data, type, row, meta) {
+                          if(data.id == 31) {
+                              return  "<input type='checkbox' id='select_all_rows' checked/>";
+                          }
+                        },
                         data: null,
                         defaultContent: '',
                         orderable: false,
                         searchable: false,
-                        className: 1 ? 'select-checkbox' : '', 'targets': 0
+                        className: 1 ? 'select-checkbox' : '',
+                        targets: 0
                     },
                     {
                         title: "SL#",
@@ -391,11 +398,13 @@
                         title: "Enroll Status",
                         data: "enroll_status",
                         name: "youth_course_enrolls.enroll_status",
+                        searchable: false,
                     },
                     {
                         title: "Payment Status",
                         data: "payment_status",
                         name: "youth_course_enrolls.payment_status",
+                        searchable: false,
                     },
                     {
                         title: "Action",
@@ -499,6 +508,11 @@
                     htmlForm.submit();
                 }
             });
+
+            /*$('.enroll-processing').on('click',function (){
+                alert('hi');
+            })*/
+
         });
 
     </script>
