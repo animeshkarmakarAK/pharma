@@ -34,16 +34,16 @@
             @elseauth('youth')
                 <li class="nav-item dropdown">
                     <a class="nav-item nav-link mr-md-2 text-white"
-                       href="{{ route('course_management::youth', auth()->guard('youth')->user()->id) }}"
+                       href="{{ route('course_management::youth', auth()->guard('youth')->user()->id.'/youth-enrolled-courses') }}"
                        id="bd-versions">
-                        <i class="fas fa-clipboard-list"></i>&nbsp; প্রোফাইল
+                        <i class="fas fa-clipboard-list"></i>&nbsp; আমার কোর্স সমূহ
                     </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-item nav-link mr-md-2 text-white"
-                       href="{{ route('course_management::youth', auth()->guard('youth')->user()->id.'/youth-enrolled-courses') }}"
+                       href="{{ route('course_management::youth', auth()->guard('youth')->user()->id) }}"
                        id="bd-versions">
-                        <i class="fas fa-clipboard-list"></i>&nbsp; আমার কোর্স সমূহ
+                        <i class="fas fa-clipboard-list"></i>&nbsp; প্রোফাইল
                     </a>
                 </li>
             @endauth
@@ -84,6 +84,14 @@
                        href="{{ route('course_management::youth-registrations.index') }}"
                        id="bd-versions" aria-haspopup="true">
                         <i class="fa fa-file"> </i>&nbsp; অনলাইন আবেদন
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-item nav-link mr-md-2 text-white"
+                       href="{{ route('course_management::youth.login-form') }}"
+                       id="bd-versions" aria-haspopup="true">
+                        <i class="fa fa-file"> </i>&nbsp; ফি জমা দিন
                     </a>
                 </li>
             @endif

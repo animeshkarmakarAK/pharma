@@ -316,21 +316,30 @@
                 serialNumberColumn: 1,
                 select: {
                     style: 'multi',
-                    selector: 'td:first-child'
+                    selector: 'td:first-child',
                 },
+                columnDefs: [
+                    {
+                        "targets": 0,
+                        "orderable": false,
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            console.log(rowData)
+                            if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
+                                $(td).addClass('select-checkbox enable-checkbox');
+                            }else {
+                                $(td).removeClass('select-checkbox enable-checkbox');
+                            }
+                        }
+                    }
+                ],
                 columns: [
                     {
                         title: "<input type='checkbox' id='select_all_rows' />",
-                        render: function (data, type, row, meta) {
-                          if(data.id == 31) {
-                              return  "<input type='checkbox' id='select_all_rows' checked/>";
-                          }
-                        },
                         data: null,
                         defaultContent: '',
                         orderable: false,
                         searchable: false,
-                        className: 1 ? 'select-checkbox' : '',
+                        //className: 1 ? 'select-checkbox' : '',
                         targets: 0
                     },
                     {
@@ -414,7 +423,7 @@
                         searchable: false,
                         visible: true
                     },
-                ]
+                ],
             });
 
             params.ajax.data = d => {
@@ -440,11 +449,14 @@
 
             $("#select_all_rows").click(function () {
                 let selectAll = $(this);
-                if (selectAll.prop('checked')) {
-                    datatable.rows().select();
+
+                if ($(this).is(":checked")) {
+                    datatable.rows(':has(.select-checkbox)').select();
                 } else {
-                    datatable.rows().deselect();
+                    datatable.rows(  ).deselect();
                 }
+
+
             });
 
             $(document).on('change', '.select2-ajax-wizard', function () {
@@ -486,10 +498,11 @@
 
 
             $("#add-to-batch-area").click(function () {
-                addToBatchForm.find('.youth_ids').remove();
+                addToBatchForm.find('.youth_enroll_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    addToBatchForm.append('<input name="youth_ids[]" class="youth_ids" value="' + row.id + '" type="hidden"/>');
+                    console.log(row.name_en)
+                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="text"/>');
                 });
             });
             let addToBatchForm = $("#add-to-batch-form");
@@ -508,10 +521,6 @@
                     htmlForm.submit();
                 }
             });
-
-            /*$('.enroll-processing').on('click',function (){
-                alert('hi');
-            })*/
 
         });
 

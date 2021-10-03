@@ -23,11 +23,16 @@ class YouthManagementService
     {
         $rules = [
             'batch_id' => ['bail', 'required'],
-            'youth_registration_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
-//                if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
+            'youth_enroll_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
+                /*if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
+                    $fail(__('Please select same programme type to process.'));
+                }*/
+            }],
+//            'youth_registration_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
+//                /*if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
 //                    $fail(__('Please select same programme type to process.'));
-//                }
-            }]
+//                }*/
+//            }]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -93,9 +98,9 @@ class YouthManagementService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
                 $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
-                if($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING){
-                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth-course-enroll-accept', $youth->youth_course_enroll_id) . '"'.' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
-                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth-course-enroll-reject', $youth->youth_course_enroll_id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' .__('Reject') . ' </a>';
+                if ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING) {
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth-course-enroll-accept', $youth->youth_course_enroll_id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth-course-enroll-reject', $youth->youth_course_enroll_id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
                 }
                 return $str;
             }))
@@ -112,30 +117,34 @@ class YouthManagementService
             ->editColumn('registration_date', function (Youth $youth) {
                 return date('d M Y', strtotime($youth->registration_date));
             })
-            ->rawColumns(['action', 'enroll_status', 'payment_status'])
+            ->addColumn('paid_or_unpaid', static function (Youth $youth) {
+                return $youth->payment_status;
+            })
+            ->addColumn('enroll_status_check', static function (Youth $youth) {
+                return $youth->enroll_status;
+            })
+            ->rawColumns(['action', 'enroll_status', 'payment_status', 'paid_or_unpaid', 'enroll_status_check'])
             ->toJson();
     }
 
-    public function addYouthToBatch(Batch $batch, array $youths): bool
+    public function addYouthToBatch(Batch $batch, array $youthCourseEnrolls): bool
     {
-        foreach ($youths as $youthRegistrationId) {
-            /** @var YouthRegistration $youthRegistration */
-            $youthRegistration = YouthRegistration::findOrFail($youthRegistrationId);
+        foreach ($youthCourseEnrolls as $youthCourseEnrollId) {
+            /** @var YouthRegistration $youthCourseEnroll */
+            $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnrollId);
+
             YouthBatch::updateOrCreate(
                 [
                     'batch_id' => $batch->id,
-                    'youth_id' => $youthRegistration->youth_id,
-                    'youth_registration_id' => $youthRegistrationId,
+                    'youth_enroll_id' => $youthCourseEnroll->id,
                 ],
                 [
                     'enrollment_date' => now(),
                     'enrollment_status' => YouthBatch::ENROLLMENT_STATUS_ENROLLED,
                 ]
             );
-            $youthRegistration->setYouthRegistrationNumber();
-            $youthRegistration->save();
+            $youthCourseEnroll->save();
         }
-
         return true;
     }
 }

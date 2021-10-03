@@ -67,6 +67,9 @@ class YouthController extends Controller
 
     public function youthEnrolledCourses($id)
     {
+        if(!auth()->guard('youth')->user()){
+            return redirect()->route('course_management::youth.login-form');
+        }
         $youthId = auth()->guard('youth')->user()->id;
         if ($id != $youthId) {
             return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
@@ -289,6 +292,7 @@ class YouthController extends Controller
         $YouthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnroll);
         $youthId = $YouthCourseEnroll->youth_id;
         $userInfo['id'] = $YouthCourseEnroll->id;
+        $userInfo['youth_id'] = $YouthCourseEnroll->youth_id;
         $userInfo['mobile'] = $YouthCourseEnroll->youth->mobile;
         $userInfo['email'] = $YouthCourseEnroll->youth->email;
         $userInfo['address'] = "Dhaka-1212";
@@ -327,7 +331,7 @@ class YouthController extends Controller
            "req_timestamp":"' . $time . ' GMT+6",
            "feed_uri":{
               "s_uri":"' . $applicationURL . '/success",
-              "f_uri":"' . $applicationURL . '/fail",
+              "f_uri":"' . $applicationURL. '/fail",
               "c_uri":"' . $applicationURL . '/cancel"
            },
            "cust_info":{
@@ -423,9 +427,6 @@ class YouthController extends Controller
         if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
             $youthCourseEnroll->update($newData);
         }
-
-
-
     }
 }
 

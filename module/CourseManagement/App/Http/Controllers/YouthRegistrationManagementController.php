@@ -39,14 +39,13 @@ class YouthRegistrationManagementController extends Controller
 
     public function addYouthToBatch(Request $request): \Illuminate\Http\RedirectResponse
     {
-        dd($request->all());
         $validatedData = $this->youthManagementService->validateAddYouthToBatch($request)->validate();
 
         $batch = Batch::findOrFail($validatedData['batch_id']);
 
         DB::beginTransaction();
         try {
-            $this->youthManagementService->addYouthToBatch($batch, $validatedData['youth_registration_ids']);
+            $this->youthManagementService->addYouthToBatch($batch, $validatedData['youth_enroll_ids']);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
