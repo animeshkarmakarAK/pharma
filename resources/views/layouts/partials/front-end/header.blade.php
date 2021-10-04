@@ -4,7 +4,7 @@
             <div class="navbar-nav-scroll">
                 <div class="nise3-logo" style="height: 70px">
                     <img class="float-left" src="{{asset('/assets/logo/nise3.png')}}" height="100%" alt="Logo"/>
-                    <div class="float-left">
+                    <div class="float-left px-1">
                         <p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
                         <p class="slogan">Employment and Entrepreneurship</p>
                         <p class="slogan slogan-tag">Bangladesh Industrial Technical Assistance Center</p>
