@@ -3,19 +3,24 @@
         <header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
             <div class="navbar-nav-scroll">
                 <div class="nise3-logo" style="height: 70px">
-                    <img src="{{asset('/assets/company/images/nise-logo.jpeg')}}" height="100%" alt="Logo"/>
+                    <img class="float-left" src="{{asset('/assets/logo/nise3.png')}}" height="100%" alt="Logo"/>
+                    <div class="float-left">
+                        <p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
+                        <p class="slogan">Employment and Entrepreneurship</p>
+                        <p class="slogan slogan-tag">Bangladesh Industrial Technical Assistance Center</p>
+                    </div>
+                    <img src="{{asset('/assets/logo/a1.png')}}" height="100%" alt="">
                 </div>
             </div>
-
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark text-bold" href="">
+                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px pl-0" href="">
                         <i class="fa fa-paper-plane"></i>&nbsp;
                         support@bitac.gov.bd
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark text-bold" href="">
+                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px" href="">
                         <i class="fas fa-phone fa-flip-horizontal"></i>
                         +৮৮০২-৫৫০০৬৫৯৫, +৮৮০২-৫৫০০৬৫৯৫
                     </a>
@@ -77,3 +82,6 @@
         </div>
     </div>
 </nav>
+
+
+

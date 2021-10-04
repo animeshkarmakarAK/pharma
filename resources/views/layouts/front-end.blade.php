@@ -16,23 +16,26 @@
 
     <style>
         /*new style start*/
-        .menu-bg-color{
+        .menu-bg-color {
             background: #671688;
             padding: 0;
         }
-        .menu-bg-color li a{
+
+        .menu-bg-color li a {
             color: #fff;
             padding: 10px 15px;
             border-radius: unset;
             transition: .5s;
         }
-        .menu-bg-color li a:hover{
+
+        .menu-bg-color li a:hover {
             background: #9c36c6;
             border-radius: unset;
             color: #FFFFFF;
             transition: .5s;
         }
-        .navbar-right li a:hover{
+
+        .navbar-right li a:hover {
             background: #E67E22;
             border-radius: unset;
             color: #FFFFFF;
@@ -43,6 +46,27 @@
 
         .logo {
             margin-left: 15px;
+        }
+
+        .slogan {
+            margin: 0;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 15px;
+            text-align: center;
+        }
+
+        .slogan-tag {
+            color: #4f91ce;
+            font-size: 10px !important;
+        }
+
+        .font-weight-600 {
+            font-weight: 600;
+        }
+
+        .font-size-13px {
+            font-size: 13px;
         }
 
         .menu-text {
@@ -133,7 +157,7 @@
             padding: 30px 0;
         }
 
-        .custom-btn{
+        .custom-btn {
             background: #671688;
             padding: 10px 30px;
             color: #fff;
@@ -141,7 +165,8 @@
             border: 1px solid #671688;
             transition: .4s;
         }
-        .custom-btn:hover{
+
+        .custom-btn:hover {
             background: #383838;
             border: 1px solid #383838;
             transition: .4s;
@@ -244,7 +269,8 @@
             border-radius: 10px;
             overflow: hidden;
         }
-        .instant-view-box .custom-icon{
+
+        .instant-view-box .custom-icon {
             color: #671688;
 
         }
@@ -463,10 +489,11 @@
             color: #655d5d;
         }
 
-        .footer-widget-address p a{
+        .footer-widget-address p a {
             color: #655d5d;
         }
-        .footer-widget-address p a:hover{
+
+        .footer-widget-address p a:hover {
             color: #671688;
         }
 
@@ -573,7 +600,7 @@
     @yield('full_page_content')
 
     @sectionMissing('full_page_content')
-        <div class="content-wrapper" style="padding-top: 50px">
+        <div class="content-wrapper">
             @yield('content')
         </div>
     @endif
