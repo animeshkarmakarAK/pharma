@@ -11,6 +11,7 @@ namespace Module\CourseManagement\App\Models;
  * @property int youth_id
  * @property int enrollment_status
  * @property int created_by
+ * @property int youth_enroll_id
  */
 
 class YouthBatch extends BaseModel

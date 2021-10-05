@@ -3,11 +3,15 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Mail\YouthRegistrationSuccessMail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
@@ -29,15 +33,24 @@ class YouthController extends Controller
      * Display a listing of the resource.
      *
      * @param $id
-     * @return View
+     * @return \Illuminate\Contracts\Foundation\Application|View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function index($id): View
+    public function index($id)
     {
-        $youth = Youth::findOrFail($id);
+        $youthId = auth()->guard('youth')->user()->id;
+        if ($id != $youthId) {
+            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        }
+
+        $youth = Youth::findOrFail($youthId);
 
         $youth->load([
             'youthRegistration',
         ]);
+        $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
+
+        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
+
         $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
 
         return \view(self::VIEW_PATH . 'youth.youth-profile')->with(
@@ -47,8 +60,42 @@ class YouthController extends Controller
                 'mother' => $youthFamilyMembers['mother'],
                 'guardian' => $youthFamilyMembers['guardian'],
                 'haveYouthFamilyMembersInfo' => $youthFamilyMembers['haveYouthFamilyMembersInfo'],
+                'youthSelfInfo' => $youthSelfInfo,
+                'academicQualifications' => $academicQualifications,
             ]);
+    }
 
+    public function youthEnrolledCourses($id)
+    {
+        if(!auth()->guard('youth')->user()){
+            return redirect()->route('course_management::youth.login-form');
+        }
+        $youthId = auth()->guard('youth')->user()->id;
+        if ($id != $youthId) {
+            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        }
+
+        $youth = Youth::findOrFail($youthId);
+
+        $youth->load([
+            'youthRegistration',
+        ]);
+        $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
+
+        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
+
+        $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
+
+        return \view(self::VIEW_PATH . 'youth.youth-courses')->with(
+            [
+                'youth' => $youth,
+                'father' => $youthFamilyMembers['father'],
+                'mother' => $youthFamilyMembers['mother'],
+                'guardian' => $youthFamilyMembers['guardian'],
+                'haveYouthFamilyMembersInfo' => $youthFamilyMembers['haveYouthFamilyMembersInfo'],
+                'youthSelfInfo' => $youthSelfInfo,
+                'academicQualifications' => $academicQualifications,
+            ]);
     }
 
     public function videos(): View
@@ -185,7 +232,7 @@ class YouthController extends Controller
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
-                'message' => __('ইমেইল প্রেরণ ব্যর্থ হয়েছে'),
+                'message' => __('কারিগরি সমস্যা, দয়া করে আবার চেষ্টা করুন'),
                 'alert-type' => 'error'
             ])->withInput();
         }
@@ -209,10 +256,11 @@ class YouthController extends Controller
     public function checkYouthUniqueNID(Request $request): JsonResponse
     {
         $youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
+
         if ($youthNidNo == null) {
             return response()->json(true);
         }
-        return response()->json("এই এন.আই.ডি নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই এন.আই.ডি দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
     public function checkYouthUniqueBirthCertificateNo(Request $request): JsonResponse
@@ -221,7 +269,7 @@ class YouthController extends Controller
         if ($youthBirthNo == null) {
             return response()->json(true);
         }
-        return response()->json("এই জন্ম সনদ টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই জন্ম সনদ দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
     public function checkYouthUniquePassportId(Request $request): JsonResponse
@@ -230,8 +278,155 @@ class YouthController extends Controller
         if ($youthPassportNo == null) {
             return response()->json(true);
         }
-        return response()->json("এই পাসপোর্ট নাম্বার টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
+        return response()->json("এই পাসপোর্ট দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
+        //ইতিমধ্যে এই নম্বর দ্বারা নিবন্ধিত
     }
 
+    public function youthCourseGetDatatable(Request $request): JsonResponse
+    {
+        return $this->youthRegistrationService->getListDataForDatatable($request);
+    }
+
+    public function youthCourseEnrollPayNow($youthCourseEnroll)
+    {
+        $YouthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnroll);
+        $youthId = $YouthCourseEnroll->youth_id;
+        $userInfo['id'] = $YouthCourseEnroll->id;
+        $userInfo['youth_id'] = $YouthCourseEnroll->youth_id;
+        $userInfo['mobile'] = $YouthCourseEnroll->youth->mobile;
+        $userInfo['email'] = $YouthCourseEnroll->youth->email;
+        $userInfo['address'] = "Dhaka-1212";
+        $userInfo['name'] = $YouthCourseEnroll->youth->name_en;
+
+        $paymentInfo['trID'] = $youthId . rand(100, 999);
+        $paymentInfo['amount'] = $YouthCourseEnroll->publishCourse->course->course_fee;
+        $paymentInfo['orderID'] = $YouthCourseEnroll->id;
+
+        $activeDebug = false;
+
+        $token = $this->ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug = false);
+        if (!empty($token)) {
+            $token = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=' . $token . '&trnsID=' . $paymentInfo['trID'];
+        }
+
+        return redirect($token);
+    }
+
+    public function ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug = false)
+    {
+        $marchantID = 'eporcha_test';
+        $marchantKey = 'EprCsa@tST12';
+        $mac_addr = '1.1.1.1';
+        $applicationURL = route('/');
+
+        $time = Carbon::now()->format('Y-m-d H:i:s');
+
+        $customerCleanName = preg_replace('/[^A-Za-z0-9 \-\.]/', '', $userInfo['name']);
+
+        $data = '{
+           "mer_info":{
+              "mer_reg_id":"' . $marchantID . '",
+              "mer_pas_key":"' . $marchantKey . '"
+           },
+           "req_timestamp":"' . $time . ' GMT+6",
+           "feed_uri":{
+              "s_uri":"' . $applicationURL . '/success",
+              "f_uri":"' . $applicationURL. '/fail",
+              "c_uri":"' . $applicationURL . '/cancel"
+           },
+           "cust_info":{
+              "cust_id":"' . $userInfo['id'] . '",
+              "cust_name":"' . $customerCleanName . '",
+              "cust_mobo_no":"' . $userInfo['mobile'] . '",
+              "cust_email":"' . $userInfo['email'] . '",
+              "cust_mail_addr":"' . $userInfo['address'] . '"
+           },
+           "trns_info":{
+              "trnx_id":"' . $paymentInfo['trID'] . '",
+              "trnx_amt":"' . $paymentInfo['amount'] . '",
+              "trnx_currency":"BDT",
+              "ord_id":"' . $paymentInfo['orderID'] . '",
+			  "ord_det":"course_fee"
+           },
+           "ipn_info":{
+              "ipn_channel":"1",
+              "ipn_email":"imiladul@gmail.com",
+              "ipn_uri":"' . $applicationURL . '/api/ipn-handler"
+           },
+           "mac_addr":"' . $mac_addr . '"
+        }';
+
+        $url = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1/merchant-api';
+
+        if ($activeDebug) {
+            Log::debug("Payload");
+            Log::debug($data);
+        }
+        try {
+            // Setup cURL
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+                CURLOPT_POST => TRUE,
+                CURLOPT_RETURNTRANSFER => TRUE,
+                CURLOPT_HTTPHEADER => array(
+                    //'Authorization: '.$authToken,
+                    'Content-Type: application/json'
+                ),
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0
+            ));
+
+            // Send the request
+            $response = curl_exec($ch);
+        } catch (\Exception $exception) {
+            //ipnLog("Curl request failed." . $exception->getMessage());
+        }
+
+        // Decode the response
+        $responseData = json_decode($response, TRUE);
+        return $responseData['secure_token'];
+    }
+
+    public function ipnHandler(Request $request)
+    {
+        $data['youth_course_enroll_id'] = $request->cust_info['cust_id'];
+        $data['cust_name'] = $request->cust_info['cust_name'];
+        $data['cust_mobo_no'] = $request->cust_info['cust_mobo_no'];
+        $data['cust_email'] = $request->cust_info['cust_email'];
+        $data['cust_mail_addr'] = $request->cust_info['cust_mail_addr'];
+
+        $data['log'] = $request->msg_det . ' msg_code:' . $request->msg_code;
+        $data['payment_type'] = $request->pi_det_info['pi_type'];
+        //$data['payment_date'] = explode(' ', $request->req_timestamp)[0];
+        $data['payment_date'] = Carbon::now();
+        $data['payment_status'] = $request->msg_code == 100 ? '1' : '2';
+
+
+        $data['transaction_id'] = $request->trnx_info['trnx_id'];
+        $data['mer_trnx_id'] = $request->trnx_info['mer_trnx_id'];
+        $data['amount'] = $request->trnx_info['trnx_amt'];
+        $data['curr'] = $request->trnx_info['curr'];
+        $data['pi_trnx_id'] = $request->trnx_info['pi_trnx_id'];
+        //$data['pi_charge'] = $request->trnx_info['pi_charge'];
+        $data['ekpay_charge'] = $request->trnx_info['ekpay_charge'];
+        $data['pi_discount'] = $request->trnx_info['pi_discount'];
+        $data['total_ser_chrg'] = $request->trnx_info['total_ser_chrg'];
+        $data['discount'] = $request->trnx_info['discount'];
+        $data['promo_discount'] = $request->trnx_info['promo_discount'];
+        $data['total_pabl_amt'] = $request->trnx_info['total_pabl_amt'];
+
+        $payment = new Payment();
+        $payment->fill($data);
+        $payment->save();
+
+        $youthCourseEnroll = YouthCourseEnroll::findOrFail($data['youth_course_enroll_id']);
+        $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
+
+        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+            $youthCourseEnroll->update($newData);
+        }
+    }
 }
 

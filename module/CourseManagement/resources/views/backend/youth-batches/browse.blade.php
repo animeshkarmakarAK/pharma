@@ -51,8 +51,8 @@
                     },
                     {
                         title: "Youth Reg. No",
-                        data: "youth_registrations.youth_registration_no",
-                        name: "youth_registrations.youth_registration_no",
+                        data: "youth_registration_no",
+                        name: "youths.youth_registration_no",
                     },
                     {
                         title: "Youth Name",
@@ -61,7 +61,7 @@
                     },
                     {
                         title: "Enrollment Date",
-                        data: "youth_batches.enrollment_date",
+                        data: "enrollment_date",
                         name: "youth_batches.enrollment_date",
                     },
 
@@ -77,11 +77,6 @@
             });
             const datatable = $('#dataTable').DataTable(params);
             bindDatatableSearchOnPresEnterOnly(datatable);
-
-            /*$(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
-            });*/
         });
     </script>
 @endpush

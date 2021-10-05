@@ -3,10 +3,16 @@
 
 namespace Module\CourseManagement\App\Services;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Helpers\Classes\Helper;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
-use Module\CourseManagement\App\Models\PublishCourse;
+use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
+use Yajra\DataTables\Facades\DataTables;
 
 class YouthRegistrationService
 {
@@ -33,43 +40,37 @@ class YouthRegistrationService
     {
         $presentAddress = data_get($data, 'address.present');
         $permanentAddress = data_get($data, 'address.permanent');
-        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile', 'email', 'ethnic_group']);
+        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile', 'email', 'ethnic_group', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status', 'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land', 'number_of_siblings', 'student_signature_pic', 'student_pic']);
         $youth = array_merge($youth, $presentAddress);
         $youth = array_merge($youth, $permanentAddress);
 
         $youth['access_key'] = Youth::getUniqueAccessKey();
+        $youth['youth_registration_no'] = Helper::randomPassword(10, true);
+
+
+        if (isset($data['student_signature_pic'])) {
+            $filename = FileHandler::storePhoto($youth['student_signature_pic'], 'student');
+            $youth['student_signature_pic'] = 'student/' . $filename;
+        }
+
+        if (isset($data['student_pic'])) {
+            $filename = FileHandler::storePhoto($youth['student_pic'], 'student', 'signature_' . $youth['access_key']);
+            $youth['student_pic'] = 'student/' . $filename;
+        }
+
         if (!$youth = Youth::create($youth)) {
             throw ValidationException::withMessages(['publish_course_id' => 'Youth creation failed!']);
         }
 
-        $youth_registration_info = Arr::only($data, ['institute_id', 'branch_id', 'programme_id', 'training_center_id',
-            'publish_course_id', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status',
-            'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land',
-            'number_of_siblings', 'student_signature_pic', 'student_pic']);
+        $youthCourseEnrollInfo = Arr::only($data, ['publish_course_id']);
 
-        $publishCourse = PublishCourse::where('id', $data['publish_course_id'])->first();
-        if (!$publishCourse) {
-            throw ValidationException::withMessages(['publish_course_id' => 'course config not found.']);
-        }
-
-        $youth_registration_info['publish_course_id'] = $publishCourse->id;
-
-        if (isset($data['student_signature_pic'])) {
-            $filename = FileHandler::storePhoto($youth_registration_info['student_signature_pic'], 'student');
-            $youth_registration_info['student_signature_pic'] = 'student/' . $filename;
-        }
-
-        if (isset($data['student_pic'])) {
-            $filename = FileHandler::storePhoto($youth_registration_info['student_pic'], 'student', 'signature_' . $youth->access_key);
-            $youth_registration_info['student_pic'] = 'student/' . $filename;
-        }
-
-        $youth->youthRegistration()->create($youth_registration_info);
+        $youth->youthCourseEnroll()->create($youthCourseEnrollInfo);
         $skipGuardian = false;
 
         if (empty($data['guardian'])) {
             $data['guardian'] = null;
         }
+
 
         foreach ($data['familyMember'] as $key => $familyMember) {
             if (($skipGuardian && $key == 'guardian') || (empty($data['guardian']) && $key == "guardian")) continue;
@@ -132,7 +133,6 @@ class YouthRegistrationService
                 Rule::unique('youths_family_member_info')->where(function ($query) {
                     return $query->where('relation_with_youth', 'self');
                 }),
-
             ],
             'passport_number' => [
                 'nullable',
@@ -140,7 +140,6 @@ class YouthRegistrationService
                 Rule::unique('youths_family_member_info')->where(function ($query) {
                     return $query->where('relation_with_youth', 'self');
                 }),
-
             ],
 
             'birth_certificate_no' => [
@@ -149,7 +148,6 @@ class YouthRegistrationService
                 Rule::unique('youths_family_member_info')->where(function ($query) {
                     return $query->where('relation_with_youth', 'self');
                 }),
-
             ],
 
             'date_of_birth' => 'required|date',
@@ -242,6 +240,64 @@ class YouthRegistrationService
     public function getYouthInfo(Youth $youth): Model
     {
         return $youth->youthFamilyMemberInfo->where('relation_with_youth', 'self')->first();
+    }
+
+    public function changeYouthCourseEnrollStatusAccept(YouthCourseEnroll $youthCourseEnroll)
+    {
+        $data['enroll_status'] = YouthCourseEnroll::ENROLL_STATUS_ACCEPT;
+        $youthCourseEnroll->update($data);
+    }
+
+    public function changeYouthCourseEnrollStatusReject(YouthCourseEnroll $youthCourseEnroll)
+    {
+        $data['enroll_status'] = YouthCourseEnroll::ENROLL_STATUS_REJECT;
+        $youthCourseEnroll->update($data);
+    }
+
+    public function getListDataForDatatable(\Illuminate\Http\Request $request): JsonResponse
+    {
+        /** @var Builder|YouthCourseEnroll $youthCourseEnrolls */
+        $youthCourseEnrolls = YouthCourseEnroll::select([
+            'youth_course_enrolls.id as id',
+            'youth_course_enrolls.youth_id',
+            'youth_course_enrolls.publish_course_id',
+            'youth_course_enrolls.enroll_status',
+            'youth_course_enrolls.payment_status',
+            'youth_course_enrolls.created_at as enroll_date',
+            'youth_course_enrolls.updated_at as enroll_updated_date',
+            'courses.title_bn as course_title_bn',
+            'courses.course_fee as course_fee',
+        ]);
+        $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
+        $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
+        $youthCourseEnrolls->where(['youths.id' => $request->id]);
+
+        return DataTables::eloquent($youthCourseEnrolls)
+            ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnrolls) {
+                $str = '';
+                return $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'badge-warning' : ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'badge-success' : 'badge-danger')) . '"> ' . ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'Processing' : ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'Accepted' : 'Rejected')) . ' </span>';
+            })
+            ->addColumn('payment_status', static function (YouthCourseEnroll $youthCourseEnrolls) {
+                $str = '';
+                return $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnrolls->payment_status ? 'badge-success' : 'badge-warning') . '"> ' . ($youthCourseEnrolls->payment_status ? 'Paid' : 'Unpaid') . ' </span>';
+            })
+            ->addColumn('action', static function (YouthCourseEnroll $youthCourseEnrolls) {
+                $str = '';
+                if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status and ( date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days'))) ) {
+                    $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
+                }
+                return $str;
+            })
+            ->addColumn('enroll_last_date', static function (YouthCourseEnroll $youthCourseEnrolls) {
+                $str = '';
+                if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status) {
+                    $str .= '<span href="#" class="badge badge-secondary"> ' .date('d M, Y h:i:s A', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days')) . ' </span>';
+                }
+                return $str;
+            })
+            ->rawColumns(['enroll_status', 'payment_status', 'action','enroll_last_date'])
+            ->toJson();
     }
 
 }

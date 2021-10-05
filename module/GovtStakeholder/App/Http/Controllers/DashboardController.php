@@ -13,6 +13,7 @@ use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Programme;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthBatch;
 use Module\GovtStakeholder\App\Models\OrganizationUnit;
 use Module\GovtStakeholder\App\Models\UpazilaJobStatistic;
 
@@ -56,6 +57,19 @@ class DashboardController
 
     private function redirectToInstituteUserDashboard(): array
     {
+        $mostDemandableCourses = DB::table('youth_batches')
+            ->select(
+                DB::raw('count(batches.course_id) as total'),
+                'batches.course_id',
+                'courses.title_en as course_title_en',
+                'courses.title_bn as course_title_bn',
+            )
+            ->join('batches', 'youth_batches.batch_id', '=', 'batches.id')
+            ->join('courses', 'batches.course_id', '=', 'courses.id')
+            ->groupBy('batches.course_id')
+            ->orderBy('total','DESC')->limit(6)
+            ->get();
+
         $totalInstitute = Institute::active()->count();
         $totalYouth = Youth::active()->count();
         $totalCourse = Course::acl()->active()->count();
@@ -72,6 +86,7 @@ class DashboardController
         $data['total_training_center'] = $totalTrainingCenter;
         $data['total_programme'] = $totalProgramme;
         $data['totalBatch'] = $totalBatch;
+        $data['most_demandable_courses'] = $mostDemandableCourses->toJson();
         return $data;
     }
 
@@ -108,7 +123,7 @@ class DashboardController
             DB::raw("SUM(upazila_job_statistics.total_vacancy) as total_vacancy"),
             DB::raw("SUM(upazila_job_statistics.total_new_recruitment) as total_new_recruitment"),
             DB::raw("SUM(upazila_job_statistics.total_skilled_youth) as total_skilled_youth"),
-            DB::raw('DATE_FORMAT(upazila_job_statistics.survey_date, "%M") as survey_date')])
+            DB::raw('DATE_FORMAT(upazila_job_statistics.survey_date, "%b") as survey_date')])
             ->whereBetween(DB::raw('date(upazila_job_statistics.survey_date)'), [$startDate, $endDate])
             ->groupBy('upazila_job_statistics.survey_date')
             ->orderBy('upazila_job_statistics.survey_date', 'DESC');

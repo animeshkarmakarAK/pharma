@@ -28,7 +28,7 @@
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                             <label class="control-label visible-ie8 visible-ie9">Email Address</label>
                             <div class="input-icon">
-                                <i class="fa fa-key"></i>
+                                <i class="fa fa-envelope"></i>
                                 <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
                                        type="text" autocomplete="off"
                                        name="email"

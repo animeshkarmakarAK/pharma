@@ -55,8 +55,10 @@ class GalleryCategoryService
             ],
             'image' => [
                 'nullable',
-                'file',
+                'image',
                 'mimes:jpg,bmp,png,jpeg,svg',
+                'max:500',
+                'dimensions:width=80,height=80'
             ],
             'featured' => [
                 'nullable',
@@ -69,7 +71,11 @@ class GalleryCategoryService
                 'exists:row_status,code',
             ],
         ];
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+
+        $messages = [
+            'image.dimensions'=>"Image size must be 80x80px",
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules,$messages);
     }
 
     /**

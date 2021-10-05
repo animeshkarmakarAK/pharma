@@ -110,8 +110,10 @@ class CourseService
             ],
             'cover_image' => [
                 'nullable',
-                'file',
+                'image',
                 'mimes:jpg,bmp,png,jpeg,svg',
+                'max:500',
+                'dimensions:width=820,height=312'
             ]
         ];
 

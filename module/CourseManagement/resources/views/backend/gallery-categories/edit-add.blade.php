@@ -141,7 +141,7 @@
                                         </div>
                                     </div>
                                     <p class="font-italic text-secondary">
-                                        (Image file type must be jpg,bmp,png,jpeg or svg)
+                                        (Image max 500kb, size 80x80 & file type must be jpg,bmp,png,jpeg or svg)
                                     </p>
                                 </div>
                             </div>
@@ -192,6 +192,19 @@
         const EDIT = !!'{{$edit}}';
         const content_types = @json(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES);
 
+        $.validator.addMethod(
+            "coverImageSize",
+            function (value, element) {
+                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 80;
+                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 80;
+                return this.optional(element) || (isHeightMatched && isWidthMatched);
+            },
+            "Invalid picture size. Size must be  80x80",
+        );
+        $.validator.addMethod('filesize', function(value, element, param) {
+            return this.optional(element) || (element.files[0].size <= param)
+        }, 'File size must be less than {0} bytes');
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             errorElement: "em",
@@ -229,7 +242,9 @@
                 },
                 image: {
                     accept: "image/*",
-                    extension: "jpg|bmp|png|jpeg|svg"
+                    extension: "jpg|bmp|png|jpeg|svg",
+                    filesize:500000,
+                    coverImageSize:true,
                 }
 
             },
@@ -243,6 +258,7 @@
                 image:{
                     accept:"Please upload valid image",
                     extension:"Please upload valid image extension",
+                    filesize:"File size must be less than 500Kb"
                 }
             },
             submitHandler: function (htmlForm) {
