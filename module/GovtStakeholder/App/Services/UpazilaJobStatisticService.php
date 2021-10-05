@@ -113,7 +113,7 @@ class UpazilaJobStatisticService
             [
                 'loc_upazilas.title_en as loc_upazila_title_en',
                 DB::raw('MAX(upazila_job_statistics.id) as id'),
-                DB::raw('DATE_FORMAT(survey_date,"%M %Y") AS survey_date'),
+                DB::raw('DATE_FORMAT(survey_date,"%b %Y") AS survey_date'),
                 'upazila_job_statistics.loc_upazila_id',
             ]
         );

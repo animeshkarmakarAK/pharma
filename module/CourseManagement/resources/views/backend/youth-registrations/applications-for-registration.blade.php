@@ -99,19 +99,20 @@
                                                 >
                                                 </select>
                                             </div>
+
+                                            <div class="col-md-3">
+                                                <select class="form-control select2-ajax-wizard"
+                                                        name="branch_id"
+                                                        id="branch_id"
+                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
+                                                        data-label-fields="{title_en}"
+                                                        data-depend-on-optional="institute_id"
+                                                        data-placeholder="Branch"
+                                                >
+                                                </select>
+                                            </div>
                                         @endif
 
-                                        <div class="col-md-3">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="branch_id"
-                                                    id="branch_id"
-                                                    data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
-                                                    data-label-fields="{title_en}"
-                                                    data-depend-on-optional="institute_id"
-                                                    data-placeholder="Branch"
-                                            >
-                                            </select>
-                                        </div>
 
                                         <div class="col-md-3">
                                             <select class="form-control select2-ajax-wizard"
@@ -239,6 +240,60 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal" role="dialog"
+         data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to accept it?') }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="#" id="accept-application-form" method="POST">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal" role="dialog"
+         data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to reject it?') }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="#" id="reject-application-form" method="POST">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal End-->
 @endsection
 @push('css')
@@ -257,12 +312,26 @@
             }
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.youth.registrations.datatable') }}',
-                order: [[2, "asc"]],
+                order: [[4, "DESC"]],
                 serialNumberColumn: 1,
                 select: {
                     style: 'multi',
-                    selector: 'td:first-child'
+                    selector: 'td:first-child',
                 },
+                columnDefs: [
+                    {
+                        "targets": 0,
+                        "orderable": false,
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            console.log(rowData)
+                            if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
+                                $(td).addClass('select-checkbox enable-checkbox');
+                            }else {
+                                $(td).removeClass('select-checkbox enable-checkbox');
+                            }
+                        }
+                    }
+                ],
                 columns: [
                     {
                         title: "<input type='checkbox' id='select_all_rows' />",
@@ -270,7 +339,8 @@
                         defaultContent: '',
                         orderable: false,
                         searchable: false,
-                        className: 1 ? 'select-checkbox' : '', 'targets': 0
+                        //className: 1 ? 'select-checkbox' : '',
+                        targets: 0
                     },
                     {
                         title: "SL#",
@@ -298,7 +368,7 @@
                     {
                         title: "Reg. No.",
                         data: "youth_registration_no",
-                        name: "youth_registrations.youth_registration_no"
+                        name: "youths.youth_registration_no"
                     },
                     {
                         title: "Institute Name",
@@ -334,6 +404,18 @@
                         defaultContent: '',
                     },
                     {
+                        title: "Enroll Status",
+                        data: "enroll_status",
+                        name: "youth_course_enrolls.enroll_status",
+                        searchable: false,
+                    },
+                    {
+                        title: "Payment Status",
+                        data: "payment_status",
+                        name: "youth_course_enrolls.payment_status",
+                        searchable: false,
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         name: "action",
@@ -341,7 +423,7 @@
                         searchable: false,
                         visible: true
                     },
-                ]
+                ],
             });
 
             params.ajax.data = d => {
@@ -355,13 +437,26 @@
 
             let datatable = $('#dataTable').DataTable(params);
 
+            $(document, 'td').on('click', '.accept-application', function (e) {
+                $('#accept-application-form')[0].action = $(this).data('action');
+                $('#accept-application-modal').modal('show');
+            });
+
+            $(document, 'td').on('click', '.reject-application', function (e) {
+                $('#reject-application-form')[0].action = $(this).data('action');
+                $('#reject-application-modal').modal('show');
+            });
+
             $("#select_all_rows").click(function () {
                 let selectAll = $(this);
-                if (selectAll.prop('checked')) {
-                    datatable.rows().select();
+
+                if ($(this).is(":checked")) {
+                    datatable.rows(':has(.select-checkbox)').select();
                 } else {
-                    datatable.rows().deselect();
+                    datatable.rows(  ).deselect();
                 }
+
+
             });
 
             $(document).on('change', '.select2-ajax-wizard', function () {
@@ -403,10 +498,11 @@
 
 
             $("#add-to-batch-area").click(function () {
-                addToBatchForm.find('.youth_registration_ids').remove();
+                addToBatchForm.find('.youth_enroll_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    addToBatchForm.append('<input name="youth_registration_ids[]" class="youth_registration_ids" value="' + row.youth_registration_id + '" type="hidden"/>');
+                    console.log(row.name_en)
+                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="text"/>');
                 });
             });
             let addToBatchForm = $("#add-to-batch-form");
@@ -425,6 +521,7 @@
                     htmlForm.submit();
                 }
             });
+
         });
 
     </script>

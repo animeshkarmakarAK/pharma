@@ -35,17 +35,18 @@ class YouthLoginController
 
     public function login(Request $request)
     {
+
         $youth = Youth::where('access_key', $request->input('access_key'))->first();
         if ($youth && $youth->id && Auth::guard('youth')->loginUsingId($youth->id)) {
             Auth::shouldUse('youth');
             return $request->wantsJson()
                 ? new JsonResponse([], 204)
-                : redirect()->intended(route('/'))
+                : redirect()->route('course_management::youth-enrolled-courses', auth()->guard('youth')->user()->id)
                     ->with(['message' => 'লগইন সফল হয়েছে', 'alert-type' => 'success']);
         }
 
         return redirect()->back()
-            ->with(['message' => 'Invalid access key.', 'alert-type' => 'error']);
+            ->with(['message' => 'আপনি ভুল এক্সেস-কী প্রদান করেছেন, আবার চেষ্টা করুন', 'alert-type' => 'error']);
     }
 
     public function logout(): \Illuminate\Http\RedirectResponse

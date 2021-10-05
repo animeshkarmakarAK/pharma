@@ -4,8 +4,8 @@
     <title>NISE3 Training Management System</title>
 </head>
 <body>
-<h1 class="text-center">{{ $msg }}</h1>
-<h4 class="lead">Account recover access key is
+<h3 class="text-center">{{ $msg }}</h3>
+<h4 class="lead">Your account recover access key is
     <b style="color: #0d4cda;
     background: #6eff001f;
     padding: 5px 10px;

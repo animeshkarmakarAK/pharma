@@ -83,7 +83,7 @@ class OccupationWiseStatisticService
             [
                 'institutes.title_en as institute_title_en',
                 DB::raw('MAX(occupation_wise_statistics.id) as id'),
-                DB::raw('DATE_FORMAT(occupation_wise_statistics.survey_date, "%M %Y") as survey_date'),
+                DB::raw('DATE_FORMAT(occupation_wise_statistics.survey_date, "%b %Y") as survey_date'),
             ]
         );
         $occupationWiseStatistics->join('institutes', 'occupation_wise_statistics.institute_id', '=', 'institutes.id');
