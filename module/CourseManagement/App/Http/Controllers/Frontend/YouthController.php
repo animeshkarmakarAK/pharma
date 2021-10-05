@@ -364,8 +364,8 @@ class YouthController extends Controller
         }
         try {
             // Setup cURL
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
+            $ch = \curl_init($url);
+            \curl_setopt_array($ch, array(
                 CURLOPT_POST => TRUE,
                 CURLOPT_RETURNTRANSFER => TRUE,
                 CURLOPT_HTTPHEADER => array(
@@ -379,7 +379,7 @@ class YouthController extends Controller
             ));
 
             // Send the request
-            $response = curl_exec($ch);
+            $response = \curl_exec($ch);
         } catch (\Exception $exception) {
             //ipnLog("Curl request failed." . $exception->getMessage());
         }
