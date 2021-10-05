@@ -1,6 +1,6 @@
 @php
     $currentInstitute = domainConfig('institute');
-    $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+    $layout = 'master::layouts.front-end';
 @endphp
 @extends($layout)
 
@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row mt-2">
             @if(!empty($publishCourse))
                 <div class="col-md-12">
                     <div class="card card mb-0">

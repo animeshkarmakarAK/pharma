@@ -1,7 +1,6 @@
 @php
     $currentInstitute = domainConfig('institute');
-    //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
-    $layout = 'master::layouts.front-end';
+    $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
 @extends($layout)
 
@@ -11,30 +10,32 @@
         <!-- Carousel -->
         <div id="carousel-example" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                @php
-                    $sl=0;
-                    $sliderImageNo=0;
-                @endphp
-                @if(!empty($sliders))
-                    @foreach($sliders as $slider)
-
-                        <div class="carousel-item {{ ++$sl==1?'active':'' }}"
-                             style="background: url('{{asset('/storage/'. $slider->slider)}}');
-                                 background-position: center;
-                                 background-size: cover;
-                                 background-repeat: no-repeat;">
-                            <div class="overlay" style=" background:linear-gradient( rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5))" ;>
-                                <div class="carousel-caption">
-                                    <h3 title="{{ $slider->title }}">
-                                        {{ $slider->title }}</h3>
-                                </div>
-                            </div>
+                <div class="carousel-item active"
+                     style="background: url('https://dwtyzx6upklss.cloudfront.net/Pictures/1024x536/4/5/9/11459_covid19protectingworkersrights_666160.jpg');">
+                    <div class="overlay" style=" background:linear-gradient( rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5))" ;>
+                        <div class="carousel-caption">
+                            <h3>সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী </h3>
                         </div>
-
-
-                    @endforeach
-                @endif
-
+                    </div>
+                </div>
+                <div class="carousel-item"
+                     style="background: url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="carousel-caption">
+                        <h3>সমাজসেবা অধিদপ্তর সমাজসেবা সমাজসেবা</h3>
+                    </div>
+                </div>
+                <div class="carousel-item"
+                     style="background: url('https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg');">
+                    <div class="carousel-caption">
+                        <h3>সমাজসেবা অধিদপ্তর-গণপ্রজাতন্ত্রী </h3>
+                    </div>
+                </div>
+                <div class="carousel-item"
+                     style="background: url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="carousel-caption">
+                        <h3>সমাজসেবা অধিদপ্তর সমাজসেবা সমাজসেবা</h3>
+                    </div>
+                </div>
             </div>
 
             <a class="carousel-control-prev slider-previous-link" href="#carousel-example" role="button"
@@ -64,11 +65,36 @@
                         <!--Services Heading-->
                         <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
                         <div class="about-us-content">
-                            <p>
-                                @if(!empty($staticPage))
-                                    {!! $staticPage->page_contents !!}
-                                @endif
-                            </p>
+                            <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও
+                                স্বাবলম্বী
+                                করে
+                                তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"।
+                                এই ওয়েব অ্যাপ্লিকেশনটি মূলত "অনলাইন কোর্স ম্যানেজমেন্ট সিস্টেম"।
+                                এই প্ল্যাটফর্মে শিক্ষার্থী অতি সহজে বিভিন্ন প্রশিক্ষণ কোর্সে প্রশিক্ষণ নিয়ে স্বাবলম্বী
+                                হতে
+                                পাড়বে। শিক্ষার্থী
+                                তার নিজ পছন্দের বিষয়ে প্রশিক্ষণের জন্য এডমিনে কাছে অনুরোধ/আবেদন করতে পাড়বে। প্রশিক্ষণ
+                                শেষে
+                                শিক্ষার্থীকে সার্টিফিকেট প্রদান করা হবে। </p>
+                            <h2 class="para-heading about-use-para-heading font-weight-light">পোর্টালের লক্ষ্য/উদ্দেশ্য
+                                সমূহঃ</h2>
+
+                            <ul class="sidebar-list">
+                                <li><i class="font-weight-bold lists">*</i> এই প্ল্যাটফর্মে শিক্ষার্থী বিভিন্ন প্রশিক্ষণ
+                                    কোর্সের
+                                    জন্য আবেদন করতে পারবে।
+                                </li>
+                                <li><i class="font-weight-bold lists">*</i> বিভিন্ন ক্যাটাগরিতে অনেক গুলো কোর্স একসাথে
+                                    পরিচালনা
+                                    ও
+                                    পর্যবেক্ষণ করা সম্ভব।
+                                </li>
+                                <li><i class="font-weight-bold lists">*</i> সঠিক পদ্ধতিতে শিক্ষার্থীর দক্ষতা যাচাই করা
+                                    এবং
+                                    বৃদ্ধি
+                                    করা হয় ।
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
@@ -91,10 +117,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="section-heading section-heading-home pb-5">একনজরে</h2>
-                    <p class="text-center pb-2">
-                        {{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
-                        প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান
-                    </p>
+                    <p class="text-center pb-2"> বিটাক প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান</p>
                     <div class="template-space"></div>
                 </div>
             </div>
@@ -103,28 +126,28 @@
                 <div class="col-md-2 ">
                     <div class="instant-view-box instant-view-box-home">
                         <i class="fas fa-user-friends fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['courses'] ? $institute['courses'] :'0' }}</h1>
+                        <h1>10</h1>
                         <p>প্রশিক্ষণ প্রদান</p>
                     </div>
                 </div>
                 <div class="col-md-2 ">
                     <div class="instant-view-box instant-view-box-home">
                         <i class="fas fa-graduation-cap fa-flip-horizontal fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }}</h1>
+                        <h1>10</h1>
                         <p>প্রশিক্ষণ গ্রহণ</p>
                     </div>
                 </div>
                 <div class="col-md-2 ">
                     <div class="instant-view-box instant-view-box-home">
                         <i class="fas fa-hotel fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['training_centers']? $institute['training_centers']:'0' }}</h1>
+                        <h1>10</h1>
                         <p>প্রশিক্ষণ কেন্দ্র</p>
                     </div>
                 </div>
                 <div class="col-md-2 ">
                     <div class="instant-view-box instant-view-box-home">
                         <i class="fas fa-user-tie fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }}</h1>
+                        <h1>10</h1>
                         <p>প্রশিক্ষক</p>
                     </div>
                 </div>
@@ -139,11 +162,7 @@
         <div class="container my-4">
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <h2 class="section-heading section-heading-home pb-5">কোর্স সমূহ</h2>
-                    <p class="text-center pb-2">
-                        {{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
-                        এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়
-                    </p>
+                    <h3 class="section-heading section-heading-home pb-5">কোর্স সমূহ</h3>
                 </div>
             </div>
             <div class="col-md-12 ">
@@ -393,7 +412,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="accordion-heading">শুক্রবার, {{ date('d') }} জানুয়ারী ২০২১</h3>
+                            <h3 class="accordion-heading">শুক্রবার, ২৫ জানুয়ারী ২০২১</h3>
                             <!-- Accordion -->
                             <div id="accordionExample" class="accordion">
 
@@ -1053,7 +1072,15 @@
         }
 
 
+        /*Footer*/
 
+        .main-footer {
+            background: #eeeeee;
+        }
+
+        .footer-2 {
+            background: #FFFFFF;
+        }
 
 
     </style>

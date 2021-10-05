@@ -71,7 +71,7 @@ class InstituteService
                 'image',
                 'mimes:jpeg,jpg,png,gif',
                 'max:500',
-                'dimensions:width=370,height=70'
+                //'dimensions:width=370,height=70'
             ],
             'description'=>['nullable', 'string']
         ];

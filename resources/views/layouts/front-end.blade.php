@@ -35,6 +35,13 @@
             transition: .5s;
         }
 
+        .active-menu a {
+            background: #9c36c6;
+            border-radius: unset;
+            color: #FFFFFF;
+            transition: .5s;
+        }
+
         .navbar-right li a:hover {
             background: #E67E22;
             border-radius: unset;
@@ -434,10 +441,6 @@
             line-height: 30px;
         }
 
-        .main-footer {
-            padding: 50px 0 50px 0;
-            background: #ffffff;
-        }
 
         .footer-widget {
         }
@@ -541,8 +544,15 @@
         }
 
         .footer-2 {
-            background: #eeeeee;
+            background: #FFFFFF;
             padding: 25px 0;
+        }
+
+        /*Footer*/
+
+        .main-footer {
+            background: #eeeeee;
+            padding: 50px 0 50px 0;
         }
 
         .footer-2 h3 {
@@ -590,6 +600,7 @@
         .form-area i {
             color: #671688;
         }
+
 
     </style>
     @stack('css')

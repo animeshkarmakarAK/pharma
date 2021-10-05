@@ -1,3 +1,7 @@
+@php
+    $currentInstitute = domainConfig('institute');
+@endphp
+
 <div class="container-fluid">
     <div class="container">
         <header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
@@ -9,20 +13,22 @@
                         <p class="slogan">Employment and Entrepreneurship</p>
                         <p class="slogan slogan-tag">Bangladesh Industrial Technical Assistance Center</p>
                     </div>
-                    <img src="{{asset('/assets/logo/a1.png')}}" height="100%" alt="">
+                    <img src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%" alt="">
                 </div>
             </div>
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px pl-0" href="">
-                        <i class="fa fa-paper-plane"></i>&nbsp;
-                        support@bitac.gov.bd
+                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px pl-0"
+                       href="mailto:{{ $currentInstitute->email? $currentInstitute->email:'' }}"">
+                    <i class="fa fa-paper-plane"></i>
+                    {{ $currentInstitute->email? $currentInstitute->email:'' }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px" href="">
+                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px"
+                       href="tel:{{ $currentInstitute->primary_phone }}">
                         <i class="fas fa-phone fa-flip-horizontal"></i>
-                        +৮৮০২-৫৫০০৬৫৯৫, +৮৮০২-৫৫০০৬৫৯৫
+                        {{ $currentInstitute->primary_phone }}
                     </a>
                 </li>
             </ul>
@@ -40,32 +46,102 @@
             <!-- Left menu items -->
             <ul class="navbar-nav mr-auto">
                 <!-- Left menu item empty -->
-                <li class="nav-item active">
+                <li class="nav-item {{ request()->is('/') ? 'active-menu' : '' }}">
                     <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
                 </li>
-                <li class="nav-item ">
-                    <a href="#" class="btn ">পরামর্শ</a>
+
+                <li class="nav-item {{ request()->is('course-management/advice-page*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
                 </li>
-                <li class="nav-item ">
-                    <a href="#" class="btn ">প্রশিক্ষণ বর্ষপঞ্জি</a>
+
+                <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="btn ">
+                        প্রশিক্ষণ বর্ষপঞ্জি
+                    </a>
                 </li>
-                <li class="nav-item ">
-                    <a href="#" class="btn">সাধারণ জিজ্ঞাসা</a>
+
+                <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::general-ask-page') }}" class="btn">সাধারণ জিজ্ঞাসা</a>
                 </li>
-                <li class="nav-item ">
-                    <a href="#" class="btn">যোগাযোগ</a>
+
+                <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::contact-us-page') }}" class="btn">যোগাযোগ</a>
                 </li>
+
             </ul>
 
             <!-- Right menu items -->
             <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item active">
-                    <a href="{{ route('/') }}" class="btn ">
-                        <i class="fa fa-file"></i>&nbsp;
-                        অনলাইন আবেদন
-                    </a>
-                </li>
-                <li class="nav-item ">
+                @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
+                    <li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('course_management::youth-registrations.index') }}"
+                           id="bd-versions" aria-haspopup="true">
+                            <i class="fa fa-file"> </i>&nbsp; অনলাইন আবেদন
+                        </a>
+                    </li>
+
+                    {{--<li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('course_management::youth.login-form') }}"
+                           id="bd-versions" aria-haspopup="true">
+                            <i class="fa fa-file"> </i>&nbsp; ফি জমা
+                        </a>
+                    </li>--}}
+                @endif
+
+                @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('youth')->check())
+                    <li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('course_management::youth.login-form') }}"
+                           id="bd-versions">
+                            <i class="far fa-user"></i>&nbsp; ইয়ুথ লগইন
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn" href="{{ route('admin.login-form') }}"
+                           id="bd-versions">
+                            <i class="far fa-user"></i>&nbsp; লগইন
+                        </a>
+                    </li>
+                @endif
+
+                    @auth('web')
+                        <li class="nav-item dropdown">
+                            <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('admin.dashboard') }}"
+                               id="bd-versions">
+                                <i class="fas fa-clipboard-list"></i>&nbsp; ড্যাশবোর্ড
+                            </a>
+                        </li>
+                    @elseauth('youth')
+                    <li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('course_management::youth', auth()->guard('youth')->user()->id.'/youth-enrolled-courses') }}"
+                           id="bd-versions">
+                            <i class="fas fa-clipboard-list"></i>&nbsp; আমার কোর্স সমূহ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('course_management::youth', auth()->guard('youth')->user()->id) }}"
+                           id="bd-versions">
+                            <i class="fas fa-clipboard-list"></i>&nbsp; প্রোফাইল
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn" href="#"
+                           onclick="document.getElementById('youth-logout').submit()"
+                           id="bd-versions">
+                            <i class="fas fa-lock-open"></i>&nbsp; লগআউট
+                        </a>
+                        <form id="youth-logout" style="display: none" method="post"
+                              action="{{route('course_management::youth.logout-submit')}}">
+                            @csrf
+                        </form>
+                    </li>
+                @endauth
+                {{--<li class="nav-item ">
                     <a href="#" class="btn ">
                         <i class="fa fa-user"></i>&nbsp;
                         ইয়ুথ লগইন
@@ -76,7 +152,7 @@
                         <i class="fas fa-sign-in-alt"></i>&nbsp;
                         রেজিস্ট্রেশন/লগইন
                     </a>
-                </li>
+                </li>--}}
 
             </ul>
         </div>

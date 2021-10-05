@@ -7,7 +7,7 @@
                     <img src="http://skills.gov.bd/demo-dss/template_one/img/logo-green.png" alt=""
                          class="img-responsive logo-change" style="height: 60px;">
                     <p>গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের রূপকল্প ২০২১ বাস্তবায়নে যুবকদের আত্নকর্মসংস্থান ও স্বাবলম্বী
-                        করে তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"।</p>
+                        করে তোলার লক্ষ্যে "অনলাইনে বিভিন্ন প্রশিক্ষণ কোর্সের পরিচালনা ও পর্যবেক্ষণ করা"। MM</p>
                     <span>
                             <a href="#" class="read-more"> <i class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                         </span>
