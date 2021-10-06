@@ -9,7 +9,7 @@
     <!-- Top content Slider Start -->
     <section class="top-content">
         <!-- Carousel -->
-        <div id="carousel-example" class="carousel slide" data-ride="carousel">
+        <div id="topCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 @php
                     $sl=0;
@@ -17,7 +17,6 @@
                 @endphp
                 @if(!empty($sliders))
                     @foreach($sliders as $slider)
-
                         <div class="carousel-item {{ ++$sl==1?'active':'' }}"
                              style="background: url('{{asset('/storage/'. $slider->slider)}}');
                                  background-position: center;
@@ -30,21 +29,19 @@
                                 </div>
                             </div>
                         </div>
-
-
                     @endforeach
                 @endif
 
             </div>
 
-            <a class="carousel-control-prev slider-previous-link" href="#carousel-example" role="button"
+            <a class="carousel-control-prev slider-previous-link" href="#topCarousel" role="button"
                data-slide="prev">
                 <span class="slider-previous-icon" aria-hidden="true">
                         <i class="fas fa-chevron-left"></i>
                 </span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#topCarousel" role="button" data-slide="next">
                 <span class="slider-next-icon" aria-hidden="true">
                         <i class="fas fa-chevron-right"></i>
                 </span>
@@ -145,233 +142,111 @@
                         এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়
                     </p>
                 </div>
+                @if($currentInstituteCourses->count() > 4)
+                    <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
+                        <div class="custom-carousel-inner w-100" role="listbox">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @php
+                                        $ml=0;
+                                    @endphp
+                                    @foreach($currentInstituteCourses as $publishCourse)
+                                        <div class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
+                                            <div class="col-md-3">
+                                                <div class="card card-main mb-2">
+                                                    <div class="card-bar-home-course">
+                                                        <div class="pb-3">
+                                                            <img class="slider-img border-top-radius"
+                                                                 src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                                 alt="icon">
+                                                        </div>
+                                                        <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                            <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                            <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                            <p class="font-weight-light mb-1"><i
+                                                                    class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
+                                                            </p>
+                                                            <p class="font-weight-light float-left"><i
+                                                                    class="fas fa-user-plus gray-color"></i>
+                                                                <span class="course-p">Student(16.1k)</span></p>
+                                                            <p class="float-right">
+                                                                <a href="javascript:;"
+                                                                   onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')" class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!--Controls-->
+                        <div class="controls-top">
+                            <a class="btn-floating left-btn-arrow" href="#courseCarousel"
+                               data-slide="prev"><i
+                                    class="fas fa-chevron-left"></i></a>
+                            <a class="btn-floating right-btn-arrow" href="#courseCarousel"
+                               data-slide="next"><i
+                                    class="fas fa-chevron-right"></i></a>
+                        </div>
+                        <!--/.Controls-->
+                    </div>
+                @elseif(empty($currentInstituteCourses))
+                    <div class="col-md-12">
+                        <div class="alert text-danger text-center">
+                            কোন কোর্স পাওয়া যাইনি!
+                        </div>
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="row">
+                            @foreach($currentInstituteCourses as $publishCourse)
+                            <div class="col-md-3">
+                                <div class="card card-main mb-2">
+                                    <div class="card-bar-home-course">
+                                        <div class="pb-3">
+                                            <img class="slider-img border-top-radius"
+                                                 src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                 alt="icon">
+                                        </div>
+                                        <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                            <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                            <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
+                                            <p class="font-weight-light mb-1"><i
+                                                    class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
+                                            </p>
+                                            <p class="font-weight-light float-left"><i
+                                                    class="fas fa-user-plus gray-color"></i>
+                                                <span class="course-p">Student(16.1k)</span></p>
+                                            <p class="float-right">
+                                                <a href="javascript:;"
+                                                   onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')" class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                @endif
             </div>
-            <div class="col-md-12 ">
-                <div class="accordion" id="accordionExample">
-                    <div id="popular-course" class="collapse show" aria-labelledby="popular-course"
-                         data-parent="#accordionExample">
-                        <!--Carousel Wrapper-->
-                        <div id="pop-crs-arrow" class="carousel slide carousel-multi-item"
-                             data-ride="carousel">
-
-                            <!--Controls-->
-                            <div class="controls-top">
-                                <a class="btn-floating left-btn-arrow" href="#pop-crs-arrow"
-                                   data-slide="prev"><i
-                                        class="fas fa-chevron-left"></i></a>
-                                <a class="btn-floating right-btn-arrow" href="#pop-crs-arrow"
-                                   data-slide="next"><i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                            <!--/.Controls-->
-
-                            <!--Indicators-->
-                            <ol class="carousel-indicators">
-                                <li data-target="#pop-crs-arrow" data-slide-to="0" class="active"></li>
-                                <li data-target="#pop-crs-arrow" data-slide-to="1"></li>
-
-                            </ol>
-                            <!--/.Indicators-->
-
-                            <!--Slides-->
-                            <div class="carousel-inner" role="listbox">
-
-                                <!--First slide-->
-                                <div class="carousel-item active">
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-courser">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span
-                                                            class="course-p ">১ ঘন্টা ৩০ মিনিট</span></p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">কঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item">
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="https://static.vecteezy.com/system/resources/previews/000/677/302/non_2x/abstract-technology-banner-background.jpg"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pt-1 pb-1">
-                                                    <p class="card-p1">বিনামূল্য</p>
-                                                    <p class="font-weight-bold">ঝালাই নিয়মিত</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                                    </p>
-                                                    <p class="font-weight-light"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span class="course-p">Student(16.1k)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!--/.Second slide-->
-                            </div>
-                            <!--/.Slides-->
+        </div>
+        @if($currentInstituteCourses->count() > 4)
+            <div class="col-md-12 text-center pt-3 pb-5">
+                <a href="{{ route('course_management::course_search') }}" target="_blank" class="more-course-button">আরও দেখুন <i
+                        class="fas fa-arrow-right btn-arrow"></i></a>
+            </div>
+        @endif
+        <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
+            <div class="row">
+                <div class="col-sm-10 mx-auto">
+                    <div class="modal-dialog" style="max-width: 100%">
+                        <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
                         </div>
-                        <!--/.Carousel Wrapper-->
-
-                        <div class="col-md-12 text-center pt-5">
-                            <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
-                                    class="fas fa-arrow-right btn-arrow"></i></a>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -490,137 +365,76 @@
     <!-- Gallery Start -->
     <section class="gallery">
         <div class="container">
-            <div class="row mt-4">
+            <div class="row">
                 <div class="col-md-12 mb-3">
                     <h3 class="gallery-section-heading section-heading-home section-heading pb-5">গ্যালারি</h3>
                 </div>
-                <div class="col-md-12">
-                    <!-- Video Gallery Start-->
-                    <div id="video-gallery" class="collapse show" aria-labelledby="video-gallery"
-                         data-parent="#accordionExample">
-                        <!--Carousel Wrapper-->
-                        <div id="multi-item-example-vdo" class="carousel slide carousel-multi-item"
-                             data-ride="carousel">
-
-                            <!--Controls-->
-                            <div class="controls-top">
-                                <a class="btn-floating left-btn-arrow" href="#multi-item-example-vdo"
-                                   data-slide="prev"><i
-                                        class="fas fa-chevron-left"></i></a>
-                                <a class="btn-floating right-btn-arrow" href="#multi-item-example-vdo"
-                                   data-slide="next"><i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                            <!--/.Controls-->
-
-                            <!--Indicators-->
-                            <ol class="carousel-indicators">
-                                <li data-target="#multi-item-example-vdo" data-slide-to="0" class="active"></li>
-                                <li data-target="#multi-item-example-vdo" data-slide-to="1"></li>
-
-                            </ol>
-                            <!--/.Indicators-->
-
-                            <!--Slides-->
-                            <div class="carousel-inner" role="listbox">
-
-                                <!--First slide-->
-                                <div class="carousel-item active">
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
+                @if($galleryCategories->count() > 4)
+                    <div id="recipeCarousel" class="carousel custom-carousel  slide w-100" data-ride="carousel">
+                        <div class="carousel-inner custom-carousel-inner w-100" role="listbox">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @php
+                                        $tl=0;
+                                    @endphp
+                                    @foreach($galleryCategories as $galleryCategory)
+                                        <div class="carousel-item custom-carousel-item  {{ ++$tl==1?'active':'' }}">
+                                            <div class="col-md-3">
+                                                <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                                    <div class="card card-main mb-2 shadow-none bg-transparent">
+                                                        <img class="slider-img slider-radius"
+                                                             src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                                        <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
+                                    @endforeach
                                 </div>
-                                <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item">
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3" style="float:left">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img"
-                                                 src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
-                                                 alt="icon">
-                                            <h3 class="gallery-post-heading">সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ</h3>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!--/.Second slide-->
                             </div>
-                            <!--/.Slides-->
                         </div>
-                        <!--/.Carousel Wrapper-->
-                        <div class="col-md-12 text-center pt-5 pb-5">
-                            <a href="#" target="_blank" class="more-course-button">আরও দেখুন <i
-                                    class="fas fa-arrow-right btn-arrow"></i></a>
+                        <!--Controls-->
+                        <div class="controls-top">
+                            <a class="btn-floating left-btn-arrow" href="#recipeCarousel"
+                               data-slide="prev"><i
+                                    class="fas fa-chevron-left"></i></a>
+                            <a class="btn-floating right-btn-arrow" href="#recipeCarousel"
+                               data-slide="next"><i
+                                    class="fas fa-chevron-right"></i></a>
+                        </div>
+                        <!--/.Controls-->
+                    </div>
+                    <div class="col-md-12 text-center pt-3 pb-5">
+                        <a href="{{ route('course_management::gallery-categories') }}" target="_blank" class="more-course-button">আরও দেখুন <i
+                                class="fas fa-arrow-right btn-arrow"></i></a>
+                    </div>
+                    @elseif(empty($galleryCategories))
+                    <div class="col-md-12">
+                        <div class="alert text-danger text-center">
+                            কোন গ্যালারি পাওয়া যাইনি!
                         </div>
                     </div>
-                    <!-- End Video Gallery -->
-                </div>
+                    @else
+                    <div class="col-md-12">
+                        <div class="row">
+                            @foreach($galleryCategories as $galleryCategory)
+                                <div class="col-md-3">
+                                    <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                        <div class="card card-main mb-2 shadow-none bg-transparent">
+                                            <img class="slider-img slider-radius"
+                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                     @endif
+                    </div>
             </div>
         </div>
     </section>
     <!-- End Gallery -->
-
 @endsection
 
 @push('css')
@@ -691,8 +505,6 @@
             background: url(https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg);
             background: no-repeat;
             border-radius: 0;
-            /*top: -90px;*/
-            position: absolute;
             width: 460px;
         }
 
@@ -806,14 +618,18 @@
             color: black;
         }
 
+
+    </style>
+    <style>
+        /*sliders css*/
         .slider-img {
             width: 100%;
             height: 11vw;
             object-fit: cover;
         }
-    </style>
-    <style>
-        /*sliders css*/
+        .slider-radius {
+            border-radius: 0.5rem !important;
+        }
         .slider-left-content h1 {
             color: #000000;
             font-size: 1.5rem;
@@ -863,10 +679,6 @@
             font-size: 15px;
         }
 
-
-        .slider-previous-link, .slider-next-link {
-            width: 8% !important;
-        }
 
         .player-icon {
             position: absolute !important;
@@ -926,6 +738,9 @@
         .carousel-caption {
             top: 45%;
         }
+        .carousel-control-prev, .carousel-control-next{
+            width: 21%;
+        }
 
         /*About Us*/
 
@@ -950,7 +765,27 @@
             font-size: 14px;
             line-height: 30px;
         }
+        .custom-carousel-inner  .carousel-item.active,
+        .custom-carousel-inner  .carousel-item-next,
+        .custom-carousel-inner  .carousel-item-prev {
+            display: flex;
+        }
 
+        .custom-carousel-inner  .carousel-item-right.active,
+        .custom-carousel-inner  .carousel-item-next {
+            transform: translateX(25%);
+        }
+
+        .custom-carousel-inner  .carousel-item-left.active,
+        .custom-carousel-inner  .carousel-item-prev {
+            transform: translateX(-25%);
+        }
+
+        .custom-carousel-inner  .carousel-item-right,
+        .custom-carousel-inner  .carousel-item-left{
+            transform: translateX(0);
+
+        }
         /*Aknojore*/
 
         .section-heading-home {
@@ -1012,6 +847,7 @@
         .gallery-post-heading {
             font-size: 1rem;
             padding: 15px;
+            color:black;
             font-weight: 400;
         }
 
@@ -1051,9 +887,32 @@
             padding-left: 5px;
             color: darkgray;
         }
+        .custom-carousel-inner{
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
 
-
-
+        @media screen and (max-width: 600px) {
+            .img-div {
+                position: relative;
+            }
+            .image-div-2{
+                witdth: auto;
+                height: auto;
+                margin: 0 auto;
+            }
+            iframe {
+                /*width: 345px;*/
+                width: auto;
+            }
+            .slider-img{
+                height: 200px;
+            }
+            .about-us-section{
+                text-align: center;
+            }
+        }
 
 
     </style>
@@ -1117,9 +976,11 @@
                     }
                 },
                 headerToolbar: {
-                    left: 'prev,next today',
+                    //left: 'prev,next today',
+                    left: 'prev',
                     center: 'title',
-                    right: 'timeGridDay,timeGridWeek,dayGridMonth,myCustomButton'
+                    //right: 'timeGridDay,timeGridWeek,dayGridMonth,myCustomButton'
+                    right: 'next'
                 },
                 locale: initialLocaleCode,
                 events: function (fetchInfo, successCallback, failureCallback) {
@@ -1144,5 +1005,35 @@
         });
 
 
+    </script>
+    <script>
+        $(document).ready(function (){
+            $('#topCarousel').carousel({
+                interval :2000
+            })
+            $('#recipeCarousel').carousel({
+                interval :2000
+            })
+            $('#courseCarousel').carousel({
+                interval :2000
+            })
+            $('.custom-carousel  .custom-carousel-item').each(function(){
+                var next = $(this).next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo($(this));
+
+                for (var i=0;i<2;i++) {
+                    next=next.next();
+                    if (!next.length) {
+                        next = $(this).siblings(':first');
+                    }
+
+                    next.children(':first-child').clone().appendTo($(this));
+                }
+            });
+
+        });
     </script>
 @endpush
