@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
 
-    <title>{{'NISE3'}} - @yield('title', 'TMS')</title>
+    <title>@yield('title', 'TMS')</title>
 
     <!-- Bootstrap v4 with admin-lte v3 -->
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
@@ -23,9 +23,10 @@
 
         .menu-bg-color li a {
             color: #fff;
-            padding: 10px 15px;
+            padding: 15px 15px;
             border-radius: unset;
             transition: .5s;
+            font-size: 14px;
         }
 
         .menu-bg-color li a:hover {

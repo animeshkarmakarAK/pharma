@@ -6,31 +6,41 @@
     <div class="container">
         <header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
             <div class="navbar-nav-scroll">
-                <div class="nise3-logo" style="height: 70px">
-                    <img class="float-left" src="{{asset('/assets/logo/nise3.png')}}" height="100%" alt="Logo"/>
+                <div class="nise3-logo" style="height: 70px;">
+                    <a href="{{ route('/') }}">
+                        <img class="float-left" src="{{asset('/assets/logo/nise3.png')}}" height="100%"
+                             alt="NISE3 Logo"/>
+                    </a>
                     <div class="float-left px-1">
                         <p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
-                        <p class="slogan">Employment and Entrepreneurship</p>
-                        <p class="slogan slogan-tag">Bangladesh Industrial Technical Assistance Center</p>
+                        <p class="slogan py-1">Employment and Entrepreneurship</p>
+                        <p class="slogan slogan-tag">{{ $currentInstitute->title_en }}</p>
                     </div>
-                    <img src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%" alt="">
+                    <a href="{{ route('/') }}">
+                        <img class="" src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%" alt="">
+                    </a>
                 </div>
             </div>
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-                <li class="nav-item">
-                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px pl-0"
-                       href="mailto:{{ $currentInstitute->email? $currentInstitute->email:'' }}"">
-                    <i class="fa fa-paper-plane"></i>
-                    {{ $currentInstitute->email? $currentInstitute->email:'' }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link text-dark font-weight-600 font-size-13px"
-                       href="tel:{{ $currentInstitute->primary_phone }}">
-                        <i class="fas fa-phone fa-flip-horizontal"></i>
-                        {{ $currentInstitute->primary_phone }}
-                    </a>
-                </li>
+                @if(!empty($currentInstitute->email))
+                    <li class="nav-item">
+                        <a class="nav-item nav-link text-dark font-weight-600 font-size-13px pl-0"
+                           href="mailto:{{ $currentInstitute->email }}">
+                            <i class="fa fa-paper-plane"></i>
+                            {{ $currentInstitute->email }}
+                        </a>
+                    </li>
+                @endif
+
+                @if(!empty($currentInstitute->primary_phone))
+                    <li class="nav-item">
+                        <a class="nav-item nav-link text-dark font-weight-600 font-size-13px"
+                           href="tel:{{ $currentInstitute->primary_phone }}">
+                            <i class="fas fa-phone fa-flip-horizontal"></i>
+                            {{ $currentInstitute->primary_phone }}
+                        </a>
+                    </li>
+                @endif
             </ul>
         </header>
     </div>
@@ -50,6 +60,10 @@
                     <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
                 </li>
 
+                <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::course_search') }}" class="btn ">কোর্স সমূহ</a>
+                </li>
+
                 <li class="nav-item {{ request()->is('course-management/advice-page*') ? 'active-menu' : '' }}">
                     <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
                 </li>
@@ -58,6 +72,10 @@
                     <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="btn ">
                         প্রশিক্ষণ বর্ষপঞ্জি
                     </a>
+                </li>
+
+                <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::youth.skill_videos') }}" class="btn ">ভিডিও সমূহ</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active-menu' : '' }}">
@@ -106,14 +124,14 @@
                     </li>
                 @endif
 
-                    @auth('web')
-                        <li class="nav-item dropdown">
-                            <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('admin.dashboard') }}"
-                               id="bd-versions">
-                                <i class="fas fa-clipboard-list"></i>&nbsp; ড্যাশবোর্ড
-                            </a>
-                        </li>
-                    @elseauth('youth')
+                @auth('web')
+                    <li class="nav-item dropdown">
+                        <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('admin.dashboard') }}"
+                           id="bd-versions">
+                            <i class="fas fa-clipboard-list"></i>&nbsp; ড্যাশবোর্ড
+                        </a>
+                    </li>
+                @elseauth('youth')
                     <li class="nav-item">
                         <a class="btn"
                            href="{{ route('course_management::youth', auth()->guard('youth')->user()->id.'/youth-enrolled-courses') }}"

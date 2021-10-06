@@ -302,9 +302,9 @@ class YouthController extends Controller
         $paymentInfo['amount'] = $YouthCourseEnroll->publishCourse->course->course_fee;
         $paymentInfo['orderID'] = $YouthCourseEnroll->id;
 
-        $activeDebug = false;
+        $activeDebug = true;
 
-        $token = $this->ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug = false);
+        $token = $this->ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug);
         if (!empty($token)) {
             $token = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1?sToken=' . $token . '&trnsID=' . $paymentInfo['trID'];
         }
@@ -397,7 +397,7 @@ class YouthController extends Controller
         $data['cust_email'] = $request->cust_info['cust_email'];
         $data['cust_mail_addr'] = $request->cust_info['cust_mail_addr'];
 
-        $data['log'] = $request->msg_det . ' msg_code:' . $request->msg_code;
+        $data['log'] = $request/*->msg_det . ' msg_code:' . $request->msg_code*/;
         $data['payment_type'] = $request->pi_det_info['pi_type'];
         //$data['payment_date'] = explode(' ', $request->req_timestamp)[0];
         $data['payment_date'] = Carbon::now();
@@ -416,6 +416,13 @@ class YouthController extends Controller
         $data['discount'] = $request->trnx_info['discount'];
         $data['promo_discount'] = $request->trnx_info['promo_discount'];
         $data['total_pabl_amt'] = $request->trnx_info['total_pabl_amt'];
+
+
+        //dd($request->all());
+        if (!empty($request)) {
+            Log::debug("SandBox Request");
+            Log::debug($request);
+        }
 
         $payment = new Payment();
         $payment->fill($data);
