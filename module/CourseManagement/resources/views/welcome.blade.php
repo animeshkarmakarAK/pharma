@@ -18,15 +18,17 @@
                 @if(!empty($sliders))
                     @foreach($sliders as $slider)
                         <div class="carousel-item {{ ++$sl==1?'active':'' }}"
-                             style="background: url('{{asset('/storage/'. $slider->slider)}}');
-                                 background-position: center;
-                                 background-size: cover;
-                                 background-repeat: no-repeat;">
-                            <div class="overlay" style=" background:linear-gradient( rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5))" ;>
-                                <div class="carousel-caption">
-                                    <h3 title="{{ $slider->title }}">
-                                        {{ $slider->title }}</h3>
-                                </div>
+                             >
+                            <div style="background: url('{{asset('/storage/'. $slider->slider)}}');
+                                background-position: center;
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                min-height: 100%;
+                                opacity: .9;
+                                "></div>
+                            <div class="carousel-caption">
+                                <h3 class="slider-title" title="{{ $slider->title }}">
+                                    {{ $slider->title }}</h3>
                             </div>
                         </div>
                     @endforeach
@@ -57,7 +59,7 @@
         <div class="about-section-color">
             <div class="container pt-5 pb-5">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-7 about-us-body">
                         <!--Services Heading-->
                         <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
                         <div class="about-us-content">
@@ -69,9 +71,8 @@
                         </div>
                     </div>
 
-
-                    <div class="col-md-5 img-div">
-                        <div class="image-div-2">
+                    <div class="col-md-5 about-us-media">
+                        <div class="" style="margin-top: -100px">
                             <iframe src="https://www.youtube.com/embed/4CzYXfBeIdM" height="400" width="460"
                                     title="Iframe" class="cr-img"></iframe>
                         </div>
@@ -494,19 +495,6 @@
             border-radius: 15px;
         }
 
-        .img-div {
-            position: absolute;
-            right: 0;
-            top: 20px;
-        }
-
-        .image-div-2 {
-            height: 400px;
-            background: url(https://www.onpointcomputerrepairs.com.au/wp-content/uploads/2020/04/1-1-1.jpg);
-            background: no-repeat;
-            border-radius: 0;
-            width: 460px;
-        }
 
         .at-glance-section {
             padding-bottom: 110px;
@@ -893,14 +881,9 @@
             overflow: hidden;
         }
 
-        @media screen and (max-width: 600px) {
-            .img-div {
-                position: relative;
-            }
-            .image-div-2{
-                witdth: auto;
-                height: auto;
-                margin: 0 auto;
+        @media screen and (max-width: 768px) {
+            .about-us-media{
+                margin-top: 100px;
             }
             iframe {
                 /*width: 345px;*/
@@ -912,6 +895,13 @@
             .about-us-section{
                 text-align: center;
             }
+        }
+        .slider-title{
+            font-family: Hind Siliguri;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 43px;
+            line-height: 78px;
         }
 
 

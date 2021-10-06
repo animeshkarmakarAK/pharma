@@ -24,7 +24,7 @@
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
                 @if(!empty($currentInstitute->email))
                     <li class="nav-item">
-                        <a class="nav-item nav-link text-dark font-weight-600 font-size-13px pl-0"
+                        <a class="nav-item nav-link text-dark font-weight-600 pl-0"
                            href="mailto:{{ $currentInstitute->email }}">
                             <i class="fa fa-paper-plane"></i>
                             {{ $currentInstitute->email }}
@@ -34,7 +34,7 @@
 
                 @if(!empty($currentInstitute->primary_phone))
                     <li class="nav-item">
-                        <a class="nav-item nav-link text-dark font-weight-600 font-size-13px"
+                        <a class="nav-item nav-link text-dark font-weight-600"
                            href="tel:{{ $currentInstitute->primary_phone }}">
                             <i class="fas fa-phone fa-flip-horizontal"></i>
                             {{ $currentInstitute->primary_phone }}
