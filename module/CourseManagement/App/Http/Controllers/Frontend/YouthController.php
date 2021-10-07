@@ -436,6 +436,8 @@ class YouthController extends Controller
             if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
                 $youthCourseEnroll->update($newData);
             }
+
+            return 'Payment successful';
         }
 
 
