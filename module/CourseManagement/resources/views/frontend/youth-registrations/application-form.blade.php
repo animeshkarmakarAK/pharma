@@ -1655,8 +1655,8 @@
         $.validator.addMethod(
             "youthPictureSize",
             function (value, element) {
-                let isHeightMatched = document.getElementsByTagName('img')[1].naturalHeight == 300;
-                let isWidthMatched = document.getElementsByTagName('img')[1].naturalWidth == 300;
+                let isHeightMatched = $('.figure-img')[0].naturalHeight == 300;
+                let isWidthMatched = $('.figure-img')[0].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
             "৩০০x৩০০ পিক্সেল ইমেজ আপলোড করুন",
@@ -1665,8 +1665,8 @@
         $.validator.addMethod(
             "youthSignatureSize",
             function (value, element) {
-                let isHeightMatched = document.getElementsByTagName('img')[2].naturalHeight == 80;
-                let isWidthMatched = document.getElementsByTagName('img')[2].naturalWidth == 300;
+                let isHeightMatched = $('.loading-img')[0].naturalHeight == 80;
+                let isWidthMatched = $('.loading-img')[0].naturalWidth == 300;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
             "৩০০x৮০ পিক্সেল ইমেজ আপলোড করুন",
