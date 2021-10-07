@@ -979,14 +979,6 @@
             color: #fff !important;
         }
 
-        .fc .fc-day-past .fc-day-today {
-            opacity: 1 !important;
-        }
-
-        .fc .fc-day-future {
-            opacity: 1 !important;
-        }
-
         .fc .fc-button-primary {
             color: #000 !important;
             background: none !important;
@@ -999,6 +991,16 @@
         .fc .fc-button:focus {
             outline: none;
             box-shadow: none !important;
+        }
+
+        .fc .fc-daygrid-day-top {
+            display: flex;
+            flex-direction: row-reverse;
+            padding: 10px;
+        }
+
+        .fc-daygrid-day-events{
+            display: none!important;
         }
 
 
