@@ -18,7 +18,7 @@
                 @if(!empty($sliders))
                     @foreach($sliders as $slider)
                         <div class="carousel-item {{ ++$sl==1?'active':'' }}"
-                             >
+                        >
                             <div style="background: url('{{asset('/storage/'. $slider->slider)}}');
                                 background-position: center;
                                 background-size: cover;
@@ -59,7 +59,7 @@
         <div class="about-section-color">
             <div class="container pt-5 pb-5">
                 <div class="row">
-                    <div class="col-md-7 about-us-body">
+                    <div class="col-md-7">
                         <!--Services Heading-->
                         <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
                         <div class="about-us-content">
@@ -71,9 +71,9 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5 about-us-media">
-                        <div class="" style="margin-top: -100px">
-                            <iframe src="https://www.youtube.com/embed/4CzYXfBeIdM" height="400" width="460"
+                    <div class="col-md-5">
+                        <div class="about-us-media" style="margin-top: -100px">
+                            <iframe src="https://www.youtube.com/embed/4CzYXfBeIdM" height="400" width="100%"
                                     title="Iframe" class="cr-img"></iframe>
                         </div>
                     </div>
@@ -165,14 +165,16 @@
                                                             <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
                                                             <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
                                                             <p class="font-weight-light mb-1"><i
-                                                                    class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
+                                                                    class="fas fa-clock gray-color"></i> <span
+                                                                    class="course-p">১ ঘন্টা ৩০ মিনিট</span>
                                                             </p>
                                                             <p class="font-weight-light float-left"><i
                                                                     class="fas fa-user-plus gray-color"></i>
                                                                 <span class="course-p">Student(16.1k)</span></p>
                                                             <p class="float-right">
                                                                 <a href="javascript:;"
-                                                                   onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')" class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                                   onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                                   class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -204,31 +206,32 @@
                     <div class="col-md-12">
                         <div class="row">
                             @foreach($currentInstituteCourses as $publishCourse)
-                            <div class="col-md-3">
-                                <div class="card card-main mb-2">
-                                    <div class="card-bar-home-course">
-                                        <div class="pb-3">
-                                            <img class="slider-img border-top-radius"
-                                                 src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
-                                                 alt="icon">
-                                        </div>
-                                        <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                            <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                            <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
-                                            <p class="font-weight-light mb-1"><i
-                                                    class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
-                                            </p>
-                                            <p class="font-weight-light float-left"><i
-                                                    class="fas fa-user-plus gray-color"></i>
-                                                <span class="course-p">Student(16.1k)</span></p>
-                                            <p class="float-right">
-                                                <a href="javascript:;"
-                                                   onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')" class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                            </p>
+                                <div class="col-md-3">
+                                    <div class="card card-main mb-2">
+                                        <div class="card-bar-home-course">
+                                            <div class="pb-3">
+                                                <img class="slider-img border-top-radius"
+                                                     src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                     alt="icon">
+                                            </div>
+                                            <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                <p class="font-weight-light mb-1"><i
+                                                        class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
+                                                </p>
+                                                <p class="font-weight-light float-left"><i
+                                                        class="fas fa-user-plus gray-color"></i>
+                                                    <span class="course-p">Student(16.1k)</span></p>
+                                                <p class="float-right">
+                                                    <a href="javascript:;"
+                                                       onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                       class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -238,7 +241,8 @@
         </div>
         @if($currentInstituteCourses->count() > 4)
             <div class="col-md-12 text-center pt-3 pb-5">
-                <a href="{{ route('course_management::course_search') }}" target="_blank" class="more-course-button">আরও দেখুন <i
+                <a href="{{ route('course_management::course_search') }}" target="_blank" class="more-course-button">আরও
+                    দেখুন <i
                         class="fas fa-arrow-right btn-arrow"></i></a>
             </div>
         @endif
@@ -406,16 +410,17 @@
                         <!--/.Controls-->
                     </div>
                     <div class="col-md-12 text-center pt-3 pb-5">
-                        <a href="{{ route('course_management::gallery-categories') }}" target="_blank" class="more-course-button">আরও দেখুন <i
+                        <a href="{{ route('course_management::gallery-categories') }}" target="_blank"
+                           class="more-course-button">আরও দেখুন <i
                                 class="fas fa-arrow-right btn-arrow"></i></a>
                     </div>
-                    @elseif(empty($galleryCategories))
+                @elseif(empty($galleryCategories))
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
                             কোন গ্যালারি পাওয়া যাইনি!
                         </div>
                     </div>
-                    @else
+                @else
                     <div class="col-md-12">
                         <div class="row">
                             @foreach($galleryCategories as $galleryCategory)
@@ -430,7 +435,7 @@
                                 </div>
                             @endforeach
                         </div>
-                     @endif
+                        @endif
                     </div>
             </div>
         </div>
@@ -615,9 +620,11 @@
             height: 11vw;
             object-fit: cover;
         }
+
         .slider-radius {
             border-radius: 0.5rem !important;
         }
+
         .slider-left-content h1 {
             color: #000000;
             font-size: 1.5rem;
@@ -726,7 +733,8 @@
         .carousel-caption {
             top: 45%;
         }
-        .carousel-control-prev, .carousel-control-next{
+
+        .carousel-control-prev, .carousel-control-next {
             width: 21%;
         }
 
@@ -753,27 +761,29 @@
             font-size: 14px;
             line-height: 30px;
         }
-        .custom-carousel-inner  .carousel-item.active,
-        .custom-carousel-inner  .carousel-item-next,
-        .custom-carousel-inner  .carousel-item-prev {
+
+        .custom-carousel-inner .carousel-item.active,
+        .custom-carousel-inner .carousel-item-next,
+        .custom-carousel-inner .carousel-item-prev {
             display: flex;
         }
 
-        .custom-carousel-inner  .carousel-item-right.active,
-        .custom-carousel-inner  .carousel-item-next {
+        .custom-carousel-inner .carousel-item-right.active,
+        .custom-carousel-inner .carousel-item-next {
             transform: translateX(25%);
         }
 
-        .custom-carousel-inner  .carousel-item-left.active,
-        .custom-carousel-inner  .carousel-item-prev {
+        .custom-carousel-inner .carousel-item-left.active,
+        .custom-carousel-inner .carousel-item-prev {
             transform: translateX(-25%);
         }
 
-        .custom-carousel-inner  .carousel-item-right,
-        .custom-carousel-inner  .carousel-item-left{
+        .custom-carousel-inner .carousel-item-right,
+        .custom-carousel-inner .carousel-item-left {
             transform: translateX(0);
 
         }
+
         /*Aknojore*/
 
         .section-heading-home {
@@ -835,7 +845,7 @@
         .gallery-post-heading {
             font-size: 1rem;
             padding: 15px;
-            color:black;
+            color: black;
             font-weight: 400;
         }
 
@@ -875,28 +885,28 @@
             padding-left: 5px;
             color: darkgray;
         }
-        .custom-carousel-inner{
+
+        .custom-carousel-inner {
             position: relative;
             width: 100%;
             overflow: hidden;
         }
 
-        @media screen and (max-width: 768px) {
-            .about-us-media{
-                margin-top: 100px;
+        @media screen and (max-width: 767px) {
+            .about-us-media {
+                margin-top: 0px !important;
             }
-            iframe {
-                /*width: 345px;*/
-                width: auto;
-            }
-            .slider-img{
+
+            .slider-img {
                 height: 200px;
             }
-            .about-us-section{
+
+            .about-us-section {
                 text-align: center;
             }
         }
-        .slider-title{
+
+        .slider-title {
             font-family: Hind Siliguri;
             font-style: normal;
             font-weight: bold;
@@ -910,7 +920,7 @@
     <style>
 
         #calendar {
-            background-color: #F2F7F8;
+            background-color: #fff;
             border-radius: 5px;
         }
 
@@ -924,6 +934,66 @@
 
         .fc-daygrid-day-top {
             justify-content: center;
+        }
+
+        .fc .fc-col-header-cell-cushion {
+            display: inline-block;
+            padding: 2px 4px;
+            color: #2c3e50;
+        }
+
+        .fc-theme-standard td, .fc-theme-standard th {
+            border: none !important;
+        }
+
+        .fc-theme-standard .fc-scrollgrid {
+            border: none !important;
+        }
+
+        .fc .fc-daygrid-day-number {
+            position: relative;
+            z-index: 4;
+            padding: 4px;
+            color: #000;
+        }
+
+        .fc .fc-day-other .fc-daygrid-day-top {
+            opacity: 1 !important;
+        }
+
+        .fc .fc-day-past:not(.fc-day-other) .fc-scrollgrid-sync-inner, .fc-day-future:not(.fc-day-other) .fc-scrollgrid-sync-inner {
+            background: #f7f9f9;
+            border: 1px solid #f7f9f9;
+            margin: 3px;
+            border-radius: 5px;
+        }
+
+        .fc-day-today {
+            background: #671688 !important;
+            border: 1px solid #671688;
+            margin: 3px;
+            border-radius: 5px;
+        }
+
+        .fc-day-today a {
+            color: #fff !important;
+        }
+
+        .fc .fc-day-past .fc-day-today {
+            opacity: 1 !important;
+        }
+
+        .fc .fc-day-future {
+            opacity: 1 !important;
+        }
+
+        .fc .fc-button-primary {
+            color: #000 !important;
+            background: none !important;
+            border: none !important;
+        }
+        .fc .fc-toolbar {
+            justify-content: center !important;
         }
 
 
@@ -997,25 +1067,25 @@
 
     </script>
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
             $('#topCarousel').carousel({
-                interval :2000
+                interval: 2000
             })
             $('#recipeCarousel').carousel({
-                interval :2000
+                interval: 2000
             })
             $('#courseCarousel').carousel({
-                interval :2000
+                interval: 2000
             })
-            $('.custom-carousel  .custom-carousel-item').each(function(){
+            $('.custom-carousel  .custom-carousel-item').each(function () {
                 var next = $(this).next();
                 if (!next.length) {
                     next = $(this).siblings(':first');
                 }
                 next.children(':first-child').clone().appendTo($(this));
 
-                for (var i=0;i<2;i++) {
-                    next=next.next();
+                for (var i = 0; i < 2; i++) {
+                    next = next.next();
                     if (!next.length) {
                         next = $(this).siblings(':first');
                     }

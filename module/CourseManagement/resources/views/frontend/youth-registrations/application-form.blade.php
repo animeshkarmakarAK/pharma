@@ -1,6 +1,7 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
+    //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
 @endphp
 @extends($layout)
 

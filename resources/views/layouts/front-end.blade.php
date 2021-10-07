@@ -628,6 +628,7 @@
     let alerts = {!! json_encode(\Illuminate\Support\Facades\Session::get('alerts')) !!};
     helpers.displayAlerts(alerts, toastr);
     @endif
+
     @if(\Illuminate\Support\Facades\Session::has('message'))
     let alertType = {!! json_encode(\Illuminate\Support\Facades\Session::get('alert-type', 'info')) !!};
     let alertMessage = {!! json_encode(\Illuminate\Support\Facades\Session::get('message')) !!};
