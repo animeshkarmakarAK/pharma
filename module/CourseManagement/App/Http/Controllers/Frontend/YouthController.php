@@ -359,7 +359,7 @@ class YouthController extends Controller
         $url = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1/merchant-api';
 
         if ($activeDebug) {
-            Log::debug("Payload");
+            Log::debug("Youth Name: ".$userInfo['name']. ' , Youth Enroll ID: '.$paymentInfo['orderID']);
             Log::debug($data);
         }
         try {

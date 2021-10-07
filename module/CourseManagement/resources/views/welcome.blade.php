@@ -88,7 +88,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="section-heading section-heading-home pb-5">একনজরে</h2>
+                    <h2 class="section-heading section-heading-home pb-3">একনজরে</h2>
                     <p class="text-center pb-2">
                         {{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
                         প্রশিক্ষণ ও কোর্স ম্যানেজমেন্ট সিস্টেমের পরিসংখ্যান
@@ -137,7 +137,7 @@
         <div class="container my-4">
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <h2 class="section-heading section-heading-home pb-5">কোর্স সমূহ</h2>
+                    <h2 class="section-heading section-heading-home pb-3">কোর্স সমূহ</h2>
                     <p class="text-center pb-2">
                         {{ !empty($currentInstitute->title_bn)? $currentInstitute->title_bn:'' }}
                         এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়
@@ -261,7 +261,7 @@
 
     <!-- Event Start -->
     <section class="yearly-training-calendar bg-white">
-        <div class="container pb-5">
+        <div class="container pb-3">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="section-heading">ইভেন্ট</h2>
@@ -994,6 +994,11 @@
         }
         .fc .fc-toolbar {
             justify-content: center !important;
+        }
+
+        .fc .fc-button:focus {
+            outline: none;
+            box-shadow: none !important;
         }
 
 
