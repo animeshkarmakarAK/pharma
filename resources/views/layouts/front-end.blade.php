@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
 
-    <title>{{'NISE3'}} - @yield('title', 'TMS')</title>
+    <title>@yield('title', 'TMS')</title>
 
     <!-- Bootstrap v4 with admin-lte v3 -->
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
@@ -23,12 +23,20 @@
 
         .menu-bg-color li a {
             color: #fff;
-            padding: 10px 15px;
+            padding: 15px 15px;
             border-radius: unset;
             transition: .5s;
+            font-size: 14px;
         }
 
         .menu-bg-color li a:hover {
+            background: #9c36c6;
+            border-radius: unset;
+            color: #FFFFFF;
+            transition: .5s;
+        }
+
+        .active-menu a {
             background: #9c36c6;
             border-radius: unset;
             color: #FFFFFF;
@@ -434,10 +442,6 @@
             line-height: 30px;
         }
 
-        .main-footer {
-            padding: 50px 0 50px 0;
-            background: #ffffff;
-        }
 
         .footer-widget {
         }
@@ -541,8 +545,15 @@
         }
 
         .footer-2 {
-            background: #eeeeee;
+            background: #FFFFFF;
             padding: 25px 0;
+        }
+
+        /*Footer*/
+
+        .main-footer {
+            background: #eeeeee;
+            padding: 50px 0 50px 0;
         }
 
         .footer-2 h3 {
@@ -591,6 +602,7 @@
             color: #671688;
         }
 
+
     </style>
     @stack('css')
 </head>
@@ -616,6 +628,7 @@
     let alerts = {!! json_encode(\Illuminate\Support\Facades\Session::get('alerts')) !!};
     helpers.displayAlerts(alerts, toastr);
     @endif
+
     @if(\Illuminate\Support\Facades\Session::has('message'))
     let alertType = {!! json_encode(\Illuminate\Support\Facades\Session::get('alert-type', 'info')) !!};
     let alertMessage = {!! json_encode(\Illuminate\Support\Facades\Session::get('message')) !!};

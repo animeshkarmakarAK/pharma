@@ -502,7 +502,7 @@
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
                     console.log(row.name_en)
-                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="text"/>');
+                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
                 });
             });
             let addToBatchForm = $("#add-to-batch-form");
