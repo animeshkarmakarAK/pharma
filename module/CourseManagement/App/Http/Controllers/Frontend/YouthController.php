@@ -401,7 +401,7 @@ class YouthController extends Controller
         $data['payment_type'] = $request->pi_det_info['pi_type'];
         //$data['payment_date'] = explode(' ', $request->req_timestamp)[0];
         $data['payment_date'] = Carbon::now();
-        $data['payment_status'] = $request->msg_code == 100 ? '1' : '2';
+        $data['payment_status'] = $request->msg_code == 1020 ? '1' : '2';
 
 
         $data['transaction_id'] = $request->trnx_info['trnx_id'];
@@ -424,16 +424,21 @@ class YouthController extends Controller
             Log::debug($request);
         }
 
+
         $payment = new Payment();
         $payment->fill($data);
         $payment->save();
 
-        $youthCourseEnroll = YouthCourseEnroll::findOrFail($data['youth_course_enroll_id']);
-        $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
+        if($request->msg_code == 1020){
+            $youthCourseEnroll = YouthCourseEnroll::findOrFail($data['youth_course_enroll_id']);
+            $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
 
-        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
-            $youthCourseEnroll->update($newData);
+            if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+                $youthCourseEnroll->update($newData);
+            }
         }
+
+
     }
 }
 
