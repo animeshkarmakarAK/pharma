@@ -918,7 +918,6 @@
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">
     <style>
-
         #calendar {
             background-color: #fff;
             border-radius: 5px;
@@ -984,6 +983,7 @@
             background: none !important;
             border: none !important;
         }
+
         .fc .fc-toolbar {
             justify-content: center !important;
         }
@@ -999,8 +999,8 @@
             padding: 10px;
         }
 
-        .fc-daygrid-day-events{
-            display: none!important;
+        .fc-daygrid-day-events {
+            display: none !important;
         }
 
 
