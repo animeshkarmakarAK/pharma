@@ -35,7 +35,7 @@
                                                         <label for="receiver" class="col-sm-2 control-label">প্রাপক
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
-                                                            <select required="required" name="receiver"
+                                                            <select {{--required="required"--}} name="receiver"
                                                                     class="form-control map-change"
                                                                     id="receiver">
                                                                 <optgroup label="ইনস্টিটিউট">

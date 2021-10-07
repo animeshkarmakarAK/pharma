@@ -1043,7 +1043,7 @@
                     right: 'next'
                 },
                 locale: initialLocaleCode,
-                events: function (fetchInfo, successCallback, failureCallback) {
+                /*events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
                         url: '{{route('course_management::yearly-training-calendar.all-event')}}',
                         type: "POST",
@@ -1057,7 +1057,7 @@
                 eventClick: function (calEvent, jsEvent, view) {
                     const {publish_course_id} = calEvent.event.extendedProps;
                     courseDetailsModalOpen(publish_course_id);
-                },
+                },*/
 
             });
             calendar.render();
