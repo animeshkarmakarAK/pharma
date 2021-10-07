@@ -1,6 +1,6 @@
 @php
     $currentInstitute = domainConfig('institute');
-    $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+    $layout = 'master::layouts.front-end';
 @endphp
 @extends($layout)
 
@@ -35,13 +35,13 @@
                                                         <label for="receiver" class="col-sm-2 control-label">প্রাপক
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10 container_name">
-                                                            <select required="required" name="receiver"
+                                                            <select {{--required="required"--}} name="receiver"
                                                                     class="form-control map-change"
                                                                     id="receiver">
                                                                 <optgroup label="ইনস্টিটিউট">
                                                                     <option
                                                                         {{--value="institute-{{ $currentInstitute->id }}"--}}
-                                                                        value="{{ $currentInstitute->google_map_src }}"
+                                                                        value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: $currentInstitute->id }}"
                                                                     >
                                                                         {{ $currentInstitute->title_bn }}
                                                                     </option>
@@ -60,7 +60,7 @@
                                                                         @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                             <option
                                                                                 {{--value="training_center-{{ $trainingCenter->id }}"--}}
-                                                                                value="{{ $trainingCenter->google_map_src }}"
+                                                                                value="{{ !empty($trainingCenter->google_map_src)?$trainingCenter->google_map_src: $trainingCenter->id }}"
                                                                             >
                                                                                 {{ $trainingCenter->title_bn }}
                                                                             </option>
@@ -149,7 +149,8 @@
                                                         <select name="google_map_src" class="form-control map-change"
                                                                 id="google_map_src">
                                                             <optgroup label="ইনস্টিটিউট">
-                                                                <option value="{{ $currentInstitute->google_map_src }}">
+                                                                <option
+                                                                    value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: $currentInstitute->id }}">
                                                                     {{ $currentInstitute->title_bn }}
                                                                 </option>
                                                             </optgroup>
@@ -166,7 +167,7 @@
                                                                 <optgroup label="ট্রেনিং সেন্টার">
                                                                     @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                         <option
-                                                                            value="{{ $trainingCenter->google_map_src }}">
+                                                                            value="{{ !empty($trainingCenter->google_map_src)?$trainingCenter->google_map_src: $trainingCenter->id }}">
                                                                             {{ $trainingCenter->title_bn }}
                                                                         </option>
                                                                     @endforeach
@@ -178,7 +179,7 @@
                                                     <div class="mt-2" style="display: block;">
                                                         <div class="">
                                                             <iframe class="google_map_src_iframe" frameborder="0"
-                                                                    src="{{ $currentInstitute->google_map_src? $currentInstitute->google_map_src :'No Map' }}"
+                                                                    src="{{ $currentInstitute->google_map_src? $currentInstitute->google_map_src :'' }}"
                                                                     style="border:0; height: 309px;"
                                                                     width="100%"></iframe>
                                                         </div>
@@ -403,6 +404,7 @@
             let google_map_src = $(this).val();
             if (google_map_src === '') {
                 $('.google_map_src_iframe').attr("src", 'null');
+                $('.google_map_src_iframe').remove();
             } else {
                 $('.google_map_src_iframe').attr("src", google_map_src);
             }

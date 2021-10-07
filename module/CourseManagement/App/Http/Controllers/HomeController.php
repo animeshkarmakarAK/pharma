@@ -52,7 +52,8 @@ class HomeController extends BaseController
 
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
 
-            return view('course_management::custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
+            //return view('course_management::custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
         }
 
         $institute = [

@@ -275,7 +275,7 @@
                                         </div>
                                     </div>
                                     <p class="font-italic text-secondary m-0 p-0">
-                                        (Image max 500kb,size 370x70 & file type
+                                        (Image max 500kb, file type
                                         must be jpeg,jpg,png or gif)</p>
                                 </div>
                             </div>
@@ -392,7 +392,7 @@
                     required: !EDIT,
                     accept: 'image/*',
                     filesize: 500000,
-                    logoSize: true,
+                    //logoSize: true,
                 },
             },
             messages: {

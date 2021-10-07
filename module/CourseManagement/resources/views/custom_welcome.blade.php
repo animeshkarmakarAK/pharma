@@ -242,6 +242,7 @@
                 </div>
 
                 <div class="row">
+
                     @if(!empty($galleryCategories->count()))
                         <div class="col-md-12">
                             <ul class="list-inline row">
