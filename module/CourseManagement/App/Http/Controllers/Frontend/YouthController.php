@@ -409,11 +409,19 @@ class YouthController extends Controller
         if ($request->msg_code == 1020) {
             $youthCourseEnroll = YouthCourseEnroll::findOrFail($request->cust_info['cust_id']);
 
+
             $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
 
             if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
                 $youthCourseEnroll->update($newData);
             }
+
+            $mailSubject = "Your payment successfully complete";
+            $youthEmailAddress = $request->cust_info['cust_email'];
+            $mailMsg = "Congratulation! Your payment successfully completed.";
+            $youthName = $youthCourseEnroll->youth->name_en;
+            Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthPaymentSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
+
             return 'Payment successful';
         }
 
