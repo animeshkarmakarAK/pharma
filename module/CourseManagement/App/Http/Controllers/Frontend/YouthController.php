@@ -392,13 +392,18 @@ class YouthController extends Controller
     public function ipnHandler(Request $request)
     {
         if (!empty($request)) {
+            Log::debug("=========================================");
+
             Log::debug("SandBox Request: ");
             Log::debug($request);
+
+            Log::debug("=========================================");
         }
 
         Log::debug("=============Debug=============");
         Log::debug($request->msg_code);
         Log::debug($request->cust_info['cust_id']);
+        Log::debug("===============================");
 
 
         if ($request->msg_code == 1020) {
