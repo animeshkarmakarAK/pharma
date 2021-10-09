@@ -67,7 +67,7 @@ class YouthController extends Controller
 
     public function youthEnrolledCourses($id)
     {
-        if(!auth()->guard('youth')->user()){
+        if (!auth()->guard('youth')->user()) {
             return redirect()->route('course_management::youth.login-form');
         }
         $youthId = auth()->guard('youth')->user()->id;
@@ -331,7 +331,7 @@ class YouthController extends Controller
            "req_timestamp":"' . $time . ' GMT+6",
            "feed_uri":{
               "s_uri":"' . $applicationURL . '/success",
-              "f_uri":"' . $applicationURL. '/fail",
+              "f_uri":"' . $applicationURL . '/fail",
               "c_uri":"' . $applicationURL . '/cancel"
            },
            "cust_info":{
@@ -359,7 +359,7 @@ class YouthController extends Controller
         $url = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1/merchant-api';
 
         if ($activeDebug) {
-            Log::debug("Youth Name: ".$userInfo['name']. ' , Youth Enroll ID: '.$paymentInfo['orderID']);
+            Log::debug("Youth Name: " . $userInfo['name'] . ' , Youth Enroll ID: ' . $paymentInfo['orderID']);
             Log::debug($data);
         }
         try {
@@ -391,56 +391,38 @@ class YouthController extends Controller
 
     public function ipnHandler(Request $request)
     {
-        $data['youth_course_enroll_id'] = $request->cust_info['cust_id'];
-        $data['cust_name'] = $request->cust_info['cust_name'];
-        $data['cust_mobo_no'] = $request->cust_info['cust_mobo_no'];
-        $data['cust_email'] = $request->cust_info['cust_email'];
-        $data['cust_mail_addr'] = $request->cust_info['cust_mail_addr'];
-
-        $data['log'] = $request/*->msg_det . ' msg_code:' . $request->msg_code*/;
-        $data['payment_type'] = $request->pi_det_info['pi_type'];
-        //$data['payment_date'] = explode(' ', $request->req_timestamp)[0];
-        $data['payment_date'] = Carbon::now();
-        $data['payment_status'] = $request->msg_code == 1020 ? '1' : '2';
-
-
-        $data['transaction_id'] = $request->trnx_info['trnx_id'];
-        $data['mer_trnx_id'] = $request->trnx_info['mer_trnx_id'];
-        $data['amount'] = $request->trnx_info['trnx_amt'];
-        $data['curr'] = $request->trnx_info['curr'];
-        $data['pi_trnx_id'] = $request->trnx_info['pi_trnx_id'];
-        //$data['pi_charge'] = $request->trnx_info['pi_charge'];
-        $data['ekpay_charge'] = $request->trnx_info['ekpay_charge'];
-        $data['pi_discount'] = $request->trnx_info['pi_discount'];
-        $data['total_ser_chrg'] = $request->trnx_info['total_ser_chrg'];
-        $data['discount'] = $request->trnx_info['discount'];
-        $data['promo_discount'] = $request->trnx_info['promo_discount'];
-        $data['total_pabl_amt'] = $request->trnx_info['total_pabl_amt'];
-
-
-        //dd($request->all());
         if (!empty($request)) {
-            Log::debug("SandBox Request");
+            Log::debug("SandBox Request: ");
             Log::debug($request);
         }
 
+        Log::debug("=============Debug=============");
+        Log::debug($request->msg_code);
+        Log::debug($request->cust_info['cust_id']);
+
+
+        if ($request->msg_code == 1020) {
+            $youthCourseEnroll = YouthCourseEnroll::findOrFail($request->cust_info['cust_id']);
+
+            $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
+
+            if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
+                $youthCourseEnroll->update($newData);
+            }
+            return 'Payment successful';
+        }
+
+        $data['youth_course_enroll_id'] = $request->cust_info['cust_id'];
+        $data['transaction_id'] = $request->trnx_info['trnx_id'];
+        $data['amount'] = $request->trnx_info['trnx_amt'];
+        $data['log'] = $request;
+        $data['payment_type'] = $request->pi_det_info['pi_type'];
+        $data['payment_date'] = Carbon::now();
+        $data['payment_status'] = $request->msg_code == 1020 ? '1' : '2';
 
         $payment = new Payment();
         $payment->fill($data);
         $payment->save();
-
-        if($request->msg_code == 1020){
-            $youthCourseEnroll = YouthCourseEnroll::findOrFail($data['youth_course_enroll_id']);
-            $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
-
-            if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
-                $youthCourseEnroll->update($newData);
-            }
-
-            return 'Payment successful';
-        }
-
-
     }
 }
 
