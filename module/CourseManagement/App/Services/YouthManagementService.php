@@ -23,11 +23,7 @@ class YouthManagementService
     {
         $rules = [
             'batch_id' => ['bail', 'required'],
-            'youth_enroll_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
-                /*if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
-                    $fail(__('Please select same programme type to process.'));
-                }*/
-            }],
+            'youth_enroll_ids' => ['bail', 'required', 'array', 'min:1'],
 //            'youth_registration_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
 //                /*if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
 //                    $fail(__('Please select same programme type to process.'));
@@ -57,8 +53,9 @@ class YouthManagementService
             'youth_course_enrolls.id as youth_course_enroll_id',
             'youth_course_enrolls.enroll_status',
             'youth_course_enrolls.payment_status',
+            'youth_batches.id as youth_batch_id',
+            'youth_batches.youth_course_enroll_id',
         ]);
-        //$youth->join('youth_registrations', 'youths.id', '=', 'youth_registrations.youth_id');
         $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
         $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
@@ -66,7 +63,8 @@ class YouthManagementService
         $youth->leftJoin('training_centers', 'training_centers.id', '=', 'publish_courses.training_center_id');
         $youth->leftJoin('programmes', 'programmes.id', '=', 'publish_courses.programme_id');
         $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
-        //$youth->where('youth_registrations.youth_registration_no', null);
+        $youth->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
+        $youth->where('youth_batches.youth_course_enroll_id',null);
 
         $instituteId = $request->input('institute_id');
         $branchId = $request->input('branch_id');
@@ -74,6 +72,7 @@ class YouthManagementService
         $courseId = $request->input('course_id');
         $programmeId = $request->input('programme_id');
         $applicationDate = $request->input('application_date');
+
 
         if ($instituteId) {
             $youth->where('publish_courses.institute_id', $instituteId);
@@ -94,6 +93,8 @@ class YouthManagementService
             $youth->whereDate('youths.created_at', Carbon::parse($applicationDate)->format('Y-m-d'));
         }
 
+
+
         return DataTables::eloquent($youth)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
@@ -105,6 +106,7 @@ class YouthManagementService
                 return $str;
             }))
             ->addColumn('enroll_status', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
+
                 $str = '';
                 $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? "warning enroll-processing" : ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? "success enroll-accept" : "danger enroll-reject")) . '">' . ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? "Processing" : ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? "Accepted" : "Rejected")) . ' </span>';
                 return $str;
@@ -136,7 +138,7 @@ class YouthManagementService
             YouthBatch::updateOrCreate(
                 [
                     'batch_id' => $batch->id,
-                    'youth_enroll_id' => $youthCourseEnroll->id,
+                    'youth_course_enroll_id' => $youthCourseEnroll->id,
                 ],
                 [
                     'enrollment_date' => now(),
