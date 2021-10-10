@@ -96,37 +96,35 @@
                     <div class="template-space"></div>
                 </div>
             </div>
-            <div class="row">
-                <dvi class="col-md-2"></dvi>
-                <div class="col-md-2 ">
+            <div class="row m-left-right-10">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-user-friends fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['courses'] ? $institute['courses'] :'0' }}</h1>
-                        <p>প্রশিক্ষণ প্রদান</p>
+                        <img src="{{asset('assets/atAglance/atg-1.png')}}" class="p-3" alt="">
+                        <h3>{{ $institute['courses'] ? $institute['courses'] :'0' }}টি</h3>
+                        <p>বিষয়ে <br> প্রশিক্ষণ প্রদান</p>
                     </div>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-graduation-cap fa-flip-horizontal fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }}</h1>
-                        <p>প্রশিক্ষণ গ্রহণ</p>
+                        <img src="{{asset('assets/atAglance/atg-2.png')}}" class="p-3" alt="">
+                        <h3>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }} জন</h3>
+                        <p>প্রশিক্ষণ গ্রহণ <br> করেছেন</p>
                     </div>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-hotel fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['training_centers']? $institute['training_centers']:'0' }}</h1>
-                        <p>প্রশিক্ষণ কেন্দ্র</p>
+                        <img src="{{asset('assets/atAglance/atg-3.png')}}" class="p-3"alt="">
+                        <h3>{{ $institute['training_centers']? $institute['training_centers']:'0' }}টি</h3>
+                        <p class="mt-4 mb-4">প্রশিক্ষণ কেন্দ্র</p>
                     </div>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-user-tie fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }}</h1>
-                        <p>প্রশিক্ষক</p>
+                        <img src="{{asset('assets/atAglance/atg-4.png')}}" class="p-3" alt="">
+                        <h3>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }} জন</h3>
+                        <p  class="mt-4 mb-4">দক্ষ প্রশিক্ষক</p>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
         </div>
     </section>
@@ -673,6 +671,12 @@
             color: white;
             font-size: 15px;
         }
+        .slider-title {
+            font-family: Hind Siliguri;
+            font-style: normal;
+            font-size: 30px;
+            line-height: 40px;
+        }
 
 
         .player-icon {
@@ -784,7 +788,7 @@
 
         }
 
-        /*Aknojore*/
+        /* At a Glance */
 
         .section-heading-home {
             color: #671688;
@@ -809,8 +813,11 @@
         .instant-view-box-home h1 {
             font-size: 30px;
         }
-
-        /*Courses*/
+        .instant-view-box-home p {
+            color: #39759f;
+            padding: 0px 10px;
+        }
+        /* Courses */
 
         .card-bar-home-course {
             padding: 0;
@@ -892,6 +899,13 @@
             overflow: hidden;
         }
 
+        .m-left-right-10 {
+            margin-left: 7.5px;
+            margin-right: 7.5px;
+        }
+
+        /* Responsive Design */
+
         @media screen and (max-width: 767px) {
             .about-us-media {
                 margin-top: 0px !important;
@@ -902,17 +916,17 @@
             }
 
             .about-us-section {
-                text-align: center;
+                text-align: justify;
+            }
+        }
+        @media screen and (min-width: 987px ) {
+            .m-left-right-10 {
+                margin-left: 10%;
+                margin-right: 10%;
             }
         }
 
-        .slider-title {
-            font-family: Hind Siliguri;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 43px;
-            line-height: 78px;
-        }
+
 
 
     </style>
