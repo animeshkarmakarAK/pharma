@@ -161,7 +161,7 @@
                                                         </div>
                                                         <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                             <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                            <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                            <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
                                                             <p class="font-weight-light mb-1"><i
                                                                     class="fas fa-clock gray-color"></i> <span
                                                                     class="course-p">১ ঘন্টা ৩০ মিনিট</span>
@@ -238,7 +238,7 @@
             </div>
         </div>
         @if($currentInstituteCourses->count() > 4)
-            <div class="col-md-12 text-center pt-3 pb-5">
+            <div class="col-md-12 text-center pt-3">
                 <a href="{{ route('course_management::course_search') }}" target="_blank" class="more-course-button">আরও
                     দেখুন <i
                         class="fas fa-arrow-right btn-arrow"></i></a>
@@ -837,6 +837,20 @@
         .border-top-radius {
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
+        }
+
+        .course-heading-wrap {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .course-heading-wrap:hover{
+            overflow: visible;
+        }
+        .course-heading-wrap:hover {
+            overflow: visible;
+            white-space: normal;
+            cursor:pointer;
         }
 
 

@@ -603,6 +603,7 @@
         }
 
 
+
     </style>
     @stack('css')
 </head>
