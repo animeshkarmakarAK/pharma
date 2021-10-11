@@ -21,9 +21,9 @@
                             <div class="row">
                                 @if($galleries->count())
                                     @foreach($galleries as $gallery)
-                                        <div class="col-md-3 ">
+                                        <div class="col-md-3">
                                             <div class="card">
-                                                <div class="card-body">
+                                                <div class="card-body ">
                                                     <a href="" data-toggle="modal"
                                                        data-target="#gallery_id_{{$gallery->id}}">
                                                         @if($gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)
