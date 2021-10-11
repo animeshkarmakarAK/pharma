@@ -255,6 +255,13 @@
                         videoSearch();
                     });
 
+                    $('#video_category_id').on('change', function () {
+                        videoSearch();
+                    });
+                    $('#video_id').on('change', function () {
+                        videoSearch();
+                    });
+
 
                 });
             </script>
