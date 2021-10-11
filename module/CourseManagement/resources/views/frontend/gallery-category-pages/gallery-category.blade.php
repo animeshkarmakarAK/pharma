@@ -63,7 +63,7 @@
                                 @else
                                     <div class="col-md-12 m-5 text-center">
                                         <i class="fa fa-sad-tear fa-2x text-warning mb-3"></i>
-                                        <h5 class="text-danger">এই অ্যালবামটি এখন খালি!</h5>
+                                        <h5 class="text-dark">এই অ্যালবামটি এখন খালি!</h5>
                                     </div>
                                 @endif
 

@@ -54,16 +54,15 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <select class="form-control select2-ajax-wizard"
+                                            <select class="form-control"
                                                     name="video_category_id"
                                                     id="video_category_id"
-                                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\VideoCategory::class)}}"
-                                                    data-label-fields="{title_bn}"
-                                                    data-depend-on="institute_id"
-                                                    data-dependent-fields="#video_id"
-                                                    data-placeholder="ভিডিও ক্যাটাগরি"
                                             >
                                                 <option value="">ভিডিও ক্যাটাগরি</option>
+                                                @foreach($youthVideoCategories as $youthVideoCategory)
+                                                    <option
+                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title_bn }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -73,12 +72,12 @@
                                             <select class="form-control select2-ajax-wizard"
                                                     name="video_id"
                                                     id="video_id"
-                                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}"
-                                                    data-label-fields="{title_bn}"
-                                                    data-depend-on-optional="institute_id"
-                                                    data-placeholder="ভিডিও সিলেক্ট করুন"
                                             >
                                                 <option value="">ভিডিও সিলেক্ট করুন</option>
+                                                @foreach($youthVideos as $youthVideo)
+                                                    <option
+                                                        value="{{ $youthVideo->id }}">{{ $youthVideo->title_bn }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -253,6 +252,13 @@
                     })
 
                     $('#skill-video-search-btn').on('click', function () {
+                        videoSearch();
+                    });
+
+                    $('#video_category_id').on('change', function () {
+                        videoSearch();
+                    });
+                    $('#video_id').on('change', function () {
                         videoSearch();
                     });
 

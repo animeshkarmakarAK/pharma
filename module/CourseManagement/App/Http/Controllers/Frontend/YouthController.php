@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\Video;
+use Module\CourseManagement\App\Models\VideoCategory;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
@@ -100,7 +101,11 @@ class YouthController extends Controller
 
     public function videos(): View
     {
-        return \view(self::VIEW_PATH . 'skill-videos');
+        $currentInstitute = domainConfig('institute');
+        $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
+        $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
+        //dd($youthVideoCategory);
+        return \view(self::VIEW_PATH . 'skill-videos',compact('youthVideos','youthVideoCategories'));
     }
 
     /**

@@ -325,9 +325,9 @@
                         "createdCell": function(td, cellData, rowData, row, col) {
                             console.log(rowData)
                             if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
-                                $(td).addClass('select-checkbox enable-checkbox');
+                                $(td).addClass('select-checkbox enable-checkbox').prop('disabled', false);
                             }else {
-                                $(td).removeClass('select-checkbox enable-checkbox');
+                                $(td).removeClass('select-checkbox enable-checkbox').prop('disabled', true);
                             }
                         }
                     }

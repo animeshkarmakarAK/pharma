@@ -2,12 +2,13 @@
     $currentInstitute = domainConfig('institute');
     //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
     $layout = 'master::layouts.front-end';
+
 @endphp
 @extends($layout)
 
 @section('content')
     <!-- Top content Slider Start -->
-    <section class="top-content">
+    <section class="top-content ">
         <!-- Carousel -->
         <div id="topCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -19,9 +20,9 @@
                     @foreach($sliders as $slider)
                         <div class="carousel-item {{ ++$sl==1?'active':'' }}"
                         >
-                            <div style="background: url('{{asset('/storage/'. $slider->slider)}}');
+                            <div style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('{{asset('/storage/'. $slider->slider)}}');
                                 background-position: center;
-                                background-size: cover;
+                                background-size: 100% 100%;
                                 background-repeat: no-repeat;
                                 min-height: 100%;
                                 opacity: .9;
@@ -96,37 +97,35 @@
                     <div class="template-space"></div>
                 </div>
             </div>
-            <div class="row">
-                <dvi class="col-md-2"></dvi>
-                <div class="col-md-2 ">
+            <div class="row m-left-right-10">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-user-friends fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['courses'] ? $institute['courses'] :'0' }}</h1>
-                        <p>প্রশিক্ষণ প্রদান</p>
+                        <img src="{{asset('assets/atAglance/atg-1.png')}}" class="p-3" alt="">
+                        <h3>{{ $institute['courses'] ? $institute['courses'] :'0' }}টি</h3>
+                        <p>বিষয়ে <br> প্রশিক্ষণ প্রদান</p>
                     </div>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-graduation-cap fa-flip-horizontal fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }}</h1>
-                        <p>প্রশিক্ষণ গ্রহণ</p>
+                        <img src="{{asset('assets/atAglance/atg-2.png')}}" class="p-3" alt="">
+                        <h3>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }} জন</h3>
+                        <p>প্রশিক্ষণ গ্রহণ <br> করেছেন</p>
                     </div>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-hotel fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['training_centers']? $institute['training_centers']:'0' }}</h1>
-                        <p>প্রশিক্ষণ কেন্দ্র</p>
+                        <img src="{{asset('assets/atAglance/atg-3.png')}}" class="p-3"alt="">
+                        <h3>{{ $institute['training_centers']? $institute['training_centers']:'0' }}টি</h3>
+                        <p class="mt-4 mb-4">প্রশিক্ষণ কেন্দ্র</p>
                     </div>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <i class="fas fa-user-tie fa-3x p-3 custom-icon"></i>
-                        <h1>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }}</h1>
-                        <p>প্রশিক্ষক</p>
+                        <img src="{{asset('assets/atAglance/atg-4.png')}}" class="p-3" alt="">
+                        <h3>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }} জন</h3>
+                        <p  class="mt-4 mb-4">দক্ষ প্রশিক্ষক</p>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
         </div>
     </section>
@@ -163,7 +162,7 @@
                                                         </div>
                                                         <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                             <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                            <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                            <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
                                                             <p class="font-weight-light mb-1"><i
                                                                     class="fas fa-clock gray-color"></i> <span
                                                                     class="course-p">১ ঘন্টা ৩০ মিনিট</span>
@@ -196,7 +195,8 @@
                         </div>
                         <!--/.Controls-->
                     </div>
-                @elseif(empty($currentInstituteCourses))
+                @elseif($currentInstituteCourses->isEmpty())
+
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
                             কোন কোর্স পাওয়া যাইনি!
@@ -216,7 +216,7 @@
                                             </div>
                                             <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                 <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                <p class="font-weight-bold">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
                                                 <p class="font-weight-light mb-1"><i
                                                         class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
                                                 </p>
@@ -240,7 +240,7 @@
             </div>
         </div>
         @if($currentInstituteCourses->count() > 4)
-            <div class="col-md-12 text-center pt-3 pb-5">
+            <div class="col-md-12 text-center pt-3">
                 <a href="{{ route('course_management::course_search') }}" target="_blank" class="more-course-button">আরও
                     দেখুন <i
                         class="fas fa-arrow-right btn-arrow"></i></a>
@@ -372,55 +372,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <h3 class="gallery-section-heading section-heading-home section-heading pb-5">গ্যালারি</h3>
+                    <h3 class="gallery-section-heading section-heading-home section-heading pb-4">গ্যালারি</h3>
                 </div>
-                @if($galleryCategories->count() > 4)
-                    <div id="recipeCarousel" class="carousel custom-carousel  slide w-100" data-ride="carousel">
-                        <div class="carousel-inner custom-carousel-inner w-100" role="listbox">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    @php
-                                        $tl=0;
-                                    @endphp
-                                    @foreach($galleryCategories as $galleryCategory)
-                                        <div class="carousel-item custom-carousel-item  {{ ++$tl==1?'active':'' }}">
-                                            <div class="col-md-3">
-                                                <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
-                                                    <div class="card card-main mb-2 shadow-none bg-transparent">
-                                                        <img class="slider-img slider-radius"
-                                                             src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                                        <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        <!--Controls-->
-                        <div class="controls-top">
-                            <a class="btn-floating left-btn-arrow" href="#recipeCarousel"
-                               data-slide="prev"><i
-                                    class="fas fa-chevron-left"></i></a>
-                            <a class="btn-floating right-btn-arrow" href="#recipeCarousel"
-                               data-slide="next"><i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <!--/.Controls-->
-                    </div>
-                    <div class="col-md-12 text-center pt-3 pb-5">
-                        <a href="{{ route('course_management::gallery-categories') }}" target="_blank"
-                           class="more-course-button">আরও দেখুন <i
-                                class="fas fa-arrow-right btn-arrow"></i></a>
-                    </div>
-                @elseif(empty($galleryCategories))
-                    <div class="col-md-12">
-                        <div class="alert text-danger text-center">
-                            কোন গ্যালারি পাওয়া যাইনি!
-                        </div>
-                    </div>
-                @else
+                @if($galleryCategories->count() > 3)
                     <div class="col-md-12">
                         <div class="row">
                             @foreach($galleryCategories as $galleryCategory)
@@ -435,8 +389,86 @@
                                 </div>
                             @endforeach
                         </div>
-                        @endif
                     </div>
+                @elseif($galleryCategories->count() > 2)
+                    <div class="col-md-12">
+                        <div class="row">
+                            @foreach($galleryCategories as $galleryCategory)
+                                <div class="col-md-4">
+                                    <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                        <div class="card card-main mb-2 shadow-none bg-transparent">
+                                            <img class="slider-img slider-radius"
+                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @elseif($galleryCategories->count() > 1)
+                    <div class="col-md-12">
+                        <div class="row w-100 justify-content-center text-center">
+                            @foreach($galleryCategories as $galleryCategory)
+
+                                <div class="col-md-4 ">
+                                    <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                        <div class="card card-main mb-2 shadow-none bg-transparent">
+                                            <img class="slider-img slider-radius"
+                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @elseif($galleryCategories->count() > 0)
+                <div class="col-md-12">
+                    <div class="row w-100 justify-content-center text-center">
+                        @foreach($galleryCategories as $galleryCategory)
+                            <div class="col-md-4">
+                                <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                    <div class="card card-main mb-2 shadow-none bg-transparent">
+                                        <img class="slider-img slider-radius"
+                                             src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                        <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @elseif($galleryCategories->isEmpty())
+                    <div class="col-md-12">
+                        <div class="alert text-danger text-center">
+                            কোন গ্যালারি পাওয়া যাইনি!
+                        </div>
+                    </div>
+                @else
+                <div class="col-md-12">
+                    <div class="row">
+                        @foreach($galleryCategories as $galleryCategory)
+                            <div class="col-md-3">
+                                <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                    <div class="card card-main mb-2 shadow-none bg-transparent">
+                                        <img class="slider-img slider-radius"
+                                             src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                        <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+                </div>
+                @if(($galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
+                    <div class="col-md-12 text-center pb-5">
+                        <a href="{{ route('course_management::gallery-categories') }}" target="_blank"
+                           class="more-course-button mt-3">আরও দেখুন <i
+                                class="fas fa-arrow-right btn-arrow"></i></a>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
@@ -673,6 +705,12 @@
             color: white;
             font-size: 15px;
         }
+        .slider-title {
+            font-family: Hind Siliguri;
+            font-style: normal;
+            font-size: 30px;
+            line-height: 40px;
+        }
 
 
         .player-icon {
@@ -727,7 +765,7 @@
         }
 
         .top-content .carousel-item {
-            height: 450px;
+            height: 90vh;
         }
 
         .carousel-caption {
@@ -784,7 +822,7 @@
 
         }
 
-        /*Aknojore*/
+        /* At a Glance */
 
         .section-heading-home {
             color: #671688;
@@ -809,8 +847,11 @@
         .instant-view-box-home h1 {
             font-size: 30px;
         }
-
-        /*Courses*/
+        .instant-view-box-home p {
+            color: #39759f;
+            padding: 0px 10px;
+        }
+        /* Courses */
 
         .card-bar-home-course {
             padding: 0;
@@ -830,6 +871,20 @@
         .border-top-radius {
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
+        }
+
+        .course-heading-wrap {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .course-heading-wrap:hover{
+            overflow: visible;
+        }
+        .course-heading-wrap:hover {
+            overflow: visible;
+            white-space: normal;
+            cursor:pointer;
         }
 
 
@@ -892,6 +947,13 @@
             overflow: hidden;
         }
 
+        .m-left-right-10 {
+            margin-left: 7.5px;
+            margin-right: 7.5px;
+        }
+
+        /* Responsive Design */
+
         @media screen and (max-width: 767px) {
             .about-us-media {
                 margin-top: 0px !important;
@@ -902,17 +964,27 @@
             }
 
             .about-us-section {
-                text-align: center;
+                text-align: justify;
+            }
+            .top-content .carousel-item {
+                height: 60vh;
+            }
+            .slider-title {
+                font-size: 20px;
+                line-height: 30px;
+            }
+            .slider-previous-icon, .slider-next-icon {
+                padding: 10px;
+            }
+        }
+        @media screen and (min-width: 987px ) {
+            .m-left-right-10 {
+                margin-left: 10%;
+                margin-right: 10%;
             }
         }
 
-        .slider-title {
-            font-family: Hind Siliguri;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 43px;
-            line-height: 78px;
-        }
+
 
 
     </style>
