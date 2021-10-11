@@ -219,7 +219,7 @@
         $.validator.addMethod('filesize', function (value, element, param) {
             return this.optional(element) || (element.files[0].size <= param)
         }, function(size){
-            return "Please upload maximum 512Kb Image size";
+            return "Please upload maximum 2Mb Image size";
         });
 
         const editAddForm = $('.edit-add-form');
@@ -281,8 +281,8 @@
                         return !EDIT;
                     },
                     accept: "image/*",
-                    sliderSize: true,
-                    filesize: 1000*512,
+                    // sliderSize: true,
+                    filesize: 1000*2048,
                 },
             },
             messages: {
