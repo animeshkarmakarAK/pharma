@@ -281,7 +281,7 @@
                         return !EDIT;
                     },
                     accept: "image/*",
-                    // sliderSize: true,
+                    sliderSize: true,
                     filesize: 1000*2048,
                 },
             },
