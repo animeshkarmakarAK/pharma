@@ -21,7 +21,7 @@
                             <div class="row">
                                 @if($galleries->count())
                                     @foreach($galleries as $gallery)
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 ">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <a href="" data-toggle="modal"
