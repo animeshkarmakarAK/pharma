@@ -7,7 +7,7 @@
 
 @section('content')
     <!-- Top content Slider Start -->
-    <section class="top-content">
+    <section class="top-content ">
         <!-- Carousel -->
         <div id="topCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
