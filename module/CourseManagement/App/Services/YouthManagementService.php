@@ -54,7 +54,7 @@ class YouthManagementService
             'youth_course_enrolls.enroll_status',
             'youth_course_enrolls.payment_status',
             'youth_batches.id as youth_batch_id',
-            'youth_batches.youth_course_enroll_id',
+            'youth_batches.youth_course_enroll_id as youth_batch_youth_course_enroll_id',
         ]);
         $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
         $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
