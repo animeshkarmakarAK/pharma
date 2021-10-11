@@ -32,6 +32,7 @@ class HomeController extends BaseController
                 ->where(['institute_id' => $currentInstitute->id])
                 ->where(['featured' => 1])
                 ->get();
+            $galleryAllCategories = GalleryCategory::where(['institute_id' => $currentInstitute->id])->get();
 
             $sliders = Slider::active()
                 ->where(['institute_id' => $currentInstitute->id])
@@ -53,7 +54,7 @@ class HomeController extends BaseController
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
 
             //return view('course_management::custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
-            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories','galleryAllCategories'));
         }
 
         $institute = [

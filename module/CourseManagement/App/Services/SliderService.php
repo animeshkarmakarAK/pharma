@@ -65,7 +65,7 @@ class SliderService
             'slider' => [
                 'nullable',
                 'image',
-                'max:512',
+                'max:2048',
                 'mimes:jpeg,jpg,png',
                 'dimensions:max_width=1920,max_height=1080',
             ]
