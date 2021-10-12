@@ -141,6 +141,7 @@
                         এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়
                     </p>
                 </div>
+
                 @if($currentInstituteCourses->count() > 4)
                     <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
                         <div class="custom-carousel-inner w-100" role="listbox">
@@ -166,12 +167,12 @@
                                                             <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
                                                             <p class="font-weight-light mb-1"><i
                                                                     class="fas fa-clock gray-color"></i> <span
-                                                                    class="course-p">১ ঘন্টা ৩০ মিনিট</span>
+                                                                    class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
                                                             </p>
                                                             <p class="font-weight-light float-left"><i
                                                                     class="fas fa-user-plus gray-color"></i>
 
-                                                                <span class="course-p">Student ({{ $currentCourseSession[$key] }})</span></p>
+                                                                <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span></p>
                                                             <p class="float-right">
                                                                 <a href="javascript:;"
                                                                    onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
@@ -207,7 +208,7 @@
                 @else
                     <div class="col-md-12">
                         <div class="row">
-                            @foreach($currentInstituteCourses as $publishCourse)
+                            @foreach($currentInstituteCourses as $key => $publishCourse)
                                 <div class="col-md-3">
                                     <div class="card card-main mb-2">
                                         <div class="card-bar-home-course">
@@ -220,11 +221,11 @@
                                                 <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
                                                 <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
                                                 <p class="font-weight-light mb-1"><i
-                                                        class="fas fa-clock gray-color"></i> <span class="course-p">১ ঘন্টা ৩০ মিনিট</span>
+                                                        class="fas fa-clock gray-color"></i> <span class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
                                                 </p>
                                                 <p class="font-weight-light float-left"><i
                                                         class="fas fa-user-plus gray-color"></i>
-                                                    <span class="course-p">Student(16.1k)</span></p>
+                                                    <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span></p>
                                                 <p class="float-right">
                                                     <a href="javascript:;"
                                                        onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
