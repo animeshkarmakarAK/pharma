@@ -276,7 +276,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="accordion-heading">শুক্রবার, {{ date('d') }} জানুয়ারী ২০২১</h3>
+                            <h3 class="accordion-heading">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
                             <!-- Accordion -->
                             <div id="accordionExample" class="accordion">
 
