@@ -26,6 +26,7 @@ class HomeController extends BaseController
                 'institute_id' => $currentInstitute->id,
             ]);
 
+
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
             $galleryCategories = GalleryCategory::active()
                 ->orderBy('id', 'DESC')
@@ -52,9 +53,13 @@ class HomeController extends BaseController
             ];
 
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
-
+            foreach ($currentInstituteCourses as $course){
+                $currentCourseSession[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
+            }
+//
+//            dd($currentCourseSession);
             //return view('course_management::custom_welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories'));
-            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories','galleryAllCategories'));
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories','galleryAllCategories','currentCourseSession'));
         }
 
         $institute = [

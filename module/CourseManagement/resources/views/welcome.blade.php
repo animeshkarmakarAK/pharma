@@ -2,7 +2,6 @@
     $currentInstitute = domainConfig('institute');
     //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
     $layout = 'master::layouts.front-end';
-
 @endphp
 @extends($layout)
 
@@ -149,8 +148,10 @@
                                 <div class="row">
                                     @php
                                         $ml=0;
+
                                     @endphp
-                                    @foreach($currentInstituteCourses as $publishCourse)
+                                    @foreach($currentInstituteCourses as $key => $publishCourse)
+
                                         <div class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
                                             <div class="col-md-3">
                                                 <div class="card card-main mb-2">
@@ -169,7 +170,8 @@
                                                             </p>
                                                             <p class="font-weight-light float-left"><i
                                                                     class="fas fa-user-plus gray-color"></i>
-                                                                <span class="course-p">Student(16.1k)</span></p>
+
+                                                                <span class="course-p">Student ({{ $currentCourseSession[$key] }})</span></p>
                                                             <p class="float-right">
                                                                 <a href="javascript:;"
                                                                    onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
