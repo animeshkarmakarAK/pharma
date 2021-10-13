@@ -6,6 +6,8 @@ use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Module\CourseManagement\App\Models\Youth;
 use Module\GovtStakeholder\App\Traits\ScopeAclTrait;
 use PhpParser\Builder;
 
@@ -50,6 +52,11 @@ class Organization extends BaseModel
     public function logoIsDefault(): bool
     {
         return $this->logo === self::DEFAULT_LOGO;
+    }
+
+    public function youthOrganization():BelongsToMany
+    {
+        return $this->belongsToMany(Youth::class,"youth_organizations");
     }
 
 

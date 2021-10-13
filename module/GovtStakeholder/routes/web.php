@@ -61,6 +61,8 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('job-sectors/datatable', [\Module\GovtStakeholder\App\Http\Controllers\JobSectorController::class, 'getDatatable'])->name('job-sectors.datatable');
     Route::post('upazila-job-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\UpazilaJobStatisticController::class, 'getDatatable'])->name('upazila-job-statistics.datatable');
 
+    Route::get('organization-youths', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationYouthController::class, 'index'])->name('organization-youths');
+
 });
 
 
