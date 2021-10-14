@@ -4,9 +4,7 @@ namespace Module\GovtStakeholder\App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\GovtStakeholder\App\Services\OrganizationYouthService;
 
@@ -18,7 +16,7 @@ class OrganizationYouthController extends BaseController
     public function __construct(OrganizationYouthService $organizationYouthService)
     {
         $this->organizationYouthService = $organizationYouthService;
-        $this->authorizeResource(YouthOrganization::class);
+        //$this->authorizeResource(YouthOrganization::class);
     }
 
     /**
@@ -32,6 +30,6 @@ class OrganizationYouthController extends BaseController
 
     public function getDatatable(Request $request): JsonResponse
     {
-        return $this->skillService->getSkillLists($request);
+        return $this->organizationYouthService->getOrganizationYouthLists($request);
     }
 }
