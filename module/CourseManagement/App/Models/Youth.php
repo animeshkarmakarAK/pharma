@@ -11,8 +11,10 @@ use App\Traits\AuthenticatableUser;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Module\GovtStakeholder\App\Models\Organization;
 
 /**
  * Class Youth
@@ -135,6 +137,11 @@ class Youth extends AuthBaseModel
     public function youthCourseEnroll(): HasOne
     {
         return $this->hasOne(YouthCourseEnroll::class);
+    }
+
+    public function youthOrganizations():BelongsToMany
+    {
+      return $this->belongsToMany(Organization::class,"youth_organizations");
     }
 
 

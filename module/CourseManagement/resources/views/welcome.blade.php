@@ -65,9 +65,12 @@
                         <div class="about-us-content">
                             <p>
                                 @if(!empty($staticPage))
-                                    {!! $staticPage->page_contents !!}
+                                    {!! mb_strimwidth($staticPage->page_contents, 0, 480,'...') !!}
                                 @endif
                             </p>
+                            <a href="{{route('course_management::static-content.show', 'aboutus')}}" target="_blank"
+                               class="more-course-button mt-3 bg-transparent">আরও দেখুন <i
+                                    class="fas fa-arrow-right btn-arrow"></i></a>
                         </div>
                     </div>
 
