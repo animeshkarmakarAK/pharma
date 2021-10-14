@@ -49,15 +49,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('youth-registrations/add-to-batch', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'addYouthToBatch'])
         ->name('youth.add-to-batch');
 
-    Route::get('youths', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'index'])
-        ->name('youths.index');
-    Route::post('youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getDatatable'])
-        ->name('youths.datatable');
-    Route::post('youths/add-to-organization', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'addYouthToOrganization'])
-        ->name('youths.add-to-organization');
-
-    Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
-        ->name('youths.youth-assigned-organization');
 
     Route::resource('batches', Module\CourseManagement\App\Http\Controllers\BatchController::class);
 
@@ -71,6 +62,15 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
     Route::post('featured-galleries', [\Module\CourseManagement\App\Http\Controllers\GalleryCategoryController::class, 'updateFeaturedGalleries'])->name('gallery-album.change-featured');
 
+    Route::get('youths', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'index'])
+        ->name('youths.index');
+    Route::post('youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getDatatable'])
+        ->name('youths.datatable');
+    Route::post('youths/add-to-organization', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'addYouthToOrganization'])
+        ->name('youths.add-to-organization');
+
+    Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
+        ->name('youths.youth-assigned-organization');
 
     Route::get('youth-cv-view', [YouthController::class, 'youthCvView'])->name('youth-cv-view');
 });

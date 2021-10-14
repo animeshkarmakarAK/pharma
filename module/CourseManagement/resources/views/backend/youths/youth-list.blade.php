@@ -302,7 +302,7 @@
 
             let datatable = $('#dataTable').DataTable(params);
 
-            $(document, 'td').on('click', '.already-assigned-btn', function (e) {
+            /*$(document, 'td').on('click', '.already-assigned-btn', function (e) {
                 let youthId = $(this).attr('id');
                 console.log(youthId);
                 $('#already-assigned-form')[0].action = $(this).data('action');
@@ -335,7 +335,7 @@
                     }
                 })
 
-            });
+            });*/
 
             $("#select_all_rows").click(function () {
                 let selectAll = $(this);

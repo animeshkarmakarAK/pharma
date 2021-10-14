@@ -63,24 +63,20 @@ class YouthService
             ->toJson();
     }
 
-    public function addYouthToOrganization(Organization $organization, array $youthIds): array
+    public function addYouthToOrganization(Organization $organization, array $youthIds): bool
     {
-        return $organization->youthOrganization()->syncWithoutDetaching($youthIds);
+        foreach ($youthIds as $youthId) {
+            /** @var Youth $youth */
+            $youth = Youth::findOrFail($youthId);
 
-//        foreach ($youthIds as $youthId) {
-//            /** @var YouthRegistration $youth */
-//            $youth = Youth::findOrFail($youthId);
-//
-//            YouthOrganization::where("youth_id",$youth->id)->delete();
-//
-////            YouthOrganization::updateOrCreate(
-////                [
-////                    'organization_id' => $organization->id,
-////                    'youth_id' => $youth->id,
-////                ]
-////            );
-////            $youth->save();
-//        }
-//        return true;
+            YouthOrganization::updateOrCreate(
+                [
+                    'organization_id' => $organization->id,
+                    'youth_id' => $youth->id,
+                ]
+            );
+            $youth->save();
+        }
+        return true;
     }
 }
