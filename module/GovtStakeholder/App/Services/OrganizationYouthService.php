@@ -37,10 +37,9 @@ class OrganizationYouthService
         $youths->where(['organization_id' => $authUser->organization_id]);
 
         return DataTables::eloquent($youths)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthOrganization $youths) use ($authUser) {
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthOrganization $youth) use ($authUser) {
                 $str = '';
-                $str .= '<a href="' . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
-                $str .= '<a href="' . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-address-card"></i> CV View </a>';
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->youth_id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-address-card"></i> CV View </a>';
                 $str .= '<a href="#" data-action="' . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-user-graduate"></i> Certificate View</a>';
                 return $str;
             }))

@@ -6,6 +6,7 @@ namespace Module\CourseManagement\App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthBatch;
@@ -27,6 +28,10 @@ class YouthService
         $rules = [
             'organization_id' => ['bail', 'required'],
             'youth_ids' => ['bail', 'required', 'array', 'min:1'],
+            'youth_ids.*' => [
+                "required",
+                Rule::notIn(DB::table('youth_organizations')->pluck('youth_id')->toArray())
+            ]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -56,10 +61,20 @@ class YouthService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
                 $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
-                $str .= '<a href="#" class="btn btn-outline-primary btn-sm already-assigned-btn" id="'.$youth->id.'"> <i class="fas fa-eye"></i> ' . __('Already Assigned') . ' </a>';
+                /*$str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('Remove From Organization') . ' </a>';*/
                 return $str;
             }))
-            ->rawColumns(['action', 'already_added_to_organization'])
+            ->addColumn('already_added_to_organization', static function (Youth $youth) {
+                $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])->first();
+                $str = '';
+                $str .= '<span class="badge ' . (!empty($youthOrganization) ? "badge-success" : "badge-warning") . '"> <i class="fas ' . (!empty($youthOrganization) ? 'fa-paperclip' : 'fa-unlink') . '"></i> ' . (!empty($youthOrganization) ? $youthOrganization->organization->title_en : 'Not assigned') . ' </a>';
+                return $str;
+            })
+            ->addColumn('already_added_check', static function (Youth $youth) {
+                $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])->first();
+                return !empty($youthOrganization) ? 1 : 0;
+            })
+            ->rawColumns(['action', 'already_added_to_organization', 'already_added_check'])
             ->toJson();
     }
 
@@ -68,7 +83,6 @@ class YouthService
         foreach ($youthIds as $youthId) {
             /** @var Youth $youth */
             $youth = Youth::findOrFail($youthId);
-
             YouthOrganization::updateOrCreate(
                 [
                     'organization_id' => $organization->id,

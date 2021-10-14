@@ -53,14 +53,18 @@
             margin: 0 auto;
         }
 
-        /*
+        #add-to-organization-form {
+            z-index: 9999;
+        }
+
         @media screen and (min-width: 645px) {
-            #add-to-batch-area{
+            #add-to-batch-area {
                 position: absolute;
                 left: 75px;
                 top: 0;
+                z-index: 999;
             }
-        }*/
+        }
     </style>
 @endpush
 
@@ -171,34 +175,6 @@
         </div>
     </div>
 
-
-    <div class="modal modal-danger fade" id="already-assigned-modal" tabindex="-1" role="dialog"
-         data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header custom-bg-gradient-info">
-                    <h4 class="modal-title">
-                        <i class="fas fa-address-card"></i> {{ __('Youth assigned to Organization') }}
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body pb-5">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right"
-                            data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <form action="#" id="already-assigned-form" method="POST">
-                        {{ method_field("PUT") }}
-                        {{ csrf_field() }}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Modal End-->
 @endsection
 @push('css')
@@ -228,11 +204,10 @@
                         "targets": 0,
                         "orderable": false,
                         "createdCell": function (td, cellData, rowData, row, col) {
-
-                            if (1) {
-                                $(td).addClass('select-checkbox enable-checkbox').prop('checked', true);
+                            if (rowData.already_added_check == 0) {
+                                $(td).addClass('select-checkbox enable-checkbox').prop('disabled', false);
                             } else {
-                                $(td).removeClass('select-checkbox enable-checkbox').prop('checked', false);
+                                $(td).removeClass('select-checkbox enable-checkbox').prop('disabled', true);
                             }
                         }
                     }
@@ -281,6 +256,14 @@
                         visible: false
                     },
                     {
+                        title: "Already Assigned To",
+                        data: "already_added_to_organization",
+                        name: "already_added_to_organization",
+                        orderable: true,
+                        searchable: false,
+                        visible: true
+                    },
+                    {
                         title: "Action",
                         data: "action",
                         name: "action",
@@ -302,51 +285,13 @@
 
             let datatable = $('#dataTable').DataTable(params);
 
-            /*$(document, 'td').on('click', '.already-assigned-btn', function (e) {
-                let youthId = $(this).attr('id');
-                console.log(youthId);
-                $('#already-assigned-form')[0].action = $(this).data('action');
-                $('#already-assigned-modal').modal('show');
-                $.ajax({
-                    url: "{{route('course_management::admin.youths.youth-assigned-organization')}}",
-                    method: "POST",
-                    data: {
-                        id: youthId
-                    },
-                    success: function (res) {
-                        console.log(res)
-                        $('.organization-badge').remove();
-
-                        if(res.length==0){
-                            $('.modal-body').append(
-                                '<span class="badge badge-warning m-1 organization-badge">'+'Not assigned to any Organization'+'</span>'
-                            );
-                        }
-
-                        $.each(res, function (key, value) {
-                            console.log(res[key].title_en)
-                            $('.modal-body').append(
-                                '<span class="badge badge-success m-1 organization-badge">'+res[key].title_en+'</span>'
-                            );
-                        });
-
-
-
-                    }
-                })
-
-            });*/
 
             $("#select_all_rows").click(function () {
-                let selectAll = $(this);
-
                 if ($(this).is(":checked")) {
                     datatable.rows(':has(.select-checkbox)').select();
                 } else {
                     datatable.rows().deselect();
                 }
-
-
             });
 
             $(document).on('change', '.select2-ajax-wizard', function () {

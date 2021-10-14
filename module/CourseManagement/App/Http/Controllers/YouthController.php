@@ -6,8 +6,5 @@ use Illuminate\Http\Request;
 
 class YouthController extends Controller
 {
-    function youthCvView()
-    {
-        dd('hi');
-    }
+    //
 }

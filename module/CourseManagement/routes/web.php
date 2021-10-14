@@ -71,8 +71,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
         ->name('youths.youth-assigned-organization');
-
-    Route::get('youth-cv-view', [YouthController::class, 'youthCvView'])->name('youth-cv-view');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
