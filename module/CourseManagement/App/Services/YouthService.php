@@ -39,25 +39,34 @@ class YouthService
     public function getListDataForDatatable($request): JsonResponse
     {
         $instituteId = AuthHelper::getAuthUser()->institute_id;
-        $youth = Youth::select([
+        $youths = Youth::select([
             DB::raw('max(youths.id) AS id'),
             DB::raw('max(youths.youth_registration_no) AS youth_registration_no'),
             DB::raw('max(youths.name_en) AS name_en'),
             DB::raw('max(youths.name_bn) AS name_bn'),
-            DB::raw('max(youths.access_key) AS access_key'),
             DB::raw('max(institutes.title_en) AS institute_title_en'),
             DB::raw('max(institutes.id) AS institute_id'),
+            DB::raw('max(youth_organizations.organization_id) AS youth_organization_id'),
+            DB::raw('max(organizations.title_en) AS organization_title_en'),
         ]);
-        $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
-        $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
-        $youth->groupBy('youth_registration_no');
+        $youths->leftJoin('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
+        $youths->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youths->leftJoin('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
+
+        $youths->leftJoin('youth_organizations', 'youth_organizations.youth_id', '=', 'youths.id');
+        $youths->leftJoin('organizations', 'organizations.id', '=', 'youth_organizations.organization_id');
+        $youths->groupBy('youth_registration_no');
 
         if ($instituteId) {
-            $youth->where(['institutes.id' => $instituteId]);
+            $youths->where(['institutes.id' => $instituteId]);
         }
 
-        return DataTables::eloquent($youth)
+        $organizationId = $request->input('organization_id');
+        if ($organizationId) {
+            $youths->where(['youth_organizations.organization_id' => $organizationId]);
+        }
+
+        return DataTables::eloquent($youths)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
                 $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';

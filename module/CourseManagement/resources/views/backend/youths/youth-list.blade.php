@@ -8,73 +8,6 @@
     {{ __('Youth List') }}
 @endsection
 
-@push('css')
-    <style>
-        .select2 {
-            border-right: transparent !important;
-        }
-
-        .select2 .select2-selection {
-            background: linear-gradient(180deg, #fafdff 0%, #ddf1ff 35%);
-        }
-
-        .select2 .select2-selection__arrow {
-            background-image: -moz-linear-gradient(top, #1B67A8, #1B67A8);
-            background-image: -ms-linear-gradient(top, #1B67A8, #1B67A8);
-            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1B67A8), color-stop(100%, #1B67A8));
-            background-image: -webkit-linear-gradient(top, #1B67A8, #1B67A8);
-            background-image: -o-linear-gradient(top, #1B67A8, #1B67A8);
-            background-image: linear-gradient(#1B67A8, #1B67A8);
-            width: 40px;
-            font-size: 1.3em;
-            margin-top: -19px;
-            padding: 19px;
-            border-radius: 0 10px 10px 0;
-            margin-right: -6px;
-        }
-
-        .select2 .select2-selection__placeholder {
-            color: steelblue !important;
-            font-weight: bolder;
-        }
-
-        .select2-selection__clear {
-            margin-right: 34px !important;
-        }
-
-        .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
-            border-color: #fff transparent transparent;
-            border-style: solid;
-            border-width: 5px 4px 0;
-        }
-
-        #select_all_rows {
-            display: block;
-            margin: 0 auto;
-        }
-
-        #add-to-organization-form {
-            z-index: 9999;
-        }
-
-        @media screen and (min-width: 645px) {
-            #add-to-batch-area {
-                position: absolute;
-                left: 75px;
-                top: 0;
-                z-index: 999;
-            }
-        }
-    </style>
-@endpush
-
-@push('js')
-    <script>
-        $('b[role="presentation"]').hide();
-        $('.select2-selection__arrow').append('<i class="fa fa-times" style="color: #000000; font-size: 10px"></i>');
-    </script>
-@endpush
-
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -87,11 +20,39 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <button id="add-to-batch-area" style="visibility: hidden; display: none" type="button"
+                                <button id="add-to-organization-area" style="visibility: hidden; " type="button"
                                         class="mb-3 btn btn-sm btn-rounded btn-primary float-right"
                                         data-toggle="modal" data-target="#addToOrganizationModal">
                                     <i class="fas fa-plus-circle d-inline-block"></i> Add to Organization
                                 </button>
+                            </div>
+
+                            <div class="col-md-12">
+                                <form action="#">
+                                    <div class="row mb-3">
+                                        <div class="col-md-1">
+                                            <label class="filter-label text-primary">
+                                                <i class="fas fa-sort-amount-down-alt"></i> Filter </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" {{--id="youth_name_en"--}}
+                                            name="youth_name_en" placeholder="Name En"
+                                                   value="{{old('youth_name_en')}}">
+                                        </div>
+
+
+                                        <div class="col-md-3">
+                                            <select class="form-control select2-ajax-wizard"
+                                                    name="organization_id"
+                                                    id="organization_id"
+                                                    data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
+                                                    data-label-fields="{title_en}"
+                                                    data-placeholder="Organization"
+                                            >
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
 
                             <div class="col-md-12">
@@ -151,25 +112,6 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        @can('create', \Module\GovtStakeholder\App\Models\Organization::class)
-                            <div class="d-block mt-5 mb-5 text-center">
-                                <a href="{{route('course_management::admin.batches.create')}}"
-                                   class="btn btn-sm btn-success">
-                                    <i class="fa fa-plus-circle"></i> Create New Organization
-                                </a>
-                            </div>
-                        @else
-                            <div class="alert alert-danger" role="alert">
-                                <div class="d-block text-center mt-3 mb-3">
-                                    <i class="fa fa-info-circle fa-3x"></i>
-                                </div>
-                                You don't have any <strong>Organization</strong> to assign. Please contact support to
-                                add
-                                Organization.
-                            </div>
-                        @endcan
-                    </div>
                 @endif
             </div>
         </div>
@@ -178,10 +120,71 @@
     <!-- Modal End-->
 @endsection
 @push('css')
+    <style>
+        .select2 {
+            border-right: transparent !important;
+        }
+
+        .select2 .select2-selection {
+            background: linear-gradient(180deg, #fafdff 0%, #ddf1ff 35%);
+        }
+
+        .select2 .select2-selection__arrow {
+            background-image: -moz-linear-gradient(top, #1B67A8, #1B67A8);
+            background-image: -ms-linear-gradient(top, #1B67A8, #1B67A8);
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1B67A8), color-stop(100%, #1B67A8));
+            background-image: -webkit-linear-gradient(top, #1B67A8, #1B67A8);
+            background-image: -o-linear-gradient(top, #1B67A8, #1B67A8);
+            background-image: linear-gradient(#1B67A8, #1B67A8);
+            width: 40px;
+            font-size: 1.3em;
+            margin-top: -19px;
+            padding: 19px;
+            border-radius: 0 10px 10px 0;
+            margin-right: -6px;
+        }
+
+        .select2 .select2-selection__placeholder {
+            color: steelblue !important;
+            font-weight: bolder;
+        }
+
+        .select2-selection__clear {
+            margin-right: 34px !important;
+        }
+
+        .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
+            border-color: #fff transparent transparent;
+            border-style: solid;
+            border-width: 5px 4px 0;
+        }
+
+        #select_all_rows {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #add-to-organization-form {
+            z-index: 9999;
+        }
+
+        /*@media screen and (min-width: 645px) {
+            #add-to-organization-area {
+                position: absolute;
+                left: 75px;
+                top: 0;
+                z-index: 999;
+            }
+        }*/
+    </style>
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
 @endpush
 
 @push('js')
+    <script>
+        $('b[role="presentation"]').hide();
+        $('.select2-selection__arrow').append('<i class="fa fa-times" style="color: #000000; font-size: 10px"></i>');
+    </script>
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script>
         $(document).ready(function () {
@@ -193,7 +196,7 @@
             }
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.youths.datatable') }}',
-                order: [[4, "DESC"]],
+                order: [[1, "ASC"]],
                 serialNumberColumn: 1,
                 select: {
                     style: 'multi',
@@ -232,12 +235,12 @@
                     {
                         title: "Name (En)",
                         data: "name_en",
-                        name: "youths.name_en"
+                        name: "name_en",
                     },
                     {
                         title: "Name (Bn)",
                         data: "name_bn",
-                        name: "youths.name_bn"
+                        name: "name_bn",
                     },
                     {
                         title: "Reg. No.",
@@ -245,20 +248,15 @@
                         name: "youths.youth_registration_no"
                     },
                     {
-                        title: "Access_key",
-                        data: "access_key",
-                        name: "youths.access_key"
-                    },
-                    {
                         title: "Institute",
                         data: "institute_title_en",
-                        name: "institute_title_en",
+                        name: "institutes.title_en",
                         visible: false
                     },
                     {
                         title: "Already Assigned To",
                         data: "already_added_to_organization",
-                        name: "already_added_to_organization",
+                        name: "organizations.title_en",
                         orderable: true,
                         searchable: false,
                         visible: true
@@ -276,11 +274,8 @@
 
             params.ajax.data = d => {
                 d.institute_id = $('#institute_id').val();
-                d.branch_id = $('#branch_id').val();
-                d.training_center_id = $('#training_center_id').val();
-                d.programme_id = $('#programme_id').val();
-                d.course_id = $('#course_id').val();
-                d.application_date = $('#date-filter').val();
+                d.organization_id = $('#organization_id').val();
+                d.youth_name_en = $('#youth_name_en').val();
             };
 
             let datatable = $('#dataTable').DataTable(params);
@@ -297,26 +292,19 @@
             $(document).on('change', '.select2-ajax-wizard', function () {
                 datatable.draw();
             });
+
             $(document).on('change', '.flat-date', function () {
                 datatable.draw();
             });
 
-            $('#reset-btn').on('click', function () {
-                $('#institute_id').val(null).trigger('change');
-                $('#programme_id').val(null).trigger('change');
-                $('#training_center_id').val(null).trigger('change');
-                $('#course_id').val(null).trigger('change');
-                $('#branch_id').val(null).trigger('change');
-                $('.flat-date').val(null).change();
-            })
 
             datatable.on('select deselect', function (e, dt, type, indexes) {
                 if (type === 'row') {
                     let selectedRows = datatable.rows({selected: true}).count();
                     if (selectedRows) {
-                        $('#add-to-batch-area').css({visibility: 'visible', display: 'inline-block'});
+                        $('#add-to-organization-area').css({visibility: 'visible'});
                     } else {
-                        $('#add-to-batch-area').css({visibility: 'hidden', display: 'none'});
+                        $('#add-to-organization-area').css({visibility: 'hidden'});
                     }
 
                     let totalRows = datatable.rows().count();
@@ -332,7 +320,7 @@
             });
 
 
-            $("#add-to-batch-area").click(function () {
+            $("#add-to-organization-area").click(function () {
                 addToOrganizationForm.find('.youth_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
