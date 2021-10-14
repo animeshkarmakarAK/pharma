@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Module\CourseManagement\App\Http\Controllers\YouthController;
 
 Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.', 'middleware' => ['auth']], function () {
     Route::resources([
@@ -36,7 +37,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('human-resources/datatable', [\Module\GovtStakeholder\App\Http\Controllers\HumanResourceController::class, 'getDatatable'])->name('human-resources.datatable');
 
     Route::post('organization-units/vacancy-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'vacantStatisticsOfOrganizationUnit'])->name('organization-units.statistics-datatable');
-    Route::post('occupations/unemployed-people-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class,'unemploymentStatisticOccupationWise'])->name('occupations.statistics-datatable');
+    Route::post('occupations/unemployed-people-statistics', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationUnitStatisticController::class, 'unemploymentStatisticOccupationWise'])->name('occupations.statistics-datatable');
 
     Route::post('occupations/occupation-wise-statistic-check', [\Module\GovtStakeholder\App\Http\Controllers\OccupationWiseStatisticController::class, 'checkOccupationWiseStatistics'])->name('occupation-wise-statistic-check');
 
@@ -62,6 +63,7 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::post('upazila-job-statistics/datatable', [\Module\GovtStakeholder\App\Http\Controllers\UpazilaJobStatisticController::class, 'getDatatable'])->name('upazila-job-statistics.datatable');
 
     Route::get('organization-youths', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationYouthController::class, 'index'])->name('organization-youths');
+    Route::post('organization-youths/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationYouthController::class, 'getDatatable'])->name('organization-youths.datatable');
 
 });
 

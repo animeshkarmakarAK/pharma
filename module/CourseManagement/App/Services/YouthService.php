@@ -39,6 +39,7 @@ class YouthService
             DB::raw('max(youths.youth_registration_no) AS youth_registration_no'),
             DB::raw('max(youths.name_en) AS name_en'),
             DB::raw('max(youths.name_bn) AS name_bn'),
+            DB::raw('max(youths.access_key) AS access_key'),
             DB::raw('max(institutes.title_en) AS institute_title_en'),
             DB::raw('max(institutes.id) AS institute_id'),
         ]);
@@ -62,24 +63,20 @@ class YouthService
             ->toJson();
     }
 
-    public function addYouthToOrganization(Organization $organization, array $youthIds): array
+    public function addYouthToOrganization(Organization $organization, array $youthIds): bool
     {
-        return $organization->youthOrganization()->syncWithoutDetaching($youthIds);
+        foreach ($youthIds as $youthId) {
+            /** @var Youth $youth */
+            $youth = Youth::findOrFail($youthId);
 
-//        foreach ($youthIds as $youthId) {
-//            /** @var YouthRegistration $youth */
-//            $youth = Youth::findOrFail($youthId);
-//
-//            YouthOrganization::where("youth_id",$youth->id)->delete();
-//
-////            YouthOrganization::updateOrCreate(
-////                [
-////                    'organization_id' => $organization->id,
-////                    'youth_id' => $youth->id,
-////                ]
-////            );
-////            $youth->save();
-//        }
-//        return true;
+            YouthOrganization::updateOrCreate(
+                [
+                    'organization_id' => $organization->id,
+                    'youth_id' => $youth->id,
+                ]
+            );
+            $youth->save();
+        }
+        return true;
     }
 }

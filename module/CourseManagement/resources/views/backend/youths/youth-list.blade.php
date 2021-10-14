@@ -216,7 +216,6 @@
                 $('#course_id').parent().addClass(' offset-md-1');
             }
             let params = serverSideDatatableFactory({
-                //url: '{{ route('course_management::admin.youth.registrations.datatable') }}',
                 url: '{{ route('course_management::admin.youths.datatable') }}',
                 order: [[4, "DESC"]],
                 serialNumberColumn: 1,
@@ -271,9 +270,15 @@
                         name: "youths.youth_registration_no"
                     },
                     {
+                        title: "Access_key",
+                        data: "access_key",
+                        name: "youths.access_key"
+                    },
+                    {
                         title: "Institute",
                         data: "institute_title_en",
-                        name: "institute_title_en"
+                        name: "institute_title_en",
+                        visible: false
                     },
                     {
                         title: "Action",
@@ -297,7 +302,7 @@
 
             let datatable = $('#dataTable').DataTable(params);
 
-            $(document, 'td').on('click', '.already-assigned-btn', function (e) {
+            /*$(document, 'td').on('click', '.already-assigned-btn', function (e) {
                 let youthId = $(this).attr('id');
                 console.log(youthId);
                 $('#already-assigned-form')[0].action = $(this).data('action');
@@ -330,7 +335,7 @@
                     }
                 })
 
-            });
+            });*/
 
             $("#select_all_rows").click(function () {
                 let selectAll = $(this);
