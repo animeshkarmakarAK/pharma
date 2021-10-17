@@ -4,7 +4,6 @@
     $layout = 'master::layouts.front-end';
 
     $staticPageContent = strip_tags($staticPage->page_contents);
-//dd(strlen($staticPageContent));
 @endphp
 @extends($layout)
 

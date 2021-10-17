@@ -449,6 +449,15 @@ class YouthController extends Controller
         $payment->save();
     }
 
+    public function  certificate(): View {
+
+        return \view(self::VIEW_PATH . 'certificate');
+    }
+
+    public function certificateTwo() {
+        return \view(self::VIEW_PATH . 'certificate-two');
+    }
+
     public function youthCurrentOrganization()
     {
         $youth = AuthHelper::getAuthUser('youth');
