@@ -61,10 +61,24 @@ class YouthService
             $youths->where(['institutes.id' => $instituteId]);
         }
 
+        $youthNameEn = $request->youth_name_en;
+        $youthNameBn = $request->youth_name_bn;
+        $youthRegNo = $request->reg_no;
         $organizationId = $request->input('organization_id');
+
         if ($organizationId) {
             $youths->where(['youth_organizations.organization_id' => $organizationId]);
         }
+        if ($youthNameEn) {
+            $youths->where('youths.name_en', 'LIKE', '%' . $youthNameEn . '%');
+        }
+        if ($youthNameBn) {
+            $youths->where('youths.name_bn', 'LIKE', '%' . $youthNameBn . '%');
+        }
+        if ($youthRegNo) {
+            $youths->where('youths.youth_registration_no', $youthRegNo);
+        }
+
 
         return DataTables::eloquent($youths)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {

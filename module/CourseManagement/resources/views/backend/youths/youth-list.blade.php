@@ -30,18 +30,24 @@
                             <div class="col-md-12">
                                 <form action="#">
                                     <div class="row mb-3">
-                                        <div class="col-md-1">
+                                        <div class="col-md-1 mb-2">
                                             <label class="filter-label text-primary">
                                                 <i class="fas fa-sort-amount-down-alt"></i> Filter </label>
                                         </div>
-                                        <div class="col-md-2">
-                                            <input type="text" class="form-control" {{--id="youth_name_en"--}}
-                                            name="youth_name_en" placeholder="Name En"
-                                                   value="{{old('youth_name_en')}}">
+                                        <div class="col-md-2 mb-2">
+                                            <input type="text" class="form-control search-text-fields" id="youth_name_en"
+                                            placeholder="Name En">
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <input type="text" class="form-control search-text-fields" id="youth_name_bn"
+                                                   placeholder="Name Bn">
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <input type="text" class="form-control search-text-fields" id="reg_no"
+                                                   placeholder="Reg. No.">
                                         </div>
 
-
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 mb-2">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="organization_id"
                                                     id="organization_id"
@@ -50,6 +56,9 @@
                                                     data-placeholder="Organization"
                                             >
                                             </select>
+                                        </div>
+                                        <div class="col-md-1 mb-2">
+                                            <button class="btn btn-primary" id="reset-btn">Reset</button>
                                         </div>
                                     </div>
                                 </form>
@@ -273,10 +282,18 @@
             });
 
             params.ajax.data = d => {
-                d.institute_id = $('#institute_id').val();
                 d.organization_id = $('#organization_id').val();
                 d.youth_name_en = $('#youth_name_en').val();
+                d.youth_name_bn = $('#youth_name_bn').val();
+                d.reg_no = $('#reg_no').val();
             };
+
+            $('#reset-btn').on('click', function () {
+                $('#organization_id').val(null).trigger('change');
+                $('#youth_name_en').val(null).trigger('change');
+                $('#youth_name_bn').val(null).trigger('change');
+                $('#reg_no').val(null).trigger('change');
+            })
 
             let datatable = $('#dataTable').DataTable(params);
 
@@ -293,7 +310,7 @@
                 datatable.draw();
             });
 
-            $(document).on('change', '.flat-date', function () {
+            $(document).on('change', '.search-text-fields', function () {
                 datatable.draw();
             });
 
