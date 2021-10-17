@@ -64,6 +64,8 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
 
     Route::get('organization-youths', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationYouthController::class, 'index'])->name('organization-youths');
     Route::post('organization-youths/datatable', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationYouthController::class, 'getDatatable'])->name('organization-youths.datatable');
+    Route::get('organization-complain-to-youths/{youthId}', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationComplainToYouthController::class, 'organizationComplainForm'])->name('organization-complain-form');
+    Route::post('organization-complain-to-youths', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationComplainToYouthController::class, 'organizationComplainToYouth'])->name('organization-complain-to-youths');
 
 });
 

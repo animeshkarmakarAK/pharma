@@ -77,10 +77,14 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
 
-    Route::get('youth-profile/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
-    Route::get('youth-profile/{id}/youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
+    Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
+    Route::get('youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
     Route::post('youth-profile/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');
     Route::post('youth-profile/youth-course-enroll-pay-now/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthCourseEnrollPayNow'])->name('youth-course-enroll-pay-now');
+    Route::get('youth-current-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthCurrentOrganization'])->name('youth-current-organization');
+    Route::get('youth-complain-to-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthComplainToOrganizationForm'])->name('youth-complain-to-organization-form');
+    Route::post('youth-complain-to-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthComplainToOrganization'])->name('youth-complain-to-organization');
+
 
 
 

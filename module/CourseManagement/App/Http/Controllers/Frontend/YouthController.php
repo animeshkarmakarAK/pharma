@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Mail\YouthRegistrationSuccessMail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -14,10 +15,12 @@ use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
+use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Module\GovtStakeholder\App\Services\OrganizationComplainToYouthService;
 
 
 class YouthController extends Controller
@@ -36,14 +39,17 @@ class YouthController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function index($id)
+    public function index()
     {
-        $youthId = auth()->guard('youth')->user()->id;
-        if ($id != $youthId) {
-            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        $youth = AuthHelper::getAuthUser('youth');
+        if(!$youth){
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
         }
 
-        $youth = Youth::findOrFail($youthId);
+        $youth = Youth::findOrFail($youth->id);
 
         $youth->load([
             'youthRegistration',
@@ -66,17 +72,17 @@ class YouthController extends Controller
             ]);
     }
 
-    public function youthEnrolledCourses($id)
+    public function youthEnrolledCourses()
     {
-        if (!auth()->guard('youth')->user()) {
-            return redirect()->route('course_management::youth.login-form');
-        }
-        $youthId = auth()->guard('youth')->user()->id;
-        if ($id != $youthId) {
-            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        $youth = AuthHelper::getAuthUser('youth');
+        if(!$youth){
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
         }
 
-        $youth = Youth::findOrFail($youthId);
+        $youth = Youth::findOrFail($youth->id);
 
         $youth->load([
             'youthRegistration',
@@ -441,6 +447,61 @@ class YouthController extends Controller
         $payment = new Payment();
         $payment->fill($data);
         $payment->save();
+    }
+
+    public function youthCurrentOrganization()
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+        $organization = YouthOrganization::where(['youth_id' => $youth->id])
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        return \view(self::VIEW_PATH .'youth.youth-organization', compact('youth', 'organization'));
+    }
+    public function youthComplainToOrganizationForm()
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+        $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        return \view(self::VIEW_PATH .'youth.youth-complain-to-organization', compact('youth', 'youthOrganization'));
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function youthComplainToOrganization(Request $request)
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+        $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        if($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id){
+            $validateData = $this->youthRegistrationService->validationYouthComplainToOrganization($request)->validate();
+
+            try {
+                $this->youthRegistrationService->addYouthComplainToOrganization($validateData);
+            } catch (\Throwable $exception) {
+                Log::debug($exception->getMessage());
+                return back()->with([
+                    'message' => __('generic.something_wrong_try_again'),
+                    'alert-type' => 'error'
+                ]);
+            }
+
+            return back()->with([
+                'message' => __('Your complain successfully submitted to Institute'),
+                'alert-type' => 'success'
+            ]);
+        }else{
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
     }
 }
 
