@@ -20,6 +20,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'videos' => Module\CourseManagement\App\Http\Controllers\VideoController::class,
         'video-categories' => Module\CourseManagement\App\Http\Controllers\VideoCategoryController::class,
     ]);
+
+
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
 
@@ -84,6 +86,15 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
 
 
 
+    /****** Certificate Template *******/
+
+    Route::get('youth-certificate',[Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class,'certificate'])->name('certificate');
+    Route::get('youth-certificate-two',[Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class,'certificateTwo'])->name('certificate-two');
+
+    /***********************************/
+
+
+
     Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
     Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
     Route::get('general-ask-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
@@ -118,4 +129,5 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('youth/check-unique-passport-no', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
     Route::get('gallery-categories', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
     Route::get('gallery-categories/{galleryCategory}', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
+
 });
