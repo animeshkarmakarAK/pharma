@@ -42,7 +42,7 @@
                                                    value="{{ !empty($institute)?$institute->id:''}}">
                                             <input type="hidden" name="organization_id" id="organization_id"
                                                    class="institute_id"
-                                                   value="{{ !empty($organization)?$organization->id:''}}">
+                                                   value="{{ !empty($organization)?$organization->organization_id:''}}">
                                             <input class="form-control" type="text"
                                                    value="{{ !empty($institute)?$institute->title_en:''}}" readonly>
 
