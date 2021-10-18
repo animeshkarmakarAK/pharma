@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Module\CourseManagement\App\Http\Controllers\YouthController;
+
 
 Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management::admin.', 'middleware' => ['auth']], function () {
     Route::resources([
@@ -73,6 +73,11 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
         ->name('youths.youth-assigned-organization');
+
+    Route::get('youth-complains', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'youthComplainIndex'])->name('youth-complains');
+    Route::post('youth-complains/datatable', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'getYouthComplainList'])->name('youth-complains.datatable');
+    Route::get('organization-complains', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'organizationComplainIndex'])->name('organization-complains');
+    Route::POST('organization-complains/datatable', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'getOrganizationComplainList'])->name('organization-complains.datatable');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
@@ -88,15 +93,12 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('youth-complain-to-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthComplainToOrganization'])->name('youth-complain-to-organization');
 
 
-
-
     /****** Certificate Template *******/
 
-    Route::get('youth-certificate',[Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class,'certificate'])->name('certificate');
-    Route::get('youth-certificate-two',[Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class,'certificateTwo'])->name('certificate-two');
+    Route::get('youth-certificate', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
+    Route::get('youth-certificate-two', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
 
     /***********************************/
-
 
 
     Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');

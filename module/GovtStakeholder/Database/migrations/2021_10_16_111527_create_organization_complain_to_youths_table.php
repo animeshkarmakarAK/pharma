@@ -21,6 +21,7 @@ class CreateOrganizationComplainToYouthsTable extends Migration
             $table->string('complain_title')->nullable();
             $table->string('complain_message');
             $table->unsignedInteger('created_by')->nullable();
+            $table->dateTime('read_at')->nullable();
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();
         });

@@ -1,12 +1,10 @@
 <?php
 
-namespace Module\GovtStakeholder\App\Models;
+namespace Module\CourseManagement\App\Models;
 
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Module\CourseManagement\App\Models\Institute;
-use Module\CourseManagement\App\Models\Youth;
+use Module\GovtStakeholder\App\Models\Organization;
 
 /**
  * Class OrganizationComplainToYouth
