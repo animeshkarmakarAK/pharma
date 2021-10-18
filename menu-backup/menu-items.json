@@ -757,7 +757,7 @@
         "order": 2,
         "parameters": null,
         "parent_id": 98,
-        "permission_key": null,
+        "permission_key": "view_any_youth_complain_to_organization",
         "route": "course_management::admin.youth-complains",
         "target": "_self",
         "title": "Youth Complains",
@@ -772,10 +772,10 @@
         "order": 3,
         "parameters": null,
         "parent_id": 98,
-        "permission_key": null,
+        "permission_key": "view_any_organization_complain_to_youth",
         "route": "course_management::admin.organization-complains",
         "target": "_self",
-        "title": "\u0985\u09b0\u09cd\u0997\u09be\u09a8\u09be\u0987\u099c\u09c7\u09b6\u09a8 \u098f\u09b0 \u0985\u09ad\u09bf\u09af\u09cb\u0997",
+        "title": "Organization Complains",
         "title_lang_key": "menu.organization_complains",
         "url": ""
     }
