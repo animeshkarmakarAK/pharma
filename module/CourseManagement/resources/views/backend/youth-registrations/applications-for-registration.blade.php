@@ -325,9 +325,9 @@
                         "createdCell": function(td, cellData, rowData, row, col) {
                             console.log(rowData)
                             if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
-                                $(td).addClass('select-checkbox enable-checkbox').prop('disabled', false);
+                                $(td).addClass('select-checkbox').prop('disabled', null);
                             }else {
-                                $(td).removeClass('select-checkbox enable-checkbox').prop('disabled', true);
+                                $(td).removeClass('select-checkbox').prop('disabled', true).closest('tr').addClass('no-select');
                             }
                         }
                     }
@@ -448,15 +448,13 @@
             });
 
             $("#select_all_rows").click(function () {
-                let selectAll = $(this);
-
-                if ($(this).is(":checked")) {
+                // let selectAll = $(this);
+                let selectedRow =  datatable.rows(".selected").nodes().length;
+                if (selectedRow == 0) {
                     datatable.rows(':has(.select-checkbox)').select();
-                } else {
-                    datatable.rows(  ).deselect();
+                } else  {
+                    datatable.rows(':has(.select-checkbox)').deselect();
                 }
-
-
             });
 
             $(document).on('change', '.select2-ajax-wizard', function () {
