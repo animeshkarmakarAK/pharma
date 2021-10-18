@@ -41,7 +41,7 @@ class YouthLoginController
             Auth::shouldUse('youth');
             return $request->wantsJson()
                 ? new JsonResponse([], 204)
-                : redirect()->route('course_management::youth-enrolled-courses', auth()->guard('youth')->user()->id)
+                : redirect()->route('course_management::youth')
                     ->with(['message' => 'লগইন সফল হয়েছে', 'alert-type' => 'success']);
         }
 

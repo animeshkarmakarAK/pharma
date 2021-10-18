@@ -2,6 +2,8 @@
     $currentInstitute = domainConfig('institute');
     //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
     $layout = 'master::layouts.front-end';
+
+    $staticPageContent = strip_tags($staticPage->page_contents);
 @endphp
 @extends($layout)
 
@@ -63,14 +65,21 @@
                         <!--Services Heading-->
                         <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
                         <div class="about-us-content">
-                            <p>
-                                @if(!empty($staticPage))
-                                    {!! mb_strimwidth($staticPage->page_contents, 0, 480,'...') !!}
+                            @if(!empty($staticPage))
+                                @if(strlen($staticPageContent) > 1136)
+                                    <p>
+                                       {!! \Illuminate\Support\Str::limit( $staticPageContent, 460) !!}
+
+                                    </p>
+
+                                    <a href="{{route('course_management::static-content.show', 'aboutus')}}" target="_blank"
+                                       class="more-course-button mt-3 bg-transparent">আরও দেখুন <i
+                                            class="fas fa-arrow-right btn-arrow"></i></a>
+                                @else
+                                    <p> {!! $staticPage->page_contents !!}</p>
+
                                 @endif
-                            </p>
-                            <a href="{{route('course_management::static-content.show', 'aboutus')}}" target="_blank"
-                               class="more-course-button mt-3 bg-transparent">আরও দেখুন <i
-                                    class="fas fa-arrow-right btn-arrow"></i></a>
+                            @endif
                         </div>
                     </div>
 

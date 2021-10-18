@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management::admin.', 'middleware' => ['auth']], function () {
     Route::resources([
         'institutes' => Module\CourseManagement\App\Http\Controllers\InstituteController::class,
@@ -19,6 +20,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'videos' => Module\CourseManagement\App\Http\Controllers\VideoController::class,
         'video-categories' => Module\CourseManagement\App\Http\Controllers\VideoCategoryController::class,
     ]);
+
+
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
 
@@ -48,15 +51,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('youth-registrations/add-to-batch', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'addYouthToBatch'])
         ->name('youth.add-to-batch');
 
-    Route::get('youths', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'index'])
-        ->name('youths.index');
-    Route::post('youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getDatatable'])
-        ->name('youths.datatable');
-    Route::post('youths/add-to-organization', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'addYouthToOrganization'])
-        ->name('youths.add-to-organization');
-
-    Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
-        ->name('youths.youth-assigned-organization');
 
     Route::resource('batches', Module\CourseManagement\App\Http\Controllers\BatchController::class);
 
@@ -69,17 +63,45 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::resource('visitor-feedback', Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class)->only(['index', 'destroy', 'show']);
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
     Route::post('featured-galleries', [\Module\CourseManagement\App\Http\Controllers\GalleryCategoryController::class, 'updateFeaturedGalleries'])->name('gallery-album.change-featured');
+
+    Route::get('youths', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'index'])
+        ->name('youths.index');
+    Route::post('youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getDatatable'])
+        ->name('youths.datatable');
+    Route::post('youths/add-to-organization', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'addYouthToOrganization'])
+        ->name('youths.add-to-organization');
+
+    Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
+        ->name('youths.youth-assigned-organization');
+
+    Route::get('youth-complains', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'youthComplainIndex'])->name('youth-complains');
+    Route::post('youth-complains/datatable', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'getYouthComplainList'])->name('youth-complains.datatable');
+    Route::get('youth-complains/{id}', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'youthComplainGetOne'])->name('youth-complains-get-one');
+
+    Route::get('organization-complains', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'organizationComplainIndex'])->name('organization-complains');
+    Route::POST('organization-complains/datatable', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'getOrganizationComplainList'])->name('organization-complains.datatable');
+    Route::get('organization-complains/{id}', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'organizationComplainGetOne'])->name('organization-complains-get-one');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
     Route::get('courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
 
-    Route::get('youth-profile/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
-    Route::get('youth-profile/{id}/youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
+    Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
+    Route::get('youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
     Route::post('youth-profile/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');
     Route::post('youth-profile/youth-course-enroll-pay-now/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthCourseEnrollPayNow'])->name('youth-course-enroll-pay-now');
+    Route::get('youth-current-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthCurrentOrganization'])->name('youth-current-organization');
+    Route::get('youth-complain-to-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthComplainToOrganizationForm'])->name('youth-complain-to-organization-form');
+    Route::post('youth-complain-to-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthComplainToOrganization'])->name('youth-complain-to-organization');
 
+
+    /****** Certificate Template *******/
+
+    Route::get('youth-certificate', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
+    Route::get('youth-certificate-two', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
+
+    /***********************************/
 
 
     Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
@@ -116,4 +138,5 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('youth/check-unique-passport-no', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
     Route::get('gallery-categories', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
     Route::get('gallery-categories/{galleryCategory}', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
+
 });

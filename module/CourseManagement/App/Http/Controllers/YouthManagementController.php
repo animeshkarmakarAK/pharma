@@ -4,6 +4,8 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
 use Exception;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
@@ -45,12 +47,13 @@ class YouthManagementController extends Controller
 
     public function addYouthToOrganization(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $validatedData = $this->youthService->validateAddYouthToOrganization($request)->validate();
+        //$validatedData = $this->youthService->validateAddYouthToOrganization($request)->validate();
 
-        $organization = Organization::findOrFail($validatedData['organization_id']);
+        $organization = Organization::findOrFail($request['organization_id']);
 
         DB::beginTransaction();
         try {
+            $validatedData = $this->youthService->validateAddYouthToOrganization($request)->validate();
             $this->youthService->addYouthToOrganization($organization, $validatedData['youth_ids']);
             DB::commit();
         } catch (\Throwable $exception) {
