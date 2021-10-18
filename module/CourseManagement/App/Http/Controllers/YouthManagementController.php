@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
+use Exception;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
@@ -72,5 +73,27 @@ class YouthManagementController extends Controller
     {
         $organizations = Youth::where("id", $request->id)->first();
         return $organizations ? $organizations->youthOrganizations()->get() : [];
+    }
+
+    public function importYouth(Request $request)
+    {
+        $youthData = (new \Module\CourseManagement\App\Models\YouthImport())->toArray($request->file('youth_csv_file'))[0];
+        DB::beginTransaction();
+        try {
+            foreach ($youthData as $youthDatum ){
+                $youth=new Youth();
+                $youth->fill($youthDatum);
+                $youth->save();
+                $youthDatum['mobile']=$youthDatum['member_mobile'];
+                $youthDatum['personal_monthly_income']= $youthDatum['member_personal_monthly_income'];
+                $youth->youthFamilyMemberInfo()->create($youthDatum);
+                $youth->youthAcademicQualifications()->create($youthDatum);
+            }
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+
     }
 }
