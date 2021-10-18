@@ -3,6 +3,7 @@
 namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Module\CourseManagement\App\Models\YouthComplainToOrganization;
 use Module\CourseManagement\App\Services\YouthComplainService;
@@ -33,12 +34,17 @@ class YouthComplainController extends Controller
         $authUser = AuthHelper::getAuthUser();
         $youthComplainToOrganization = YouthComplainToOrganization::findOrFail($id);
 
+
         if (!empty($authUser->institute_id) && $authUser->institute_id != $youthComplainToOrganization->institute_id) {
             return redirect()->route('course_management::admin.youth-complains')->with([
                 'message' => "Something is wrong",
                 'alert-type' => "error"
             ]);
         }
+
+        $youthComplainToOrganization->read_at = Carbon::now();
+        $youthComplainToOrganization->save();
+
         return view(self::VIEW_PATH . 'youth-single-complain', compact('youthComplainToOrganization'));
     }
 }
