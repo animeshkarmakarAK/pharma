@@ -33,6 +33,12 @@ return [
     //application management
     'application_management' => 'আবেদন ব্যবস্থাপনা',
     'applied_student' => 'আবেদনকৃত ছাত্র/ছাত্রী',
+    'youths' => 'ইয়ুথ সমূহ',
+
+    //feedback_managment
+    'feedback_management'=>'ফিডব্যাক ম্যানেজমেন্ট',
+    'youth_complains'=>'ইয়ুথ এর অভিযোগ',
+    'organization_complains'=>'অর্গানাইজেশন এর অভিযোগ',
 
     //content management
     'content_management' => 'কন্টেন্ট ম্যানেজমেন্ট',

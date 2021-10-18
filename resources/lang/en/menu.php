@@ -31,6 +31,12 @@ return [
     //Application management
     'application_management' => 'Application management',
     'applied_student' => 'Applied Student',
+    'youths' => 'Youth List',
+
+    //feedback_managment
+    'feedback_management'=>'Feedback Management',
+    'youth_complains'=>'Youth Complains',
+    'organization_complains'=>'Organization Complains',
 
     //content management
     'content_management' => 'Content Management',
