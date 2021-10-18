@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateOrganizationComplainToYouthsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('organization_complain_to_youths', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('institute_id');
+            $table->unsignedInteger('organization_id');
+            $table->unsignedInteger('youth_id');
+            $table->string('complain_title')->nullable();
+            $table->string('complain_message');
+            $table->unsignedInteger('created_by')->nullable();
+            $table->dateTime('read_at')->nullable();
+            $table->unsignedTinyInteger('row_status')->default(1);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('organization_complain_to_youths');
+    }
+}

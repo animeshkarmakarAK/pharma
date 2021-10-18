@@ -32,4 +32,5 @@ class OrganizationYouthController extends BaseController
     {
         return $this->organizationYouthService->getOrganizationYouthLists($request);
     }
+
 }

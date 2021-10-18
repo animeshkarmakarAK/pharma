@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthComplainToOrganization;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Illuminate\Contracts\Validation\Validator;
@@ -298,6 +299,41 @@ class YouthRegistrationService
             })
             ->rawColumns(['enroll_status', 'payment_status', 'action','enroll_last_date'])
             ->toJson();
+    }
+
+    public function validationYouthComplainToOrganization(Request $request): Validator
+    {
+        $rules = [
+            'institute_id' => [
+                'required',
+                'integer',
+                'exists:institutes,id'
+            ],
+            'organization_id' => [
+                'required',
+                'integer',
+                'exists:organizations,id'
+            ],
+            'youth_id' => [
+                'exists:youths,id'
+            ],
+            'complain_title' => [
+                'required',
+                'string',
+            ],
+            'complain_message' => [
+                'required',
+                'string',
+            ],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+
+    }
+
+    public function addYouthComplainToOrganization(array $data): YouthComplainToOrganization
+    {
+        $data['created_by'] = $data['youth_id'];
+        return YouthComplainToOrganization::create($data);
     }
 
 }
