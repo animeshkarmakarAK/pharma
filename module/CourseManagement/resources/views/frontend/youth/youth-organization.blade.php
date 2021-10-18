@@ -91,56 +91,61 @@
                         </div>
                     </div>
 
-                    <div class="card-body row">
-                        {{--@dd($organization->organization)--}}
-
-                        <div class="card col-md-12 p-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <img
-                                            src="{{ !empty($organization)? asset('storage/'. $organization->organization->logo) :'' }}"
-                                            class="" alt="My Organization Logo" style="width: 80px">
-                                        <div>
-                                            <h5 class="card-title text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
-                                            <p class="card-text">
-                                                Address: {{ !empty($organization)?$organization->organization->address:'' }}
-                                            </p>
-                                            <a href="{{ route('course_management::youth-complain-to-organization-form') }}" class="btn btn-primary mt-3">অভিযোগ করুন</a>
+                    @if(!empty($organization))
+                        <div class="card-body row">
+                            <div class="card col-md-12 p-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img
+                                                src="{{ !empty($organization)? asset('storage/'. $organization->organization->logo) :'' }}"
+                                                class="" alt="My Organization Logo" style="width: 80px">
+                                            <div>
+                                                <h5 class="card-title text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
+                                                <p class="card-text">
+                                                    Address: {{ !empty($organization)?$organization->organization->address:'' }}
+                                                </p>
+                                                <a href="{{ route('course_management::youth-complain-to-organization-form') }}"
+                                                   class="btn btn-primary mt-3">অভিযোগ করুন</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center" colspan="2">Contact Person Info</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row">Name</th>
-                                                <td>{{ !empty($organization)?$organization->organization->contact_person_name:'' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Mobile</th>
-                                                <td>{{ !empty($organization)?$organization->organization->contact_person_mobile:'' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Email</th>
-                                                <td>{{ !empty($organization)?$organization->organization->contact_person_email:'' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Designation</th>
-                                                <td>{{ !empty($organization)?$organization->organization->contact_person_designation:'' }}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="text-center" colspan="2">Contact Person Info</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">Name</th>
+                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_name:'' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Mobile</th>
+                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_mobile:'' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Email</th>
+                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_email:'' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Designation</th>
+                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_designation:'' }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
+                    @else
+                        <div class="card-body">
+                            <h5 class="pb-5">আপনি এখন কোন প্রতিষ্ঠানের সাথে যুক্ত নন</h5>
+                        </div>
+                    @endif
                 </div>
 
 

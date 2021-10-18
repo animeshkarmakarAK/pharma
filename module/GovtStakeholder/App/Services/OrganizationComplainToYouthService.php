@@ -4,7 +4,7 @@ namespace Module\GovtStakeholder\App\Services;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
-use Module\GovtStakeholder\App\Models\OrganizationComplainToYouth;
+use Module\CourseManagement\App\Models\OrganizationComplainToYouth;
 
 class OrganizationComplainToYouthService
 {

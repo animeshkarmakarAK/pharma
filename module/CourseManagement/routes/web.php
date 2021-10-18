@@ -76,8 +76,11 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::get('youth-complains', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'youthComplainIndex'])->name('youth-complains');
     Route::post('youth-complains/datatable', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'getYouthComplainList'])->name('youth-complains.datatable');
+    Route::get('youth-complains/{id}', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'youthComplainGetOne'])->name('youth-complains-get-one');
+
     Route::get('organization-complains', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'organizationComplainIndex'])->name('organization-complains');
     Route::POST('organization-complains/datatable', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'getOrganizationComplainList'])->name('organization-complains.datatable');
+    Route::get('organization-complains/{id}', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'organizationComplainGetOne'])->name('organization-complains-get-one');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {

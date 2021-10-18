@@ -55,11 +55,11 @@ class YouthComplainService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthComplainToOrganization $youthComplain) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $youthComplain)) {
-                    $str .= '<a href="' . route('course_management::admin.visitor-feedback.show', $youthComplain->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i>  ' . __('generic.read_button_label') . '</a>';
+                    $str .= '<a href="' . route('course_management::admin.youth-complains-get-one', $youthComplain->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i>  ' . __('generic.read_button_label') . '</a>';
                 }
-                if ($authUser->can('delete', $youthComplain)) {
+                /*if ($authUser->can('delete', $youthComplain)) {
                     $str .= '<a href="#" data-action="' . route('course_management::admin.visitor-feedback.destroy', $youthComplain->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
-                }
+                }*/
                 return $str;
             }))
             ->editColumn('read_at', function (YouthComplainToOrganization $youthComplain) {
@@ -67,13 +67,10 @@ class YouthComplainService
                 $str .= '<a href="#" data-action="' . route('course_management::admin.branches.destroy', $youthComplain->id) . '" class="badge badge-' . ($youthComplain->read_at ? 'success' : 'danger') . '">' . ($youthComplain->read_at ? 'Read' : 'Unread') . '</a>';
                 return $str;
             })
-            /*->editColumn('form_type', function (YouthComplainToOrganization $youthComplain) {
-                return $visitorFeedback->form_type == VisitorFeedback::FORM_TYPE_FEEDBACK ? 'Feedback' : 'Contact';
-            })*/
             ->editColumn('created_at', function (YouthComplainToOrganization $youthComplain) {
-                return Date('d M, Y h:i:s', strtotime($youthComplain['created_at']));
+                return Date('d M, Y h:i:s A', strtotime($youthComplain['created_at']));
             })
-            ->rawColumns(['action', 'read_at', /*'form_type',*/ 'created_at'])
+            ->rawColumns(['action', 'read_at','created_at'])
             ->toJson();
 
     }

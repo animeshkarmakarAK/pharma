@@ -113,26 +113,26 @@
                         name: "youths.name_en"
                     },
                     {
+                        title: "Youth Reg.",
+                        data: "youth_registration_no",
+                        name: "youths.youth_registration_no",
+                        visible: false,
+                    },
+                    {
                         title: "Complain Title",
                         data: "complain_title",
-                        name: "youth_complain_to_organizations.complain_title"
-                    },
-                    /*
-                    {
-                        title: "Type",
-                        data: "form_type",
-                        name: "visitor_feedback.form_type",
-                    },*/
-                    {
-                        title: "View Status",
-                        data: "read_at",
-                        name: "youth_complain_to_organizations.read_at"
+                        name: "organization_complain_to_youths.complain_title"
                     },
                     {
                         title: "Date",
                         data: "created_at",
-                        name: "youth_complain_to_organizations.created_at",
+                        name: "organization_complain_to_youths.created_at",
                         visible: true
+                    },
+                    {
+                        title: "View Status",
+                        data: "read_at",
+                        name: "organization_complain_to_youths.read_at"
                     },
                     {
                         title: "Action",
@@ -155,10 +155,6 @@
                 $('#delete_form')[0].action = $(this).data('action');
                 $('#delete_modal').modal('show');
             });
-
-            /*$('#organization_filter').on('change', function () {
-                datatable.draw();
-            });*/
         });
     </script>
 @endpush
