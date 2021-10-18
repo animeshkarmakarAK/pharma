@@ -17,23 +17,24 @@ class YouthComplainController extends Controller
     public function __construct(YouthComplainService $youthComplainService)
     {
         $this->youthComplainService = $youthComplainService;
+        $this->authorizeResource(YouthComplainToOrganization::class);
     }
 
-    public function youthComplainIndex()
+    public function index()
     {
+        //$this->authorize('viewAny', YouthComplainToOrganization::class);
         return view(self::VIEW_PATH . 'youth-complains');
     }
 
-    public function getYouthComplainList(Request $request)
+    public function getYouthComplainList(Request $request): \Illuminate\Http\JsonResponse
     {
         return $this->youthComplainService->getYouthComplainListsDatatable($request);
     }
 
-    public function youthComplainGetOne(int $id)
+    public function show(YouthComplainToOrganization $youthComplainToOrganization)
     {
         $authUser = AuthHelper::getAuthUser();
-        $youthComplainToOrganization = YouthComplainToOrganization::findOrFail($id);
-
+        //$youthComplainToOrganization = YouthComplainToOrganization::findOrFail($id);
 
         if (!empty($authUser->institute_id) && $authUser->institute_id != $youthComplainToOrganization->institute_id) {
             return redirect()->route('course_management::admin.youth-complains')->with([

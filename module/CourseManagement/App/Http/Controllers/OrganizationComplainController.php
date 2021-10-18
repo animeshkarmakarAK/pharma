@@ -18,11 +18,11 @@ class OrganizationComplainController extends Controller
     public function __construct(OrganizationComplainService $organizationComplainService)
     {
         $this->organizationComplainService = $organizationComplainService;
+        $this->authorizeResource(OrganizationComplainToYouth::class);
     }
 
-    public function organizationComplainIndex()
+    public function index()
     {
-        $authUser = AuthHelper::getAuthUser();
         return view(self::VIEW_PATH . 'organization-complains');
     }
 
@@ -31,10 +31,9 @@ class OrganizationComplainController extends Controller
         return $this->organizationComplainService->getOrganizationComplainListsDatatable($request);
     }
 
-    public function organizationComplainGetOne(int $id)
+    public function show(OrganizationComplainToYouth $organizationComplainToYouth)
     {
         $authUser = AuthHelper::getAuthUser();
-        $organizationComplainToYouth = OrganizationComplainToYouth::findOrFail($id);
 
         if (!empty($authUser->institute_id) && $authUser->institute_id != $organizationComplainToYouth->institute_id) {
             return redirect()->route('course_management::admin.youth-complains')->with([
