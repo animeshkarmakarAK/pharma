@@ -22,7 +22,6 @@ class YouthComplainController extends Controller
 
     public function index()
     {
-        //$this->authorize('viewAny', YouthComplainToOrganization::class);
         return view(self::VIEW_PATH . 'youth-complains');
     }
 
@@ -34,7 +33,6 @@ class YouthComplainController extends Controller
     public function show(YouthComplainToOrganization $youthComplainToOrganization)
     {
         $authUser = AuthHelper::getAuthUser();
-        //$youthComplainToOrganization = YouthComplainToOrganization::findOrFail($id);
 
         if (!empty($authUser->institute_id) && $authUser->institute_id != $youthComplainToOrganization->institute_id) {
             return redirect()->route('course_management::admin.youth-complains')->with([
@@ -43,9 +41,11 @@ class YouthComplainController extends Controller
             ]);
         }
 
-        $youthComplainToOrganization->read_at = Carbon::now();
-        $youthComplainToOrganization->save();
-
+        if(!empty($authUser->institute_id)){
+            $youthComplainToOrganization->read_at = Carbon::now();
+            $youthComplainToOrganization->save();
+        }
+        
         return view(self::VIEW_PATH . 'youth-single-complain', compact('youthComplainToOrganization'));
     }
 }

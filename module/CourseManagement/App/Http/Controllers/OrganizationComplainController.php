@@ -35,6 +35,7 @@ class OrganizationComplainController extends Controller
     {
         $authUser = AuthHelper::getAuthUser();
 
+
         if (!empty($authUser->institute_id) && $authUser->institute_id != $organizationComplainToYouth->institute_id) {
             return redirect()->route('course_management::admin.youth-complains')->with([
                 'message' => "Something is wrong",
@@ -42,8 +43,10 @@ class OrganizationComplainController extends Controller
             ]);
         }
 
-        $organizationComplainToYouth->read_at = Carbon::now();
-        $organizationComplainToYouth->save();
+        if(!empty($authUser->institute_id)){
+            $organizationComplainToYouth->read_at = Carbon::now();
+            $organizationComplainToYouth->save();
+        }
 
         return view(self::VIEW_PATH . 'organization-single-complain', compact('organizationComplainToYouth'));
     }
