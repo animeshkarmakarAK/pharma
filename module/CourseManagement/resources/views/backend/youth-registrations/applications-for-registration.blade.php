@@ -47,6 +47,12 @@
             border-style: solid;
             border-width: 5px 4px 0;
         }
+
+        #add-to-batch-area{
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
     </style>
 @endpush
 
@@ -76,90 +82,91 @@
                                 </button>
                             </div>
 
-                            <form action="#">
-                                <div class="col-md-12 mb-5">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <label class="filter-label text-primary">
-                                                <i class="fas fa-sort-amount-down-alt"></i>
-                                                Filter</label>
-                                        </div>
-                                        @if($authUser->isInstituteUser())
-                                            <input type="hidden" id="institute_id" name="institute_id"
-                                                   value="{{$authUser->institute_id}}">
-                                        @else
-                                            <div class="col-md-3">
-                                                <select class="form-control select2-ajax-wizard"
-                                                        name="institute_id"
-                                                        id="institute_id"
-                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
-                                                        data-label-fields="{title_en}"
-                                                        data-dependent-fields="#branch_id|#course_id"
-                                                        data-placeholder="Institute"
-                                                >
-                                                </select>
+                            <div class="col-md-12">
+                                <form action="#">
+                                    <div class="col-md-12 mb-2">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-2">
+                                                <label class="filter-label text-primary">
+                                                    <i class="fas fa-sort-amount-down-alt"></i>
+                                                    Filter</label>
                                             </div>
+                                            @if($authUser->isInstituteUser())
+                                                <input type="hidden" id="institute_id" name="institute_id"
+                                                       value="{{$authUser->institute_id}}">
+                                            @else
+                                                <div class="col-md-3 mb-2">
+                                                    <select class="form-control select2-ajax-wizard"
+                                                            name="institute_id"
+                                                            id="institute_id"
+                                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
+                                                            data-label-fields="{title_en}"
+                                                            data-dependent-fields="#branch_id|#course_id"
+                                                            data-placeholder="Institute"
+                                                    >
+                                                    </select>
+                                                </div>
 
-                                            <div class="col-md-3">
+                                                <div class="col-md-3 mb-2">
+                                                    <select class="form-control select2-ajax-wizard"
+                                                            name="branch_id"
+                                                            id="branch_id"
+                                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
+                                                            data-label-fields="{title_en}"
+                                                            data-depend-on-optional="institute_id"
+                                                            data-placeholder="Branch"
+                                                    >
+                                                    </select>
+                                                </div>
+                                            @endif
+
+                                            <div class="col-md-3 mb-2">
                                                 <select class="form-control select2-ajax-wizard"
-                                                        name="branch_id"
-                                                        id="branch_id"
-                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
+                                                        name="training_center_id"
+                                                        id="training_center_id"
+                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                                         data-label-fields="{title_en}"
                                                         data-depend-on-optional="institute_id"
-                                                        data-placeholder="Branch"
+                                                        data-placeholder="Training Center"
                                                 >
                                                 </select>
                                             </div>
-                                        @endif
 
+                                            <div class="col-md-3 mb-2">
+                                                <select class="form-control select2-ajax-wizard"
+                                                        name="programme_id"
+                                                        id="programme_id"
+                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
+                                                        data-label-fields="{title_en}"
+                                                        data-depend-on-optional="institute_id"
+                                                        data-placeholder="Programme"
+                                                >
+                                                </select>
+                                            </div>
 
-                                        <div class="col-md-3">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="training_center_id"
-                                                    id="training_center_id"
-                                                    data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                                    data-label-fields="{title_en}"
-                                                    data-depend-on-optional="institute_id"
-                                                    data-placeholder="Training Center"
-                                            >
-                                            </select>
-                                        </div>
+                                            <div class="col-md-3 mb-2">
+                                                <select class="form-control select2-ajax-wizard"
+                                                        name="course_id"
+                                                        id="course_id"
+                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
+                                                        data-label-fields="{title_en}"
+                                                        data-depend-on-optional="institute_id"
+                                                        data-placeholder="Course"
+                                                >
+                                                </select>
+                                            </div>
 
-                                        <div class="col-md-3">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="programme_id"
-                                                    id="programme_id"
-                                                    data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
-                                                    data-label-fields="{title_en}"
-                                                    data-depend-on-optional="institute_id"
-                                                    data-placeholder="Programme"
-                                            >
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-3 mt-2">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="course_id"
-                                                    id="course_id"
-                                                    data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
-                                                    data-label-fields="{title_en}"
-                                                    data-depend-on-optional="institute_id"
-                                                    data-placeholder="Course"
-                                            >
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-3 mt-2">
-                                            <input class="flat-date" id="date-filter" name="start_date"
-                                                   type="text" placeholder="Select Date">
-                                        </div>
-                                        <div class="col-md-1 mt-2">
-                                            <button class="btn btn-primary" id="reset-btn">Reset</button>
+                                            <div class="col-md-3 mb-2">
+                                                <input class="flat-date date_filter" id="date-filter" name="start_date"
+                                                       type="text" placeholder="Select Date">
+                                            </div>
+                                            <div class="col-md-1 mb-2">
+                                                <button class="btn btn-primary" id="reset-btn">Reset</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
 
                             <div class="col-md-12">
                                 <div class="datatable-container">
@@ -305,10 +312,10 @@
     <script>
         $(document).ready(function () {
 
-            if (!($('#institute_id').attr('type') == "hidden")) {
-                $('#programme_id').parent().addClass(' mt-2 offset-md-1');
-            } else {
-                $('#course_id').parent().addClass(' offset-md-1');
+            if (($('#institute_id').attr('type') == "hidden")) {
+                $('#programme_id').parent().removeClass('col-md-3').addClass('col-md-2');
+                $('#course_id').parent().removeClass('col-md-3').addClass('col-md-2');
+                $('.date_filter').parent().removeClass('col-md-3').addClass('col-md-2');
             }
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.youth.registrations.datatable') }}',

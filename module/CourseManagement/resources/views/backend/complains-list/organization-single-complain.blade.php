@@ -29,13 +29,13 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('From') }}</p>
+                    <p class="label-text">{{ __('Complain From (Industry)') }}</p>
                     <div class="input-box">
                         {{ !empty($organizationComplainToYouth)? $organizationComplainToYouth->organization->title_en:''}}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('To') }}</p>
+                    <p class="label-text">{{ __('Complain against (Youth)') }}</p>
                     <div class="input-box">
                         {{ !empty($organizationComplainToYouth)? $organizationComplainToYouth->youth->name_en : ''}}
                     </div>

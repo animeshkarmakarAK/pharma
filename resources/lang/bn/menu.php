@@ -59,6 +59,7 @@ return [
     'ranks'=> 'র‌্যাঙ্কস',
     'rank-type'=> 'র‍্যংকের ধরন',
     'organization_unit_statistic'=> 'অর্গানিজশন উনিটের স্ট্যাটিসটিক্স',
+    'organization-youths'=> 'অর্গানিজশন ইয়ুথ',
 
     //skill management
     'skill_management' => 'দক্ষতা পরিচালনা',

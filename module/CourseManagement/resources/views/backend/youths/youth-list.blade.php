@@ -35,11 +35,13 @@
                                                 <i class="fas fa-sort-amount-down-alt"></i> Filter </label>
                                         </div>
                                         <div class="col-md-2 mb-2">
-                                            <input type="text" class="form-control search-text-fields" id="youth_name_en"
-                                            placeholder="Name En">
+                                            <input type="text" class="form-control search-text-fields"
+                                                   id="youth_name_en"
+                                                   placeholder="Name En">
                                         </div>
                                         <div class="col-md-2 mb-2">
-                                            <input type="text" class="form-control search-text-fields" id="youth_name_bn"
+                                            <input type="text" class="form-control search-text-fields"
+                                                   id="youth_name_bn"
                                                    placeholder="Name Bn">
                                         </div>
                                         <div class="col-md-2 mb-2">
@@ -47,7 +49,7 @@
                                                    placeholder="Reg. No.">
                                         </div>
 
-                                        <div class="col-md-3 mb-2">
+                                        <div class="col-md-2 mb-2">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="organization_id"
                                                     id="organization_id"
@@ -57,7 +59,7 @@
                                             >
                                             </select>
                                         </div>
-                                        <div class="col-md-1 mb-2">
+                                        <div class="col-md-2 mb-2">
                                             <button class="btn btn-primary" id="reset-btn">Reset</button>
                                         </div>
                                     </div>
@@ -175,6 +177,13 @@
 
         #add-to-organization-form {
             z-index: 9999;
+        }
+
+        #add-to-organization-area {
+            position: absolute;
+            right: 10px;
+            top: 0px;
+            padding: 8px;
         }
 
         /*@media screen and (min-width: 645px) {

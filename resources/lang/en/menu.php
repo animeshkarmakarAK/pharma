@@ -56,6 +56,7 @@ return [
     'human_resource_templates' => 'HR Templates',
     'ranks' => 'Ranks',
     'rank-type' => 'Rank Type',
+    'organization-youths'=> 'Organization Youths',
 
     //skill management
     'skill_management' => 'Skill Management',

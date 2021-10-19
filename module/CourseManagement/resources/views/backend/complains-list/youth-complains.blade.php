@@ -18,22 +18,7 @@
                         <div class="datatable-container">
                             <div class="filter-area">
                                 <div class="">
-                                    @if(\App\Helpers\Classes\AuthHelper::getAuthUser()->can('viewAny', \Module\CourseManagement\App\Models\YouthComplainToOrganization::class))
-                                        <div class="filter-item">
-                                            <a class="btn btn-sm {{ request()->is('admin/course-management/youth-complains*') ? 'btn-info' : 'btn-outline-info' }} "
-                                               href="{{ route('course_management::admin.youth-complains') }}"
-                                               style="min-width: 100px">Youth</a>
-                                        </div>
-                                    @endif
-
-                                    @if(\App\Helpers\Classes\AuthHelper::getAuthUser()->can('viewAny', \Module\CourseManagement\App\Models\OrganizationComplainToYouth::class))
-                                        <div class="filter-item">
-                                            <a class="btn btn-sm {{ request()->is('admin/course-management/organization-complains*') ? 'btn-info' : 'btn-outline-info' }}"
-                                               href="{{ route('course_management::admin.organization-complains') }}"
-                                               style="min-width: 100px">Organization</a>
-                                        </div>
-                                    @endif
-
+                                    <div class="filter-item"></div>
                                 </div>
                             </div>
 

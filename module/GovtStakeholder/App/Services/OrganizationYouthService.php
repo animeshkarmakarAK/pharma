@@ -34,7 +34,11 @@ class OrganizationYouthService
         );
         $youths->LeftJoin('organizations', 'youth_organizations.organization_id', '=', 'organizations.id');
         $youths->LeftJoin('youths', 'youth_organizations.youth_id', '=', 'youths.id');
-        $youths->where(['organization_id' => $authUser->organization_id]);
+
+        if(!empty($authUser->organization_id)){
+            $youths->where(['organization_id' => $authUser->organization_id]);
+        }
+
 
         return DataTables::eloquent($youths)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthOrganization $youth) use ($authUser) {

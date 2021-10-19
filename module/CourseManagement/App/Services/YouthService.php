@@ -56,6 +56,7 @@ class YouthService
         $youths->leftJoin('youth_organizations', 'youth_organizations.youth_id', '=', 'youths.id');
         $youths->leftJoin('organizations', 'organizations.id', '=', 'youth_organizations.organization_id');
         $youths->groupBy('youth_registration_no');
+        //$youths->groupBy('institute_title_en');
 
         if ($instituteId) {
             $youths->where(['institutes.id' => $instituteId]);
