@@ -184,6 +184,7 @@
             right: 10px;
             top: 0px;
             padding: 8px;
+            z-index: 999;
         }
 
         /*@media screen and (min-width: 645px) {

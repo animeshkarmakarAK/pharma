@@ -47,11 +47,15 @@
             border-style: solid;
             border-width: 5px 4px 0;
         }
+        #add-to-batch-form{
+            z-index: 9999;
+        }
 
         #add-to-batch-area{
             position: absolute;
             left: 100px;
             top: 0;
+            z-index: 999;
         }
     </style>
 @endpush
