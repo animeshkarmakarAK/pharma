@@ -99,6 +99,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     /****** Certificate Template *******/
 
     Route::get('youth-certificate', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
+    Route::get('youth-certificate/download', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateDownload'])->name('certificate.download');
     Route::get('youth-certificate-two', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
 
     /***********************************/

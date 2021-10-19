@@ -20,7 +20,6 @@ use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Module\GovtStakeholder\App\Services\OrganizationComplainToYouthService;
 
 
 class YouthController extends Controller
@@ -42,7 +41,7 @@ class YouthController extends Controller
     public function index()
     {
         $youth = AuthHelper::getAuthUser('youth');
-        if(!$youth){
+        if (!$youth) {
             return redirect()->route('course_management::youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
@@ -75,7 +74,7 @@ class YouthController extends Controller
     public function youthEnrolledCourses()
     {
         $youth = AuthHelper::getAuthUser('youth');
-        if(!$youth){
+        if (!$youth) {
             return redirect()->route('course_management::youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
@@ -111,7 +110,7 @@ class YouthController extends Controller
         $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
         $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
         //dd($youthVideoCategory);
-        return \view(self::VIEW_PATH . 'skill-videos',compact('youthVideos','youthVideoCategories'));
+        return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
 
     /**
@@ -449,12 +448,35 @@ class YouthController extends Controller
         $payment->save();
     }
 
-    public function  certificate(): View {
+    public function certificate(): View
+    {
 
         return \view(self::VIEW_PATH . 'certificate');
     }
 
-    public function certificateTwo() {
+    public function certificateDownload()
+    {
+
+        $youthInfo = [
+            'name'=>'Miladul Islam',
+            'father_name'=>"Father's Name",
+            'institute_name'=>"BITAC",
+            'from_date'=>"10/08/2021",
+            'to_date'=>"10/10/2021",
+        ];
+
+        //return view(self::VIEW_PATH . 'certificate-two');
+
+        $mpdf = new \Mpdf\Mpdf([
+            'orientation' => 'L'
+        ]);
+        $viewLoad = view(self::VIEW_PATH . 'certificate-two', compact('youthInfo'));
+        $mpdf->WriteHTML($viewLoad);
+        $mpdf->Output('Certificate.pdf', 'I');
+    }
+
+    public function certificateTwo()
+    {
         return \view(self::VIEW_PATH . 'certificate-two');
     }
 
@@ -465,8 +487,9 @@ class YouthController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
-        return \view(self::VIEW_PATH .'youth.youth-organization', compact('youth', 'organization'));
+        return \view(self::VIEW_PATH . 'youth.youth-organization', compact('youth', 'organization'));
     }
+
     public function youthComplainToOrganizationForm()
     {
         $youth = AuthHelper::getAuthUser('youth');
@@ -474,7 +497,7 @@ class YouthController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
-        return \view(self::VIEW_PATH .'youth.youth-complain-to-organization', compact('youth', 'youthOrganization'));
+        return \view(self::VIEW_PATH . 'youth.youth-complain-to-organization', compact('youth', 'youthOrganization'));
     }
 
     /**
@@ -487,7 +510,7 @@ class YouthController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
-        if($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id){
+        if ($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id) {
             $validateData = $this->youthRegistrationService->validationYouthComplainToOrganization($request)->validate();
 
             try {
@@ -504,7 +527,7 @@ class YouthController extends Controller
                 'message' => __('Your complain successfully submitted to Institute'),
                 'alert-type' => 'success'
             ]);
-        }else{
+        } else {
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
