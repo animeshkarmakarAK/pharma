@@ -7,7 +7,7 @@ use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class CertificateGenerator
 {
-    public function generateCertificate(string $template,array $youthInfo)
+    public function generateCertificate(string $template,array $youthInfo): string
     {
         $path=$youthInfo['path']."/".$youthInfo['register_no'].".pdf";
         if(!file_exists("storage/".$path)){
