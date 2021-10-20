@@ -727,10 +727,10 @@
         "order": 2,
         "parameters": null,
         "parent_id": 39,
-        "permission_key": null,
+        "permission_key": "view_any_youths",
         "route": "course_management::admin.youths.index",
         "target": "_self",
-        "title": "\u0987\u09df\u09c1\u09a5",
+        "title": "Youth List",
         "title_lang_key": "menu.youths",
         "url": ""
     },
@@ -781,17 +781,17 @@
     },
     {
         "color": "#000000",
-        "icon_class": null,
-        "id": 101,
+        "icon_class": "fa fa-users",
+        "id": 102,
         "menu_id": 3,
-        "order": 13,
+        "order": 7,
         "parameters": null,
-        "parent_id": null,
-        "permission_key": null,
-        "route": "course_management::admin.visitor-feedback.index",
+        "parent_id": 70,
+        "permission_key": "view_any_youth_organization",
+        "route": "govt_stakeholder::admin.organization-youths",
         "target": "_self",
-        "title": "test",
-        "title_lang_key": "test",
+        "title": "menu.organization-youths",
+        "title_lang_key": "menu.organization-youths",
         "url": ""
     }
 ]
