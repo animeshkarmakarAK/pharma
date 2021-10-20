@@ -1,11 +1,14 @@
 @php
     $currentInstitute = domainConfig('institute');
-    //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
     $layout = 'master::layouts.front-end';
 
     $staticPageContent = strip_tags($staticPage->page_contents);
 @endphp
 @extends($layout)
+
+@section('title')
+    প্রথম পাতা
+@endsection
 
 @section('content')
     <!-- Top content Slider Start -->
