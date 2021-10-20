@@ -18,18 +18,7 @@
                         <div class="datatable-container">
                             <div class="filter-area">
                                 <div class="">
-                                    <div class="filter-item">
-                                        <a class="btn btn-sm {{ request()->is('admin/course-management/youth-complains*') ? 'btn-info' : 'btn-outline-info' }} "
-                                           href="{{ route('course_management::admin.youth-complains') }}"
-                                           style="min-width: 100px">Youth</a>
-                                    </div>
-
-                                    <div class="filter-item">
-                                        <a class="btn btn-sm {{ request()->is('admin/course-management/organization-complains*') ? 'btn-info' : 'btn-outline-info' }}"
-                                           href="{{ route('course_management::admin.organization-complains') }}"
-                                           style="min-width: 100px">Organization</a>
-                                    </div>
-
+                                    <div class="filter-item"></div>
                                 </div>
                             </div>
 

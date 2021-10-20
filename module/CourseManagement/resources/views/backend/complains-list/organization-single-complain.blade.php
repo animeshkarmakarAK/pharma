@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    Youth Complain
+    Organization Complain
 @endsection
 
 @section('content')
@@ -14,11 +14,11 @@
             <div class="card-header text-primary custom-bg-gradient-info">
                 <h3 class="card-title font-weight-bold">
                     Complain from
-                    {{ !empty($organizationComplainToYouth)? $organizationComplainToYouth->youth->name_en : '' }}</h3>
+                    {{ !empty($organizationComplainToYouth)? $organizationComplainToYouth->organization->title_en : '' }}</h3>
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('course_management::admin.youth-complains')}}"
+                        <a href="{{route('course_management::admin.organization-complains')}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{ __('Back to list') }}
                         </a>
@@ -29,13 +29,13 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('From') }}</p>
+                    <p class="label-text">{{ __('Complain From (Industry)') }}</p>
                     <div class="input-box">
                         {{ !empty($organizationComplainToYouth)? $organizationComplainToYouth->organization->title_en:''}}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('To') }}</p>
+                    <p class="label-text">{{ __('Complain against (Youth)') }}</p>
                     <div class="input-box">
                         {{ !empty($organizationComplainToYouth)? $organizationComplainToYouth->youth->name_en : ''}}
                     </div>

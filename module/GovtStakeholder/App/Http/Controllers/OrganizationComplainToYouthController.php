@@ -7,9 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Module\CourseManagement\App\Models\OrganizationComplainToYouth;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthOrganization;
-use Module\GovtStakeholder\App\Models\OrganizationComplainToYouth;
 use Module\GovtStakeholder\App\Services\OrganizationComplainToYouthService;
 
 class OrganizationComplainToYouthController extends BaseController

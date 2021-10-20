@@ -1,26 +1,27 @@
 @php
     $currentInstitute = domainConfig('institute');
-    //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
     $layout = 'master::layouts.front-end';
 
-    $staticPageContent = strip_tags($staticPage->page_contents);
 @endphp
 @extends($layout)
 
+@section('title')
+    প্রথম পাতা
+@endsection
+
 @section('content')
+    @php
+        $sl=0;
+        $sliderImageNo=0;
+    @endphp
+    @if(!$sliders->isEmpty())
     <!-- Top content Slider Start -->
     <section class="top-content ">
         <!-- Carousel -->
         <div id="topCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                @php
-                    $sl=0;
-                    $sliderImageNo=0;
-                @endphp
-                @if(!empty($sliders))
                     @foreach($sliders as $slider)
-                        <div class="carousel-item {{ ++$sl==1?'active':'' }}"
-                        >
+                        <div class="carousel-item {{ ++$sl==1?'active':'' }}">
                             <div style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('{{asset('/storage/'. $slider->slider)}}');
                                 background-position: center;
                                 background-size: 100% 100%;
@@ -34,8 +35,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endif
-
             </div>
 
             <a class="carousel-control-prev slider-previous-link" href="#topCarousel" role="button"
@@ -55,7 +54,7 @@
         <!-- End carousel -->
     </section>
     <!-- End Top Content Slider -->
-
+    @endif
     <!-- About Us Start-->
     <section class="about-us-section  position-relative">
         <div class="about-section-color">
@@ -66,9 +65,9 @@
                         <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
                         <div class="about-us-content">
                             @if(!empty($staticPage))
-                                @if(strlen($staticPageContent) > 1136)
+                                @if(strlen(strip_tags($staticPage->page_contents)) > 1136)
                                     <p>
-                                       {!! \Illuminate\Support\Str::limit( $staticPageContent, 460) !!}
+                                       {!! \Illuminate\Support\Str::limit( strip_tags($staticPage->page_contents), 460) !!}
 
                                     </p>
 

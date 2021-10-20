@@ -4,7 +4,6 @@ namespace Module\CourseManagement\App\Policies;
 
 use Module\CourseManagement\App\Models\YouthComplainToOrganization;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class YouthComplainToOrganizationPolicy extends BasePolicy
 {

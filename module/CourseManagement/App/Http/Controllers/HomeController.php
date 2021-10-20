@@ -53,6 +53,7 @@ class HomeController extends BaseController
             ];
 
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
+            $maxEnrollmentNumber = [];
             foreach ($currentInstituteCourses as $course){
                 $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
             }

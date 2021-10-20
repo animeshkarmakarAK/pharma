@@ -20,6 +20,7 @@ class VisitorFeedbackController extends Controller
     public function __construct(VisitorFeedbackService $visitorFeedbackService)
     {
         $this->visitorFeedbackService = $visitorFeedbackService;
+        $this->authorizeResource(VisitorFeedback::class);
     }
 
     public function index(): View

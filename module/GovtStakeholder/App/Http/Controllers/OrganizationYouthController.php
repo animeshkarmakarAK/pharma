@@ -16,7 +16,7 @@ class OrganizationYouthController extends BaseController
     public function __construct(OrganizationYouthService $organizationYouthService)
     {
         $this->organizationYouthService = $organizationYouthService;
-        //$this->authorizeResource(YouthOrganization::class);
+        $this->authorizeResource(YouthOrganization::class);
     }
 
     /**

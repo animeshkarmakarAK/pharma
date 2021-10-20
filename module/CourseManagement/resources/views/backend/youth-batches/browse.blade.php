@@ -8,7 +8,7 @@
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title_en}}</b> - Youth List
                         </h3>
-                        <div>
+                        <div class="card-tools">
                             <a href="{{route('course_management::admin.batches.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i> Back to batch list
@@ -17,6 +17,24 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <form class="row edit-add-form" method="post"
+                              action="">
+                            @csrf
+                            <div class="col-md-6 py-2 mb-2">
+                                <div class="form-group">
+                                    <label for="import_youth" class="form-label">Import youths</label>
+                                    <input class="form-control form-control-lg" id="import_youth" type="file" name="import_youth" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 py-2 mb-2">
+                                <div class="form-group row">
+                                    <label for="import_youth" class="form-label">&nbsp;</label>
+                                    <button class="form-control form-control-lg bg-blue" id="import_youth" name="import_youth">Import Now</button>
+                                </div>
+                            </div>
+
+                        </form>
                         <div class="datatable-container">
                             <table id="dataTable" class="table table-bordered table-striped dataTable">
                             </table>

@@ -1,96 +1,135 @@
-@php
-    $currentInstitute = domainConfig('institute');
-    $layout = 'master::layouts.front-end';
-@endphp
+<head>
+    <style>
+        @page {
+            margin: 0;
+        }
+    </style>
+</head>
+<div style="background: #8a5d3b; height:100%;">
+    <div style="border-top-left-radius: 150px;border-bottom-right-radius: 150px;background: white; height:100%;">
+        <table width=''
+               style="margin: 0 auto; background: url('{{public_path('assets/logo/certificate_watermark.png')}}') no-repeat center; ">
+            <tr>
+                <td style="padding-top: 10px;text-align: right;"><img
+                        src="{{public_path('assets/logo/certificate_logo.png')}}" style="" width="70px"
+                        height="70px" alt=""></td>
+                <td colspan="3" style="text-align:center; padding-top: 20px;"><h3
+                        style="margin: 0;text-align: center;">Bangladesh Industrial Technical Assistance Center
+                        (BITAC)</h3>
+                    <h4 style="text-align:center;font-weight: 400; margin: 0 0 5px;">Ministry of Industries</h4>
+                    <h4 style="text-align:center; font-weight: 400; margin-top: 5px;">Government of the People's
+                        Republic
+                        of Bangladesh </h4></td>
+                <td style="padding-top: 10px;"><img src="{{public_path('assets/logo/certificate_logo.png')}}"
+                                                    style="text-align:center;" width="70px" height="70px" alt="">
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 10px;"></td>
+                <td style="padding-top: 100px;padding-bottom: 100px; text-align: left;"><span
+                        style="font-size: 20px;">No</span>
+                    <span style="border: 4px;border-style: none none dotted none;font-size: 16px;">123456789</span>
+                </td>
+                <td style="padding-top: 100px;padding-bottom: 100px; text-align: center;"><h3
+                        style=" color: #8a5d3b;margin: 0;">CERTIFICATE</h3></td>
+                <td style="padding-top: 100px;padding-bottom: 100px; text-align: right;"><span
+                        style="font-size: 20px;">Date</span>
+                    <span style="border: 4px;border-style: none none dotted none;font-size: 16px;">10/10/21</span>
+                </td>
+                <td style="padding-top: 10px;"></td>
+            </tr>
+            <tr>
 
-@extends($layout)
+                <td width="" style="display: inline-block">
+                        <span style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">
+                            Certified that
+                        </span>
+                </td>
 
+                <td colspan="4" style="text-align: center;border-bottom: 4px dotted;">
+                        <span style="text-align: center; font-size: 25px; font-style: italic;">
+                            <span>{{ !empty($youthInfo)? $youthInfo['name']:'' }}</span>
+                        </span>
+                </td>
 
-@section('content')
-    <div style="background: #8a5d3b">
-        <div>
-            <div style=" margin: 0 auto;border-top-left-radius: 150px;border-bottom-right-radius: 150px;background: white;">
-                <div style="width: 1200px; margin: 0 auto;">
-                    <div style="">
-                        <img src="{{asset('assets/logo/certificate_logo.png')}}" style="float:left;     margin-right: 15px;margin-top: 20px;margin-left: 80px;" width="70px" height="70px" alt="">
-                        <div style="float:left;">
-                            <h2 style="margin-bottom: 5px;margin-top: 2rem;">Bangladesh Industrial Technical Assistance Center (BITAC)</h2>
-                            <h3 style="text-align: center; font-weight: 400;margin-top: 0;
-        margin-bottom: 5px;">Ministry of Industries</h3>
-                            <h3 style="text-align: center; font-weight: 400; margin-top: 5px;">Government of the People's Republic
-                                of Bangladesh </h3>
-                        </div>
-                        <img src="{{asset('assets/logo/certificate_logo.png')}}" style="margin-left: 15px; margin-top: 20px;" width="70px" height="70px" alt="">
-                    </div>
-                    <div style="clear:both;margin-top: 8rem;">
-                        <div style="width: 33%;float: left;">
-                            <p style="font-size: 25px;float: left;margin: 0;margin-right: 5px;">No</p>
-                            <span style="border: 4px;border-style: none none dotted none;padding-left: 20px;padding-right: 20px;font-size: 20px;">123456789</span>
-                        </div>
-                        <div style="width: 33%;float: left;text-align: center;">
-                            <h2 style=" color: #8a5d3b;margin: 0;font-size: 32px;">CERTIFICATE</h2>
-                        </div>
-                        <div style="width: 33%;float: left;">
-                            <div style="float:right;">
-                                <p style="font-size: 25px;float: left;margin: 0;margin-right: 5px;">Date</p>
-                                <span style="border: 4px;border-style: none none dotted none;padding-left: 20px;padding-right: 20px;font-size: 20px;">10/10/21</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 10rem;background: url('{{ asset('assets/logo/certificate_watermark.png') }}');background-repeat: no-repeat;background-position: center;padding-top: 10rem;padding-bottom: 5rem;">
-                        <div style="">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold;">Certified
-                                that</p>
-                            <div style="width: 63.5rem;float: right;border-bottom: 4px dotted;text-align: center;font-size: 22px;font-style: italic;">
-                                <span>John Doe</span></div>
-                        </div>
-                        <div style="clear: both;padding-top: 25px;">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold;">a student of </p>
-                            <div style="width: 65rem; border-bottom: 4px dotted;text-align: center;font-size: 22px;float: left;font-style: italic;">
-                                <span>BITAC</span></div>
-                        </div>
-                        <div style="clear: both;padding-top: 25px;">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold;">from </p>
-                            <div style="width: 48.5rem; border-bottom: 4px dotted;text-align: center;font-size: 22px;float: left;font-style: italic;">
-                                <span>Mark Doe</span></div>
-                            <p style="font-size: 28px;margin: 0;font-style: italic;font-weight: bold;">has attended the industrial</p>
-                        </div>
-                        <div style="clear: both;padding-top: 25px;font-style: italic;">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold;">attachment Training Programme from </p>
-                            <div style="width: 21rem; border-bottom: 4px dotted;text-align: center;font-size: 22px;float: left;font-style: italic;">
-                                <span>10/10/21</span>
-                            </div>
-                            <p style="font-size: 28px;margin: 0;float: left;font-style: italic;font-weight: bold;">to</p>
-                            <div style="width: 21rem; border-bottom: 4px dotted;text-align: center;font-size: 22px;float: left;font-style: italic;">
-                                <span>11/10/21</span>
-                            </div>
-                        </div>
-                        <div style="clear: both;padding-top: 25px;font-style: italic;">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold;">Out of total </p>
-                            <div style="width: 18rem; border-bottom: 4px dotted;text-align: center;font-size: 22px;float: left;font-style: italic;">
-                                <span>10/10/21</span>
-                            </div>
-                            <p style="font-size: 28px;margin: 0;float: left;font-style: italic;font-weight: bold;">working days he has attended</p>
-                            <div style="width: 18rem; border-bottom: 4px dotted;text-align: center;font-size: 22px;float: left;font-style: italic;">
-                                <span>11/10/21</span>
-                            </div>
-                            <p style="font-size: 28px;margin: 0;font-style: italic;font-weight: bold;">days</p>
-                        </div>
-                        <div style="clear: both;padding-top: 25px;font-style: italic;">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold;">During the training period he paid due attention to the practical works.</p>
-                        </div>
-                        <div style="clear: both;padding-top: 25px;font-style: italic;">
-                            <p style="float:left; margin: 0;font-size: 28px;font-style: italic;font-weight: bold; margin-top: 40px;">We wish him/her
-                                every success in life</p>
-                        </div>
-                    </div>
-                    <div style=" clear: both;font-weight: bold; margin-top: 15rem;padding-bottom: 10rem;">
-                        <p style="float: left;">COURSE COORDINATOR</p>
-                        <p style="float: right;">COURSE DIRECTOR</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </tr>
+            <tr>
+                <td style=" padding-top: 20px;">
+                    <span
+                        style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">
+                        son/daughter of </span>
+                </td>
+                <td colspan="3" style="padding-top: 20px; text-align:center; border-bottom: 4px dotted;">
+                    <span style="text-align: center;font-size: 18px;font-style: italic;">
+                        <span>Mark Doe</span>
+                    </span>
+                </td>
+                <td style="padding-top: 20px;">
+                    <span
+                        style="text-align:right;font-size: 20px;margin: 0;font-style: italic;font-weight: bold;">has attended</span>
+                </td>
+
+            </tr>
+            <tr>
+
+                <td width="44%" colspan="2" style=" padding-top: 20px;">
+                    <span style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">
+                        the Technical Training Programme on
+                    </span>
+                </td>
+                <td colspan="3"
+                    style=" border-bottom: 4px dotted; padding-top: 20px; text-align: center; font-size: 18px;font-style: italic;">
+                    <span>BITAC</span>
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-top: 20px;">
+                    <span style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">
+                        from
+                    </span>
+                </td>
+                <td colspan="" style="padding-top: 20px; border-bottom: 4px dotted; text-align: center;">
+                    <span style="font-size: 18px;font-style: italic;">
+                            <span>10/10/21</span>
+                    </span>
+                </td>
+                <td style="padding-top: 20px; text-align: left;">
+                    <span style="font-size: 20px;margin: 0;font-style: italic;font-weight: bold;">
+                        to
+                    </span>
+                </td>
+                <td style=" border-bottom: 4px dotted;text-align: center;">
+                    <span style="font-size: 18px;font-style: italic;">
+                            <span>10/10/21</span>
+                    </span>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-top: 50px;" colspan="3">
+                    <span style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">
+                            We wish him/her every success in life
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: left; padding-top: 160px;">
+                    <span style="font-size: 16px; font-weight: bold;">
+                        COURSE COORDINATOR
+                    </span>
+                </td>
+                <td></td>
+                <td colspan="2" style="text-align: right;  padding-top: 160px;">
+                    <span style="font-size: 16px; font-weight: bold">
+                        COURSE DIRECTOR
+                    </span>
+                </td>
+            </tr>
+        </table>
+
     </div>
-@endsection
 
+
+</div>
+</div>

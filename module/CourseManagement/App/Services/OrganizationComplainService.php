@@ -50,6 +50,10 @@ class OrganizationComplainService
             $organizationComplainToYouths->where('organization_complain_to_youths.institute_id', '=', $authUser->institute_id);
         }
 
+        if (!empty($authUser->organization_id)) {
+            $organizationComplainToYouths->where('organization_complain_to_youths.organization_id', '=', $authUser->organization_id);
+        }
+
         return DataTables::eloquent($organizationComplainToYouths)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (OrganizationComplainToYouth $organizationComplainToYouth) use ($authUser) {
                 $str = '';
