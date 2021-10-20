@@ -4,6 +4,9 @@ namespace Module\CourseManagement\App\Services;
 
 
 use App\Helpers\Classes\DatatableHelper;
+use App\Models\LocDistrict;
+use App\Models\LocDivision;
+use App\Models\LocUpazila;
 use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Youth;
@@ -64,7 +67,7 @@ class YouthManagementService
         $youth->leftJoin('programmes', 'programmes.id', '=', 'publish_courses.programme_id');
         $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
         $youth->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
-        $youth->where('youth_batches.youth_course_enroll_id',null);
+        $youth->where('youth_batches.youth_course_enroll_id', null);
 
         $instituteId = $request->input('institute_id');
         $branchId = $request->input('branch_id');
@@ -92,7 +95,6 @@ class YouthManagementService
         if ($applicationDate) {
             $youth->whereDate('youths.created_at', Carbon::parse($applicationDate)->format('Y-m-d'));
         }
-
 
 
         return DataTables::eloquent($youth)
@@ -148,5 +150,30 @@ class YouthManagementService
             $youthCourseEnroll->save();
         }
         return true;
+    }
+
+    public function getDivisionId($title): int
+    {
+        return (LocDivision::where("title_en", $title)->first())->id ?? 0;
+    }
+
+    public function getDistrictId($title, $divisionTitle = null): int
+    {
+        $locDistrict = LocDistrict::where("title_en", $title);
+        if ($divisionTitle) {
+            $locDistrict->where("loc_division_id", $this->getDivisionId($divisionTitle));
+        }
+        $locDistrict = $locDistrict->first();
+
+        return $locDistrict->id ?? 0;
+    }
+
+    public function getUpazilaId($title, $districtTitle): int
+    {
+        return (
+            LocUpazila::where("title_en", $title)
+                ->where("loc_district_id", $this->getDistrictId($districtTitle))
+                ->first()
+            )->id ?? 0;
     }
 }

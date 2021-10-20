@@ -6,9 +6,12 @@ use App\Helpers\Classes\AuthHelper;
 use Exception;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\CourseManagement\App\Services\YouthService;
 use Illuminate\Contracts\View\View;
@@ -83,18 +86,42 @@ class YouthManagementController extends Controller
         $youthData = (new \Module\CourseManagement\App\Models\YouthImport())->toArray($request->file('youth_csv_file'))[0];
         DB::beginTransaction();
         try {
-            foreach ($youthData as $youthDatum ){
-                $youth=new Youth();
-                $youth->fill($youthDatum);
+            foreach ($youthData as $key => $youthDatum) {
+                $validatedData = $this->youthService->youthImportDataValidate($youthDatum, $key)->validate();
+                $youth = new Youth();
+                $youth->fill($validatedData);
                 $youth->save();
-                $youthDatum['mobile']=$youthDatum['member_mobile'];
-                $youthDatum['personal_monthly_income']= $youthDatum['member_personal_monthly_income'];
-                $youth->youthFamilyMemberInfo()->create($youthDatum);
-                $youth->youthAcademicQualifications()->create($youthDatum);
+
+                if (!empty($validatedData['member_mobile'])) {
+                    $youthDatum['mobile'] = $validatedData['member_mobile'];
+                }
+                if (!empty($validatedData['member_personal_monthly_income'])) {
+                    $youthDatum['personal_monthly_income'] = $validatedData['member_personal_monthly_income'];
+                }
+                if (!empty($youth->id)) {
+                    $validatedData['youth_id'] = $youth->id;
+                    $youthFamily=new YouthFamilyMemberInfo();
+                    $youthFamily->fill($validatedData);
+                    $youthFamily->save();
+                    $youthAcademic=new YouthAcademicQualification();
+                    $youthAcademic->fill($validatedData);
+                    $youthAcademic->save();
+                }
             }
             DB::commit();
-        }catch (Exception $e){
+            return [
+                "status"=>1,
+                "message"=>"Successfully imported"
+            ];
+        } catch (Exception $e) {
             DB::rollBack();
+            if ($e instanceof ValidationException) {
+                return [
+                    "status"=>0,
+                    "message"=>"validation error",
+                    'errors'=>$e->errors()
+                ];
+            }
             return $e->getMessage();
         }
 
