@@ -4,10 +4,12 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Mail\YouthRegistrationSuccessMail;
+use App\Services\CertificateGenerator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
 use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\VideoCategory;
@@ -103,6 +105,32 @@ class YouthController extends Controller
                 'youthSelfInfo' => $youthSelfInfo,
                 'academicQualifications' => $academicQualifications,
             ]);
+    }
+
+    public function youthCertificateView($youthCourseEnroll)
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+
+        if (!$youth) {
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
+        }
+        $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youth->id)->where('relation_with_youth', "father")->first();
+
+        $youthInfo = [
+            'name' => $youth->name_en,
+            'father_name' => $familyInfo->member_name_en,
+            'path'=>CourseWiseYouthCertificate::getCertificatePath("couser/pushed_course_id_".time()),
+            "register_no" =>"123444",
+            'institute_name' => "BITAC",
+            'from_date' => "10/08/2021",
+            'to_date' => "10/10/2021",
+        ];
+        $template = self::VIEW_PATH . 'youth/certificate/certificate-two';
+        $pdf = app(CertificateGenerator::class);
+        return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
     }
 
     public function videos(): View
@@ -457,27 +485,27 @@ class YouthController extends Controller
 
     public function certificateDownload()
     {
-
-
         $youthInfo = [
             'name' => 'Miladul Islam',
             'father_name' => "Father's Name",
+            "register_no" => time(),
             'institute_name' => "BITAC",
             'from_date' => "10/08/2021",
             'to_date' => "10/10/2021",
         ];
 
-        $certificate= PDF::loadView(self::VIEW_PATH . 'youth/certificate/certificate-two', compact('youthInfo'), [],
-            [
-            'title' => 'Certificate',
-            'format' => 'A4-L',
-            'orientation' => 'L',
-            'font-size' => '50',
-
-            ]
-        );
-        return $certificate->stream('document.pdf');
-
+//        $certificate= PDF::loadView(self::VIEW_PATH . 'youth/certificate/certificate-two', compact('youthInfo'), [],
+//            [
+//            'title' => 'Certificate',
+//            'format' => 'A4-L',
+//            'orientation' => 'L',
+//            'font-size' => '50',
+//
+//            ]
+//        );
+        $template = self::VIEW_PATH . 'youth/certificate/certificate-two';
+        $pdf = app(CertificateGenerator::class);
+        return $pdf->generateCertificate($template, $youthInfo);
 
 
 //        $mpdf = new \Mpdf\Mpdf([

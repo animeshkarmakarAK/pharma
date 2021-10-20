@@ -288,6 +288,10 @@ class YouthRegistrationService
                 if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status and ( date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days'))) ) {
                     $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
                 }
+                //TODO:Batch end_flag
+                if (true) {
+                    $str .= '<a href="'.route('course_management::youth-certificate-view', $youthCourseEnrolls->id).'" data-action="' . route('course_management::youth-certificate-view', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
+                }
                 return $str;
             })
             ->addColumn('enroll_last_date', static function (YouthCourseEnroll $youthCourseEnrolls) {
