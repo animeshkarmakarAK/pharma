@@ -467,10 +467,15 @@ class YouthController extends Controller
             'to_date' => "10/10/2021",
         ];
 
-        $certificate= PDF::loadView(self::VIEW_PATH . 'youth/certificate/certificate-two', compact('youthInfo'), $youthInfo, [], [
-            'format' => 'A4',
+        $certificate= PDF::loadView(self::VIEW_PATH . 'youth/certificate/certificate-two', compact('youthInfo'), [],
+            [
+            'title' => 'Certificate',
+            'format' => 'A4-L',
             'orientation' => 'L',
-        ]);
+            'font-size' => '50',
+
+            ]
+        );
         return $certificate->stream('document.pdf');
 
 
