@@ -9,17 +9,20 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Models\PublishCourse;
 use Yajra\DataTables\Facades\DataTables;
 
 class BatchService
 {
     public function createBatch(array $data): Batch
     {
+        $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
         return Batch::create($data);
     }
 
     public function updateBatch(Batch $branch, array $data): Batch
     {
+        $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
         $branch->fill($data);
         $branch->save();
         return $branch;
@@ -38,7 +41,7 @@ class BatchService
             'title_bn' => 'required|string|max: 191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'institute_id' => 'required|int',
-            'course_id' => 'required|int',
+            'publish_course_id' => 'required|int',
             'max_student_enrollment' => ['required', 'int'],
             'start_date' => ['required', 'date', 'after:today,' . $id],
             'end_date' => ['required', 'date', 'after:start_date'],
@@ -103,6 +106,11 @@ class BatchService
             }))
             ->rawColumns(['action'])
             ->toJson();
+    }
+
+    private function courseIdByPublishCourseId(int $publishCourseId)
+    {
+        return PublishCourse::findOrFail($publishCourseId)->course_id;
     }
 
 

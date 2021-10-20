@@ -2,10 +2,22 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use App\Models\BaseModel as BaseModelAlias;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Module\CourseManagement\App\Models\BaseModel;
 use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthBatch;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
+use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Services\YouthBatchService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Services\YouthService;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class YouthBatchController extends Controller
 {
@@ -33,5 +45,78 @@ class YouthBatchController extends Controller
     public function getDatatable(Request $request, int $id): JsonResponse
     {
         return $this->youthBatchService->getYouthBatchLists($request, $id);
+    }
+
+    public function importYouth(Request $request,int $batch_id)
+    {
+        $youthData = (new \Module\CourseManagement\App\Models\YouthImport())->toArray($request->file('import_youth_file'))[0];
+        DB::beginTransaction();
+        try {
+            $publishCourseId=Batch::findOrFail($batch_id)->publish_course_id;
+            foreach ($youthData as $key => $youthDatum) {
+                $validatedData = app(YouthService::class)->youthImportDataValidate($youthDatum, $key)->validate();
+                $youth = new Youth();
+                $youth->fill($validatedData);
+                $youth->save();
+
+                if (!empty($validatedData['member_mobile'])) {
+                    $youthDatum['mobile'] = $validatedData['member_mobile'];
+                }
+                if (!empty($validatedData['member_personal_monthly_income'])) {
+                    $youthDatum['personal_monthly_income'] = $validatedData['member_personal_monthly_income'];
+                }
+                if (!empty($youth->id)) {
+
+                    $validatedData['youth_id'] = $youth->id;
+                    $youthFamily=new YouthFamilyMemberInfo();
+                    $youthFamily->fill($validatedData);
+                    $youthFamily->save();
+                    $youthAcademic=new YouthAcademicQualification();
+                    $youthAcademic->fill($validatedData);
+                    $youthAcademic->save();
+
+                    $youthCourseEnrollInfo=[
+                        "publish_course_id"=>$publishCourseId,
+                        "enroll_status"=>YouthCourseEnroll::ENROLL_STATUS_ACCEPT,
+                        "payment_status"=>YouthCourseEnroll::PAYMENT_STATUS_PAID,
+                    ];
+
+                    $youthEnrolment=$youth->youthCourseEnroll()->create($youthCourseEnrollInfo);
+                    if($youthEnrolment){
+
+                        $youthBatch=app(YouthBatch::class);
+                        $youthBatch->batch_id=$batch_id;
+                        $youthBatch->youth_course_enroll_id=$youthEnrolment->id;
+                        $youthBatch->enrollment_date=date('Y-m-d');
+                        $youthBatch->enrollment_status=YouthBatch::ENROLLMENT_STATUS_ENROLLED;
+                        $youthBatch->save();
+                    }
+
+                }
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            if ($e instanceof ValidationException) {
+                return [
+                    "status"=> "fail",
+                    "code"=>ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,
+                    "message"=>"validation error",
+                    'errors'=>array_values($e->errors())
+                ];
+            }
+            return [
+                "status"=>"success",
+                "code"=>ResponseAlias::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ];
+        }
+
+        return [
+            "status"=>"success",
+            "code"=>ResponseAlias::HTTP_OK,
+            "message"=>"Successfully imported"
+        ];
     }
 }

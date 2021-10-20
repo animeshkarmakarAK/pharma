@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Models;
 
+use App\Helpers\Classes\Helper;
 use Faker\Provider\Uuid;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -34,12 +35,12 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
             "mobile" => $row[2],
             "email" => $row[3],
             "present_address_division_id" => $locationInfo->getDivisionId($row[4]),
-            "present_address_district_id" => $locationInfo->getDistrictId($row[5],$row[4]),
-            "present_address_upazila_id" => $locationInfo->getUpazilaId($row[6],$row[5]),
+            "present_address_district_id" => $locationInfo->getDistrictId($row[5], $row[4]),
+            "present_address_upazila_id" => $locationInfo->getUpazilaId($row[6], $row[5]),
             "present_address_house_address" => $row[7],
             "permanent_address_division_id" => $locationInfo->getDivisionId($row[8]),
-            "permanent_address_district_id" => $locationInfo->getDistrictId($row[9],$row[8]),
-            "permanent_address_upazila_id" => $locationInfo->getUpazilaId($row[10],$row[9]),
+            "permanent_address_district_id" => $locationInfo->getDistrictId($row[9], $row[8]),
+            "permanent_address_upazila_id" => $locationInfo->getUpazilaId($row[10], $row[9]),
             "permanent_address_house_address" => $row[11],
 
             /** Youth Family information */
@@ -47,11 +48,12 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
             "relation_with_youth" => $row[28],
 
             /** Youth Educational Qualifications */
-            "examination" => Youth::EXAMINATION_LEVELS[$row[44]]??Youth::EXAMINATION_OTHERS,
+            "examination" => Youth::EXAMINATION_LEVELS[$row[44]] ?? Youth::EXAMINATION_OTHERS,
             "examination_name" => $row[45],
         ];
 
         /** Youth Nullable Field */
+        $requiredFields['youth_registration_no'] = strtolower($row[13]) != self::NULL?$row[13]:Helper::randomPassword(10, true);
         if (strtolower($row[0]) != self::NULL) {
             $requiredFields['name_en'] = $row[0];
         }
@@ -60,9 +62,6 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
         }
         if (strtolower($row[12]) != self::NULL) {
             $requiredFields['ethnic_group'] = Youth::STATUS_CODE_WITH_LABEL[$row[12]] ?? Youth::FALSE;
-        }
-        if (strtolower($row[13]) != self::NULL) {
-            $requiredFields['youth_registration_no'] = $row[13];
         }
         if (strtolower($row[14]) != self::NULL) {
             $requiredFields['recommended_by_organization'] = $row[14];

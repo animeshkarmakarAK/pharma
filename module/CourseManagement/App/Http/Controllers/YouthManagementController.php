@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Module\GovtStakeholder\App\Models\Organization;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class YouthManagementController extends Controller
 {
@@ -81,49 +82,4 @@ class YouthManagementController extends Controller
         return $organizations ? $organizations->youthOrganizations()->get() : [];
     }
 
-    public function importYouth(Request $request)
-    {
-        $youthData = (new \Module\CourseManagement\App\Models\YouthImport())->toArray($request->file('youth_csv_file'))[0];
-        DB::beginTransaction();
-        try {
-            foreach ($youthData as $key => $youthDatum) {
-                $validatedData = $this->youthService->youthImportDataValidate($youthDatum, $key)->validate();
-                $youth = new Youth();
-                $youth->fill($validatedData);
-                $youth->save();
-
-                if (!empty($validatedData['member_mobile'])) {
-                    $youthDatum['mobile'] = $validatedData['member_mobile'];
-                }
-                if (!empty($validatedData['member_personal_monthly_income'])) {
-                    $youthDatum['personal_monthly_income'] = $validatedData['member_personal_monthly_income'];
-                }
-                if (!empty($youth->id)) {
-                    $validatedData['youth_id'] = $youth->id;
-                    $youthFamily=new YouthFamilyMemberInfo();
-                    $youthFamily->fill($validatedData);
-                    $youthFamily->save();
-                    $youthAcademic=new YouthAcademicQualification();
-                    $youthAcademic->fill($validatedData);
-                    $youthAcademic->save();
-                }
-            }
-            DB::commit();
-            return [
-                "status"=>1,
-                "message"=>"Successfully imported"
-            ];
-        } catch (Exception $e) {
-            DB::rollBack();
-            if ($e instanceof ValidationException) {
-                return [
-                    "status"=>0,
-                    "message"=>"validation error",
-                    'errors'=>$e->errors()
-                ];
-            }
-            return $e->getMessage();
-        }
-
-    }
 }

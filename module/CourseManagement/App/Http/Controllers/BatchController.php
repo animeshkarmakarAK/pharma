@@ -38,6 +38,7 @@ class BatchController extends Controller
      */
     public function create()
     {
+
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
         ]);
@@ -54,7 +55,6 @@ class BatchController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $this->batchService->validator($request)->validate();
-
         try {
             $this->batchService->createBatch($request->all());
         } catch (\Throwable $exception) {
