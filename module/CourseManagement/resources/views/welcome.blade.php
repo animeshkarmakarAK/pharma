@@ -2,8 +2,6 @@
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
 
-
-
 @endphp
 @extends($layout)
 
@@ -12,19 +10,18 @@
 @endsection
 
 @section('content')
+    @php
+        $sl=0;
+        $sliderImageNo=0;
+    @endphp
+    @if(!$sliders->isEmpty())
     <!-- Top content Slider Start -->
     <section class="top-content ">
         <!-- Carousel -->
         <div id="topCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                @php
-                    $sl=0;
-                    $sliderImageNo=0;
-                @endphp
-                @if(!empty($sliders))
                     @foreach($sliders as $slider)
-                        <div class="carousel-item {{ ++$sl==1?'active':'' }}"
-                        >
+                        <div class="carousel-item {{ ++$sl==1?'active':'' }}">
                             <div style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('{{asset('/storage/'. $slider->slider)}}');
                                 background-position: center;
                                 background-size: 100% 100%;
@@ -38,8 +35,6 @@
                             </div>
                         </div>
                     @endforeach
-                @endif
-
             </div>
 
             <a class="carousel-control-prev slider-previous-link" href="#topCarousel" role="button"
@@ -59,7 +54,7 @@
         <!-- End carousel -->
     </section>
     <!-- End Top Content Slider -->
-
+    @endif
     <!-- About Us Start-->
     <section class="about-us-section  position-relative">
         <div class="about-section-color">
