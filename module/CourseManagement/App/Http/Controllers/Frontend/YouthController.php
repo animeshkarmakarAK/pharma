@@ -458,19 +458,17 @@ class YouthController extends Controller
     {
 
         $youthInfo = [
-            'name'=>'Miladul Islam',
-            'father_name'=>"Father's Name",
-            'institute_name'=>"BITAC",
-            'from_date'=>"10/08/2021",
-            'to_date'=>"10/10/2021",
+            'name' => 'Miladul Islam',
+            'father_name' => "Father's Name",
+            'institute_name' => "BITAC",
+            'from_date' => "10/08/2021",
+            'to_date' => "10/10/2021",
         ];
-
-        //return view(self::VIEW_PATH . 'certificate-two');
 
         $mpdf = new \Mpdf\Mpdf([
             'orientation' => 'L'
         ]);
-        $viewLoad = view(self::VIEW_PATH . 'certificate-two', compact('youthInfo'));
+        $viewLoad = view(self::VIEW_PATH . 'youth/certificate/certificate-one', compact('youthInfo'));
         $mpdf->WriteHTML($viewLoad);
         $mpdf->Output('Certificate.pdf', 'I');
     }
