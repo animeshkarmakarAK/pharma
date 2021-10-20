@@ -452,7 +452,7 @@ class YouthController extends Controller
     public function certificate(): View
     {
 
-        return \view(self::VIEW_PATH . 'certificate');
+        return \view(self::VIEW_PATH . 'youth/certificate/certificate');
     }
 
     public function certificateDownload()
@@ -490,7 +490,7 @@ class YouthController extends Controller
 
     public function certificateTwo()
     {
-        return \view(self::VIEW_PATH . 'certificate-two');
+        return \view(self::VIEW_PATH . 'youth/certificate/certificate-two');
     }
 
     public function youthCurrentOrganization()
