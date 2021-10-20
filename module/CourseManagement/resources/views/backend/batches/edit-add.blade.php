@@ -80,14 +80,14 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_id">{{ __('Course Name') }} <span
+                                    <label for="course_id">{{ __('Publish Course Name') }} <span
                                             style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
-                                            name="course_id"
-                                            id="course_id"
-                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on="institute_id"
+                                            name="publish_course_id"
+                                            id="publish_course_id"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
+                                            data-label-fields="{course.title_bn}"
+                                            data-depend-on="institute_id|branch_id|training_center_id|programme_id"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $batch->course->title_en, 'id' =>  $batch->course->id])}}"
                                             @endif
