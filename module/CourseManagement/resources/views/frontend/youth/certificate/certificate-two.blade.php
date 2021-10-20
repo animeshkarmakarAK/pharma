@@ -70,7 +70,7 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 13%;"><span
-                                        style="margin: 0;font-size: 18px;font-style: italic;font-weight: bold;">Certified that</span>
+                                        style="margin: 0;font-size: 20px;">Certified that</span>
                                 </td>
                                 <td style="text-align: center;border-bottom: 4px dotted;"><span
                                         style="text-align: center;font-size: 14px;font-style: italic;"><span>John Doe</span></span>
