@@ -20,6 +20,7 @@ use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 
 class YouthController extends Controller
@@ -466,12 +467,20 @@ class YouthController extends Controller
             'to_date' => "10/10/2021",
         ];
 
-        $mpdf = new \Mpdf\Mpdf([
-            'orientation' => 'L'
+        $certificate= PDF::loadView(self::VIEW_PATH . 'youth/certificate/certificate-two', compact('youthInfo'), $youthInfo, [], [
+            'format' => 'A4',
+            'orientation' => 'L',
         ]);
-        $viewLoad = view(self::VIEW_PATH . 'youth/certificate/certificate-one', compact('youthInfo'));
-        $mpdf->WriteHTML($viewLoad);
-        $mpdf->Output('Certificate.pdf', 'I');
+        return $certificate->stream('document.pdf');
+
+
+
+//        $mpdf = new \Mpdf\Mpdf([
+//            'orientation' => 'L'
+//        ]);
+//        $viewLoad = view(self::VIEW_PATH . 'youth/certificate/certificate-one', compact('youthInfo'));
+//        $mpdf->WriteHTML($viewLoad);
+//        $mpdf->Output('Certificate.pdf', 'I');
     }
 
     public function certificateTwo()

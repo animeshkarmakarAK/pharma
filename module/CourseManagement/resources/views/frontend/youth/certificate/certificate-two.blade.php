@@ -8,8 +8,8 @@
     <title>Invoice</title>
     <style>
         body {
-
             margin: 0;
+            font-family: sans-serif;
 
         }
 
@@ -32,7 +32,7 @@
     <div style="border-top-left-radius: 150px;border-bottom-right-radius: 150px;background: white; height:100%;">
         <div style="width: 1140px;">
             <table
-                style=" width:90%; margin: 0 auto; background: url('{{public_path('assets/logo/certificate_watermark.png')}}') no-repeat center; ">
+                style="width:90%; margin: 0 auto; background: url('{{public_path('assets/logo/certificate_watermark.png')}}') no-repeat center; font-family: 'examplefont', sans-serif;">
                 <tr>
                     <td style="width:20%; padding-top: 10px;text-align: right;"><img
                             src="{{public_path('assets/logo/certificate_logo.png')}}" style="" width="70px" height="70px" alt=""></td>
