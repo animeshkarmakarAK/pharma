@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "435c0fd01fc4078d3e3f144fc6743fd9",
+    "content-hash": "cc63e13bc09282c4a36b12c1f3ff59d1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -121,56 +121,6 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
-        },
-        {
-            "name": "carlos-meneses/laravel-mpdf",
-            "version": "2.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mccarlosen/laravel-mpdf.git",
-                "reference": "81a5631a29647a56b55c8b7e31b38494cd4e7cc6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mccarlosen/laravel-mpdf/zipball/81a5631a29647a56b55c8b7e31b38494cd4e7cc6",
-                "reference": "81a5631a29647a56b55c8b7e31b38494cd4e7cc6",
-                "shasum": ""
-            },
-            "require": {
-                "mpdf/mpdf": "^8.0.0",
-                "php": "^7.4|^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Meneses\\LaravelMpdf\\LaravelMpdfServiceProvider"
-                    ],
-                    "aliases": {
-                        "PDF": "Meneses\\LaravelMpdf\\Facades\\LaravelMpdf"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Meneses\\LaravelMpdf\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Laravel Mpdf: Using Mpdf in Laravel to generate Pdfs.",
-            "keywords": [
-                "laravel",
-                "mpdf",
-                "pdf"
-            ],
-            "support": {
-                "issues": "https://github.com/mccarlosen/laravel-mpdf/issues",
-                "source": "https://github.com/mccarlosen/laravel-mpdf/tree/2.1.8"
-            },
-            "time": "2021-10-14T14:18:05+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3747,7 +3697,7 @@
         },
         {
             "name": "softbd/menu-builder",
-            "version": "dev-feat/piyal-nise3-quick-win",
+            "version": "dev-feat/miladul-implement-new-feat-of-quick-win",
             "dist": {
                 "type": "path",
                 "url": "softbd/menu-builder",
