@@ -778,5 +778,20 @@
         "title": "Organization Complains",
         "title_lang_key": "menu.organization_complains",
         "url": ""
+    },
+    {
+        "color": "#000000",
+        "icon_class": null,
+        "id": 101,
+        "menu_id": 3,
+        "order": 13,
+        "parameters": null,
+        "parent_id": null,
+        "permission_key": null,
+        "route": "course_management::admin.visitor-feedback.index",
+        "target": "_self",
+        "title": "test",
+        "title_lang_key": "test",
+        "url": ""
     }
 ]
