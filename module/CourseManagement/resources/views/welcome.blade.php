@@ -2,7 +2,8 @@
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
 
-    $staticPageContent = strip_tags($staticPage->page_contents);
+
+
 @endphp
 @extends($layout)
 
@@ -69,9 +70,9 @@
                         <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
                         <div class="about-us-content">
                             @if(!empty($staticPage))
-                                @if(strlen($staticPageContent) > 1136)
+                                @if(strlen(strip_tags($staticPage->page_contents)) > 1136)
                                     <p>
-                                       {!! \Illuminate\Support\Str::limit( $staticPageContent, 460) !!}
+                                       {!! \Illuminate\Support\Str::limit( strip_tags($staticPage->page_contents), 460) !!}
 
                                     </p>
 
