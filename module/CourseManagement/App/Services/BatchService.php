@@ -79,6 +79,7 @@ class BatchService
                 'batches.start_time',
                 'batches.end_time',
                 'batches.row_status',
+                'batches.batch_status',
                 'batches.created_at',
                 'batches.updated_at',
             ]
