@@ -14,8 +14,10 @@ use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\BaseModel;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
 use Module\CourseManagement\App\Models\YouthBatch;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
+use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\CourseManagement\App\Models\YouthRegistration;
 use Illuminate\Contracts\Validation\Validator;
@@ -123,6 +125,20 @@ class YouthService
         return true;
     }
 
+    public static function isDate($value): bool
+    {
+        if (!$value) {
+            return false;
+        }
+
+        try {
+            new \DateTime($value);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
     public function youthImportDataValidate(array $data, $row_number): Validator
     {
         $row_number = $row_number + 1;
@@ -130,8 +146,8 @@ class YouthService
             'required' => "The :attribute in row " . $row_number . " is required",
             'string' => 'The :attribute in row ' . $row_number . ' must be text format',
             'numeric' => 'The :attribute in row ' . $row_number . ' must be numeric format',
-            'unique' => "The :attribute in row " . $row_number . " is already taken",
-            "in" => "The :attribute in row " . $row_number . " is not within :fields",
+            'unique' => "The :attribute in row " . $row_number . " is already taken(youth)",
+            "in" => "The :attribute in row " . $row_number . " is either HAVE OR HAVE NO ",
             "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX",
             "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX"
         ];
@@ -289,9 +305,96 @@ class YouthService
             "student_pic" => [
                 "nullable",
                 "string"
-            ],
+            ]
+        ];
+        return \Illuminate\Support\Facades\Validator::make($data, $rules, $messages);
 
-            /** Family Information Validation Rule */
+    }
+
+    public function youthAcademicInfoImportDataValidate(array $data, $row_number): Validator
+    {
+        $row_number = $row_number + 1;
+        $messages = [
+            'required' => "The :attribute in row " . $row_number . " is required",
+            'string' => 'The :attribute in row ' . $row_number . ' must be text format',
+            'numeric' => 'The :attribute in row ' . $row_number . ' must be numeric format',
+            'unique' => "The :attribute of Youth Academic Information in row " . $row_number . " is already taken",
+            "in" => "The :attribute in row " . $row_number . " is not within :fields",
+            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX",
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX"
+        ];
+
+        $rules = [
+            "examination" => [
+                "required",
+                "numeric"
+            ],
+            "examination_name" => [
+                "required",
+                "string"
+            ],
+            "board" => [
+                "nullable",
+                "integer"
+            ],
+            "institute" => [
+                "nullable",
+                "string"
+            ],
+            "roll_no" => [
+                "nullable"
+            ],
+            "reg_no" => [
+                "nullable"
+            ],
+            "result" => [
+                "required",
+                "numeric"
+            ],
+            "grade" => [
+                Rule::requiredIf(function () use ($data) {
+                    return !empty($data['result']) && in_array($data['result'], [Youth::EXAMINATION_RESULT_GPA_OUT_OF_FIVE, Youth::EXAMINATION_RESULT_GPA_OUT_OF_FIVE]);
+                }),
+                "nullable",
+                "numeric",
+                "lte:5",
+                "gt:0"
+            ],
+            "group" => [
+                Rule::requiredIf(function () use ($data) {
+                    return in_array($data['examination'], [Youth::EXAMINATION_SSC, Youth::EXAMINATION_HSC]);
+                }),
+                "nullable",
+                "numeric"
+            ],
+            "passing_year" => [
+                "nullable"
+            ],
+            "subject" => [
+                "nullable"
+            ],
+            "course_duration" => [
+                "nullable",
+                "numeric"
+            ]
+        ];
+        return \Illuminate\Support\Facades\Validator::make($data, $rules, $messages);
+
+    }
+
+    public function youthFamilyInfoImportDataValidate(array $data, $row_number): Validator
+    {
+        $row_number = $row_number + 1;
+        $messages = [
+            'required' => "The :attribute in row " . $row_number . " is required",
+            'string' => 'The :attribute in row ' . $row_number . ' must be text format',
+            'numeric' => 'The :attribute in row ' . $row_number . ' must be numeric format',
+            'unique' => "The :attribute in row " . $row_number . " is already taken",
+            "in" => "The :attribute in row " . $row_number . " is not within :fields",
+            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX"
+        ];
+        $rules = [
             "member_name_en" => [
                 "nullable",
                 "string"
@@ -300,7 +403,7 @@ class YouthService
                 "nullable",
                 "string"
             ],
-            "member_mobile" => [
+            "mobile" => [
                 "required",
                 BaseModel::MOBILE_REGEX
             ],
@@ -314,9 +417,13 @@ class YouthService
             "is_guardian" => [
                 "nullable",
                 "numeric",
-                Rule::in([Youth::IS_GUARDIAN_NO, Youth::IS_GUARDIAN_YES])
+                function ($attr, $value, $fails) use ($data, $row_number) {
+                    if ($value == YouthFamilyMemberInfo::GUARDIAN_OTHER && !$data['is_guardian_data_exist']) {
+                        $fails("Guardian information is required for row " . $row_number);
+                    }
+                }
             ],
-            "member_personal_monthly_income" => [
+            "personal_monthly_income" => [
                 "nullable",
                 "numeric"
             ],
@@ -376,56 +483,6 @@ class YouthService
                 "nullable",
                 'date_format:Y-m-d'
             ],
-
-            /** Youth Academic Qualifications */
-            "examination" => [
-                "required",
-                "numeric"
-            ],
-            "examination_name" => [
-                "required",
-                "string"
-            ],
-            "board" => [
-                "nullable",
-                "numeric"
-            ],
-            "institute" => [
-                "nullable",
-                "string"
-            ],
-            "roll_no" => [
-                "nullable"
-            ],
-            "reg_no" => [
-                "nullable"
-            ],
-            "result" => [
-                "required",
-                "numeric"
-            ],
-            "grade" => [
-                Rule::requiredIf(function () use ($data) {
-                    return in_array($data['result'], [Youth::EXAMINATION_RESULT_GPA_OUT_OF_FIVE, Youth::EXAMINATION_RESULT_GPA_OUT_OF_FIVE]);
-                }),
-                "numeric"
-            ],
-            "group" => [
-                Rule::requiredIf(function () use ($data) {
-                    return in_array($data['examination'], [Youth::EXAMINATION_SSC, Youth::EXAMINATION_HSC]);
-                }),
-                "numeric"
-            ],
-            "passing_year" => [
-                "nullable"
-            ],
-            "subject" => [
-                "nullable"
-            ],
-            "course_duration" => [
-                "nullable",
-                "numeric"
-            ]
         ];
         return \Illuminate\Support\Facades\Validator::make($data, $rules, $messages);
 

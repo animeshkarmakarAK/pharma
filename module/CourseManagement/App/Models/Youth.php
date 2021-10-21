@@ -91,8 +91,15 @@ class Youth extends AuthBaseModel
 
     /** Guardian Status Code */
 
-    public const IS_GUARDIAN_YES = self::TRUE;
-    public const IS_GUARDIAN_NO = self::FALSE;
+    public const GUARDIAN_FATHER_LABEL = "FATHER";
+    public const GUARDIAN_MOTHER_LABEL = "MOTHER";
+    public const GUARDIAN_OTHER_LABEL = "OTHER";
+
+    public const GUARDIAN_STATUS = [
+        "FATHER" => YouthFamilyMemberInfo::GUARDIAN_FATHER,
+        "MOTHER" => YouthFamilyMemberInfo::GUARDIAN_MOTHER,
+        "OTHER" => YouthFamilyMemberInfo::GUARDIAN_OTHER,
+    ];
 
     /** Gender Information */
     public const GENDER_MALE = 1;
@@ -146,7 +153,7 @@ class Youth extends AuthBaseModel
     public const EXAMINATION_GRADUATION = 3;
     public const EXAMINATION_MASTERS = 4;
     public const EXAMINATION_JSC = 5;
-    public const EXAMINATION_OTHERS=6;
+    public const EXAMINATION_OTHERS = 6;
 
     public const EXAMINATION_LEVELS = [
         "J.S.C" => self::EXAMINATION_JSC,
@@ -154,7 +161,7 @@ class Youth extends AuthBaseModel
         'H.S.C' => self::EXAMINATION_HSC,
         'Graduation' => self::EXAMINATION_GRADUATION,
         'Masters' => self::EXAMINATION_MASTERS,
-        'Others'=>self::EXAMINATION_OTHERS
+        'Others' => self::EXAMINATION_OTHERS
     ];
 
     /** JDC/JSC */

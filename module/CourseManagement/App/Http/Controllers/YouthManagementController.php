@@ -82,4 +82,65 @@ class YouthManagementController extends Controller
         return $organizations ? $organizations->youthOrganizations()->get() : [];
     }
 
+    public function importYouth(Request $request)
+    {
+        $youthData = (new \Module\CourseManagement\App\Models\YouthImport())->toArray($request->file('youth_csv_file'))[0];
+        DB::beginTransaction();
+        try {
+            foreach ($youthData as $key => $youthDatum) {
+                $validatedData = $this->youthService->youthImportDataValidate($youthDatum, $key)->validate();
+                $youth = new Youth();
+                $youth->fill($validatedData);
+                $youth->save();
+
+                if (!empty($youth->id)) {
+                    $youthFamilyInfos = $youthDatum['youth_family_info'];
+                    if(!empty($youthFamilyInfos['is_guardian'])){
+                        $isGuardian=$youthFamilyInfos['is_guardian'];
+                        unset($youthFamilyInfos['is_guardian']);
+                    }
+                    foreach ($youthFamilyInfos as $familyInfo) {
+                        $familyInfo['is_guardian']=$isGuardian;
+                        $familyInfo['is_guardian_data_exist']=array_key_exists(3,$youthFamilyInfos);
+                        $familyValidatedData = $this->youthService->youthFamilyInfoImportDataValidate($familyInfo, $key)->validate();
+                        $familyValidatedData['youth_id']=$youth->id;
+                        $youthFamily = new YouthFamilyMemberInfo();
+                        $youthFamily->fill($familyValidatedData);
+                        $youthFamily->save();
+                    }
+                    foreach ($youthDatum['youth_academic_info'] as $academicInfo) {
+                        $academicValidatedData = $this->youthService->youthAcademicInfoImportDataValidate($academicInfo, $key)->validate();
+                        $academicValidatedData['youth_id']=$youth->id;
+                        $youthAcademic = new YouthAcademicQualification();
+                        $youthAcademic->fill($academicValidatedData);
+                        $youthAcademic->save();
+                    }
+
+                }
+            }
+            DB::commit();
+            return [
+                "status" => "success",
+                "code" => ResponseAlias::HTTP_OK,
+                "message" => "Successfully imported"
+            ];
+        } catch (Exception $e) {
+            DB::rollBack();
+            if ($e instanceof ValidationException) {
+                return [
+                    "status" => "fail",
+                    "code" => ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,
+                    "message" => "validation error",
+                    'errors' => $e->errors()
+                ];
+            }
+            return [
+                "status" => "success",
+                "code" => ResponseAlias::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => $e->getMessage(),//__('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ];
+        }
+
+    }
 }
