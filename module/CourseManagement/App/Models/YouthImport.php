@@ -39,12 +39,13 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
             "present_address_division_id" => $locationInfo->getDivisionId($row[4]),
             "present_address_district_id" => $locationInfo->getDistrictId($row[5], $row[4]),
             "present_address_upazila_id" => $locationInfo->getUpazilaId($row[6], $row[5]),
-            "present_address_house_address" => $row[7],
+            "present_address_house_address" => json_decode($row[7],true),
             "permanent_address_division_id" => $locationInfo->getDivisionId($row[8]),
             "permanent_address_district_id" => $locationInfo->getDistrictId($row[9], $row[8]),
             "permanent_address_upazila_id" => $locationInfo->getUpazilaId($row[10], $row[9]),
-            "permanent_address_house_address" => $row[11]
+            "permanent_address_house_address" =>  json_decode($row[11],true)
         ];
+
 
         /** Youth Nullable Field */
         $selfInfo = [];

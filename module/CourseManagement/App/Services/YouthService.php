@@ -214,7 +214,7 @@ class YouthService
             ],
             "present_address_house_address" => [
                 "required",
-                "string"
+                "array"
             ],
             "permanent_address_division_id" => [
                 "required",
@@ -257,7 +257,7 @@ class YouthService
             ],
             "permanent_address_house_address" => [
                 "required",
-                "string"
+                "array"
             ],
             "ethnic_group" => [
                 "nullable",
