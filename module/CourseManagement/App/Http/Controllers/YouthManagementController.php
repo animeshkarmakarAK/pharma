@@ -104,6 +104,7 @@ class YouthManagementController extends Controller
             'youth_name' => $youthCourseEnroll->youth->name_en,
             'youth_father_name' => $familyInfo->member_name_en,
             'publish_course_id' => $youthCourseEnroll->publish_course_id,
+            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title_en,
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_name' => $institute->title_en,

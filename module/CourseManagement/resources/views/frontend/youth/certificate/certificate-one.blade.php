@@ -115,7 +115,7 @@
                                         style="margin: 0;" class="example_font">the Technical Training Programme on</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
-                                    <b>{{ !empty($youthInfo)? $youthInfo['institute_name']:'' }}</b>
+                                    <b>{{ !empty($youthInfo)? $youthInfo['publish_course_name']:'' }}</b>
                                 </td>
                             </tr>
                         </table>

@@ -20,11 +20,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <button id="add-to-organization-area" style="visibility: hidden; " type="button"
-                                        class="mb-3 btn btn-sm btn-rounded btn-primary float-right"
-                                        data-toggle="modal" data-target="#addToOrganizationModal">
-                                    <i class="fas fa-plus-circle d-inline-block"></i> Add to Organization
-                                </button>
+                                <a href="javascript: history.go(-1)"
+                                    class="mb-3 btn btn-sm btn-rounded btn-outline-primary float-right">
+                                    <i class="fas fa-backward"></i> Back To List
+                                </a>
                             </div>
 
                             <div class="col-md-12">
@@ -38,19 +37,20 @@
                                     </thead>
                                     <tbody>
                                     @php
-                                    $sl = 0;
+                                        $sl = 0;
                                     @endphp
                                     @foreach($youthCourseEnrolls as $youthCourseEnroll)
-                                    <tr>
-                                        <td>{{ ++$sl }}</td>
-                                        <td>{{ $youthCourseEnroll->publishCourse->course->title_en }}</td>
-                                        <td>
-                                            <a href="{{ route('course_management::admin.youths.certificate.course', $youthCourseEnroll->id) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-download"></i>
-                                                View Certificate
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ ++$sl }}</td>
+                                            <td>{{ $youthCourseEnroll->publishCourse->course->title_en }}</td>
+                                            <td>
+                                                <a href="{{ route('course_management::admin.youths.certificate.course', $youthCourseEnroll->id) }}"
+                                                   class="btn btn-sm btn-info">
+                                                    <i class="fas fa-download"></i>
+                                                    View Certificate
+                                                </a>
+                                            </td>
+                                        </tr>
                                     @endforeach
 
                                     </tbody>
