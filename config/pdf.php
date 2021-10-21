@@ -15,7 +15,9 @@ return [
     'font_path' => base_path('resources/pdf-fonts/'),
     'font_data' => [
         'examplefont' => [
-            'R'  => 'PinyonScript-Regular.ttf',    // regular font
+            'R'  => 'MonotypeCorsiva.ttf',    // regular font
+ //           'R'  => 'ten.ttf',    // regular font
+            //'I'  => 'PinyonScript-Regular.ttf',    // regular font
 //            'B'  => 'ExampleFont-Bold.ttf',       // optional: bold font
 //            'I'  => 'ExampleFont-Italic.ttf',     // optional: italic font
 //            'BI' => 'ExampleFont-Bold-Italic.ttf' // optional: bold-italic font

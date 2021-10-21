@@ -17,7 +17,7 @@ class CreateCourseWiseYouthCertificatesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('publish_course_id');
             $table->unsignedInteger('youth_id');
-            $table->unsignedInteger('certificate_path')->nullable();
+            $table->string('certificate_path')->nullable();
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
             $table->timestamps();
         });

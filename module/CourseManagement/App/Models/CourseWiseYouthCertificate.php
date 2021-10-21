@@ -24,11 +24,5 @@ class CourseWiseYouthCertificate extends BaseModel
 
     protected $guarded = ['id'];
 
-    public const CERTIFICATE_ROOT_PATH="youth-certificates/";
-
-    public static function getCertificatePath($path):string
-    {
-        return self::CERTIFICATE_ROOT_PATH.date('Y/F/').$path;
-    }
 
 }

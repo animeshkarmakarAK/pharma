@@ -10,7 +10,6 @@
         body {
             margin: 0;
             font-family: sans-serif;
-
         }
 
         table, th, td {
@@ -19,6 +18,11 @@
 
         table {
 
+        }
+
+        .example_font{
+            font-family: 'examplefont';
+            font-size: 30px;
         }
 
         @page {
@@ -32,7 +36,7 @@
     <div style="border-top-left-radius: 150px;border-bottom-right-radius: 150px;background: white; height:100%;">
         <div style="width: 1140px;">
             <table
-                style="width:90%; margin: 0 auto; background: url('{{public_path('assets/logo/certificate_watermark.png')}}') no-repeat center; font-family: 'examplefont', sans-serif; ">
+                style="width:90%; margin: 0 auto; background: url('{{public_path('assets/logo/certificate_watermark.png')}}') no-repeat center;">
                 <tr>
                     <td style="width:20%; padding-top: 10px;text-align: right;"><img
                             src="{{public_path('assets/logo/certificate_logo.png')}}" style="" width="70px" height="70px" alt=""></td>
@@ -69,8 +73,8 @@
                     <td colspan="5">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 13%;"><span
-                                        style="margin: 0;font-size: 20px;">Certified that</span>
+                                <td style="width: 15%;"><span
+                                        style="margin: 0;" class="example_font">Certified that</span>
                                 </td>
                                 <td style="text-align: center;border-bottom: 4px dotted;"><span
                                         style="text-align: center;font-size: 14px;font-style: italic;"><span>John Doe</span></span>
@@ -83,8 +87,8 @@
                     <td colspan="5" style="padding-top:10px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 15%;"><span
-                                        style="margin: 0;font-size: 18px;font-style: italic;font-weight: bold;">a student of</span>
+                                <td style="width: 14%;"><span
+                                        style="margin: 0;" class="example_font">a student of</span>
                                 </td>
                                 <td style="text-align: center;border-bottom: 4px dotted;"><span
                                         style="text-align: center;font-size: 14px;font-style: italic;"><span>John Doe</span></span>
@@ -97,14 +101,15 @@
                     <td colspan="5" style="padding-top: 10px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 5%;"><span
-                                        style="margin: 0;font-size: 18px;font-style: italic;font-weight: bold;">from </span>
+                                <td style="width: 7%;"><span
+                                        style="margin: 0;" class="example_font">from </span>
                                 </td>
                                 <td style="width: 70%; text-align:center; border-bottom: 4px dotted;"><span
                                         style="text-align: center;font-size: 14px;font-style: italic;"><span>Mark Doe</span></span>
                                 </td>
-                                <td style=""><span
-                                        style="text-align:right;font-size: 18px;margin: 0;font-style: italic;font-weight: bold;">has attended the industrial</span>
+                                <td style="width: 35%;">
+                                    <span style="text-align:right;margin: 0;" class="example_font">
+                                        has attended the industrial</span>
                                 </td>
                             </tr>
                         </table>
@@ -114,14 +119,14 @@
                     <td colspan="5" style=" padding-top: 15px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 36%;"><span
-                                        style="margin: 0;font-size: 18px;font-style: italic;font-weight: bold;">Attachment Training Programme from</span>
+                                <td style="width: 42%;"><span
+                                        style="margin: 0;" class="example_font">Attachment Training Programme from</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 14px;font-style: italic;">
                                     12/12/21
                                 </td>
                                 <td style="width: 3%;"><span
-                                        style="margin: 0;font-size: 18px;font-style: italic;font-weight: bold;">to</span>
+                                        style="margin: 0;" class="example_font">to</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 14px;font-style: italic;">
                                     12/12/21
@@ -134,8 +139,9 @@
                     <td colspan="5" style=" padding-top: 15px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 12%;"><span
-                                        style="margin: 0;font-size: 18px;font-style: italic;font-weight: bold;">Out of total</span>
+                                <td style="width: 14%;">
+                                    <span
+                                        style="margin: 0;" class="example_font">Out of total</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 14px;font-style: italic;">
                                     12/12/21
