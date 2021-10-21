@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
+use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthComplainToOrganization;
@@ -288,9 +289,8 @@ class YouthRegistrationService
                 if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status and ( date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days'))) ) {
                     $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
                 }
-                //TODO:Batch end_flag
-                if (true) {
-                    $str .= '<a href="'.route('course_management::youth-certificate-view', $youthCourseEnrolls->id).'" data-action="' . route('course_management::youth-certificate-view', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
+                if (!empty($youthCourseEnrolls->publishCourse->batch)?$youthCourseEnrolls->publishCourse->batch->batch_status == Batch::BATCH_STATUS_COMPLETE:'') {
+                    $str .= '<a href="'.route('course_management::youth-certificate-view', $youthCourseEnrolls->id).'" data-action="' . route('course_management::youth-certificate-view', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm" target="_blank"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
                 }
                 return $str;
             })

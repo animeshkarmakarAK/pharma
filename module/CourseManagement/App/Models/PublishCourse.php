@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Models;
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -105,5 +106,10 @@ class PublishCourse extends BaseModel
     public function courseSessions(): HasMany
     {
         return $this->hasMany(CourseSession::class);
+    }
+
+    public function batch(): HasOne
+    {
+        return $this->hasOne(Batch::class);
     }
 }

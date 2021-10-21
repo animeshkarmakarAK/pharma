@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice</title>
+    <title>Certificate of {{ !empty($youthInfo)? $youthInfo['youth_name']:'' }}</title>
     <style>
         body {
             font-family: "nikosh";
@@ -19,8 +19,9 @@
             border-collapse: collapse;
         }
 
-        table {
-
+        .example_font{
+            font-family: 'examplefont';
+            font-size: 30px;
         }
 
         @page {
@@ -56,13 +57,15 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 30%;"><span style="font-size: 20px;">No</span>
-                                    <span style="border: 4px;border-style: none none dotted none;font-size: 16px;">123456789</span>
+                                    <span style="border: 4px;border-style: none none dotted none;font-size: 16px;">{{ !empty($youthInfo)? $youthInfo['register_no']:'' }}</span>
                                 </td>
                                 <td style="width: 40%;text-align: center;"><h3 style=" color: #8a5d3b;margin: 0;">
                                         CERTIFICATE</h3></td>
                                 <td style="width: 30%;text-align: right;"><span style="font-size: 20px;">Date: </span>
                                     <span
-                                        style="border: 4px;border-style: none none dotted none;font-size: 16px; display: inline-block;">10/10/20</span>
+                                        style="border: 4px;border-style: none none dotted none; font-size: 16px; display: inline-block;">
+                                        {{ !empty($youthInfo)? $youthInfo['to_date']:'' }}
+                                    </span>
                                 </td>
                             </tr>
                         </table>
@@ -74,10 +77,12 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 15%;"><span
-                                        style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">Certified that</span>
+                                        style="margin: 0;" class="example_font">Certified that</span>
                                 </td>
                                 <td style="text-align: center;border-bottom: 4px dotted;"><span
-                                        style="text-align: center;font-size: 18px;font-style: italic;"><span>John Doe</span></span>
+                                        style="text-align: center;font-size: 18px;font-style: italic;">
+                                        <b>{{ !empty($youthInfo)? $youthInfo['youth_name']:'' }}</b>
+                                    </span>
                                 </td>
                             </tr>
                         </table>
@@ -88,13 +93,15 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 17%;"><span
-                                        style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">son/daughter of </span>
+                                        style="margin: 0;" class="example_font">son/daughter of </span>
                                 </td>
                                 <td style="width: 69%; text-align:center; border-bottom: 4px dotted;"><span
-                                        style="text-align: center;font-size: 18px;font-style: italic;"><span>Mark Doe</span></span>
+                                        style="text-align: center;font-size: 18px;font-style: italic;">
+                                        <b>{{ !empty($youthInfo)? $youthInfo['youth_father_name']:'' }}</b>
+                                    </span>
                                 </td>
                                 <td style=""><span
-                                        style="text-align:right;font-size: 20px;margin: 0;font-style: italic;font-weight: bold;">has attended</span>
+                                        style="text-align:right; margin: 0;" class="example_font">has attended</span>
                                 </td>
                             </tr>
                         </table>
@@ -104,11 +111,12 @@
                     <td colspan="5" style="padding-top: 20px;">
                         <table style="width: 100%">
                             <tr>
-                                <td style="width: 39%;"><span
-                                        style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">the Technical Training Programme on</span>
+                                <td style="width: 40%;"><span
+                                        style="margin: 0;" class="example_font">the Technical Training Programme on</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
-                                    <span>BITAC</span></td>
+                                    <b>{{ !empty($youthInfo)? $youthInfo['publish_course_name']:'' }}</b>
+                                </td>
                             </tr>
                         </table>
                     </td>
@@ -118,16 +126,16 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 6%;"><span
-                                        style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">from</span>
+                                        style="margin: 0;" class="example_font">from</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
-                                    12/12/21
+                                    <b>{{ !empty($youthInfo)? $youthInfo['from_date']:'' }}</b>
                                 </td>
                                 <td style="width: 3%;"><span
-                                        style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">to</span>
+                                        style="margin: 0;" class="example_font">to</span>
                                 </td>
                                 <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
-                                    12/12/21
+                                    <b>{{ !empty($youthInfo)? $youthInfo['to_date']:'' }}</b>
                                 </td>
                             </tr>
                         </table>
@@ -135,8 +143,8 @@
                 </tr>
                 <tr>
                     <td style="padding-top: 50px;" colspan="3"><span
-                            style="margin: 0;font-size: 20px;font-style: italic;font-weight: bold;">We wish him/her
-                            every success in life</span></td>
+                            style="margin: 0;" class="example_font">We wish him/her
+                            every success in life.</span></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: left; padding-top: 120px;"><span

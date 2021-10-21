@@ -8,7 +8,10 @@ use App\Services\CertificateGenerator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
 use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\Video;
@@ -107,7 +110,7 @@ class YouthController extends Controller
             ]);
     }
 
-    public function youthCertificateView($youthCourseEnroll)
+    public function youthCertificateView(YouthCourseEnroll $youthCourseEnroll)
     {
         $youth = AuthHelper::getAuthUser('youth');
 
@@ -117,20 +120,29 @@ class YouthController extends Controller
                     'alert-type' => 'error']
             );
         }
-        $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youth->id)->where('relation_with_youth', "father")->first();
+
+        $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
+
+        $institute = $youthCourseEnroll->publishCourse->institute;
+
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthCourseEnroll->publishCourse->batch->updated_at)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
 
         $youthInfo = [
-            'name' => $youth->name_en,
-            'father_name' => $familyInfo->member_name_en,
-            'path'=>CourseWiseYouthCertificate::getCertificatePath("couser/pushed_course_id_".time()),
-            "register_no" =>"123444",
-            'institute_name' => "BITAC",
-            'from_date' => "10/08/2021",
-            'to_date' => "10/10/2021",
+            'youth_id' => $youthCourseEnroll->youth_id,
+            'youth_name' => $youthCourseEnroll->youth->name_en,
+            'youth_father_name' => $familyInfo->member_name_en,
+            'publish_course_id' => $youthCourseEnroll->publish_course_id,
+            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title_en,
+            'path' => $path,
+            "register_no" => $youthCourseEnroll->youth->youth_registration_no,
+            'institute_name' => $institute->title_en,
+            'from_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->created_at)),
+            'to_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->batch->updated_at)),
         ];
-        $template = self::VIEW_PATH . 'youth/certificate/certificate-two';
+        $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
+        //return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
+        return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
 
     public function videos(): View
@@ -138,7 +150,6 @@ class YouthController extends Controller
         $currentInstitute = domainConfig('institute');
         $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
         $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
-        //dd($youthVideoCategory);
         return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
 
@@ -480,7 +491,7 @@ class YouthController extends Controller
     public function certificate(): View
     {
 
-        return \view(self::VIEW_PATH . 'certificate');
+        return \view(self::VIEW_PATH . 'youth/certificate/certificate');
     }
 
     public function certificateDownload()
@@ -518,7 +529,7 @@ class YouthController extends Controller
 
     public function certificateTwo()
     {
-        return \view(self::VIEW_PATH . 'certificate-two');
+        return \view(self::VIEW_PATH . 'youth/certificate/certificate-two');
     }
 
     public function youthCurrentOrganization()
