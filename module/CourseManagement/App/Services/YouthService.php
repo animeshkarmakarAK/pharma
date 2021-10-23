@@ -321,7 +321,9 @@ class YouthService
             'unique' => "The :attribute of in row " . $row_number . " is already taken",
             "in" => "The :attribute in row " . $row_number . " is not within :fields",
             "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
-            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX"
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
+            "lte" => "The :attribute in row " . $row_number . " must be less than or equal :value.",
+            "gte" => "The :attribute in row " . $row_number . " must be greater than or equal :value."
         ];
 
         $rules = [
