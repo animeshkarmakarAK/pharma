@@ -32,7 +32,6 @@ class CreateBatchesTable extends Migration
             $table->time('end_time');
             $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
-            $table->unsignedTinyInteger('batch_status')->nullable()->comment('1=>On Going Batch, 2=>Complete Batch');
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
         });
     }
