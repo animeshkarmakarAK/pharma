@@ -128,7 +128,7 @@ class YouthController extends Controller
 
         $institute = $youthCourseEnroll->publishCourse->institute;
 
-        $path = "youth-certificates/" . date('Y/F/', strtotime($youthCourseEnroll->publishCourse->batch->updated_at)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
+        $path = "youth-certificates/" . date('Y/F/') . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
 
         $youthInfo = [
             'youth_id' => $youthCourseEnroll->youth_id,
@@ -140,7 +140,7 @@ class YouthController extends Controller
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_name' => $institute->title_en,
             'from_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->created_at)),
-            'to_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->batch->updated_at)),
+            'to_date' => date('d/m/Y'),
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
