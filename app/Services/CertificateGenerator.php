@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
