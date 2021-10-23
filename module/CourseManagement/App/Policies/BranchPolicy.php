@@ -4,7 +4,6 @@ namespace Module\CourseManagement\App\Policies;
 
 use Module\CourseManagement\App\Models\Branch;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BranchPolicy extends BasePolicy
 {

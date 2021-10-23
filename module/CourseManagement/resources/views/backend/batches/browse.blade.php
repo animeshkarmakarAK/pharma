@@ -106,7 +106,14 @@
                         name: "batches.end_time",
                         visible: false
                     },
-
+                    {
+                        title: "Batch Status",
+                        data: "batch_status",
+                        name: "batches.batch_status",
+                        orderable: false,
+                        searchable: false,
+                        visible: true
+                    },
                     {
                         title: "Action",
                         data: "action",
