@@ -31,6 +31,7 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
 
     public function map($row): array
     {
+
         $locationInfo = app(YouthManagementService::class);
         $requiredFields = [
             "access_key" => Youth::getUniqueAccessKey(),
@@ -318,6 +319,7 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
             $mastersInfo['course_duration'] = Youth::EXAMINATION_COURSE_DURATION[$row[85]] ?? 0;
         }
         $requiredFields['youth_academic_info'][] = $mastersInfo;
+
         return $requiredFields;
 
     }
