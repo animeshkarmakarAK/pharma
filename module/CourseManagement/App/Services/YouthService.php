@@ -148,8 +148,8 @@ class YouthService
             'numeric' => 'The :attribute in row ' . $row_number . ' must be numeric format',
             'unique' => "The :attribute in row " . $row_number . " is already taken(youth)",
             "in" => "The :attribute in row " . $row_number . " is either HAVE OR HAVE NO ",
-            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX",
-            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX"
+            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX"
         ];
 
         $rules = [
@@ -318,10 +318,10 @@ class YouthService
             'required' => "The :attribute in row " . $row_number . " is required",
             'string' => 'The :attribute in row ' . $row_number . ' must be text format',
             'numeric' => 'The :attribute in row ' . $row_number . ' must be numeric format',
-            'unique' => "The :attribute of Youth Academic Information in row " . $row_number . " is already taken",
+            'unique' => "The :attribute of in row " . $row_number . " is already taken",
             "in" => "The :attribute in row " . $row_number . " is not within :fields",
-            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX",
-            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX"
+            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX"
         ];
 
         $rules = [

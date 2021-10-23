@@ -6,6 +6,7 @@ use App\Helpers\Classes\AuthHelper;
 use App\Mail\YouthRegistrationSuccessMail;
 use App\Services\CertificateGenerator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -112,6 +113,8 @@ class YouthController extends Controller
 
     public function youthCertificateView(YouthCourseEnroll $youthCourseEnroll)
     {
+
+
         $youth = AuthHelper::getAuthUser('youth');
 
         if (!$youth) {
@@ -141,7 +144,6 @@ class YouthController extends Controller
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        //return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
         return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
 
