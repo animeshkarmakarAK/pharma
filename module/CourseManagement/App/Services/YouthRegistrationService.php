@@ -10,8 +10,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
+use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthComplainToOrganization;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Illuminate\Contracts\Validation\Validator;
@@ -287,6 +289,9 @@ class YouthRegistrationService
                 if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status and ( date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days'))) ) {
                     $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
                 }
+                if (!empty($youthCourseEnrolls->publishCourse->batch)?$youthCourseEnrolls->publishCourse->batch->batch_status == Batch::BATCH_STATUS_COMPLETE:'') {
+                    $str .= '<a href="'.route('course_management::youth-certificate-view', $youthCourseEnrolls->id).'" data-action="' . route('course_management::youth-certificate-view', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm" target="_blank"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
+                }
                 return $str;
             })
             ->addColumn('enroll_last_date', static function (YouthCourseEnroll $youthCourseEnrolls) {
@@ -298,6 +303,41 @@ class YouthRegistrationService
             })
             ->rawColumns(['enroll_status', 'payment_status', 'action','enroll_last_date'])
             ->toJson();
+    }
+
+    public function validationYouthComplainToOrganization(Request $request): Validator
+    {
+        $rules = [
+            'institute_id' => [
+                'required',
+                'integer',
+                'exists:institutes,id'
+            ],
+            'organization_id' => [
+                'required',
+                'integer',
+                'exists:organizations,id'
+            ],
+            'youth_id' => [
+                'exists:youths,id'
+            ],
+            'complain_title' => [
+                'required',
+                'string',
+            ],
+            'complain_message' => [
+                'required',
+                'string',
+            ],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+
+    }
+
+    public function addYouthComplainToOrganization(array $data): YouthComplainToOrganization
+    {
+        $data['created_by'] = $data['youth_id'];
+        return YouthComplainToOrganization::create($data);
     }
 
 }

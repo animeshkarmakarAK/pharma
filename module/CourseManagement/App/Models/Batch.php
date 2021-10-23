@@ -39,6 +39,9 @@ class Batch extends Model
 {
     use HasFactory, ScopeAclTrait;
 
+    const BATCH_STATUS_ON_GOING = 1;
+    const BATCH_STATUS_COMPLETE = 2;
+
     protected $guarded = ['id'];
 
     public function course(): BelongsTo
@@ -49,6 +52,10 @@ class Batch extends Model
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
+    }
 
+    public function publishCourse(): BelongsTo
+    {
+        return $this->belongsTo(PublishCourse::class);
     }
 }

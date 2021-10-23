@@ -132,19 +132,24 @@
                         </a>
                     </li>
                 @elseauth('youth')
-                    <li class="nav-item">
-                        <a class="btn"
-                           href="{{ route('course_management::youth', auth()->guard('youth')->user()->id.'/youth-enrolled-courses') }}"
-                           id="bd-versions">
-                            <i class="fas fa-clipboard-list"></i>&nbsp; আমার কোর্স সমূহ
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle btn" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            প্রোফাইল
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn"
-                           href="{{ route('course_management::youth', auth()->guard('youth')->user()->id) }}"
-                           id="bd-versions">
-                            <i class="fas fa-clipboard-list"></i>&nbsp; প্রোফাইল
-                        </a>
+                        <div class="dropdown-menu menu-bg-color" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                               href="{{ route('course_management::youth') }}">
+                                <i class="fas fa-clipboard-list"></i>&nbsp; আমার প্রোফাইল
+                            </a>
+                            <a class="dropdown-item"
+                               href="{{ route('course_management::youth-enrolled-courses') }}">
+                                <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
+                            </a>
+                            <a class="dropdown-item" href="{{ route('course_management::youth-current-organization') }}">
+                                <i class="fas fa-clipboard-list"></i> &nbsp; আমার কর্মস্থল
+                            </a>
+                        </div>
                     </li>
 
                     <li class="nav-item">

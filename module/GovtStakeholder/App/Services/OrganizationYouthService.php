@@ -4,95 +4,52 @@ namespace Module\GovtStakeholder\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Module\GovtStakeholder\App\Models\Skill;
+use Module\CourseManagement\App\Models\YouthOrganization;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrganizationYouthService
 {
-    public function createSkill(array $data): Skill
-    {
-        return Skill::create($data);
-    }
-
-    public function updateSkill(Skill $skill, array $data): Skill
-    {
-        $skill->fill($data);
-        $skill->save();
-
-        return $skill;
-    }
-
-    public function deleteSkill(Skill $skill): void
-    {
-        $skill->delete();
-    }
-
-    public function validator(Request $request): Validator
-    {
-        $rules = [
-            'title_en' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max: 191',
-            ],
-            'organization_id' => [
-                'nullable',
-                'int',
-                'exists:organizations,id',
-            ],
-            'description' => [
-                'nullable',
-                'string',
-                'max:5000',
-            ],
-        ];
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
-    }
-
-    public function getSkillLists(Request $request): JsonResponse
+    public function getOrganizationYouthLists(Request $request): JsonResponse
     {
         $authUser = AuthHelper::getAuthUser();
-        /** @var Builder|Skill $skilles */
-        $skilles = Skill::select(
+
+        /** @var Builder|YouthOrganization $youths */
+        $youths = YouthOrganization::select(
             [
-                'skills.id as id',
-                'skills.title_en',
-                'skills.title_bn',
+                'youth_organizations.id',
+                'youth_organizations.youth_id as youth_id',
+                'youths.name_en as youth_name_en',
+                'youths.name_bn as youth_name_bn',
+                'youths.youth_registration_no',
+                'youth_organizations.organization_id',
                 'organizations.title_en as organization_title_en',
-                'skills.row_status',
-                'skills.created_at',
-                'skills.updated_at',
+                'organizations.title_bn as organization_title_bn',
+                'youth_organizations.row_status',
+                'youth_organizations.created_at',
+                'youth_organizations.updated_at',
             ]
         );
-        $skilles->LeftJoin('organizations', 'skills.organization_id', '=', 'organizations.id');
+        $youths->LeftJoin('organizations', 'youth_organizations.organization_id', '=', 'organizations.id');
+        $youths->LeftJoin('youths', 'youth_organizations.youth_id', '=', 'youths.id');
 
-        return DataTables::eloquent($skilles)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Skill $skill) use ($authUser) {
+        if(!empty($authUser->organization_id)){
+            $youths->where(['organization_id' => $authUser->organization_id]);
+        }
+
+
+        return DataTables::eloquent($youths)
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthOrganization $youth) use ($authUser) {
                 $str = '';
-                if ($authUser->can('view', $skill)) {
-                    $str .= '<a href="' . route('govt_stakeholder::admin.skills.show', $skill->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
-                }
-                if ($authUser->can('update', $skill)) {
-                    $str .= '<a href="' . route('govt_stakeholder::admin.skills.edit', $skill->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> Edit </a>';
-                }
-                if ($authUser->can('delete', $skill)) {
-                    $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.skills.destroy', $skill->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> Delete</a>';
-                }
-
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->youth_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-address-card"></i> CV View </a>';
+                $str .= '<a href="' . route('course_management::admin.youths.certificate', $youth->youth_id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-user-graduate"></i> Certificate View</a>';
+                $str .= '<a href="' . route('govt_stakeholder::admin.organization-complain-form', $youth->youth_id) . '" data-action="' . '" class="btn btn-outline-danger btn-sm complain"> <i class="fas fa-skull-crossbones"></i> Complain</a>';
                 return $str;
             }))
             ->rawColumns(['action'])
             ->toJson();
     }
-
 
 }

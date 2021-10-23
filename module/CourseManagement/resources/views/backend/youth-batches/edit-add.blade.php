@@ -168,7 +168,6 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {

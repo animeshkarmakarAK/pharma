@@ -49,7 +49,6 @@ class ProgrammeController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
         $programmeValidateData = $this->programmeService->validator($request)->validate();
 
         try {

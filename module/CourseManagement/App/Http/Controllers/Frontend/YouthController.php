@@ -2,11 +2,17 @@
 
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Mail\YouthRegistrationSuccessMail;
+use App\Services\CertificateGenerator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\CourseSession;
+use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
 use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\VideoCategory;
@@ -14,10 +20,12 @@ use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
+use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 
 class YouthController extends Controller
@@ -36,14 +44,17 @@ class YouthController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function index($id)
+    public function index()
     {
-        $youthId = auth()->guard('youth')->user()->id;
-        if ($id != $youthId) {
-            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        $youth = AuthHelper::getAuthUser('youth');
+        if (!$youth) {
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
         }
 
-        $youth = Youth::findOrFail($youthId);
+        $youth = Youth::findOrFail($youth->id);
 
         $youth->load([
             'youthRegistration',
@@ -66,17 +77,17 @@ class YouthController extends Controller
             ]);
     }
 
-    public function youthEnrolledCourses($id)
+    public function youthEnrolledCourses()
     {
-        if (!auth()->guard('youth')->user()) {
-            return redirect()->route('course_management::youth.login-form');
-        }
-        $youthId = auth()->guard('youth')->user()->id;
-        if ($id != $youthId) {
-            return redirect()->back()->with(['message' => 'wrong url', 'alert-type' => 'error']);
+        $youth = AuthHelper::getAuthUser('youth');
+        if (!$youth) {
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
         }
 
-        $youth = Youth::findOrFail($youthId);
+        $youth = Youth::findOrFail($youth->id);
 
         $youth->load([
             'youthRegistration',
@@ -99,13 +110,47 @@ class YouthController extends Controller
             ]);
     }
 
+    public function youthCertificateView(YouthCourseEnroll $youthCourseEnroll)
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+
+        if (!$youth) {
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
+        }
+
+        $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
+
+        $institute = $youthCourseEnroll->publishCourse->institute;
+
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthCourseEnroll->publishCourse->batch->updated_at)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
+
+        $youthInfo = [
+            'youth_id' => $youthCourseEnroll->youth_id,
+            'youth_name' => $youthCourseEnroll->youth->name_en,
+            'youth_father_name' => $familyInfo->member_name_en,
+            'publish_course_id' => $youthCourseEnroll->publish_course_id,
+            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title_en,
+            'path' => $path,
+            "register_no" => $youthCourseEnroll->youth->youth_registration_no,
+            'institute_name' => $institute->title_en,
+            'from_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->created_at)),
+            'to_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->batch->updated_at)),
+        ];
+        $template = 'course_management::frontend.youth/certificate/certificate-one';
+        $pdf = app(CertificateGenerator::class);
+        //return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
+        return Storage::download($pdf->generateCertificate($template, $youthInfo));
+    }
+
     public function videos(): View
     {
         $currentInstitute = domainConfig('institute');
         $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
         $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
-        //dd($youthVideoCategory);
-        return \view(self::VIEW_PATH . 'skill-videos',compact('youthVideos','youthVideoCategories'));
+        return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
 
     /**
@@ -441,6 +486,106 @@ class YouthController extends Controller
         $payment = new Payment();
         $payment->fill($data);
         $payment->save();
+    }
+
+    public function certificate(): View
+    {
+
+        return \view(self::VIEW_PATH . 'youth/certificate/certificate');
+    }
+
+    public function certificateDownload()
+    {
+        $youthInfo = [
+            'name' => 'Miladul Islam',
+            'father_name' => "Father's Name",
+            "register_no" => time(),
+            'institute_name' => "BITAC",
+            'from_date' => "10/08/2021",
+            'to_date' => "10/10/2021",
+        ];
+
+//        $certificate= PDF::loadView(self::VIEW_PATH . 'youth/certificate/certificate-two', compact('youthInfo'), [],
+//            [
+//            'title' => 'Certificate',
+//            'format' => 'A4-L',
+//            'orientation' => 'L',
+//            'font-size' => '50',
+//
+//            ]
+//        );
+        $template = self::VIEW_PATH . 'youth/certificate/certificate-two';
+        $pdf = app(CertificateGenerator::class);
+        return $pdf->generateCertificate($template, $youthInfo);
+
+
+//        $mpdf = new \Mpdf\Mpdf([
+//            'orientation' => 'L'
+//        ]);
+//        $viewLoad = view(self::VIEW_PATH . 'youth/certificate/certificate-one', compact('youthInfo'));
+//        $mpdf->WriteHTML($viewLoad);
+//        $mpdf->Output('Certificate.pdf', 'I');
+    }
+
+    public function certificateTwo()
+    {
+        return \view(self::VIEW_PATH . 'youth/certificate/certificate-two');
+    }
+
+    public function youthCurrentOrganization()
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+        $organization = YouthOrganization::where(['youth_id' => $youth->id])
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        return \view(self::VIEW_PATH . 'youth.youth-organization', compact('youth', 'organization'));
+    }
+
+    public function youthComplainToOrganizationForm()
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+        $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        return \view(self::VIEW_PATH . 'youth.youth-complain-to-organization', compact('youth', 'youthOrganization'));
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function youthComplainToOrganization(Request $request)
+    {
+        $youth = AuthHelper::getAuthUser('youth');
+        $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        if ($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id) {
+            $validateData = $this->youthRegistrationService->validationYouthComplainToOrganization($request)->validate();
+
+            try {
+                $this->youthRegistrationService->addYouthComplainToOrganization($validateData);
+            } catch (\Throwable $exception) {
+                Log::debug($exception->getMessage());
+                return back()->with([
+                    'message' => __('generic.something_wrong_try_again'),
+                    'alert-type' => 'error'
+                ]);
+            }
+
+            return back()->with([
+                'message' => __('Your complain successfully submitted to Institute'),
+                'alert-type' => 'success'
+            ]);
+        } else {
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
     }
 }
 
