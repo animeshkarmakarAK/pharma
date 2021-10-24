@@ -284,7 +284,7 @@
         </div>
         <div class="container p-5 card">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-12">
                             <h3 class="accordion-heading">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
@@ -368,11 +368,59 @@
                                     </div>
                                 </div><!-- End -->
 
+                                <!-- Accordion item 4 -->
+                                <div class="card shadow-none mb-0">
+                                    <div id="headingThree" class="card-header bg-white shadow-sm border-0">
+                                        <h2 class="mb-0">
+                                            <button type="button" data-toggle="collapse" data-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour"
+                                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">
+                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ <p class="mb-0"><i
+                                                        class="far fa-calendar-minus gray-color"></i> <span
+                                                        class="accordion-date">১২/০৯/২০২১</span></p></button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseFour" aria-labelledby="headingThree"
+                                         data-parent="#accordionExample" class="collapse">
+                                        <div class="card-body p-5">
+                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
+                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
+                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End -->
+
+                                <!-- Accordion item 5 -->
+                                <div class="card shadow-none mb-0">
+                                    <div id="headingThree" class="card-header bg-white shadow-sm border-0">
+                                        <h2 class="mb-0">
+                                            <button type="button" data-toggle="collapse" data-target="#collapseFive"
+                                                    aria-expanded="false" aria-controls="collapseFive"
+                                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">
+                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ <p class="mb-0"><i
+                                                        class="far fa-calendar-minus gray-color"></i> <span
+                                                        class="accordion-date">১২/০৯/২০২১</span></p></button>
+                                        </h2>
+                                    </div>
+                                    <div id="collapseFive" aria-labelledby="headingThree"
+                                         data-parent="#accordionExample" class="collapse">
+                                        <div class="card-body p-5">
+                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
+                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
+                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
+                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End -->
+
                             </div><!-- End -->
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 rounded">
+                <div class="col-md-7 rounded">
                     <div id='calendar'></div>
                 </div>
             </div>
@@ -1083,12 +1131,18 @@
             display: flex;
             flex-direction: row-reverse;
             padding: 10px;
+            margin-bottom: 5px;
         }
 
         .fc-daygrid-day-events {
             display: none !important;
         }
-
+        .fc .fc-scroller-liquid-absolute {
+            overflow: hidden !important;
+        }
+        .fc .fc-scroller {
+            overflow: hidden !important;
+        }
 
     </style>
 @endpush
@@ -1117,7 +1171,7 @@
             let calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 initialDate,
-                height: 300,
+                height: 500,
                 aspectRatio: 1,
                 displayEventTime: false,
                 customButtons: {
