@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Youth
@@ -36,6 +37,12 @@ class YouthCourseEnroll extends Model
     {
         return $this->belongsTo(PublishCourse::class);
     }
+
+    public function youthBatch(): HasOne
+    {
+        return $this->hasOne(youthBatch::class);
+    }
+
 
 
 }
