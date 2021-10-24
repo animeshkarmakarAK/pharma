@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +16,7 @@
             font-family: nikosh;
             font-weight: 400;
             color: #322d28;
-            margin: 0;
-
+            padding: 15px;
         }
 
         table, th, td {
@@ -47,7 +45,7 @@
 <body>
 
 <div style="background: #8a5d3b;">
-    <div style="border-top-left-radius: 150px;border-bottom-right-radius: 150px;background: white;height: 100%;">
+    <div style="border-top-left-radius: 150px;border-bottom-right-radius: 150px;background: white;">
         <div style="width: 100%;">
             <table id="background-watermark">
                 <tr>
@@ -68,18 +66,18 @@
                             alt=""></td>
                 </tr>
                 <tr>
-                    <td colspan="5" style="padding-top: 100px; padding-bottom: 100px;">
+                    <td colspan="5" style="padding-top: 70px; padding-bottom: 70px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 30%;"><span style="font-size: 20px;">No</span>
+                                <td style="width: 30%;"><span style="font-size: 20px;padding-bottom: 5px">No</span>
                                     <span
-                                        style="border: 4px;border-style: none none dotted none;font-size: 16px;">{{ !empty($youthInfo)? $youthInfo['register_no']:'' }}</span>
+                                        style="border-bottom: 2px dotted;font-size: 16px;">{{ !empty($youthInfo)? $youthInfo['register_no']:'' }}</span>
                                 </td>
                                 <td style="width: 40%;text-align: center;"><h3 style=" color: #8a5d3b;margin: 0;">
                                         CERTIFICATE</h3></td>
-                                <td style="width: 30%;margin-left: 20px"><span style="font-size: 20px;">Date: </span>
+                                <td style="width: 30%;margin-left: 20px;"><span style="font-size: 20px; padding-bottom: 5px">Date: </span>
                                     <span
-                                        style="border: 4px;border-style: none none dotted none;font-size: 16px;"> {{ !empty($youthInfo)? $youthInfo['to_date']:'' }}}}</span>
+                                        style="border-bottom: 2px dotted;font-size: 16px;"> {{ !empty($youthInfo)? $youthInfo['to_date']:'' }}</span>
                                 </td>
                             </tr>
                         </table>
@@ -89,10 +87,10 @@
                     <td colspan="5">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 15%;"><span
+                                <td style="width: 11%;"><span
                                         style="margin: 0;" class="example_font">Certified that</span>
                                 </td>
-                                <td style="text-align: center;border-bottom: 4px dotted;"><span
+                                <td style="text-align: center;border-bottom: 3px dotted;"><span
                                         style="text-align: center;font-size: 18px;font-style: italic;">
                                         <b>{{ !empty($youthInfo)? $youthInfo['youth_name']:'' }}</b>
                                     </span>
@@ -105,10 +103,10 @@
                     <td colspan="5" style=" padding-top: 20px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 17%;"><span
+                                <td style="width: 13%;"><span
                                         style="margin: 0;" class="example_font">son/daughter of </span>
                                 </td>
-                                <td style="width: 69%; text-align:center; border-bottom: 4px dotted;"><span
+                                <td style="width: 69%; text-align:center; border-bottom: 3px dotted;"><span
                                         style="text-align: center;font-size: 18px;font-style: italic;">
                                         <b>{{ !empty($youthInfo)? $youthInfo['youth_father_name']:'' }}</b>
                                     </span>
@@ -124,11 +122,11 @@
                     <td colspan="5" style="padding-top: 20px;">
                         <table style="width: 100%">
                             <tr>
-                                <td style="width: 40%;"><span
+                                <td style="width: 29%;"><span
                                         style="margin: 0;"
                                         class="example_font">the Technical Training Programme on</span>
                                 </td>
-                                <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
+                                <td style=" border-bottom: 3px dotted; text-align: center; font-size: 18px;font-style: italic;">
                                     <b>{{ !empty($youthInfo)? $youthInfo['publish_course_name']:'' }}</b>
                                 </td>
                             </tr>
@@ -139,16 +137,16 @@
                     <td colspan="5" style=" padding-top: 20px;">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width: 6%;"><span
+                                <td style="width: 2%;"><span
                                         style="margin: 0;" class="example_font">from</span>
                                 </td>
-                                <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
+                                <td style=" border-bottom: 3px dotted; text-align: center; font-size: 18px;font-style: italic;">
                                     <b>{{ !empty($youthInfo)? $youthInfo['from_date']:'' }}</b>
                                 </td>
                                 <td style="width: 3%;"><span
                                         style="margin: 0;" class="example_font">to</span>
                                 </td>
-                                <td style=" border-bottom: 4px dotted; text-align: center; font-size: 18px;font-style: italic;">
+                                <td style=" border-bottom: 3px dotted; text-align: center; font-size: 18px;font-style: italic;">
                                     <b>{{ !empty($youthInfo)? $youthInfo['to_date']:'' }}</b>
                                 </td>
                             </tr>
@@ -157,14 +155,14 @@
                 </tr>
                 <tr>
                     <td style="padding-top: 20px;" colspan="3"><span
-                            style="margin: 0;" class="example_font">We wish him/her
-                            every success in life.</span></td>
+                            style="margin: 0;" class="example_font">
+                            We wish him/her every success in life.</span></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: left; padding-top: 160px;padding-bottom: 30px"><span
+                    <td colspan="2" style="text-align: left; padding-top: 160px;padding-bottom: 50px"><span
                             style="font-size: 16px; font-weight: bold;">COURSE COORDINATOR</span></td>
                     <td></td>
-                    <td colspan="2" style="text-align: right;  padding-top: 160px;padding-bottom: 30px"><span
+                    <td colspan="2" style="text-align: right;  padding-top: 160px;padding-bottom: 50px"><span
                             style="font-size: 16px; font-weight: bold">COURSE DIRECTOR</span></td>
                 </tr>
             </table>
