@@ -81,6 +81,6 @@
     'normal' => $fontDir . '/tenfont_normal_46cd80b5aac9faa9cc7203f05b933202',
   ),
   'certificatedefaulttextfont' => array(
-    'normal' => $fontDir . '/certificatedefaulttextfont_normal_ecb513af38da613b99e8f5f7409c843e',
+    'normal' => $fontDir . '/certificatedefaulttextfont_normal_eb9aab48816dfd975cb45799298e3064',
   ),
 ) ?>

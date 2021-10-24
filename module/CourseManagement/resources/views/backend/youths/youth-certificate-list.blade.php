@@ -44,7 +44,7 @@
                                             <td>{{ ++$sl }}</td>
                                             <td>{{ $youthCourseEnroll->publishCourse->course->title_en }}</td>
                                             <td>
-                                                @if(!empty($youthCourseEnroll->publishCourse) && !empty($youthCourseEnroll->youthBatch->batch)?$youthCourseEnroll->youthBatch->batch->batch_status==\Module\CourseManagement\App\Models\Batch::BATCH_STATUS_COMPLETE:0)
+                                                @if(!empty($youthCourseEnroll->publishCourse) && !empty($youthCourseEnroll->publishCourse->batch)?$youthCourseEnroll->publishCourse->batch->batch_status==\Module\CourseManagement\App\Models\Batch::BATCH_STATUS_COMPLETE:'false')
                                                 <a href="{{ route('course_management::admin.youths.certificate.course', $youthCourseEnroll->id) }}"
                                                    class="btn btn-sm btn-info">
                                                     <i class="fas fa-download"></i>
