@@ -2,6 +2,8 @@
 
 namespace Module\CourseManagement\App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * Class Tag
  * @package Module\CourseManagement\App\Models
@@ -21,4 +23,15 @@ class YouthBatch extends BaseModel
     const ENROLLMENT_STATUS_REJECTED = 2;
 
     protected $guarded = ['id'];
+
+
+    public function batch(): BelongsTo
+    {
+        return $this->belongsTo(Batch::class);
+    }
+
+    public function youthCourseEnroll(): BelongsTo
+    {
+        return $this->belongsTo(YouthCourseEnroll::class);
+    }
 }
