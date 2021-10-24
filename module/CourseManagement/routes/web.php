@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'static-page' => Module\CourseManagement\App\Http\Controllers\StaticPageController::class,
         'videos' => Module\CourseManagement\App\Http\Controllers\VideoController::class,
         'video-categories' => Module\CourseManagement\App\Http\Controllers\VideoCategoryController::class,
+        'events' => Module\CourseManagement\App\Http\Controllers\EventController::class,
     ]);
 
 

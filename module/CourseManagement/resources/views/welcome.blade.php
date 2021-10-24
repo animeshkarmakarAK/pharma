@@ -35,25 +35,25 @@
                             </div>
                         </div>
                     @endforeach
-            </div>
+                </div>
 
-            <a class="carousel-control-prev slider-previous-link" href="#topCarousel" role="button"
-               data-slide="prev">
+                <a class="carousel-control-prev slider-previous-link" href="#topCarousel" role="button"
+                   data-slide="prev">
                 <span class="slider-previous-icon" aria-hidden="true">
                         <i class="fas fa-chevron-left"></i>
                 </span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#topCarousel" role="button" data-slide="next">
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#topCarousel" role="button" data-slide="next">
                 <span class="slider-next-icon" aria-hidden="true">
                         <i class="fas fa-chevron-right"></i>
                 </span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-        <!-- End carousel -->
-    </section>
-    <!-- End Top Content Slider -->
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <!-- End carousel -->
+        </section>
+        <!-- End Top Content Slider -->
     @endif
     <!-- About Us Start-->
     <section class="about-us-section  position-relative">
@@ -67,7 +67,7 @@
                             @if(!empty($staticPage))
                                 @if(strlen(strip_tags($staticPage->page_contents)) > 1136)
                                     <p>
-                                       {!! \Illuminate\Support\Str::limit( strip_tags($staticPage->page_contents), 460) !!}
+                                        {!! \Illuminate\Support\Str::limit( strip_tags($staticPage->page_contents), 460) !!}
 
                                     </p>
 
@@ -284,7 +284,7 @@
         </div>
         <div class="container p-5 card">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
                             <h3 class="accordion-heading">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
@@ -420,7 +420,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 rounded">
+                <div class="col-md-6 rounded">
                     <div id='calendar'></div>
                 </div>
             </div>
@@ -486,21 +486,21 @@
                         </div>
                     </div>
                 @elseif($galleryCategories->count() > 0)
-                <div class="col-md-12">
-                    <div class="row w-100 justify-content-center text-center">
-                        @foreach($galleryCategories as $galleryCategory)
-                            <div class="col-md-4">
-                                <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
-                                    <div class="card card-main mb-2 shadow-none bg-transparent">
-                                        <img class="slider-img slider-radius"
-                                             src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                        <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                    <div class="col-md-12">
+                        <div class="row w-100 justify-content-center text-center">
+                            @foreach($galleryCategories as $galleryCategory)
+                                <div class="col-md-4">
+                                    <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                        <div class="card card-main mb-2 shadow-none bg-transparent">
+                                            <img class="slider-img slider-radius"
+                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
                 @elseif($galleryCategories->isEmpty())
                     <div class="col-md-12">
                         <div class="alert text-danger text-center">
@@ -508,29 +508,29 @@
                         </div>
                     </div>
                 @else
-                <div class="col-md-12">
-                    <div class="row">
-                        @foreach($galleryCategories as $galleryCategory)
-                            <div class="col-md-3">
-                                <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
-                                    <div class="card card-main mb-2 shadow-none bg-transparent">
-                                        <img class="slider-img slider-radius"
-                                             src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                        <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                    <div class="col-md-12">
+                        <div class="row">
+                            @foreach($galleryCategories as $galleryCategory)
+                                <div class="col-md-3">
+                                    <a href="{{ route('course_management::gallery-category', $galleryCategory->id) }}">
+                                        <div class="card card-main mb-2 shadow-none bg-transparent">
+                                            <img class="slider-img slider-radius"
+                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title_bn, 0, 20) }} {{ strlen($galleryCategory->title_bn) >20 ?'...':'' }}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                        @endif
                     </div>
-                @endif
-                </div>
-                @if(($galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
-                    <div class="col-md-12 text-center pb-5">
-                        <a href="{{ route('course_management::gallery-categories') }}" target="_blank"
-                           class="more-course-button mt-3">আরও দেখুন <i
-                                class="fas fa-arrow-right btn-arrow"></i></a>
-                    </div>
-                @endif
+                    @if(($galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
+                        <div class="col-md-12 text-center pb-5">
+                            <a href="{{ route('course_management::gallery-categories') }}" target="_blank"
+                               class="more-course-button mt-3">আরও দেখুন <i
+                                    class="fas fa-arrow-right btn-arrow"></i></a>
+                        </div>
+                    @endif
             </div>
         </div>
     </section>
