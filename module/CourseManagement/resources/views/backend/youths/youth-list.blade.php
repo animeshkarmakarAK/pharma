@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal start-->
     <div class="modal fade" id="addToOrganizationModal" tabindex="-1" role="dialog"
          aria-labelledby="addToOrganizationModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -96,7 +96,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="assign_organization_id">Select Organization <span
+                                <label for="assign_organization_id">Select Organization<span
                                         style="color: red"> * </span></label>
                                 <select name="organization_id" id="assign_organization_id" class="select2"
                                         data-placeholder="{{ __('generic.select_placeholder') }}"
