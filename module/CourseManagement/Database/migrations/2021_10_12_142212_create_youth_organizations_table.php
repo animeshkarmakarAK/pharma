@@ -14,25 +14,13 @@ class CreateYouthOrganizationsTable extends Migration
     public function up()
     {
         Schema::create('youth_organizations', function (Blueprint $table) {
-            /*$table->unsignedInteger('youth_id');
-            $table->unsignedInteger('organization_id');
-
-            $table->foreign('youth_id')
-                ->references('id')
-                ->on('youths')
-                ->onDelete("CASCADE")
-                ->onUpdate("CASCADE");
-
-            $table->foreign('organization_id')
-                ->references('id')
-                ->on('organizations')
-                ->onDelete("CASCADE")
-                ->onUpdate("CASCADE");*/
-
             $table->increments('id');
             $table->unsignedInteger('organization_id');
             $table->unsignedInteger('youth_id');
+            $table->unsignedInteger('current_employment_status')->comment('0 => Not Working ,  1 => Working');
             $table->unsignedInteger('created_by')->nullable();
+            $table->dateTime('started_at')->nullable();
+            $table->dateTime('ended_at')->nullable();
             $table->timestamps();
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
 
