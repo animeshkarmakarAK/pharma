@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
+use Module\CourseManagement\App\Models\IntroVideo;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Slider;
 use Module\CourseManagement\App\Models\StaticPage;
@@ -67,7 +68,12 @@ class HomeController extends BaseController
             $currentInstituteEvents->orderBy('date', 'ASC');
             $currentInstituteEvents = $currentInstituteEvents->limit(5)->get();
 
-            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents'));
+            $introVideo = IntroVideo::where([
+                'institute_id' => $currentInstitute->id,
+            ])->orderBy('id','DESC')->first();
+
+
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents','introVideo'));
         }
 
         $institute = [

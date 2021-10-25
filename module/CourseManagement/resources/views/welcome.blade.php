@@ -86,7 +86,7 @@
 
                     <div class="col-md-5">
                         <div class="about-us-media" style="margin-top: -100px">
-                            <iframe src="https://www.youtube.com/embed/4CzYXfBeIdM" height="400" width="100%"
+                            <iframe src="https://www.youtube.com/embed/{{ !empty($introVideo)? $introVideo->youtube_video_id: '' }}" height="400" width="100%"
                                     title="Iframe" class="cr-img"></iframe>
                         </div>
                     </div>

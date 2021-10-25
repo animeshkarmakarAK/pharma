@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'videos' => Module\CourseManagement\App\Http\Controllers\VideoController::class,
         'video-categories' => Module\CourseManagement\App\Http\Controllers\VideoCategoryController::class,
         'events' => Module\CourseManagement\App\Http\Controllers\EventController::class,
+        'intro-videos' => Module\CourseManagement\App\Http\Controllers\IntroVideoController::class,
     ]);
 
 
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('videos/datatable', [Module\CourseManagement\App\Http\Controllers\VideoController::class, 'getDatatable'])->name('videos.datatable');
     Route::post('video-categories/datatable', [Module\CourseManagement\App\Http\Controllers\VideoCategoryController::class, 'getDatatable'])->name('video-categories.datatable');
     Route::post('events/datatable', [Module\CourseManagement\App\Http\Controllers\EventController::class, 'getDatatable'])->name('events.datatable');
+    Route::post('intro-videos/datatable', [Module\CourseManagement\App\Http\Controllers\IntroVideoController::class, 'getDatatable'])->name('intro-videos.datatable');
 
     Route::get('batches/{id}/youths', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'index'])->name('batches.youths');
     Route::post('batches/{id}/youths-import', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'importYouth'])->name('batches.youths-import');
