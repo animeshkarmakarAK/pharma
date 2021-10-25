@@ -30,7 +30,7 @@ class EventService
 
     public function updateEvent(Event $event, array $data): Event
     {
-        if ($event->image  && !empty($data['image'])) {
+        if ($event->image && !empty($data['image'])) {
             FileHandler::deleteFile($event->image);
         }
         if (!empty($data['image'])) {
