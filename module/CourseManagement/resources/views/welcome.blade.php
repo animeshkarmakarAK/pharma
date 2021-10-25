@@ -15,20 +15,21 @@
         $sliderImageNo=0;
     @endphp
     @if(!$sliders->isEmpty())
-    <!-- Top content Slider Start -->
-    <section class="top-content ">
-        <!-- Carousel -->
-        <div id="topCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
+        <!-- Top content Slider Start -->
+        <section class="top-content ">
+            <!-- Carousel -->
+            <div id="topCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
                     @foreach($sliders as $slider)
                         <div class="carousel-item {{ ++$sl==1?'active':'' }}">
-                            <div style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('{{asset('/storage/'. $slider->slider)}}');
-                                background-position: center;
-                                background-size: 100% 100%;
-                                background-repeat: no-repeat;
-                                min-height: 100%;
-                                opacity: .9;
-                                "></div>
+                            <div
+                                style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('{{asset('/storage/'. $slider->slider)}}');
+                                    background-position: center;
+                                    background-size: 100% 100%;
+                                    background-repeat: no-repeat;
+                                    min-height: 100%;
+                                    opacity: .9;
+                                    "></div>
                             <div class="carousel-caption">
                                 <h3 class="slider-title" title="{{ $slider->title }}">
                                     {{ $slider->title }}</h3>
@@ -71,7 +72,8 @@
 
                                     </p>
 
-                                    <a href="{{route('course_management::static-content.show', 'aboutus')}}" target="_blank"
+                                    <a href="{{route('course_management::static-content.show', 'aboutus')}}"
+                                       target="_blank"
                                        class="more-course-button mt-3 bg-transparent">আরও দেখুন <i
                                             class="fas fa-arrow-right btn-arrow"></i></a>
                                 @else
@@ -124,7 +126,7 @@
                 </div>
                 <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
-                        <img src="{{asset('assets/atAglance/atg-3.png')}}" class="p-3"alt="">
+                        <img src="{{asset('assets/atAglance/atg-3.png')}}" class="p-3" alt="">
                         <h3>{{ $institute['training_centers']? $institute['training_centers']:'0' }}টি</h3>
                         <p class="mt-4 mb-4">প্রশিক্ষণ কেন্দ্র</p>
                     </div>
@@ -133,7 +135,7 @@
                     <div class="instant-view-box instant-view-box-home">
                         <img src="{{asset('assets/atAglance/atg-4.png')}}" class="p-3" alt="">
                         <h3>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }} জন</h3>
-                        <p  class="mt-4 mb-4">দক্ষ প্রশিক্ষক</p>
+                        <p class="mt-4 mb-4">দক্ষ প্রশিক্ষক</p>
                     </div>
                 </div>
             </div>
@@ -183,7 +185,8 @@
                                                             <p class="font-weight-light float-left"><i
                                                                     class="fas fa-user-plus gray-color"></i>
 
-                                                                <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span></p>
+                                                                <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                            </p>
                                                             <p class="float-right">
                                                                 <a href="javascript:;"
                                                                    onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
@@ -232,11 +235,14 @@
                                                 <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
                                                 <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
                                                 <p class="font-weight-light mb-1"><i
-                                                        class="fas fa-clock gray-color"></i> <span class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
+                                                        class="fas fa-clock gray-color"></i> <span
+                                                        class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
                                                 </p>
                                                 <p class="font-weight-light float-left"><i
                                                         class="fas fa-user-plus gray-color"></i>
-                                                    <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span></p>
+                                                    <span
+                                                        class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                </p>
                                                 <p class="float-right">
                                                     <a href="javascript:;"
                                                        onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
@@ -291,132 +297,39 @@
                             <!-- Accordion -->
                             <div id="accordionExample" class="accordion">
 
-                                <!-- Accordion item 1 -->
-                                <div class="card shadow-none mb-0">
-                                    <div id="headingOne" class="card-header bg-white shadow-sm border-0">
-                                        <h2 class="mb-0">
-                                            <button type="button" data-toggle="collapse" data-target="#collapseOne"
-                                                    aria-expanded="true" aria-controls="collapseOne"
-                                                    class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">
-                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ <p class="mb-0">
-                                                    <i class="far fa-calendar-minus gray-color"></i>
-                                                    <span class="accordion-date">১২/০৯/২০২১</span>
+                                @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
+                                    <div class="card shadow-none mb-0">
+                                        <div id="heading{{$key}}" class="card-header bg-white shadow-sm border-0">
+                                            <h2 class="mb-0">
+                                                <button type="button" data-toggle="collapse"
+                                                        data-target="#collapse{{$key}}"
+                                                        aria-expanded="true" aria-controls="collapseOne"
+                                                        class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">
+                                                    {{ $currentInstituteEvent->caption }}
+                                                    <p class="mb-0">
+                                                        <i class="far fa-calendar-minus gray-color"></i>
+                                                        <span
+                                                            class="accordion-date {{ date("Y-m-d", strtotime($currentInstituteEvent->date))==\Carbon\Carbon::now()->format('Y-m-d')?'today-event':'' }}">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("j F Y(l) h:i A", strtotime($currentInstituteEvent->date))) }}</span>
+                                                    </p>
+                                                </button>
+                                            </h2>
+                                        </div>
+                                        <div id="collapse{{$key}}" aria-labelledby="heading{{$key}}"
+                                             data-parent="#accordionExample"
+                                             class="collapse {{--show--}}">
+                                            <div class="card-body p-5">
+                                                <p class="font-weight-light m-0">
+                                                    {{ strlen($currentInstituteEvent->details)>=300? mb_substr($currentInstituteEvent->details,0,300 ).'...':$currentInstituteEvent->details }}
                                                 </p>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample"
-                                         class="collapse {{--show--}}">
-                                        <div class="card-body p-5">
-                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
-                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
-                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                                                <a href="{{ route('course_management::single-event', $currentInstituteEvent->id) }}" class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div><!-- End -->
+                                @endforeach
 
-                                <!-- Accordion item 2 -->
-                                <div class="card shadow-none mb-0">
-                                    <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
-                                        <h2 class="mb-0">
-                                            <button type="button" data-toggle="collapse" data-target="#collapseTwo"
-                                                    aria-expanded="false" aria-controls="collapseTwo"
-                                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">
-                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ
-                                                <p class="mb-0">
-                                                    <i class="far fa-calendar-minus gray-color"></i>
-                                                    <span class="accordion-date">১২/০৯/২০২১</span>
-                                                </p>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample"
-                                         class="collapse">
-                                        <div class="card-body p-5">
-                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
-                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
-                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
-                                        </div>
-                                    </div>
-                                </div><!-- End -->
 
-                                <!-- Accordion item 3 -->
-                                <div class="card shadow-none mb-0">
-                                    <div id="headingThree" class="card-header bg-white shadow-sm border-0">
-                                        <h2 class="mb-0">
-                                            <button type="button" data-toggle="collapse" data-target="#collapseThree"
-                                                    aria-expanded="false" aria-controls="collapseThree"
-                                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">
-                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ <p class="mb-0"><i
-                                                        class="far fa-calendar-minus gray-color"></i> <span
-                                                        class="accordion-date">১২/০৯/২০২১</span></p></button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseThree" aria-labelledby="headingThree"
-                                         data-parent="#accordionExample" class="collapse">
-                                        <div class="card-body p-5">
-                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
-                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
-                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
-                                        </div>
-                                    </div>
-                                </div><!-- End -->
-
-                                <!-- Accordion item 4 -->
-                                <div class="card shadow-none mb-0">
-                                    <div id="headingThree" class="card-header bg-white shadow-sm border-0">
-                                        <h2 class="mb-0">
-                                            <button type="button" data-toggle="collapse" data-target="#collapseFour"
-                                                    aria-expanded="false" aria-controls="collapseFour"
-                                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">
-                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ <p class="mb-0"><i
-                                                        class="far fa-calendar-minus gray-color"></i> <span
-                                                        class="accordion-date">১২/০৯/২০২১</span></p></button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseFour" aria-labelledby="headingThree"
-                                         data-parent="#accordionExample" class="collapse">
-                                        <div class="card-body p-5">
-                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
-                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
-                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
-                                        </div>
-                                    </div>
-                                </div><!-- End -->
-
-                                <!-- Accordion item 5 -->
-                                <div class="card shadow-none mb-0">
-                                    <div id="headingThree" class="card-header bg-white shadow-sm border-0">
-                                        <h2 class="mb-0">
-                                            <button type="button" data-toggle="collapse" data-target="#collapseFive"
-                                                    aria-expanded="false" aria-controls="collapseFive"
-                                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">
-                                                সেপা প্রকল্পের মোটিভেশনাল ওয়ার্কশপ <p class="mb-0"><i
-                                                        class="far fa-calendar-minus gray-color"></i> <span
-                                                        class="accordion-date">১২/০৯/২০২১</span></p></button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseFive" aria-labelledby="headingThree"
-                                         data-parent="#accordionExample" class="collapse">
-                                        <div class="card-body p-5">
-                                            <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim
-                                                eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                                                officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                                                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a
-                                                bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
-                                        </div>
-                                    </div>
-                                </div><!-- End -->
-
-                            </div><!-- End -->
+                            </div>
+                            <!-- End -->
                         </div>
                     </div>
                 </div>
@@ -767,6 +680,7 @@
             color: white;
             font-size: 15px;
         }
+
         .slider-title {
             font-family: Hind Siliguri;
             font-style: normal;
@@ -909,10 +823,12 @@
         .instant-view-box-home h1 {
             font-size: 30px;
         }
+
         .instant-view-box-home p {
             color: #39759f;
             padding: 0px 10px;
         }
+
         /* Courses */
 
         .card-bar-home-course {
@@ -940,13 +856,15 @@
             white-space: nowrap;
             overflow: hidden;
         }
-        .course-heading-wrap:hover{
+
+        .course-heading-wrap:hover {
             overflow: visible;
         }
+
         .course-heading-wrap:hover {
             overflow: visible;
             white-space: normal;
-            cursor:pointer;
+            cursor: pointer;
         }
 
 
@@ -1028,25 +946,27 @@
             .about-us-section {
                 text-align: justify;
             }
+
             .top-content .carousel-item {
                 height: 60vh;
             }
+
             .slider-title {
                 font-size: 20px;
                 line-height: 30px;
             }
+
             .slider-previous-icon, .slider-next-icon {
                 padding: 10px;
             }
         }
+
         @media screen and (min-width: 987px ) {
             .m-left-right-10 {
                 margin-left: 10%;
                 margin-right: 10%;
             }
         }
-
-
 
 
     </style>
@@ -1137,11 +1057,20 @@
         .fc-daygrid-day-events {
             display: none !important;
         }
+
         .fc .fc-scroller-liquid-absolute {
             overflow: hidden !important;
         }
+
         .fc .fc-scroller {
             overflow: hidden !important;
+        }
+
+        .today-event {
+            background: #ff005d;
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: #fff;
         }
 
     </style>
@@ -1205,7 +1134,6 @@
                     const {publish_course_id} = calEvent.event.extendedProps;
                     courseDetailsModalOpen(publish_course_id);
                 },*/
-
             });
             calendar.render();
 

@@ -2,7 +2,9 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
+use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
 use Module\CourseManagement\App\Models\PublishCourse;
@@ -58,7 +60,14 @@ class HomeController extends BaseController
                 $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
             }
 
-            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories','galleryAllCategories','maxEnrollmentNumber'));
+            $currentInstituteEvents = Event::where([
+                'institute_id' => $currentInstitute->id,
+            ]);
+            $currentInstituteEvents->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
+            $currentInstituteEvents->orderBy('date', 'ASC');
+            $currentInstituteEvents = $currentInstituteEvents->limit(5)->get();
+
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories','galleryAllCategories','maxEnrollmentNumber','currentInstituteEvents'));
         }
 
         $institute = [

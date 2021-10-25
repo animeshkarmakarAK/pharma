@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('static-page/datatable', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'getDatatable'])->name('static-page.datatable');
     Route::post('videos/datatable', [Module\CourseManagement\App\Http\Controllers\VideoController::class, 'getDatatable'])->name('videos.datatable');
     Route::post('video-categories/datatable', [Module\CourseManagement\App\Http\Controllers\VideoCategoryController::class, 'getDatatable'])->name('video-categories.datatable');
+    Route::post('events/datatable', [Module\CourseManagement\App\Http\Controllers\EventController::class, 'getDatatable'])->name('events.datatable');
 
     Route::get('batches/{id}/youths', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'index'])->name('batches.youths');
     Route::post('batches/{id}/youths-import', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'importYouth'])->name('batches.youths-import');
@@ -155,5 +156,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('youth/check-unique-passport-no', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
     Route::get('gallery-categories', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
     Route::get('gallery-categories/{galleryCategory}', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
+
+    Route::get('events/{event}', [\Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
 
 });

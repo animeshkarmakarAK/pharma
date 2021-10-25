@@ -18,7 +18,7 @@
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Event':'Create Event' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('course_management::admin.training-centers.index')}}"
+                            <a href="{{route('course_management::admin.events.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -64,7 +64,7 @@
                                            value="{{$edit ? $event->caption : old('caption')}}"
                                            placeholder="Caption" required>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 event-image">
                                     <label for="image">Image <span style="color: red"> * </span></label>
                                     <input type="file" class="form-control custom-input-box" name="image"
                                            id="image"
@@ -129,6 +129,41 @@
         const EDIT = !!'{{$edit}}';
         const INSTITUTE_USER = !!'{{$authUser->isInstituteUser()}}';
         const editAddForm = $('.edit-add-form');
+
+
+        /**
+         * start event image dimension validation
+         * */
+        $.validator.addMethod('dimension', function(value, element, param) {
+            if(element.files.length === 0){
+                return true;
+            }
+            let width = $(element).data('imageWidth');
+            let height = $(element).data('imageHeight');
+            if(width === param[0] && height === param[1]){
+                return true;
+            }else{
+                return false;
+            }
+        },'Please upload an image with 1200 x 675 pixels dimension');
+
+        $('#image').change(function() {
+            $('#image').removeData('imageWidth');
+            $('#image').removeData('imageHeight');
+            var file = this.files[0];
+            var tmpImg = new Image();
+            tmpImg.src=window.URL.createObjectURL( file );
+            tmpImg.onload = function() {
+                width = tmpImg.naturalWidth,
+                    height = tmpImg.naturalHeight;
+                $('#image').data('imageWidth', width);
+                $('#image').data('imageHeight', height);
+            }
+        });
+        /** end event image dimension validation  */
+
+
+
         editAddForm.validate({
             rules: {
                 institute_id: {
@@ -144,7 +179,13 @@
                     required: true,
                 },
                 image: {
-                    required: true,
+                    required: function (){
+                        if(!EDIT){
+                            return true;
+                        }
+                    },
+                    accept: "image/*",
+                    dimension: [1200,675],
                 },
                 date: {
                     required: true,

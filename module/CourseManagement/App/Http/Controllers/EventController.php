@@ -86,10 +86,8 @@ class EventController extends Controller
     public function edit(Event $event): View
     {
         $institutes = Institute::active()->get();
-        $branches = Branch::where(['institute_id' => $event->institute_id])->get();
-        //dd($branches);
 
-        return view(self::VIEW_PATH . 'edit-add', compact('event', 'institutes', 'branches'));
+        return view(self::VIEW_PATH . 'edit-add', compact('event', 'institutes'));
     }
 
     /**
@@ -113,8 +111,8 @@ class EventController extends Controller
             ]);
         }
 
-        return redirect()->route('course_management::admin.training-centers.index')->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Training Center']),
+        return redirect()->route('course_management::admin.events.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Event']),
             'alert-type' => 'success'
         ]);
     }
@@ -136,7 +134,7 @@ class EventController extends Controller
         }
 
         return back()->with([
-            'message' => __('generic.object_deleted_successfully', ['object' => 'Training center']),
+            'message' => __('generic.object_deleted_successfully', ['object' => 'Event']),
             'alert-type' => 'success'
         ]);
     }

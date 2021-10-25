@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Training Center List') }}
+    {{ __('Event List') }}
 @endsection
 
 
@@ -15,7 +15,7 @@
 
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\TrainingCenter::class)
-                                <a href="{{route('course_management::admin.training-centers.create')}}"
+                                <a href="{{route('course_management::admin.events.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
@@ -46,7 +46,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('course_management::admin.training-centers.datatable') }}',
+                url: '{{ route('course_management::admin.events.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {
@@ -58,47 +58,47 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
-                        data: "title_en",
-                        name: "training_centers.title_en"
+                        title: "Caption",
+                        data: "caption",
+                        name: "events.caption"
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "training_centers.title_bn"
+                        title: "Event Date",
+                        data: "event_date",
+                        name: "events.date"
                     },
 
                     {
                         title: "Institute Name",
-                        data: "institute_name",
+                        data: "institute_name_en",
                         name: "institutes.title_en",
                         visible: false,
                     },
 
                     {
-                        title: "Branch Name",
-                        data: "branch_name",
-                        name: "branches.title_en",
+                        title: "Image",
+                        data: "event_image",
+                        name: "events.image",
                         visible: true,
                     },
                     {
                         title: "Created By",
-                        data: "training_center_created_by",
-                        name: "training_centers.created_by",
+                        data: "user_created_by",
+                        name: "events.created_by",
                         visible: false,
                     },
                     {
                         title: "Created Date",
-                        data: "created_at",
-                        name: "training_centers.created_at",
+                        data: "event_created_at",
+                        name: "events.created_at",
                         visible: false,
                         searchable: false,
                     },
 
                     {
                         title: "Update Date",
-                        data: "updated_at",
-                        name: "training_centers.updated_at",
+                        data: "event_updated_at",
+                        name: "events.updated_at",
                         visible: false,
                         searchable: false,
                     },
