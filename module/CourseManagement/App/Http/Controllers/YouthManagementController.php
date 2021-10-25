@@ -174,7 +174,6 @@ class YouthManagementController extends Controller
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        //return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
         return Storage::download($pdf->generateCertificate($template, $youthInfo));
 
     }
