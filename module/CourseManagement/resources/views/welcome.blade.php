@@ -321,7 +321,8 @@
                                                 <p class="font-weight-light m-0">
                                                     {{ strlen($currentInstituteEvent->details)>=300? mb_substr($currentInstituteEvent->details,0,300 ).'...':$currentInstituteEvent->details }}
                                                 </p>
-                                                <a href="{{ route('course_management::single-event', $currentInstituteEvent->id) }}" class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>
+                                                <a href="{{ route('course_management::single-event', $currentInstituteEvent->id) }}"
+                                                   class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>
                                             </div>
                                         </div>
                                     </div>
