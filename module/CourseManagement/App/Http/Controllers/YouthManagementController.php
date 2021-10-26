@@ -41,6 +41,7 @@ class YouthManagementController extends Controller
         $institutes = Institute::acl()->active()->get();
         $organizations = Organization::acl()->get();
 
+
         return \view(self::VIEW_PATH . 'youth-list', compact('institutes', 'organizations'));
     }
 
@@ -56,7 +57,6 @@ class YouthManagementController extends Controller
     public function addYouthToOrganization(Request $request): \Illuminate\Http\RedirectResponse
     {
         $organization = Organization::findOrFail($request['organization_id']);
-
         DB::beginTransaction();
         try {
             $validatedData = $this->youthService->validateAddYouthToOrganization($request)->validate();
@@ -147,8 +147,8 @@ class YouthManagementController extends Controller
     }
     public function youthCertificateList(Youth $youth)
     {
-        $youthCourseEnrolls = YouthCourseEnroll::where('youth_id', $youth->id)->get();
 
+        $youthCourseEnrolls = YouthCourseEnroll::where('youth_id', $youth->id)->get();
         return \view(self::VIEW_PATH . 'youth-certificate-list', compact('youthCourseEnrolls', 'youth'));
     }
 
@@ -174,7 +174,6 @@ class YouthManagementController extends Controller
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        //return redirect(asset("storage/".$pdf->generateCertificate($template, $youthInfo)));
         return Storage::download($pdf->generateCertificate($template, $youthInfo));
 
     }
