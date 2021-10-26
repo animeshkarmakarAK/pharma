@@ -2,11 +2,13 @@
 
 namespace Module\CourseManagement\App\Policies;
 
-use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\TrainingCenter;
 use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
-class BatchPolicy extends BasePolicy
+class EventPolicy extends BasePolicy
 {
+
     /**
      * Determine whether the user can view any models.
      *
@@ -15,19 +17,19 @@ class BatchPolicy extends BasePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermission('view_any_batch');
+        return $user->hasPermission('view_any_event');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param User  $user
-     * @param  \Module\CourseManagement\App\Models\Batch  $batch
+     * @param TrainingCenter $trainingCenter
      * @return mixed
      */
-    public function view(User $user, Batch $batch): bool
+    public function view(User $user): bool
     {
-        return $user->hasPermission('view_single_batch');
+        return $user->hasPermission('view_single_event');
     }
 
     /**
@@ -38,59 +40,54 @@ class BatchPolicy extends BasePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission('create_batch');
+        return $user->hasPermission('create_event');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param User  $user
-     * @param  \Module\CourseManagement\App\Models\Batch  $batch
+     * @param TrainingCenter $trainingCenter
      * @return mixed
      */
-    public function update(User $user): bool
+    public function update(User $user, TrainingCenter $trainingCenter): bool
     {
-        return $user->hasPermission('update_batch');
+        return $user->hasPermission('update_event');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param User  $user
-     * @param Batch  $batch
+     * @param TrainingCenter $trainingCenter
      * @return mixed
      */
-    public function delete(User $user, Batch $batch)
+    public function delete(User $user, TrainingCenter $trainingCenter): bool
     {
-        return $user->hasPermission('delete_batch');
+        return $user->hasPermission('delete_event');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param User  $user
-     * @param Batch  $batch
+     * @param TrainingCenter  $trainingCenter
      * @return mixed
      */
-    public function restore(User $user, Batch $batch)
+    public function restore(User $user, TrainingCenter $trainingCenter): bool
     {
-        return $user->hasPermission('restore_batch');
+        return $user->hasPermission('restore_event');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param User  $user
-     * @param Batch  $batch
+     * @param TrainingCenter  $trainingCenter
      * @return mixed
      */
-    public function forceDelete(User $user, Batch $batch)
+    public function forceDelete(User $user, TrainingCenter $trainingCenter): bool
     {
-        return $user->hasPermission('force_delete_batch');
-    }
-
-    public function viewBachYouth(User $user, Batch $batch): bool
-    {
-        return $user->hasPermission('view_any_batch_youth');
+        return $user->hasPermission('forse_delete_event');
     }
 }

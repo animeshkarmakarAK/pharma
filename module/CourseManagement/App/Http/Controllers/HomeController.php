@@ -2,9 +2,12 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
+use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
+use Module\CourseManagement\App\Models\IntroVideo;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Slider;
 use Module\CourseManagement\App\Models\StaticPage;
@@ -54,11 +57,23 @@ class HomeController extends BaseController
 
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
             $maxEnrollmentNumber = [];
-            foreach ($currentInstituteCourses as $course){
+            foreach ($currentInstituteCourses as $course) {
                 $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
             }
 
-            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories','galleryAllCategories','maxEnrollmentNumber'));
+            $currentInstituteEvents = Event::where([
+                'institute_id' => $currentInstitute->id,
+            ]);
+            $currentInstituteEvents->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
+            $currentInstituteEvents->orderBy('date', 'ASC');
+            $currentInstituteEvents = $currentInstituteEvents->limit(5)->get();
+
+            $introVideo = IntroVideo::where([
+                'institute_id' => $currentInstitute->id,
+            ])->orderBy('id','DESC')->first();
+
+
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents','introVideo'));
         }
 
         $institute = [
