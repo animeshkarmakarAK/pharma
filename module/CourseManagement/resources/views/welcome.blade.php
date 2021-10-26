@@ -1034,7 +1034,7 @@
         }
 
         .fc .fc-scroller {
-            /*overflow: hidden !important;*/
+            overflow: hidden !important;
         }
 
         .today-event {
