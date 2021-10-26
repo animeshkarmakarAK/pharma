@@ -12,7 +12,7 @@ use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
 use Module\CourseManagement\App\Models\PublishCourse;
 
-class eventPageController
+class EventPageController
 {
     const VIEW_PATH = "course_management::frontend.events.";
 
@@ -32,10 +32,6 @@ class eventPageController
         ]);
         $events->where(['events.institute_id' => $currentInstitute->id]);
         $events->groupBy('start');
-
-        /*if (!empty($request->date)) {
-            $events->where('events.date', 'LIKE', '%' . $request->date . '%');
-        }*/
         return $events->get()->toArray();
     }
     public function instituteEventDate(Request $request)
