@@ -34,10 +34,9 @@ class YouthService
     {
         $rules = [
             'organization_id' => ['bail', 'required'],
-            'youth_ids' => ['bail', 'required', 'array', 'min:1'],
+            'youth_ids' => ['required', 'array', 'min:1'],
             'youth_ids.*' => [
-                "required",
-                Rule::notIn(DB::table('youth_organizations')->pluck('youth_id')->toArray())
+                "required"
             ]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
@@ -96,14 +95,14 @@ class YouthService
                 return $str;
             }))
             ->addColumn('already_added_to_organization', static function (Youth $youth) {
-                $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])->first();
+                $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])->where(['current_employment_status' => 1])->first();
                 $str = '';
                 $str .= '<span class="badge ' . (!empty($youthOrganization) ? "badge-success" : "badge-warning") . '"> <i class="fas ' . (!empty($youthOrganization) ? 'fa-paperclip' : 'fa-unlink') . '"></i> ' . (!empty($youthOrganization) ? $youthOrganization->organization->title_en : 'Not assigned') . ' </a>';
                 return $str;
             })
             ->addColumn('already_added_check', static function (Youth $youth) {
                 $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])->first();
-                return !empty($youthOrganization) ? 1 : 0;
+                return !empty($youthOrganization) ? 0 : 0;
             })
             ->rawColumns(['action', 'already_added_to_organization', 'already_added_check'])
             ->toJson();
@@ -111,15 +110,27 @@ class YouthService
 
     public function addYouthToOrganization(Organization $organization, array $youthIds): bool
     {
+        $currentDate = Carbon::now()->toDateTimeString();
+
         foreach ($youthIds as $youthId) {
+            $youthOrgCheck = YouthOrganization::where('youth_id',$youthId)->get();
+            if($youthOrgCheck){
+                $youthOrg = YouthOrganization::where('youth_id', $youthId)->update(['current_employment_status' => 0]);
+            }
             /** @var Youth $youth */
             $youth = Youth::findOrFail($youthId);
             YouthOrganization::updateOrCreate(
                 [
                     'organization_id' => $organization->id,
                     'youth_id' => $youth->id,
+                    'current_employment_status' => 1,
+                    'started_at' => $currentDate
                 ]
             );
+            $youtEndDate = YouthOrganization::where('youth_id', $youthId)
+                ->where('current_employment_status', 0)
+                ->orderByDesc('created_at')->take(1)->update(['ended_at' => $currentDate]);
+
             $youth->save();
         }
         return true;

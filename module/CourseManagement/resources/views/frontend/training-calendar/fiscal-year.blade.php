@@ -20,10 +20,18 @@
                         @endphp
                         <h2 class="text-center text-primary font-weight-lighter">
                             প্রশিক্ষণ বাস্তবায়ন সময়সূচি
-                            {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.date('Y')+1) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}
+                            {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.(date('Y')+1)) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}
                         </h2>
                     </div>
                     <div class="card-body">
+                        <div class="fc-toolbar-chunk float-right pb-3">
+                            <div class="fc-button-group">
+                                <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="fc-timeGridDay-button fc-button fc-button-primary">দিন</a>
+                                <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="fc-timeGridDay-button fc-button fc-button-primary">সপ্তাহ</a>
+                                <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="fc-timeGridDay-button fc-button fc-button-primary">মাস</a>
+                                <a href="#" class="fc-myCustomButton-button fc-button fc-button-primary fc-button-active">বছর</a>
+                            </div>
+                        </div>
                         <div>
                             <table
                                 class="table table-responsive table-bordered table-hover floatThead-table table-fixed">
@@ -143,7 +151,74 @@
 
 @endsection
 @push('css')
+    <style>
+        .fc-button-group {
+            position: relative;
+            display: inline-flex;
+        }
+        .fc .fc-button, .fc .fc-button .fc-icon, .fc .fc-button-group, .fc .fc-timegrid-slot-label {
+            vertical-align: middle;
+        }
+        .fc-button:not(:disabled),  a[data-navlink], .fc-event.fc-event-draggable, .fc-event[href] {
+            cursor: pointer;
+        }
+        .fc-button-group >.fc-button:not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+         .fc-button-group >.fc-button:not(:first-child) {
+            margin-left: -1px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .fc-button-group>.fc-button {
+            position: relative;
+            flex: 1 1 auto;
+        }
+        .fc-button-primary {
+            color: #fff;
+            background-color: #2C3E50;
+            border-color: #2C3E50;
+        }
+         .fc-button {
+            -webkit-appearance: button;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: .4em .65em;
+            font-size: 1em;
+            line-height: 1.5;
+            border-radius: .25em;
+            overflow: visible;
+            text-transform: none;
+            margin: 0;
+            font-family: inherit;
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: 400;
+             text-align: center;
+        }
+       .fc-button-group>.fc-button.fc-button-active, .fc-button-group>.fc-button:active,  .fc-button-group>.fc-button:focus, .fc-button-group>.fc-button:hover {
+            z-index: 1;
+           color: #fff;
+           background-color: #1a252f;
+           border-color: #151e27;
+        }
+       .fc-button-active {
+           z-index: 1;
+           color: #fff;
+           background-color: #1a252f;
+           border-color: #151e27;
+       }
+         .fc-button-primary:not(:disabled).fc-button-active,  .fc-button-primary:not(:disabled):active {
+            color: #fff;
+            background-color: #1a252f;
+            border-color: #151e27;
+        }
+    </style>
 @endpush
 @push('js')
-
+{{--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>--}}
+{{--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>--}}
 @endpush

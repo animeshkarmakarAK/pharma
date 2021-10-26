@@ -28,14 +28,26 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                            <label class="control-label visible-ie8 visible-ie9">Phone or Mobile </label>
+                            <div class="input-icon">
+                                <i class="fa fa-user"></i>
+                                <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
+                                       type="text" autocomplete="off"
+                                       name="phone_number"
+                                       id="phone_number"
+                                       placeholder="আপনার ফোন নাম্বার লিখুন">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                             <label class="control-label visible-ie8 visible-ie9">Access Key</label>
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
                                 <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
-                                       type="text" autocomplete="off"
+                                       type="password" autocomplete="off"
                                        name="access_key"
                                        id="access_key"
-                                       placeholder="আপনার এক্সেস কী লিখুন">
+                                       placeholder="আপনার পাসওয়ার্ড লিখুন">
                             </div>
                         </div>
 
@@ -45,7 +57,7 @@
 
                         <div class="row">
                             <div class="col-12 mt-2">
-                                এক্সেস-কী ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরুদ্ধার করুন</a>
+                                পাসওয়ার্ড ভুলে গিয়েছেন? <a href="{{route('course_management::youth.password-reset')}}">পুনরুদ্ধার করুন</a>
                             </div>
                         </div>
                         <div class="row pl-3">
@@ -196,12 +208,25 @@
                         required: true,
                         pattern: /^[0-9]*$/,
                     },
+                    phone_number: {
+                        required: true,
+                        number: true,
+                        minlength: 11,
+                        maxlength: 11,
+
+                    },
                 },
                 messages: {
                     access_key: {
-                        required: "এখানে আপনার এক্সেস-কী লিখুন",
-                        pattern: "এখানে আপনার সঠিক এক্সেস-কী লিখুন",
+                        required: "এখানে আপনার পাসওয়ার্ড লিখুন",
+                        pattern: "এখানে আপনার সঠিক পাসওয়ার্ড লিখুন",
                     },
+                    phone_number: {
+                        required: "এখানে আপনার ফোন নাম্বার লিখুন",
+                        number: "এখানে সঠিক ফোন নাম্বার লিখুন",
+                        minlength: "১১ ডিজিট এর ফোন নম্বর লিখুন",
+                        maxlength: "১১ ডিজিটের বেশি ফোন নম্বর গ্রহণযোগ্য নয়"
+                    }
                 },
                 submitHandler: function (htmlForm) {
                     $('.overlay').show();

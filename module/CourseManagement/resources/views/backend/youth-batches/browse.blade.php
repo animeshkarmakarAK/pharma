@@ -35,7 +35,15 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="col-md-3 py-2 mb-2 text-center">
+                                <div class="form-group row">
+                                    <label for="Download_demo" class="form-label">&nbsp;</label>
+                                    <a href="{{asset('/assets/demoExcelFormat/demo.csv')}} " class="form-control form-control-lg bg-blue"> Download Demo</a>
+                                </div>
+                            </div>
+
                         </form>
+
                         <div class="col-md-6 py-2 mb-2" id="validation-error-div" style="display: none">
                             <p>Validation Error:</p>
                             <ul id="validation-error-list"></ul>
