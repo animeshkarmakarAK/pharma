@@ -36,7 +36,7 @@
                                        placeholder="আপনার ইমেইল লিখুন">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block submit_btn">এক্সেস-কী পুনরুদ্ধার করুন
+                        <button type="submit" class="btn btn-primary btn-block submit_btn">পাসওয়ার্ড পুনরুদ্ধার করুন
                         </button>
                         <div class="col-12 mt-2">
                             <a href="{{route('course_management::youth.login-form')}}">লগইন করুন</a>
