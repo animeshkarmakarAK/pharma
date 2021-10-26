@@ -91,6 +91,6 @@ class BatchPolicy extends BasePolicy
 
     public function viewBachYouth(User $user, Batch $batch): bool
     {
-        return $user->hasPermission('view_batch_youth');
+        return $user->hasPermission('view_any_batch_youth');
     }
 }
