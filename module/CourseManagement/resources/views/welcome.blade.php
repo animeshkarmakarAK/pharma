@@ -86,8 +86,10 @@
 
                     <div class="col-md-5">
                         <div class="about-us-media" style="margin-top: -100px">
-                            <iframe src="https://www.youtube.com/embed/{{ !empty($introVideo)? $introVideo->youtube_video_id: '' }}" height="400" width="100%"
-                                    title="Iframe" class="cr-img"></iframe>
+                            <iframe
+                                src="https://www.youtube.com/embed/{{ !empty($introVideo)? $introVideo->youtube_video_id: '' }}"
+                                height="400" width="100%"
+                                title="Iframe" class="cr-img"></iframe>
                         </div>
                     </div>
                 </div>
@@ -296,38 +298,6 @@
                             <h3 class="accordion-heading">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
                             <!-- Accordion -->
                             <div id="accordionExample" class="accordion">
-
-                                @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
-                                    <div class="card shadow-none mb-0">
-                                        <div id="heading{{$key}}" class="card-header bg-white shadow-sm border-0">
-                                            <h2 class="mb-0">
-                                                <button type="button" data-toggle="collapse"
-                                                        data-target="#collapse{{$key}}"
-                                                        aria-expanded="true" aria-controls="collapseOne"
-                                                        class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">
-                                                    {{ $currentInstituteEvent->caption }}
-                                                    <p class="mb-0">
-                                                        <i class="far fa-calendar-minus gray-color"></i>
-                                                        <span
-                                                            class="accordion-date {{ date("Y-m-d", strtotime($currentInstituteEvent->date))==\Carbon\Carbon::now()->format('Y-m-d')?'today-event':'' }}">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("j F Y(l) h:i A", strtotime($currentInstituteEvent->date))) }}</span>
-                                                    </p>
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div id="collapse{{$key}}" aria-labelledby="heading{{$key}}"
-                                             data-parent="#accordionExample"
-                                             class="collapse {{--show--}}">
-                                            <div class="card-body p-5">
-                                                <p class="font-weight-light m-0">
-                                                    {{ strlen($currentInstituteEvent->details)>=300? mb_substr($currentInstituteEvent->details,0,300 ).'...':$currentInstituteEvent->details }}
-                                                </p>
-                                                <a href="{{ route('course_management::single-event', $currentInstituteEvent->id) }}"
-                                                   class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-
 
                             </div>
                             <!-- End -->
@@ -1056,15 +1026,15 @@
         }
 
         .fc-daygrid-day-events {
-            display: none !important;
+            /*display: none !important;*/
         }
 
         .fc .fc-scroller-liquid-absolute {
-            overflow: hidden !important;
+            /*overflow: hidden !important;*/
         }
 
         .fc .fc-scroller {
-            overflow: hidden !important;
+            /*overflow: hidden !important;*/
         }
 
         .today-event {
@@ -1074,23 +1044,69 @@
             color: #fff;
         }
 
+        .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+            position: absolute;
+            min-height: 1em !important;
+            left: 0;
+            bottom: 0;
+            width: 25px;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
     </style>
 @endpush
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
     <script>
-        async function courseDetailsModalOpen(publishCourseId) {
-            let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', publishCourseId));
+        function eventsTemplate(key) {
+            return '<div class="card shadow-none mb-0">' +
+                '<div id="heading' + key + '" class="card-header bg-white shadow-sm border-0">' +
+                '<h2 class="mb-0">' +
+                '<button type="button" data-toggle="collapse" data-target="#collapse' + key + '"' +
+                'aria-expanded="true" aria-controls="collapseOne"' +
+                'class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">' +
+                this.caption +
+                '<p class="mb-0">' +
+                '<i class="far fa-calendar-minus gray-color"></i>' +
+                '<span class="accordion-date today-event ml-1">' + this.date + '</span>' +
+                '</p> </button> </h2>' +
+                '</div>' +
+                '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
+                'data-parent="#accordionExample" class="collapse">' +
+                '<div class="card-body p-5">' +
+                '<p class="font-weight-light m-0">' + this.details +
+                '</p> <a href="{{ route('course_management::single-event','__') }}"'.replace('__', this.id) +
+                'class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
 
-            if (response?.length) {
-                $("#course_details_modal").find(".modal-content").html(response);
-            } else {
-                let notFound = `<div class="alert alert-danger">Not Found</div>`
-                $("#course_details_modal").find(".modal-content").html(notFound);
-            }
+        let events = '';
+        @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
+            events += eventsTemplate.call(@json($currentInstituteEvent), '{{$key}}');
+        @endforeach
+        $("#accordionExample").html(events);
 
-            $("#course_details_modal").modal('show');
+
+        function eventsOfSpecificDate(date) {
+            $.ajax({
+                url: '{{route('course_management::institute-events-date')}}',
+                type: "POST",
+                data: {date: date},
+            }).done(function (response) {
+                $("#accordionExample").empty();
+                let events = '';
+                $.each(response, function (key, value) {
+                    events += eventsTemplate.call(value, key)
+                })
+                $("#accordionExample").html(events);
+            }).fail(function (xhr) {
+                failureCallback([]);
+            });
         }
 
         $(function () {
@@ -1120,21 +1136,21 @@
                     right: 'next'
                 },
                 locale: initialLocaleCode,
-                /*events: function (fetchInfo, successCallback, failureCallback) {
+                events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: '{{route('course_management::yearly-training-calendar.all-event')}}',
+                        url: '{{route('course_management::institute-events')}}',
                         type: "POST",
                     }).done(function (response) {
                         successCallback(response);
-                        $('.fc-event-title').attr('title', 'কোর্সের বিস্তারিত দেখুন');
+                        //$('.fc-event-title').attr('title', 'কোর্সের বিস্তারিত দেখুন');
                     }).fail(function (xhr) {
                         failureCallback([]);
                     });
                 },
                 eventClick: function (calEvent, jsEvent, view) {
-                    const {publish_course_id} = calEvent.event.extendedProps;
-                    courseDetailsModalOpen(publish_course_id);
-                },*/
+                    const start = calEvent.event.startStr;
+                    eventsOfSpecificDate(start);
+                },
             });
             calendar.render();
 

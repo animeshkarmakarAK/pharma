@@ -8,17 +8,14 @@
             <div class="navbar-nav-scroll">
                 <div class="nise3-logo" style="height: 70px;">
                     <a href="{{ route('/') }}">
-                        <img class="float-left" src="{{asset('/assets/logo/nise3.png')}}" height="100%"
-                             alt="NISE3 Logo"/>
+                        <img class="float-left" src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%"
+                             alt="Logo"/>
                     </a>
                     <div class="float-left px-1">
                         <p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
                         <p class="slogan py-1">Employment and Entrepreneurship</p>
                         <p class="slogan slogan-tag">{{ $currentInstitute->title_en }}</p>
                     </div>
-                    <a href="{{ route('/') }}">
-                        <img class="" src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%" alt="">
-                    </a>
                 </div>
             </div>
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">

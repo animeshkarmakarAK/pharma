@@ -160,5 +160,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('gallery-categories/{galleryCategory}', [\Module\CourseManagement\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
 
     Route::get('events/{event}', [\Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
+    Route::post('institute-events', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
+    Route::post('institute-events-date', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
 
 });
