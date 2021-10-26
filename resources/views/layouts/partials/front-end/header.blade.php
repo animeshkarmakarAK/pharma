@@ -66,7 +66,7 @@
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::yearly-training-calendar.index') }}" class="btn ">
+                    <a href="{{ route('course_management::fiscal-year') }}" class="btn ">
                         প্রশিক্ষণ বর্ষপঞ্জি
                     </a>
                 </li>
