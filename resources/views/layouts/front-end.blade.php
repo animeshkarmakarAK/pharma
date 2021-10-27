@@ -66,7 +66,7 @@
 
         .slogan-tag {
             color: #4f91ce;
-            font-size: 10px !important;
+            font-size: 16px !important;
         }
 
         .font-weight-600 {
