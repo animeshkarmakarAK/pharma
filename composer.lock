@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc191c45fd4516eaf74bf85c233a33ca",
+    "content-hash": "d3aefb9cc133474963cb43f94ce8e5aa",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1268,20 +1268,19 @@
         },
         {
             "name": "khbd/laravel-sms-bd",
-            "version": "1.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kalyan312/laravel-sms-bd.git",
-                "reference": "9696afa40918fa84e75d6a0c51d17b586d64869f"
+                "reference": "b9f0e114effb4a0f276bb9538add4d5731f2be1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kalyan312/laravel-sms-bd/zipball/9696afa40918fa84e75d6a0c51d17b586d64869f",
-                "reference": "9696afa40918fa84e75d6a0c51d17b586d64869f",
+                "url": "https://api.github.com/repos/kalyan312/laravel-sms-bd/zipball/b9f0e114effb4a0f276bb9538add4d5731f2be1d",
+                "reference": "b9f0e114effb4a0f276bb9538add4d5731f2be1d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^6.0|^7.0|^8.0",
                 "ixudra/curl": "6.*",
                 "php": "^7.2"
             },
@@ -1319,22 +1318,22 @@
             "description": "Laravel sms BD is a Laravel Package for Sending out SMS from multiple Gateways",
             "support": {
                 "issues": "https://github.com/kalyan312/laravel-sms-bd/issues",
-                "source": "https://github.com/kalyan312/laravel-sms-bd/tree/1.0"
+                "source": "https://github.com/kalyan312/laravel-sms-bd/tree/1.1"
             },
-            "time": "2021-02-24T06:15:11+00:00"
+            "time": "2021-02-28T06:10:01+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v8.67.0",
+            "version": "v8.68.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fc52acafd069aedc079bf8f17d1a4af4ef489b1e"
+                "reference": "08781be9c1e3f83b0c38ce9539e1dc4664e33a14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fc52acafd069aedc079bf8f17d1a4af4ef489b1e",
-                "reference": "fc52acafd069aedc079bf8f17d1a4af4ef489b1e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/08781be9c1e3f83b0c38ce9539e1dc4664e33a14",
+                "reference": "08781be9c1e3f83b0c38ce9539e1dc4664e33a14",
                 "shasum": ""
             },
             "require": {
@@ -1426,6 +1425,7 @@
                 "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.198.1).",
                 "brianium/paratest": "Required to run tests in parallel (^6.0).",
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.13.3|^3.1.2).",
+                "ext-bcmath": "Required to use the multiple_of validation rule.",
                 "ext-ftp": "Required to use the Flysystem FTP driver.",
                 "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
                 "ext-memcached": "Required to use the memcache cache driver.",
@@ -1492,7 +1492,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-10-22T13:27:12+00:00"
+            "time": "2021-10-26T12:52:38+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3826,7 +3826,7 @@
         },
         {
             "name": "softbd/menu-builder",
-            "version": "dev-origin/fix/rafiat-check",
+            "version": "dev-feat/miladul-create-event",
             "dist": {
                 "type": "path",
                 "url": "softbd/menu-builder",
@@ -7568,16 +7568,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.12.0",
+            "version": "v1.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "80f6cd93844e87ebc2e7310f9a9b9917473f5eb0"
+                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/80f6cd93844e87ebc2e7310f9a9b9917473f5eb0",
-                "reference": "80f6cd93844e87ebc2e7310f9a9b9917473f5eb0",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
+                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
                 "shasum": ""
             },
             "require": {
@@ -7624,7 +7624,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-10-12T15:38:11+00:00"
+            "time": "2021-10-26T21:37:54+00:00"
         },
         {
             "name": "mockery/mockery",
