@@ -32,13 +32,13 @@ return [
 
     //application management
     'application_management' => 'আবেদন ব্যবস্থাপনা',
-    'applied_student' => 'আবেদনকৃত ছাত্র/ছাত্রী',
+    'applied_trainee' => 'আবেদনকৃত প্রশিক্ষণার্থীর',
     'youths' => 'ইয়ুথ সমূহ',
 
     //feedback_managment
     'feedback_management'=>'ফিডব্যাক ম্যানেজমেন্ট',
     'youth_complains'=>'ইয়ুথ এর অভিযোগ',
-    'organization_complains'=>'অর্গানাইজেশন এর অভিযোগ',
+    'organization_complains'=>'ইন্ডাস্ট্রি এর অভিযোগ',
 
     //content management
     'content_management' => 'কন্টেন্ট ম্যানেজমেন্ট',
@@ -48,18 +48,20 @@ return [
     'slider' => 'স্লাইডার',
     'video_category' => 'ভিডিও ধরন',
     'video' => 'ভিডিও',
+    'events' => 'ইভেন্টস',
+    'intro_videos' => 'ভূমিকা ভিডিও',
 
     //organization management
-    'organization_management'=> 'সংস্থা পরিচালনা',
-    'organizations'=> 'সংস্থা',
-    'organization_type'=> 'সংস্থার ধরণ',
-    'organization_units'=> 'সংস্থা ইউনিট',
-    'organization_unit_types'=> 'সংস্থা ইউনিট প্রকার',
+    'organization_management'=> 'ইন্ডাস্ট্রি পরিচালনা',
+    'organizations'=> 'ইন্ডাস্ট্রি',
+    'organization_type'=> 'ইন্ডাস্ট্রি ধরণ',
+    'organization_units'=> 'ইন্ডাস্ট্রি ইউনিট',
+    'organization_unit_types'=> 'ইন্ডাস্ট্রি ইউনিট প্রকার',
     'human_resource_templates' => 'এইচআর টেম্পলেট',
     'ranks'=> 'র‌্যাঙ্কস',
     'rank-type'=> 'র‍্যংকের ধরন',
-    'organization_unit_statistic'=> 'অর্গানিজশন উনিটের স্ট্যাটিসটিক্স',
-    'organization-youths'=> 'অর্গানিজশন ইয়ুথ',
+    'organization_unit_statistic'=> 'ইন্ডাস্ট্রি উনিটের স্ট্যাটিসটিক্স',
+    'organization-youths'=> 'ইন্ডাস্ট্রি ইয়ুথ',
 
     //skill management
     'skill_management' => 'দক্ষতা পরিচালনা',

@@ -117,128 +117,134 @@
         @push('js')
 
             <script>
-                const template = function (item) {
-                    let html = `<div class="col-md-3">
-                                <div class="embed-responsive embed-responsive-16by9">`;
-                    if (item.video_type == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
-                        html += '<iframe class="embed-responsive-item youtube-video"';
-                        html += ' src=https://www.youtube.com/embed/' + item.youtube_video_id + '?html5=1&enablejsapi=1;rel=0';
-                        html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                    } else {
-                        html += '<video id="custom_video' + item.id + '" class="custom_video_class" width="250" controls="controls"';
-                        html += '<source src = /storage/' + item.uploaded_video_path + ' type="video/mp4"';
-                        html += '></video>';
-                    }
-                    html += '</div>';
-                    html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
-                    html += item.title_bn;
-                    html += '</div></div>';
-                    return html;
-                };
-
-                const paginatorLinks = function (link) {
-                    console.log(link)
-                    if (link.label == 'pagination.previous') {
-                        link.label = 'Previous'
-                    }
-                    if (link.label == 'pagination.next') {
-                        link.label = 'Next'
-                    }
-                    let html = '';
-                    if (link.active) {
-                        html += '<li class="page-item active">' +
-                            '<a class="page-link">' + link.label + '</a>' +
-                            '</li>';
-                    } else if (!link.url) {
-                        html += '<li class="page-item">' +
-                            '<a class="page-link">' + link.label + '</a>' +
-                            '</li>';
-                    } else {
-                        html += '<li class="page-item"><a class="page-link" href="' + link.url + '">' + link.label + '</a></li>';
-                    }
-                    return html;
-                }
-
-                const searchAPI = function ({model, columns}) {
-                    return function (url, filters = {}) {
-                        return $.ajax({
-                            url: url,
-                            type: "POST",
-                            data: {
-                                _token: '{{csrf_token()}}',
-                                resource: {
-                                    model: model,
-                                    columns: columns,
-                                    paginate: true,
-                                    page: 1,
-                                    per_page: 16,
-                                    filters,
-                                }
-                            }
-                        }).done(function (response) {
-                            return response;
-                        });
-                    };
-                };
-
-                let baseUrl = '{{route('web-api.model-resources')}}';
-                const skillVideoFetch = searchAPI({
-                    model: "{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}",
-                    columns: 'youtube_video_id|uploaded_video_path|title_en|title_bn|video_type'
-                });
-
-                function videoSearch(url = baseUrl) {
-                    $('.overlay').show();
-                    let searchQuery = $('#search').val();
-                    let institute = $('#institute_id').val();
-                    let videoCategory = $('#video_category_id').val();
-                    let video = $('#video_id').val();
-
-                    const filters = {};
-                    if (searchQuery?.toString()?.length) {
-                        filters['title_bn'] = {
-                            type: 'contain',
-                            value: searchQuery
-                        };
-                    }
-                    if (institute?.toString()?.length) {
-                        filters['institute_id'] = institute;
-                    }
-                    if (videoCategory?.toString()?.length) {
-                        filters['video_category_id'] = videoCategory;
-                    }
-                    if (video?.toString()?.length) {
-                        filters['id'] = video;
-                    }
-
-                    skillVideoFetch(url, filters)?.then(function (response) {
-                        $('.overlay').hide();
-                        window.scrollTo(0, 0);
-                        let html = '';
-                        if (response?.data?.data.length <= 0) {
-                            html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
-                        }
-                        $.each(response.data?.data, function (i, item) {
-                            html += template(item);
-                        });
-
-                        $('#container-skill-videos').html(html);
-                        // $('.prev-next-button').html(response?.pagination);
-                        console.table("response", response.data.links);
-
-                        let link_html = '<nav> <ul class="pagination">';
-                        let links = response?.data?.links;
-                        if (links.length > 3) {
-                            $.each(links, function (i, link) {
-                                link_html += paginatorLinks(link);
-                            });
-                        }
-                        link_html += '</ul></nav>';
-                        $('.prev-next-button').html(link_html);
-                    });
-                }
 
                 $(document).ready(function () {
+                    const template = function (item) {
+                        let html = `<div class="col-md-3">
+                                <div class="embed-responsive embed-responsive-16by9">`;
+                        if (item.video_type == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
+                            html += '<iframe class="embed-responsive-item youtube-video"';
+                            html += ' src=https://www.youtube.com/embed/' + item.youtube_video_id + '?html5=1&enablejsapi=1;rel=0';
+                            html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                        } else {
+                            // html += '<video id="custom_video' + item.id + '" class="custom_video_class" width="250" controls="controls"';
+                            // html += '<source src = /storage/' + item.uploaded_video_path + ' type="video/mp4"';
+                            // html += '></video>';
+
+                            html += '<iframe id="custom_video' + item.id + '" class="embed-responsive-item youtube-video"';
+                            html += 'src= /storage/' + item.uploaded_video_path + '?html5=1&enablejsapi=1;rel=0';
+                            html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                        }
+                        html += '</div>';
+                        html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
+                        html += item.title_bn;
+                        html += '</div></div>';
+                        return html;
+                    };
+
+                    const paginatorLinks = function (link) {
+                        console.log(link)
+                        if (link.label == 'pagination.previous') {
+                            link.label = 'Previous'
+                        }
+                        if (link.label == 'pagination.next') {
+                            link.label = 'Next'
+                        }
+                        let html = '';
+                        if (link.active) {
+                            html += '<li class="page-item active">' +
+                                '<a class="page-link">' + link.label + '</a>' +
+                                '</li>';
+                        } else if (!link.url) {
+                            html += '<li class="page-item">' +
+                                '<a class="page-link">' + link.label + '</a>' +
+                                '</li>';
+                        } else {
+                            html += '<li class="page-item"><a class="page-link" href="' + link.url + '">' + link.label + '</a></li>';
+                        }
+                        return html;
+                    }
+
+                    const searchAPI = function ({model, columns}) {
+                        return function (url, filters = {}) {
+                            return $.ajax({
+                                url: url,
+                                type: "POST",
+                                data: {
+                                    _token: '{{csrf_token()}}',
+                                    resource: {
+                                        model: model,
+                                        columns: columns,
+                                        paginate: true,
+                                        page: 1,
+                                        per_page: 16,
+                                        filters,
+                                    }
+                                }
+                            }).done(function (response) {
+                                return response;
+                            });
+                        };
+                    };
+
+                    let baseUrl = '{{route('web-api.model-resources')}}';
+                    const skillVideoFetch = searchAPI({
+                        model: "{{base64_encode(\Module\CourseManagement\App\Models\Video::class)}}",
+                        columns: 'youtube_video_id|uploaded_video_path|title_en|title_bn|video_type'
+                    });
+
+                    function videoSearch(url = baseUrl) {
+                        $('.overlay').show();
+                        let searchQuery = $('#search').val();
+                        let institute = $('#institute_id').val();
+                        let videoCategory = $('#video_category_id').val();
+                        let video = $('#video_id').val();
+
+                        const filters = {};
+                        if (searchQuery?.toString()?.length) {
+                            filters['title_bn'] = {
+                                type: 'contain',
+                                value: searchQuery
+                            };
+                        }
+                        if (institute?.toString()?.length) {
+                            filters['institute_id'] = institute;
+                        }
+                        if (videoCategory?.toString()?.length) {
+                            filters['video_category_id'] = videoCategory;
+                        }
+                        if (video?.toString()?.length) {
+                            filters['id'] = video;
+                        }
+
+                        skillVideoFetch(url, filters)?.then(function (response) {
+                            $('.overlay').hide();
+                            window.scrollTo(0, 0);
+                            let html = '';
+                            if (response?.data?.data.length <= 0) {
+                                html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন ভিডিও খুঁজে পাওয়া যায়নি!</div>';
+                            }
+                            $.each(response.data?.data, function (i, item) {
+                                html += template(item);
+                            });
+
+                            $('#container-skill-videos').html(html);
+                            // $('.prev-next-button').html(response?.pagination);
+                            console.table("response", response.data.links);
+
+                            let link_html = '<nav> <ul class="pagination">';
+                            let links = response?.data?.links;
+                            if (links.length > 3) {
+                                $.each(links, function (i, link) {
+                                    link_html += paginatorLinks(link);
+                                });
+                            }
+                            link_html += '</ul></nav>';
+                            $('.prev-next-button').html(link_html);
+                        });
+                    }
+
+
                     videoSearch();
 
                     $(document).on('click', '.pagination .page-link', function (e) {
@@ -265,157 +271,146 @@
                     });
 
 
-                });
-            </script>
+                    /*youtube video play pause start*/
 
-            <!-- one Youtube video will playing at a time amung the multiple embeded videos -->
-            {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
-            <script>
-                var ytplayerList;
 
-                function onPlayerReady(e) {
-                    var video_data = e.target.getVideoData(),
-                        label = video_data.video_id + ':' + video_data.title;
-                    e.target.ulabel = label;
-                    console.log(label + " is ready!");
+                    /*(function() {
+                        var ytplayerList;
 
-                }
+                        function onPlayerReady(e) {
+                            var video_data = e.target.getVideoData(),
+                                label = video_data.video_id + ':' + video_data.title;
+                            e.target.ulabel = label;
+                            console.log(label + " is ready!");
 
-                function onPlayerError(e) {
-                    console.log('[onPlayerError]');
-                }
+                        }
 
-                function onPlayerStateChange(e) {
-                    var label = e.target.ulabel;
-                    if (e["data"] == YT.PlayerState.PLAYING) {
-                        console.log({
-                            event: "youtube",
-                            action: "play:" + e.target.getPlaybackQuality(),
-                            label: label
-                        });
-                        //if one video is play then pause other
-                        pauseOthersYoutubes(e.target);
-                    }
-                    if (e["data"] == YT.PlayerState.PAUSED) {
-                        console.log({
-                            event: "youtube",
-                            action: "pause:" + e.target.getPlaybackQuality(),
-                            label: label
-                        });
-                    }
-                    if (e["data"] == YT.PlayerState.ENDED) {
-                        console.log({
-                            event: "youtube",
-                            action: "end",
-                            label: label
-                        });
-                    }
-                    //track number of buffering and quality of video
-                    if (e["data"] == YT.PlayerState.BUFFERING) {
-                        e.target.uBufferingCount ? ++e.target.uBufferingCount : e.target.uBufferingCount = 1;
-                        console.log({
-                            event: "youtube",
-                            action: "buffering[" + e.target.uBufferingCount + "]:" + e.target.getPlaybackQuality(),
-                            label: label
-                        });
-                        //if one video is play then pause other, this is needed because at start video is in buffered state and start playing without go to playing state
-                        if (YT.PlayerState.UNSTARTED == e.target.uLastPlayerState) {
-                            pauseOthersYoutubes(e.target);
+                        function onPlayerError(e) {
+                            console.log('[onPlayerError]');
+                        }
+
+                        function onPlayerStateChange(e) {
+                            var label = e.target.ulabel;
+                            if (e["data"] == YT.PlayerState.PLAYING) {
+                                console.log({
+                                    event: "youtube",
+                                    action: "play:" + e.target.getPlaybackQuality(),
+                                    label: label
+                                });
+                                //if one video is play then pause other
+                                pauseOthersYoutubes(e.target);
+                            }
+                            if (e["data"] == YT.PlayerState.PAUSED) {
+                                console.log({
+                                    event: "youtube",
+                                    action: "pause:" + e.target.getPlaybackQuality(),
+                                    label: label
+                                });
+                            }
+                            if (e["data"] == YT.PlayerState.ENDED) {
+                                console.log({
+                                    event: "youtube",
+                                    action: "end",
+                                    label: label
+                                });
+                            }
+                            //track number of buffering and quality of video
+                            if (e["data"] == YT.PlayerState.BUFFERING) {
+                                e.target.uBufferingCount ? ++e.target.uBufferingCount : e.target.uBufferingCount = 1;
+                                console.log({
+                                    event: "youtube",
+                                    action: "buffering[" + e.target.uBufferingCount + "]:" + e.target.getPlaybackQuality(),
+                                    label: label
+                                });
+                                //if one video is play then pause other, this is needed because at start video is in buffered state and start playing without go to playing state
+                                if (YT.PlayerState.UNSTARTED == e.target.uLastPlayerState) {
+                                    pauseOthersYoutubes(e.target);
+                                }
+                            }
+                            //last action keep stage in uLastPlayerState
+                            if (e.data != e.target.uLastPlayerState) {
+                                console.log(label + ":state change from " + e.target.uLastPlayerState + " to " + e.data);
+                                e.target.uLastPlayerState = e.data;
+                            }
+                        }
+
+                        function initYoutubePlayers() {
+                            ytplayerList = null; //reset
+                            ytplayerList = []; //create new array to hold youtube player
+                            for (var e = document.getElementsByTagName("iframe"), x = e.length; x--;) {
+                                if (/youtube.com\/embed/.test(e[x].src)) {
+                                    ytplayerList.push(initYoutubePlayer(e[x]));
+                                    console.log("create a Youtube player successfully");
+                                }
+                            }
+
+                        }
+
+                        function pauseOthersYoutubes(currentPlayer) {
+                            if (!currentPlayer) return;
+                            for (var i = ytplayerList.length; i--;) {
+                                if (ytplayerList[i] && (ytplayerList[i] != currentPlayer)) {
+                                    ytplayerList[i].pauseVideo();
+                                }
+                            }
+                        }
+
+                        //init a youtube iframe
+                        function initYoutubePlayer(ytiframe) {
+                            console.log("have youtube iframe");
+                            var ytp = new YT.Player(ytiframe, {
+                                events: {
+                                    onStateChange: onPlayerStateChange,
+                                    onError: onPlayerError,
+                                    onReady: onPlayerReady
+                                }
+                            });
+                            ytiframe.ytp = ytp;
+                            return ytp;
+                        }
+
+                        function onYouTubeIframeAPIReady() {
+                            console.log("YouTubeIframeAPI is ready");
+                            initYoutubePlayers();
+                        }
+
+                        var tag = document.createElement('script');
+
+                        tag.src = "https://www.youtube.com/iframe_api";
+                        var firstScriptTag = document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                    }());*/
+                    /*youtube video play pause end*/
+
+                    /*Custom video play pause start*/
+                    function pauseAll(elem) {
+                        console.log(elem)
+                        for (var i = 0; i < videos.length; i++) {
+                            if (videos[i] == elem) continue;
+                            if (videos[i].played.length > 0 && !videos[i].paused) {
+                                videos[i].pause();
+                            }
                         }
                     }
-                    //last action keep stage in uLastPlayerState
-                    if (e.data != e.target.uLastPlayerState) {
-                        console.log(label + ":state change from " + e.target.uLastPlayerState + " to " + e.data);
-                        e.target.uLastPlayerState = e.data;
-                    }
-                }
-
-                function initYoutubePlayers() {
-                    ytplayerList = null; //reset
-                    ytplayerList = []; //create new array to hold youtube player
-                    for (var e = document.getElementsByTagName("iframe"), x = e.length; x--;) {
-                        if (/youtube.com\/embed/.test(e[x].src)) {
-                            ytplayerList.push(initYoutubePlayer(e[x]));
-                            console.log("create a Youtube player successfully");
-                        }
-                    }
-
-                }
-
-                function pauseOthersYoutubes(currentPlayer) {
-                    if (!currentPlayer) return;
-                    for (var i = ytplayerList.length; i--;) {
-                        if (ytplayerList[i] && (ytplayerList[i] != currentPlayer)) {
-                            ytplayerList[i].pauseVideo();
-                        }
-                    }
-                }
-
-                //init a youtube iframe
-                function initYoutubePlayer(ytiframe) {
-                    console.log("have youtube iframe");
-                    var ytp = new YT.Player(ytiframe, {
-                        events: {
-                            onStateChange: onPlayerStateChange,
-                            onError: onPlayerError,
-                            onReady: onPlayerReady
-                        }
-                    });
-                    ytiframe.ytp = ytp;
-                    return ytp;
-                }
-
-                function onYouTubeIframeAPIReady() {
-                    console.log("YouTubeIframeAPI is ready");
-                    initYoutubePlayers();
-                }
-
-                var tag = document.createElement('script');
-
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            </script>
 
 
-            <script>
-                var videos = document.querySelectorAll('video');
-                for (var i = 0; i < videos.length; i++)
-                    videos[i].addEventListener('play', function () {
-                        pauseAll(this)
-                    }, true);
 
 
-                function pauseAll(elem) {
-                    for (var i = 0; i < videos.length; i++) {
-                        //Is this the one we want to play?
-                        if (videos[i] == elem) continue;
-                        //Have we already played it && is it already paused?
-                        if (videos[i].played.length > 0 && !videos[i].paused) {
-                            // Then pause it now
-                            videos[i].pause();
-                        }
-                    }
-                }
 
-                /*custom video pause*/
-                $(document).ready(function () {
                     setTimeout(function () {
-
-                        $('.custom_video_class').each(function () {
-                            let $this = $(this),
-                                custom_video_id = $this.attr('id');
-                        });
-
-                        $("#video1").on("play", function () {
-                            $("#video2").trigger("pause");
-                        });
-                        $("#video2").on("play", function () {
-                            $("#video1").trigger("pause");
-                        });
-                    }, 500);
-                })
-
+                        const videos = document.getElementsByClassName('youtube-video');
+                        for (let i = 0; i < videos.length; i++) {
+                            console.log(videos[i]);
+                            videos[i].addEventListener('play', function (e) {
+                                console.log(e);
+                                pauseAll(this);
+                            })
+                        }
+                    }, 1000);
+                    /*Custom video play pause end*/
+                });
 
             </script>
+
     @endpush
