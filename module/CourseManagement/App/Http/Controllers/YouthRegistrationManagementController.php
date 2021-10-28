@@ -28,6 +28,8 @@ class YouthRegistrationManagementController extends Controller
         return \view(self::VIEW_PATH . 'applications-for-registration', compact('institutes', 'batches'));
     }
 
+
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -39,10 +41,11 @@ class YouthRegistrationManagementController extends Controller
 
     public function addYouthToBatch(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //dd($request->all());
+        dd($request->all());
         $validatedData = $this->youthManagementService->validateAddYouthToBatch($request)->validate();
 
         $batch = Batch::findOrFail($validatedData['batch_id']);
+
 
         DB::beginTransaction();
         try {

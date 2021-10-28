@@ -52,7 +52,6 @@
         }
 
         #add-to-batch-area{
-            position: absolute;
             left: 100px;
             top: 0;
             z-index: 999;
@@ -73,104 +72,44 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">Applications</h3>
+                        <h3 class="card-title font-weight-bold text-primary">Enrolled Trainee</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <a id="accept-now" style="visibility: hidden" type="button"
-                                        class="mb-3 btn btn-sm btn-rounded btn-success"
-                                        data-toggle="modal" data-target="#accept-application-modal-all">
-                                    <i class="fas fa-check-circle"></i> Accept Now
-                                </a>
-                                <a id="reject-now" style="visibility: hidden" type="button"
-                                   class="mb-3 btn btn-sm btn-rounded btn-danger"
-                                   data-toggle="modal" data-target="#reject-application-modal-all">
-                                    <i class="fas fa-times-circle"></i> Reject
-                                </a>
+                                <button id="add-to-batch-area" style="visibility: hidden" type="button"
+                                        class="mb-3 btn btn-sm btn-rounded btn-primary"
+                                        data-toggle="modal" data-target="#addToBatchModal">
+                                    <i class="fas fa-plus-circle"></i> Add to Batch
+                                </button>
                             </div>
+
                             <div class="col-md-12">
                                 <form action="#">
-                                    <div class="col-md-12 mb-2">
-                                        <div class="row">
-                                            <div class="col-md-12 mb-2">
-                                                <label class="filter-label text-primary">
-                                                    <i class="fas fa-sort-amount-down-alt"></i>
-                                                    Filter</label>
-                                            </div>
-                                            @if($authUser->isInstituteUser())
-                                                <input type="hidden" id="institute_id" name="institute_id"
-                                                       value="{{$authUser->institute_id}}">
-                                            @else
-                                                <div class="col-md-3 mb-2">
-                                                    <select class="form-control select2-ajax-wizard"
-                                                            name="institute_id"
-                                                            id="institute_id"
-                                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
-                                                            data-label-fields="{title_en}"
-                                                            data-dependent-fields="#branch_id|#course_id"
-                                                            data-placeholder="Institute"
-                                                    >
-                                                    </select>
-                                                </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-1 mb-2">
+                                            <label class="filter-label text-primary">
+                                                <i class="fas fa-sort-amount-down-alt"></i> Filter </label>
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <input type="text" class="form-control search-text-fields"
+                                                   id="youth_name_en"
+                                                   placeholder="Name En">
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <input type="text" class="form-control search-text-fields"
+                                                   id="youth_name_bn"
+                                                   placeholder="Name Bn">
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                            <input type="text" class="form-control search-text-fields" id="reg_no"
+                                                   placeholder="Reg. No.">
+                                        </div>
 
-                                                <div class="col-md-3 mb-2">
-                                                    <select class="form-control select2-ajax-wizard"
-                                                            name="branch_id"
-                                                            id="branch_id"
-                                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
-                                                            data-label-fields="{title_en}"
-                                                            data-depend-on-optional="institute_id"
-                                                            data-placeholder="Branch"
-                                                    >
-                                                    </select>
-                                                </div>
-                                            @endif
 
-                                            <div class="col-md-3 mb-2">
-                                                <select class="form-control select2-ajax-wizard"
-                                                        name="training_center_id"
-                                                        id="training_center_id"
-                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                                        data-label-fields="{title_en}"
-                                                        data-depend-on-optional="institute_id"
-                                                        data-placeholder="Training Center"
-                                                >
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-3 mb-2">
-                                                <select class="form-control select2-ajax-wizard"
-                                                        name="programme_id"
-                                                        id="programme_id"
-                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
-                                                        data-label-fields="{title_en}"
-                                                        data-depend-on-optional="institute_id"
-                                                        data-placeholder="Programme"
-                                                >
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-3 mb-2">
-                                                <select class="form-control select2-ajax-wizard"
-                                                        name="course_id"
-                                                        id="course_id"
-                                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
-                                                        data-label-fields="{title_en}"
-                                                        data-depend-on-optional="institute_id"
-                                                        data-placeholder="Course"
-                                                >
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-3 mb-2">
-                                                <input class="flat-date date_filter" id="date-filter" name="start_date"
-                                                       type="text" placeholder="Select Date">
-                                            </div>
-                                            <div class="col-md-1 mb-2">
-                                                <button class="btn btn-primary" id="reset-btn">Reset</button>
-                                            </div>
+                                        <div class="col-md-2 mb-2">
+                                            <button class="btn btn-primary" id="reset-btn">Reset</button>
                                         </div>
                                     </div>
                                 </form>
@@ -256,113 +195,6 @@
         </div>
     </div>
 
-    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal" role="dialog"
-         data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header custom-bg-gradient-info">
-                    <h4 class="modal-title">
-                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to accept it?') }}
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right"
-                            data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <form action="#" id="accept-application-form" method="POST">
-                        {{ method_field("PUT") }}
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
-                               value="{{ __('Confirm') }}">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal" role="dialog"
-         data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header custom-bg-gradient-info">
-                    <h4 class="modal-title">
-                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to reject it?') }}
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right"
-                            data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <form action="#" id="reject-application-form" method="POST">
-                        {{ method_field("PUT") }}
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
-                               value="{{ __('Confirm') }}">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal End-->
-
-    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal-all" role="dialog"
-         data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header custom-bg-gradient-info">
-                    <h4 class="modal-title">
-                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to accept it?') }}
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right"
-                            data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <form action="#" id="accept-application-form" method="POST">
-                        {{ method_field("PUT") }}
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
-                               value="{{ __('Confirm') }}">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal-all" role="dialog"
-         data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header custom-bg-gradient-info">
-                    <h4 class="modal-title">
-                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to reject it?') }}
-                    </h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="{{ __('voyager::generic.close') }}">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right"
-                            data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <form action="#" id="reject-application-form" method="POST">
-                        {{ method_field("PUT") }}
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
-                               value="{{ __('Confirm') }}">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
@@ -379,7 +211,7 @@
                 $('.date_filter').parent().removeClass('col-md-3').addClass('col-md-2');
             }
             let params = serverSideDatatableFactory({
-                url: '{{ route('course_management::admin.youth.registrations.datatable') }}',
+                url: '{{ route('course_management::admin.youth.acceptlist.datatable') }}',
                 order: [[4, "DESC"]],
                 serialNumberColumn: 1,
                 select: {
@@ -392,12 +224,12 @@
                         "orderable": false,
                         "createdCell": function(td, cellData, rowData, row, col) {
                             console.log(rowData)
-                            if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
-                                // $(td).removeClass('select-checkbox').prop('disabled', true).closest('tr').addClass('no-select');
-                            }else {
+                            if (rowData.paid_or_unpaid == 1) {
                                 $(td).addClass('select-checkbox').prop('disabled', null);
-
+                            }else {
+                                $(td).removeClass('select-checkbox').prop('disabled', true).closest('tr').addClass('no-select');
                             }
+
                         }
                     }
                 ],
@@ -473,12 +305,6 @@
                         defaultContent: '',
                     },
                     {
-                        title: "Enroll Status",
-                        data: "enroll_status",
-                        name: "youth_course_enrolls.enroll_status",
-                        searchable: false,
-                    },
-                    {
                         title: "Payment Status",
                         data: "payment_status",
                         name: "youth_course_enrolls.payment_status",
@@ -506,18 +332,7 @@
 
             let datatable = $('#dataTable').DataTable(params);
 
-            $(document, 'td').on('click', '.accept-application', function (e) {
-                $('#accept-application-form')[0].action = $(this).data('action');
-                $('#accept-application-modal').modal('show');
-            });
-
-            $(document, 'td').on('click', '.reject-application', function (e) {
-                $('#reject-application-form')[0].action = $(this).data('action');
-                $('#reject-application-modal').modal('show');
-            });
-
             $("#select_all_rows").click(function () {
-                // let selectAll = $(this);
                 let selectedRow =  datatable.rows(".selected").nodes().length;
                 if (selectedRow == 0) {
                     datatable.rows(':has(.select-checkbox)').select();
@@ -546,11 +361,9 @@
                 if (type === 'row') {
                     let selectedRows = datatable.rows({selected: true}).count();
                     if (selectedRows) {
-                        $('#accept-now').css({visibility: 'visible'});
-                        $('#reject-now').css({visibility: 'visible'});
+                        $('#add-to-batch-area').css({visibility: 'visible'});
                     } else {
-                        $('#accept-now').css({visibility: 'hidden'});
-                        $('#reject-now').css({visibility: 'hidden'});
+                        $('#add-to-batch-area').css({visibility: 'hidden'});
                     }
 
                     let totalRows = datatable.rows().count();
@@ -560,17 +373,22 @@
             });
             bindDatatableSearchOnPresEnterOnly(datatable);
 
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
-            });
 
 
-            $("#accept-now").click(function () {
+            $("#add-to-batch-area").click(function () {
                 addToBatchForm.find('.youth_enroll_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    console.log(row.youth_course_enroll_id)
+                    console.log(row)
+                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
+                });
+            });
+
+            $('#accept-now-button').click(function (){
+                addToBatchForm.find('.youth_enroll_ids').remove();
+                let selectedRows = Array.from(datatable.rows({selected: true}).data());
+                (selectedRows || []).forEach(function (row) {
+                    console.log(row)
                     addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
                 });
             });

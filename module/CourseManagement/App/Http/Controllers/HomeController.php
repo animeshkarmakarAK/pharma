@@ -13,6 +13,7 @@ use Module\CourseManagement\App\Models\Slider;
 use Module\CourseManagement\App\Models\StaticPage;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Models\YouthRegistration;
+use Module\CourseManagement\App\Models\CourseSession;
 
 class HomeController extends BaseController
 {
@@ -23,12 +24,20 @@ class HomeController extends BaseController
     public function index()
     {
         $currentInstitute = domainConfig('institute');
-
         if ($currentInstitute) {
             $currentInstituteCourses = PublishCourse::where([
                 'institute_id' => $currentInstitute->id,
             ]);
 
+//            if ($currentInstitute) {
+//            $currentInstituteCourses = PublishCourse::where('institute_id', '=',$currentInstitute->id)->get();
+//            dd($currentInstituteCourses);
+//            $runningCourse = [];
+//            foreach ($currentInstituteCourses as $courseIC){
+//                $runningCourse[] = CourseSession::where('publish_course_id', '=',$courseIC->id)
+//                    ->whereDate('application_end_date','<=', Carbon::now())->get();
+//            }
+//             dd($runningCourse);
 
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
             $galleryCategories = GalleryCategory::active()

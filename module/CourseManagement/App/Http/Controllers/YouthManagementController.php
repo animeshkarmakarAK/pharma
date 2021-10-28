@@ -19,6 +19,7 @@ use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\CourseManagement\App\Services\YouthService;
+use Module\CourseManagement\App\Services\YouthManagementService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
