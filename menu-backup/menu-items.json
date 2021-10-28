@@ -227,9 +227,9 @@
     {
         "id": 40,
         "menu_id": 3,
-        "title": "menu.applied_trainee",
+        "title": "Applied Trainee",
         "title_lang_key": "menu.applied_trainee",
-        "permission_key": "view_any_batch",
+        "permission_key": "view_any_youth",
         "url": "",
         "target": "_self",
         "icon_class": "fa-newspaper",
@@ -827,9 +827,9 @@
     {
         "id": 105,
         "menu_id": 3,
-        "title": "menu.youth_accept_list",
+        "title": "Trainee Accepted List",
         "title_lang_key": "menu.youth_accept_list",
-        "permission_key": null,
+        "permission_key": "view_any_youth",
         "url": "",
         "target": "_self",
         "icon_class": "fa fa-users",
