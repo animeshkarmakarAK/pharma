@@ -93,6 +93,7 @@ class YouthController extends Controller
         $youth->load([
             'youthRegistration',
         ]);
+
         $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
 
         $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();

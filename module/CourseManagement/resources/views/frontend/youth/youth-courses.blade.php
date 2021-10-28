@@ -175,6 +175,11 @@
                         name: "youth_course_enrolls.payment_status"
                     },
                     {
+                        title: "ব্যাচ স্টেটাস",
+                        data: "batch_status",
+                        //name: "youth_course_enrolls.payment_status"
+                    },
+                    {
                         title: "ফি প্রদানের শেষ সময়",
                         data: "enroll_last_date",
                         //name: "youth_course_enrolls.payment_status"

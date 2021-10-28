@@ -14,7 +14,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">Certificates of {{ $youth->name_en }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">Certificate(s)
+                            of {{ $youth->name_en }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
