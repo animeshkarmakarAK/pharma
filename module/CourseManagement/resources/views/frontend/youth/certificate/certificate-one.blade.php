@@ -161,12 +161,12 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: left; padding-bottom: 50px">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Signature_of_Ann_Miller.svg/800px-Signature_of_Ann_Miller.svg.png" height="80px">
+                        <img src="{{ !empty($youthInfo)? $youthInfo['course_coordinator_signature']:'' }}" height="40px">
                         <p style="font-size: 16px; font-weight: bold;">COURSE COORDINATOR</p>
                     </td>
                     <td></td>
                     <td colspan="2" style="text-align: right; padding-bottom: 50px">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Signature_of_Ann_Miller.svg/800px-Signature_of_Ann_Miller.svg.png" height="80px">
+                        <img src="{{ !empty($youthInfo)? $youthInfo['course_director_signature']:'' }}" height="40px">
                         <p style="font-size: 16px; font-weight: bold">COURSE DIRECTOR</p>
                     </td>
                 </tr>

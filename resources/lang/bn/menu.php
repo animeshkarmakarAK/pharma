@@ -33,6 +33,7 @@ return [
     //application management
     'application_management' => 'আবেদন ব্যবস্থাপনা',
     'applied_trainee' => 'আবেদনকৃত প্রশিক্ষণার্থীর',
+    'youth_accept_list' => 'স্বীকৃত প্রশিক্ষণার্থীদের তালিকা',
     'youths' => 'ইয়ুথ সমূহ',
 
     //feedback_managment

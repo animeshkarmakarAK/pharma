@@ -31,6 +31,7 @@ return [
     //Application management
     'application_management' => 'Application management',
     'applied_trainee' => 'Applied Trainee',
+    'youth_accept_list' => 'Trainee Accepted List',
     'youths' => 'Youth List',
 
     //feedback_managment

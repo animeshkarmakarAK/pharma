@@ -89,7 +89,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
 
     Route::get('youth-accept-list', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptList'])
-        ->name('youth.acceptlist');
+        ->name('youth.accept-list');
     Route::post('youth-accept-list/datatable', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'getAcceptDatatable'])
         ->name('youth.acceptlist.datatable');
 
