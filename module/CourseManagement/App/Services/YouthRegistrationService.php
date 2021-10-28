@@ -273,10 +273,6 @@ class YouthRegistrationService
             'batches.batch_status as batch_status',
             'batches.title_en as batch_title_en',
         ]);
-        /*$youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
-        $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
-        $youthCourseEnrolls->where(['youths.id' => $request->id]);*/
 
         $youthCourseEnrolls->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youthCourseEnrolls->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
@@ -285,12 +281,11 @@ class YouthRegistrationService
         $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
         $youthCourseEnrolls->where('youth_id', $request->id);
 
-        //dd($youthCourseEnrolls->get()->toArray());
-
         return DataTables::eloquent($youthCourseEnrolls)
             ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';
-                return $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'badge-warning' : ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'badge-success' : 'badge-danger')) . '"> ' . ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'Processing' : ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'Accepted' : 'Rejected')) . ' </span>';
+                $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'badge-warning' : ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'badge-success' : 'badge-danger')) . '"> ' . ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'Processing' : ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'Accepted' : 'Rejected')) . ' </span>';
+                return $str;
             })
             ->addColumn('payment_status', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';

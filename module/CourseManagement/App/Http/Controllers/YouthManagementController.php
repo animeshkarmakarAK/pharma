@@ -14,6 +14,7 @@ use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthBatch;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
@@ -168,11 +169,10 @@ class YouthManagementController extends Controller
 
     public function youthCertificateCourseWise(YouthCourseEnroll $youthCourseEnroll)
     {
+        $youthBatch = YouthBatch::where(['youth_course_enroll_id' => $youthCourseEnroll->id])->first();
         $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
-
         $institute = $youthCourseEnroll->publishCourse->institute;
-
-        $path = "youth-certificates/" . date('Y/F/') . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/batch/" . $youthBatch->batch->title_en;
 
         $youthInfo = [
             'youth_id' => $youthCourseEnroll->youth_id,
@@ -183,13 +183,15 @@ class YouthManagementController extends Controller
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_name' => $institute->title_en,
-            'from_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->created_at)),
-            'to_date' => date('d/m/Y'),
+            'from_date' => $youthBatch->batch->start_date,
+            'to_date' => $youthBatch->batch->end_date,
+            'batch_name' => $youthBatch->batch->title_en,
+            'course_coordinator_signature' => '',
+            'course_director_signature' => '',
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        return Storage::download($pdf->generateCertificate($template, $youthInfo));
-
+        return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
+        //return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
-
 }

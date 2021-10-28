@@ -92,6 +92,20 @@
                     </div>
                 </div>
 
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Coordinator Signature') }}</p>
+                    <div class="input-box">
+                        <img src="{{ asset("storage/{$batch->course_coordinator_signature}") }}" alt="" title="" height="50px"  />
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Director Signature') }}</p>
+                    <div class="input-box">
+                        <img src="{{ asset("storage/{$batch->course_director_signature}") }}" alt="" title="" height="50px"  />
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
