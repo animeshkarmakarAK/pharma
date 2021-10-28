@@ -54,9 +54,10 @@ class BatchController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->batchService->validator($request)->validate();
+        $validateData = $this->batchService->validator($request)->validate();
+
         try {
-            $this->batchService->createBatch($request->all());
+            $this->batchService->createBatch($validateData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             Log::debug($exception->getTraceAsString());
@@ -106,10 +107,11 @@ class BatchController extends Controller
      */
     public function update(Request $request, Batch $batch): RedirectResponse
     {
-        $this->batchService->validator($request, $batch->id)->validate();
+        $validateData = $this->batchService->validator($request, $batch->id)->validate();
+
 
         try {
-            $this->batchService->updateBatch($batch, $request->all());
+            $this->batchService->updateBatch($batch, $validateData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -163,9 +165,10 @@ class BatchController extends Controller
             return response()->json('Code already in use!');
         }
     }
+
     public function batchOnGoing(Batch $batch): RedirectResponse
     {
-        if($batch->batch_status == Batch::BATCH_STATUS_ON_GOING){
+        if ($batch->batch_status == Batch::BATCH_STATUS_ON_GOING) {
             return back()->with([
                 'message' => __('This batch already on going now', ['object' => 'Batch']),
                 'alert-type' => 'warning'
@@ -189,15 +192,16 @@ class BatchController extends Controller
             'alert-type' => 'success'
         ]);
     }
+
     public function batchComplete(Batch $batch): RedirectResponse
     {
-        if($batch->batch_status == Batch::BATCH_STATUS_COMPLETE){
+        if ($batch->batch_status == Batch::BATCH_STATUS_COMPLETE) {
             return back()->with([
                 'message' => __('This batch already completed', ['object' => 'Batch']),
                 'alert-type' => 'warning'
             ]);
         }
-        if($batch->batch_status != Batch::BATCH_STATUS_ON_GOING){
+        if ($batch->batch_status != Batch::BATCH_STATUS_ON_GOING) {
             return back()->with([
                 'message' => __('This batch not start, Please start batch at first', ['object' => 'Batch']),
                 'alert-type' => 'warning'

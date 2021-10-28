@@ -14,6 +14,7 @@ use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthBatch;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
@@ -97,22 +98,22 @@ class YouthManagementController extends Controller
 
                 if (!empty($youth->id)) {
                     $youthFamilyInfos = $youthDatum['youth_family_info'];
-                    if(!empty($youthFamilyInfos['is_guardian'])){
-                        $isGuardian=$youthFamilyInfos['is_guardian'];
+                    if (!empty($youthFamilyInfos['is_guardian'])) {
+                        $isGuardian = $youthFamilyInfos['is_guardian'];
                         unset($youthFamilyInfos['is_guardian']);
                     }
                     foreach ($youthFamilyInfos as $familyInfo) {
-                        $familyInfo['is_guardian']=$isGuardian;
-                        $familyInfo['is_guardian_data_exist']=array_key_exists(3,$youthFamilyInfos);
+                        $familyInfo['is_guardian'] = $isGuardian;
+                        $familyInfo['is_guardian_data_exist'] = array_key_exists(3, $youthFamilyInfos);
                         $familyValidatedData = $this->youthService->youthFamilyInfoImportDataValidate($familyInfo, $key)->validate();
-                        $familyValidatedData['youth_id']=$youth->id;
+                        $familyValidatedData['youth_id'] = $youth->id;
                         $youthFamily = new YouthFamilyMemberInfo();
                         $youthFamily->fill($familyValidatedData);
                         $youthFamily->save();
                     }
                     foreach ($youthDatum['youth_academic_info'] as $academicInfo) {
                         $academicValidatedData = $this->youthService->youthAcademicInfoImportDataValidate($academicInfo, $key)->validate();
-                        $academicValidatedData['youth_id']=$youth->id;
+                        $academicValidatedData['youth_id'] = $youth->id;
                         $youthAcademic = new YouthAcademicQualification();
                         $youthAcademic->fill($academicValidatedData);
                         $youthAcademic->save();
@@ -145,20 +146,33 @@ class YouthManagementController extends Controller
         }
 
     }
+
     public function youthCertificateList(Youth $youth)
     {
+        $youthCourseEnrolls = YouthCourseEnroll::select([
+            'youth_course_enrolls.id as id',
+            'youths.name_en as youth_name_en',
+            'youth_batches.batch_id as youth_batch_id',
+            'publish_courses.id as publish_course_id',
+            'batches.title_en as batch_title_en',
+            'batches.batch_status',
+        ]);
+        $youthCourseEnrolls->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youthCourseEnrolls->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
+        $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');
+        $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
+        $youthCourseEnrolls->where('youth_id', $youth->id);
+        $youthCourseEnrolls = $youthCourseEnrolls->get();
 
-        $youthCourseEnrolls = YouthCourseEnroll::where('youth_id', $youth->id)->get();
         return \view(self::VIEW_PATH . 'youth-certificate-list', compact('youthCourseEnrolls', 'youth'));
     }
 
     public function youthCertificateCourseWise(YouthCourseEnroll $youthCourseEnroll)
     {
+        $youthBatch = YouthBatch::where(['youth_course_enroll_id' => $youthCourseEnroll->id])->first();
         $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
-
         $institute = $youthCourseEnroll->publishCourse->institute;
-
-        $path = "youth-certificates/" . date('Y/F/') . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/batch/" . $youthBatch->batch->title_en;
 
         $youthInfo = [
             'youth_id' => $youthCourseEnroll->youth_id,
@@ -169,13 +183,15 @@ class YouthManagementController extends Controller
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_name' => $institute->title_en,
-            'from_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->created_at)),
-            'to_date' => date('d/m/Y'),
+            'from_date' => $youthBatch->batch->start_date,
+            'to_date' => $youthBatch->batch->end_date,
+            'batch_name' => $youthBatch->batch->title_en,
+            'course_coordinator_signature' => '',
+            'course_director_signature' => '',
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        return Storage::download($pdf->generateCertificate($template, $youthInfo));
-
+        return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
+        //return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
-
 }

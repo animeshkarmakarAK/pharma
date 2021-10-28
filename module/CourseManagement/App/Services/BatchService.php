@@ -4,11 +4,14 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use App\Helpers\Classes\FileHandler;
+use Illuminate\Validation\Rules\RequiredIf;
 use Module\CourseManagement\App\Models\Batch;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Models\Programme;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -16,16 +19,44 @@ class BatchService
 {
     public function createBatch(array $data): Batch
     {
+        if (!empty($data['course_coordinator_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_coordinator_signature'], 'batch/signature/course-coordinator');
+            $data['course_coordinator_signature'] = 'batch/signature/course-coordinator/' . $filename;
+        }
+
+        if (!empty($data['course_director_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_director_signature'], 'batch/signature/course-director');
+            $data['course_director_signature'] = 'batch/signature/course-director/' .  $filename;
+        }
+
         $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
         return Batch::create($data);
     }
 
-    public function updateBatch(Batch $branch, array $data): Batch
+    public function updateBatch(Batch $batch, array $data):Batch
     {
+        if ($batch->course_coordinator_signature && !empty($data['course_coordinator_signature'])) {
+            FileHandler::deleteFile($batch->course_coordinator_signature);
+        }
+
+        if (!empty($data['course_coordinator_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_coordinator_signature'], 'batch/signature/course-coordinator');
+            $data['course_coordinator_signature'] = 'batch/signature/course-coordinator/' . $filename;
+        }
+
+        if ($batch->course_director_signature && !empty($data['course_director_signature'])) {
+            FileHandler::deleteFile($batch->course_director_signature);
+        }
+
+        if (!empty($data['course_director_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_director_signature'], 'batch/signature/course-director');
+            $data['course_director_signature'] = 'batch/signature/course-director/' .  $filename;
+        }
         $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
-        $branch->fill($data);
-        $branch->save();
-        return $branch;
+
+        $batch->fill($data);
+        $batch->save();
+        return $batch;
     }
 
     public function deleteBatch(Batch $batch): ?bool
@@ -47,6 +78,18 @@ class BatchService
             'end_date' => ['required', 'date', 'after:start_date'],
             'start_time' => ['required'],
             'end_time' => ['required'],
+            'course_coordinator_signature' => [
+                new RequiredIf($id == null),
+                'image',
+                'mimes:jpg,bmp,png,jpeg,svg',
+                'dimensions:width=300,height=80',
+            ],
+            'course_director_signature' => [
+                new RequiredIf($id == null),
+                'image',
+                'mimes:jpg,bmp,png,jpeg,svg',
+                'dimensions:width=300,height=80',
+            ],
         ];
 
         if (!empty($id)) {

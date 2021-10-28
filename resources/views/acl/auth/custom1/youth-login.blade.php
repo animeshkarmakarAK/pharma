@@ -33,9 +33,9 @@
                                 <i class="fa fa-user"></i>
                                 <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
                                        type="text" autocomplete="off"
-                                       name="phone_number"
-                                       id="phone_number"
-                                       placeholder="আপনার ফোন নাম্বার লিখুন">
+                                       name="mobile"
+                                       id="mobile"
+                                       placeholder="আপনার মোবাইল নাম্বার লিখুন">
                             </div>
                         </div>
                         <div class="form-group">
@@ -208,11 +208,11 @@
                         required: true,
                         pattern: /^[0-9]*$/,
                     },
-                    phone_number: {
+                    mobile: {
                         required: true,
-                        number: true,
                         minlength: 11,
                         maxlength: 11,
+                        pattern: /(01[3-9]\d{8})/,
 
                     },
                 },
@@ -221,11 +221,11 @@
                         required: "এখানে আপনার পাসওয়ার্ড লিখুন",
                         pattern: "এখানে আপনার সঠিক পাসওয়ার্ড লিখুন",
                     },
-                    phone_number: {
-                        required: "এখানে আপনার ফোন নাম্বার লিখুন",
-                        number: "এখানে সঠিক ফোন নাম্বার লিখুন",
-                        minlength: "১১ ডিজিট এর ফোন নম্বর লিখুন",
-                        maxlength: "১১ ডিজিটের বেশি ফোন নম্বর গ্রহণযোগ্য নয়"
+                    mobile: {
+                        required: "এখানে আপনার মোবাইল নাম্বার লিখুন",
+                        minlength: "১১ ডিজিট এর মোবাইল নাম্বার লিখুন",
+                        maxlength: "১১ ডিজিটের বেশি মোবাইল নাম্বার গ্রহণযোগ্য নয়",
+                        pattern: "এখানে সঠিক মোবাইল নাম্বার লিখুন",
                     }
                 },
                 submitHandler: function (htmlForm) {

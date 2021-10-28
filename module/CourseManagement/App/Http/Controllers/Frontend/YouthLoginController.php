@@ -35,8 +35,7 @@ class YouthLoginController
 
     public function login(Request $request)
     {
-
-        $youth = Youth::where('access_key', $request->input('access_key'))->first();
+        $youth = Youth::where(['access_key' => $request->input('access_key'), 'mobile'=>$request->input('mobile')])->first();
         if ($youth && $youth->id && Auth::guard('youth')->loginUsingId($youth->id)) {
             Auth::shouldUse('youth');
             return $request->wantsJson()
@@ -46,7 +45,7 @@ class YouthLoginController
         }
 
         return redirect()->back()
-            ->with(['message' => 'আপনি ভুল এক্সেস-কী প্রদান করেছেন, আবার চেষ্টা করুন', 'alert-type' => 'error']);
+            ->with(['message' => 'আপনি ভুল মোবাইল নাম্বার/এক্সেস-কী প্রদান করেছেন, আবার চেষ্টা করুন', 'alert-type' => 'error']);
     }
 
     public function logout(): \Illuminate\Http\RedirectResponse
