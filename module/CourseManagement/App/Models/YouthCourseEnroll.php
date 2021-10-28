@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * Class Youth
  * @package App\Models
  * @property int $id
+ * @property int batch_id
+ * @property int batch_status
+ * @property string batch_title_en
  * @property string $enroll_status
  * @property string $payment_status
  */

@@ -26,11 +26,6 @@ class YouthManagementService
         $rules = [
             'batch_id' => ['bail', 'required'],
             'youth_enroll_ids' => ['bail', 'required', 'array', 'min:1'],
-//            'youth_registration_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
-//                /*if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
-//                    $fail(__('Please select same programme type to process.'));
-//                }*/
-//            }]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -134,7 +129,6 @@ class YouthManagementService
 
     public function addYouthToBatch(Batch $batch, array $youthCourseEnrolls): bool
     {
-//        dd($youthCourseEnrolls);
         foreach ($youthCourseEnrolls as $youthCourseEnrollId) {
             /** @var YouthRegistration $youthCourseEnroll */
             $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnrollId);
