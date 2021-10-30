@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'default' => env('DEFAULT_SMS_GATEWAY', 'bangladesh_sms'),
+    'default' => env('DEFAULT_SMS_GATEWAY', 'teletalk_sms'),
 
     /*
     |--------------------------------------------------------------------------
