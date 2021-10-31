@@ -148,8 +148,7 @@
                                 <label for="assign_batch_id">Select Batch <span
                                         style="color: red"> * </span></label>
                                 <select name="batch_id" id="assign_batch_id" class="select2"
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
+                                        data-placeholder="{{ __('generic.select_placeholder') }}">
                                     <option selected disabled>{{ __('generic.select_placeholder') }}</option>
                                     @foreach($batches as $batch)
                                         <option value="{{$batch->id}}">{{$batch->title_en}}</option>
@@ -379,7 +378,7 @@
                 addToBatchForm.find('.youth_enroll_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    console.log(row)
+                    console.log(row);
                     addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
                 });
             });

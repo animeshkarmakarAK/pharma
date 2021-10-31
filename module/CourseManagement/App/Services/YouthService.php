@@ -41,6 +41,24 @@ class YouthService
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
+
+    public function validateAcceptNowAll(Request $request): Validator
+    {
+        $rules = [
+            'youth_ids' => ['bail', 'required', 'array', 'min:1'],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
+    public function validateRejectNowAll(Request $request): Validator
+    {
+        $rules = [
+            'youth_ids' => ['bail', 'required', 'array', 'min:1'],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
+
     public function getListDataForDatatable($request): JsonResponse
     {
         $instituteId = AuthHelper::getAuthUser()->institute_id;
@@ -131,6 +149,39 @@ class YouthService
                 ->orderByDesc('created_at')->take(1)->update(['ended_at' => $currentDate]);
 
             $youth->save();
+        }
+        return true;
+    }
+
+    public function addToTraineeAcceptedList(array $youthAcceptListNowId , array $youthMobiles): bool
+    {
+
+        $messageBody = "You are accepted. Please payment within 72 hours.";
+//        dd($messageBody);
+        \Khbd\LaravelSmsBD\Facades\SMS::send($youthMobiles,$messageBody);
+
+        foreach ($youthAcceptListNowId as $youthAcceptListNowIds) {
+
+            /** @var YouthRegistration $youthCourseEnroll */
+            $youthCourseEnroll = YouthCourseEnroll::where('youth_id',$youthAcceptListNowIds)->first();
+            $youthCourseEnroll->update([
+                'enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT,
+            ]);
+            $youthCourseEnroll->save();
+        }
+        return true;
+    }
+
+    public function rejectTraineeAll(array $youthAcceptListNowId): bool
+    {
+        foreach ($youthAcceptListNowId as $youthAcceptListNowIds) {
+
+            /** @var YouthRegistration $youthCourseEnroll */
+            $youthCourseEnroll = YouthCourseEnroll::where('youth_id',$youthAcceptListNowIds)->first();
+            $youthCourseEnroll->update([
+                'enroll_status' => YouthCourseEnroll::ENROLL_STATUS_REJECT,
+            ]);
+            $youthCourseEnroll->save();
         }
         return true;
     }

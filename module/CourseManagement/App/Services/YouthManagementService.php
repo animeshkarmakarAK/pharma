@@ -30,6 +30,7 @@ class YouthManagementService
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
+
     public function getListDataForDatatable($request): JsonResponse
     {
         $youth = Youth::select([

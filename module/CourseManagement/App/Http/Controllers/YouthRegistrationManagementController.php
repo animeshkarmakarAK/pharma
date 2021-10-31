@@ -45,7 +45,6 @@ class YouthRegistrationManagementController extends Controller
 
         $batch = Batch::findOrFail($validatedData['batch_id']);
 
-
         DB::beginTransaction();
         try {
             $this->youthManagementService->addYouthToBatch($batch, $validatedData['youth_enroll_ids']);

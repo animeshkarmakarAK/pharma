@@ -26,6 +26,12 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
+    Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
+    Route::put('youth-reject-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
+
+
+
+    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
 
     Route::post('static-page/image-upload', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'imageUpload'])->name('staticPage.imageUpload');
     Route::post('institutes/datatable', [Module\CourseManagement\App\Http\Controllers\InstituteController::class, 'getDatatable'])->name('institutes.datatable');
