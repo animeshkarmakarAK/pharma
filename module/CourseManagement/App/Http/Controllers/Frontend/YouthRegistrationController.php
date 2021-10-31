@@ -165,6 +165,21 @@ class YouthRegistrationController extends Controller
         }
 
         try {
+            if (!empty($youthCourseEnroll->youth->mobile)) {
+                try {
+                    $link = route('course_management::youth-enrolled-courses');
+                    $youthName = strtoupper($youthCourseEnroll->youth->name_en);
+                    $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
+                    $smsResponse = sms()->send($youthCourseEnroll->youth->mobile, $messageBody);
+                    if (!$smsResponse->is_successful()) {
+                        sms()->send($youthCourseEnroll->youth->mobile, $messageBody);
+                    }
+                } catch (\Throwable $exception) {
+                    Log::debug($exception->getMessage());
+                }
+            };
+
+
             /**
              * Send mail to youth for conformation
              * */

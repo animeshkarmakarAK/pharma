@@ -38,12 +38,10 @@ class YouthController extends Controller
 
     public function youthAcceptNowAll(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $mobiles = $request->mobile;
-
         DB::beginTransaction();
         try {
             $validatedData = $this->youthService->validateAcceptNowAll($request)->validate();
-            $this->youthService->addToTraineeAcceptedList($validatedData['youth_ids'],$mobiles);
+            $this->youthService->addToTraineeAcceptedList($validatedData['youth_ids']);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
