@@ -256,8 +256,10 @@ class YouthRegistrationService
         $youthCourseEnroll->update($data);
     }
 
-    public function getListDataForDatatable(\Illuminate\Http\Request $request): JsonResponse
+    public function getListDataForDatatable(Request $request): JsonResponse
     {
+        $youth = AuthHelper::getAuthUser('youth');
+
         /** @var Builder|YouthCourseEnroll $youthCourseEnrolls */
         $youthCourseEnrolls = YouthCourseEnroll::select([
             'youth_course_enrolls.id as id',
@@ -279,7 +281,7 @@ class YouthRegistrationService
         $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');
         $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
         $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
-        $youthCourseEnrolls->where('youth_id', $request->id);
+        $youthCourseEnrolls->where('youth_id', $youth->id);
 
         return DataTables::eloquent($youthCourseEnrolls)
             ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnroll) {

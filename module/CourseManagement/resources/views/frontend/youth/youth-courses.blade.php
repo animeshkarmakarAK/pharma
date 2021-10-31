@@ -143,7 +143,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('course_management::youth-courses-datatable',$youth->id) }}',
+                url: '{{ route('course_management::youth-courses-datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {
