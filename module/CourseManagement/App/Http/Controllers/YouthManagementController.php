@@ -148,8 +148,10 @@ class YouthManagementController extends Controller
 
     }
 
-    public function youthCertificateList(Youth $youth)
+    public function youthCertificateList($youthId)
     {
+        $youth = Youth::findOrFail($youthId);
+
         $youthCourseEnrolls = YouthCourseEnroll::select([
             'youth_course_enrolls.id as id',
             'youths.name_en as youth_name_en',
