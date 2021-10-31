@@ -79,13 +79,17 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <button id="add-to-batch-area" style="visibility: hidden" type="button"
-                                        class="mb-3 btn btn-sm btn-rounded btn-primary float-right"
-                                        data-toggle="modal" data-target="#addToBatchModal">
-                                    <i class="fas fa-plus-circle"></i> Add to Batch
+                                <button id="accept-now" style="visibility: hidden" type="submit"
+                                        class="mb-3 btn btn-sm btn-rounded btn-success"
+                                        data-toggle="modal" data-target="#accept-application-modal-all">
+                                    <i class="fas fa-check-circle"></i> Accept Now
+                                </button>
+                                <button id="reject-now" style="visibility: hidden" type="button"
+                                   class="mb-3 btn btn-sm btn-rounded btn-danger"
+                                   data-toggle="modal" data-target="#reject-application-modal-all">
+                                    <i class="fas fa-times-circle"></i> Reject
                                 </button>
                             </div>
-
                             <div class="col-md-12">
                                 <form action="#">
                                     <div class="col-md-12 mb-2">
@@ -111,7 +115,7 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="col-md-3 mb-2">
+                                                {{--<div class="col-md-3 mb-2">
                                                     <select class="form-control select2-ajax-wizard"
                                                             name="branch_id"
                                                             id="branch_id"
@@ -121,7 +125,7 @@
                                                             data-placeholder="Branch"
                                                     >
                                                     </select>
-                                                </div>
+                                                </div>--}}
                                             @endif
 
                                             <div class="col-md-3 mb-2">
@@ -306,6 +310,60 @@
         </div>
     </div>
     <!-- Modal End-->
+
+    <div class="modal modal-danger fade" tabindex="-1" id="accept-application-modal-all" role="dialog"
+         data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to accept it?') }}
+                    </h4>
+
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="{{route('course_management::admin.youth-accept-now-all')}} "id="accept-now-form" class="float-left" method="post">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-danger fade" tabindex="-1" id="reject-application-modal-all" role="dialog"
+         data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to reject it?') }}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="{{ __('voyager::generic.close') }}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right"
+                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="{{route('course_management::admin.youth-reject-now-all')}}" id="reject-now-form" method="POST">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                               value="{{ __('Confirm') }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
@@ -336,9 +394,10 @@
                         "createdCell": function(td, cellData, rowData, row, col) {
                             console.log(rowData)
                             if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
-                                $(td).addClass('select-checkbox').prop('disabled', null);
+                                // $(td).removeClass('select-checkbox').prop('disabled', true).closest('tr').addClass('no-select');
                             }else {
-                                $(td).removeClass('select-checkbox').prop('disabled', true).closest('tr').addClass('no-select');
+                                $(td).addClass('select-checkbox').prop('disabled', null);
+
                             }
                         }
                     }
@@ -488,9 +547,11 @@
                 if (type === 'row') {
                     let selectedRows = datatable.rows({selected: true}).count();
                     if (selectedRows) {
-                        $('#add-to-batch-area').css({visibility: 'visible'});
+                        $('#accept-now').css({visibility: 'visible'});
+                        $('#reject-now').css({visibility: 'visible'});
                     } else {
-                        $('#add-to-batch-area').css({visibility: 'hidden'});
+                        $('#accept-now').css({visibility: 'hidden'});
+                        $('#reject-now').css({visibility: 'hidden'});
                     }
 
                     let totalRows = datatable.rows().count();
@@ -505,32 +566,29 @@
                 $('#delete_modal').modal('show');
             });
 
+            let acceptNowForm = $("#accept-now-form");
+            let rejectNowForm =$("#reject-now-form");
 
-            $("#add-to-batch-area").click(function () {
-                addToBatchForm.find('.youth_enroll_ids').remove();
+            $("#accept-now").click(function () {
+                acceptNowForm.find('.youth_ids').remove();
+                acceptNowForm.find('.mobile').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    console.log(row.name_en)
-                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
+                    console.log(row)
+                    acceptNowForm.append('<input name="youth_ids[]" class="youth_ids" value="' + row.id + '" type="hidden"/>');
+                    acceptNowForm.append('<input name="mobile[]" class="mobile" value="' + row.mobile + '" type="hidden"/>');
                 });
             });
-            let addToBatchForm = $("#add-to-batch-form");
-            addToBatchForm.validate({
-                rules: {
-                    batch_id: {
-                        required: true,
-                    }
-                },
-                messages: {
-                    batch_id: {
-                        required: "Please select Batch",
-                    }
-                },
-                submitHandler: function (htmlForm) {
-                    htmlForm.submit();
-                }
+            $("#reject-now").click(function () {
+                rejectNowForm.find('.youth_ids').remove();
+                rejectNowForm.find('.mobile').remove();
+                let selectedRows = Array.from(datatable.rows({selected: true}).data());
+                (selectedRows || []).forEach(function (row) {
+                    console.log(row)
+                    rejectNowForm.append('<input name="youth_ids[]" class="youth_ids" value="' + row.id + '" type="hidden"/>');
+                    rejectNowForm.append('<input name="mobile[]" class="mobile" value="' + row.mobile + '" type="hidden"/>');
+                });
             });
-
         });
 
     </script>

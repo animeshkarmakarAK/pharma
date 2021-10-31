@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    Organization Complain List
+    Industry Complain List
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Organization Complain List</h3>
+                        <h3 class="card-title font-weight-bold">Industry Complain List</h3>
 
                     </div>
                     <!-- /.card-header -->

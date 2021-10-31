@@ -47,7 +47,14 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Organization Unit Name') }}</p>
+                    <p class="label-text">{{ __('Industry Name') }}</p>
+                    <div class="input-box">
+                        {{ optional($humanResource->organization)->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Industry Unit Name') }}</p>
                     <div class="input-box">
                         {{ optional($humanResource->organizationUnit)->title_en }}
                     </div>

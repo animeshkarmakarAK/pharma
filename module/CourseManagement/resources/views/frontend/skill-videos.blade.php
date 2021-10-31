@@ -115,19 +115,27 @@
         @endsection
 
         @push('js')
+
             <script>
                 const template = function (item) {
                     let html = `<div class="col-md-3">
                                 <div class="embed-responsive embed-responsive-16by9">`;
-                    if (item.video_type == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
-                        html += '<iframe class="embed-responsive-item"';
-                        html += ' src=https://www.youtube.com/embed/' + item.youtube_video_id + '?rel=0';
-                        html += ' allowfullscreen></iframe>';
-                    } else {
-                        html += '<video controls width="250"';
-                        html += '<source src = /storage/' + item.uploaded_video_path + ' type="video/mp4"';
-                        html += '></video>';
-                    }
+
+
+                    /*html += '<iframe class="embed-responsive-item youtube-video"';
+                        html += ' src=https://www.youtube.com/embed/' + item.youtube_video_id + '?html5=1&enablejsapi=1;rel=0';
+                        html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; ' +
+                            'gyroscope; picture-in-picture" allowfullscreen></iframe>';*/
+
+
+                    html +=
+                        '<a target="_blank" href="{{ route('course_management::youth.skill-single-video','__') }}"'.replace('__', item.id) + '>' +
+                        '<img class="embed-responsive-item youtube-video"';
+                    html += item.youtube_video_id ? ' src="http://img.youtube.com/vi/' + item.youtube_video_id + '/0.jpg "' : 'src="https://via.placeholder.com/350x350?text=Custom+Video"';
+                    html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; ' +
+                        'picture-in-picture" allowfullscreen></img></a>';
+
+
                     html += '</div>';
                     html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
                     html += item.title_bn;
@@ -266,4 +274,114 @@
 
                 });
             </script>
+
+            <!-- one Youtube video will playing at a time amung the multiple embeded videos -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+                var ytplayerList;
+
+                function onPlayerReady(e) {
+                    var video_data = e.target.getVideoData(),
+                        label = video_data.video_id + ':' + video_data.title;
+                    e.target.ulabel = label;
+                    console.log(label + " is ready!");
+
+                }
+
+                function onPlayerError(e) {
+                    console.log('[onPlayerError]');
+                }
+
+                function onPlayerStateChange(e) {
+                    var label = e.target.ulabel;
+                    if (e["data"] == YT.PlayerState.PLAYING) {
+                        console.log({
+                            event: "youtube",
+                            action: "play:" + e.target.getPlaybackQuality(),
+                            label: label
+                        });
+                        //if one video is play then pause other
+                        pauseOthersYoutubes(e.target);
+                    }
+                    if (e["data"] == YT.PlayerState.PAUSED) {
+                        console.log({
+                            event: "youtube",
+                            action: "pause:" + e.target.getPlaybackQuality(),
+                            label: label
+                        });
+                    }
+                    if (e["data"] == YT.PlayerState.ENDED) {
+                        console.log({
+                            event: "youtube",
+                            action: "end",
+                            label: label
+                        });
+                    }
+                    //track number of buffering and quality of video
+                    if (e["data"] == YT.PlayerState.BUFFERING) {
+                        e.target.uBufferingCount ? ++e.target.uBufferingCount : e.target.uBufferingCount = 1;
+                        console.log({
+                            event: "youtube",
+                            action: "buffering[" + e.target.uBufferingCount + "]:" + e.target.getPlaybackQuality(),
+                            label: label
+                        });
+                        //if one video is play then pause other, this is needed because at start video is in buffered state and start playing without go to playing state
+                        if (YT.PlayerState.UNSTARTED == e.target.uLastPlayerState) {
+                            pauseOthersYoutubes(e.target);
+                        }
+                    }
+                    //last action keep stage in uLastPlayerState
+                    if (e.data != e.target.uLastPlayerState) {
+                        console.log(label + ":state change from " + e.target.uLastPlayerState + " to " + e.data);
+                        e.target.uLastPlayerState = e.data;
+                    }
+                }
+
+                function initYoutubePlayers() {
+                    ytplayerList = null; //reset
+                    ytplayerList = []; //create new array to hold youtube player
+                    for (var e = document.getElementsByTagName("iframe"), x = e.length; x--;) {
+                        if (/youtube.com\/embed/.test(e[x].src)) {
+                            ytplayerList.push(initYoutubePlayer(e[x]));
+                            console.log("create a Youtube player successfully");
+                        }
+                    }
+
+                }
+
+                function pauseOthersYoutubes(currentPlayer) {
+                    if (!currentPlayer) return;
+                    for (var i = ytplayerList.length; i--;) {
+                        if (ytplayerList[i] && (ytplayerList[i] != currentPlayer)) {
+                            ytplayerList[i].pauseVideo();
+                        }
+                    }
+                }
+
+                //init a youtube iframe
+                function initYoutubePlayer(ytiframe) {
+                    console.log("have youtube iframe");
+                    var ytp = new YT.Player(ytiframe, {
+                        events: {
+                            onStateChange: onPlayerStateChange,
+                            onError: onPlayerError,
+                            onReady: onPlayerReady
+                        }
+                    });
+                    ytiframe.ytp = ytp;
+                    return ytp;
+                }
+
+                function onYouTubeIframeAPIReady() {
+                    console.log("YouTubeIframeAPI is ready");
+                    initYoutubePlayers();
+                }
+
+                var tag = document.createElement('script');
+
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            </script>
+
     @endpush

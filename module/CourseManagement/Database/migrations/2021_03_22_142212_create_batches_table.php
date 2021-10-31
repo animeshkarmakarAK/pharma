@@ -30,6 +30,8 @@ class CreateBatchesTable extends Migration
             $table->date('end_date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->string('course_coordinator_signature')->nullable();
+            $table->string('course_director_signature')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);

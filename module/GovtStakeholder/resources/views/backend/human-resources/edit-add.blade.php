@@ -73,7 +73,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="organization_id">{{ __('Organization') }}<span
+                                    <label for="organization_id">{{ __('Industry') }}<span
                                             class="required"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="organization_id"
@@ -91,7 +91,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="organization_unit_id">{{ __('Organization Unit') }}<span
+                                    <label for="organization_unit_id">{{ __('Industry Unit') }}<span
                                             class="required"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="organization_unit_id"

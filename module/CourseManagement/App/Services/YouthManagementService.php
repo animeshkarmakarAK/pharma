@@ -16,7 +16,6 @@ use Module\CourseManagement\App\Models\YouthRegistration;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -27,14 +26,10 @@ class YouthManagementService
         $rules = [
             'batch_id' => ['bail', 'required'],
             'youth_enroll_ids' => ['bail', 'required', 'array', 'min:1'],
-//            'youth_registration_ids' => ['bail', 'required', 'array', 'min:1', static function ($attribute, $value, $fail) {
-//                /*if (Youth::whereIn('id', $value)->pluck('programme_id')->unique()->count() != 1) {
-//                    $fail(__('Please select same programme type to process.'));
-//                }*/
-//            }]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
+
 
     public function getListDataForDatatable($request): JsonResponse
     {
@@ -68,6 +63,8 @@ class YouthManagementService
         $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
         $youth->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
         $youth->where('youth_batches.youth_course_enroll_id', null);
+        $youth->where('youth_course_enrolls.enroll_status', YouthCourseEnroll::ENROLL_STATUS_PROCESSING);
+
 
         $instituteId = $request->input('institute_id');
         $branchId = $request->input('branch_id');

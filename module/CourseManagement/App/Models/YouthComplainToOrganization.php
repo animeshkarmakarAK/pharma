@@ -24,6 +24,8 @@ class YouthComplainToOrganization extends BaseModel
 {
     use HasFactory, ScopeRowStatusTrait;
 
+    const COMPLAIN_LIMITATION = 3;
+
     protected $guarded = ['id'];
 
     public function institute(): BelongsTo

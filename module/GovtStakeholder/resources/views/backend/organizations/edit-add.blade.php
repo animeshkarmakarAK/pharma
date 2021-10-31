@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Organization' : 'Update Organization' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Industry' : 'Update Industry' }}</h3>
 
                         <div class="card-tools">
                             @can('viewAny', \Module\GovtStakeholder\App\Models\Organization::class)
@@ -98,7 +98,7 @@
 
 
                             <div class="form-group col-md-6">
-                                <label for="institute_id">Organization Type <span style="color: red">*</span></label>
+                                <label for="institute_id">Industry Type <span style="color: red">*</span></label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="organization_type_id"
                                         id="organization_type_id"

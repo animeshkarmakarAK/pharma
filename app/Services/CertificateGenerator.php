@@ -12,7 +12,7 @@ class CertificateGenerator
     public function generateCertificate(string $template, array $youthInfo): string
     {
         $path = $youthInfo['path'] . "/" . $youthInfo['register_no'] . ".pdf";
-        if (true/*!file_exists("storage/" . $path)*/) {
+        if (!file_exists("storage/" . $path)) {
             $pdf = App::make('dompdf.wrapper');
             $certificate = $pdf->loadView($template, compact('youthInfo'));
             $pdf = $certificate->setPaper('A4-L', 'landscape')->setWarnings(false)->download();

@@ -26,6 +26,12 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
+    Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
+    Route::put('youth-reject-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
+
+
+
+    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
 
     Route::post('static-page/image-upload', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'imageUpload'])->name('staticPage.imageUpload');
     Route::post('institutes/datatable', [Module\CourseManagement\App\Http\Controllers\InstituteController::class, 'getDatatable'])->name('institutes.datatable');
@@ -58,6 +64,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         ->name('youth.add-to-batch');
 
 
+
+
     Route::resource('batches', Module\CourseManagement\App\Http\Controllers\BatchController::class);
 
     Route::get('batch-on-going/{batch}', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'batchOnGoing'])
@@ -84,6 +92,12 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::post('youths/youth-assigned-organizations', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
         ->name('youths.youth-assigned-organization');
+
+
+    Route::get('youth-accept-list', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptList'])
+        ->name('youth.accept-list');
+    Route::post('youth-accept-list/datatable', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'getAcceptDatatable'])
+        ->name('youth.acceptlist.datatable');
 
     Route::get('youth-complains', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'index'])->name('youth-complains');
     Route::post('youth-complains/datatable', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'getYouthComplainList'])->name('youth-complains.datatable');
@@ -115,16 +129,13 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('youth-complain-to-organization', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthComplainToOrganization'])->name('youth-complain-to-organization');
 
 
-    /****** Certificate Template *******/
-
     Route::get('youth-certificate', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
     Route::get('youth-certificate/download', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateDownload'])->name('certificate.download');
     Route::get('youth-certificate-two', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
 
-    /***********************************/
-
 
     Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
+    Route::get('skill-videos/{skill_video}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('youth.skill-single-video');
     Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
     Route::get('general-ask-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
     Route::get('contact-us-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');

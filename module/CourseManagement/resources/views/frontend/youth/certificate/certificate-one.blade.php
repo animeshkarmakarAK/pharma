@@ -154,16 +154,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding-top: 20px;" colspan="3"><span
+                    <td style="padding-top: 20px;padding-bottom: 30px;" colspan="3"><span
                             style="margin: 0;" class="example_font">
-                            We wish him/her every success in life.</span></td>
+                            We wish him/her every success in life.</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: left; padding-top: 160px;padding-bottom: 50px"><span
-                            style="font-size: 16px; font-weight: bold;">COURSE COORDINATOR</span></td>
+                    <td colspan="2" style="text-align: left; padding-bottom: 50px">
+                        <img src="{{ !empty($youthInfo)? $youthInfo['course_coordinator_signature']:'' }}" height="40px">
+                        <p style="font-size: 16px; font-weight: bold;">COURSE COORDINATOR</p>
+                    </td>
                     <td></td>
-                    <td colspan="2" style="text-align: right;  padding-top: 160px;padding-bottom: 50px"><span
-                            style="font-size: 16px; font-weight: bold">COURSE DIRECTOR</span></td>
+                    <td colspan="2" style="text-align: right; padding-bottom: 50px">
+                        <img src="{{ !empty($youthInfo)? $youthInfo['course_director_signature']:'' }}" height="40px">
+                        <p style="font-size: 16px; font-weight: bold">COURSE DIRECTOR</p>
+                    </td>
                 </tr>
             </table>
         </div>

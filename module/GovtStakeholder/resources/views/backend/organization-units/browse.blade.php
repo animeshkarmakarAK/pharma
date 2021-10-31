@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Organization Units List</h3>
+                        <h3 class="card-title font-weight-bold">Industry Units List</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\OrganizationUnit::class)
@@ -62,7 +62,7 @@
                         name: "title_bn"
                     },
                     {
-                        title: "Organization Name",
+                        title: "Industry Name",
                         data: "organization_name",
                         name: "organization.title_en"
                     },
@@ -139,7 +139,7 @@
                         visible: false,
                     },
                     {
-                        title: "Organization Unit Type",
+                        title: "Industry Unit Type",
                         data: "organization_unit_name",
                         name: "organization_unit_types.title_en",
                     },

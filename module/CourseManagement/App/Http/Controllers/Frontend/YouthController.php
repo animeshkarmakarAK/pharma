@@ -19,6 +19,8 @@ use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\VideoCategory;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
+use Module\CourseManagement\App\Models\YouthBatch;
+use Module\CourseManagement\App\Models\YouthComplainToOrganization;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
@@ -93,6 +95,7 @@ class YouthController extends Controller
         $youth->load([
             'youthRegistration',
         ]);
+
         $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
 
         $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
@@ -113,8 +116,6 @@ class YouthController extends Controller
 
     public function youthCertificateView(YouthCourseEnroll $youthCourseEnroll)
     {
-
-
         $youth = AuthHelper::getAuthUser('youth');
 
         if (!$youth) {
@@ -124,11 +125,10 @@ class YouthController extends Controller
             );
         }
 
+        $youthBatch = YouthBatch::where(['youth_course_enroll_id' => $youthCourseEnroll->id])->first();
         $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
-
         $institute = $youthCourseEnroll->publishCourse->institute;
-
-        $path = "youth-certificates/" . date('Y/F/') . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/pushed_course_id_" . $youthCourseEnroll->publishCourse->id;
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/batch/" . $youthBatch->batch->title_en;
 
         $youthInfo = [
             'youth_id' => $youthCourseEnroll->youth_id,
@@ -139,12 +139,16 @@ class YouthController extends Controller
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_name' => $institute->title_en,
-            'from_date' => date('d/m/Y', strtotime($youthCourseEnroll->publishCourse->created_at)),
-            'to_date' => date('d/m/Y'),
+            'from_date' => $youthBatch->batch->start_date,
+            'to_date' => $youthBatch->batch->end_date,
+            'batch_name' => $youthBatch->batch->title_en,
+            'course_coordinator_signature' => asset("storage/{$youthBatch->batch->course_coordinator_signature}"),
+            'course_director_signature' => asset("storage/{$youthBatch->batch->course_director_signature}"),
         ];
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        return Storage::download($pdf->generateCertificate($template, $youthInfo));
+        return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
+        //return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
 
     public function videos(): View
@@ -153,6 +157,12 @@ class YouthController extends Controller
         $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
         $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
         return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
+    }
+
+    public function singleVideo($skillVideo): View
+    {
+        $youthVideos = Video::findOrFail($skillVideo);
+        return \view(self::VIEW_PATH . 'skill-single-video', compact('youthVideos'));
     }
 
     /**
@@ -331,7 +341,6 @@ class YouthController extends Controller
             return response()->json(true);
         }
         return response()->json("এই পাসপোর্ট দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
-        //ইতিমধ্যে এই নম্বর দ্বারা নিবন্ধিত
     }
 
     public function youthCourseGetDatatable(Request $request): JsonResponse
@@ -564,7 +573,19 @@ class YouthController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
+        $currentInstitute = domainConfig('institute');
+
+
         if ($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id) {
+            $youthTotalComplainedToOrganization = YouthComplainToOrganization::where(['youth_id' => $youth->id, 'organization_id' => $youthOrganization->id, 'institute_id'=>$currentInstitute->id])->count();
+
+            if ($youthTotalComplainedToOrganization >= YouthComplainToOrganization::COMPLAIN_LIMITATION) {
+                return back()->with([
+                    'message' => __('Your limit exceeded for complain'),
+                    'alert-type' => 'error'
+                ]);
+            }
+
             $validateData = $this->youthRegistrationService->validationYouthComplainToOrganization($request)->validate();
 
             try {

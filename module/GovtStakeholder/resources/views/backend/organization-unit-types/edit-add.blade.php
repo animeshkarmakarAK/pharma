@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Organization Unit Type' : 'Update Organization Unit Type' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Industry Unit Type' : 'Update Industry Unit Type' }}</h3>
 
                         <div class="card-tools">
                             @can('viewAny', \Module\GovtStakeholder\App\Models\OrganizationUnitType::class)
@@ -55,7 +55,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="organization_id">{{ __('Organization') }}<span
+                                    <label for="organization_id">{{ __('Industry') }}<span
                                             class="required"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="organization_id"

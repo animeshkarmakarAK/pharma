@@ -55,7 +55,7 @@
                                 <input type="hidden" name="organization_id" value="{{ $authUser->organization_id }}">
                             @else
                             <div class="form-group col-md-6">
-                                <label for="organization_id">Organization Name <span style="color: red">*</span></label>
+                                <label for="organization_id">Industry Name <span style="color: red">*</span></label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="organization_id"
                                         id="organization_id"

@@ -99,7 +99,7 @@
                                         <div class="col-md-6">
                                             <img
                                                 src="{{ !empty($organization)? asset('storage/'. $organization->organization->logo) :'' }}"
-                                                class="" alt="My Organization Logo" style="width: 80px">
+                                                class="" alt="My Industry Logo" style="width: 80px">
                                             <div>
                                                 <h5 class="card-title text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
                                                 <p class="card-text">

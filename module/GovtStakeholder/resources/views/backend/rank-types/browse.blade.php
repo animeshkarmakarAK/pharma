@@ -64,7 +64,7 @@
                         name: "rank_types.title_bn"
                     },
                     {
-                        title: "Organization Name",
+                        title: "Industry Name",
                         data: "organization_title_en",
                         name: "organizations.title_en"
                     },

@@ -57,9 +57,6 @@ class YouthComplainService
                 if ($authUser->can('view', $youthComplain)) {
                     $str .= '<a href="' . route('course_management::admin.youth-complains-get-one', $youthComplain->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i>  ' . __('generic.read_button_label') . '</a>';
                 }
-                /*if ($authUser->can('delete', $youthComplain)) {
-                    $str .= '<a href="#" data-action="' . route('course_management::admin.visitor-feedback.destroy', $youthComplain->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
-                }*/
                 return $str;
             }))
             ->editColumn('read_at', function (YouthComplainToOrganization $youthComplain) {
