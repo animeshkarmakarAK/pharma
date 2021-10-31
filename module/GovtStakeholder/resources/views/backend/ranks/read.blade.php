@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="col-md-6  custom-view-box">
-                    <p class="label-text">{{ __('Organization Name') }}</p>
+                    <p class="label-text">{{ __('Industry Name') }}</p>
                     <div class="input-box">
                         {{$rank->organization_id ? $rank->organization->title_en: ''}}
                     </div>

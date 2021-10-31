@@ -22,14 +22,13 @@
                 <div class="carousel-inner">
                     @foreach($sliders as $slider)
                         <div class="carousel-item {{ ++$sl==1?'active':'' }}">
-                            <div
-                                style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('{{asset('/storage/'. $slider->slider)}}');
-                                    background-position: center;
-                                    background-size: 100% 100%;
-                                    background-repeat: no-repeat;
-                                    min-height: 100%;
-                                    opacity: .9;
-                                    "></div>
+                            <div style="background: url('{{asset('/storage/'. $slider->slider)}}');
+                                background-position: center;
+                                background-size: 100% 100%;
+                                background-repeat: no-repeat;
+                                min-height: 100%;
+                                opacity: .9;
+                                "></div>
                             <div class="carousel-caption">
                                 <h3 class="slider-title" title="{{ $slider->title }}">
                                     {{ $slider->title }}</h3>
@@ -74,7 +73,7 @@
 
                                     <a href="{{route('course_management::static-content.show', 'aboutus')}}"
                                        target="_blank"
-                                       class="more-course-button mt-3 bg-transparent">আরও দেখুন <i
+                                       class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন <i
                                             class="fas fa-arrow-right btn-arrow"></i></a>
                                 @else
                                     <p> {!! $staticPage->page_contents !!}</p>
@@ -85,7 +84,7 @@
                     </div>
 
                     <div class="col-md-5">
-                        <div class="about-us-media" style="margin-top: -100px">
+                        <div class="about-us-media" style="margin-top: -80px">
                             <iframe
                                 src="https://www.youtube.com/embed/{{ !empty($introVideo)? $introVideo->youtube_video_id: '' }}"
                                 height="400" width="100%"
@@ -156,45 +155,118 @@
                         এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়
                     </p>
                 </div>
+                <div class="col-md-12 mb-5 mt-5 mt-5">
+                    <div class="row">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="courseTabButton mr-3  {{ request()->is('/') ? 'active' : '' }}" id=""
+                                   data-toggle="tab" href="#all-course" role="tab" aria-controls="all-course"
+                                   aria-selected="true">চলমান কোর্স</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="courseTabButton" id="" data-toggle="tab" href="#upcoming-course" role="tab"
+                                   aria-controls="upcoming-course" aria-selected="true">আসন্ন কোর্স</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    @if($currentInstituteCourses->count() > 4)
+                        <div id="all-course" class="tab-pane">
+                            <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
+                                <div class="custom-carousel-inner w-100" role="listbox">
+                                    <div class="col-md-12 p-0">
+                                        <div class="row">
+                                            @php
+                                                $ml=0;
 
-                @if($currentInstituteCourses->count() > 4)
-                    <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
-                        <div class="custom-carousel-inner w-100" role="listbox">
-                            <div class="col-md-12">
+                                            @endphp
+                                            @foreach($currentInstituteCourses as $key => $publishCourse)
+
+                                                <div
+                                                    class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
+                                                    <div class="col-md-3">
+                                                        <div class="card card-main mb-2">
+                                                            <div class="card-bar-home-course">
+                                                                <div class="pb-3">
+                                                                    <img class="slider-img border-top-radius"
+                                                                         src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                                         alt="icon">
+                                                                </div>
+                                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                                    <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                                    <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                                    <p class="font-weight-light mb-1"><i
+                                                                            class="fas fa-clock gray-color"></i> <span
+                                                                            class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
+                                                                    </p>
+                                                                    <p class="font-weight-light float-left"><i
+                                                                            class="fas fa-user-plus gray-color"></i>
+
+                                                                        <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                                    </p>
+                                                                    <p class="float-right">
+                                                                        <a href="javascript:;"
+                                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#courseCarousel"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#courseCarousel"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
+                            </div>
+                        </div>
+                    @elseif($currentInstituteCourses->isEmpty())
+                        <div class="col-md-12">
+                            <div class="alert text-danger text-center">
+                                কোন কোর্স পাওয়া যাইনি!
+                            </div>
+                        </div>
+                    @else
+                        <div id="all-course" class="tab-pane active">
+                            <div class="col-md-12 p-0">
                                 <div class="row">
-                                    @php
-                                        $ml=0;
-
-                                    @endphp
                                     @foreach($currentInstituteCourses as $key => $publishCourse)
-
-                                        <div class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
-                                            <div class="col-md-3">
-                                                <div class="card card-main mb-2">
-                                                    <div class="card-bar-home-course">
-                                                        <div class="pb-3">
-                                                            <img class="slider-img border-top-radius"
-                                                                 src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
-                                                                 alt="icon">
-                                                        </div>
-                                                        <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                            <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                            <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
-                                                            <p class="font-weight-light mb-1"><i
-                                                                    class="fas fa-clock gray-color"></i> <span
-                                                                    class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
-                                                            </p>
-                                                            <p class="font-weight-light float-left"><i
-                                                                    class="fas fa-user-plus gray-color"></i>
-
-                                                                <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
-                                                            </p>
-                                                            <p class="float-right">
-                                                                <a href="javascript:;"
-                                                                   onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
-                                                                   class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                            </p>
-                                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar-home-course">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img border-top-radius"
+                                                             src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                        <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                        <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                        <p class="font-weight-light mb-1"><i
+                                                                class="fas fa-clock gray-color"></i> <span
+                                                                class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
+                                                        </p>
+                                                        <p class="font-weight-light float-left"><i
+                                                                class="fas fa-user-plus gray-color"></i>
+                                                            <span
+                                                                class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                        </p>
+                                                        <p class="float-right">
+                                                            <a href="javascript:;"
+                                                               onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                               class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,62 +275,45 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Controls-->
-                        <div class="controls-top">
-                            <a class="btn-floating left-btn-arrow" href="#courseCarousel"
-                               data-slide="prev"><i
-                                    class="fas fa-chevron-left"></i></a>
-                            <a class="btn-floating right-btn-arrow" href="#courseCarousel"
-                               data-slide="next"><i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <!--/.Controls-->
-                    </div>
-                @elseif($currentInstituteCourses->isEmpty())
-
-                    <div class="col-md-12">
-                        <div class="alert text-danger text-center">
-                            কোন কোর্স পাওয়া যাইনি!
-                        </div>
-                    </div>
-                @else
-                    <div class="col-md-12">
-                        <div class="row">
-                            @foreach($currentInstituteCourses as $key => $publishCourse)
-                                <div class="col-md-3">
-                                    <div class="card card-main mb-2">
-                                        <div class="card-bar-home-course">
-                                            <div class="pb-3">
-                                                <img class="slider-img border-top-radius"
-                                                     src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
-                                                     alt="icon">
-                                            </div>
-                                            <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
-                                                <p class="font-weight-light mb-1"><i
-                                                        class="fas fa-clock gray-color"></i> <span
-                                                        class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
-                                                </p>
-                                                <p class="font-weight-light float-left"><i
-                                                        class="fas fa-user-plus gray-color"></i>
-                                                    <span
-                                                        class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
-                                                </p>
-                                                <p class="float-right">
-                                                    <a href="javascript:;"
-                                                       onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
-                                                       class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                </p>
+                    @endif
+                    <div id="upcoming-course" class="tab-pane fade">
+                        <div class="col-md-12 p-0">
+                            <div class="row">
+                                @foreach($currentInstituteCourses as $key => $publishCourse)
+                                    <div class="col-md-3">
+                                        <div class="card card-main mb-2">
+                                            <div class="card-bar-home-course">
+                                                <div class="pb-3">
+                                                    <img class="slider-img border-top-radius"
+                                                         src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                         alt="icon">
+                                                </div>
+                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                    <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                    <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                    <p class="font-weight-light mb-1"><i
+                                                            class="fas fa-clock gray-color"></i> <span
+                                                            class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
+                                                    </p>
+                                                    <p class="font-weight-light float-left"><i
+                                                            class="fas fa-user-plus gray-color"></i>
+                                                        <span
+                                                            class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                    </p>
+                                                    <p class="float-right">
+                                                        <a href="javascript:;"
+                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-
-                @endif
+                </div>
             </div>
         </div>
         @if($currentInstituteCourses->count() > 4)
@@ -685,7 +740,6 @@
         }
 
         .top-content .carousel-caption {
-            padding-bottom: 60px;
             padding-top: 0;
         }
 
@@ -696,6 +750,8 @@
 
         .top-content .carousel-caption h3 {
             color: #fff;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            padding: 15px;
         }
 
         .top-content .carousel-caption .carousel-caption-description {
@@ -716,7 +772,7 @@
         }
 
         .carousel-caption {
-            top: 45%;
+            bottom: 0;
         }
 
         .carousel-control-prev, .carousel-control-next {
@@ -836,6 +892,36 @@
             overflow: visible;
             white-space: normal;
             cursor: pointer;
+        }
+
+        .courseTabButton {
+            padding: 10px 30px;
+            color: #671688;
+            border-radius: 5px;
+        }
+
+        .courseTabButton:hover, .courseTabButton:active, .courseTabButton:focus {
+            background: #671688;
+            padding: 10px 30px;
+            color: #fff;
+            border-radius: 5px;
+            border: 1px solid #671688;
+        }
+
+        #all-course {
+            width: 100%;
+        }
+
+        .tab-content {
+            width: 100%;
+        }
+
+        .nav-tabs .nav-item .active {
+            background: #671688;
+            padding: 10px 30px;
+            color: #fff;
+            border-radius: 5px;
+            border: 1px solid #671688;
         }
 
 
@@ -1034,7 +1120,7 @@
         }
 
         .fc .fc-scroller {
-            /*overflow: hidden !important;*/
+            overflow: hidden !important;
         }
 
         .today-event {
@@ -1156,6 +1242,18 @@
 
         });
 
+        async function courseDetailsModalOpen(publishCourseId) {
+            let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));
+
+            if (response?.length) {
+                $("#course_details_modal").find(".modal-content").html(response);
+            } else {
+                let notFound = `<div class="alert alert-danger">Not Found</div>`
+                $("#course_details_modal").find(".modal-content").html(notFound);
+            }
+
+            $("#course_details_modal").modal('show');
+        }
 
     </script>
     <script>

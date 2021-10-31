@@ -12,9 +12,9 @@
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1">
-                        <p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
-                        <p class="slogan py-1">Employment and Entrepreneurship</p>
-                        <p class="slogan slogan-tag">{{ $currentInstitute->title_en }}</p>
+                        {{--<p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
+                        <p class="slogan py-1">Employment and Entrepreneurship</p>--}}
+                        <p class="slogan slogan-tag">{{ strtoupper($currentInstitute->title_en) }}</p>
                     </div>
                 </div>
             </div>
@@ -61,10 +61,6 @@
                     <a href="{{ route('course_management::course_search') }}" class="btn ">কোর্স সমূহ</a>
                 </li>
 
-                <li class="nav-item {{ request()->is('course-management/advice-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
-                </li>
-
                 <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
                     <a href="{{ route('course_management::fiscal-year') }}" class="btn ">
                         প্রশিক্ষণ বর্ষপঞ্জি
@@ -81,6 +77,10 @@
 
                 <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
                     <a href="{{ route('course_management::contact-us-page') }}" class="btn">যোগাযোগ</a>
+                </li>
+
+                <li class="nav-item {{ request()->is('course-management/advice-page*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
                 </li>
 
             </ul>

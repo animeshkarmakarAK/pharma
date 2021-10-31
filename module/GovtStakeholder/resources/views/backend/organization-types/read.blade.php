@@ -7,13 +7,13 @@
             <div class="col-md-12">
                 <div class="card bg-white">
                     <div class="card-header custom-bg-gradient-info text-primary">
-                        <h3 class="card-title font-weight-bold">{{ __('Organization Type') }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('Industry Type') }}</h3>
 
                         <div class="card-tools">
                             <div class="btn-group">
                                 <a href="{{route('govt_stakeholder::admin.organization-types.edit', [$organizationType->id])}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> {{ __('Edit Job Sector') }}
+                                    <i class="fas fa-plus-circle"></i> {{ __('Edit Industry Type') }}
                                 </a>
                                 <a href="{{route('govt_stakeholder::admin.organization-types.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">

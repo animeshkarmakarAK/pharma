@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Organization Unit Statistic for'.date("M Y", strtotime($organizationUnitStatistic->survey_date)):'Create Organization Unit Statistic For '.date('M Y') }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Industry Unit Statistic For '.date("M Y", strtotime($organizationUnitStatistic->survey_date)):'Create Industry Unit Statistic For '.date('M Y') }}</h3>
                         <div class="card-tools">
                             <a href="{{route('govt_stakeholder::admin.organization-unit-statistics.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
@@ -45,7 +45,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Organization Unit</th>
+                                    <th>Industry Unit</th>
                                     <th>New Recruits</th>
                                     <th>Total Vacancy</th>
                                     <th>Total Occupied Position</th>

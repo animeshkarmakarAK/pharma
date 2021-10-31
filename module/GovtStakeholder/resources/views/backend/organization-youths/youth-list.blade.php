@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Organization Youth List</h3>
+                        <h3 class="card-title font-weight-bold">Industry Youth List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -58,7 +58,7 @@
                         name: "youths.youth_registration_no"
                     },
                     {
-                        title: "Organization Name",
+                        title: "Industry Name",
                         data: "organization_title_en",
                         name: "organizations.title_en"
                     },

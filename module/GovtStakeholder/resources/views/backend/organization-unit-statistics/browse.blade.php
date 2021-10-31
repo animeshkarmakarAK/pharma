@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Organization Units Statistics</h3>
+                        <h3 class="card-title font-weight-bold">Industry Units Statistics</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\GovtStakeholder\App\Models\organizationUnitStatistic::class)
@@ -81,7 +81,7 @@
                         visible: true,
                     },
                     {
-                        title: "Organization Unit",
+                        title: "Industry Unit",
                         data: "organization_unit_name",
                         name: "organization_units.title_en",
                     },

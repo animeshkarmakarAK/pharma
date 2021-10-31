@@ -10,6 +10,8 @@ use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocUpazila;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\BaseModel;
 use Module\CourseManagement\App\Models\Batch;
@@ -23,7 +25,6 @@ use Module\CourseManagement\App\Models\YouthRegistration;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Carbon;
 use Module\GovtStakeholder\App\Models\Organization;
 use Yajra\DataTables\Facades\DataTables;
@@ -41,6 +42,24 @@ class YouthService
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
+
+
+    public function validateAcceptNowAll(Request $request): Validator
+    {
+        $rules = [
+            'youth_ids' => ['bail', 'required', 'array', 'min:1'],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
+    public function validateRejectNowAll(Request $request): Validator
+    {
+        $rules = [
+            'youth_ids' => ['bail', 'required', 'array', 'min:1'],
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
 
     public function getListDataForDatatable($request): JsonResponse
     {
@@ -113,8 +132,8 @@ class YouthService
         $currentDate = Carbon::now()->toDateTimeString();
 
         foreach ($youthIds as $youthId) {
-            $youthOrgCheck = YouthOrganization::where('youth_id',$youthId)->get();
-            if($youthOrgCheck){
+            $youthOrgCheck = YouthOrganization::where('youth_id', $youthId)->get();
+            if ($youthOrgCheck) {
                 $youthOrg = YouthOrganization::where('youth_id', $youthId)->update(['current_employment_status' => 0]);
             }
             /** @var Youth $youth */
@@ -132,6 +151,67 @@ class YouthService
                 ->orderByDesc('created_at')->take(1)->update(['ended_at' => $currentDate]);
 
             $youth->save();
+        }
+        return true;
+    }
+
+    public function addToTraineeAcceptedList(array $youthAcceptListNowIds): bool
+    {
+        foreach ($youthAcceptListNowIds as $youthAcceptListNowId) {
+
+            /** @var YouthRegistration $youthCourseEnroll */
+            $youthCourseEnroll = YouthCourseEnroll::where('youth_id', $youthAcceptListNowId)->first();
+
+            $youth = Youth::findOrFail($youthAcceptListNowId);
+
+            $data = [
+                'enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT,
+            ];
+
+            if ($youthCourseEnroll->update($data)) {
+                if (!empty($youth->mobile)) {
+                    try {
+                        $link = route('course_management::youth-enrolled-courses');
+                        $youthName = strtoupper($youth->name_en);
+                        $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
+                        $smsResponse = sms()->send($youth->mobile, $messageBody);
+                        if (!$smsResponse->is_successful()) {
+                            sms()->send($youth->mobile, $messageBody);
+                        }
+                    } catch (\Throwable $exception) {
+                        Log::debug($exception->getMessage());
+                    }
+                };
+
+                if (!empty($youth->email)) {
+                    $link = route('course_management::youth-enrolled-courses');
+                    $youthEmailAddress = $youth->email;
+                    $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: $link </p>";
+                    $mailSubject = "Congratulations! Your application has been accepted";
+                    $youthName = $youth->name_en;
+                    try {
+                        Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthApplicationAcceptMail($mailSubject, $youth->access_key, $mailMsg, $youthName));
+                    } catch (\Throwable $exception) {
+                        Log::debug($exception->getMessage());
+                    }
+                };
+            }
+
+
+        }
+        return true;
+    }
+
+    public function rejectTraineeAll(array $youthAcceptListNowId): bool
+    {
+        foreach ($youthAcceptListNowId as $youthAcceptListNowIds) {
+
+            /** @var YouthRegistration $youthCourseEnroll */
+            $youthCourseEnroll = YouthCourseEnroll::where('youth_id', $youthAcceptListNowIds)->first();
+            $youthCourseEnroll->update([
+                'enroll_status' => YouthCourseEnroll::ENROLL_STATUS_REJECT,
+            ]);
+            $youthCourseEnroll->save();
         }
         return true;
     }
@@ -499,6 +579,97 @@ class YouthService
         ];
         return \Illuminate\Support\Facades\Validator::make($data, $rules, $messages);
 
+    }
+
+    public function getListForAcceptListDatatable($request): JsonResponse
+    {
+        $youth = Youth::select([
+            'youths.id as id',
+            'youths.name_en',
+            'youths.name_bn',
+            'youths.mobile',
+            DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
+            'youths.updated_at',
+            'youths.youth_registration_no as youth_registration_id',
+            'youths.youth_registration_no',
+            'publish_courses.id as publish_courses.id',
+            'institutes.title_en as institutes.title_en',
+            'branches.title_en as branches.title_en',
+            'training_centers.title_en as training_centers.title_en',
+            'programmes.title_en as programmes.title_en',
+            'courses.title_en as courses.title_en',
+            'youth_course_enrolls.id as youth_course_enroll_id',
+            'youth_course_enrolls.enroll_status',
+            'youth_course_enrolls.payment_status',
+            'youth_batches.id as youth_batch_id',
+            'youth_batches.youth_course_enroll_id as youth_batch_youth_course_enroll_id',
+        ]);
+        $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
+        $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
+        $youth->leftJoin('branches', 'branches.id', '=', 'publish_courses.branch_id');
+        $youth->leftJoin('training_centers', 'training_centers.id', '=', 'publish_courses.training_center_id');
+        $youth->leftJoin('programmes', 'programmes.id', '=', 'publish_courses.programme_id');
+        $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
+        $youth->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
+        $youth->where('youth_batches.youth_course_enroll_id', null);
+        $youth->where('youth_course_enrolls.enroll_status', '=', YouthCourseEnroll::ENROLL_STATUS_ACCEPT);
+
+
+        $instituteId = $request->input('institute_id');
+        $branchId = $request->input('branch_id');
+        $trainingCenterId = $request->input('training_center_id');
+        $courseId = $request->input('course_id');
+        $programmeId = $request->input('programme_id');
+        $applicationDate = $request->input('application_date');
+
+
+        if ($instituteId) {
+            $youth->where('publish_courses.institute_id', $instituteId);
+        }
+        if ($branchId) {
+            $youth->where('publish_courses.branch_id', $branchId);
+        }
+        if ($trainingCenterId) {
+            $youth->where('publish_courses.training_center_id', $trainingCenterId);
+        }
+        if ($courseId) {
+            $youth->where('publish_courses.course_id', $courseId);
+        }
+        if ($programmeId) {
+            $youth->where('publish_courses.programme_id', $programmeId);
+        }
+        if ($applicationDate) {
+            $youth->whereDate('youths.created_at', Carbon::parse($applicationDate)->format('Y-m-d'));
+        }
+
+
+        return DataTables::eloquent($youth)
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
+                $str = '';
+                $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                if ($youth->payment_status == YouthCourseEnroll::PAYMENT_STATUS_PAID) {
+                    $str .= '<a href="#" id="accept-now-button"  data-toggle="modal" data-target="#addToBatchModal"  class="btn btn-outline-success btn-sm accept-now-button"> <i class="fas fa-check-circle"></i> ' . __('Add to Batch') . ' </a>';
+                }
+
+                return $str;
+            }))
+            ->editColumn('registration_date', function (Youth $youth) {
+                return date('d M Y', strtotime($youth->registration_date));
+            })
+            ->addColumn('payment_status', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
+                $str = '';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($youth->payment_status ? "success payment-paid" : "danger payment-unpaid") . '">' . ($youth->payment_status ? "Paid" : "Unpaid") . ' </span>';
+                return $str;
+            }))
+            ->addColumn('paid_or_unpaid', static function (Youth $youth) {
+                return $youth->payment_status;
+            })
+            ->addColumn('enroll_status_check', static function (Youth $youth) {
+                return $youth->enroll_status;
+            })
+            ->rawColumns(['action', 'enroll_status', 'payment_status', 'paid_or_unpaid', 'enroll_status_check'])
+            ->toJson();
     }
 
 }

@@ -4,14 +4,14 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header text-primary custom-bg-gradient-info">
-                <h3 class="card-title font-weight-bold">Organization Unit</h3>
+                <h3 class="card-title font-weight-bold">Industry Unit</h3>
 
                 <div class="card-tools">
                     <div class="btn-group">
                         @can('update', $organizationUnit)
                             <a href="{{route('govt_stakeholder::admin.organization-units.edit', [$organizationUnit->id])}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-plus-circle"></i> {{ __('Edit Organization Unit') }}
+                                <i class="fas fa-plus-circle"></i> {{ __('Edit Industry Unit') }}
                             </a>
                         @endcan
                         @can('viewAny', $organizationUnit)
@@ -40,14 +40,14 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Organization Name') }}</p>
+                    <p class="label-text">{{ __('Industry Name') }}</p>
                     <div class="input-box">
                         {{ optional($organizationUnit->organization)->title_en }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Organization Unit Type') }}</p>
+                    <p class="label-text">{{ __('Industry Unit Type') }}</p>
                     <div class="input-box">
                         {{ optional($organizationUnit->organizationUnitType)->title_en }}
                     </div>

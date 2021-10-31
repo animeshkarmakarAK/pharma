@@ -17,37 +17,41 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form class="row bulk-import-youth" id="import-youth-form" method="post"
-                              enctype="multipart/form-data">
-                            @csrf
-                            <div class="col-md-6 py-2 mb-2">
-                                <div class="form-group">
-                                    <label for="import_youth_file" class="form-label">Import youths</label>
-                                    <input class="form-control form-control-lg" id="import_youth" type="file"
-                                           name="import_youth_file"/>
+                        @if($batch->batch_status == \Module\CourseManagement\App\Models\Batch::BATCH_STATUS_COMPLETE)
+                            <form class="row bulk-import-youth" id="import-youth-form" method="post"
+                                  enctype="multipart/form-data">
+                                @csrf
+                                <div class="col-md-6 py-2 mb-2">
+                                    <div class="form-group">
+                                        <label for="import_youth_file" class="form-label">Import youths</label>
+                                        <input class="form-control form-control-lg" id="import_youth" type="file"
+                                               name="import_youth_file"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2 py-2 mb-2">
-                                <div class="form-group row">
-                                    <label for="import_youth" class="form-label">&nbsp;</label>
-                                    <button class="form-control form-control-lg bg-blue" id="import_youth_btn">Import
-                                        Now
-                                    </button>
+                                <div class="col-md-2 py-2 mb-2">
+                                    <div class="form-group row">
+                                        <label for="import_youth" class="form-label">&nbsp;</label>
+                                        <button class="form-control form-control-lg bg-blue" id="import_youth_btn">
+                                            Import Now
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 py-2 mb-2 text-center">
-                                <div class="form-group row">
-                                    <label for="Download_demo" class="form-label">&nbsp;</label>
-                                    <a href="{{asset('/assets/demoExcelFormat/demo.csv')}} " class="form-control form-control-lg bg-blue"> Download Demo</a>
+                                <div class="col-md-3 py-2 mb-2 text-center">
+                                    <div class="form-group row">
+                                        <label for="Download_demo" class="form-label">&nbsp;</label>
+                                        <a href="{{asset('/assets/demoExcelFormat/demo.csv')}} "
+                                           class="form-control form-control-lg bg-blue"> Download Demo</a>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </form>
+                            </form>
 
-                        <div class="col-md-6 py-2 mb-2" id="validation-error-div" style="display: none">
-                            <p>Validation Error:</p>
-                            <ul id="validation-error-list"></ul>
-                        </div>
+                            <div class="col-md-6 py-2 mb-2" id="validation-error-div" style="display: none">
+                                <p>Validation Error:</p>
+                                <ul id="validation-error-list"></ul>
+                            </div>
+                        @endif
+
 
                         <div class="datatable-container">
                             <table id="dataTable" class="table table-bordered table-striped dataTable">
@@ -68,7 +72,7 @@
 @push('js')
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script>
-        let datatable=null;
+        let datatable = null;
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{ route('course_management::admin.batches.youths.datatable', $batch->id) }}',
@@ -148,7 +152,7 @@
                             });
                             $("#validation-error-list").html(li);
                             $("#validation-error-div").css("display", "block");
-                        }else if (res.code===200){
+                        } else if (res.code === 200) {
                             window.location.reload();
                         }
                     }

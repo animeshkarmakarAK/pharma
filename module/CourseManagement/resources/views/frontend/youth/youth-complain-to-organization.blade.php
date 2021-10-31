@@ -121,7 +121,7 @@
                                             </div>
                                             <div class="form-group row" aria-required="true">
                                                 <label for="name" class="col-sm-2 control-label">
-                                                    Organization Name
+                                                    Industry Name
                                                 </label>
                                                 <div class="col-md-10">
                                                     <input type="hidden" name="organization_id" id="organization_id" class="organization_id"

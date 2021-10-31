@@ -269,39 +269,52 @@ class YouthRegistrationService
             'youth_course_enrolls.updated_at as enroll_updated_date',
             'courses.title_bn as course_title_bn',
             'courses.course_fee as course_fee',
+            'youth_batches.batch_id as batch_id',
+            'batches.batch_status as batch_status',
+            'batches.title_en as batch_title_en',
         ]);
+
+        $youthCourseEnrolls->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youthCourseEnrolls->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
+        $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');
         $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
-        $youthCourseEnrolls->where(['youths.id' => $request->id]);
+        $youthCourseEnrolls->where('youth_id', $request->id);
 
         return DataTables::eloquent($youthCourseEnrolls)
-            ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnrolls) {
+            ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';
-                return $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'badge-warning' : ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'badge-success' : 'badge-danger')) . '"> ' . ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'Processing' : ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'Accepted' : 'Rejected')) . ' </span>';
+                $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'badge-warning' : ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'badge-success' : 'badge-danger')) . '"> ' . ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING ? 'Processing' : ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT ? 'Accepted' : 'Rejected')) . ' </span>';
+                return $str;
             })
-            ->addColumn('payment_status', static function (YouthCourseEnroll $youthCourseEnrolls) {
+            ->addColumn('payment_status', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';
-                return $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnrolls->payment_status ? 'badge-success' : 'badge-warning') . '"> ' . ($youthCourseEnrolls->payment_status ? 'Paid' : 'Unpaid') . ' </span>';
+                return $str .= '<span href="#" style="width:80px" class="badge ' . ($youthCourseEnroll->payment_status ? 'badge-success' : 'badge-warning') . '"> ' . ($youthCourseEnroll->payment_status ? 'Paid' : 'Unpaid') . ' </span>';
             })
-            ->addColumn('action', static function (YouthCourseEnroll $youthCourseEnrolls) {
+            ->addColumn('action', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';
-                if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status and ( date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days'))) ) {
-                    $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
+                if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnroll->payment_status and (date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnroll->enroll_updated_date . ' + 3 days')))) {
+                    $str .= '<a href="#" data-action="' . route('course_management::youth-course-enroll-pay-now', $youthCourseEnroll->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
                 }
-                if (!empty($youthCourseEnrolls->publishCourse->batch)?$youthCourseEnrolls->publishCourse->batch->batch_status == Batch::BATCH_STATUS_COMPLETE:'') {
-                    $str .= '<a href="'.route('course_management::youth-certificate-view', $youthCourseEnrolls->id).'" data-action="' . route('course_management::youth-certificate-view', $youthCourseEnrolls->id) . '" class="btn btn-info btn-sm" target="_blank"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
+                if ($youthCourseEnroll->batch_id != null && $youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE) {
+                    $str .= '<a href="' . route('course_management::youth-certificate-view', $youthCourseEnroll->id) . '" data-action="' . route('course_management::youth-certificate-view', $youthCourseEnroll->id) . '" class="btn btn-info btn-sm" target="_blank"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
                 }
                 return $str;
             })
-            ->addColumn('enroll_last_date', static function (YouthCourseEnroll $youthCourseEnrolls) {
+            ->addColumn('enroll_last_date', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';
-                if ($youthCourseEnrolls->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnrolls->payment_status) {
-                    $str .= '<span href="#" class="badge badge-secondary"> ' .date('d M, Y h:i:s A', strtotime($youthCourseEnrolls->enroll_updated_date. ' + 3 days')) . ' </span>';
+                if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnroll->payment_status) {
+                    $str .= '<span href="#" class="badge badge-secondary"> ' . date('d M, Y h:i:s A', strtotime($youthCourseEnroll->enroll_updated_date . ' + 3 days')) . ' </span>';
                 }
                 return $str;
             })
-            ->rawColumns(['enroll_status', 'payment_status', 'action','enroll_last_date'])
+            ->addColumn('batch_status', static function (YouthCourseEnroll $youthCourseEnroll) {
+                $str = '';
+                $str .= '<span href="#" class="badge ' . ($youthCourseEnroll->batch_id ? ($youthCourseEnroll->batch_status ? ($youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'badge-success' : 'badge-info') : 'badge-secondary') : 'badge-secondary') . '"> '
+                    . ($youthCourseEnroll->batch_id ? ($youthCourseEnroll->batch_status ? ($youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'Complete - ' . $youthCourseEnroll->batch_title_en : 'On Going - ' . $youthCourseEnroll->batch_title_en) : 'Assigned to - ' . $youthCourseEnroll->batch_title_en) : 'Not Assigned') . ' </span>';
+                return $str;
+            })
+            ->rawColumns(['enroll_status', 'payment_status', 'action', 'enroll_last_date', 'batch_status'])
             ->toJson();
     }
 

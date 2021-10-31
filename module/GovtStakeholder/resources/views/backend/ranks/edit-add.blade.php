@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="organization_id">Organization Name</label>
+                                <label for="organization_id">Industry Name</label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="organization_id"
                                         id="organization_id"

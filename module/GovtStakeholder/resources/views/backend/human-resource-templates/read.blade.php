@@ -40,14 +40,14 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Organization Title') }}</p>
+                    <p class="label-text">{{ __('Industry Name') }}</p>
                     <div class="input-box">
                         {{ optional($humanResourceTemplate->organization)->title_en }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Organization Unit Type') }}</p>
+                    <p class="label-text">{{ __('Industry Unit Type') }}</p>
                     <div class="input-box">
                         {{ optional($humanResourceTemplate->organizationUnitType)->title_en }}
                     </div>

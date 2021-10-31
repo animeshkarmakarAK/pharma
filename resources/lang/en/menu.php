@@ -30,13 +30,14 @@ return [
 
     //Application management
     'application_management' => 'Application management',
-    'applied_student' => 'Applied Student',
+    'applied_trainee' => 'Applied Trainee',
+    'youth_accept_list' => 'Trainee Accepted List',
     'youths' => 'Youth List',
 
     //feedback_managment
     'feedback_management'=>'Feedback Management',
     'youth_complains'=>'Youth Complains',
-    'organization_complains'=>'Organization Complains',
+    'organization_complains'=>'Industry Complains',
 
     //content management
     'content_management' => 'Content Management',
@@ -46,17 +47,19 @@ return [
     'slider' => 'Slider',
     'video' => 'Video',
     'video_category' => 'Video Category',
+    'events' => 'Events',
+    'intro_videos' => 'Intro Video',
 
     //organization management
-    'organization_management' => 'Organization Management',
-    'organizations' => 'Organizations',
-    'organization_type' => 'Organization Type',
-    'organization_units' => 'Organization Units',
-    'organization_unit_types' => 'Organization Unit Types',
+    'organization_management' => 'Industry Management',
+    'organizations' => 'Industry',
+    'organization_type' => 'Industry Type',
+    'organization_units' => 'Industry Units',
+    'organization_unit_types' => 'Industry Unit Types',
     'human_resource_templates' => 'HR Templates',
     'ranks' => 'Ranks',
     'rank-type' => 'Rank Type',
-    'organization-youths'=> 'Organization Youths',
+    'organization-youths'=> 'Industry Youths',
 
     //skill management
     'skill_management' => 'Skill Management',
@@ -69,7 +72,7 @@ return [
     'occupation_management' => 'Occupation Management',
     'occupations' => 'Occupations',
     'occupation_wise_statistics' => 'Occupation Wise Statistics',
-    'organization_unit_statistic' => 'Organization Unit Statistics',
+    'organization_unit_statistic' => 'Industry Unit Statistics',
 
     //location
     'location' => "Location",
