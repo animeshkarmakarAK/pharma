@@ -159,6 +159,12 @@ class YouthController extends Controller
         return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
 
+    public function singleVideo($skillVideo): View
+    {
+        $youthVideos = Video::findOrFail($skillVideo);
+        return \view(self::VIEW_PATH . 'skill-single-video', compact('youthVideos'));
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse

@@ -53,7 +53,7 @@
                                                         @endif
                                                     </a>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="card-footer overflow-hidden">
                                                     <h6 class="float-left">{{$gallery->content_title}}</h6>
                                                     <h6 class="float-right">{{$gallery->created_at->format('d-m-Y')}}</h6>
                                                 </div>

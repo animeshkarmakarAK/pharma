@@ -4,8 +4,10 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 
+use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
+use Module\CourseManagement\App\Models\Programme;
 
 class galleryCategoryPageController
 {
@@ -20,7 +22,11 @@ class galleryCategoryPageController
             ->where(['institute_id' => $currentInstitute->id])
             ->where(['featured' => 1])
             ->get();
-        return view(self::VIEW_PATH . 'gallery-categories', compact('galleryCategories'));
+
+        $programmes = Programme::where('institute_id',$currentInstitute->id)->get();
+        $batches = Batch::where('institute_id',$currentInstitute->id)->get();
+
+        return view(self::VIEW_PATH . 'gallery-categories', compact('galleryCategories','programmes','batches'));
     }
 
     public function singleGalleryCategoryPage(GalleryCategory $galleryCategory)
