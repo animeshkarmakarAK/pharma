@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'sms_activate' => env('SMS_ACTIVATE', false),
+    'sms_activate' => env('SMS_ACTIVATE', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return [
     |
     */
 
-    'sms_log' => env('SMS_LOG', false),
+    'sms_log' => env('SMS_LOG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,16 +57,16 @@ return [
         'bangladesh_sms' => [
             'base_url' => env('BANGLADESH_SMS_BASE_URL'),
             'username' => env('BANGLADESH_SMS_USERNAME'),
-            'api_key'  => env('BANGLADESH_SMS_API_KEY'),
-            'from'     => env('BANGLADESH_SMS_FROM'),
+            'api_key' => env('BANGLADESH_SMS_API_KEY'),
+            'from' => env('BANGLADESH_SMS_FROM'),
         ],
 
         'teletalk_sms' => [
-            'base_url' => env('TELETALK_SMS_BASE_URL'),
-            'username' => env('TELETALK_SMS_USERNAME'),
-            'password'  => env('TELETALK_SMS_PASSWORD'),
-            'acode'     => env('TELETALK_SMS_ACODE'),
-            'masking'     => env('TELETALK_SMS_MASKING'),
+            'base_url' => 'http://bulkmsg.teletalk.com.bd',
+            'username' => 'nise',
+            'password' => 'A2ist2#0155',
+            'acode' => '1005254',
+            'masking' => '16345',
         ],
     ],
 
