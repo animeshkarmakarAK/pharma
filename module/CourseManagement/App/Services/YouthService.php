@@ -157,7 +157,6 @@ class YouthService
     {
 
         $messageBody = "You are accepted. Please payment within 72 hours.";
-//        dd($messageBody);
         \Khbd\LaravelSmsBD\Facades\SMS::send($youthMobiles,$messageBody);
 
         foreach ($youthAcceptListNowId as $youthAcceptListNowIds) {

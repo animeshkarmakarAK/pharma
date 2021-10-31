@@ -14,11 +14,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
-                    <div class="card-header custom-bg-gradient-info">
+                    <div class="card-header p-5 border-0">
                         @php
                             $year = ( date('m') > 6) ? date('Y') + 1 : date('Y');
                         @endphp
-                        <h2 class="text-center text-primary font-weight-lighter">
+                        <h2 class="text-center text-dark font-weight-bold">
                             প্রশিক্ষণ বাস্তবায়ন সময়সূচি
                             {{ (date('m') > 6) ? \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('Y').'-'.(date('Y')+1)) : \App\Helpers\Classes\NumberToBanglaWord::engToBn((date('Y')-1) .'-'.date('Y')) }}
                         </h2>
