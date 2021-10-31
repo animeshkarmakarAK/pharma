@@ -61,21 +61,22 @@
                         name: "title_bn"
                     },
                     {
-                        title: "Organization Name",
+                        title: "Industry",
                         data: "organization_name",
                         name: "organizations.title_en"
+                    },
+                    {
+                        title: "Industry Unit",
+                        data: "organization_unit_name",
+                        name: "organization_units.title_en",
+                        visible: false
                     },
                     {
                         title: "Parent",
                         data: "parent",
                         name: "human_resource_templates.parent_id"
                     },
-                    {
-                        title: "Organization Unit",
-                        data: "organization_unit_name",
-                        name: "organization_units.title_en",
-                        visible: false
-                    },
+
                     {
                         title: "Rank",
                         data: "rank_title",

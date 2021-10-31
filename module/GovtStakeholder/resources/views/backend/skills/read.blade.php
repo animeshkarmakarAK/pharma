@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="col-md-6  custom-view-box">
-                    <p class="label-text">{{ __('Organization Name') }}</p>
+                    <p class="label-text">{{ __('Industry Name') }}</p>
                     <div class="input-box">
                         {{$skill->organization_id ? $skill->organization->title_en : ''}}
                     </div>

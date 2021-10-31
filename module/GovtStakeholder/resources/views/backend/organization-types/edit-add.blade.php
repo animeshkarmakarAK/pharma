@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="card card-outline">
             <div class="card-header custom-bg-gradient-info">
-                <h3 class="card-title font-weight-bold text-primary">{{!$edit ? 'Add Organization Type': 'Update Organization Type'}}</h3>
+                <h3 class="card-title font-weight-bold text-primary">{{!$edit ? 'Add Industry Type': 'Update Industry Type'}}</h3>
                 <div class="card-tools">
                     <a href="{{route('govt_stakeholder::admin.organization-types.index')}}"
                        class="btn btn-sm btn-rounded btn-outline-primary">
