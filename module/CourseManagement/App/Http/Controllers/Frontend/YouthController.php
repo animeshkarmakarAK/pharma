@@ -20,6 +20,7 @@ use Module\CourseManagement\App\Models\VideoCategory;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthAcademicQualification;
 use Module\CourseManagement\App\Models\YouthBatch;
+use Module\CourseManagement\App\Models\YouthComplainToOrganization;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
 use Module\CourseManagement\App\Models\YouthOrganization;
@@ -566,7 +567,19 @@ class YouthController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
+        $currentInstitute = domainConfig('institute');
+
+
         if ($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id) {
+            $youthTotalComplainedToOrganization = YouthComplainToOrganization::where(['youth_id' => $youth->id, 'organization_id' => $youthOrganization->id, 'institute_id'=>$currentInstitute->id])->count();
+
+            if ($youthTotalComplainedToOrganization >= YouthComplainToOrganization::COMPLAIN_LIMITATION) {
+                return back()->with([
+                    'message' => __('Your limit exceeded for complain'),
+                    'alert-type' => 'error'
+                ]);
+            }
+
             $validateData = $this->youthRegistrationService->validationYouthComplainToOrganization($request)->validate();
 
             try {

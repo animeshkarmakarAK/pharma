@@ -44,6 +44,15 @@ class OrganizationComplainToYouthController extends BaseController
      */
     public function organizationComplainToYouth(Request $request): RedirectResponse
     {
+        $organizationTotalComplainedToYouth = OrganizationComplainToYouth::where(['youth_id' => $request->youth_id, 'organization_id' => $request->organization_id, 'institute_id' => $request->institute_id])->count();
+
+        if ($organizationTotalComplainedToYouth >= OrganizationComplainToYouth::COMPLAIN_LIMITATION) {
+            return back()->with([
+                'message' => __('Your limit exceeded for complain'),
+                'alert-type' => 'error'
+            ]);
+        }
+
         $validateData = $this->organizationComplainToYouthService->validateOrganizationComplainToYouth($request)->validate();
 
         try {
