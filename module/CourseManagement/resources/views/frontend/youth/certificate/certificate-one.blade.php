@@ -8,7 +8,7 @@
     <title>Certificate of {{ !empty($youthInfo)? $youthInfo['youth_name']:'' }}</title>
     <style>
         @font-face {
-            font-family: certificateDefaultTextFont;
+            font-family: 'examplefont';
             src: url({{ storage_path('dom-pdf-fonts\MonotypeCorsiva.ttf') }});
         }
 
@@ -24,7 +24,7 @@
         }
 
         .example_font {
-            font-family: certificateDefaultTextFont, serif;
+            font-family: 'examplefont', serif;
             font-size: 20px;
         }
 
