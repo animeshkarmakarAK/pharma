@@ -11,7 +11,7 @@
                         <img class="float-left" src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%"
                              alt="Logo"/>
                     </a>
-                    <div class="float-left px-1">
+                    <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
                         {{--<p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
                         <p class="slogan py-1">Employment and Entrepreneurship</p>--}}
                         <p class="slogan slogan-tag">{{ strtoupper($currentInstitute->title_en) }}</p>
@@ -143,7 +143,8 @@
                                href="{{ route('course_management::youth-enrolled-courses') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
                             </a>
-                            <a class="dropdown-item" href="{{ route('course_management::youth-current-organization') }}">
+                            <a class="dropdown-item"
+                               href="{{ route('course_management::youth-current-organization') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কর্মস্থল
                             </a>
                         </div>

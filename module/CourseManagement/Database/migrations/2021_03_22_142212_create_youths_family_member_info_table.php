@@ -18,7 +18,7 @@ class CreateYouthsFamilyMemberInfoTable extends Migration
             $table->unsignedInteger('youth_id')->index('youth_family_members_info_youth_id');
             $table->string('member_name_en', 191)->nullable();
             $table->string('member_name_bn', 191)->nullable();
-            $table->string('mobile', 20);
+            $table->string('mobile', 20)->nullable();
             $table->string('educational_qualification', 191)->nullable();
             $table->string('relation_with_youth', 191);
             $table->tinyInteger('is_guardian')->nullable();
