@@ -9,7 +9,7 @@
     <style>
         @font-face {
             font-family: 'examplefont';
-            src: url({{ storage_path('dom-pdf-fonts\MonotypeCorsiva.ttf') }});
+            src: url({{public_path('assets/font/MonotypeCorsiva.ttf')}});
         }
 
         body {
@@ -24,7 +24,7 @@
         }
 
         .example_font {
-            font-family: 'examplefont', serif;
+            font-family: examplefont, serif;
             font-size: 20px;
         }
 
