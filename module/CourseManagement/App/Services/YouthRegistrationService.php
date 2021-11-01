@@ -289,7 +289,7 @@ class YouthRegistrationService
         $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');
         $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
 
-        $youthCourseEnrolls->where('youth_id', $youth->id);
+        $youthCourseEnrolls->where('youth_course_enrolls.youth_id', $youth->id);
 
         return DataTables::eloquent($youthCourseEnrolls)
             ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnroll) {
