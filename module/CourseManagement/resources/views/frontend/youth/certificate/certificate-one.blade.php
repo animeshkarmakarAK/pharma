@@ -9,12 +9,11 @@
     <style>
         @font-face {
             font-family: 'examplefont';
-            src: url({{ storage_path('dom-pdf-fonts\MonotypeCorsiva.ttf') }});
-            /*src: url({{public_path('assets/font/MonotypeCorsiva.ttf')}});*/
+            src: url('{{public_path('assets/font/MonotypeCorsiva.ttf')}}');
         }
 
         body {
-            font-family: sans-serif;
+            font-family: serif;
             font-weight: 400;
             color: #322d28;
             padding: 15px;
