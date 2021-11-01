@@ -9,7 +9,7 @@
     <style>
         @font-face {
             font-family: 'examplefont';
-            src: url({{public_path('assets/font/MonotypeCorsiva.ttf')}});
+            src: url('{{public_path('assets/font/MonotypeCorsiva.ttf')}}');
         }
 
         body {
