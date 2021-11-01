@@ -53,7 +53,6 @@ class OrganizationComplainToYouthController extends BaseController
             ]);
         }
 
-
         $validateData = $this->organizationComplainToYouthService->validateOrganizationComplainToYouth($request)->validate();
 
         try {
@@ -66,7 +65,7 @@ class OrganizationComplainToYouthController extends BaseController
             ]);
         }
 
-        return back()->with([
+        return redirect()->route('govt_stakeholder::admin.organization-youths')->with([
             'message' => __('Your complain successfully submitted to Institute'),
             'alert-type' => 'success'
         ]);

@@ -23,7 +23,7 @@ class YouthController extends Controller
 
     public function youthAcceptList() {
         $institutes = Institute::acl()->active()->get();
-        $batches = \Module\CourseManagement\App\Models\Batch::acl()->get();
+        $batches = \Module\CourseManagement\App\Models\Batch::acl()->where(['batch_status'=>null])->get();
         return \view(self::VIEW_PATH . 'youth-accept-list', compact('institutes', 'batches'));
     }
 

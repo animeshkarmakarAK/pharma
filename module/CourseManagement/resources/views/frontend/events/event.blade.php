@@ -21,7 +21,9 @@
                             <div class="row">
                                 <div class="col-md-10 mx-auto">
                                     <div>
-                                        <img src="{{ asset("storage/{$event->image}") }}" width="100%">
+                                        @if(!empty($event->image))
+                                            <img src="{{ asset("storage/{$event->image}") }}" width="100%">
+                                        @endif
                                         <div class="bg-info p-2">
                                             <p class="mb-0">
                                                 <i class="far fa-calendar-minus gray-color"></i>

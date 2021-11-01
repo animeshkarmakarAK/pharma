@@ -31,12 +31,15 @@
                                       class="edit-add-form">
                                     @csrf
                                     <div class="form-group row">
-                                        <div class="col-sm-2">
+                                        <div class="col-md-12 mb-3">
+                                            <h6 class="text-center"><span class="text-danger font-italic">( You can complain maximum of three times )</span> </h6>
+                                        </div>
+                                        <div class="col-md-2">
                                             <label for="receiver" class="control-label">
                                                 To
                                             </label>
                                         </div>
-                                        <div class="col-sm-10">
+                                        <div class="col-md-10">
                                             <input type="hidden" name="institute_id" id="institute_id"
                                                    class="institute_id"
                                                    value="{{ !empty($institute)?$institute->id:''}}">
@@ -49,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row" aria-required="true">
-                                        <label for="name" class="col-sm-2 control-label">
+                                        <label for="name" class="col-md-2 control-label">
                                             Youth Name
                                         </label>
                                         <div class="col-md-10">

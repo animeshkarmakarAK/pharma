@@ -65,7 +65,7 @@
                                            placeholder="Caption" required>
                                 </div>
                                 <div class="form-group col-md-6 event-image">
-                                    <label for="image">Image <span style="color: red"> * </span></label>
+                                    <label for="image">Image </label>
                                     <input type="file" class="form-control custom-input-box" name="image"
                                            id="image"
                                            value="{{$edit ? $event->image : old('image')}}"
@@ -179,11 +179,7 @@
                     required: true,
                 },
                 image: {
-                    required: function (){
-                        if(!EDIT){
-                            return true;
-                        }
-                    },
+                    required: false,
                     accept: "image/*",
                     dimension: [1200,675],
                 },
