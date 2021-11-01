@@ -26,10 +26,9 @@ class CourseSearchController extends Controller
         $publishCourses = PublishCourse::active()->whereHas('institute')->get();
 
         $maxEnrollmentNumber = [];
-        foreach ($courses as $course) {
+        foreach ($publishCourses as $course) {
             $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
         }
-
         return view(self::VIEW_PATH.'course-list', compact('institutes', 'programmes', 'publishCourses','maxEnrollmentNumber'));
     }
 
