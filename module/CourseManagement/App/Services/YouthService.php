@@ -10,6 +10,8 @@ use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocUpazila;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\BaseModel;
 use Module\CourseManagement\App\Models\Batch;
@@ -130,8 +132,8 @@ class YouthService
         $currentDate = Carbon::now()->toDateTimeString();
 
         foreach ($youthIds as $youthId) {
-            $youthOrgCheck = YouthOrganization::where('youth_id',$youthId)->get();
-            if($youthOrgCheck){
+            $youthOrgCheck = YouthOrganization::where('youth_id', $youthId)->get();
+            if ($youthOrgCheck) {
                 $youthOrg = YouthOrganization::where('youth_id', $youthId)->update(['current_employment_status' => 0]);
             }
             /** @var Youth $youth */
@@ -153,20 +155,49 @@ class YouthService
         return true;
     }
 
-    public function addToTraineeAcceptedList(array $youthAcceptListNowId , array $youthMobiles): bool
+    public function addToTraineeAcceptedList(array $youthAcceptListNowIds): bool
     {
-
-        $messageBody = "You are accepted. Please payment within 72 hours.";
-        \Khbd\LaravelSmsBD\Facades\SMS::send($youthMobiles,$messageBody);
-
-        foreach ($youthAcceptListNowId as $youthAcceptListNowIds) {
+        foreach ($youthAcceptListNowIds as $youthAcceptListNowId) {
 
             /** @var YouthRegistration $youthCourseEnroll */
-            $youthCourseEnroll = YouthCourseEnroll::where('youth_id',$youthAcceptListNowIds)->first();
-            $youthCourseEnroll->update([
+            $youthCourseEnroll = YouthCourseEnroll::where('youth_id', $youthAcceptListNowId)->first();
+
+            $youth = Youth::findOrFail($youthAcceptListNowId);
+
+            $data = [
                 'enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT,
-            ]);
-            $youthCourseEnroll->save();
+            ];
+
+            if ($youthCourseEnroll->update($data)) {
+                if (!empty($youth->mobile)) {
+                    try {
+                        $link = route('course_management::youth-enrolled-courses');
+                        $youthName = strtoupper($youth->name_en);
+                        $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
+                        $smsResponse = sms()->send($youth->mobile, $messageBody);
+                        if (!$smsResponse->is_successful()) {
+                            sms()->send($youth->mobile, $messageBody);
+                        }
+                    } catch (\Throwable $exception) {
+                        Log::debug($exception->getMessage());
+                    }
+                };
+
+                if (!empty($youth->email)) {
+                    $link = route('course_management::youth-enrolled-courses');
+                    $youthEmailAddress = $youth->email;
+                    $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: $link </p>";
+                    $mailSubject = "Congratulations! Your application has been accepted";
+                    $youthName = $youth->name_en;
+                    try {
+                        Mail::to($youthEmailAddress)->send(new \Module\CourseManagement\App\Mail\YouthApplicationAcceptMail($mailSubject, $youth->access_key, $mailMsg, $youthName));
+                    } catch (\Throwable $exception) {
+                        Log::debug($exception->getMessage());
+                    }
+                };
+            }
+
+
         }
         return true;
     }
@@ -176,7 +207,7 @@ class YouthService
         foreach ($youthAcceptListNowId as $youthAcceptListNowIds) {
 
             /** @var YouthRegistration $youthCourseEnroll */
-            $youthCourseEnroll = YouthCourseEnroll::where('youth_id',$youthAcceptListNowIds)->first();
+            $youthCourseEnroll = YouthCourseEnroll::where('youth_id', $youthAcceptListNowIds)->first();
             $youthCourseEnroll->update([
                 'enroll_status' => YouthCourseEnroll::ENROLL_STATUS_REJECT,
             ]);

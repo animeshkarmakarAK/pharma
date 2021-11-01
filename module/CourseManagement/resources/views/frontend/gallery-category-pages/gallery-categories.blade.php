@@ -26,26 +26,43 @@
                                             ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
                                         </label>
                                     </div>
+
                                     <div class="form-group col-md-2">
-                                        <select class="form-control select2-ajax-wizard"
+                                        {{--<select class="form-control select2-ajax-wizard"
                                                 name="programme_id"
                                                 id="programme_id"
-                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Programme::class)}}"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
                                                 data-label-fields="{title_bn}"
                                                 data-dependent-fields="#batch_id"
+                                                data-depend-on-optional="institute_id"
                                                 data-placeholder="প্রোগ্রাম নির্বাচন করুন"
                                         >
+                                        </select>--}}
+
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="programme_id"
+                                                id="programme_id">
+
+                                            <option value="">প্রোগ্রাম নির্বাচন করুন</option>
+                                            @foreach($programmes as $programme)
+                                                <option value="{{ $programme->id }}" >{{ $programme->title_bn }}</option>
+                                            @endforeach
+
                                         </select>
                                     </div>
                                     <div class="form-group col-md-2">
                                         <select class="form-control select2-ajax-wizard"
                                                 name="batch_id"
                                                 id="batch_id"
-                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
+                                                {{--data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
                                                 data-label-fields="{title_bn}"
                                                 data-depend-on-optional="programme_id"
-                                                data-placeholder="ব্যাচ নির্বাচন করুন"
+                                                data-placeholder="ব্যাচ নির্বাচন করুন"--}}
                                         >
+                                            <option value="">ব্যাচ নির্বাচন করুন</option>
+                                            @foreach($batches as $batch)
+                                                <option value="{{ $batch->id }}" >{{ $batch->title_bn }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-1">
@@ -74,6 +91,12 @@
 @endsection
 
 @push('css')
+    <style>
+        .album-body{
+            max-height: 100px;
+            overflow: hidden;
+        }
+    </style>
 
 @endpush
 
@@ -86,7 +109,7 @@
             html += '<a href="' + src + '">';
             html += '<img class="card-img-top" src="/storage/' + item.image + '" height="200" alt="Card image cap">';
             html += '</a>';
-            html += `<div class="card-body">`;
+            html += `<div class="card-body album-body">`;
             html += '<h5 class="card-title">অ্যালবাম: <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
             if (item.programme_title_bn) {
                 html += '<h6 class="card-text">প্রোগ্রাম: ' + item?.programme_title_bn ?? "" + '</h6>';

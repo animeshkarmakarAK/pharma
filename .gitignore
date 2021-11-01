@@ -1,9 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
-storage/*
+/storage/*
 /storage/app/public
-/storage/*.key
 /vendor
 .env
 .env.backup
@@ -12,5 +11,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+composer.lock
 .idea
-storage/dom-pdf-fonts/*.key

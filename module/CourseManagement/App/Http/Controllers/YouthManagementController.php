@@ -148,8 +148,10 @@ class YouthManagementController extends Controller
 
     }
 
-    public function youthCertificateList(Youth $youth)
+    public function youthCertificateList($youthId)
     {
+        $youth = Youth::findOrFail($youthId);
+
         $youthCourseEnrolls = YouthCourseEnroll::select([
             'youth_course_enrolls.id as id',
             'youths.name_en as youth_name_en',
@@ -158,11 +160,11 @@ class YouthManagementController extends Controller
             'batches.title_en as batch_title_en',
             'batches.batch_status',
         ]);
-        $youthCourseEnrolls->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youthCourseEnrolls->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
         $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');
         $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youthCourseEnrolls->where('youth_id', $youth->id);
+        $youthCourseEnrolls->where('youth_course_enrolls.youth_id', $youth->id);
         $youthCourseEnrolls = $youthCourseEnrolls->get();
 
         return \view(self::VIEW_PATH . 'youth-certificate-list', compact('youthCourseEnrolls', 'youth'));

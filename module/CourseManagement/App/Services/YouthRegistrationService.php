@@ -256,8 +256,17 @@ class YouthRegistrationService
         $youthCourseEnroll->update($data);
     }
 
-    public function getListDataForDatatable(\Illuminate\Http\Request $request): JsonResponse
+    public function getListDataForDatatable(Request $request): JsonResponse
     {
+        $youth = AuthHelper::getAuthUser('youth');
+        if (!$youth) {
+            return redirect()->route('course_management::youth.login-form')->with([
+                    'message' => 'You are not Auth user, Please login',
+                    'alert-type' => 'error']
+            );
+        }
+
+
         /** @var Builder|YouthCourseEnroll $youthCourseEnrolls */
         $youthCourseEnrolls = YouthCourseEnroll::select([
             'youth_course_enrolls.id as id',
@@ -274,12 +283,13 @@ class YouthRegistrationService
             'batches.title_en as batch_title_en',
         ]);
 
-        $youthCourseEnrolls->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
         $youthCourseEnrolls->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
         $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');
         $youthCourseEnrolls->join('youths', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
-        $youthCourseEnrolls->where('youth_id', $request->id);
+
+        $youthCourseEnrolls->where('youth_course_enrolls.youth_id', $youth->id);
 
         return DataTables::eloquent($youthCourseEnrolls)
             ->addColumn('enroll_status', static function (YouthCourseEnroll $youthCourseEnroll) {
