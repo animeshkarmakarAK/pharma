@@ -22,9 +22,15 @@ class CourseSearchController extends Controller
     {
         $institutes = Institute::active()->whereHas('courses')->get();
         $programmes = Programme::active()->whereHas('publishCourses')->get();
-        $courses = Course::active()->get();
+        $courses = Course::active()->whereHas('publishCourses')->get();
+        $publishCourses = PublishCourse::active()->whereHas('institute')->get();
 
-        return view(self::VIEW_PATH.'course-list', compact('institutes', 'programmes', 'courses'));
+        $maxEnrollmentNumber = [];
+        foreach ($courses as $course) {
+            $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
+        }
+
+        return view(self::VIEW_PATH.'course-list', compact('institutes', 'programmes', 'publishCourses','maxEnrollmentNumber'));
     }
 
     /**

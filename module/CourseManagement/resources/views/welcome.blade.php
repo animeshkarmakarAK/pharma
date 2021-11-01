@@ -916,6 +916,10 @@
             width: 100%;
         }
 
+        .nav-tabs {
+            border-bottom: 0;
+        }
+
         .nav-tabs .nav-item .active {
             background: #671688;
             padding: 10px 30px;
