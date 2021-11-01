@@ -203,7 +203,7 @@
                                                                     <p class="font-weight-light float-left"><i
                                                                             class="fas fa-user-plus gray-color"></i>
 
-                                                                        <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                                        <span class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -260,7 +260,7 @@
                                                         <p class="font-weight-light float-left"><i
                                                                 class="fas fa-user-plus gray-color"></i>
                                                             <span
-                                                                class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                                class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
                                                         </p>
                                                         <p class="float-right">
                                                             <a href="javascript:;"
@@ -308,7 +308,7 @@
                                                                 <p class="font-weight-light float-left"><i
                                                                         class="fas fa-user-plus gray-color"></i>
 
-                                                                    <span class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                                    <span class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
                                                                 </p>
                                                                 <p class="float-right">
                                                                     <a href="javascript:;"
@@ -365,7 +365,7 @@
                                                     <p class="font-weight-light float-left"><i
                                                             class="fas fa-user-plus gray-color"></i>
                                                         <span
-                                                            class="course-p">Student ( {{ $maxEnrollmentNumber[$key] }} )</span>
+                                                            class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
                                                     </p>
                                                     <p class="float-right">
                                                         <a href="javascript:;"
