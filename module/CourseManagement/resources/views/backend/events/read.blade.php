@@ -54,12 +54,14 @@
                             {{ Date('d M, Y h:i A', strtotime($event->date)) }}
                         </div>
                     </div>
-                    <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('Image') }}</p>
-                        <div class="input-box" style="height: 150px">
-                            <img src="{{ asset("storage/{$event->image}") }}" height="100%">
+                    @if(!empty($event->image))
+                        <div class="col-md-6 custom-view-box">
+                            <p class="label-text">{{ __('Image') }}</p>
+                            <div class="input-box" style="height: 150px">
+                                <img src="{{ asset("storage/{$event->image}") }}" height="100%">
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="col-md-6 custom-view-box">
                         <p class="label-text">{{ __('Details') }}</p>
                         <div class="input-box" style="min-height: 150px;">

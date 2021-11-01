@@ -23,25 +23,48 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        $currentInstitute = domainConfig('institute');
-        if ($currentInstitute) {
-            $currentInstituteCourses = PublishCourse::where([
-                'institute_id' => $currentInstitute->id,
+            $currentInstitute = domainConfig('institute');
+            if ($currentInstitute) {
+                $currentInstituteCourses = PublishCourse::where([
+                    'institute_id' => $currentInstitute->id,
+                ]);
+
+
+            $runningCourses = PublishCourse::select([
+                'publish_courses.id as id',
+                'publish_courses.course_id',
+                'courses.title_en',
+                'courses.title_bn',
+                'courses.course_fee',
+                'courses.duration',
+                'courses.cover_image',
+                'course_sessions.application_start_date',
+                'course_sessions.application_end_date'
             ]);
+            $runningCourses->join('courses','courses.id','=','publish_courses.course_id');
+            $runningCourses->join('course_sessions','course_sessions.publish_course_id','=', 'publish_courses.id' );
+            $runningCourses->whereDate('course_sessions.application_start_date','<=', Carbon::now()->format('Y-m-d'))
+                           ->whereDate('course_sessions.application_end_date','>=', Carbon::now()->format('Y-m-d'));
+            $runningCourses = $runningCourses->get();
 
-            $runningCourse = [];
-            foreach ($currentInstituteCourses as $courseIC){
-                $runningCourse[] = CourseSession::where('publish_course_id', '=',$courseIC->id)
-                    ->whereDate('application_end_date','<=', Carbon::now())->get()
-                    ->whereDate('course_start_date', '=>', Carbon::now())->get();
-            }
 
-            $upcomingCourse = [];
-            foreach ($currentInstituteCourses as $coursIC){
-                $upcomingCourse[]=CourseSession::where('publish_course_id', '=', $courseIC->id)
-                    ->whereDate('application-start_date','>', Carbon::now())->get();
-            }
-//             dd($runningCourse);
+
+            $upcomingCourses = PublishCourse::select([
+                'publish_courses.id as id',
+                'publish_courses.course_id',
+                'courses.title_en',
+                'courses.title_bn',
+                'courses.course_fee',
+                'courses.duration',
+                'courses.cover_image',
+                'course_sessions.application_start_date',
+                'course_sessions.application_end_date'
+            ]);
+            $upcomingCourses->join('courses','courses.id','=','publish_courses.course_id');
+            $upcomingCourses->join('course_sessions','course_sessions.publish_course_id','=', 'publish_courses.id' );
+            $upcomingCourses->whereDate('course_sessions.application_start_date','>', Carbon::now()->format('Y-m-d'));
+            $upcomingCourses = $upcomingCourses->get();
+
 
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
             $galleryCategories = GalleryCategory::active()
@@ -67,7 +90,6 @@ class HomeController extends BaseController
                 'training_centers' => TrainingCenter::where(['institute_id' => $currentInstitute->id])->count(),
                 'youth_registrations' => YouthRegistration::where(['institute_id' => $currentInstitute->id])->count(),
             ];
-
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
             $maxEnrollmentNumber = [];
             foreach ($currentInstituteCourses as $course) {
@@ -85,7 +107,7 @@ class HomeController extends BaseController
                 'institute_id' => $currentInstitute->id,
             ])->orderBy('id','DESC')->first();
 
-            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents','introVideo'));
+            return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents','introVideo','runningCourses','upcomingCourses'));
         }
 
         $institute = [

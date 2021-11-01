@@ -109,33 +109,6 @@
                                                    class="btn btn-primary mt-3">অভিযোগ করুন</a>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="2">Contact Person Info</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row">Name</th>
-                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_name:'' }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Mobile</th>
-                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_mobile:'' }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Email</th>
-                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_email:'' }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Designation</th>
-                                                    <td>{{ !empty($organization)?$organization->organization->contact_person_designation:'' }}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

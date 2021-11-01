@@ -598,7 +598,7 @@ class YouthController extends Controller
                 ]);
             }
 
-            return back()->with([
+            return redirect()->route('course_management::youth-current-organization')->with([
                 'message' => __('Your complain successfully submitted to Institute'),
                 'alert-type' => 'success'
             ]);

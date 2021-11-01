@@ -35,7 +35,7 @@ class OrganizationYouthService
         $youths->LeftJoin('organizations', 'youth_organizations.organization_id', '=', 'organizations.id');
         $youths->LeftJoin('youths', 'youth_organizations.youth_id', '=', 'youths.id');
 
-        if(!empty($authUser->organization_id)){
+        if (!empty($authUser->organization_id)) {
             $youths->where(['organization_id' => $authUser->organization_id]);
         }
 
@@ -45,7 +45,9 @@ class OrganizationYouthService
                 $str = '';
                 $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->youth_id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-address-card"></i> CV View </a>';
                 $str .= '<a href="' . route('course_management::admin.youths.certificate', $youth->youth_id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-user-graduate"></i> Certificate View</a>';
-                $str .= '<a href="' . route('govt_stakeholder::admin.organization-complain-form', $youth->youth_id) . '" data-action="' . '" class="btn btn-outline-danger btn-sm complain"> <i class="fas fa-skull-crossbones"></i> Complain</a>';
+                if (!empty($authUser->organization_id)) {
+                    $str .= '<a href="' . route('govt_stakeholder::admin.organization-complain-form', $youth->youth_id) . '" data-action="' . '" class="btn btn-outline-danger btn-sm complain"> <i class="fas fa-skull-crossbones"></i> Complain</a>';
+                }
                 return $str;
             }))
             ->rawColumns(['action'])

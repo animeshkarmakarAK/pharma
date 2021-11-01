@@ -21,8 +21,6 @@ class EventService
         if (!empty($data['image'])) {
             $filename = FileHandler::storePhoto($data['image'], 'event');
             $data['image'] = 'event/' . $filename;
-        } else {
-            $data['image'] = Event::DEFAULT_IMAGE;
         }
 
         return Event::create($data);
@@ -62,7 +60,7 @@ class EventService
             'date' => 'required | date_format:"Y-m-d H:i"|after:' . Carbon::now(),
             'details' => ['nullable', 'string'],
             'image' => [
-                new RequiredIf($id == null),
+                'nullable',
                 'image',
                 'mimes:jpeg,jpg,png,gif',
                 'max:500',
@@ -88,9 +86,8 @@ class EventService
             'events.created_at as event_created_at',
             'events.updated_at as event_updated_at'
         ]);
-        $events->join('institutes', 'events.institute_id', '=', 'institutes.id')
-            //->leftJoin('branches', 'training_centers.branch_id', '=', 'branches.id')
-            ->leftJoin('users', 'events.created_by', '=', 'users.id');
+        $events->join('institutes', 'events.institute_id', '=', 'institutes.id');
+        $events->leftJoin('users', 'events.created_by', '=', 'users.id');
 
         return DataTables::eloquent($events)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Event $event) use ($authUser) {
@@ -118,7 +115,10 @@ class EventService
             })
             ->editColumn('event_image', function (Event $event) {
                 $str = '';
-                $str .= '<img src="' . asset("storage/{$event->image}") . '" height="30px"/>';
+                if(!empty($event->image)){
+                    $str .= '<img src="' . asset("storage/{$event->image}") . '" height="30px" alt="Event Image"/>';
+                }
+
                 return $str;
             })
             ->rawColumns(['action', 'event_date', 'event_created_at', 'event_updated_at', 'event_image'])

@@ -2,9 +2,8 @@
 
 namespace Module\CourseManagement\App\Policies;
 
-use Module\CourseManagement\App\Models\TrainingCenter;
+use Module\CourseManagement\App\Models\Event;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EventPolicy extends BasePolicy
 {
@@ -23,8 +22,7 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param User  $user
-     * @param TrainingCenter $trainingCenter
+     * @param User $user
      * @return mixed
      */
     public function view(User $user): bool
@@ -47,10 +45,10 @@ class EventPolicy extends BasePolicy
      * Determine whether the user can update the model.
      *
      * @param User  $user
-     * @param TrainingCenter $trainingCenter
+     * @param Event $event
      * @return mixed
      */
-    public function update(User $user, TrainingCenter $trainingCenter): bool
+    public function update(User $user, Event $event): bool
     {
         return $user->hasPermission('update_event');
     }
@@ -59,10 +57,10 @@ class EventPolicy extends BasePolicy
      * Determine whether the user can delete the model.
      *
      * @param User  $user
-     * @param TrainingCenter $trainingCenter
+     * @param Event $event
      * @return mixed
      */
-    public function delete(User $user, TrainingCenter $trainingCenter): bool
+    public function delete(User $user, Event $event): bool
     {
         return $user->hasPermission('delete_event');
     }
@@ -71,10 +69,10 @@ class EventPolicy extends BasePolicy
      * Determine whether the user can restore the model.
      *
      * @param User  $user
-     * @param TrainingCenter  $trainingCenter
+     * @param Event $event
      * @return mixed
      */
-    public function restore(User $user, TrainingCenter $trainingCenter): bool
+    public function restore(User $user, Event $event): bool
     {
         return $user->hasPermission('restore_event');
     }
@@ -83,10 +81,10 @@ class EventPolicy extends BasePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param User  $user
-     * @param TrainingCenter  $trainingCenter
+     * @param Event $event
      * @return mixed
      */
-    public function forceDelete(User $user, TrainingCenter $trainingCenter): bool
+    public function forceDelete(User $user, Event $event): bool
     {
         return $user->hasPermission('forse_delete_event');
     }
