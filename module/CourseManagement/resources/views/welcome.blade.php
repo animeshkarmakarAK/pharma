@@ -915,6 +915,7 @@
         .tab-content {
             width: 100%;
         }
+
         .nav-tabs {
             border-bottom: 0;
         }
