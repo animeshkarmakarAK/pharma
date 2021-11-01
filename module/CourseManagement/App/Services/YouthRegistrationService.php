@@ -50,6 +50,8 @@ class YouthRegistrationService
         $youth['youth_registration_no'] = Helper::randomPassword(10, true);
 
 
+
+
         if (isset($data['student_signature_pic'])) {
             $filename = FileHandler::storePhoto($youth['student_signature_pic'], 'student');
             $youth['student_signature_pic'] = 'student/' . $filename;
@@ -73,7 +75,6 @@ class YouthRegistrationService
             $data['guardian'] = null;
         }
 
-
         foreach ($data['familyMember'] as $key => $familyMember) {
             if (($skipGuardian && $key == 'guardian') || (empty($data['guardian']) && $key == "guardian")) continue;
 
@@ -95,6 +96,7 @@ class YouthRegistrationService
             }
             $youth->youthFamilyMemberInfo()->create($familyMember);
         }
+
 
         /**
          * youth self info
@@ -163,13 +165,13 @@ class YouthRegistrationService
             'address.permanent.permanent_address_upazila_id' => 'required|int',
             'address.permanent.permanent_address_house_address' => 'required|array',
             'familyMember.father.member_name_en' => 'required|string|max:191',
-            'familyMember.father.nid' => 'required|string|max:191',
+            'familyMember.father.nid' => 'nullable|string|max:191',
             'familyMember.father.date_of_birth' => 'required|date',
-            'familyMember.father.mobile' => 'required|string',
+            'familyMember.father.mobile' => 'nullable|string',
             'familyMember.mother.member_name_en' => 'required|string|max:191',
-            'familyMember.mother.nid' => 'required|string|max:191',
+            'familyMember.mother.nid' => 'nullable|string|max:191',
             'familyMember.mother.date_of_birth' => 'required|date',
-            'familyMember.mother.mobile' => 'required|string',
+            'familyMember.mother.mobile' => 'nullable|string',
 
             'familyMember.guardian.member_name_en' => 'nullable|string|max:191',
             'familyMember.guardian.nid' => 'nullable|string|max:191',

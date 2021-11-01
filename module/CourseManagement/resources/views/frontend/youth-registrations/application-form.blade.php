@@ -1357,8 +1357,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="fathers_nid">এন.আই.ডি নাম্বার:<span
-                                                                class="required">*</span></label>
+                                                        <label for="fathers_nid">এন.আই.ডি নাম্বার:</label>
                                                         <input type="text" name="familyMember[father][nid]"
                                                                id="fathers_nid"
                                                                value="{{ old('familyMember.father.nid') }}"
@@ -1368,8 +1367,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="fathers_mobile">মোবাইল:<span
-                                                                class="required">*</span></label>
+                                                        <label for="fathers_mobile">মোবাইল:</label>
                                                         <input type="text" name="familyMember[father][mobile]"
                                                                id="fathers_mobile"
                                                                value="{{ old('familyMember.father.mobile') }}"
@@ -1414,8 +1412,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="mothers_nid">এন.আই.ডি নাম্বার:<span
-                                                                class="required">*</span></label>
+                                                        <label for="mothers_nid">এন.আই.ডি নাম্বার:</label>
                                                         <input type="text" name="familyMember[mother][nid]"
                                                                id="mothers_nid"
                                                                value="{{ old('familyMember.mother.nid') }}"
@@ -1424,8 +1421,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="mothers_mobile">মোবাইল:<span
-                                                                class="required">*</span></label>
+                                                        <label for="mothers_mobile">মোবাইল:</label>
                                                         <input type="text" name="familyMember[mother][mobile]"
                                                                id="mothers_mobile"
                                                                value="{{ old('familyMember.mother.mobile') }}"
@@ -1506,8 +1502,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="guardian_nid">অভিভাবকের এন.আই.ডি নাম্বার<span
-                                                                class="required">*</span>:</label>
+                                                        <label for="guardian_nid">অভিভাবকের এন.আই.ডি নাম্বার:</label>
                                                         <input type="text"
                                                                name="familyMember[guardian][nid]"
                                                                value="{{ old('familyMember.guardian.nid]') }}"
@@ -1517,8 +1512,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="guardian_mobile">অভিভাবকের মোবাইল<span
-                                                                class="required">*</span>:</label>
+                                                        <label for="guardian_mobile">অভিভাবকের মোবাইল:</label>
                                                         <input type="text"
                                                                name="familyMember[guardian][mobile]"
                                                                id="guardian_mobile"
@@ -2167,11 +2161,9 @@
                     textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[father][nid]": {
-                    required: true,
                     nidBn: true,
                 },
                 "familyMember[father][mobile]": {
-                    required: true,
                     mobileValidation: true,
                 },
                 "familyMember[father][date_of_birth]": {
@@ -2182,11 +2174,9 @@
                     textEnBnWithoutSpecialChar: true,
                 },
                 "familyMember[mother][nid]": {
-                    required: true,
                     nidBn: true,
                 },
                 "familyMember[mother][mobile]": {
-                    required: true,
                     mobileValidation: true,
                 },
                 "familyMember[mother][date_of_birth]": {
@@ -2209,9 +2199,6 @@
                     }
                 },
                 "familyMember[guardian][mobile]": {
-                    required: function () {
-                        return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
-                    },
                     mobileValidation: true,
                 },
                 "familyMember[guardian][relation_with_youth]": {
@@ -2220,9 +2207,6 @@
                     }
                 },
                 "familyMember[guardian][nid]": {
-                    required: function () {
-                        return $("input[name = 'guardian']:checked").val() == {!! \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GUARDIAN_OTHER !!};
-                    },
                     nidBn: true,
                 },
 
