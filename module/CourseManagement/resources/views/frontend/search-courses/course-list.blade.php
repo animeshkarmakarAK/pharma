@@ -92,6 +92,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if(!$publishCourses->isEmpty())
                         <div class="row justify-content-center" id="container-skill-videos">
                             @foreach($publishCourses as $key => $publishCourse)
                                 <div class="col-md-3">
@@ -125,6 +126,12 @@
                                 </div>
                             @endforeach
                         </div>
+                        @else
+                            <div class="col-md-12 m-5 text-center">
+                                <i class="fa fa-sad-tear fa-2x text-warning mb-3"></i>
+                                <h5 class="text-danger">কোন কোর্স নেই</h5>
+                            </div>
+                        @endif
                         <!-- Modal Start-->
                         <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
                             <div class="row">
