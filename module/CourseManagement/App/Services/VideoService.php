@@ -46,11 +46,10 @@ class VideoService
         $tag_data['tag_en'] = $data['title_en'];
         $tag_data['tag_bn'] = $data['title_bn'];
         $video->tags()->create($tag_data);
-
         return $video;
     }
 
-    public function updateVideo(array $data, Video $video): bool
+    public function updateVideo(array $data, Video $video): Video
     {
         if (!empty($data['uploaded_video_path'])) {
             $filename = FileHandler::storePhoto($data['uploaded_video_path'], Video::VIDEO_FOLDER_NAME);
@@ -63,7 +62,8 @@ class VideoService
         $tag_data['tag_en'] = $data['title_en'];
         $tag_data['tag_bn'] = $data['title_bn'];
         $video->tags()->update($tag_data);
-        return $video->update($data);
+        $video->update($data);
+        return $video;
     }
 
     public function validator($request, $id = null): Validator
