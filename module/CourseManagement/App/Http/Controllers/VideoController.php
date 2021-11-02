@@ -2,6 +2,8 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Services\VideoService;
 use Illuminate\Contracts\View\View;
@@ -24,7 +26,7 @@ class VideoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(): View
     {
@@ -34,7 +36,7 @@ class VideoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(): View
     {
@@ -45,9 +47,9 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -73,7 +75,7 @@ class VideoController extends Controller
      * Display the specified resource.
      *
      * @param  \Module\CourseManagement\App\Models\Video  $video
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Video $video): View
     {
@@ -97,7 +99,7 @@ class VideoController extends Controller
      * @param Request $request
      * @param Video $video
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function update(Request $request, Video $video): RedirectResponse
     {
