@@ -14,7 +14,7 @@
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
                         {{--<p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
                         <p class="slogan py-1">Employment and Entrepreneurship</p>--}}
-                        <p class="slogan slogan-tag">{{ strtoupper($currentInstitute->title_en) }}</p>
+                        <p class="slogan slogan-tag">{{ strtoupper($currentInstitute->title_bn) }}</p>
                     </div>
                 </div>
             </div>

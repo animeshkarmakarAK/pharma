@@ -144,7 +144,6 @@ class YouthManagementService
                     'enrollment_status' => YouthBatch::ENROLLMENT_STATUS_ENROLLED,
                 ]
             );
-            $youthCourseEnroll->save();
         }
         return true;
     }

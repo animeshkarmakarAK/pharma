@@ -649,8 +649,9 @@ class YouthService
                 $str = '';
                 $str .= '<a href="' . route('course_management::youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 if ($youth->payment_status == YouthCourseEnroll::PAYMENT_STATUS_PAID) {
-                    $str .= '<a href="#" id="accept-now-button"  data-toggle="modal" data-target="#addToBatchModal"  class="btn btn-outline-success btn-sm accept-now-button"> <i class="fas fa-check-circle"></i> ' . __('Add to Batch') . ' </a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.youth.add-single-youth-to-batch', $youth->id) . '"' . ' class="btn btn-outline-success btn-sm accept-to-batch"><i class="fas fa-plus-circle"></i> ' . __('Add to Batch') . ' </a>';
                 }
+
 
                 return $str;
             }))

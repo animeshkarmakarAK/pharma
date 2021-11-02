@@ -127,7 +127,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Start Modal For All Selection-->
     <div class="modal fade" id="addToBatchModal" tabindex="-1" role="dialog"
          aria-labelledby="addToBatchModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -193,6 +193,77 @@
             </div>
         </div>
     </div>
+    <!-- End Modal For All Selection -->
+
+    <!-- Start Modal For Single Selection -->
+
+    <div class="modal fade" id="addToSingleBatchModal" tabindex="-1" role="dialog"
+         aria-labelledby="addToBatchModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                @if($batches->count())
+                    <form id="add-to-single-batch-form" method="post"
+                          action="{{route('course_management::admin.youth.add-to-batch')}}">
+                        {{ method_field("PUT") }}
+                        {{ csrf_field() }}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Select Batch</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="single_batch_id">Select Batch <span
+                                        style="color: red"> * </span></label>
+                                <select name="single_batch_id" id="single_batch_id" class="select2"
+                                        data-placeholder="{{ __('generic.select_placeholder') }}">
+                                    <option selected disabled>{{ __('generic.select_placeholder') }}</option>
+                                    @foreach($batches as $batch)
+                                        <option value="{{$batch->id}}">{{$batch->title_en}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary ">Add</button>
+                        </div>
+                    </form>
+                @else
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Create Batch</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @can('create', \Module\CourseManagement\App\Models\Batch::class)
+                            <div class="d-block mt-5 mb-5 text-center">
+                                <a href="{{route('course_management::admin.batches.create')}}"
+                                   class="btn btn-sm btn-success">
+                                    <i class="fa fa-plus-circle"></i> Create New Batch
+                                </a>
+                            </div>
+                        @else
+                            <div class="alert alert-danger" role="alert">
+                                <div class="d-block text-center mt-3 mb-3">
+                                    <i class="fa fa-info-circle fa-3x"></i>
+                                </div>
+                                You don't have any <strong>Batch</strong> to assign. Please contact support to add
+                                batch.
+                            </div>
+                        @endcan
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <!-- End Modal For Sinlge Selection -->
 
 @endsection
 @push('css')
@@ -340,6 +411,12 @@
                 }
             });
 
+            $(document, 'td').on('click', '.accept-to-batch', function (e) {
+                $('#add-to-single-batch-form')[0].action = $(this).data('action');
+                console.log($('#add-to-single-batch-form')[0].action );
+                $('#addToSingleBatchModal').modal('show');
+            });
+
             $(document).on('change', '.select2-ajax-wizard', function () {
                 datatable.draw();
             });
@@ -392,6 +469,8 @@
                 });
             });
             let addToBatchForm = $("#add-to-batch-form");
+            let singleAddToBatchForm = $("#add-to-single-batch-form");
+
             addToBatchForm.validate({
                 rules: {
                     batch_id: {
@@ -400,6 +479,22 @@
                 },
                 messages: {
                     batch_id: {
+                        required: "Please select Batch",
+                    }
+                },
+                submitHandler: function (htmlForm) {
+                    htmlForm.submit();
+                }
+            });
+
+            singleAddToBatchForm.validate({
+                rules: {
+                    single_batch_id: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    single_batch_id: {
                         required: "Please select Batch",
                     }
                 },

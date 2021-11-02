@@ -509,6 +509,7 @@
 
             $(document, 'td').on('click', '.accept-application', function (e) {
                 $('#accept-application-form')[0].action = $(this).data('action');
+                console.log($('#accept-application-form')[0].action );
                 $('#accept-application-modal').modal('show');
             });
 

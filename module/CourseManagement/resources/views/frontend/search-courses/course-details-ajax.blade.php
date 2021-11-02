@@ -144,22 +144,30 @@
                                 <tbody>
                                 @foreach($publishCourse->courseSessions as $session)
                                     <tr>
-                                        <td>{{optional($session->application_start_date)->format('d/m/Y')}}</td>
-                                        <td>{{optional($session->application_end_date)->format('d/m/Y')}}</td>
-                                        <td>{{optional($session->course_start_date)->format('d/m/Y')}}</td>
-                                        <td>{{$session->max_seat_available}}</td>
-                                        <td colspan="3">
+{{--                                        <td>{{optional($session->application_start_date)->format('d/m/Y')}}</td>--}}
+{{--                                        <td>{{optional($session->application_end_date)->format('d/m/Y')}}</td>--}}
+{{--                                        <td>{{optional($session->course_start_date)->format('d/m/Y')}}</td>--}}
+{{--                                        <td>{{$session->max_seat_available}}</td>--}}
+{{--                                        <td colspan="3">--}}
                                             @if($session->application_start_date > \Carbon\Carbon::now())
-
+                                                <td>{{optional($session->application_start_date)->format('d/m/Y')}}</td>
+                                                <td>{{optional($session->application_end_date)->format('d/m/Y')}}</td>
+                                                <td>{{optional($session->course_start_date)->format('d/m/Y')}}</td>
+                                                <td>{{$session->max_seat_available}}</td>
 
                                             @elseif($session->course_start_date && $session->course_start_date->gt(now()))
+                                            <td>{{optional($session->application_start_date)->format('d/m/Y')}}</td>
+                                            <td>{{optional($session->application_end_date)->format('d/m/Y')}}</td>
+                                            <td>{{optional($session->course_start_date)->format('d/m/Y')}}</td>
+                                            <td>{{$session->max_seat_available}}</td>
+                                            <td colspan="3">
                                                 <button type="button" style="min-width: 130px;"
                                                         class="btn btn-success btn-block course-apply-btn"
                                                         onclick="window.location.href = `{{route('course_management::youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
                                                 >আবেদন করুন
                                                 </button>
+                                            </td>
                                             @endif
-                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

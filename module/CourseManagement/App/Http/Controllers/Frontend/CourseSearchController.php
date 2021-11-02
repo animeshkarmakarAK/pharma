@@ -22,13 +22,15 @@ class CourseSearchController extends Controller
     {
         $currentInstitute = domainConfig('institute');
         $programmes = Programme::where('institute_id',$currentInstitute->id)->get();
-        $courses = Course::active()->whereHas('publishCourses')->get();
-        $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->limit(8)->get();
+        //$publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->paginate(12);
+        $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->get();
+
         $maxEnrollmentNumber = [];
         foreach ($publishCourses as $course) {
             $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
         }
-        return view(self::VIEW_PATH.'course-list', compact('programmes', 'publishCourses','maxEnrollmentNumber'));
+        //return view(self::VIEW_PATH.'course-list', compact('programmes', 'publishCourses','maxEnrollmentNumber'));
+        return view(self::VIEW_PATH.'course-list-new', compact('programmes', 'publishCourses','maxEnrollmentNumber'));
     }
 
     /**
