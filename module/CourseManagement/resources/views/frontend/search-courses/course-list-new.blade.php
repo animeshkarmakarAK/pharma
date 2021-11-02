@@ -173,7 +173,7 @@
                 }
 
                 .card-bar-home-course img{
-                    max-height: 114px;
+                    height: 114px;
                 }
             </style>
         @endpush
