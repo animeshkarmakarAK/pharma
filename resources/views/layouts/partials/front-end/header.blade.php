@@ -14,7 +14,7 @@
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
                         {{--<p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
                         <p class="slogan py-1">Employment and Entrepreneurship</p>--}}
-                        <p class="slogan slogan-tag">{{ strtoupper($currentInstitute->title_en) }}</p>
+                        <p class="slogan slogan-tag">{{ $currentInstitute->title_bn }}</p>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                     </li>
                 @endif
 
-                @if(!empty($currentInstitute->primary_phone))
+                @if(!empty($currentInstitute->primary_mobile))
                     <li class="nav-item">
                         <a class="nav-item nav-link text-dark font-weight-600"
-                           href="tel:{{ $currentInstitute->primary_phone }}">
+                           href="tel:{{ $currentInstitute->primary_mobile }}">
                             <i class="fas fa-phone fa-flip-horizontal"></i>
-                            {{ $currentInstitute->primary_phone }}
+                            {{ $currentInstitute->primary_mobile }}
                         </a>
                     </li>
                 @endif
