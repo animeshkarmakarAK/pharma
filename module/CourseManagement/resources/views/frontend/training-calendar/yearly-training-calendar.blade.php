@@ -14,8 +14,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
-                    <div class="card-header custom-bg-gradient-info">
-                        <h2 class="text-center text-primary font-weight-lighter">
+                    <div class="card-header p-5 border-0">
+                        <h2 class="text-center text-dark font-weight-bold">
                             প্রশিক্ষণ বাস্তবায়ন সময়সূচি</h2>
                     </div>
 
@@ -47,22 +47,24 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control select2-ajax-wizard"
+                                                    name="branch_id"
+                                                    id="branch_id"
+                                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
+                                                    data-label-fields="{title_bn}"
+                                                    data-depend-on="institute_id"
+                                                    data-dependent-fields="#training_centre_id"
+                                                    data-placeholder="ব্রাঞ্চ সিলেক্ট করুন"
+                                            >
+                                            </select>
+                                        </div>
+                                    </div>
                                 @endif
 
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control select2-ajax-wizard"
-                                                name="branch_id"
-                                                id="branch_id"
-                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                                data-label-fields="{title_bn}"
-                                                data-depend-on="institute_id"
-                                                data-dependent-fields="#training_centre_id"
-                                                data-placeholder="ব্রাঞ্চ সিলেক্ট করুন"
-                                        >
-                                        </select>
-                                    </div>
-                                </div>
+
 
                                 <div class="col-md-2">
                                     <div class="form-group">

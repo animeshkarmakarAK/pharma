@@ -50,6 +50,7 @@ class YearlyTrainingCalendarController extends Controller
 
     public function fiscalYear(): view
     {
+        $currentInstitute = domainConfig('institute');
         $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
         $from = date(($year - 1) . '-07-01');
         $to = date($year . '-06-30');
@@ -57,6 +58,7 @@ class YearlyTrainingCalendarController extends Controller
         $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
             ->whereBetween('course_sessions.application_start_date', [$from, $to])
             ->orderBy('course_sessions.application_start_date', 'asc')
+            ->where(['courses.institute_id'=>$currentInstitute->id])
             ->get()
             ->groupBy('course_id');
 
