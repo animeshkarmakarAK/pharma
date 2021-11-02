@@ -231,7 +231,7 @@
                                 <!--/.Controls-->
                             </div>
                         </div>
-                    @elseif(empty($runningCourses))
+                    @elseif($runningCourses->isEmpty())
                         <div class="col-md-12">
                             <div class="alert text-danger text-center">
                                 কোন চলমান কোর্স পাওয়া যাইনি!
@@ -278,7 +278,7 @@
                     @endif
 
                     @if($upcomingCourses->count() > 4 )
-                    <div id="upcoming-course" class="tab-pane">
+                    <div id="upcoming-course" class="tab-pane fade">
                         <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
                             <div class="custom-carousel-inner w-100" role="listbox">
                                 <div class="col-md-12 p-0">
@@ -337,8 +337,8 @@
                             <!--/.Controls-->
                         </div>
                     </div>
-                    @elseif(empty($upcomingCourses))
-                        <div class="col-md-12">
+                    @elseif($upcomingCourses->isEmpty())
+                        <div class="col-md-12"  class="tab-pane fade">
                             <div class="alert text-danger text-center">
                                 কোন আসন্ন কোর্স পাওয়া যাইনি!
                             </div>
@@ -385,7 +385,7 @@
                 </div>
             </div>
         </div>
-        @if(count($upcomingCourses) > 4)
+        @if($upcomingCourses->count() > 4)
             <div class="col-md-12 text-center pt-3">
                 <a href="{{ route('course_management::course_search') }}" target="_blank" class="more-course-button">আরও
                     দেখুন <i
@@ -1145,8 +1145,8 @@
         }
 
         .fc .fc-day-past:not(.fc-day-other) .fc-scrollgrid-sync-inner, .fc-day-future:not(.fc-day-other) .fc-scrollgrid-sync-inner {
-            background: #f7f9f9;
-            border: 1px solid #f7f9f9;
+            background: #c7c7c7;
+            border: 1px solid #c7c7c7;
             margin: 3px;
             border-radius: 5px;
         }
@@ -1212,6 +1212,10 @@
             text-align: center;
             margin: 0;
             padding: 0;
+        }
+
+        .carousel-item {
+            transition-duration: 3s;
         }
 
     </style>

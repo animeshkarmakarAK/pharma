@@ -572,6 +572,7 @@ class YouthController extends Controller
      */
     public function youthComplainToOrganization(Request $request)
     {
+
         $youth = AuthHelper::getAuthUser('youth');
         $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])
             ->orderBy('id', 'DESC')
@@ -579,10 +580,8 @@ class YouthController extends Controller
 
         $currentInstitute = domainConfig('institute');
 
-
         if ($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id) {
-            $youthTotalComplainedToOrganization = YouthComplainToOrganization::where(['youth_id' => $youth->id, 'organization_id' => $youthOrganization->id, 'institute_id'=>$currentInstitute->id])->count();
-
+            $youthTotalComplainedToOrganization = YouthComplainToOrganization::where(['youth_id' => $youth->id, 'organization_id' => $request->organization_id, 'institute_id'=>$currentInstitute->id])->get()->count();
             if ($youthTotalComplainedToOrganization >= YouthComplainToOrganization::COMPLAIN_LIMITATION) {
                 return back()->with([
                     'message' => __('Your limit exceeded for complain'),
