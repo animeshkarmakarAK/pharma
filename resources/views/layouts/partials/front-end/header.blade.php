@@ -29,6 +29,7 @@
                     </li>
                 @endif
 
+
                 @if(!empty($currentInstitute->primary_mobile))
                     <li class="nav-item">
                         <a class="nav-item nav-link text-dark font-weight-600"
