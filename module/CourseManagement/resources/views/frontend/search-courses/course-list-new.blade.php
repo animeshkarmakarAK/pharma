@@ -168,6 +168,13 @@
                     background-color: #671688 !important;;
                     border-color: #671688 !important;;
                 }
+                .font-weight-bold {
+                    min-height: 48px;
+                }
+
+                .card-bar-home-course img{
+                    max-height: 114px;
+                }
             </style>
         @endpush
         @push('js')
