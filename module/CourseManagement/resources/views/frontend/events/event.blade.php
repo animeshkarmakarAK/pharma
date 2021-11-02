@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header custom-bg-gradient-info">
-                            <h2 class="text-center text-primary font-weight-lighter mt-4">{{ !empty($event)?$event->caption:'' }}</h2>
+                            <h2 class="text-center text-primary font-weight-lighter mt-4">{{ strtoupper(!empty($event)?$event->caption:'N/A') }}</h2>
                         </div>
                         <div class="card-body bg-gray-light">
                             <div class="row">

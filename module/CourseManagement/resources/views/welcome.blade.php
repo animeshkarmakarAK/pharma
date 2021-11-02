@@ -195,7 +195,7 @@
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                                     <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
-                                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse->title_bn }}</p>
+                                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-clock gray-color"></i> <span
                                                                             class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:'undefined' }}</span>
@@ -203,7 +203,7 @@
                                                                     <p class="font-weight-light float-left"><i
                                                                             class="fas fa-user-plus gray-color"></i>
 
-                                                                        <span class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
+                                                                        <span class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -252,7 +252,7 @@
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                         <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
-                                                        <p class="font-weight-bold course-heading-wrap">{{ $publishCourse->title_bn }}</p>
+                                                        <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-clock gray-color"></i> <span
                                                                 class="course-p">{{ !empty($publishCourse->duration) ? $publishCourse->duration:'undefined' }}</span>
@@ -260,7 +260,7 @@
                                                         <p class="font-weight-light float-left"><i
                                                                 class="fas fa-user-plus gray-color"></i>
                                                             <span
-                                                                class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
+                                                                class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                         </p>
                                                         <p class="float-right">
                                                             <a href="javascript:;"
@@ -276,6 +276,7 @@
                             </div>
                         </div>
                     @endif
+
                     @if($upcomingCourses->count() > 4 )
                     <div id="upcoming-course" class="tab-pane">
                         <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
@@ -300,7 +301,7 @@
                                                             </div>
                                                             <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                                 <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
-                                                                <p class="font-weight-bold course-heading-wrap">{{ $publishCourse->title_bn }}</p>
+                                                                <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                 <p class="font-weight-light mb-1"><i
                                                                         class="fas fa-clock gray-color"></i> <span
                                                                         class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:'undefined' }}</span>
@@ -308,7 +309,7 @@
                                                                 <p class="font-weight-light float-left"><i
                                                                         class="fas fa-user-plus gray-color"></i>
 
-                                                                    <span class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
+                                                                    <span class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                                 </p>
                                                                 <p class="float-right">
                                                                     <a href="javascript:;"
@@ -357,7 +358,7 @@
                                                 </div>
                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
                                                     <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                    <p class="font-weight-bold course-heading-wrap">{{ optional($publishCourse->course)->title_bn }}</p>
+                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                     <p class="font-weight-light mb-1"><i
                                                             class="fas fa-clock gray-color"></i> <span
                                                             class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
@@ -365,7 +366,7 @@
                                                     <p class="font-weight-light float-left"><i
                                                             class="fas fa-user-plus gray-color"></i>
                                                         <span
-                                                            class="course-p">Student ( {{--{{ $maxEnrollmentNumber[$key] }}--}} )</span>
+                                                            class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                     </p>
                                                     <p class="float-right">
                                                         <a href="javascript:;"
@@ -1229,7 +1230,7 @@
                 this.caption +
                 '<p class="mb-0">' +
                 '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date today-event ml-1">' + this.date + '</span>' +
+                '<span class="accordion-date {{ \Carbon\Carbon::now()?'today-event':'' }}  ml-1">' + this.date + '</span>' +
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
