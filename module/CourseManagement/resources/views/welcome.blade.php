@@ -779,7 +779,7 @@
         .slider-title {
             font-family: Hind Siliguri;
             font-style: normal;
-            font-size: 30px;
+            font-size: 25px;
             line-height: 40px;
         }
 
@@ -810,6 +810,9 @@
 
         .top-content .carousel-caption {
             padding-top: 0;
+            padding-bottom:0;
+            left: 0;
+            right: 0;
         }
 
         .top-content .carousel-caption h1 {
@@ -819,8 +822,9 @@
 
         .top-content .carousel-caption h3 {
             color: #fff;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-            padding: 15px;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+            padding: 10px;
+            margin-bottom: 0;
         }
 
         .top-content .carousel-caption .carousel-caption-description {
@@ -1081,10 +1085,6 @@
                 height: 60vh;
             }
 
-            .slider-title {
-                font-size: 20px;
-                line-height: 30px;
-            }
 
             .slider-previous-icon, .slider-next-icon {
                 padding: 10px;

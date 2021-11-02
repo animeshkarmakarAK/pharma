@@ -30,8 +30,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::put('youth-reject-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
 
 
-
-    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
+//    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
 
     Route::post('static-page/image-upload', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'imageUpload'])->name('staticPage.imageUpload');
     Route::post('institutes/datatable', [Module\CourseManagement\App\Http\Controllers\InstituteController::class, 'getDatatable'])->name('institutes.datatable');
@@ -60,8 +59,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         ->name('youth.registrations.index');
     Route::post('youth-registrations/datatable', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'getDatatable'])
         ->name('youth.registrations.datatable');
-    Route::post('youth-registrations/add-to-batch', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'addYouthToBatch'])
-        ->name('youth.add-to-batch');
+
 
 
 
@@ -98,6 +96,12 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         ->name('youth.accept-list');
     Route::post('youth-accept-list/datatable', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'getAcceptDatatable'])
         ->name('youth.acceptlist.datatable');
+
+    Route::post('youth-accept-list/add-to-batch', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'addYouthToBatch'])
+        ->name('youth.add-to-batch');
+
+    Route::put('youth-accept-list/{youth}', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'addSingleYouthToBatch'])
+        ->name('youth.add-single-youth-to-batch');
 
     Route::get('youth-complains', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'index'])->name('youth-complains');
     Route::post('youth-complains/datatable', [Module\CourseManagement\App\Http\Controllers\YouthComplainController::class, 'getYouthComplainList'])->name('youth-complains.datatable');

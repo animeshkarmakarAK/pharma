@@ -4,6 +4,8 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Institute;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
+use Module\CourseManagement\App\Models\YouthBatch;
 use Module\CourseManagement\App\Services\YouthManagementService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -62,6 +64,38 @@ class YouthRegistrationManagementController extends Controller
 
         return back()->with([
             'message' => __('Youth added to batch'),
+            'alert-type' => 'success'
+        ]);
+    }
+
+    public function addSingleYouthToBatch(Request $request , $youthId): \Illuminate\Http\RedirectResponse
+    {
+        $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthId);
+        DB::beginTransaction();
+        try {
+            YouthBatch::updateOrCreate(
+                [
+                    'batch_id' => $request->single_batch_id,
+                    'youth_course_enroll_id' => $youthCourseEnroll->id
+                ],
+                [
+                    'enrollment_date' => now(),
+                    'enrollment_status' => YouthBatch::ENROLLMENT_STATUS_ENROLLED
+                ]
+            );
+            DB::commit();
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            Log::debug($exception->getMessage());
+            Log::debug($exception->getTraceAsString());
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
+        return back()->with([
+            'message' => __('Youth has been added to batch'),
             'alert-type' => 'success'
         ]);
     }
