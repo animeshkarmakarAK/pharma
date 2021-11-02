@@ -41,6 +41,7 @@ class VideoService
             $data['youtube_video_id'] = $this->getYoutubeVideoKey($data['youtube_video_url']);
         }
 
+        dd($data);
         $video = Video::create($data);
         $tag_data = Arr::only($data, ['institute_id']);
         $tag_data['tag_en'] = $data['title_en'];
