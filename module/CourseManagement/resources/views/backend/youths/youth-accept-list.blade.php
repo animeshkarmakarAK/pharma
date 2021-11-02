@@ -412,8 +412,10 @@
             });
 
             $(document, 'td').on('click', '.accept-to-batch', function (e) {
-                $('#add-to-single-batch-form')[0].action = $(this).data('action');
-                console.log($('#add-to-single-batch-form')[0].action );
+                $batchId = $('#add-to-single-batch-form')[0];
+                if($batchId != null) {
+                    $batchId.action = $(this).data('action');
+                }
                 $('#addToSingleBatchModal').modal('show');
             });
 

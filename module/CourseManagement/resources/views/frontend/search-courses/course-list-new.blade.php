@@ -24,7 +24,7 @@
                                     <div class="col-md-1">
                                         <label
                                             style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                            ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                            &nbsp;&nbsp;<i class="fa fa-filter mr-2"></i>    ফিল্টার
                                         </label>
                                     </div>
 
@@ -85,8 +85,14 @@
                                     </div>
 
                                     <div class="col-md-3 mb-3">
-                                        <input type="search" name="search" id="search" class="form-control rounded-2"
-                                               placeholder="সার্চ...">
+                                        <div class="input-group">
+                                            <input type="search" name="search" id="search" class="form-control" placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
+                                            <div class="input-group-append">
+                                                <button class="btn button-bg text-white" type="button">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col">
@@ -97,7 +103,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row justify-content-center" id="container-publish-courses"></div>
+                        <div class="row justify-content-center pt-4" id="container-publish-courses"></div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="prev-next-button float-right">

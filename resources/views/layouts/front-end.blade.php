@@ -67,6 +67,7 @@
         .slogan-tag {
             color: #4f91ce;
             font-size: 16px !important;
+            line-height: 20px;
         }
 
         .font-weight-600 {

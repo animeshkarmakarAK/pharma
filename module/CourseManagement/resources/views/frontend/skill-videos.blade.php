@@ -24,14 +24,10 @@
                                     <div class="col-md-1">
                                         <label
                                             style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                            ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                            <i class="fa fa-filter"></i> ফিল্টার&nbsp;&nbsp;
                                         </label>
                                     </div>
 
-                                    <div class="col-md-2 mb-3">
-                                        <input type="search" name="search" id="search" class="form-control rounded-2"
-                                               placeholder="সার্চ...">
-                                    </div>
 
                                     @if(!empty($currentInstitute))
                                         <input type="hidden" name="institute_id" id="institute_id"
@@ -53,7 +49,7 @@
                                         </div>
                                     @endif
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <select class="form-control"
                                                     name="video_category_id"
@@ -68,7 +64,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="video_id"
@@ -83,11 +79,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <button class="btn btn-success button-bg mb-2"
                                                 id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
                                     </div>
-
+                                    <div class="col-md-3 mb-3">
+                                        <div class="input-group">
+                                            <input type="search" name="search" id="search" class="form-control" placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
+                                            <div class="input-group-append">
+                                                <button class="btn button-bg text-white" type="button">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <div class="overlay" style="display: none">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
