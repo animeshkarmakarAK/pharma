@@ -375,8 +375,12 @@ class YouthController extends Controller
 
     public function ekPayPaymentGateway($userInfo, $paymentInfo, $activeDebug = false)
     {
-        $marchantID = 'eporcha_test';
-        $marchantKey = 'EprCsa@tST12';
+        /*$marchantID = 'eporcha_test';
+        $marchantKey = 'EprCsa@tST12';*/
+
+        $marchantID = 'nise_test';
+        $marchantKey = 'NiSe@TsT11';
+
         $mac_addr = '1.1.1.1';
         $applicationURL = route('/');
 
