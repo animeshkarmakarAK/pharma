@@ -179,7 +179,7 @@
                 }
 
                 .card-bar-home-course img{
-                    height: 114px;
+                    height: 14vw;
                 }
             </style>
         @endpush
