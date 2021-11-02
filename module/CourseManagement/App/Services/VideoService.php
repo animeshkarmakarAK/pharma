@@ -32,7 +32,7 @@ class VideoService
         return $url;
     }
 
-    public function createVideo(array $data): Video
+    public function createVideo(array $data)
     {
         if (!empty($data['uploaded_video_path'])) {
             $filename = FileHandler::storePhoto($data['uploaded_video_path'], Video::VIDEO_FOLDER_NAME);
@@ -41,16 +41,14 @@ class VideoService
             $data['youtube_video_id'] = $this->getYoutubeVideoKey($data['youtube_video_url']);
         }
 
-        dd($data);
         $video = Video::create($data);
         $tag_data = Arr::only($data, ['institute_id']);
         $tag_data['tag_en'] = $data['title_en'];
         $tag_data['tag_bn'] = $data['title_bn'];
-        $video->tags()->create($tag_data);
-        return $video;
+        return $video->tags()->create($tag_data);
     }
 
-    public function updateVideo(array $data, Video $video): Video
+    public function updateVideo(array $data, Video $video)
     {
         if (!empty($data['uploaded_video_path'])) {
             $filename = FileHandler::storePhoto($data['uploaded_video_path'], Video::VIDEO_FOLDER_NAME);
@@ -63,8 +61,7 @@ class VideoService
         $tag_data['tag_en'] = $data['title_en'];
         $tag_data['tag_bn'] = $data['title_bn'];
         $video->tags()->update($tag_data);
-        $video->update($data);
-        return $video;
+        return $video->update($data);
     }
 
     public function validator($request, $id = null): Validator
