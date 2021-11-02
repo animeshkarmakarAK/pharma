@@ -1145,8 +1145,8 @@
         }
 
         .fc .fc-day-past:not(.fc-day-other) .fc-scrollgrid-sync-inner, .fc-day-future:not(.fc-day-other) .fc-scrollgrid-sync-inner {
-            background: #f7f9f9;
-            border: 1px solid #f7f9f9;
+            background: #c7c7c7;
+            border: 1px solid #c7c7c7;
             margin: 3px;
             border-radius: 5px;
         }
@@ -1212,6 +1212,10 @@
             text-align: center;
             margin: 0;
             padding: 0;
+        }
+
+        .carousel-item {
+            transition-duration: 3s;
         }
 
     </style>
