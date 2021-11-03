@@ -27,7 +27,7 @@ class CreateVideosTable extends Migration
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();
             $table->foreign('institute_id', 'videos_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('video_category_id', 'videos_fk_video_category_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('SET NULL');
+            $table->foreign('video_category_id', 'videos_fk_video_category_id')->references('id')->on('video_categories')->onUpdate('CASCADE')->onDelete('SET NULL');
         });
     }
 

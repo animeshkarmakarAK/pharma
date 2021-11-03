@@ -54,7 +54,6 @@ class VideoController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $videoValidatedData = $this->videoService->validator($request)->validate();
-
         try {
             $this->videoService->createVideo($videoValidatedData);
         } catch (\Throwable $exception) {

@@ -104,11 +104,13 @@
                                             <div class="form-group row">
 
                                                 <div class="col-md-12 mb-3">
-                                                    <h6 class="text-center"><span class="text-danger font-italic">(আপনি সর্বোচ্চ তিনবার অভিযোগ করতে পারেন )</span> </h6>
+                                                    <h6 class="text-center">
+                                                        <span class="text-danger font-italic">(আপনি সর্বোচ্চ তিনবার অভিযোগ করতে পারেন )</span>
+                                                    </h6>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="receiver" class="control-label">
-                                                        To
+                                                        প্রাপক
                                                     </label>
                                                 </div>
                                                 <div class="col-md-10">
@@ -119,27 +121,29 @@
                                                            class="youth_id"
                                                            value="{{ !empty($youth)?$youth->id:''}}">
                                                     <input class="form-control" type="text"
-                                                           value="{{ !empty($currentInstitute)?$currentInstitute->title_en:''}}" readonly>
+                                                           value="{{ !empty($currentInstitute)?$currentInstitute->title_bn:''}}"
+                                                           readonly>
 
                                                 </div>
                                             </div>
                                             <div class="form-group row" aria-required="true">
                                                 <label for="name" class="col-md-2 control-label">
-                                                    Industry Name
+                                                    ইন্ডাস্ট্রির নাম
                                                 </label>
                                                 <div class="col-md-10">
-                                                    <input type="hidden" name="organization_id" id="organization_id" class="organization_id"
+                                                    <input type="hidden" name="organization_id" id="organization_id"
+                                                           class="organization_id"
                                                            value="{{ !empty($youthOrganization)?$youthOrganization->organization_id:''}}">
                                                     <input required="required"
                                                            class="form-control" type="text"
-                                                           value="{{ !empty($youthOrganization)?$youthOrganization->organization->title_en:''}}"
+                                                           value="{{ !empty($youthOrganization)?$youthOrganization->organization->title_bn:''}}"
                                                            readonly>
 
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="email" class="col-md-2"
-                                                       aria-required="true">Complain Title <span
+                                                       aria-required="true">শিরোনাম <span
                                                         style="color: red"> * </span></label>
                                                 <div class="col-md-10">
                                                     <input maxlength="50" name="complain_title" id="complain_title"
@@ -150,7 +154,7 @@
                                             <div class="form-group row">
                                                 <label for="complain_message"
                                                        class="col-sm-2">
-                                                    Complain Message
+                                                    বার্তা
                                                     <span style="color: red"> * </span></label>
                                                 <div class="col-sm-10">
                                                         <textarea name="complain_message"
@@ -158,13 +162,14 @@
                                                                   class="form-control complain_message"
                                                                   rows="4"
                                                         ></textarea>
+                                                    <p class="text-info font-italic float-right m-0 p-0">( আপনি সর্বোচ্চ ১০০০ ক্যারেক্টর এর অভিযোগ টাইপ করতে পারবেন )</p>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-12 text-center">
                                                     <div class="submit">
                                                         <input type="submit" class="btn btn-default btn_save"
-                                                               value="Complain Now">
+                                                               value="অভিযোগ দিন">
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,17 +202,21 @@
             rules: {
                 complain_title: {
                     required: true,
+                    maxlength: 100,
                 },
                 complain_message: {
                     required: true,
+                    maxlength: 1000,
                 },
             },
             messages: {
                 complain_title: {
-                    required: "Please enter a complain title",
+                    required: "অভিযোগের শিরোনাম লিখুন",
+                    maxlength: "সর্বোচ্চ ১০০ ক্যারেক্টর এর অভিযোগের শিরোনাম লিখুন",
                 },
                 complain_message: {
-                    required: "Please enter complain message",
+                    required: "অভিযোগ বার্তার বিস্তারিত লিখুন",
+                    maxlength: "সর্বোচ্চ ১০০০ ক্যারেক্টর এর অভিযোগের বার্তার লিখুন",
                 },
             },
             submitHandler: function (htmlForm) {
