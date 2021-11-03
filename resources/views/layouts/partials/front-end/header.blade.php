@@ -92,7 +92,7 @@
                         <a class="btn"
                            href="{{ route('course_management::youth.login-form') }}"
                            id="bd-versions">
-                            <i class="far fa-user"></i>&nbsp; ইয়ুথ লগইন
+                            <i class="far fa-user"></i>&nbsp; প্রশিক্ষণার্থী লগইন
                         </a>
                     </li>
                     <li class="nav-item">

@@ -203,7 +203,7 @@
                                                                     <p class="font-weight-light float-left"><i
                                                                             class="fas fa-user-plus gray-color"></i>
 
-                                                                        <span class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                                        <span class="course-p">আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -260,7 +260,7 @@
                                                         <p class="font-weight-light float-left"><i
                                                                 class="fas fa-user-plus gray-color"></i>
                                                             <span
-                                                                class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                                class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'' )}} )</span>
                                                         </p>
                                                         <p class="float-right">
                                                             <a href="javascript:;"
@@ -278,108 +278,108 @@
                     @endif
 
                     @if($upcomingCourses->count() > 4 )
-                    <div id="upcoming-course" class="tab-pane fade">
-                        <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
-                            <div class="custom-carousel-inner w-100" role="listbox">
-                                <div class="col-md-12 p-0">
-                                    <div class="row">
-                                        @php
-                                            $ml=0;
-                                        @endphp
-                                        @foreach($upcomingCourses as $key => $publishCourse)
+                        <div id="upcoming-course" class="tab-pane fade">
+                            <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
+                                <div class="custom-carousel-inner w-100" role="listbox">
+                                    <div class="col-md-12 p-0">
+                                        <div class="row">
+                                            @php
+                                                $ml=0;
+                                            @endphp
+                                            @foreach($upcomingCourses as $key => $publishCourse)
 
-                                            <div
-                                                class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
-                                                <div class="col-md-3">
-                                                    <div class="card card-main mb-2">
-                                                        <div class="card-bar-home-course">
-                                                            <div class="pb-3">
-                                                                <img class="slider-img border-top-radius"
-                                                                     src="{{asset('/storage/'.$publishCourse->cover_image)}}"
-                                                                     alt="icon">
-                                                            </div>
-                                                            <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
-                                                                <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
-                                                                <p class="font-weight-light mb-1"><i
-                                                                        class="fas fa-clock gray-color"></i> <span
-                                                                        class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:'undefined' }}</span>
-                                                                </p>
-                                                                <p class="font-weight-light float-left"><i
-                                                                        class="fas fa-user-plus gray-color"></i>
+                                                <div
+                                                    class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
+                                                    <div class="col-md-3">
+                                                        <div class="card card-main mb-2">
+                                                            <div class="card-bar-home-course">
+                                                                <div class="pb-3">
+                                                                    <img class="slider-img border-top-radius"
+                                                                         src="{{asset('/storage/'.$publishCourse->cover_image)}}"
+                                                                         alt="icon">
+                                                                </div>
+                                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                                    <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
+                                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
+                                                                    <p class="font-weight-light mb-1"><i
+                                                                            class="fas fa-clock gray-color"></i> <span
+                                                                            class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:'undefined' }}</span>
+                                                                    </p>
+                                                                    <p class="font-weight-light float-left"><i
+                                                                            class="fas fa-user-plus gray-color"></i>
 
-                                                                    <span class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
-                                                                </p>
-                                                                <p class="float-right">
-                                                                    <a href="javascript:;"
-                                                                       onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
-                                                                       class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                                </p>
+                                                                        <span class="course-p">আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                                    </p>
+                                                                    <p class="float-right">
+                                                                        <a href="javascript:;"
+                                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
+                                <!--Controls-->
+                                <div class="controls-top">
+                                    <a class="btn-floating left-btn-arrow" href="#courseCarousel"
+                                       data-slide="prev"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                    <a class="btn-floating right-btn-arrow" href="#courseCarousel"
+                                       data-slide="next"><i
+                                            class="fas fa-chevron-right"></i></a>
+                                </div>
+                                <!--/.Controls-->
                             </div>
-                            <!--Controls-->
-                            <div class="controls-top">
-                                <a class="btn-floating left-btn-arrow" href="#courseCarousel"
-                                   data-slide="prev"><i
-                                        class="fas fa-chevron-left"></i></a>
-                                <a class="btn-floating right-btn-arrow" href="#courseCarousel"
-                                   data-slide="next"><i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                            <!--/.Controls-->
                         </div>
-                    </div>
                     @elseif($upcomingCourses->isEmpty())
-                        <div class="col-md-12"  class="tab-pane fade">
+                        <div class="col-md-12" class="tab-pane fade">
                             <div class="alert text-danger text-center">
                                 কোন আসন্ন কোর্স পাওয়া যাইনি!
                             </div>
                         </div>
                     @else
-                    <div id="upcoming-course" class="tab-pane fade">
-                        <div class="col-md-12 p-0">
-                            <div class="row">
-                                @foreach($upcomingCourses as $key => $publishCourse)
-                                    <div class="col-md-3">
-                                        <div class="card card-main mb-2">
-                                            <div class="card-bar-home-course">
-                                                <div class="pb-3">
-                                                    <img class="slider-img border-top-radius"
-                                                         src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
-                                                         alt="icon">
-                                                </div>
-                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                    <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
-                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
-                                                    <p class="font-weight-light mb-1"><i
-                                                            class="fas fa-clock gray-color"></i> <span
-                                                            class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
-                                                    </p>
-                                                    <p class="font-weight-light float-left"><i
-                                                            class="fas fa-user-plus gray-color"></i>
-                                                        <span
-                                                            class="course-p">Student ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
-                                                    </p>
-                                                    <p class="float-right">
-                                                        <a href="javascript:;"
-                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
-                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                    </p>
+                        <div id="upcoming-course" class="tab-pane fade">
+                            <div class="col-md-12 p-0">
+                                <div class="row">
+                                    @foreach($upcomingCourses as $key => $publishCourse)
+                                        <div class="col-md-3">
+                                            <div class="card card-main mb-2">
+                                                <div class="card-bar-home-course">
+                                                    <div class="pb-3">
+                                                        <img class="slider-img border-top-radius"
+                                                             src="{{asset('/storage/'. optional($publishCourse->course)->cover_image)}}"
+                                                             alt="icon">
+                                                    </div>
+                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                        <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                        <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
+                                                        <p class="font-weight-light mb-1"><i
+                                                                class="fas fa-clock gray-color"></i> <span
+                                                                class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
+                                                        </p>
+                                                        <p class="font-weight-light float-left"><i
+                                                                class="fas fa-user-plus gray-color"></i>
+                                                            <span
+                                                                class="course-p"> আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                        </p>
+                                                        <p class="float-right">
+                                                            <a href="javascript:;"
+                                                               onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                               class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -418,9 +418,10 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="accordion-heading">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
+                            <h3 class="accordion-heading"
+                                id="eventDateTime">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
                             <!-- Accordion -->
-                            <div id="accordionExample" class="accordion">
+                            <div id="eventArea" class="accordion">
 
                             </div>
                             <!-- End -->
@@ -809,7 +810,7 @@
 
         .top-content .carousel-caption {
             padding-top: 0;
-            padding-bottom:0;
+            padding-bottom: 0;
             left: 0;
             right: 0;
         }
@@ -1237,7 +1238,7 @@
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
-                'data-parent="#accordionExample" class="collapse">' +
+                'data-parent="#eventArea" class="collapse">' +
                 '<div class="card-body p-5">' +
                 '<p class="font-weight-light m-0">' + this.details +
                 '</p> <a href="{{ route('course_management::single-event','__') }}"'.replace('__', this.id) +
@@ -1251,8 +1252,7 @@
         @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
             events += eventsTemplate.call(@json($currentInstituteEvent), '{{$key}}');
         @endforeach
-        $("#accordionExample").html(events);
-
+        $("#eventArea").html(events);
 
         function eventsOfSpecificDate(date) {
             $.ajax({
@@ -1260,12 +1260,12 @@
                 type: "POST",
                 data: {date: date},
             }).done(function (response) {
-                $("#accordionExample").empty();
+                $("#eventArea").empty();
                 let events = '';
                 $.each(response, function (key, value) {
                     events += eventsTemplate.call(value, key)
                 })
-                $("#accordionExample").html(events);
+                $("#eventArea").html(events);
             }).fail(function (xhr) {
                 failureCallback([]);
             });
@@ -1310,6 +1310,15 @@
                     });
                 },
                 eventClick: function (calEvent, jsEvent, view) {
+                    let eventDateTime = new Date(calEvent.event._instance.range.start);
+                    eventDateTime = new Intl.DateTimeFormat('bn-BD', {
+                        weekday: 'long',
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                    }).format(eventDateTime);
+
+                    $('#eventDateTime').html(eventDateTime);
                     const start = calEvent.event.startStr;
                     eventsOfSpecificDate(start);
                 },
