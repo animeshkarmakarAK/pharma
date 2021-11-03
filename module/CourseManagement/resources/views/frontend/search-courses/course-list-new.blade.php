@@ -183,13 +183,17 @@
                 .card-bar-home-course img {
                     height: 14vw;
                 }
+
+                .gray-color {
+                    color: #73727f;
+                }
             </style>
         @endpush
         @push('js')
 
             <script>
-                const template = function (key,item) {
-                    console.log('key: '+key)
+                const template = function (key, item) {
+                    console.log('key: ' + key)
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-2">';
@@ -211,7 +215,7 @@
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'Total Seat ( <span class="max-enroll'+key+'"></span> )</span>';
+                        'আসন্ন সংখ্যা ( <span class="max-enroll' + key + '"></span> )</span>';
                     html += '</p>';
                     html += '<p class="float-right">';
                     html += '<a href="javascript:;"';
@@ -311,7 +315,7 @@
 
                         $.each(response.data?.data, function (i, item) {
                             console.log(i, item)
-                            html += template(i,item);
+                            html += template(i, item);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -356,9 +360,9 @@
                     });
 
 
-                    setTimeout(function (){
+                    setTimeout(function () {
                         @foreach($maxEnrollmentNumber as $key => $maxEnrollment)
-                        $('.max-enroll'+{{$key}}).html({{$maxEnrollment}});
+                        $('.max-enroll' + {{$key}}).html('{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($maxEnrollment) }}');
                         @endforeach
                     }, 1000)
 
