@@ -554,7 +554,9 @@ class YouthController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
-        return \view(self::VIEW_PATH . 'youth.youth-organization', compact('youth', 'organization'));
+        $youthComplains = YouthComplainToOrganization::where(['youth_id'=>$youth->id])->orderBy('id','DESC')->get();
+
+        return \view(self::VIEW_PATH . 'youth.youth-organization', compact('youth', 'organization','youthComplains'));
     }
 
     public function youthComplainToOrganizationForm()
@@ -584,7 +586,7 @@ class YouthController extends Controller
             $youthTotalComplainedToOrganization = YouthComplainToOrganization::where(['youth_id' => $youth->id, 'organization_id' => $request->organization_id, 'institute_id'=>$currentInstitute->id])->get()->count();
             if ($youthTotalComplainedToOrganization >= YouthComplainToOrganization::COMPLAIN_LIMITATION) {
                 return back()->with([
-                    'message' => __('Your limit exceeded for complain'),
+                    'message' => __('আপনার অভিযোগের লিমিট শেষ হয়েছে'),
                     'alert-type' => 'error'
                 ]);
             }

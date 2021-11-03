@@ -349,13 +349,20 @@ class YouthRegistrationService
             'complain_title' => [
                 'required',
                 'string',
+                'max:100',
             ],
             'complain_message' => [
                 'required',
                 'string',
+                'max:1000',
             ],
         ];
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+
+        $customMsg = [
+            'complain_title.max'=>'সর্বোচ্চ ১০০ ক্যারেক্টর এর অভিযোগের শিরোনাম লিখুন',
+            'complain_message.max'=>'সর্বোচ্চ ১০০০ ক্যারেক্টর এর অভিযোগের বার্তার লিখুন',
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $customMsg);
 
     }
 

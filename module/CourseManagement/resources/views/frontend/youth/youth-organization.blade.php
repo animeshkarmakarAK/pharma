@@ -96,17 +96,43 @@
                             <div class="card col-md-12 p-2">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <img
-                                                src="{{ !empty($organization)? asset('storage/'. $organization->organization->logo) :'' }}"
-                                                class="" alt="My Industry Logo" style="width: 80px">
-                                            <div>
-                                                <h5 class="card-title text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
-                                                <p class="card-text">
-                                                    Address: {{ !empty($organization)?$organization->organization->address:'' }}
-                                                </p>
-                                                <a href="{{ route('course_management::youth-complain-to-organization-form') }}"
-                                                   class="btn btn-primary mt-3">অভিযোগ করুন</a>
+                                        <div class="col-md-3 mb-3">
+                                            <div class="text-center border rounded p-2">
+                                                <img
+                                                    src="{{ !empty($organization)? asset('storage/'. $organization->organization->logo) :'' }}"
+                                                    class="" alt="My Industry Logo" width="80px">
+                                                <div>
+                                                    <h5 class="text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
+                                                    <a href="{{ route('course_management::youth-complain-to-organization-form') }}"
+                                                       class="btn btn-primary mt-3">অভিযোগ করুন</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-3 mx-auto border rounded p-2">
+                                            <h5 class="">আমার অভিযোগ সমূহ : </h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">ক্রম</th>
+                                                        <th scope="col">প্রাপক</th>
+                                                        <th scope="col">ইন্ডাস্ট্রির নাম</th>
+                                                        <th scope="col">শিরোনাম</th>
+                                                        <th scope="col">অভিযোগের তারিখ</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($youthComplains as $key => $youthComplain)
+                                                        <tr title="{{ $youthComplain->complain_message }}">
+                                                            <th scope="row">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$key)  }}</th>
+                                                            <td>{{ $youthComplain->institute->title_bn }}</td>
+                                                            <td>{{ $youthComplain->organization->title_bn }}</td>
+                                                            <td>{{ $youthComplain->complain_title }}</td>
+                                                            <td>{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date('j F, Y h:i A', strtotime($youthComplain->created_at))) }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
