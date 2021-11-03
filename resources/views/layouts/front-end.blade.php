@@ -58,20 +58,30 @@
 
         .slogan {
             margin: 0;
-            font-size: 13px;
+            font-size: 16px;
             font-weight: bold;
-            line-height: 15px;
+            line-height: 20px;
             text-align: center;
+            text-transform: uppercase;
         }
 
         .slogan-tag {
-            color: #4f91ce;
+            color: #671688;
             font-size: 16px !important;
-            line-height: 20px;
+            line-height: 30px;
+        }
+        .header-slogan {
+            color: #0c8749 !important;
+            -webkit-text-stroke: 0.5px #671688;
+            text-shadow: 0px 3px 4px #609e7e;
+            letter-spacing: 0.5px;
         }
 
         .font-weight-600 {
-            font-weight: 600;
+            font-weight: 600 !important;
+        }
+        .font-weight-500 {
+            font-weight: 500 !important;
         }
 
         .font-size-13px {
@@ -603,7 +613,25 @@
             color: #671688;
         }
 
+        /*******Responsive Design********/
 
+
+        @media screen and (max-width: 750px) {
+            .slogan {
+                font-size: 15px !important;
+            }
+            .slogan-tag {
+                font-size: 15px !important;
+            }
+        }
+        @media screen and (min-width: 751px) and (max-width: 974px) {
+            .slogan {
+                font-size: 10px !important;
+            }
+            .slogan-tag {
+                font-size: 14px !important;
+            }
+        }
 
     </style>
     @stack('css')

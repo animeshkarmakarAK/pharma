@@ -101,6 +101,8 @@
                                 href="{{route('course_management::static-content.show', 'aboutus')}}">আমাদের
                                 সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
+                                href="{{ route('course_management::advice-page') }}">পরামর্শ</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a
                                 href="{{route('course_management::contact-us-page')}}">যোগাযোগ</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
                                 href="{{route('course_management::general-ask-page')}}">প্রশ্নোত্তর</a></li>

@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid" id="fixed-scrollbar">
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
@@ -38,7 +38,7 @@
                         </div>
                         <div>
                             <table
-                                class="table table-responsive table-bordered table-hover floatThead-table table-fixed">
+                                class="table table-responsive table-bordered table-hover floatThead-table table-fixed  fixed-scrollbar">
                                 <thead class="" style="background: #f4f6f9">
                                 <tr>
                                     <th rowspan="2" style="vertical-align: middle">ক্রমিক নং</th>
@@ -234,9 +234,84 @@
         .calender-custom-btn {
             margin-right: 45px;
         }
+        #fixed-scrollbar{
+            overflow: auto;
+        }
     </style>
 @endpush
 @push('js')
-    {{--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>--}}
-    {{--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>--}}
+    <script>
+        var scrollbar = $('<div id="fixed-scrollbar"><div></div></div>').appendTo($(document.body));
+        scrollbar.hide().css({
+            overflowX:'auto',
+            position:'fixed',
+            width:'100%',
+            bottom:0
+        });
+        var content = scrollbar.find('div');
+
+        function mtop(e) {
+            return e.offset().top;
+        }
+
+        function bottom(e) {
+            return e.offset().top + e.height();
+        }
+
+        var active = $([]);
+        function find_active() {
+            scrollbar.show();
+            var active = $([]);
+            $('.fixed-scrollbar').each(function() {
+                if (mtop($(this)) < mtop(scrollbar) && bottom($(this)) > bottom(scrollbar)) {
+                    content.width($(this).get(0).scrollWidth);
+                    content.height(1);
+                    active = $(this);
+                }
+            });
+            fit(active);
+            return active;
+        }
+
+        function fit(active) {
+            if (!active.length) return scrollbar.hide();
+            scrollbar.css({left: active.offset().left, width:active.width()});
+            content.width($(this).get(0).scrollWidth);
+            content.height(1);
+            delete lastScroll;
+        }
+
+        function onscroll(){
+            var oldactive = active;
+            active = find_active();
+            if (oldactive.not(active).length) {
+                oldactive.unbind('scroll', update);
+            }
+            if (active.not(oldactive).length) {
+                active.scroll(update);
+            }
+            update();
+        }
+
+        var lastScroll;
+        function scroll() {
+            if (!active.length) return;
+            if (scrollbar.scrollLeft() === lastScroll) return;
+            lastScroll = scrollbar.scrollLeft();
+            active.scrollLeft(lastScroll);
+        }
+
+        function update() {
+            if (!active.length) return;
+            if (active.scrollLeft() === lastScroll) return;
+            lastScroll = active.scrollLeft();
+            scrollbar.scrollLeft(lastScroll);
+        }
+
+        scrollbar.scroll(scroll);
+
+        onscroll();
+        $(window).scroll(onscroll);
+        $(window).resize(onscroll);
+    </script>
 @endpush
