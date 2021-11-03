@@ -285,7 +285,6 @@
                                     <div class="row">
                                         @php
                                             $ml=0;
-
                                         @endphp
                                         @foreach($upcomingCourses as $key => $publishCourse)
 

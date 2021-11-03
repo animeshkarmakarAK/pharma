@@ -1,33 +1,43 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
-    //$layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+
+    $authYouth = App\Helpers\Classes\AuthHelper::getAuthUser('youth');
 @endphp
 @extends($layout)
 
 @section('title')
-    ইয়ুথ রেজিস্ট্রেশন
+    কোর্স নিবন্ধন
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row mt-2">
-            @if(!empty($publishCourse))
+            @if(!$authYouth || !empty($publishCourse))
                 <div class="col-md-12">
                     <div class="card card mb-0">
                         <div class="card-body">
+                            @if(!$authYouth)
                             <div class="text-info text-center">
-                                আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ আবেদন
-                                করছেন
+                                আপনি যদি পূর্বে নিবন্ধন করে থাকেন তাহলে <a href="{{ route('course_management::youth.login-form') }}">লগইন</a> করে কোর্স এ আবেদন করুন
                             </div>
+                            @endif
+
+                            @if(!empty($publishCourse))
+                            <div class="text-info text-center">
+                                ( আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ আবেদন
+                                করছেন )
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             @endif
+
             <div class="col-md-12">
                 <div class="card card-success card mb-0">
                     <div class="card-header text-center pt-4 pb-4">
-                        <h3>কোর্স রেজিস্ট্রেশন</h3>
+                        <h3>কোর্স নিবন্ধন</h3>
                     </div>
                 </div>
             </div>
@@ -46,8 +56,9 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="name_en">নাম (ইংরেজি) <span class="required">*</span> :</label>
-                                    <input type="text" class="form-control" name="name_en" id="name_en"
-                                           value="{{ old('name_en') }}" placeholder="নাম">
+                                    <input type="text" class="form-control" name="name_en" id="name_en" {{ $authYouth?'readonly':'' }}
+                                           value="{{ $authYouth?$authYouth->name_en: old('name_en') }}"
+                                           placeholder="নাম">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="name_bn">নাম (বাংলা) <span class="required">*</span> :</label>

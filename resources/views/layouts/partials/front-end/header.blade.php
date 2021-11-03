@@ -12,33 +12,18 @@
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
-                        {{--<p class="slogan float-right mt-3">National Intelligence for Skills Education</p>
-                        <p class="slogan py-1">Employment and Entrepreneurship</p>--}}
                         <p class="slogan slogan-tag">{{ $currentInstitute->title_bn }}</p>
                     </div>
                 </div>
             </div>
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-                @if(!empty($currentInstitute->email))
                     <li class="nav-item">
-                        <a class="nav-item nav-link text-dark font-weight-600 pl-0"
-                           href="mailto:{{ $currentInstitute->email }}">
-                            <i class="fa fa-paper-plane"></i>
-                            {{ $currentInstitute->email }}
+                        <a class="nav-item nav-link header-slogan font-weight-600 pl-0"
+                           href="#">
+                            <p class="slogan float-right font-weight-500">National Intelligence for Skills Education </p>
+                         <p class="slogan py-1 text-right font-weight-500">Employment and Entrepreneurship</p>
                         </a>
                     </li>
-                @endif
-
-
-                @if(!empty($currentInstitute->primary_mobile))
-                    <li class="nav-item">
-                        <a class="nav-item nav-link text-dark font-weight-600"
-                           href="tel:{{ $currentInstitute->primary_mobile }}">
-                            <i class="fas fa-phone fa-flip-horizontal"></i>
-                            {{ $currentInstitute->primary_mobile }}
-                        </a>
-                    </li>
-                @endif
             </ul>
         </header>
     </div>
@@ -78,10 +63,6 @@
 
                 <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
                     <a href="{{ route('course_management::contact-us-page') }}" class="btn">যোগাযোগ</a>
-                </li>
-
-                <li class="nav-item {{ request()->is('course-management/advice-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::advice-page') }}" class="btn ">পরামর্শ</a>
                 </li>
 
             </ul>

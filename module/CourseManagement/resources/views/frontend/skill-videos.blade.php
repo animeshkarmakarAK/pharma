@@ -51,21 +51,6 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <select class="form-control"
-                                                    name="video_category_id"
-                                                    id="video_category_id"
-                                            >
-                                                <option value="">ভিডিও ক্যাটাগরি</option>
-                                                @foreach($youthVideoCategories as $youthVideoCategory)
-                                                    <option
-                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title_bn }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="video_id"
                                                     id="video_id"
@@ -79,13 +64,31 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select class="form-control"
+                                                    name="video_category_id"
+                                                    id="video_category_id"
+                                            >
+                                                <option value="">ভিডিও ক্যাটাগরি</option>
+                                                @foreach($youthVideoCategories as $youthVideoCategory)
+                                                    <option
+                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title_bn }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-md-2">
                                         <button class="btn btn-success button-bg mb-2"
                                                 id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <div class="input-group">
-                                            <input type="search" name="search" id="search" class="form-control" placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
+                                            <input type="search" name="search" id="search" class="form-control"
+                                                   placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
                                             <div class="input-group-append">
                                                 <button class="btn button-bg text-white" type="button">
                                                     <i class="fa fa-search"></i>
@@ -123,32 +126,39 @@
                 .card-background-white {
                     background: #faf8fb;
                 }
+
                 .form-control {
                     border: 1px solid #671688;
                     color: #671688;
                 }
+
                 .form-control:focus {
-                    border-color:#671688;
+                    border-color: #671688;
                 }
+
                 .button-bg {
                     background: #671688;
                     border-color: #671688;
                 }
+
                 .button-bg:hover {
                     color: #ffffff;
                     background-color: #671688 !important;;
                     border-color: #671688 !important;;
                 }
+
                 .button-bg:active {
                     color: #ffffff;
                     background-color: #671688 !important;
                     border-color: #671688 !important;;
                 }
+
                 .button-bg:focus {
                     color: #ffffff;
                     background-color: #671688 !important;;
                     border-color: #671688 !important;;
                 }
+
                 .button-bg:visited {
                     color: #ffffff;
                     background-color: #671688 !important;;

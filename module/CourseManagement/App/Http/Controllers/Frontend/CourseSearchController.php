@@ -26,10 +26,10 @@ class CourseSearchController extends Controller
         $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->get();
 
         $maxEnrollmentNumber = [];
-        foreach ($publishCourses as $course) {
-            $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
+        foreach ($publishCourses as $publishCourse) {
+            $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $publishCourse->id)->sum('max_seat_available');
         }
-        //return view(self::VIEW_PATH.'course-list', compact('programmes', 'publishCourses','maxEnrollmentNumber'));
+
         return view(self::VIEW_PATH.'course-list-new', compact('programmes', 'publishCourses','maxEnrollmentNumber'));
     }
 

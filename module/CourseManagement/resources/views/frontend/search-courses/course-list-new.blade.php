@@ -24,7 +24,7 @@
                                     <div class="col-md-1">
                                         <label
                                             style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                            &nbsp;&nbsp;<i class="fa fa-filter mr-2"></i>    ফিল্টার
+                                            &nbsp;&nbsp;<i class="fa fa-filter mr-2"></i> ফিল্টার
                                         </label>
                                     </div>
 
@@ -86,7 +86,8 @@
 
                                     <div class="col-md-3 mb-3">
                                         <div class="input-group">
-                                            <input type="search" name="search" id="search" class="form-control" placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
+                                            <input type="search" name="search" id="search" class="form-control"
+                                                   placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
                                             <div class="input-group-append">
                                                 <button class="btn button-bg text-white" type="button">
                                                     <i class="fa fa-search"></i>
@@ -174,11 +175,12 @@
                     background-color: #671688 !important;;
                     border-color: #671688 !important;;
                 }
+
                 .font-weight-bold {
                     min-height: 48px;
                 }
 
-                .card-bar-home-course img{
+                .card-bar-home-course img {
                     height: 14vw;
                 }
             </style>
@@ -186,29 +188,8 @@
         @push('js')
 
             <script>
-                const template = function (item) {
-                    let html = `<div class="col-md-3">
-                                <div class="embed-responsive embed-responsive-16by9">`;
-                    html +=
-                        '<a target="_blank" href="{{ route('course_management::youth.skill-single-video','__') }}"'.replace('__', item.id) + '>' +
-                        '<img class="embed-responsive-item youtube-video"';
-                    html += item.course_cover_image ? ' src="{{ asset('/storage/'.'__') }}"'.replace('__', item.course_cover_image) : 'src="https://via.placeholder.com/350x350?text=Custom+Video"';
-                    html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; ' +
-                        'picture-in-picture" allowfullscreen></img>' +
-                        '</a>';
-
-                    html += '</div>';
-                    html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
-                    html += item.course_title_bn;
-                    html += '</div>' +
-                        '<h1>Miladul</h1>' +
-                        '</div>';
-                    return html;
-                };
-
-
-                const template2 = function (item) {
-
+                const template = function (key,item) {
+                    console.log('key: '+key)
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-2">';
@@ -219,22 +200,22 @@
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
-                    html += '<p class="card-p1">' + item.course_course_fee? item.course_course_fee +' Tk' :'Free'+ '</p>';
+                    html += '<p class="card-p1">' + item.course_course_fee ? item.course_course_fee + ' Tk' : 'Free' + '</p>';
                     html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span';
-                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' +
-                        'test</span>';
+                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + item.course_duration +
+                        '</span>';
                     html += '</p>';
                     html += '<p class="font-weight-light float-left"><i';
                     html += 'class="fas fa-user-plus gray-color"></i>';
-                    html += '<span';
+                    html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'Student (  )</span>';
+                        'Total Seat ( <span class="max-enroll'+key+'"></span> )</span>';
                     html += '</p>';
                     html += '<p class="float-right">';
                     html += '<a href="javascript:;"';
-                    html += 'onclick="courseDetailsModalOpen('+item.id+')"';
+                    html += 'onclick="courseDetailsModalOpen(' + item.id + ')"';
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';
@@ -243,11 +224,10 @@
                     html += '</div>';
 
                     return html;
-
                 }
 
                 const paginatorLinks = function (link) {
-                    console.log(link)
+                    //console.log(link)
                     if (link.label == 'pagination.previous') {
                         link.label = 'Previous'
                     }
@@ -294,7 +274,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const publishCourseFetch = searchAPI({
                     model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
-                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.cover_image|course.course_fee|course_session.max_seat_available'
+                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.cover_image|course.course_fee|course.duration|course_session.max_seat_available'
                 });
 
                 function publishCourseSearch(url = baseUrl) {
@@ -331,7 +311,7 @@
 
                         $.each(response.data?.data, function (i, item) {
                             console.log(i, item)
-                            html += template2(item);
+                            html += template(i,item);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -376,6 +356,13 @@
                     });
 
 
+                    setTimeout(function (){
+                        @foreach($maxEnrollmentNumber as $key => $maxEnrollment)
+                        $('.max-enroll'+{{$key}}).html({{$maxEnrollment}});
+                        @endforeach
+                    }, 1000)
+
+
                 });
 
                 async function courseDetailsModalOpen(publishCourseId) {
@@ -390,6 +377,8 @@
 
                     $("#course_details_modal").modal('show');
                 }
+
+
             </script>
 
     @endpush
