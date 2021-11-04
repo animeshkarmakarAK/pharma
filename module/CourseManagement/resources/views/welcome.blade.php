@@ -194,14 +194,14 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
+                                                                    <p class="card-p1">{{$publishCourse->course_fee ?$publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
                                                                     <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
-                                                                            class="fas fa-clock gray-color"></i> <span
-                                                                            class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:'undefined' }}</span>
+                                                                            class="fas fa-clock gray-color mr-2"></i> <span
+                                                                            class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
                                                                     <p class="font-weight-light float-left"><i
-                                                                            class="fas fa-user-plus gray-color"></i>
+                                                                            class="fas fa-user-plus gray-color mr-2"></i>
 
                                                                         <span class="course-p">আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                                     </p>
@@ -251,14 +251,14 @@
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
+                                                        <p class="card-p1">{{$publishCourse->course_fee ? $publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
                                                         <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
-                                                                class="fas fa-clock gray-color"></i> <span
-                                                                class="course-p">{{ !empty($publishCourse->duration) ? $publishCourse->duration:'undefined' }}</span>
+                                                                class="fas fa-clock gray-color mr-2"></i> <span
+                                                                class="course-p">{{ !empty($publishCourse->duration) ? $publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                         </p>
                                                         <p class="font-weight-light float-left"><i
-                                                                class="fas fa-user-plus gray-color"></i>
+                                                                class="fas fa-user-plus gray-color mr-2"></i>
                                                             <span
                                                                 class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'' )}} )</span>
                                                         </p>
@@ -299,14 +299,14 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="card-p1">{{$publishCourse->course_fee ? 'Tk. '.$publishCourse->course_fee : 'Free'}}</p>
+                                                                    <p class="card-p1">{{$publishCourse->course_fee ? $publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
                                                                     <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
-                                                                            class="fas fa-clock gray-color"></i> <span
-                                                                            class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:'undefined' }}</span>
+                                                                            class="fas fa-clock gray-color mr-2"></i> <span
+                                                                            class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
                                                                     <p class="font-weight-light float-left"><i
-                                                                            class="fas fa-user-plus gray-color"></i>
+                                                                            class="fas fa-user-plus gray-color mr-2"></i>
 
                                                                         <span class="course-p">আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                                     </p>
@@ -356,14 +356,14 @@
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="card-p1">{{optional($publishCourse->course)->course_fee?'Tk. '.optional($publishCourse->course)->course_fee:'Free'}}</p>
+                                                        <p class="card-p1">{{$publishCourse->course_fee ? $publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
                                                         <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
-                                                                class="fas fa-clock gray-color"></i> <span
-                                                                class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:'undefined' }}</span>
+                                                                class="fas fa-clock gray-color mr-2"></i> <span
+                                                                class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                         </p>
                                                         <p class="font-weight-light float-left"><i
-                                                                class="fas fa-user-plus gray-color"></i>
+                                                                class="fas fa-user-plus gray-color mr-2"></i>
                                                             <span
                                                                 class="course-p"> আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
                                                         </p>

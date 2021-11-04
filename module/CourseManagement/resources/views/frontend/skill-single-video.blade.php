@@ -14,8 +14,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
-                    <div class="card-header custom-bg-gradient-info">
-                        <h2 class="text-center text-primary font-weight-lighter">{{ !empty($youthVideos)? $youthVideos->title_bn:'' }}</h2>
+                    <div class="card-header p-5">
+                        <h2 class="text-center text-dark font-weight-bold">{{ !empty($youthVideos)? $youthVideos->title_bn:'' }}</h2>
                     </div>
                     {{--<div class="card-tools">
                         <div class="m-2">

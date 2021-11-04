@@ -14,8 +14,8 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header custom-bg-gradient-info">
-                            <h2 class="text-center text-primary font-weight-lighter mt-4">{{ $galleryCategory->title_bn }}</h2>
+                        <div class="card-header p-5">
+                            <h2 class="text-center text-dark font-weight-bold mt-4">{{ $galleryCategory->title_bn }}</h2>
                         </div>
                         <div class="card-body bg-gray-light">
                             <div class="row">
