@@ -1,5 +1,5 @@
 @php
-    $edit = !empty($introVideo->id);
+    $edit = !empty($questionAnswer->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Intro Video' : 'Update Intro Video' }}
+    {{ ! $edit ? 'Add FAQ' : 'Update FAQ' }}
 @endsection
 
 @section('content')
@@ -16,10 +16,10 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header  custom-bg-gradient-info">
-                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add Intro Video' : 'Update Intro Video' }}</h3>
+                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add FAQ' : 'Update FAQ' }}</h3>
 
                         <div class="card-tools">
-                            <a href="{{route('course_management::admin.intro-videos.index')}}"
+                            <a href="{{route('course_management::admin.question-answers.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> Back to list
                             </a>
@@ -28,7 +28,7 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post" enctype="multipart/form-data"
-                              action="{{ $edit ? route('course_management::admin.intro-videos.update', [$introVideo->id]) : route('course_management::admin.intro-videos.store')}}">
+                              action="{{ $edit ? route('course_management::admin.question-answers.update', [$questionAnswer->id]) : route('course_management::admin.question-answers.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -59,16 +59,28 @@
                             @endif
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="youtube_video_url">Youtube Video URL <span
+                                    <label for="question">Question: <span
                                             class="required">*</span></label>
                                     <input type="text"
                                            class="form-control"
-                                           name="youtube_video_url"
-                                           id="youtube_video_url"
-                                           placeholder="Youtube Video URL"
-                                           value="{{ $edit ? $introVideo->youtube_video_url : old('youtube_video_url') }}">
+                                           name="question"
+                                           id="question"
+                                           placeholder="Question"
+                                           value="{{ $edit ? $questionAnswer->question : old('question') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="answer">Answer: <span
+                                            class="required">*</span></label>
+
+                                    <textarea class="form-control"
+                                              id="answer"
+                                              name="answer"
+                                              rows="3">{{ $edit ? $questionAnswer->answer : old('answer') }}</textarea>
                                 </div>
                             </div>
 
@@ -95,67 +107,15 @@
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
-            errorElement: "em",
-            onkeyup: false,
-            errorPlacement: function (error, element) {
-                error.addClass("help-block");
-                element.parents(".form-group").addClass("has-feedback");
-
-                if (element.parents(".form-group").length) {
-                    error.insertAfter(element.parents(".form-group").first().children().last());
-                } else if (element.hasClass('select2') || element.hasClass('select2-ajax-custom') || element.hasClass('select2-ajax')) {
-                    error.insertAfter(element.parents(".form-group").first().find('.select2-container'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
-                $(element).closest('.help-block').remove();
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
-            },
             rules: {
-                title_en: {
-                    required: true,
-                    pattern: /^[a-zA-Z0-9 ]*$/,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
-                youtube_video_url: {
-                    required: true,
-                    pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
-                },
-                uploaded_video_path: {
-                    required: function () {
-                        return !$('input[name="uploaded_video_path"]').data('value') && $('input[name = "video_type"]:checked').val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO !!};
-                    },
-                    accept: "video/*",
-                },
-                institute_id: {
+                question: {
                     required: true,
                 },
-
-                active_status: {
-                    required: false,
+                answer: {
+                    required: true,
                 },
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
-                },
-                youtube_video_id: {
-                    pattern: "invalid youtube video url",
-                },
-                uploaded_video_path: {
-                    accept: "Please upload valid video file"
-                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

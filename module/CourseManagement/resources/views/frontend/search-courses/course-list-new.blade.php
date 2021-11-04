@@ -87,7 +87,7 @@
                                     <div class="col-md-3 mb-3">
                                         <div class="input-group">
                                             <input type="search" name="search" id="search" class="form-control"
-                                                   placeholder="সার্চ..." style="border: 1px solid #e5e5e5;">
+                                                   placeholder="অনুসন্ধান করুন ..." style="border: 1px solid #e5e5e5;">
                                             <div class="input-group-append">
                                                 <button class="btn button-bg text-white" type="button">
                                                     <i class="fa fa-search"></i>
@@ -187,6 +187,11 @@
                 .gray-color {
                     color: #73727f;
                 }
+                .course-heading-wrap {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
                 .course-heading-wrap:hover {
                     overflow: visible;
                     white-space: normal;
@@ -196,6 +201,16 @@
                     font-size: 14px;
                     font-weight: 400;
                     color: #671688;
+                }
+                .header-bg {
+                    background: #671688;
+                    color:white;
+                }
+                .modal-header .close, .modal-header .mailbox-attachment-close {
+                    padding: 1rem;
+                    margin: -1rem -1rem -1rem auto;
+                    color: white;
+                    outline: none;
                 }
             </style>
         @endpush

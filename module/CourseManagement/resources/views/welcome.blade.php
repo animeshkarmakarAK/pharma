@@ -232,11 +232,13 @@
                             </div>
                         </div>
                     @elseif($runningCourses->isEmpty())
+                    <div id="all-course" class="tab-pane active">
                         <div class="col-md-12">
                             <div class="alert text-danger text-center">
                                 কোন চলমান কোর্স পাওয়া যাইনি!
                             </div>
                         </div>
+                    </div>
                     @else
                         <div id="all-course" class="tab-pane active">
                             <div class="col-md-12 p-0">
@@ -337,11 +339,13 @@
                             </div>
                         </div>
                     @elseif($upcomingCourses->isEmpty())
-                        <div class="col-md-12" class="tab-pane fade">
+                    <div id="upcoming-course" class="tab-pane fade">
+                        <div class="col-md-12">
                             <div class="alert text-danger text-center">
                                 কোন আসন্ন কোর্স পাওয়া যাইনি!
                             </div>
                         </div>
+                    </div>
                     @else
                         <div id="upcoming-course" class="tab-pane fade">
                             <div class="col-md-12 p-0">
@@ -712,7 +716,16 @@
         .btn-floating {
             color: black;
         }
-
+        .header-bg {
+            background: #671688;
+            color:white;
+        }
+        .modal-header .close, .modal-header .mailbox-attachment-close {
+            padding: 1rem;
+            margin: -1rem -1rem -1rem auto;
+            color: white;
+            outline: none;
+        }
 
     </style>
     <style>
@@ -1127,6 +1140,7 @@
 
         .fc-theme-standard td, .fc-theme-standard th {
             border: none !important;
+            cursor: pointer;
         }
 
         .fc-theme-standard .fc-scrollgrid {
@@ -1195,7 +1209,9 @@
         .fc .fc-scroller {
             overflow: hidden !important;
         }
-
+        .fc .fc-highlight {
+            background: #3788d8;
+        }
         .today-event {
             background: #ff005d;
             padding: 3px 10px;
@@ -1217,6 +1233,7 @@
         .carousel-item {
             transition-duration: 3s;
         }
+
 
     </style>
 @endpush
@@ -1282,6 +1299,7 @@
                 height: 500,
                 aspectRatio: 1,
                 displayEventTime: false,
+                selectable: true,
                 customButtons: {
                     myCustomButton: {
                         text: 'বছর',
@@ -1309,23 +1327,23 @@
                         failureCallback([]);
                     });
                 },
-                eventClick: function (calEvent, jsEvent, view) {
-                    let eventDateTime = new Date(calEvent.event._instance.range.start);
+                dateClick:function (info){
+                    let eventDateTime = new Date(info.dateStr);
                     eventDateTime = new Intl.DateTimeFormat('bn-BD', {
                         weekday: 'long',
                         day: '2-digit',
                         month: 'long',
                         year: 'numeric',
-                    }).format(eventDateTime);
-
+                    }).format(eventDateTime)
                     $('#eventDateTime').html(eventDateTime);
-                    const start = calEvent.event.startStr;
+                    const start = info.dateStr;
                     eventsOfSpecificDate(start);
                 },
             });
             calendar.render();
 
         });
+
 
         async function courseDetailsModalOpen(publishCourseId) {
             let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));
@@ -1344,7 +1362,7 @@
     <script>
         $(document).ready(function () {
             $('#topCarousel').carousel({
-                interval: 2000
+                interval: 8000
             })
             $('#recipeCarousel').carousel({
                 interval: 2000

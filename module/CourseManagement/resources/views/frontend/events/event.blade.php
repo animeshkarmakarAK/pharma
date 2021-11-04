@@ -11,11 +11,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header custom-bg-gradient-info">
-                            <h2 class="text-center text-primary font-weight-lighter mt-4">{{ strtoupper(!empty($event)?$event->caption:'N/A') }}</h2>
+            <div class="col-md-12 p-0">
+                <div class="col-md-12 p-0">
+                    <div class="card mb-0">
+                        <div class="card-header p-5">
+                            <h2 class="text-center text-dark font-weight-bold mt-4">{{ strtoupper(!empty($event)?$event->caption:'N/A') }}</h2>
                         </div>
                         <div class="card-body bg-gray-light">
                             <div class="row">

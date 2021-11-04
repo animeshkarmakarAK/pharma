@@ -3,8 +3,9 @@
 namespace Module\CourseManagement\App\Http\Controllers;
 
 use Module\CourseManagement\App\Models\IntroVideo;
+use Module\CourseManagement\App\Models\QuestionAnswer;
 use Module\CourseManagement\App\Models\Video;
-use Module\CourseManagement\App\Services\IntroVideoService;
+use Module\CourseManagement\App\Services\QuestionAnswerService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -12,52 +13,51 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class IntroVideoController extends Controller
+class QuestionAnswerController extends Controller
 {
-    const VIEW_PATH = 'course_management::backend.intro-videos.';
-    protected IntroVideoService $introVideoService;
+    const VIEW_PATH = 'course_management::backend.question-answers.';
+    protected QuestionAnswerService $questionAnswersService;
 
-    public function __construct(IntroVideoService $introVideoService)
+    public function __construct(QuestionAnswerService $questionAnswersService)
     {
-        $this->introVideoService = $introVideoService;
-        $this->authorizeResource(IntroVideo::class);
+        $this->questionAnswersService = $questionAnswersService;
+        $this->authorizeResource(QuestionAnswer::class);
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
-        $currentInstitute = domainConfig('institute');
-        $videosCount = IntroVideo::all()->where('institute_id', $currentInstitute->id)->count();
-        return \view(self::VIEW_PATH .'browse',compact('videosCount'));
+        return \view(self::VIEW_PATH .'browse');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create(): View
     {
-        $video = new Video();
-        return \view(self::VIEW_PATH .'edit-add', compact('video'));
+        $questionAnswer = new QuestionAnswer();
+        return \view(self::VIEW_PATH .'edit-add', compact('questionAnswer'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
-        $introVideoValidatedData = $this->introVideoService->validator($request)->validate();
+        $questionAnswerValidatedData = $this->questionAnswersService->validator($request)->validate();
 
         try {
-            $this->introVideoService->createIntroVideo($introVideoValidatedData);
+            $this->questionAnswersService->createQuestionAnswer($questionAnswerValidatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -66,8 +66,8 @@ class IntroVideoController extends Controller
             ]);
         }
 
-        return redirect()->route('course_management::admin.intro-videos.index')->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Intro Video']),
+        return redirect()->route('course_management::admin.question-answers.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'FAQ']),
             'alert-type' => 'success'
         ]);
     }
@@ -75,39 +75,39 @@ class IntroVideoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Module\CourseManagement\App\Models\Video  $video
-     * @return \Illuminate\Http\Response
+     * @param QuestionAnswer $questionAnswer
+     * @return View
      */
-    public function show(IntroVideo $introVideo): View
+    public function show(QuestionAnswer $questionAnswer): View
     {
-        return \view(self::VIEW_PATH .'read', compact('introVideo'));
+        return \view(self::VIEW_PATH .'read', compact('questionAnswer'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param IntroVideo $introVideo
+     * @param QuestionAnswer $questionAnswer
      * @return View
      */
-    public function edit(IntroVideo $introVideo): View
+    public function edit(QuestionAnswer $questionAnswer): View
     {
-        return \view(self::VIEW_PATH .'edit-add', compact('introVideo'));
+        return \view(self::VIEW_PATH .'edit-add', compact('questionAnswer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param IntroVideo $introVideo
+     * @param \Module\CourseManagement\App\Models\QuestionAnswer $questionAnswer
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, IntroVideo $introVideo): RedirectResponse
+    public function update(Request $request, QuestionAnswer $questionAnswer): RedirectResponse
     {
-        $validatedData = $this->introVideoService->validator($request, $introVideo->id)->validate();
+        $validatedData = $this->questionAnswersService->validator($request, $questionAnswer->id)->validate();
 
         try {
-            $this->introVideoService->updateIntroVideo($validatedData, $introVideo);
+            $this->questionAnswersService->updateIntroVideo($validatedData, $questionAnswer);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -115,8 +115,8 @@ class IntroVideoController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-        return redirect()->route('course_management::admin.intro-videos.index')->with([
-            'message' => __('generic.object_updated_successfully', ['object' => 'Intro Video']),
+        return redirect()->route('course_management::admin.question-answers.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'FAQ']),
             'alert-type' => 'success'
         ]);
     }
@@ -127,10 +127,10 @@ class IntroVideoController extends Controller
      * @param IntroVideo $introVideo
      * @return RedirectResponse
      */
-    public function destroy(IntroVideo $introVideo): RedirectResponse
+    public function destroy(QuestionAnswer $questionAnswer): RedirectResponse
     {
         try {
-            $introVideo->delete();
+            $questionAnswer->delete();
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -140,13 +140,13 @@ class IntroVideoController extends Controller
         }
 
         return back()->with([
-            'message' => __('generic.object_deleted_successfully', ['object' => 'Intro Video']),
+            'message' => __('generic.object_deleted_successfully', ['object' => 'FAQ']),
             'alert-type' => 'success'
         ]);
     }
 
     public function getDatatable(Request $request): JsonResponse
     {
-        return $this->introVideoService->getListDataForDatatable($request);
+        return $this->questionAnswersService->getListDataForDatatable($request);
     }
 }

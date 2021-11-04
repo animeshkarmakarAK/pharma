@@ -8,7 +8,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Videos List') }}
+    {{ __('FAQ') }}
 @endsection
 
 @section('content')
@@ -17,24 +17,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ !$authUser->institute_id? 'Intro Videos List':'Intro Video' }}</h3>
+                        <h3 class="card-title font-weight-bold">FAQ List</h3>
                         <div class="card-tools">
-                            @can('create', Module\CourseManagement\App\Models\Video::class)
-
-                                @if(!$authUser->institute_id)
-                                    <a href="{{route('course_management::admin.intro-videos.create')}}"
-                                       class="btn btn-sm btn-outline-primary btn-rounded">
-                                        <i class="fas fa-plus-circle"></i> Add new
-                                    </a>
-                                @endif
-
-                                @if($videosCount == 0 && $authUser->institute_id)
-                                    <a href="{{route('course_management::admin.intro-videos.create')}}"
-                                       class="btn btn-sm btn-outline-primary btn-rounded">
-                                        <i class="fas fa-plus-circle"></i> Add new
-                                    </a>
-                                @endif
-                            @endcan
+                            <a href="{{route('course_management::admin.question-answers.create')}}"
+                               class="btn btn-sm btn-outline-primary btn-rounded">
+                                <i class="fas fa-plus-circle"></i> Add new
+                            </a>
                         </div>
 
                     </div>
@@ -61,7 +49,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('course_management::admin.intro-videos.datatable') }}',
+                url: '{{ route('course_management::admin.question-answers.datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {
@@ -73,9 +61,15 @@
                         visible: true,
                     },
                     {
-                        title: "Youtube Video URL",
-                        data: "youtube_video_url",
-                        name: "intro_videos.youtube_video_url",
+                        title: "Question",
+                        data: "question",
+                        name: "question_answers.question",
+                    },
+                    {
+                        title: "Answer",
+                        data: "answer",
+                        name: "question_answers.answer",
+                        visible: false,
                     },
                     {
                         title: "Institute Name",
@@ -86,7 +80,7 @@
                     {
                         title: "Active Status",
                         data: "row_status",
-                        name: "intro_videos.row_status",
+                        name: "question_answers.row_status",
                     },
 
                     {
