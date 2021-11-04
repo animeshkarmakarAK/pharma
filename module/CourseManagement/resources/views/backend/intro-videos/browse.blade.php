@@ -13,10 +13,12 @@
                         <h3 class="card-title font-weight-bold">Videos List</h3>
                         <div class="card-tools">
                             @can('create', Module\CourseManagement\App\Models\Video::class)
-                                <a href="{{route('course_management::admin.intro-videos.create')}}"
-                                   class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> Add new
-                                </a>
+                                @if($videosCount == 0)
+                                    <a href="{{route('course_management::admin.intro-videos.create')}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> Add new
+                                    </a>
+                                @endif
                             @endcan
                         </div>
 

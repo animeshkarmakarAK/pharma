@@ -29,7 +29,9 @@ class IntroVideoController extends Controller
      */
     public function index(): View
     {
-        return \view(self::VIEW_PATH .'browse');
+        $currentInstitute = domainConfig('institute');
+        $videosCount = IntroVideo::all()->where('institute_id', $currentInstitute->id)->count();
+        return \view(self::VIEW_PATH .'browse',compact('videosCount'));
     }
 
     /**

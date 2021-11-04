@@ -125,13 +125,8 @@
                     required: true,
                     pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
-                video_type: {
-                    required: true
-                },
                 youtube_video_url: {
-                    required: function () {
-                        return $('input[name = "video_type"]:checked').val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!};
-                    },
+                    required: true,
                     pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
                 },
                 uploaded_video_path: {

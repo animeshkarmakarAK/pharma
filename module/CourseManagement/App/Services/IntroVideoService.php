@@ -89,14 +89,14 @@ class IntroVideoService
             ->addColumn('action', static function (IntroVideo $introVideos) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $introVideos)) {
-                    $str .= '<a href="' . route('course_management::admin.videos.show', $introVideos->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.intro-videos.show', $introVideos->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
 
                 if ($authUser->can('update', $introVideos)) {
-                    $str .= '<a href="' . route('course_management::admin.videos.edit', $introVideos->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('course_management::admin.intro-videos.edit', $introVideos->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $introVideos)) {
-                    $str .= '<a href="#" data-action="' . route('course_management::admin.videos.destroy', $introVideos->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    $str .= '<a href="#" data-action="' . route('course_management::admin.intro-videos.destroy', $introVideos->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
                 return $str;
