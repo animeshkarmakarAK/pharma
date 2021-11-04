@@ -202,6 +202,16 @@
                     font-weight: 400;
                     color: #671688;
                 }
+                .header-bg {
+                    background: #671688;
+                    color:white;
+                }
+                .modal-header .close, .modal-header .mailbox-attachment-close {
+                    padding: 1rem;
+                    margin: -1rem -1rem -1rem auto;
+                    color: white;
+                    outline: none;
+                }
             </style>
         @endpush
         @push('js')

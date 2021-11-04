@@ -2,7 +2,7 @@
     /** @var \Module\CourseManagement\App\Models\PublishCourse $publishCourse */
 @endphp
 
-<div class="modal-header custom-bg-gradient-info">
+<div class="modal-header bg-primary">
     <div style=" height:40px;">
         <h4 style="text-align: center; margin-top: 5px">কোর্সের বর্ণনা</h4>
     </div>
@@ -19,9 +19,6 @@
                      style="background: url('{{asset('storage/'. optional($publishCourse->course)->cover_image)}}') no-repeat center center;
                          background-size: cover; min-height: 40vh;"
                 >
-                    {{--<img id="cover_image" class="img-fluid" alt="Responsive image"
-                         src="{{asset('storage/'. optional($publishCourse->course)->cover_image)}}"
-                         style="height: 300px; width: 100%">--}}
                 </div>
                 <div class="card-body">
                     <div class="row">
