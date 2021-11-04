@@ -13,8 +13,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
-                    <div class="card-header custom-bg-gradient-info">
-                        <h2 class="text-center text-primary font-weight-lighter">গ্যালারীর অ্যালবাম সমূহ</h2>
+                    <div class="card-header p-5">
+                        <h2 class="text-center text-dark font-weight-bold">গ্যালারীর অ্যালবাম সমূহ</h2>
                     </div>
                     <div class="px-5 py-4">
                         <div class="row mb-3">
@@ -23,11 +23,11 @@
                                     <div class="col-md-1">
                                         <label
                                             style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                            ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                            <i class="fa fa-filter"></i>&nbsp;&nbsp; ফিল্টার
                                         </label>
                                     </div>
 
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-3">
                                         {{--<select class="form-control select2-ajax-wizard"
                                                 name="programme_id"
                                                 id="programme_id"
@@ -50,7 +50,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-3">
                                         <select class="form-control select2-ajax-wizard"
                                                 name="batch_id"
                                                 id="batch_id"
@@ -65,8 +65,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-1">
-                                        <button class="btn btn-success"
+                                    <div class="col-md-2">
+                                        <button class="btn btn-success button-bg "
                                                 id="gallery-album-search-btn">{{ __('অনুসন্ধান') }}</button>
                                     </div>
                                 </div>
@@ -96,6 +96,40 @@
             max-height: 100px;
             overflow: hidden;
         }
+        .form-control {
+            border: 1px solid #671688;
+            color: #671688;
+        }
+        .form-control:focus {
+            border-color: #671688;
+        }
+        .button-bg {
+            color: #ffffff;
+            background-color: #671688 !important;
+            border-color: #671688 !important;
+        }
+        .button-bg:hover {
+            color: #ffffff;
+            background-color: #671688 !important;
+            border-color: #671688 !important;
+        }
+        .gallery-heading-wrap {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .gallery-heading-wrap:hover {
+            overflow: visible;
+            white-space: normal;
+            cursor: pointer;
+        }
+        .card{
+            box-shadow: 0px 5px 5px #e5e5e5;
+            transition: 0.3s;
+        }
+        .card-title {
+            float: none !important;
+        }
     </style>
 
 @endpush
@@ -103,16 +137,16 @@
 @push('js')
     <script>
         const template = function (item) {
-            let html = ` <div class="col-md-3">`;
+            let html = ` <div class="col-md-3 mb-3">`;
             html += `<div class="card m-1">`;
             let src = "{{ route('course_management::gallery-category', '__') }}".replace('__', item.id)
             html += '<a href="' + src + '">';
             html += '<img class="card-img-top" src="/storage/' + item.image + '" height="200" alt="Card image cap">';
             html += '</a>';
             html += `<div class="card-body album-body">`;
-            html += '<h5 class="card-title">অ্যালবাম: <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
+            html += '<h5 class="card-title  gallery-heading-wrap pb-2">অ্যালবাম: <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
             if (item.programme_title_bn) {
-                html += '<h6 class="card-text">প্রোগ্রাম: ' + item?.programme_title_bn ?? "" + '</h6>';
+                html += '<h6 class="card-text  gallery-heading-wrap ">প্রোগ্রাম: ' + item?.programme_title_bn ?? "" + '</h6>';
             }
             if (item.batch_title_bn) {
                 html += '<p class="card-text">ব্যাচ:' + item.batch_title_bn + '</p>';

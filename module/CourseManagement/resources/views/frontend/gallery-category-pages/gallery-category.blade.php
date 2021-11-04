@@ -11,19 +11,19 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-12">
-                    <div class="card">
+            <div class="col-md-12 p-0">
+                <div class="col-md-12 p-0">
+                    <div class="card mb-0">
                         <div class="card-header p-5">
                             <h2 class="text-center text-dark font-weight-bold mt-4">{{ $galleryCategory->title_bn }}</h2>
                         </div>
-                        <div class="card-body bg-gray-light">
-                            <div class="row">
+                        <div class="card-body">
+                            <div class="row p-4">
                                 @if($galleries->count())
                                     @foreach($galleries as $gallery)
                                         <div class="col-md-3">
                                             <div class="card">
-                                                <div class="card-body">
+                                                <div class="card-body p-0">
                                                     <a href="" data-toggle="modal"
                                                        data-target="#gallery_id_{{$gallery->id}}">
                                                         @if($gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE)
@@ -54,8 +54,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="card-footer overflow-hidden">
-                                                    <h6 class="float-left">{{$gallery->content_title}}</h6>
-                                                    <h6 class="float-right">{{$gallery->created_at->format('d-m-Y')}}</h6>
+                                                    <h6 class="gallery-heading-wrap">{{$gallery->content_title}}</h6>
+                                                    <h6 class="float-right ">{{$gallery->created_at->format('d-m-Y')}}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,6 +148,20 @@
 
         .modal_close {
             z-index: 999;
+        }
+        .gallery-heading-wrap {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .gallery-heading-wrap:hover {
+            overflow: visible;
+            white-space: normal;
+            cursor: pointer;
+        }
+
+        .card{
+            box-shadow: 0px 5px 5px #e5e5e5;
         }
 
     </style>
