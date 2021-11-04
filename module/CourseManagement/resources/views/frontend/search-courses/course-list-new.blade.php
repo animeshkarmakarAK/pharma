@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header p-5">
-                        <h2 class="text-center text-dark font-weight-bold">কোর্স সমূহ</h2>
+                        <h2 class="card-header-title text-center text-dark font-weight-bold">কোর্স সমূহ</h2>
                     </div>
                     <div class="card-background-white px-5 py-4">
                         <div class="row mb-3">
@@ -176,7 +176,7 @@
                     border-color: #671688 !important;;
                 }
 
-                .font-weight-bold {
+                .card-header-title {
                     min-height: 48px;
                 }
 
@@ -187,6 +187,16 @@
                 .gray-color {
                     color: #73727f;
                 }
+                .course-heading-wrap:hover {
+                    overflow: visible;
+                    white-space: normal;
+                    cursor: pointer;
+                }
+                .course-p {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #671688;
+                }
             </style>
         @endpush
         @push('js')
@@ -196,7 +206,7 @@
                     console.log('key: ' + key)
                     let html = '';
                     html += '<div class="col-md-3">';
-                    html += '<div class="card card-main mb-2">';
+                    html += '<div class="card card-main mb-3">';
                     html += '<div class="card-bar-home-course">';
                     html += '<div class="pb-3">';
                     html += '<img class="slider-img border-top-radius"';
@@ -204,18 +214,18 @@
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
-                    html += '<p class="card-p1">' + item.course_course_fee ? item.course_course_fee + ' Tk' : 'Free' + '</p>';
+                    html += '<p class="card-p1">' + (item.course_course_fee ? item.course_course_fee + ' টাকা' : 'শূন্য') + '</p>';
                     html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
-                    html += 'class="fas fa-clock gray-color"></i> <span';
-                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + item.course_duration +
+                    html += 'class="fas fa-clock gray-color"></i> <span ';
+                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
                         '</span>';
                     html += '</p>';
                     html += '<p class="font-weight-light float-left"><i';
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'আসন্ন সংখ্যা ( <span class="max-enroll' + key + '"></span> )</span>';
+                        'আসন সংখ্যা ( <span class="max-enroll' + key + '"></span> )</span>';
                     html += '</p>';
                     html += '<p class="float-right">';
                     html += '<a href="javascript:;"';

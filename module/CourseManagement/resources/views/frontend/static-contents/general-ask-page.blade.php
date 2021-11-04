@@ -18,7 +18,7 @@
                             <div class="col-md-10 mx-auto faq-area">
                                 <div class="faq-area-body">
                                     <div class="text-center">
-                                        <h3 class="question-answer-heading">সচারাচর জিজ্ঞাস্য</h3>
+                                        <h3 class="question-answer-heading text-dark p-3">সচারাচর জিজ্ঞাস্য</h3>
                                     </div>
                                     @foreach($data as $key => $qa)
                                         <div class="panel-group question-answer-container" id="accordion">
@@ -80,12 +80,13 @@
         }
 
         .question-heading {
-            background: #4b77be;
+            background: linear-gradient(45deg, #671688, #9c36c6);
             display: block;
             padding: 15px 15px;
             color: #eeeeee;
             font-size: 14px;
             transition: .3s;
+            border-radius: 5px;
         }
 
         .question-title {
