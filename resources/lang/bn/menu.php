@@ -51,6 +51,7 @@ return [
     'video' => 'ভিডিও',
     'events' => 'ইভেন্টস',
     'intro_videos' => 'ভূমিকা ভিডিও',
+    'question_answers' => 'প্রশ্ন-উত্তর',
 
     //organization management
     'organization_management'=> 'ইন্ডাস্ট্রি পরিচালনা',

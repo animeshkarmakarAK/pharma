@@ -19,13 +19,10 @@ class IntroVideoService
 {
     protected function getYoutubeVideoKey($url): string
     {
-        if(strlen($url) > 11)
-        {
-            if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match))
-            {
+        if (strlen($url) > 11) {
+            if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
                 return $match[1];
-            }
-            else {
+            } else {
                 return '';
             }
         }
@@ -53,7 +50,7 @@ class IntroVideoService
     {
         $rules = [
             'youtube_video_url' => [
-                'nullable',
+                'required',
                 'string',
                 'max: 191',
             ],
@@ -62,10 +59,16 @@ class IntroVideoService
                 'required',
                 'int',
                 'exists:institutes,id',
+                'unique:intro_videos,institute_id,' . $id
+
             ],
         ];
 
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+        $customMsg = [
+            'institute_id.unique' => 'The Intro video has already been added for this institute.',
+        ];
+
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $customMsg);
     }
 
     public function getListDataForDatatable(\Illuminate\Http\Request $request): JsonResponse

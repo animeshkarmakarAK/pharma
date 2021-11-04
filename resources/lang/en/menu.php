@@ -49,6 +49,7 @@ return [
     'video_category' => 'Video Category',
     'events' => 'Events',
     'intro_videos' => 'Intro Video',
+    'question_answers' => 'FAQ',
 
     //organization management
     'organization_management' => 'Industry Management',

@@ -1,0 +1,170 @@
+@php
+    $edit = !empty($questionAnswer->id);
+    /** @var \App\Models\User $authUser */
+    $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+@endphp
+
+@extends('master::layouts.master')
+
+@section('title')
+    {{ ! $edit ? 'Add FAQ' : 'Update FAQ' }}
+@endsection
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-outline">
+                    <div class="card-header  custom-bg-gradient-info">
+                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add FAQ' : 'Update FAQ' }}</h3>
+
+                        <div class="card-tools">
+                            <a href="{{route('course_management::admin.question-answers.index')}}"
+                               class="btn btn-sm btn-outline-primary btn-rounded">
+                                <i class="fas fa-backward"></i> Back to list
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form class="row edit-add-form" method="post" enctype="multipart/form-data"
+                              action="{{ $edit ? route('course_management::admin.question-answers.update', [$questionAnswer->id]) : route('course_management::admin.question-answers.store')}}">
+                            @csrf
+                            @if($edit)
+                                @method('put')
+                            @endif
+
+                            @if($authUser->isInstituteUser())
+                                <input type="hidden" id="institute_id" name="institute_id"
+                                       value="{{$authUser->institute_id}}">
+                            @else
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                                class="required"> * </span></label>
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="institute_id"
+                                                id="institute_id"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
+                                                data-label-fields="{title_en}"
+                                                data-dependent-fields="#video_category_id"
+                                                @if($edit)
+                                                data-preselected-option="{{json_encode(['text' =>  $introVideo->institute->title_en, 'id' =>  $introVideo->institute->id])}}"
+                                                @endif
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        >
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="question">Question: <span
+                                            class="required">*</span></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="question"
+                                           id="question"
+                                           placeholder="Question"
+                                           value="{{ $edit ? $questionAnswer->question : old('question') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="answer">Answer: <span
+                                            class="required">*</span></label>
+
+                                    <textarea class="form-control"
+                                              id="answer"
+                                              name="answer"
+                                              rows="3">{{ $edit ? $questionAnswer->answer : old('answer') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 text-right">
+                                <button type="submit"
+                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                            </div>
+                        </form>
+                    </div><!-- /.card-body -->
+                    <div class="overlay" style="display: none">
+                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('js')
+    <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
+
+    <script>
+        const EDIT = !!'{{$edit}}';
+
+        const editAddForm = $('.edit-add-form');
+        editAddForm.validate({
+            rules: {
+                question: {
+                    required: true,
+                },
+                answer: {
+                    required: true,
+                },
+            },
+            messages: {
+            },
+            submitHandler: function (htmlForm) {
+                $('.overlay').show();
+                htmlForm.submit();
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+
+                }
+                reader.onprogress = function () {
+                    $('.overlay').show();
+                }
+                reader.onloadend = function () {
+                    $('.overlay').hide();
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $(document).ready(function () {
+            let videoType = $('input[name="video_type"]:checked').val();
+            if (videoType == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
+                $('#youtube_video_url').parent().parent().show();
+                $('#uploaded_video_path').parent().parent().hide();
+            }
+            if (videoType == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_UPLOADED_VIDEO !!}) {
+                $('#uploaded_video_path').parent().parent().show();
+                $('#youtube_video_url').parent().parent().hide();
+            }
+
+            $('input[name="video_type').on('change', function () {
+                if ($(this).val() == {!! \Module\CourseManagement\App\Models\Video::VIDEO_TYPE_YOUTUBE_VIDEO !!}) {
+                    $('#youtube_video_url').parent().parent().show();
+                    $('#uploaded_video_path').parent().parent().hide();
+                } else {
+                    $('#uploaded_video_path').parent().parent().show();
+                    $('#youtube_video_url').parent().parent().hide();
+                }
+            });
+
+            $('#uploaded_video_path').change(function () {
+                readURL(this);
+            })
+        });
+    </script>
+@endpush
+
+

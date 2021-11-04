@@ -15,6 +15,7 @@ use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
 use Module\CourseManagement\App\Models\Payment;
+use Module\CourseManagement\App\Models\QuestionAnswer;
 use Module\CourseManagement\App\Models\Video;
 use Module\CourseManagement\App\Models\VideoCategory;
 use Module\CourseManagement\App\Models\Youth;
@@ -224,8 +225,9 @@ class YouthController extends Controller
 
     public function generalAskPage(): View
     {
-        $test = 'amama';
-        $data = [
+        $currentInstitute = domainConfig('institute');
+        $data = QuestionAnswer::where('institute_id',$currentInstitute->id)->get();
+        $dataOld = [
             [
                 "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
                 "answer" => 'উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target="_blank" href="' . route('course_management::course_search') . '">এখানে ক্লিক করুন</a> ) ',
@@ -267,6 +269,7 @@ class YouthController extends Controller
                 "answer" => "উত্তরঃ আলাদাভাবে প্রতিবন্ধীদের জন্য কোন প্রশিক্ষণ কোর্স চালু নেই।",
             ],
         ];
+
         return \view(self::VIEW_PATH . 'static-contents.general-ask-page', compact('data'));
     }
 

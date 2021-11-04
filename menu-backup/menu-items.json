@@ -838,5 +838,20 @@
         "order": 2,
         "route": "course_management::admin.youth.accept-list",
         "parameters": null
+    },
+    {
+        "id": 106,
+        "menu_id": 3,
+        "title": "menu.question_answers",
+        "title_lang_key": "menu.question_answers",
+        "permission_key": "view_any_question_answer",
+        "url": "",
+        "target": "_self",
+        "icon_class": "fas fa-question-circle",
+        "color": "#000000",
+        "parent_id": 45,
+        "order": 9,
+        "route": "course_management::admin.question-answers.index",
+        "parameters": null
     }
 ]
