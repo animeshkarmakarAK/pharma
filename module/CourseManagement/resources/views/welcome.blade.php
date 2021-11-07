@@ -114,28 +114,32 @@
                 <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
                         <img src="{{asset('assets/atAglance/atg-1.png')}}" class="p-3" alt="">
-                        <h3>{{ $institute['courses'] ? $institute['courses'] :'0' }}টি</h3>
+                        <h3>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($institute['courses'] ? $institute['courses'] :'0')  }}
+                            টি</h3>
                         <p>বিষয়ে <br> প্রশিক্ষণ প্রদান</p>
                     </div>
                 </div>
                 <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
                         <img src="{{asset('assets/atAglance/atg-2.png')}}" class="p-3" alt="">
-                        <h3>{{ $institute['youth_registrations']?$institute['youth_registrations']:'0' }} জন</h3>
+                        <h3>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($institute['youth_registrations']?$institute['youth_registrations']:'0') }}
+                            জন</h3>
                         <p>প্রশিক্ষণ গ্রহণ <br> করেছেন</p>
                     </div>
                 </div>
                 <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
                         <img src="{{asset('assets/atAglance/atg-3.png')}}" class="p-3" alt="">
-                        <h3>{{ $institute['training_centers']? $institute['training_centers']:'0' }}টি</h3>
+                        <h3>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($institute['training_centers']? $institute['training_centers']:'0') }}
+                            টি</h3>
                         <p class="mt-4 mb-4">প্রশিক্ষণ কেন্দ্র</p>
                     </div>
                 </div>
                 <div class="col-md-3 ">
                     <div class="instant-view-box instant-view-box-home">
                         <img src="{{asset('assets/atAglance/atg-4.png')}}" class="p-3" alt="">
-                        <h3>{{ $institute['training_centers'] ? $institute['training_centers'] : '0' }} জন</h3>
+                        <h3>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($institute['training_centers'] ? $institute['training_centers'] : '0') }}
+                            জন</h3>
                         <p class="mt-4 mb-4">দক্ষ প্রশিক্ষক</p>
                     </div>
                 </div>
@@ -194,16 +198,17 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="card-p1">{{$publishCourse->course_fee ?$publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
+                                                                    <p class="card-p1">{{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                                     <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
-                                                                            class="fas fa-clock gray-color mr-2"></i> <span
+                                                                            class="fas fa-clock gray-color mr-2"></i>
+                                                                        <span
                                                                             class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
                                                                     <p class="font-weight-light float-left"><i
                                                                             class="fas fa-user-plus gray-color mr-2"></i>
 
-                                                                        <span class="course-p">আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                                        <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -232,13 +237,13 @@
                             </div>
                         </div>
                     @elseif($runningCourses->isEmpty())
-                    <div id="all-course" class="tab-pane active">
-                        <div class="col-md-12">
-                            <div class="alert text-danger text-center">
-                                কোন চলমান কোর্স পাওয়া যাইনি!
+                        <div id="all-course" class="tab-pane active">
+                            <div class="col-md-12">
+                                <div class="alert text-danger text-center">
+                                    কোন চলমান কোর্স পাওয়া যাইনি!
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @else
                         <div id="all-course" class="tab-pane active">
                             <div class="col-md-12 p-0">
@@ -253,7 +258,7 @@
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="card-p1">{{$publishCourse->course_fee ? $publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
+                                                        <p class="card-p1">{{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                         <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-clock gray-color mr-2"></i> <span
@@ -301,16 +306,17 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="card-p1">{{$publishCourse->course_fee ? $publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
+                                                                    <p class="card-p1">{{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                                     <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
-                                                                            class="fas fa-clock gray-color mr-2"></i> <span
+                                                                            class="fas fa-clock gray-color mr-2"></i>
+                                                                        <span
                                                                             class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
                                                                     <p class="font-weight-light float-left"><i
                                                                             class="fas fa-user-plus gray-color mr-2"></i>
 
-                                                                        <span class="course-p">আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                                        <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -339,13 +345,13 @@
                             </div>
                         </div>
                     @elseif($upcomingCourses->isEmpty())
-                    <div id="upcoming-course" class="tab-pane fade">
-                        <div class="col-md-12">
-                            <div class="alert text-danger text-center">
-                                কোন আসন্ন কোর্স পাওয়া যাইনি!
+                        <div id="upcoming-course" class="tab-pane fade">
+                            <div class="col-md-12">
+                                <div class="alert text-danger text-center">
+                                    কোন আসন্ন কোর্স পাওয়া যাইনি!
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @else
                         <div id="upcoming-course" class="tab-pane fade">
                             <div class="col-md-12 p-0">
@@ -360,7 +366,7 @@
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="card-p1">{{$publishCourse->course_fee ? $publishCourse->course_fee.' টাকা' : 'শূন্য'}}</p>
+                                                        <p class="card-p1">{{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                         <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-clock gray-color mr-2"></i> <span
@@ -369,7 +375,7 @@
                                                         <p class="font-weight-light float-left"><i
                                                                 class="fas fa-user-plus gray-color mr-2"></i>
                                                             <span
-                                                                class="course-p"> আসন সংখ্যা ( {{ !empty($publishCourse)? $publishCourse->max_seat_available:'' }} )</span>
+                                                                class="course-p"> আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
                                                         </p>
                                                         <p class="float-right">
                                                             <a href="javascript:;"
@@ -716,10 +722,12 @@
         .btn-floating {
             color: black;
         }
+
         .header-bg {
             background: #671688;
-            color:white;
+            color: white;
         }
+
         .modal-header .close, .modal-header .mailbox-attachment-close {
             padding: 1rem;
             margin: -1rem -1rem -1rem auto;
@@ -1209,9 +1217,11 @@
         .fc .fc-scroller {
             overflow: hidden !important;
         }
+
         .fc .fc-highlight {
             background: #3788d8;
         }
+
         .today-event {
             background: #ff005d;
             padding: 3px 10px;
@@ -1327,7 +1337,7 @@
                         failureCallback([]);
                     });
                 },
-                dateClick:function (info){
+                dateClick: function (info) {
                     let eventDateTime = new Date(info.dateStr);
                     eventDateTime = new Intl.DateTimeFormat('bn-BD', {
                         weekday: 'long',
