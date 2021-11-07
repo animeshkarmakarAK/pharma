@@ -28,6 +28,8 @@ class YearlyTrainingCalendarController extends Controller
             'courses.title_bn as description',//this for tooltip
             DB::raw('DATE(course_sessions.application_start_date) as start'),
             DB::raw('DATE_ADD(DATE(course_sessions.application_end_date), INTERVAL 1 Day) as end'),
+            'publish_courses.institute_id',
+            'publish_courses.training_center_id',
         ]);
         $courseSessions->join('course_sessions', 'publish_courses.id', '=', 'course_sessions.publish_course_id');
         $courseSessions->join('courses', 'publish_courses.course_id', '=', 'courses.id');
@@ -42,7 +44,10 @@ class YearlyTrainingCalendarController extends Controller
         }
         if (!empty($request->input('training_center_id'))) {
             $courseSessions->where('publish_courses.training_center_id', $request->input('training_center_id'));
-            $courseSessions->orWhere(['publish_courses.training_center_id' => null]);
+            $courseSessions->orWhere(function ($query) use ($currentInstitute) {
+                $query->where(['publish_courses.institute_id' => $currentInstitute->id])
+                    ->where(['publish_courses.training_center_id' => null]);
+            });
         }
 
         return $courseSessions->get()->toArray();
@@ -58,7 +63,7 @@ class YearlyTrainingCalendarController extends Controller
         $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
             ->whereBetween('course_sessions.application_start_date', [$from, $to])
             ->orderBy('course_sessions.application_start_date', 'asc')
-            ->where(['courses.institute_id'=>$currentInstitute->id])
+            ->where(['courses.institute_id' => $currentInstitute->id])
             ->get()
             ->groupBy('course_id');
 
