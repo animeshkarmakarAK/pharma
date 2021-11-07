@@ -137,7 +137,7 @@ class BatchService
                     $str .= '<a href="' . route('course_management::admin.batches.show', $batch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }
                 if ($authUser->can('viewBachYouth', $batch)) {
-                    $str .= '<a href="' . route('course_management::admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('generic.youths_button_label') . '</a>';
+                    $str .= '<a href="' . route('course_management::admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('Trainee List') . '</a>';
                 }
 
                 if ($authUser->can('update', $batch)) {
