@@ -26,16 +26,19 @@
                     <div class="card card mb-0">
                         <div class="card-body">
                             @if(!$authYouth)
-                            <div class="text-info text-center">
-                                আপনি যদি পূর্বে নিবন্ধন করে থাকেন তাহলে <a href="{{ route('course_management::youth.login-form') }}">লগইন</a> করে কোর্স এ আবেদন করুন
-                            </div>
+                                <div class="text-info text-center">
+                                    আপনি যদি পূর্বে নিবন্ধন করে থাকেন তাহলে <a
+                                        href="{{ route('course_management::youth.login-form') }}">লগইন</a> করে কোর্স এ
+                                    আবেদন করুন
+                                </div>
                             @endif
 
                             @if(!empty($publishCourse))
-                            <div class="text-info text-center">
-                                ( আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ আবেদন
-                                করছেন )
-                            </div>
+                                <div class="text-info text-center">
+                                    ( আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ
+                                    আবেদন
+                                    করছেন )
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -64,14 +67,17 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="name_en">নাম (ইংরেজি) <span class="required">*</span> :</label>
-                                    <input type="text" class="form-control" name="name_en" id="name_en" {{ $authYouth?'readonly':'' }}
+                                    <input type="text" class="form-control" name="name_en" id="name_en"
+                                           {{ $authYouth?'readonly':'' }}
                                            value="{{ $authYouth?$authYouth->name_en: old('name_en') }}"
                                            placeholder="নাম">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="name_bn">নাম (বাংলা) <span class="required">*</span> :</label>
-                                    <input type="text" class="form-control" name="name_bn" id="name_bn" {{ $authYouth?'readonly':'' }}
-                                           value="{{ $authYouth?$authYouth->name_bn: old('name_bn') }}" placeholder="নাম">
+                                    <input type="text" class="form-control" name="name_bn" id="name_bn"
+                                           {{ $authYouth?'readonly':'' }}
+                                           value="{{ $authYouth?$authYouth->name_bn: old('name_bn') }}"
+                                           placeholder="নাম">
                                 </div>
 
                                 @if(!empty($publishCourse))
@@ -161,26 +167,30 @@
                                 @endif
 
 
-
                                 <div class="form-group col-md-6">
                                     <label for="gender">লিঙ্গ<span class="required">*</span> :</label>
-                                    <div class="d-md-flex form-control {{ !empty($youthSelfInfo)? ($youthSelfInfo->gender?'read-only-input-field':''):'' }}" style="display: inline-table;">
+                                    <div
+                                        class="d-md-flex form-control {{ !empty($youthSelfInfo)? ($youthSelfInfo->gender?'read-only-input-field':''):'' }}"
+                                        style="display: inline-table;">
                                         <div class="custom-control custom-radio mr-3">
-                                            <input class="custom-control-input" type="radio" id="gender_male" {{ !empty($youthSelfInfo) && $youthSelfInfo->gender==1?' checked':'' }}
+                                            <input class="custom-control-input" type="radio" id="gender_male"
+                                                   {{ !empty($youthSelfInfo) && $youthSelfInfo->gender==1?' checked':'' }}
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE }}"
                                                 {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
                                             <label for="gender_male" class="custom-control-label">পুরুষ</label>
                                         </div>
                                         <div class="custom-control custom-radio mr-3">
-                                            <input class="custom-control-input" type="radio" id="gender_female" {{ !empty($youthSelfInfo) &&  $youthSelfInfo->gender==2?' checked':'' }}
+                                            <input class="custom-control-input" type="radio" id="gender_female"
+                                                   {{ !empty($youthSelfInfo) &&  $youthSelfInfo->gender==2?' checked':'' }}
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
                                                 {{ old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
                                             <label for="gender_female" class="custom-control-label">নারী</label>
                                         </div>
                                         <div class="custom-control custom-radio mr-3">
-                                            <input class="custom-control-input" type="radio" id="gender_transgender" {{ !empty($youthSelfInfo) && $youthSelfInfo->gender==4?' checked':'' }}
+                                            <input class="custom-control-input" type="radio" id="gender_transgender"
+                                                   {{ !empty($youthSelfInfo) && $youthSelfInfo->gender==4?' checked':'' }}
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER }}"
                                                 {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER ? 'checked' : ''}}>
@@ -190,26 +200,29 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div
+                                    class="form-group col-md-6 {{ !empty($authYouth)? ($authYouth->mobile?'read-only-input-field':''):'' }}">
                                     <label for="mobile">মোবাইল নাম্বার <span class="required">*</span>
                                         :</label>
                                     <input type="text" class="form-control" name="mobile" id="mobile"
-                                           value="{{ old('mobile') }}" placeholder="মোবাইল">
+                                           value="{{ !empty($authYouth)? $authYouth->mobile :old('mobile') }}"
+                                           placeholder="মোবাইল">
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div
+                                    class="form-group col-md-6 {{ !empty($authYouth)? ($authYouth->email?'read-only-input-field':''):'' }}">
                                     <label for="email">ইমেইল <span class="required">*</span>
                                         :</label>
                                     <input type="text" class="form-control" name="email" id="email"
-                                           value="{{ old('email') }}" placeholder="ইমেল">
+                                           value="{{ !empty($authYouth)? $authYouth->email :old('email') }}"
+                                           placeholder="ইমেল">
                                 </div>
-
-
-                                <div class="form-group col-md-6">
+                                <div
+                                    class="form-group col-md-6 {{ !empty($youthSelfInfo)? ($youthSelfInfo->date_of_birth?'read-only-input-field':''):'' }}">
                                     <label for="date_of_birth">জন্ম তারিখ <span
                                             class="required">*</span> :</label>
                                     <input type="text" class="form-control flat-date" name="date_of_birth"
-                                           id="date_of_birth" value="{{ old('date_of_birth') }}"
+                                           id="date_of_birth" value="{{ !empty($youthSelfInfo)? $youthSelfInfo->date_of_birth :old('date_of_birth') }}"
                                            placeholder="জন্ম তারিখ">
                                 </div>
 
@@ -3279,7 +3292,6 @@
         });
 
         $('.read-only-input-field input').prop("disabled", 'true');
-        console.log()
 
 
     </script>

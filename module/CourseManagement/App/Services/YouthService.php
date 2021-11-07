@@ -239,8 +239,8 @@ class YouthService
             'numeric' => 'The :attribute in row ' . $row_number . ' must be numeric format',
             'unique' => "The :attribute in row " . $row_number . " is already taken(youth)",
             "in" => "The :attribute in row " . $row_number . " is either HAVE OR HAVE NO ",
-            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
-            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX"
+            "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX",
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX"
         ];
 
         $rules = [
@@ -379,11 +379,13 @@ class YouthService
             ],
             "have_family_own_house" => [
                 "nullable",
-                Rule::in([Youth::HAVE_NO_FAMILY_OWN_HOUSE, Youth::HAVE_FAMILY_OWN_HOUSE])
+                //Rule::in([Youth::HAVE_NO_FAMILY_OWN_HOUSE, Youth::HAVE_FAMILY_OWN_HOUSE]),
+                Rule::in([0,1,2,3]),
             ],
             "have_family_own_land" => [
                 "nullable",
-                Rule::in([Youth::HAVE_FAMILY_OWN_LAND, Youth::HAVE_NO_FAMILY_OWN_LAND])
+                //Rule::in([Youth::HAVE_FAMILY_OWN_LAND, Youth::HAVE_NO_FAMILY_OWN_LAND]),
+                Rule::in([0,1,2,3]),
             ],
             "number_of_siblings" => [
                 "nullable",
@@ -412,7 +414,7 @@ class YouthService
             'unique' => "The :attribute of in row " . $row_number . " is already taken",
             "in" => "The :attribute in row " . $row_number . " is not within :fields",
             "mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
-            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX",
+            "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 01XXXXXXXXXXX",
             "lte" => "The :attribute in row " . $row_number . " must be less than or equal :value.",
             "gte" => "The :attribute in row " . $row_number . " must be greater than or equal :value."
         ];
@@ -540,7 +542,8 @@ class YouthService
             ],
             "physical_disabilities" => [
                 "nullable",
-                "string"
+                //"string"
+                Rule::in([0,1,2,3]),
             ],
             "disable_status" => [
                 "nullable",
