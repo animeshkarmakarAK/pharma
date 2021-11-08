@@ -22,12 +22,12 @@ class CourseSearchController extends Controller
     {
         $currentInstitute = domainConfig('institute');
         $programmes = Programme::where('institute_id',$currentInstitute->id)->get();
-        //$publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->paginate(12);
         $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->get();
 
         $maxEnrollmentNumber = [];
         foreach ($publishCourses as $publishCourse) {
-            $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::where('publish_course_id', $publishCourse->id)->sum('max_seat_available');
+              $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::select('publish_course_id',\DB::raw("SUM(max_seat_available) as total_seat"))
+                  ->groupBy('publish_course_id')->get();
         }
 
         return view(self::VIEW_PATH.'course-list-new', compact('programmes', 'publishCourses','maxEnrollmentNumber'));

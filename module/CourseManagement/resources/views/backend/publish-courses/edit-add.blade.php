@@ -227,8 +227,6 @@
             bottom: -9px;
         }
     </style>
-    @endphp
-
 
     @push('js')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
