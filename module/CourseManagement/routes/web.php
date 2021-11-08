@@ -151,7 +151,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('fiscal-year', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'fiscalYear'])->name('fiscal-year');
     Route::get('venue-list/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueList'])->name('venue-list');
 
-    Route::post('venue-list', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
+//    Route::post('venue-list', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
     Route::post('venue-list-search', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
 
     Route::resources([

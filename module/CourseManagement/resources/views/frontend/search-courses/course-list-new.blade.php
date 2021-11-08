@@ -261,7 +261,7 @@
                     html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
                         '</span>';
                     html += '</p>';
-                    html += '<p class="font-weight-light float-left mb-0"><i';
+                    html += '<p class="font-weight-light mb-0"><i';
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
