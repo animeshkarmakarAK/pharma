@@ -216,6 +216,9 @@
                     color: white;
                     outline: none;
                 }
+                .card-p1 {
+                    color: #671688;
+                }
             </style>
         @endpush
         @push('js')
@@ -251,19 +254,23 @@
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
-                    html += '<p class="card-p1">' + (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'শূন্য') + '</p>';
+
                     html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span ';
                     html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
                         '</span>';
                     html += '</p>';
-                    html += '<p class="font-weight-light float-left"><i';
+                    html += '<p class="font-weight-light float-left mb-0"><i';
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
                         'আসন সংখ্যা ( <span class="max-enroll">'+ item.total_seat +'</span> )</span>';
                     html += '</p>';
+
+                    html += '<p class="card-p1 float-left mb-1">';
+                    html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
+                    html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
                     html += '<p class="float-right">';
                     html += '<a href="javascript:;"';
                     html += 'onclick="courseDetailsModalOpen(' + item.id + ')"';
