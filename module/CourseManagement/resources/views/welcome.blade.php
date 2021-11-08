@@ -1266,7 +1266,34 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
     <script>
+        function todayForEvent(){
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+
+            today = dd + ' / ' + mm + ' / ' + yyyy;
+            return today;
+        }
+
+        function eventDate(edate){
+            let eventDate = new Date(edate);
+            let dd = String(eventDate.getDate()).padStart(2, '0');
+            let mm = String(eventDate.getMonth() + 1).padStart(2, '0');
+            let yyyy = eventDate.getFullYear();
+
+            eventDate = dd + ' / ' + mm + ' / ' + yyyy;
+            return eventDate;
+        }
+
         function eventsTemplate(key) {
+            let eventClass = '';
+            if(todayForEvent() == eventDate(this.date)){
+                eventClass= 'today-event';
+            }
+            else{
+                eventClass='';
+            }
             return '<div class="card shadow-none mb-0">' +
                 '<div id="heading' + key + '" class="card-header bg-white shadow-sm border-0">' +
                 '<h2 class="mb-0">' +
@@ -1274,9 +1301,9 @@
                 'aria-expanded="true" aria-controls="collapseOne"' +
                 'class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">' +
                 this.caption +
-                '<p class="mb-0">' +
+                '<p class="mb-0 mt-1">' +
                 '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date {{ \Carbon\Carbon::now()?'today-event':'' }}  ml-1">' + this.date + '</span>' +
+                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) + '</span>' +
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
