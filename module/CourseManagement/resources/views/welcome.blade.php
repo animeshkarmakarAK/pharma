@@ -1276,8 +1276,8 @@
             return today;
         }
 
-        function eventDate(edate){
-            let eventDate = new Date(edate);
+        function eventDate(date){
+            let eventDate = new Date(date);
             let dd = String(eventDate.getDate()).padStart(2, '0');
             let mm = String(eventDate.getMonth() + 1).padStart(2, '0');
             let yyyy = eventDate.getFullYear();
@@ -1285,9 +1285,15 @@
             eventDate = dd + ' / ' + mm + ' / ' + yyyy;
             return eventDate;
         }
+        function eventDateTime(date) {
+            let edt = new Date(date);
+            edt = edt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            return edt;
+        }
 
         function eventsTemplate(key) {
             let eventClass = '';
+            // console.log(asd);
             if(todayForEvent() == eventDate(this.date)){
                 eventClass= 'today-event';
             }
@@ -1303,7 +1309,7 @@
                 this.caption +
                 '<p class="mb-0 mt-1">' +
                 '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) + '</span>' +
+                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) +'    '+eventDateTime(this.date) + '</span>' +
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
@@ -1374,7 +1380,6 @@
                         type: "POST",
                     }).done(function (response) {
                         successCallback(response);
-                        //$('.fc-event-title').attr('title', 'কোর্সের বিস্তারিত দেখুন');
                     }).fail(function (xhr) {
                         failureCallback([]);
                     });
