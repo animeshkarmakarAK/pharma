@@ -19,39 +19,12 @@ class BatchService
 {
     public function createBatch(array $data): Batch
     {
-        if (!empty($data['course_coordinator_signature'])) {
-            $filename = FileHandler::storePhoto($data['course_coordinator_signature'], 'batch/signature/course-coordinator');
-            $data['course_coordinator_signature'] = 'batch/signature/course-coordinator/' . $filename;
-        }
-
-        if (!empty($data['course_director_signature'])) {
-            $filename = FileHandler::storePhoto($data['course_director_signature'], 'batch/signature/course-director');
-            $data['course_director_signature'] = 'batch/signature/course-director/' .  $filename;
-        }
-
         $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
         return Batch::create($data);
     }
 
     public function updateBatch(Batch $batch, array $data):Batch
     {
-        if ($batch->course_coordinator_signature && !empty($data['course_coordinator_signature'])) {
-            FileHandler::deleteFile($batch->course_coordinator_signature);
-        }
-
-        if (!empty($data['course_coordinator_signature'])) {
-            $filename = FileHandler::storePhoto($data['course_coordinator_signature'], 'batch/signature/course-coordinator');
-            $data['course_coordinator_signature'] = 'batch/signature/course-coordinator/' . $filename;
-        }
-
-        if ($batch->course_director_signature && !empty($data['course_director_signature'])) {
-            FileHandler::deleteFile($batch->course_director_signature);
-        }
-
-        if (!empty($data['course_director_signature'])) {
-            $filename = FileHandler::storePhoto($data['course_director_signature'], 'batch/signature/course-director');
-            $data['course_director_signature'] = 'batch/signature/course-director/' .  $filename;
-        }
         $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
 
         $batch->fill($data);
@@ -66,30 +39,18 @@ class BatchService
 
     public function validator(Request $request, $id = null): Validator
     {
-
         $rules = [
             'title_en' => 'required|string|max:191',
             'title_bn' => 'required|string|max: 191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'institute_id' => 'required|int',
             'publish_course_id' => 'required|int',
+            'training_center_id' => 'required|int|exists:training_centers,id',
             'max_student_enrollment' => ['required', 'int'],
             'start_date' => ['required', 'date', 'after:today,' . $id],
             'end_date' => ['required', 'date', 'after:start_date'],
             'start_time' => ['required'],
             'end_time' => ['required'],
-            'course_coordinator_signature' => [
-                new RequiredIf($id == null),
-                'image',
-                'mimes:jpg,bmp,png,jpeg,svg',
-                'dimensions:width=300,height=80',
-            ],
-            'course_director_signature' => [
-                new RequiredIf($id == null),
-                'image',
-                'mimes:jpg,bmp,png,jpeg,svg',
-                'dimensions:width=300,height=80',
-            ],
         ];
 
         if (!empty($id)) {

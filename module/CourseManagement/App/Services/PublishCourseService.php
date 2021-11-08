@@ -31,7 +31,7 @@ class PublishCourseService
         $rules = [
             'institute_id' => ['required', 'int'],
             'course_id' => ['required', 'int'],
-            'training_center_id' => ['nullable', 'int'],
+            'training_center_id' => ["required", "array", "min:1",'exists:training_centers,id'],
             'programme_id' => ['nullable', 'int'],
             'title_en' => 'nullable',
             'title_bn' => 'nullable',

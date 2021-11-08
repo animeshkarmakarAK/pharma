@@ -37,6 +37,10 @@ class PublishCourseController extends Controller
      */
     public function index(): View
     {
+        /*$myVal = 31;
+        $value = '"' . $myVal . '"';
+        $test = PublishCourse::where('training_center_id','LIKE', '%' . $value . '%')->get();
+        dd($test);*/
         return \view(self::VIEW_PATH . 'browse');
     }
 
@@ -72,7 +76,6 @@ class PublishCourseController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-
         $validatedData = $this->publishCourseService->validator($request)->validate();
 
         DB::beginTransaction();
@@ -116,6 +119,7 @@ class PublishCourseController extends Controller
         $branches = Branch::active()->get();
         $trainingCenters = TrainingCenter::active()->get();
         $applicationFormTypes = ApplicationFormType::active()->get();
+
 
         return \view(self::VIEW_PATH . 'edit-add', compact('publishCourse'))->with([
             'institutes' => Institute::active()->get(),

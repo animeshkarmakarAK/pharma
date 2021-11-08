@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int institute_id
  * @property int branch_id
  * @property string|null address
+ * @property string|null course_coordinator_signature
+ * @property string|null course_director_signature
  * @property string|null google_map_src
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()

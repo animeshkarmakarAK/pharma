@@ -64,11 +64,24 @@
                     </div>
                 @endif
 
-
-                <div class="col-md-6 mt-2 custom-view-box">
-                    <p class="label-text">{{ __('Branch') }}</p>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Coordinator Signature') }}</p>
                     <div class="input-box">
-                        {{ !empty($trainingCenter->branch)?$trainingCenter->branch->title_en:'' }}
+                        <img src="{{ asset("storage/{$trainingCenter->course_coordinator_signature}") }}" alt="" title="" height="50px"  />
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Course Director Signature') }}</p>
+                    <div class="input-box">
+                        <img src="{{ asset("storage/{$trainingCenter->course_director_signature}") }}" alt="" title="" height="50px"  />
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Mobile') }}</p>
+                    <div class="input-box">
+                        {{ $trainingCenter->mobile }}
                     </div>
                 </div>
 

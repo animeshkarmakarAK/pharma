@@ -4,7 +4,10 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use App\Helpers\Classes\FileHandler;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\RequiredIf;
+use Module\CourseManagement\App\Models\BaseModel;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,12 +19,41 @@ class TrainingCenterService
 {
     public function createTrainingCenter(array $data): TrainingCenter
     {
+        if (!empty($data['course_coordinator_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_coordinator_signature'], 'training-center/signature/course-coordinator');
+            $data['course_coordinator_signature'] = 'training-center/signature/course-coordinator/' . $filename;
+        }
+
+        if (!empty($data['course_director_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_director_signature'], 'training-center/signature/course-director');
+            $data['course_director_signature'] = 'training-center/signature/course-director/' .  $filename;
+        }
+
         $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         return TrainingCenter::create($data);
     }
 
     public function updateTrainingCenter(TrainingCenter $trainingCenter, array $data): TrainingCenter
     {
+        if ($trainingCenter->course_coordinator_signature && !empty($data['course_coordinator_signature'])) {
+            FileHandler::deleteFile($trainingCenter->course_coordinator_signature);
+        }
+
+        if (!empty($data['course_coordinator_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_coordinator_signature'], 'training-center/signature/course-coordinator');
+            $data['course_coordinator_signature'] = 'training-center/signature/course-coordinator/' . $filename;
+        }
+
+        if ($trainingCenter->course_director_signature && !empty($data['course_director_signature'])) {
+            FileHandler::deleteFile($trainingCenter->course_director_signature);
+        }
+
+        if (!empty($data['course_director_signature'])) {
+            $filename = FileHandler::storePhoto($data['course_director_signature'], 'training-center/signature/course-director');
+            $data['course_director_signature'] = 'training-center/signature/course-director/' .  $filename;
+        }
+
+
         $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
 
         if (!isset($data['branch_id'])) {
@@ -40,7 +72,7 @@ class TrainingCenterService
         $trainingCenter->delete();
     }
 
-    public function validator(Request $request): Validator
+    public function validator(Request $request, $id = null): Validator
     {
         $rules = [
             'title_en' => 'required|string|max: 191',
@@ -49,6 +81,22 @@ class TrainingCenterService
             'branch_id' => 'nullable|int',
             'address' => ['nullable', 'string', 'max:191'],
             'google_map_src' => ['nullable', 'string'],
+            "mobile" => [
+                "required",
+                BaseModel::MOBILE_REGEX
+            ],
+            'course_coordinator_signature' => [
+                new RequiredIf($id == null),
+                'image',
+                'mimes:jpg,bmp,png,jpeg,svg',
+                'dimensions:width=300,height=80',
+            ],
+            'course_director_signature' => [
+                new RequiredIf($id == null),
+                'image',
+                'mimes:jpg,bmp,png,jpeg,svg',
+                'dimensions:width=300,height=80',
+            ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -93,7 +141,7 @@ class TrainingCenterService
             ->editColumn('updated_at', function (TrainingCenter $trainingCenter) {
                 return Date('d M, Y h:i A', strtotime($trainingCenter['updated_at']));
             })
-            ->rawColumns(['action','created_at','updated_at'])
+            ->rawColumns(['action', 'created_at', 'updated_at'])
             ->toJson();
     }
 

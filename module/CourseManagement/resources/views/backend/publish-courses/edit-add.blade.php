@@ -2,6 +2,8 @@
     $edit = !empty($publishCourse->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+    //dd(Module\CourseManagement\App\Models\TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get());
+
 @endphp
 
 @extends('master::layouts.master')
@@ -77,7 +79,8 @@
                                 <div class="form-group">
                                     <label for="training_center_id">{{ __('Training Center') }}</label>
                                     <select class="form-control select2-ajax-wizard"
-                                            name="training_center_id"
+                                            multiple="multiple"
+                                            name="training_center_id[]"
                                             id="training_center_id"
                                             data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                             data-label-fields="{title_en}"

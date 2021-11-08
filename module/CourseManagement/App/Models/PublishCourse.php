@@ -45,6 +45,12 @@ class PublishCourse extends BaseModel
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'training_center_id' => 'array',
+    ];
+
+
+
     public static function getPublishStatus($decorated = false): array
     {
         return [
@@ -112,4 +118,5 @@ class PublishCourse extends BaseModel
     {
         return $this->hasOne(Batch::class);
     }
+
 }
