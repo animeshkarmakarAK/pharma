@@ -27,7 +27,8 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('course_management::admin.batches.update', [$batch->id]) : route('course_management::admin.batches.store')}}" enctype="multipart/form-data">
+                              action="{{ $edit ? route('course_management::admin.batches.update', [$batch->id]) : route('course_management::admin.batches.store')}}"
+                              enctype="multipart/form-data">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -84,33 +85,39 @@
                                     <select class="form-control select2-ajax-wizard"
                                             name="publish_course_id"
                                             id="publish_course_id"
-                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
-                                            data-label-fields="{course.title_bn}"
-                                            data-depend-on="institute_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $batch->course->title_en, 'id' =>  $batch->publish_course_id])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        {{--data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
+                                        data-label-fields="{course.title_bn}"
+                                        data-depend-on="institute_id"
+                                        @if($edit)
+                                        data-preselected-option="{{json_encode(['text' =>  $batch->course->title_en, 'id' =>  $batch->publish_course_id])}}"
+                                        @endif
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"--}}
                                     >
+                                        <option value="">Select</option>
+                                        @foreach($publishCourses as $publishCourse)
+                                            <option
+                                                value="{{ $publishCourse->id}}" {{ $edit && $batch->publish_course_id == $publishCourse->id? 'selected':''}}>{{ $publishCourse->course->title_bn }}</option>
+                                        @endforeach
+
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="publish_course_id">{{ __('Training Center') }} <span
-                                            style="color: red">*</span></label>
+                                    <label for="publish_course_id">{{ __('Training Center') }}
+                                        <span style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="training_center_id"
-                                            id="training_center_id"
-                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_bn}"
-                                            {{--data-depend-on="institute_id|publish_course_id"--}}
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $batch->trainingCenter->title_en, 'id' =>  $batch->training_center_id])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
-                                    >
+                                            id="training_center_id">
+                                        <option value="">Select</option>
+                                        @if($edit)
+                                            @foreach($publishCourseTrainingCenters as $publishCourseTrainingCenter)
+                                                <option
+                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}}>{{ $publishCourseTrainingCenter->title_bn }}</option>
+                                            @endforeach
+                                        @endif
+
                                     </select>
                                 </div>
                             </div>
@@ -348,6 +355,24 @@
             }
         });
 
+        $('#publish_course_id').change(function () {
+            let publishCourseId = $(this).val();
+            $.ajax({
+                type: 'post',
+                url: '{{route('course_management::admin.batch-training-centers')}}',
+                data: {'publish_course_id': publishCourseId},
+            }).then(function (res) {
+                $("#training_center_id option").remove();
+                $('#training_center_id').append('<option value="">' + 'Select' + '</option>');
+                $.each(res, function (key, val) {
+                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_bn + '</option>');
+                });
+            });
+
+            if (!publishCourseId) {
+                $("#training_center_id option").remove();
+            }
+        });
     </script>
 @endpush
 

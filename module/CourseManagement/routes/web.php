@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('static-page/check-page-id', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'checkCode'])->name('check-page-id');
     Route::post('courses/check-course-code', [Module\CourseManagement\App\Http\Controllers\CourseController::class, 'checkCode'])->name('check-course-code');
     Route::post('batches/check-batch-code', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'checkCode'])->name('check-batch-code');
+    Route::post('batches/batch-training-centers', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'batchTrainingCenter'])->name('batch-training-centers');
 
     Route::resource('visitor-feedback', Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class)->only(['index', 'destroy', 'show']);
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');

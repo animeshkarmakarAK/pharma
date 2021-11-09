@@ -1,3 +1,9 @@
+@php
+    /** @var \App\Models\User $authUser */
+    $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+@endphp
+
+
 @extends('master::layouts.master')
 
 @section('title')
@@ -36,17 +42,26 @@
                     </div>
                 </div>
 
+                @if(!$authUser->isInstituteUser())
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Institute Name') }}</p>
                     <div class="input-box">
                         {{ $batch->institute->title_en }}
                     </div>
                 </div>
+                @endif
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Course Name') }}</p>
+                    <p class="label-text">{{ __('Publish Course Name') }}</p>
                     <div class="input-box">
                         {{ $batch->course->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('Training Center') }}</p>
+                    <div class="input-box">
+                        {{ $batch->trainingCenter->title_en }}
                     </div>
                 </div>
 

@@ -3,6 +3,8 @@
 namespace Module\CourseManagement\App\Http\Controllers;
 
 use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\PublishCourse;
+use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\BatchService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -38,11 +40,12 @@ class BatchController extends Controller
      */
     public function create()
     {
-
+        $currentInstitute = domainConfig('institute');
+        $publishCourses = PublishCourse::where('institute_id',$currentInstitute->id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
+            'publishCourses' => $publishCourses,
         ]);
-
     }
 
     /**
@@ -92,8 +95,12 @@ class BatchController extends Controller
      */
     public function edit(Batch $batch): View
     {
+        $publishCourses = PublishCourse::where('institute_id', $batch->institute_id)->get();
+        $publishCourseTrainingCenters = TrainingCenter::whereIn('id', $batch->publishCourse->training_center_id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => $batch,
+            'publishCourseTrainingCenters' => $publishCourseTrainingCenters,
+            'publishCourses' => $publishCourses,
         ]);
     }
 
@@ -224,5 +231,11 @@ class BatchController extends Controller
             'message' => __('This batch completed', ['object' => 'Batch']),
             'alert-type' => 'success'
         ]);
+    }
+
+    public function batchTrainingCenter(Request $request)
+    {
+        $publishCourse = PublishCourse::findOrFail($request->publish_course_id);
+        return $publishCourseTrainingCenters = TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
     }
 }
