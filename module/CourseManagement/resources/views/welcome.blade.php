@@ -1326,12 +1326,12 @@
                 type: "POST",
                 data: {date: date},
             }).done(function (response) {
-                $("#eventArea").empty();
+                $("#eventArea").hide().empty();
                 let events = '';
                 $.each(response, function (key, value) {
                     events += eventsTemplate.call(value, key)
                 })
-                $("#eventArea").html(events);
+                $("#eventArea").delay(100).fadeIn(800).html(events);
             }).fail(function (xhr) {
                 failureCallback([]);
             });
@@ -1376,6 +1376,7 @@
                     });
                 },
                 dateClick: function (info) {
+                    console.log(info);
                     let eventDateTime = new Date(info.dateStr);
                     eventDateTime = new Intl.DateTimeFormat('bn-BD', {
                         weekday: 'long',
