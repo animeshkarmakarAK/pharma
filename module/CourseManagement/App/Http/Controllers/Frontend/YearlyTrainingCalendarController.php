@@ -39,11 +39,10 @@ class YearlyTrainingCalendarController extends Controller
         if (!empty($request->input('institute_id'))) {
             $courseSessions->where('publish_courses.institute_id', $request->input('institute_id'));
         }
-        if (!empty($request->input('branch_id'))) {
-            $courseSessions->where('publish_courses.branch_id', $request->input('branch_id'));
-        }
+
         if (!empty($request->input('training_center_id'))) {
-            $courseSessions->where('publish_courses.training_center_id', $request->input('training_center_id'));
+            $trainingCenterId = '"' . $request->input('training_center_id') . '"';
+            $courseSessions->where('publish_courses.training_center_id', 'LIKE', '%' . $trainingCenterId . '%');
             $courseSessions->orWhere(function ($query) use ($currentInstitute) {
                 $query->where(['publish_courses.institute_id' => $currentInstitute->id])
                     ->where(['publish_courses.training_center_id' => null]);

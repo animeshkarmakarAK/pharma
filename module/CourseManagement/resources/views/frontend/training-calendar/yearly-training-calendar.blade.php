@@ -47,21 +47,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="branch_id"
-                                                    id="branch_id"
-                                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                                    data-label-fields="{title_bn}"
-                                                    data-depend-on="institute_id"
-                                                    data-dependent-fields="#training_centre_id"
-                                                    data-placeholder="ব্রাঞ্চ সিলেক্ট করুন"
-                                            >
-                                            </select>
-                                        </div>
-                                    </div>
                                 @endif
 
 
@@ -215,7 +200,6 @@
 
                     function filterEvent(){
                         delete calendar;
-                        let branch_id = $('#branch_id').val();
                         let training_center_id = $('#training_center_id').val();
 
                         let calendar1 = new FullCalendar.Calendar(calendarEl, {
@@ -239,7 +223,7 @@
                             events: function (fetchInfo, successCallback, failureCallback) {
                                 $.ajax({
                                     url: '{{route('course_management::yearly-training-calendar.all-event')}}',
-                                    data: {branch_id: branch_id, training_center_id: training_center_id},
+                                    data: {training_center_id: training_center_id},
                                     type: "POST",
                                 }).done(function (response) {
                                     successCallback(response);
@@ -264,10 +248,6 @@
                     $('#training_center_id').on('change', function (){
                         filterEvent();
                     });
-                    $('#branch_id').on('change', function (){
-                        filterEvent();
-                    });
-
 
                     $('.fc-event-title').click(function (){
                         console.log($('.fc-event-title').html());

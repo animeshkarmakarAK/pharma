@@ -69,22 +69,13 @@
                         title: "Programme Name",
                         data: "programme_name",
                         name: "programmes.title_en",
-                    },
-                    {
-                        title: "Branch Name",
-                        data: "branch_name",
-                        name: "branches.title_en",
-                        visible: false,
-                    },
-
+                    },/*
                     {
                         title: "Training Center Name",
                         data: "training_center_name",
                         name: "training_centers.title_en",
                         visible: false,
-                    },
-
-
+                    },*/
                     {
                         title: "Action",
                         data: "action",

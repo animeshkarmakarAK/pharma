@@ -189,9 +189,10 @@ class YouthManagementController extends Controller
             'from_date' => $youthBatch->batch->start_date,
             'to_date' => $youthBatch->batch->end_date,
             'batch_name' => $youthBatch->batch->title_en,
-            'course_coordinator_signature' => "storage/{$youthBatch->batch->course_coordinator_signature}",
-            'course_director_signature' => "storage/{$youthBatch->batch->course_director_signature}",
+            'course_coordinator_signature' => "storage/{$youthBatch->batch->trainingCenter->course_coordinator_signature}",
+            'course_director_signature' => "storage/{$youthBatch->batch->trainingCenter->course_director_signature}",
         ];
+
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
         return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));

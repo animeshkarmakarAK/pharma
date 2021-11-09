@@ -60,4 +60,9 @@ class Batch extends Model
     {
         return $this->belongsTo(PublishCourse::class);
     }
+
+    public function trainingCenter(): BelongsTo
+    {
+        return $this->belongsTo(TrainingCenter::class);
+    }
 }

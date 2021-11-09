@@ -19,7 +19,7 @@ class AddForeignKeysToPublishCoursesTable extends Migration
             $table->foreign('course_id', 'publish_courses_fk_course_id')->references('id')->on('courses')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('institute_id', 'publish_courses_fk_institute_id')->references('id')->on('institutes')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('programme_id', 'publish_courses_fk_programme_id')->references('id')->on('programmes')->onUpdate('CASCADE')->onDelete('SET NULL');
-            $table->foreign('training_center_id', 'publish_courses_fk_training_center_id')->references('id')->on('training_centers')->onUpdate('CASCADE')->onDelete('SET NULL');
+            //$table->foreign('training_center_id', 'publish_courses_fk_training_center_id')->references('id')->on('training_centers')->onUpdate('CASCADE')->onDelete('SET NULL');
         });
     }
 
@@ -36,7 +36,7 @@ class AddForeignKeysToPublishCoursesTable extends Migration
             $table->dropForeign('publish_courses_fk_course_id');
             $table->dropForeign('publish_courses_fk_institute_id');
             $table->dropForeign('publish_courses_fk_programme_id');
-            $table->dropForeign('publish_courses_fk_training_center_id');
+            //$table->dropForeign('publish_courses_fk_training_center_id');
         });
     }
 }
