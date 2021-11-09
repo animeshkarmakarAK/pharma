@@ -25,7 +25,7 @@
                                 <div class="col-md-1">
                                     <label
                                         style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                        ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                        &nbsp;<i class="fa fa-filter mr-1"></i> ফিল্টার&nbsp;
                                     </label>
                                 </div>
 
@@ -33,7 +33,7 @@
                                     <input type="hidden" name="institute_id" id="institute_id"
                                            value="{{ $currentInstitute->id }}">
                                 @else
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="institute_id"
@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <button class="btn btn-success"
+                                    <button class="btn btn-success button-bg"
                                             id="course-session-filter-btn">{{ __('অনুসন্ধান') }}</button>
                                 </div>
 
@@ -131,7 +131,25 @@
                 .fc-daygrid-day-top{
                     justify-content: center;
                 }
-
+                .select2-container--bootstrap4 .select2-selection {
+                    background: #ffff;
+                    border: 1px solid #671688;
+                }
+                .button-bg {
+                    color: #ffffff;
+                    background-color: #671688 !important;
+                    border-color: #671688 !important;
+                }
+                .button-bg:hover {
+                    color: #ffffff;
+                    background-color: #671688 !important;
+                    border-color: #671688 !important;
+                }
+                .select2-container--bootstrap4 .select2-selection, .select2-container--bootstrap4.select2-container--focus .select2-selection {
+                    background: #ffff;
+                    border: 1px solid #671688;
+                    box-shadow: none;
+                }
 
             </style>
         @endpush
