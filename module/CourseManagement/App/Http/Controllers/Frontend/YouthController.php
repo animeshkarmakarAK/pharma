@@ -127,6 +127,7 @@ class YouthController extends Controller
         }
 
         $youthBatch = YouthBatch::where(['youth_course_enroll_id' => $youthCourseEnroll->id])->first();
+
         $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
         $institute = $youthCourseEnroll->publishCourse->institute;
         $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/batch/" . $youthBatch->batch->title_en;
@@ -143,9 +144,10 @@ class YouthController extends Controller
             'from_date' => $youthBatch->batch->start_date,
             'to_date' => $youthBatch->batch->end_date,
             'batch_name' => $youthBatch->batch->title_en,
-            'course_coordinator_signature' => "storage/{$youthBatch->batch->course_coordinator_signature}",
-            'course_director_signature' => "storage/{$youthBatch->batch->course_director_signature}",
+            'course_coordinator_signature' => "storage/{$youthBatch->batch->trainingCenter->course_coordinator_signature}",
+            'course_director_signature' => "storage/{$youthBatch->batch->trainingCenter->course_director_signature}",
         ];
+
         $template = 'course_management::frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
         return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
