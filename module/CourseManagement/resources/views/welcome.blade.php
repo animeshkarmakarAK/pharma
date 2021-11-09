@@ -1266,35 +1266,26 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
     <script>
-        function todayForEvent(){
+        function todayEvent(){
             let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0');
-            let yyyy = today.getFullYear();
-
-            today = dd + ' / ' + mm + ' / ' + yyyy;
+            today = new Intl.DateTimeFormat('bn-BD').format(today);
             return today;
         }
 
         function eventDate(date){
             let eventDate = new Date(date);
-            let dd = String(eventDate.getDate()).padStart(2, '0');
-            let mm = String(eventDate.getMonth() + 1).padStart(2, '0');
-            let yyyy = eventDate.getFullYear();
-
-            eventDate = dd + ' / ' + mm + ' / ' + yyyy;
+            eventDate = new Intl.DateTimeFormat('bn-BD').format(eventDate);
             return eventDate;
         }
-        function eventDateTime(date) {
-            let edt = new Date(date);
-            edt = edt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            return edt;
+        function eventTime(date) {
+            let time = new Date(date);
+            time = time.toLocaleTimeString(['bn-BD'], {hour: '2-digit', minute:'2-digit'});
+            return time;
         }
 
         function eventsTemplate(key) {
             let eventClass = '';
-            // console.log(asd);
-            if(todayForEvent() == eventDate(this.date)){
+            if(todayEvent() == eventDate(this.date)){
                 eventClass= 'today-event';
             }
             else{
@@ -1309,7 +1300,7 @@
                 this.caption +
                 '<p class="mb-0 mt-1">' +
                 '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) +'    '+eventDateTime(this.date) + '</span>' +
+                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) +'    '+eventTime(this.date) + '</span>' +
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
