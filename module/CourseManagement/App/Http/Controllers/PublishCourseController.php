@@ -37,10 +37,6 @@ class PublishCourseController extends Controller
      */
     public function index(): View
     {
-        /*$myVal = 31;
-        $value = '"' . $myVal . '"';
-        $test = PublishCourse::where('training_center_id','LIKE', '%' . $value . '%')->get();
-        dd($test);*/
         return \view(self::VIEW_PATH . 'browse');
     }
 
