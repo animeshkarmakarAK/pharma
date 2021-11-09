@@ -10,6 +10,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Models\TrainingCenter;
 use Yajra\DataTables\Facades\DataTables;
 
 class PublishCourseService
@@ -75,7 +76,8 @@ class PublishCourseService
             'courses.title_en as course_title',
             'branches.title_en as branch_name',
             'programmes.title_en as programme_name',
-            'training_centers.title_en as training_center_name',
+            //'training_centers.title_en as training_center_name',
+            'publish_courses.training_center_id',
             'publish_courses.updated_at'
         ]);
         $publishCourses->join('courses', 'publish_courses.course_id', '=', 'courses.id');
@@ -83,7 +85,7 @@ class PublishCourseService
         $publishCourses->leftJoin('users', 'publish_courses.created_by', '=', 'users.id');
         $publishCourses->leftJoin('programmes', 'publish_courses.programme_id', '=', 'programmes.id');
         $publishCourses->leftJoin('branches', 'publish_courses.branch_id', '=', 'branches.id');
-        $publishCourses->leftJoin('training_centers', 'publish_courses.training_center_id', '=', 'training_centers.id');
+        //$publishCourses->leftJoin('training_centers', 'publish_courses.training_center_id', '=', 'training_centers.id');
 
         return DataTables::eloquent($publishCourses)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (PublishCourse $publishCourse) {

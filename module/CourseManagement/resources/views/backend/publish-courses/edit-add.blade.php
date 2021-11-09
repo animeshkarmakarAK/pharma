@@ -2,7 +2,6 @@
     $edit = !empty($publishCourse->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
-    //dd(Module\CourseManagement\App\Models\TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get());
 
 @endphp
 
@@ -55,45 +54,40 @@
                                     >
                                     </select>
                                 </div>
+                            @endif
 
+                            @if($edit)
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="branch_id">{{ __('Branch') }}</label>
-                                        <select class="form-control select2-ajax-wizard"
-                                                name="branch_id"
-                                                id="branch_id"
-                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                                data-label-fields="{title_en}"
-                                                data-depend-on="institute_id"
-                                                @if($edit && $publishCourse->branch)
-                                                data-preselected-option="{{json_encode(['text' =>  $publishCourse->branch->title_en, 'id' =>  $publishCourse->branch->id])}}"
-                                                @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
-                                        >
+                                        <label for="training_center_id">{{ __('Training Center') }}
+                                            <span style="color: red"> * </span>
+                                        </label>
+                                        <select class="form-control"
+                                                multiple="multiple"
+                                                name="training_center_id[]"
+                                                id="training_center_id">
+                                            @foreach($trainingCenters as $trainingCenter)
+                                                <option
+                                                    value="{{$trainingCenter->id}}">{{ $trainingCenter->title_en }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                            @endif
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="training_center_id">{{ __('Training Center') }}</label>
+                            @else
+                                <div class="form-group col-md-6">
+                                    <label for="training_center_id">Training Center<span
+                                            style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             multiple="multiple"
                                             name="training_center_id[]"
                                             id="training_center_id"
-                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                             data-label-fields="{title_en}"
-                                            data-depend-on="institute_id"
-                                            data-depend-on-optional="branch_id"
-                                            @if($edit && $publishCourse->trainingCenter)
-                                            data-preselected-option="{{json_encode(['text' =>  $publishCourse->trainingCenter->title_en, 'id' =>  $publishCourse->trainingCenter->id])}}"
-                                            @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
                                 </div>
-                            </div>
+                            @endif
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -362,6 +356,22 @@
                     htmlForm.submit();
                 }
             });
+
+
+            if (EDIT == true) {
+                let data = [];
+                data = <?php echo json_encode(!empty($selectedTrainingCenters) ? $selectedTrainingCenters : ''); ?>;
+                console.log(data);
+
+                $('#training_center_id').select2({
+                    placeholder: "Select",
+                    multiple: true,
+                });
+
+                $('#training_center_id').val(data);
+                $('#training_center_id').trigger("change");
+            }
+
 
         </script>
 
