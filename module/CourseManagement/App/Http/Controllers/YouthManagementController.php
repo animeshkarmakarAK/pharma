@@ -43,7 +43,6 @@ class YouthManagementController extends Controller
         $institutes = Institute::acl()->active()->get();
         $organizations = Organization::acl()->get();
 
-
         return \view(self::VIEW_PATH . 'youth-list', compact('institutes', 'organizations'));
     }
 
@@ -75,7 +74,7 @@ class YouthManagementController extends Controller
         }
 
         return back()->with([
-            'message' => __('Youth added to batch'),
+            'message' => __('Youth added to Organization'),
             'alert-type' => 'success'
         ]);
     }
