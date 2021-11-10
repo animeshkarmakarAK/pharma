@@ -83,10 +83,18 @@
                                 @if(!empty($publishCourse))
                                     <input type="hidden" name="institute_id" id="institute_id"
                                            value="{{$publishCourse->institute_id}}">
-                                    <input type="hidden" name="branch_id" id="branch_id"
-                                           value="{{$publishCourse->branch_id}}">
-                                    <input type="hidden" name="training_center_id" id="training_center_id"
-                                           value="{{$publishCourse->training_center_id}}">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="training_center_id">প্রশিক্ষণ কেন্দ্র <span
+                                                class="required">*</span>:</label>
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="training_center_id"
+                                                id="training_center_id"
+                                        >
+                                            <option value="">নির্বাচন করুন</option>
+                                        </select>
+                                    </div>
+
                                     <input type="hidden" name="programme_id" id="programme_id"
                                            value="{{$publishCourse->programme_id}}">
                                     <input type="hidden" name="publish_course_id" id="publish_course_id"
@@ -113,32 +121,6 @@
                                         </div>
                                     @endif
 
-                                    <div class="form-group col-md-6 d-none">
-                                        <label for="branch_id">ব্রাঞ্চ :</label>
-                                        <select class="form-control select2-ajax-wizard"
-                                                name="branch_id"
-                                                id="branch_id"
-                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                                data-label-fields="{title_bn}"
-                                                data-depend-on-optional="institute_id"
-                                                data-placeholder="নির্বাচন করুন"
-                                        >
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-6">
-                                        <label for="training_center_id">প্রশিক্ষণ কেন্দ্র :</label>
-                                        <select class="form-control select2-ajax-wizard"
-                                                name="training_center_id"
-                                                id="training_center_id"
-                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                                data-label-fields="{title_bn}"
-                                                data-depend-on-optional="branch_id|institute_id"
-                                                data-placeholder="নির্বাচন করুন"
-                                        >
-                                        </select>
-                                    </div>
-
                                     <div class="form-group col-md-6">
                                         <label for="programme_id">প্রোগ্রাম :</label>
                                         <select class="form-control select2-ajax-wizard"
@@ -159,11 +141,23 @@
                                                 id="publish_course_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
                                                 data-label-fields="{course.title_bn}"
-                                                data-depend-on-optional="institute_id|branch_id|training_center_id|programme_id"
+                                                data-depend-on-optional="institute_id|programme_id"
                                                 data-placeholder="নির্বাচন করুন"
                                         >
                                         </select>
                                     </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="training_center_id">প্রশিক্ষণ কেন্দ্র <span
+                                                class="required">*</span>:</label>
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="training_center_id"
+                                                id="training_center_id"
+                                        >
+                                            <option value="">নির্বাচন করুন</option>
+                                        </select>
+                                    </div>
+
                                 @endif
 
 
@@ -222,7 +216,8 @@
                                     <label for="date_of_birth">জন্ম তারিখ <span
                                             class="required">*</span> :</label>
                                     <input type="text" class="form-control flat-date" name="date_of_birth"
-                                           id="date_of_birth" value="{{ !empty($youthSelfInfo)? $youthSelfInfo->date_of_birth :old('date_of_birth') }}"
+                                           id="date_of_birth"
+                                           value="{{ !empty($youthSelfInfo)? $youthSelfInfo->date_of_birth :old('date_of_birth') }}"
                                            placeholder="জন্ম তারিখ">
                                 </div>
 
@@ -1816,6 +1811,9 @@
                 publish_course_id: {
                     required: true,
                 },
+                training_center_id_id: {
+                    required: true,
+                },
                 gender: {
                     required: true,
                 },
@@ -2295,6 +2293,9 @@
                     required: "একটি ইনস্টিটিউট সিলেক্ট করুন",
                 },
                 publish_course_id: {
+                    required: "একটি কোর্সে সিলেক্ট করুন",
+                },
+                training_center_id: {
                     required: "একটি কোর্সে সিলেক্ট করুন",
                 },
                 disable_status: {
@@ -2855,9 +2856,23 @@
                 getApplicationFormType(applicationFormTypeId);
             }
 
+            @if(!empty($publishCourse))
+            let publishCourseId = '{{ $publishCourse->id }}';
+            $.ajax({
+                type: 'post',
+                url: '{{route('course_management::publish-course-training-centers')}}',
+                data: {'publish_course_id': publishCourseId},
+            }).then(function (res) {
+                $("#training_center_id option").remove();
+                $('#training_center_id').append('<option value="">' + 'নির্বাচন করুন' + '</option>');
+                $.each(res, function (key, val) {
+                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_bn + '</option>');
+                });
+            });
+            @endif
+
             $('#publish_course_id').on('change', function () {
                 let publishCourseId = $(this).val();
-                console.log("publishCourseId: " + publishCourseId);
                 let filters = {};
                 filters['id'] = publishCourseId;
 
@@ -2865,6 +2880,19 @@
                     let applicationFormTypeId = response.data[0].application_form_type_id;
                     getApplicationFormType(applicationFormTypeId);
                 });
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{route('course_management::publish-course-training-centers')}}',
+                    data: {'publish_course_id': publishCourseId},
+                }).then(function (res) {
+                    $("#training_center_id option").remove();
+                    $('#training_center_id').append('<option value="">' + 'নির্বাচন করুন' + '</option>');
+                    $.each(res, function (key, val) {
+                        $('#training_center_id').append('<option value="' + val.id + '">' + val.title_bn + '</option>');
+                    });
+                });
+
 
             });
 

@@ -236,6 +236,6 @@ class BatchController extends Controller
     public function batchTrainingCenter(Request $request)
     {
         $publishCourse = PublishCourse::findOrFail($request->publish_course_id);
-        return $publishCourseTrainingCenters = TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
+        return TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
     }
 }

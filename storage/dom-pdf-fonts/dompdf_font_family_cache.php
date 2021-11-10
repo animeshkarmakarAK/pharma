@@ -84,6 +84,6 @@
     'normal' => $fontDir . '/certificatedefaulttextfont_normal_1fa4f126317429606bbad741c1e3e81c',
   ),
   'examplefont' => array(
-    'normal' => $fontDir . '/examplefont_normal_5fdd340adde24c39702ab48699fd04ba',
+    'normal' => $fontDir . '/examplefont_normal_e130475192741687eb16a0e7ddfc2bb0',
   ),
 ) ?>
