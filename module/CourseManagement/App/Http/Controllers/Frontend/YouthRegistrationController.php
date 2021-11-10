@@ -38,9 +38,7 @@ class YouthRegistrationController extends Controller
      */
     public function index(Request $request): View
     {
-//        dd($request->all());
         $publishedCourseId = $request->query('publish_course_id');
-
 
         $divisions = LocDivision::active()->get();
 
@@ -110,7 +108,6 @@ class YouthRegistrationController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-
         $validated = $this->youthRegistrationService->validator($request)->validate();
         DB::beginTransaction();
         try {

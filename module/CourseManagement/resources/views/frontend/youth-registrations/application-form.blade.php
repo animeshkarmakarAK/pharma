@@ -87,11 +87,10 @@
                                     <div class="form-group col-md-6">
                                         <label for="training_center_id">প্রশিক্ষণ কেন্দ্র <span
                                                 class="required">*</span>:</label>
-                                        <select class="form-control select2-ajax-wizard"
+                                        <select class="form-control"
                                                 name="training_center_id"
                                                 id="training_center_id"
                                         >
-                                            <option value="">নির্বাচন করুন</option>
                                         </select>
                                     </div>
 
@@ -150,7 +149,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="training_center_id">প্রশিক্ষণ কেন্দ্র <span
                                                 class="required">*</span>:</label>
-                                        <select class="form-control select2-ajax-wizard"
+                                        <select class="form-control"
                                                 name="training_center_id"
                                                 id="training_center_id"
                                         >
@@ -490,7 +489,7 @@
                                             id="present_address_division_id"
                                             data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                             data-label-fields="{title}"
-                                            {{--                                            data-dependent-fields="#present_address_district_id|#present_address_upazila_id"--}}
+                                            {{--data-dependent-fields="#present_address_district_id|#present_address_upazila_id"--}}
                                             data-placeholder="নির্বাচন করুন"
                                     >
                                     </select>
@@ -1811,7 +1810,7 @@
                 publish_course_id: {
                     required: true,
                 },
-                training_center_id_id: {
+                training_center_id: {
                     required: true,
                 },
                 gender: {
@@ -2293,10 +2292,10 @@
                     required: "একটি ইনস্টিটিউট সিলেক্ট করুন",
                 },
                 publish_course_id: {
-                    required: "একটি কোর্সে সিলেক্ট করুন",
+                    required: "একটি কোর্স সিলেক্ট করুন",
                 },
                 training_center_id: {
-                    required: "একটি কোর্সে সিলেক্ট করুন",
+                    required: "একটি প্রশিক্ষণ কেন্দ্র সিলেক্ট করুন",
                 },
                 disable_status: {
                     required: "যেকোনো একটি সিলেক্ট  করুন",
