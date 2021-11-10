@@ -83,6 +83,7 @@
                                             id="training_center_id"
                                             data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                             data-label-fields="{title_en}"
+                                            data-depend-on="institute_id"
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>

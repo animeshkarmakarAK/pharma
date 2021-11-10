@@ -152,6 +152,9 @@
                                         <select class="form-control"
                                                 name="training_center_id"
                                                 id="training_center_id"
+                                                data-model="{{base64_encode(\Module\CourseManagement\App\Models\TrainingCenter::class)}}"
+                                                data-label-fields="{title_bn}"
+
                                         >
                                             <option value="">নির্বাচন করুন</option>
                                         </select>
