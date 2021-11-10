@@ -28,17 +28,6 @@
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        {{--<select class="form-control select2-ajax-wizard"
-                                                name="programme_id"
-                                                id="programme_id"
-                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Programme::class)}}"
-                                                data-label-fields="{title_bn}"
-                                                data-dependent-fields="#batch_id"
-                                                data-depend-on-optional="institute_id"
-                                                data-placeholder="প্রোগ্রাম নির্বাচন করুন"
-                                        >
-                                        </select>--}}
-
                                         <select class="form-control select2-ajax-wizard"
                                                 name="programme_id"
                                                 id="programme_id">
@@ -54,10 +43,6 @@
                                         <select class="form-control select2-ajax-wizard"
                                                 name="batch_id"
                                                 id="batch_id"
-                                                {{--data-model="{{base64_encode(\Module\CourseManagement\App\Models\Batch::class)}}"
-                                                data-label-fields="{title_bn}"
-                                                data-depend-on-optional="programme_id"
-                                                data-placeholder="ব্যাচ নির্বাচন করুন"--}}
                                         >
                                             <option value="">ব্যাচ নির্বাচন করুন</option>
                                             @foreach($batches as $batch)

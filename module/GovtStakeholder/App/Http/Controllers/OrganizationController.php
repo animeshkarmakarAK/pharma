@@ -92,7 +92,7 @@ class OrganizationController extends BaseController
 
     public function destroy(Organization $organization): RedirectResponse
     {
-        //dd($organization);
+//        dd($organization);
         try {
             $this->organizationService->deleteOrganization($organization);
         } catch (\Throwable $exception) {
@@ -102,7 +102,6 @@ class OrganizationController extends BaseController
                 'alert-type' => 'error'
             ]);
         }
-
         return back()->with([
             'message' => __('generic.object_deleted_successfully', ['object' => 'organization']),
             'alert-type' => 'success'
