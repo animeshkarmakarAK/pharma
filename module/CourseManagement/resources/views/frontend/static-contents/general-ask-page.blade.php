@@ -18,29 +18,37 @@
                             <div class="col-md-10 mx-auto faq-area">
                                 <div class="faq-area-body">
                                     <div class="text-center">
-                                        <h3 class="question-answer-heading text-dark p-3">সচারাচর জিজ্ঞাস্য</h3>
+                                        <h3 class="question-answer-heading text-dark p-3">সচারাচর জিজ্ঞাসা</h3>
                                     </div>
-                                    @foreach($data as $key => $qa)
-                                        <div class="panel-group question-answer-container" id="accordion">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="question-title">
-                                                        <a class="question-heading" data-toggle="collapse"
-                                                           href="#collapseExample{{$key}}" role="button" aria-expanded="false"
-                                                           aria-controls="collapseExample1">
-                                                            {{ $qa['question'] }}
-                                                            </a>
-                                                        {{--<a data-toggle="collapse" class="question-heading" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1" > - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }} ট্রেনিং ম্যানেজমেন্ট </a>--}}
-                                                    </h4>
-                                                </div>
-                                                <div id="collapseExample{{$key}}" class="question-answer collapse">
-                                                    <div class="panel-body">
-                                                        <p>{!! $qa['answer'] !!}</p>
+                                    @if(!$data->isEmpty())
+                                        @foreach($data as $key => $qa)
+                                            <div class="panel-group question-answer-container" id="accordion">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="question-title">
+                                                            <a class="question-heading" data-toggle="collapse"
+                                                               href="#collapseExample{{$key}}" role="button" aria-expanded="false"
+                                                               aria-controls="collapseExample1">
+                                                                {{ $qa['question'] }}
+                                                                </a>
+                                                            {{--<a data-toggle="collapse" class="question-heading" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1" > - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }} ট্রেনিং ম্যানেজমেন্ট </a>--}}
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseExample{{$key}}" class="question-answer collapse">
+                                                        <div class="panel-body">
+                                                            <p>{!! $qa['answer'] !!}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        @endforeach
+                                    @else
+                                        <div class="col-md-12">
+                                            <div class="alert text-danger text-center">
+                                                কোন সচারাচর জিজ্ঞাসা নেই
+                                            </div>
                                         </div>
-                                    @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
