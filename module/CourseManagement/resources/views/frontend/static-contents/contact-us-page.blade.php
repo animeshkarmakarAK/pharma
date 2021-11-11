@@ -232,17 +232,12 @@
                                 <div class="col-md-4 contact-box text-center">
                                     <div class="d-inline-flex" style="width: 215px">
                                         <i class="fas fa-envelope-open-text template-contact-icon"></i>
-                                        <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
-                                              onMouseOut="this.style.color='#212529'"
-                                              href="mailto:ict@bitac.gov.bd">
-                                                <span>
-                                                    <a class="footer-email"
-                                                       href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
-                                                        <span
-                                                            style="font-family:'Roboto', sans-serif; font-size: 17px;">
-                                                            {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
-                                                        </span>
-                                                    </a>
+                                        <p>
+                                            <a class="footer-email" style="color: #869099;"
+                                               href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
+                                                <span
+                                                    style="font-family:'Roboto', sans-serif; font-size: 17px;">
+                                                    {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
                                                 </span>
                                             </a>
                                         </p>
