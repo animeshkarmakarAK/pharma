@@ -33,6 +33,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('domain', 191)->nullable();
             $table->unsignedInteger('organization_type_id')->nullable()->index('organizations_fk_organization_type_id');
             $table->unsignedTinyInteger('row_status')->default(1);
+            $table->foreign('organization_type_id')->references('id')->on('organization_types')->onDelete('cascade');
             $table->timestamps();
         });
     }
