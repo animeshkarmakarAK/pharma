@@ -149,7 +149,7 @@ class OrganizationService
                 if ($authUser->can('update', $organization)) {
                     $str .= '<a href="' . route('govt_stakeholder::admin.organizations.edit', $organization->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
-                $youthOrg =YouthOrganization::where('organization_id','=',$organization->id)->first();
+                $youthOrg = YouthOrganization::where('organization_id', '=', $organization->id)->first();
                 if ($authUser->can('delete', $organization) && !$youthOrg) {
                     $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.organizations.destroy', $organization->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
@@ -158,7 +158,6 @@ class OrganizationService
             ->rawColumns(['action'])
             ->toJson();
     }
-
 
     public function deleteOrganization(Organization $organization): bool
     {

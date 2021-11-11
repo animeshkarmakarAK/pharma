@@ -92,7 +92,6 @@ class OrganizationController extends BaseController
 
     public function destroy(Organization $organization): RedirectResponse
     {
-//        dd($organization);
         try {
             $this->organizationService->deleteOrganization($organization);
         } catch (\Throwable $exception) {
@@ -117,6 +116,5 @@ class OrganizationController extends BaseController
     {
         return $this->organizationService->getListDataForDatatable($request);
     }
-
 
 }
