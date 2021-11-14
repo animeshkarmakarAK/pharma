@@ -118,6 +118,29 @@ class OrganizationController extends BaseController
     {
         return $this->organizationService->getListDataForDatatable($request);
     }
+    public function organizationInformation(){
+        return \view(self::VIEW_PATH . 'organization-information');
+    }
 
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function getOrganizationInformation(Request $request): JsonResponse
+    {
+
+    }
+
+    public function organizationInformationCreate()
+    {
+        return \view(self::VIEW_PATH . 'orginfo-edit-add');
+    }
+
+    public function organizationInformationStore(Request $request): RedirectResponse
+    {
+        dd($request->all());
+    }
 
 }
