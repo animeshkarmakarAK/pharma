@@ -13,12 +13,14 @@
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Industry information' : 'Update Industry information' }}</h3>
 
                         <div class="card-tools">
-                            @can('viewAny', \Module\GovtStakeholder\App\Models\Organization::class)
-                                <a href="{{route('govt_stakeholder::admin.organization-information')}}"
-                                   class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-backward"></i> Back to list
-                                </a>
-                            @endcan
+                            {{--@can('viewAny', \Module\GovtStakeholder\App\Models\Organization::class)
+
+                            @endcan--}}
+
+                            <a href="{{route('govt_stakeholder::admin.organization-information')}}"
+                               class="btn btn-sm btn-outline-primary btn-rounded">
+                                <i class="fas fa-backward"></i> Back to list
+                            </a>
                         </div>
                     </div>
 
