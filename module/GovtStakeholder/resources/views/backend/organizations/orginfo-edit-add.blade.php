@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-outline">
-                    <div class="card-header text-primary custom-bg-gradient-info">
+                    <div class="card-header text-primary custom-bg-gradient-info p-3">
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Industry information' : 'Update Industry information' }}</h3>
 
                         <div class="card-tools">
@@ -125,13 +125,20 @@
                                                             <label for="respondent_manager" class="custom-control-label">ম্যানেজার</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 pb-3">
+                                                    <div class="col-sm-6 pb-3" id="respondent_others_detail_id">
                                                         <div class="custom-control custom-radio">
                                                             <input class="custom-control-input" type="radio" id="respondent_others"
                                                                    name="respondent_designation"
-                                                                   value="অন্যান্য">
+                                                                   value="">
                                                             <label for="respondent_others" class="custom-control-label">অন্যান্য</label>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-sm-6 pb-3" id="respondent_others_detail_section" style="display: none;">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" id="respondent_others_detail"
+                                                                       name="respondent_others_detail"
+                                                                       placeholder="অন্যান্য (উল্লেখ করুন)">
+                                                            </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,7 +275,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <label for="others_number_one">আপনি কি তৃতীয় লিঙ্গের?<span
+                                                            <label for="others_number_one"  class="label-size-small">আপনি কি তৃতীয় লিঙ্গের কাউকে নিয়োগ করেছেন?<span
                                                                     class="required"> *</span> </label>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-6">
@@ -302,7 +309,7 @@
                                                         </div>
 
                                                         <div class="col-sm-6  mt-3" id="disabled_person">
-                                                            <label for="disabled_person">আপনি কি প্রতিবন্দী?<span
+                                                            <label for="disabled_person" class="label-size-small">আপনি কি প্রতিবন্দী কাউকে নিয়োগ করেছেন?<span
                                                                     class="required"> *</span> </label>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-6">
@@ -333,7 +340,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6 mt-3" id="unhelped_group_select">
-                                                            <label for="unhelped_group">অন্যান্য সুবিধা বঞ্চিত গোষ্ঠী ?<span
+                                                            <label for="unhelped_group"  class="label-size-small">অন্যান্য সুবিধা বঞ্চিত গোষ্ঠীর কাউকে নিয়োগ করেছেন ?<span
                                                                     class="required"> *</span> </label>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-6">
@@ -917,6 +924,7 @@
             }
         });
         $('input[name="others_number_one"]').on('change', function () {
+
             if($(this).val() =='yes'){
                 $("#others_total_number_section").show();
             }
@@ -941,7 +949,15 @@
                 $("#unhelped_group_number").hide();
             }
         });
+        $('input[name="respondent_designation"]').on('change', function () {
+            if($(this).val() ==''){
+                $("#respondent_others_detail_section").show();
 
+            }
+            else {
+                $("#respondent_others_detail_section").hide();
+            }
+        });
         const EDIT = !!'{{$edit}}';
         let SL = 0;
 

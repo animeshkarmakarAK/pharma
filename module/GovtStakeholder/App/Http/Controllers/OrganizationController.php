@@ -140,7 +140,10 @@ class OrganizationController extends BaseController
 
     public function organizationInformationStore(Request $request): RedirectResponse
     {
-        dd($request->all());
+        return back()->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'organization']),
+            'alert-type' => 'success'
+        ]);
     }
 
 }
