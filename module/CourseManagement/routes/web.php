@@ -113,8 +113,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::POST('organization-complains/datatable', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'getOrganizationComplainList'])->name('organization-complains.datatable');
     Route::get('organization-complains/{organization_complain_to_youth}', [Module\CourseManagement\App\Http\Controllers\OrganizationComplainController::class, 'show'])->name('organization-complains-get-one');
 
-    Route::get('youths/certificate/{youth}', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'youthCertificateList'])
-        ->name('youths.certificate');
+
 
     Route::get('youths/certificate/course/{youth_course_enroll}', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'youthCertificateCourseWise'])
         ->name('youths.certificate.course');
