@@ -14,7 +14,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OrganizationInformationService
 {
-    public function createOrganizationInformation(array $data): OrganizationInformation
+    public function createOrganizationInformation(array $data): bool
     {
 //        dd($data);
         $organizationInfo = new OrganizationInformation;
@@ -30,8 +30,8 @@ class OrganizationInformationService
             $organizationInfo->respondent_designation = "";
         }
 
-//        $organizationInfo->industry_sector = $data['industry_sector'];
-//        $organizationInfo->industry_started = $data['industry_started'];
+        $organizationInfo->industry_sector = $data['industry_sector'];
+        $organizationInfo->industry_started = $data['industry_started'];
         $organizationInfo->industry_association = $data['industry_association'];
         $organizationInfo->industry_type = $data['industry_type'];
 
@@ -110,7 +110,13 @@ class OrganizationInformationService
             'respondent_designation' => [
                 'required'
             ],
-            'industry_association' => [
+            'respondent_others_detail' => [
+                'required'
+            ],
+            'industry_sector' => [
+                'required'
+            ],
+            'industry_started' => [
                 'required'
             ],
             'industry_association' => [
@@ -137,10 +143,22 @@ class OrganizationInformationService
             'others_number_one' => [
                 'required'
             ],
+            'others_total_number' => [
+                'required'
+            ],
+            'other_country_employee_number' => [
+                'required'
+            ],
             'disabled_person' => [
                 'required'
             ],
+            'disabled_person_number' => [
+                'required'
+            ],
             'unhelped_group' => [
+                'required'
+            ],
+            'unhelped_group_number' => [
                 'required'
             ],
             'senior_level_one' => [
@@ -150,6 +168,21 @@ class OrganizationInformationService
                 'required'
             ],
             'junior_level_one' => [
+                'required'
+            ],
+            'senior_level_two' => [
+                'required'
+            ],
+            'middle_level_two' => [
+                'required'
+            ],
+            'junior_level_two' => [
+                'required'
+            ],
+            'employee_problem' => [
+                'required'
+            ],
+            'employee_problem_detail' => [
                 'required'
             ],
             'outside_employee' => [
