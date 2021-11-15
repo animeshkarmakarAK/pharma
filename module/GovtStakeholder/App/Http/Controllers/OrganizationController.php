@@ -122,28 +122,4 @@ class OrganizationController extends BaseController
         return \view(self::VIEW_PATH . 'organization-information');
     }
 
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-
-    public function getOrganizationInformation(Request $request): JsonResponse
-    {
-
-    }
-
-    public function organizationInformationCreate()
-    {
-        return \view(self::VIEW_PATH . 'orginfo-edit-add');
-    }
-
-    public function organizationInformationStore(Request $request): RedirectResponse
-    {
-        return back()->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'organization']),
-            'alert-type' => 'success'
-        ]);
-    }
-
 }

@@ -43,7 +43,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('govt_stakeholder::admin.organization-information.datatable') }}',
+                url: '{{}}',
                 order: [[2, "asc"]],
                 columns: [
                     {
