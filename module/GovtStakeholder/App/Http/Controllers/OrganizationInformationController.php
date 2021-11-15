@@ -54,15 +54,16 @@ class OrganizationInformationController extends BaseController
     {
         $organizationInfoValidatedData = $this->organizationInformationService->validator($request)->validate();
         $this->organizationInformationService->createOrganizationInformation($organizationInfoValidatedData);
-//        try {
-//
-//        } catch (\Throwable $exception) {
-//            Log::debug($exception->getMessage());
-//            return back()->with([
-//                'message' => __('generic.something_wrong_try_again'),
-//                'alert-type' => 'error'
-//            ]);
-//        }
+
+        try {
+
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
 
         return back()->with([
             'message' => __('generic.object_created_successfully', ['object' => 'OrganizationInformation']),
