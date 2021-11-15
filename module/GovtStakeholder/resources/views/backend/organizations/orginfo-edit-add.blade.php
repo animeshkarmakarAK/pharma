@@ -1,10 +1,23 @@
+
 @php
+    $currentInstitute = domainConfig('institute');
+    $layout = 'master::layouts.front-end';
+
+@endphp
+@extends($layout)
+
+@section('title')
+    প্রথম পাতা
+@endsection
+
+@section('content')
+    @php
     $edit = !empty($organization->id);
 @endphp
 
-@extends('master::layouts.master')
+{{--@extends('master::layouts.master')--}}
 
-@section('content')
+{{--@section('content')--}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -14,7 +27,7 @@
 
                         <div class="card-tools">
                             @can('viewAny', \Module\GovtStakeholder\App\Models\Organization::class)
-                                <a href="{{route('govt_stakeholder::admin.organization-information')}}"
+                                <a href="{{route('organization-information')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> Back to list
                                 </a>
@@ -23,7 +36,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{route('govt_stakeholder::admin.organization-information.store')}}" method="post" id="employee-vertical-wizard">
+                        <form action="{{route('organization-information.store')}}" method="post" id="employee-vertical-wizard">
                             @csrf
                             <div>
                                 <h3>তথ্যগ্রহীতার তথ্য</h3>
@@ -127,7 +140,7 @@
                                                         <div class="custom-control custom-radio">
                                                             <input class="custom-control-input" type="radio" id="respondent_others"
                                                                    name="respondent_designation"
-                                                                   value="">
+                                                                   value="other">
                                                             <label for="respondent_others" class="custom-control-label">অন্যান্য</label>
                                                         </div>
                                                     </div>
@@ -150,7 +163,7 @@
                                         <div class="row pt-4">
                                             <div class="col-sm-8 mb-4">
                                                 <div class="form-group">
-                                                    <label for="industry_sector">আপনার প্রতিষ্ঠানটি কোন সেক্টরের অন্তর্ভুক্ত?<span
+                                                    <label for="industry_sector" >আপনার প্রতিষ্ঠানটি কোন সেক্টরের অন্তর্ভুক্ত?<span
                                                             style="color: red"> * </span></label>
                                                     <select name="industry_sector" id="industry_sector" class="form-control select">
                                                         <option value="">নির্বাচন করুন</option>
@@ -548,27 +561,27 @@
                                                             <div id="collapse2" aria-labelledby="heading" data-parent="#question2" class="collapse">
                                                                 <div class="card-body p-2 pl-4 border">
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities" id="inlineCheckbox6" value="চামালের সর্বচ্চো ব্যবহার নিশ্চিত হয়">
+                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities[]" id="inlineCheckbox6" value="চামালের সর্বচ্চো ব্যবহার নিশ্চিত হয়">
                                                                         <label class="custom-control-label" for="inlineCheckbox6">চামালের সর্বচ্চো ব্যবহার নিশ্চিত হয়</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities" id="inlineCheckbox7" value="উৎপাদনশীলতা বাড়ে">
+                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities[]" id="inlineCheckbox7" value="উৎপাদনশীলতা বাড়ে">
                                                                         <label class="custom-control-label" for="inlineCheckbox7">উৎপাদনশীলতা বাড়ে </label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities" id="inlineCheckbox8" value="শ্রমবিভাজন করতে সুবিধা হয়">
+                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities[]" id="inlineCheckbox8" value="শ্রমবিভাজন করতে সুবিধা হয়">
                                                                         <label class="custom-control-label" for="inlineCheckbox8">শ্রমবিভাজন করতে সুবিধা হয়</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities" id="inlineCheckbox9" value="উৎপাদিত পণ্যের গুনগত মান বৃদ্ধি পায়">
+                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities[]" id="inlineCheckbox9" value="উৎপাদিত পণ্যের গুনগত মান বৃদ্ধি পায়">
                                                                         <label class="custom-control-label" for="inlineCheckbox9">উৎপাদিত পণ্যের গুনগত মান বৃদ্ধি পায়</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities" id="inlineCheckbox10" value="প্রতিষ্ঠানের আয় বৃদ্ধি পায়">
+                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities[]" id="inlineCheckbox10" value="প্রতিষ্ঠানের আয় বৃদ্ধি পায়">
                                                                         <label class="custom-control-label" for="inlineCheckbox10">প্রতিষ্ঠানের আয় বৃদ্ধি পায়</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities" id="inlineCheckbox11" value="অন্যান্য">
+                                                                        <input class="custom-control-input" type="checkbox" name="institute_facilities[]" id="inlineCheckbox11" value="অন্যান্য">
                                                                         <label class="custom-control-label" for="inlineCheckbox11">অন্যান্য</label>
                                                                     </div>
                                                                 </div>
@@ -589,23 +602,23 @@
                                                             <div id="collapse3" aria-labelledby="heading" data-parent="#question3" class="collapse">
                                                                 <div class="card-body p-2 pl-4 border">
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media" id="inlineCheckbox12" value="জব ফেয়ার">
+                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media[]" id="inlineCheckbox12" value="জব ফেয়ার">
                                                                         <label class="custom-control-label" for="inlineCheckbox12">জব ফেয়ার</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media" id="inlineCheckbox13" value="পত্রিকায় বিজ্ঞাপন">
+                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media[]" id="inlineCheckbox13" value="পত্রিকায় বিজ্ঞাপন">
                                                                         <label class="custom-control-label" for="inlineCheckbox13">পত্রিকায় বিজ্ঞাপন</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media" id="inlineCheckbox14" value="্যক্তি মাধ্যম">
+                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media[]" id="inlineCheckbox14" value="্যক্তি মাধ্যম">
                                                                         <label class="custom-control-label" for="inlineCheckbox14">ব্যক্তি মাধ্যম</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media" id="inlineCheckbox15" value="জব পোর্টাল">
+                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media[]" id="inlineCheckbox15" value="জব পোর্টাল">
                                                                         <label class="custom-control-label" for="inlineCheckbox15">জব পোর্টাল</label>
                                                                     </div>
                                                                     <div class="custom-control custom-checkbox border-0" style="padding-left: 1.5rem !important;">
-                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media" id="inlineCheckbox16" value="অন্যান্য">
+                                                                        <input class="custom-control-input" type="checkbox" name="recruitment_media[]" id="inlineCheckbox16" value="অন্যান্য">
                                                                         <label class="custom-control-label" for="inlineCheckbox16">অন্যান্য</label>
                                                                     </div>
                                                                 </div>
@@ -869,10 +882,10 @@
                 'employee_recruitment[]': {
                     required:true,
                 },
-                institute_facilities: {
+                'institute_facilities[]': {
                     required: true,
                 },
-                recruitment_media: {
+                'recruitment_media[]': {
                     required: true
                 },
                 decision_problem_1:{
@@ -948,7 +961,7 @@
             }
         });
         $('input[name="respondent_designation"]').on('change', function () {
-            if($(this).val() ==''){
+            if($(this).val() =='other'){
                 $("#respondent_others_detail_section").show();
 
             }
