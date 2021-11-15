@@ -52,6 +52,7 @@ class OrganizationInformationController extends BaseController
     public function organizationInformationStore(Request $request): RedirectResponse
 
     {
+//        dd($request->all());
         $organizationInfoValidatedData = $this->organizationInformationService->validator($request)->validate();
         $this->organizationInformationService->createOrganizationInformation($organizationInfoValidatedData);
 

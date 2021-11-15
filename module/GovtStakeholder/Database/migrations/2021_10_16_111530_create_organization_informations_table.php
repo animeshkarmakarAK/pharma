@@ -40,7 +40,7 @@ class CreateOrganizationInformationsTable extends Migration
             $table->integer('senior_level_one')->nullable();
             $table->integer('middle_level_one')->nullable();
             $table->integer('junior_level_one')->nullable();
-            $table->integer('outside_employee')->nullable();
+            $table->string('outside_employee')->nullable();
             $table->integer('other_country_employee_number')->nullable();
             $table->integer('senior_level_two')->nullable();
             $table->integer('middle_level_two')->nullable();

@@ -857,28 +857,28 @@
                     required: true,
                     digits: true
                 },
-                senior_level_two: {
-                    required: true,
-                    digits: true
-                },
-                middle_level_two: {
-                    required: true,
-                    digits: true
-                },
-                junior_level_two: {
-                    required: true,
-                    digits: true
-                },
-                other_country_employee_number: {
-                    required: true,
-                    digits: true
-                },
-                employee_problem: {
-                    required: true,
-                },
-                employee_problem_detail: {
-                    required: true,
-                },
+                // senior_level_two: {
+                //     required: true,
+                //     digits: true
+                // },
+                // middle_level_two: {
+                //     required: true,
+                //     digits: true
+                // },
+                // junior_level_two: {
+                //     required: true,
+                //     digits: true
+                // },
+                // other_country_employee_number: {
+                //     required: true,
+                //     digits: true
+                // },
+                // employee_problem: {
+                //     required: true,
+                // },
+                // employee_problem_detail: {
+                //     required: true,
+                // },
                 'employee_recruitment[]': {
                     required:true,
                 },
