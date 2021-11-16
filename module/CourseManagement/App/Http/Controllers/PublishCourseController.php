@@ -45,18 +45,18 @@ class PublishCourseController extends Controller
      */
     public function create(): View
     {
-        $courses = Course::active()->get();
-        $programmes = Programme::active()->get();
-        $branches = Branch::active()->get();
-        $trainingCenters = TrainingCenter::active()->get();
-        $applicationFormTypes = ApplicationFormType::active()->get();
+        $currentInstitute = domainConfig('institute');
+
+        $courses = Course::where('institute_id',$currentInstitute->id )->active()->get();
+        $programmes = Programme::where('institute_id',$currentInstitute->id )->active()->get();
+        $trainingCenters = TrainingCenter::where('institute_id',$currentInstitute->id )->active()->get();
+        $applicationFormTypes = ApplicationFormType::where('institute_id',$currentInstitute->id )->active()->get();
 
 
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'publishCourse' => new PublishCourse(),
             'institutes' => Institute::active()->get(),
             'courses' => $courses,
-            'branches' => $branches,
             'trainingCenters' => $trainingCenters,
             'programmes' => $programmes,
             'applicationFormTypes' => $applicationFormTypes,
@@ -72,7 +72,6 @@ class PublishCourseController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-
         $validatedData = $this->publishCourseService->validator($request)->validate();
 
         DB::beginTransaction();
@@ -100,9 +99,10 @@ class PublishCourseController extends Controller
      */
     public function show(PublishCourse $publishCourse): View
     {
-        $courseSessions = CourseSession::where(['publish_course_id'=>$publishCourse->id])->get();
+        $preSelectedTrainingCenters = TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
+        $courseSessions = CourseSession::where(['publish_course_id' => $publishCourse->id])->get();
 
-        return \view(self::VIEW_PATH . 'read', compact('publishCourse','courseSessions'));
+        return \view(self::VIEW_PATH . 'read', compact('publishCourse','preSelectedTrainingCenters', 'courseSessions'));
     }
 
     /**
@@ -110,21 +110,29 @@ class PublishCourseController extends Controller
      */
     public function edit(PublishCourse $publishCourse)
     {
+
+        $preSelectedTrainingCenters = TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
+        $trainingCenters = TrainingCenter::where('institute_id',$publishCourse->institute_id )->active()->get();
+
+        $selectedTrainingCenters = [];
+        foreach ($preSelectedTrainingCenters as $preSelectedTrainingCenter) {
+            array_push($selectedTrainingCenters, $preSelectedTrainingCenter->id);
+        }
+
         $publishCourse->load('courseSessions');
-        $courses = Course::active()->get();
-        $programmes = Programme::active()->get();
-        $branches = Branch::active()->get();
-        $trainingCenters = TrainingCenter::active()->get();
-        $applicationFormTypes = ApplicationFormType::active()->get();
+        $courses = Course::where('institute_id',$publishCourse->institute_id)->active()->get();
+        $programmes = Programme::where('institute_id',$publishCourse->institute_id)->active()->get();
+        $applicationFormTypes = ApplicationFormType::where('institute_id',$publishCourse->institute_id)->active()->get();
+
 
         return \view(self::VIEW_PATH . 'edit-add', compact('publishCourse'))->with([
             'institutes' => Institute::active()->get(),
             'publishCourse' => $publishCourse,
             'courses' => $courses,
-            'branches' => $branches,
             'trainingCenters' => $trainingCenters,
             'programmes' => $programmes,
             'applicationFormTypes' => $applicationFormTypes,
+            'selectedTrainingCenters' => $selectedTrainingCenters,
         ]);
     }
 

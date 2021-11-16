@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('static-page/check-page-id', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'checkCode'])->name('check-page-id');
     Route::post('courses/check-course-code', [Module\CourseManagement\App\Http\Controllers\CourseController::class, 'checkCode'])->name('check-course-code');
     Route::post('batches/check-batch-code', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'checkCode'])->name('check-batch-code');
+    Route::post('batches/batch-training-centers', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'batchTrainingCenter'])->name('batch-training-centers');
 
     Route::resource('visitor-feedback', Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class)->only(['index', 'destroy', 'show']);
     Route::post('visitor-feedback/datatable', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
@@ -150,7 +151,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('fiscal-year', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'fiscalYear'])->name('fiscal-year');
     Route::get('venue-list/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueList'])->name('venue-list');
 
-    Route::post('venue-list', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
+//    Route::post('venue-list', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
     Route::post('venue-list-search', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
 
     Route::resources([
@@ -178,5 +179,6 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('events/{event}', [\Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
     Route::post('institute-events', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
     Route::post('institute-events-date', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
+    Route::post('publish-course-training-centers', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'publishCourseTrainingCenter'])->name('publish-course-training-centers');
 
 });

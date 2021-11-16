@@ -198,17 +198,20 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="card-p1">{{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                                     <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-clock gray-color mr-2"></i>
                                                                         <span
                                                                             class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
-                                                                    <p class="font-weight-light float-left"><i
+                                                                    <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-user-plus gray-color mr-2"></i>
 
                                                                         <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
+                                                                    </p>
+                                                                    <p class="card-p1 float-left mb-1">
+                                                                        <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                                        {{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -220,10 +223,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
                                             @endforeach
                                         </div>
                                     </div>
                                 </div>
+
                                 <!--Controls-->
                                 <div class="controls-top">
                                     <a class="btn-floating left-btn-arrow" href="#courseCarousel"
@@ -258,16 +264,19 @@
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="card-p1">{{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                         <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-clock gray-color mr-2"></i> <span
                                                                 class="course-p">{{ !empty($publishCourse->duration) ? $publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                         </p>
-                                                        <p class="font-weight-light float-left"><i
+                                                        <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-user-plus gray-color mr-2"></i>
                                                             <span
                                                                 class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'' )}} )</span>
+                                                        </p>
+                                                        <p class="card-p1 float-left mb-1">
+                                                            <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                            {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
                                                         <p class="float-right">
                                                             <a href="javascript:;"
@@ -306,17 +315,20 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="card-p1">{{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                                     <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-clock gray-color mr-2"></i>
                                                                         <span
                                                                             class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
-                                                                    <p class="font-weight-light float-left"><i
+                                                                    <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-user-plus gray-color mr-2"></i>
 
                                                                         <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
+                                                                    </p>
+                                                                    <p class="card-p1 float-left mb-1">
+                                                                        <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                                        {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
@@ -366,16 +378,19 @@
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="card-p1">{{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}</p>
                                                         <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title_bn/*." (".$publishCourse->session_name_bn.")"*/:'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-clock gray-color mr-2"></i> <span
                                                                 class="course-p">{{ !empty($publishCourse->course->duration)?$publishCourse->course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                         </p>
-                                                        <p class="font-weight-light float-left"><i
+                                                        <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-user-plus gray-color mr-2"></i>
                                                             <span
                                                                 class="course-p"> আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
+                                                        </p>
+                                                        <p class="card-p1 float-left mb-1">
+                                                            <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                            {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
                                                         <p class="float-right">
                                                             <a href="javascript:;"
@@ -882,7 +897,7 @@
 
         .about-us-content p {
             line-height: 30px;
-            font-size: 14px;
+            font-size: 20px;
         }
 
         .about-use-para-heading {
@@ -1251,7 +1266,31 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
     <script>
+        function todayEvent(){
+            let today = new Date();
+            today = new Intl.DateTimeFormat('bn-BD').format(today);
+            return today;
+        }
+
+        function eventDate(date){
+            let eventDate = new Date(date);
+            eventDate = new Intl.DateTimeFormat('bn-BD').format(eventDate);
+            return eventDate;
+        }
+        function eventTime(date) {
+            let time = new Date(date);
+            time = time.toLocaleTimeString(['bn-BD'], {hour: '2-digit', minute:'2-digit'});
+            return time;
+        }
+
         function eventsTemplate(key) {
+            let eventClass = '';
+            if(todayEvent() == eventDate(this.date)){
+                eventClass= 'today-event';
+            }
+            else{
+                eventClass='';
+            }
             return '<div class="card shadow-none mb-0">' +
                 '<div id="heading' + key + '" class="card-header bg-white shadow-sm border-0">' +
                 '<h2 class="mb-0">' +
@@ -1259,9 +1298,9 @@
                 'aria-expanded="true" aria-controls="collapseOne"' +
                 'class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">' +
                 this.caption +
-                '<p class="mb-0">' +
+                '<p class="mb-0 mt-1">' +
                 '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date {{ \Carbon\Carbon::now()?'today-event':'' }}  ml-1">' + this.date + '</span>' +
+                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) +'    '+eventTime(this.date) + '</span>' +
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
@@ -1287,12 +1326,12 @@
                 type: "POST",
                 data: {date: date},
             }).done(function (response) {
-                $("#eventArea").empty();
+                $("#eventArea").hide().empty();
                 let events = '';
                 $.each(response, function (key, value) {
                     events += eventsTemplate.call(value, key)
                 })
-                $("#eventArea").html(events);
+                $("#eventArea").delay(100).fadeIn(800).html(events);
             }).fail(function (xhr) {
                 failureCallback([]);
             });
@@ -1332,12 +1371,12 @@
                         type: "POST",
                     }).done(function (response) {
                         successCallback(response);
-                        //$('.fc-event-title').attr('title', 'কোর্সের বিস্তারিত দেখুন');
                     }).fail(function (xhr) {
                         failureCallback([]);
                     });
                 },
                 dateClick: function (info) {
+                    console.log(info);
                     let eventDateTime = new Date(info.dateStr);
                     eventDateTime = new Intl.DateTimeFormat('bn-BD', {
                         weekday: 'long',

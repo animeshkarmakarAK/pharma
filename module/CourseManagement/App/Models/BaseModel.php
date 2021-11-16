@@ -11,6 +11,6 @@ abstract class BaseModel extends \App\Models\BaseModel
     /** BIRTHDATE FORMAT  */
     public const BIRTHDATE_FORMAT = "Y-m-d";
     /** MOBILE REGEX  */
-    public const MOBILE_REGEX = 'regex: /^(1[3-9]\d{8})$/';
+    public const MOBILE_REGEX = 'regex: /^(01[3-9]\d{8})$/';
 
 }

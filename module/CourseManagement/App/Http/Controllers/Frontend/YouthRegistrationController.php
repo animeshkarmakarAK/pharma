@@ -9,6 +9,7 @@ use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\PublishCourse;
+use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthRegistration;
@@ -40,6 +41,7 @@ class YouthRegistrationController extends Controller
         $publishedCourseId = $request->query('publish_course_id');
 
         $divisions = LocDivision::active()->get();
+
         /** @var PublishCourse $publishedCourse */
         $publishCourse = [];
         if ($publishedCourseId) {
@@ -52,8 +54,8 @@ class YouthRegistrationController extends Controller
                 'institute',
                 'course',
                 'programme',
-                'trainingCenter',
-                'branch',
+                //'trainingCenter',
+                //'branch',
                 'applicationFormType'
             ]);
 
@@ -278,6 +280,13 @@ class YouthRegistrationController extends Controller
         ]);
 
 
+    }
+
+
+    public function publishCourseTrainingCenter(Request $request)
+    {
+        $publishCourse = PublishCourse::findOrFail($request->publish_course_id);
+        return TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
     }
 
 }

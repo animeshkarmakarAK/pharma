@@ -44,19 +44,17 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Branch Name') }}</p>
-                    <div class="input-box">
-                        {{ $publishCourse->branch ? $publishCourse->branch->title_en : '' }}
-                    </div>
-                </div>
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Training Center') }}</p>
-                    <div class="input-box">
-                        {{ $publishCourse->trainingCenter ? $publishCourse->trainingCenter->title_en : ''}}
+                @if(!empty($preSelectedTrainingCenters))
+                    <div class="col-md-6 custom-view-box">
+                        <p class="label-text">{{ __('Training Center') }}</p>
+                        <div class="input-box">
+                            @foreach($preSelectedTrainingCenters as $preSelectedTrainingCenter)
+                                <span class="badge badge-info">{{ $preSelectedTrainingCenter->title_en}}</span>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Programme') }}</p>

@@ -185,7 +185,7 @@ class YouthRegistrationService
             'gender' => 'required|int',
             'marital_status' => 'required|int',
             'branch_id' => 'nullable|int',
-            'training_center_id' => 'nullable|int',
+            'training_center_id' => 'required|int',
             'programme_id' => 'nullable|int',
             'publish_course_id' => 'required|int',
             'institute_id' => 'required|int',

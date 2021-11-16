@@ -38,8 +38,8 @@ return [
 
     //feedback_managment
     'feedback_management'=>'ফিডব্যাক ম্যানেজমেন্ট',
-    'youth_complains'=>'ইয়ুথ এর অভিযোগ',
-    'organization_complains'=>'ইন্ডাস্ট্রি এর অভিযোগ',
+    'youth_complains'=>'ইয়ুথ ফিডব্যাক',
+    'organization_complains'=>'ইন্ডাস্ট্রি ফিডব্যাক',
 
     //content management
     'content_management' => 'কন্টেন্ট ম্যানেজমেন্ট',

@@ -17,7 +17,7 @@ class CreatePublishCoursesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('institute_id')->index('publish_courses_fk_institute_id');
             $table->unsignedInteger('branch_id')->nullable()->index('publish_courses_fk_branch_id');
-            $table->unsignedInteger('training_center_id')->nullable()->index('publish_courses_fk_training_center_id');
+            $table->text('training_center_id')->nullable();//->index('publish_courses_fk_training_center_id');
             $table->unsignedInteger('programme_id')->nullable()->index('publish_courses_fk_programme_id');
             $table->unsignedInteger('application_form_type_id')->index('publish_courses_fk_application_form_type_id');
             $table->unsignedInteger('course_id')->index('publish_courses_fk_course_id');

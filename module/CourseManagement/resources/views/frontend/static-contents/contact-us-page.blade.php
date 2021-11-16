@@ -40,27 +40,20 @@
                                                                     id="receiver">
                                                                 <optgroup label="ইনস্টিটিউট">
                                                                     <option
-                                                                        {{--value="institute-{{ $currentInstitute->id }}"--}}
-                                                                        value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: $currentInstitute->id }}"
+                                                                        value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: 'institute_id_'.$currentInstitute->id }}"
+                                                                        data-address="{{ !empty($currentInstitute->address)? $currentInstitute->address: 'N/A' }}"
+                                                                        data-mobile="{{ !empty($currentInstitute->primary_mobile)? $currentInstitute->primary_mobile: 'N/A' }}"
                                                                     >
                                                                         {{ $currentInstitute->title_bn }}
                                                                     </option>
                                                                 </optgroup>
-                                                                {{--@if(\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                                    <optgroup label="Branch">
-                                                                        @foreach(\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
-                                                                            <option value="branch-{{ $branch->id }}">
-                                                                                {{ $branch->title_bn }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </optgroup>
-                                                                @endif--}}
                                                                 @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
                                                                     <optgroup label="ট্রেনিং সেন্টার">
                                                                         @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                             <option
-                                                                                {{--value="training_center-{{ $trainingCenter->id }}"--}}
-                                                                                value="{{ !empty($trainingCenter->google_map_src)?$trainingCenter->google_map_src: $trainingCenter->id }}"
+                                                                                value="{{ !empty($trainingCenter->google_map_src)?$trainingCenter->google_map_src: 'training_center_id_'.$trainingCenter->id }}"
+                                                                                data-address="{{ !empty($trainingCenter->address)? $trainingCenter->address: 'N/A' }}"
+                                                                                data-mobile="{{ !empty($trainingCenter->mobile)? $trainingCenter->mobile: 'N/A' }}"
                                                                             >
                                                                                 {{ $trainingCenter->title_bn }}
                                                                             </option>
@@ -110,7 +103,7 @@
                                                                class="col-sm-2 control-label">মতামত
                                                             <span style="color: red"> * </span></label>
                                                         <div class="col-sm-10">
-                                                        <textarea class="form-control" name="comment" rows="4"
+                                                        <textarea class="form-control" name="comment" rows="5"
                                                                   required="required" id="comment"
                                                                   aria-required="true"></textarea>
                                                         </div>
@@ -150,37 +143,42 @@
                                                                 id="google_map_src">
                                                             <optgroup label="ইনস্টিটিউট">
                                                                 <option
-                                                                    value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: $currentInstitute->id }}">
-                                                                    {{ $currentInstitute->title_bn }}
+                                                                    value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: 'institute_id_'.$currentInstitute->id }}"
+                                                                    data-address="{{ !empty($currentInstitute->address)? $currentInstitute->address: 'N/A' }}"
+                                                                    data-mobile="{{ !empty($currentInstitute->primary_mobile)? $currentInstitute->primary_mobile: 'N/A' }}"
+                                                                >{{ $currentInstitute->title_bn }}
                                                                 </option>
                                                             </optgroup>
-                                                            {{--@if(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->count()>0)
-                                                                <optgroup label="ব্রাঞ্চ">
-                                                                    @foreach(\Module\CourseManagement\App\Models\Branch::where(['institute_id'=>$currentInstitute->id])->get() as $branch)
-                                                                        <option value="{{ $branch->google_map_src }}">
-                                                                            {{ $branch->title_bn }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </optgroup>
-                                                            @endif--}}
                                                             @if(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
                                                                 <optgroup label="ট্রেনিং সেন্টার">
                                                                     @foreach(\Module\CourseManagement\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->get() as $trainingCenter)
                                                                         <option
-                                                                            value="{{ !empty($trainingCenter->google_map_src)?$trainingCenter->google_map_src: $trainingCenter->id }}">
+                                                                            value="{{ !empty($trainingCenter->google_map_src)?$trainingCenter->google_map_src: 'training_center_id_'.$trainingCenter->id }}"
+                                                                            data-address="{{ !empty($trainingCenter->address)? $trainingCenter->address: 'N/A' }}"
+                                                                            data-mobile="{{ !empty($trainingCenter->mobile)? $trainingCenter->mobile: 'N/A' }}"
+                                                                        >
                                                                             {{ $trainingCenter->title_bn }}
                                                                         </option>
                                                                     @endforeach
                                                                 </optgroup>
                                                             @endif
                                                         </select>
+                                                        <div class="p-3"
+                                                             style="border: 2px solid #ddf1ff;border-radius: 5px;margin-top: 5px;">
+                                                            <p class="p-0 m-0">Address: <span
+                                                                    id="address-area-id">{{ !empty($currentInstitute->address)? $currentInstitute->address: 'N/A' }}</span>
+                                                            </p>
+                                                            <p class="p-0 m-0">Mobile: <span
+                                                                    id="mobile-area-id">{{ !empty($currentInstitute->primary_mobile)? $currentInstitute->primary_mobile:'N/A' }}</span>
+                                                            </p>
+                                                        </div>
                                                     </div>
 
                                                     <div class="mt-2" style="display: block;">
                                                         <div class="">
                                                             <iframe class="google_map_src_iframe" frameborder="0"
                                                                     src="{{ $currentInstitute->google_map_src? $currentInstitute->google_map_src :'' }}"
-                                                                    style="border:0; height: 309px;"
+                                                                    style="height: 242px;border: 2px solid #ddf1ff; border-radius: 5px;"
                                                                     width="100%"></iframe>
                                                         </div>
                                                     </div>
@@ -234,17 +232,12 @@
                                 <div class="col-md-4 contact-box text-center">
                                     <div class="d-inline-flex" style="width: 215px">
                                         <i class="fas fa-envelope-open-text template-contact-icon"></i>
-                                        <p><a class="" style="color: #212529;" onMouseOver="this.style.color='#4b77be'"
-                                              onMouseOut="this.style.color='#212529'"
-                                              href="mailto:ict@bitac.gov.bd">
-                                                <span>
-                                                    <a class="footer-email"
-                                                       href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
-                                                        <span
-                                                            style="font-family:'Roboto', sans-serif; font-size: 17px;">
-                                                            {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
-                                                        </span>
-                                                    </a>
+                                        <p>
+                                            <a class="footer-email" style="color: #869099;"
+                                               href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
+                                                <span
+                                                    style="font-family:'Roboto', sans-serif; font-size: 17px;">
+                                                    {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
                                                 </span>
                                             </a>
                                         </p>
@@ -408,6 +401,13 @@
             } else {
                 $('.google_map_src_iframe').attr("src", google_map_src);
             }
+
+
+            let address = $(this).find(':selected').attr('data-address');
+            $('#address-area-id').html(address);
+
+            let mobile = $(this).find(':selected').attr('data-mobile');
+            $('#mobile-area-id').html(mobile);
         })
     </script>
 

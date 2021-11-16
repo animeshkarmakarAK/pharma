@@ -8,6 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\GovtStakeholder\App\Models\Organization;
 use Yajra\DataTables\Facades\DataTables;
 use App\Helpers\Classes\FileHandler;
@@ -139,7 +140,6 @@ class OrganizationService
         ]);
         $organization->join('organization_types', 'organizations.organization_type_id', '=', 'organization_types.id');
 
-
         return DataTables::eloquent($organization)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Organization $organization) use ($authUser) {
                 $str = '';
@@ -149,7 +149,8 @@ class OrganizationService
                 if ($authUser->can('update', $organization)) {
                     $str .= '<a href="' . route('govt_stakeholder::admin.organizations.edit', $organization->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
-                if ($authUser->can('delete', $organization)) {
+                $youthOrg = YouthOrganization::where('organization_id', '=', $organization->id)->first();
+                if ($authUser->can('delete', $organization) && !$youthOrg) {
                     $str .= '<a href="#" data-action="' . route('govt_stakeholder::admin.organizations.destroy', $organization->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 return $str;
@@ -157,7 +158,6 @@ class OrganizationService
             ->rawColumns(['action'])
             ->toJson();
     }
-
 
     public function deleteOrganization(Organization $organization): bool
     {

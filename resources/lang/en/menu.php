@@ -36,8 +36,8 @@ return [
 
     //feedback_managment
     'feedback_management'=>'Feedback Management',
-    'youth_complains'=>'Youth Complains',
-    'organization_complains'=>'Industry Complains',
+    'youth_complains'=>'Youth Feedback',
+    'organization_complains'=>'Industry Feedback',
 
     //content management
     'content_management' => 'Content Management',

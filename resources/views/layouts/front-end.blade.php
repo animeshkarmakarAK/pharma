@@ -13,8 +13,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.0/css/OverlayScrollbars.min.css">
+    <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
 
     <style>
+        @font-face {
+            font-family: NikoshBAN;
+            src: url('{{asset('/assets/font/NikoshBAN.ttf')}}');
+        }
+
+        body {
+            font-family: 'NikoshBAN','Kalpurush', sans-serif;
+        }
         /*new style start*/
         .menu-bg-color {
             background: #671688;

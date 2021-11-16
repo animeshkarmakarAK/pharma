@@ -1,6 +1,7 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
+
 @endphp
 
 @extends($layout)
@@ -10,6 +11,9 @@
 @endsection
 
 @section('content')
+{{--    @foreach($maxEnrollmentNumber[0] as $max)--}}
+{{--        <pre>{{$max->publish_course_id}} => {{$max->total_seat}}</pre>--}}
+{{--    @endforeach--}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -212,13 +216,34 @@
                     color: white;
                     outline: none;
                 }
+                .card-p1 {
+                    color: #671688;
+                }
             </style>
         @endpush
         @push('js')
 
             <script>
+                let banglaNumber = {
+                    0: "০",
+                    1: "১",
+                    2: "২",
+                    3: "৩",
+                    4: "৪",
+                    5: "৫",
+                    6: "৬",
+                    7: "৭",
+                    8: "৮",
+                    9: "৯",
+                };
+                const engToBdNum = (str) => {
+                    for (var x in banglaNumber) {
+                        str = str.replace(new RegExp(x, "g"), banglaNumber[x]);
+                    }
+                    return str;
+                };
+
                 const template = function (key, item) {
-                    console.log('key: ' + key)
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-3">';
@@ -229,19 +254,23 @@
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
-                    html += '<p class="card-p1">' + (item.course_course_fee ? item.course_course_fee + ' টাকা' : 'শূন্য') + '</p>';
+
                     html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span ';
                     html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
                         '</span>';
                     html += '</p>';
-                    html += '<p class="font-weight-light float-left"><i';
+                    html += '<p class="font-weight-light mb-0"><i';
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'আসন সংখ্যা ( <span class="max-enroll' + key + '"></span> )</span>';
+                        'আসন সংখ্যা ( <span class="max-enroll">'+ item.total_seat +'</span> )</span>';
                     html += '</p>';
+
+                    html += '<p class="card-p1 float-left mb-1">';
+                    html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
+                    html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
                     html += '<p class="float-right">';
                     html += '<a href="javascript:;"';
                     html += 'onclick="courseDetailsModalOpen(' + item.id + ')"';
@@ -277,6 +306,8 @@
                     }
                     return html;
                 }
+
+
 
                 const searchAPI = function ({model, columns}) {
                     return function (url, filters = {}) {
@@ -338,13 +369,21 @@
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
 
+                        let seat = @php echo json_encode($maxEnrollmentNumber); @endphp;
+
                         $.each(response.data?.data, function (i, item) {
-                            console.log(i, item)
-                            html += template(i, item);
+
+                            for(let k=0; k < seat[0].length; k++){
+                                let name = seat[0][k].publish_course_id;
+                                if(name == item.id){
+                                    item.total_seat = engToBdNum(seat[0][k].total_seat);
+                                    break;
+                                }
+                            }
+                            html += template(seat[0][i].publish_course_id, item);
                         });
 
                         $('#container-publish-courses').html(html);
-                        console.table("response", response.data.links);
 
                         let link_html = '<nav> <ul class="pagination">';
                         let links = response?.data?.links;
@@ -383,14 +422,6 @@
                     $('#publish_course_id').on('change', function () {
                         publishCourseSearch();
                     });
-
-
-                    setTimeout(function () {
-                        @foreach($maxEnrollmentNumber as $key => $maxEnrollment)
-                        $('.max-enroll' + {{$key}}).html('{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn($maxEnrollment) }}');
-                        @endforeach
-                    }, 1000)
-
 
                 });
 

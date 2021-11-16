@@ -16,18 +16,18 @@ class OrganizationInformationService
 {
     public function createOrganizationInformation(array $data): bool
     {
-//        dd($data);
-        $organizationInfo = new OrganizationInformation;
+        $organizationInfo = new OrganizationInformation();
         $organizationInfo->informant_name = $data['informant_name'];
         $organizationInfo->informant_email = $data['informant_email'];
         $organizationInfo->informant_mobile = $data['informant_mobile'];
         $organizationInfo->informant_date = $data['informant_date'];
         $organizationInfo->respondent_name = $data['respondent_name'];
+
         if($data['respondent_designation'] == 'other'){
-            $organizationInfo->respondent_designation = $data['respondent_others_detail'];
+            $organizationInfo->respondent_others_detail = $data['respondent_others_detail'];
         }
         else{
-            $organizationInfo->respondent_designation = "";
+            $organizationInfo->respondent_designation = $data['respondent_designation'];
         }
 
         $organizationInfo->industry_sector = $data['industry_sector'];
@@ -86,6 +86,8 @@ class OrganizationInformationService
         $organizationInfo->decision_problem_4 = $data['decision_problem_4'];
         $organizationInfo->decision_problem_5 = $data['decision_problem_5'];
 
+        //dd($organizationInfo);
+
         return $organizationInfo->save();
     }
 
@@ -111,7 +113,7 @@ class OrganizationInformationService
                 'required'
             ],
             'respondent_others_detail' => [
-                'required'
+                'nullable'
             ],
             'industry_sector' => [
                 'required'
@@ -143,24 +145,24 @@ class OrganizationInformationService
             'others_number_one' => [
                 'required'
             ],
-            'others_total_number' => [
-                'required'
-            ],
-            'other_country_employee_number' => [
-                'required'
-            ],
+//            'others_total_number' => [
+//                'required'
+//            ],
+//            'other_country_employee_number' => [
+//                'required'
+//            ],
             'disabled_person' => [
                 'required'
             ],
-            'disabled_person_number' => [
-                'required'
-            ],
+//            'disabled_person_number' => [
+//                'required'
+//            ],
             'unhelped_group' => [
                 'required'
             ],
-            'unhelped_group_number' => [
-                'required'
-            ],
+//            'unhelped_group_number' => [
+//                'required'
+//            ],
             'senior_level_one' => [
                 'required'
             ],
@@ -170,21 +172,21 @@ class OrganizationInformationService
             'junior_level_one' => [
                 'required'
             ],
-            'senior_level_two' => [
-                'required'
-            ],
-            'middle_level_two' => [
-                'required'
-            ],
-            'junior_level_two' => [
-                'required'
-            ],
-            'employee_problem' => [
-                'required'
-            ],
-            'employee_problem_detail' => [
-                'required'
-            ],
+//            'senior_level_two' => [
+//                'required'
+//            ],
+//            'middle_level_two' => [
+//                'required'
+//            ],
+//            'junior_level_two' => [
+//                'required'
+//            ],
+//            'employee_problem' => [
+//                'required'
+//            ],
+//            'employee_problem_detail' => [
+//                'required'
+//            ],
             'outside_employee' => [
                 'required'
             ],

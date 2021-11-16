@@ -25,7 +25,7 @@
                                 <div class="col-md-1">
                                     <label
                                         style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                        ফিল্টার&nbsp;&nbsp;<i class="fa fa-filter"></i>
+                                        &nbsp;<i class="fa fa-filter mr-1"></i> ফিল্টার&nbsp;
                                     </label>
                                 </div>
 
@@ -33,7 +33,7 @@
                                     <input type="hidden" name="institute_id" id="institute_id"
                                            value="{{ $currentInstitute->id }}">
                                 @else
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <select class="form-control select2-ajax-wizard"
                                                     name="institute_id"
@@ -44,21 +44,6 @@
                                                     data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                             >
                                                 <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="branch_id"
-                                                    id="branch_id"
-                                                    data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
-                                                    data-label-fields="{title_bn}"
-                                                    data-depend-on="institute_id"
-                                                    data-dependent-fields="#training_centre_id"
-                                                    data-placeholder="ব্রাঞ্চ সিলেক্ট করুন"
-                                            >
                                             </select>
                                         </div>
                                     </div>
@@ -81,7 +66,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <button class="btn btn-success"
+                                    <button class="btn btn-success button-bg"
                                             id="course-session-filter-btn">{{ __('অনুসন্ধান') }}</button>
                                 </div>
 
@@ -131,7 +116,25 @@
                 .fc-daygrid-day-top{
                     justify-content: center;
                 }
-
+                .select2-container--bootstrap4 .select2-selection {
+                    background: #ffff;
+                    border: 1px solid #671688;
+                }
+                .button-bg {
+                    color: #ffffff;
+                    background-color: #671688 !important;
+                    border-color: #671688 !important;
+                }
+                .button-bg:hover {
+                    color: #ffffff;
+                    background-color: #671688 !important;
+                    border-color: #671688 !important;
+                }
+                .select2-container--bootstrap4 .select2-selection, .select2-container--bootstrap4.select2-container--focus .select2-selection {
+                    background: #ffff;
+                    border: 1px solid #671688;
+                    box-shadow: none;
+                }
 
             </style>
         @endpush
@@ -197,7 +200,6 @@
 
                     function filterEvent(){
                         delete calendar;
-                        let branch_id = $('#branch_id').val();
                         let training_center_id = $('#training_center_id').val();
 
                         let calendar1 = new FullCalendar.Calendar(calendarEl, {
@@ -221,7 +223,7 @@
                             events: function (fetchInfo, successCallback, failureCallback) {
                                 $.ajax({
                                     url: '{{route('course_management::yearly-training-calendar.all-event')}}',
-                                    data: {branch_id: branch_id, training_center_id: training_center_id},
+                                    data: {training_center_id: training_center_id},
                                     type: "POST",
                                 }).done(function (response) {
                                     successCallback(response);
@@ -246,10 +248,6 @@
                     $('#training_center_id').on('change', function (){
                         filterEvent();
                     });
-                    $('#branch_id').on('change', function (){
-                        filterEvent();
-                    });
-
 
                     $('.fc-event-title').click(function (){
                         console.log($('.fc-event-title').html());

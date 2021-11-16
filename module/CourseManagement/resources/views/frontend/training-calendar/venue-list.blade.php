@@ -13,8 +13,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
-                    <div class="card-header custom-bg-gradient-info">
-                        <h2 class="text-center text-primary font-weight-lighter">
+                    <div class="card-header p-5">
+                        <h2 class="text-center text-dark font-weight-bold">
                             কেন্দ্রের তালিকা সমূহ
                         </h2>
                     </div>

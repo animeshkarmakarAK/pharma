@@ -17,6 +17,9 @@ class YouthOrganization extends BaseModel
     protected $guarded = ['id'];
     protected $table = 'youth_organizations';
 
+    const CURRENT_EMPLOYMENT_STATUS_WORKING = 1;
+    const CURRENT_EMPLOYMENT_STATUS_NOT_WORKING = 0;
+
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
