@@ -29,6 +29,11 @@
     padding: 0.2rem 1em;
 }
 
+.tab-custom-error{
+    /*background: #ff3111;*/
+    border-bottom: 2px solid #ff3111 !important;
+}
+
 .form-check-inline {
     border: 0 !important;
     display: inline-flex !important;
