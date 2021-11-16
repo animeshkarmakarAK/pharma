@@ -173,9 +173,18 @@
                                                         <option value="ফার্মাসিউটিক্যাল">ফার্মাসিউটিক্যাল</option>
                                                         <option value="টুরিসম এন্ড হসপিটালিটি">টুরিসম এন্ড হসপিটালিটি</option>
                                                         <option value="লেদার এন্ড ফুটওয়ার">লেদার এন্ড ফুটওয়ার</option>
-                                                        <option value="আইসিটি এন্ড ই-কমারস">আইসিটি এন্ড ই-কমারস</option>
+                                                        <option value="আইসিটি এন্ড ই-কমারস">আইসিটি এন্ড ই-কমার্স</option>
+                                                        <option value="আইসিটি এন্ড ই-কমারস">লাইট ইঞ্জিনিয়ারিং</option>
                                                         <option value="কন্সট্রাকশন">কন্সট্রাকশন</option>
                                                         <option value="ফারনিচার">ফারনিচার</option>
+                                                        <option value="ক্রিয়েটিভ ইঞ্জিনিয়ারিং">ক্রিয়েটিভ ইঞ্জিনিয়ারিং</option>
+                                                        <option value="ইনফরমাল/এসএমই">ইনফরমাল/এসএমই</option>
+                                                        <option value="ইনস্যুরেন্স এন্ড ব্যাংকিং">ইনস্যুরেন্স এন্ড ব্যাংকিং</option>
+                                                        <option value="ট্রান্সপোরটেশন">ট্রান্সপোরটেশন</option>
+                                                        <option value="হেলথ কেয়ার">হেলথ কেয়ার</option>
+                                                        <option value="রিয়েল এস্টেট">রিয়েল এস্টেট</option>
+                                                        <option value="অন্যান্য">অন্যান্য</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -206,8 +215,14 @@
                                                             style="color: red"> * </span></label>
                                                     <select name="industry_type" id="industry_type" class="form-control select">
                                                         <option value="">নির্বাচন করুন</option>
-                                                        <option value="পাবলিক ব্যাংক">পাবলিক ব্যাংক</option>
-                                                        <option value="প্রাইভেট ব্যাংক">প্রাইভেট ব্যাংক</option>
+                                                        <option value="দেশি">দেশি</option>
+                                                        <option value="পবিদেশি">বিদেশি</option>
+                                                        <option value="পব্যক্তি মালিকানা">ব্যক্তি মালিকানা</option>
+                                                        <option value="অংশিদারিত্ত">অংশিদারিত্ত</option>
+                                                        <option value="প্রাইভেট লিমিটেদ কোম্পানি">প্রাইভেট লিমিটেদ কোম্পানি</option>
+                                                        <option value="পাবলিক লিমিটেদ কোম্পানি">পাবলিক লিমিটেদ কোম্পানি</option>
+                                                        <option value="সরকারি মালিকানা">সরকারি মালিকানা</option>
+                                                        <option value="অন্যান্য">অন্যান্য</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -510,7 +525,8 @@
                                                 </div>
                                                 <div class="tab-pane" id="tabs-3" role="tabpanel">
                                                     <h4 class="p-2 mt-3 mb-3">আপনার প্রতিষ্ঠানে নিয়োগের ক্ষেত্রে কোন ধরনের কর্মী নিয়োগ করবেন?</h4>
-                                                    <p class="pt-2 pb-2 font-weight-bold"> কর্মী নিয়োগ প্রতিষ্ঠান ভিত্তিক </p>
+                                                    <p class="pt-2 pb-2 font-weight-bold"> কর্মী নিয়োগ প্রতিষ্ঠান ভিত্তিক<span
+                                                            style="color: red"> * </span> </p>
                                                     <div id ="question1" class="accordion">
                                                         <div class="card shadow-none mb-0 bg-accordion">
                                                             <div id="heading" class="card-header border">
@@ -547,7 +563,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p class="pt-5 mb-2 font-weight-bold"> প্রশিক্ষনপ্রাপ্ত হলে আপনার প্রতিষ্ঠানে কী কী সুবিধা হয়? </p>
+                                                    <p class="pt-5 mb-2 font-weight-bold"> প্রশিক্ষনপ্রাপ্ত হলে আপনার প্রতিষ্ঠানে কী কী সুবিধা হয়?<span
+                                                            style="color: red"> * </span> </p>
                                                     <div id ="question2" class="accordion">
                                                         <div class="card shadow-none mb-0 bg-accordion">
                                                             <div id="heading" class="card-header border">
@@ -588,7 +605,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p class="pt-5 mb-2 font-weight-bold"> আপনার প্রতিষ্ঠানে নিয়োগের ক্ষেত্রে কোন মাধ্যম ব্যাবহার করেন? </p>
+                                                    <p class="pt-5 mb-2 font-weight-bold"> আপনার প্রতিষ্ঠানে নিয়োগের ক্ষেত্রে কোন মাধ্যম ব্যাবহার করেন?<span
+                                                            style="color: red"> * </span> </p>
                                                     <div id ="question3" class="accordion">
                                                         <div class="card shadow-none mb-0 bg-accordion">
                                                             <div id="heading" class="card-header border">
@@ -906,6 +924,19 @@
                 employee_level_occupation:{
                     required:true,
                 },
+            },
+            errorPlacement: function(error, element) {
+                if (element.is(':checkbox') ) {
+                    // error.insertBefore().closest('.accordion'),
+                    error.insertBefore( element.next() );
+                } else {
+                    error.insertAfter( element );
+                }
+            },
+            invalidHandler: function(e, validator) {
+                if (validator.errorList.length) {
+                    $('.nav-tabs a[href="#' + jQuery(validator.errorList[0].element).closest(".tab-pane").attr('id') + '"]').tab('show')
+                }
             }
         });
 
@@ -969,6 +1000,8 @@
                 $("#respondent_others_detail_section").hide();
             }
         });
+
+
         const EDIT = !!'{{$edit}}';
         let SL = 0;
 
@@ -1027,6 +1060,7 @@
             });
 
 
+
             /*if($('#senior_level_one-error')!=null){
                 alert('hi');
                 $('.tabs-2').css({'border-bottom': '2px solid #dc3545 !important'})
@@ -1034,6 +1068,14 @@
 
 
         });
+
+        $('#myTab a').on('click', function(e) {
+            e.preventDefault();
+            if (isValid()) {
+                $(this).tab('show');
+            }
+        });
+
 
     </script>
     <script type="text/template" id="efficient-employee">

@@ -23,10 +23,20 @@
     margin-top: -38px;
     left: 10em;
 }
-
+#employee_recruitment[]-error, #institute_facilities[]-error, #recruitment_media[]-error {
+    position: absolute;
+    width: 200px;
+    top: -40px;
+    left: 100px;
+}
 
 .card-header {
     padding: 0.2rem 1em;
+}
+
+.tab-custom-error{
+    /*background: #ff3111;*/
+    border-bottom: 2px solid #ff3111 !important;
 }
 
 .form-check-inline {
