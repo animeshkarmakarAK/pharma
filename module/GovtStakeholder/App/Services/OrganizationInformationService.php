@@ -86,6 +86,8 @@ class OrganizationInformationService
         $organizationInfo->decision_problem_4 = $data['decision_problem_4'];
         $organizationInfo->decision_problem_5 = $data['decision_problem_5'];
 
+        //dd($organizationInfo);
+
         return $organizationInfo->save();
     }
 
@@ -110,9 +112,9 @@ class OrganizationInformationService
             'respondent_designation' => [
                 'required'
             ],
-//            'respondent_others_detail' => [
-//                'required'
-//            ],
+            'respondent_others_detail' => [
+                'nullable'
+            ],
             'industry_sector' => [
                 'required'
             ],

@@ -187,7 +187,6 @@
                                                         <option value="">নির্বাচন করুন</option>
                                                         <option value="৩ বছরের নিচে">৩ বছরের নিচে</option>
                                                         <option value="৪-১০ বছরের">৪-১০ বছরের </option>
-                                                        <option value="option 3">option 3</option>
                                                         <option value="১০ বছরের বেশি">১০ বছরের বেশি</option>
                                                     </select>
                                                 </div>
@@ -224,7 +223,7 @@
                                                     <a class="padding-left-right nav-link active border-top-0 border-bottom-0 border-left-0 border-right-0 text-dark font-weight-bold" data-toggle="tab" href="#tabs-1" role="tab">কর্মীর তথ্য</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="padding-left-right nav-link border-top-0 border-bottom-0 border-left-0 border-right-0 text-dark font-weight-bold" data-toggle="tab" href="#tabs-2" role="tab">স্তরভিত্তিক কর্মী কর্মরত</a>
+                                                    <a class="padding-left-right nav-link border-top-0 border-bottom-0 border-left-0 border-right-0 text-dark font-weight-bold tabs-2" data-toggle="tab" href="#tabs-2" role="tab">স্তরভিত্তিক কর্মী কর্মরত</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class=" padding-left-right nav-link border-top-0 border-bottom-0 border-left-0 border-right-0 text-dark font-weight-bold" data-toggle="tab" href="#tabs-3" role="tab">প্রতিষ্ঠানে কর্মী নিয়োগ </a>
@@ -390,7 +389,8 @@
                                                             <div class="form-group">
                                                                 <label for="senior_level_one">সিনিয়র লেভেল<span
                                                                         style="color: red"> * </span></label>
-                                                                <input type="text" class="form-control" id="senior_level_one"
+                                                                <input type="text" class="form-control"
+                                                                       id="senior_level_one"
                                                                        name="senior_level_one"
                                                                        placeholder="কর্মী সংখ্যা লিখুন">
                                                             </div>
@@ -1025,6 +1025,14 @@
             $(document).on('click', '.add-employee', function () {
                 addRow();
             });
+
+
+            /*if($('#senior_level_one-error')!=null){
+                alert('hi');
+                $('.tabs-2').css({'border-bottom': '2px solid #dc3545 !important'})
+            }*/
+
+
         });
 
     </script>
