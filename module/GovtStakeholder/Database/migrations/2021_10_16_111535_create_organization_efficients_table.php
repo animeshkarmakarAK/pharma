@@ -20,7 +20,10 @@ class CreateOrganizationEfficientsTable extends Migration
             $table->string('senior_level_occupation')->nullable();
             $table->string('middle_level_occupation')->nullable();
             $table->string('junior_level_occupation')->nullable();
-            $table->foreign('organization_information_id')->references('id')->on('organization_informations')->onUpdate('CASCADE')->onDelete('CASCADE');
+            /*$table->foreign('organization_information_id')
+                ->references('id')
+                ->on('organization_informations')
+                ->onUpdate('CASCADE')->onDelete('CASCADE');*/
             $table->timestamps();
         });
     }

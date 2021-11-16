@@ -9,12 +9,14 @@
                         <h3 class="card-title font-weight-bold">Industry Information</h3>
 
                         <div class="card-tools">
-                            @can('create', \Module\GovtStakeholder\App\Models\Organization::class)
+                            {{--@can('create', \Module\GovtStakeholder\App\Models\Organization::class)
+
+                            @endcan--}}
+
                                 <a href="{{ route('govt_stakeholder::admin.organization-information.create') }}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> Add new
                                 </a>
-                            @endcan
 
                         </div>
                     </div>
