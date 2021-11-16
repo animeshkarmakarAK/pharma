@@ -525,7 +525,8 @@
                                                 </div>
                                                 <div class="tab-pane" id="tabs-3" role="tabpanel">
                                                     <h4 class="p-2 mt-3 mb-3">আপনার প্রতিষ্ঠানে নিয়োগের ক্ষেত্রে কোন ধরনের কর্মী নিয়োগ করবেন?</h4>
-                                                    <p class="pt-2 pb-2 font-weight-bold"> কর্মী নিয়োগ প্রতিষ্ঠান ভিত্তিক </p>
+                                                    <p class="pt-2 pb-2 font-weight-bold"> কর্মী নিয়োগ প্রতিষ্ঠান ভিত্তিক<span
+                                                            style="color: red"> * </span> </p>
                                                     <div id ="question1" class="accordion">
                                                         <div class="card shadow-none mb-0 bg-accordion">
                                                             <div id="heading" class="card-header border">
@@ -562,7 +563,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p class="pt-5 mb-2 font-weight-bold"> প্রশিক্ষনপ্রাপ্ত হলে আপনার প্রতিষ্ঠানে কী কী সুবিধা হয়? </p>
+                                                    <p class="pt-5 mb-2 font-weight-bold"> প্রশিক্ষনপ্রাপ্ত হলে আপনার প্রতিষ্ঠানে কী কী সুবিধা হয়?<span
+                                                            style="color: red"> * </span> </p>
                                                     <div id ="question2" class="accordion">
                                                         <div class="card shadow-none mb-0 bg-accordion">
                                                             <div id="heading" class="card-header border">
@@ -603,7 +605,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p class="pt-5 mb-2 font-weight-bold"> আপনার প্রতিষ্ঠানে নিয়োগের ক্ষেত্রে কোন মাধ্যম ব্যাবহার করেন? </p>
+                                                    <p class="pt-5 mb-2 font-weight-bold"> আপনার প্রতিষ্ঠানে নিয়োগের ক্ষেত্রে কোন মাধ্যম ব্যাবহার করেন?<span
+                                                            style="color: red"> * </span> </p>
                                                     <div id ="question3" class="accordion">
                                                         <div class="card shadow-none mb-0 bg-accordion">
                                                             <div id="heading" class="card-header border">
@@ -921,6 +924,14 @@
                 employee_level_occupation:{
                     required:true,
                 },
+            },
+            errorPlacement: function(error, element) {
+                if (element.is(':checkbox') ) {
+                    // error.insertBefore().closest('.accordion'),
+                    error.insertBefore( element.next() );
+                } else {
+                    error.insertAfter( element );
+                }
             },
             invalidHandler: function(e, validator) {
                 if (validator.errorList.length) {
