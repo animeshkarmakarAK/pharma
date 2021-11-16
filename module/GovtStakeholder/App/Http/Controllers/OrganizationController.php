@@ -117,4 +117,8 @@ class OrganizationController extends BaseController
         return $this->organizationService->getListDataForDatatable($request);
     }
 
+    public function organizationInformation(){
+        return \view(self::VIEW_PATH . 'organization-information');
+    }
+
 }

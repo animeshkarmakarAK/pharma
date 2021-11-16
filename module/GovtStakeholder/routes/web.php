@@ -67,6 +67,15 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::get('organization-complain-to-youths/{youthId}', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationComplainToYouthController::class, 'organizationComplainForm'])->name('organization-complain-form');
     Route::post('organization-complain-to-youths', [\Module\GovtStakeholder\App\Http\Controllers\OrganizationComplainToYouthController::class, 'organizationComplainToYouth'])->name('organization-complain-to-youths');
 
+
+    Route::get('/organization-information',[\Module\GovtStakeholder\App\Http\Controllers\OrganizationInformationController::class,'organizationInformation'])->name('organization-information');
+    Route::post('organization-information/datatable',[\Module\GovtStakeholder\App\Http\Controllers\OrganizationInformationController::class, 'getOrganizationInformation'])->name('organization-information.datatable');
+    Route::get('/organization-information/create',[\Module\GovtStakeholder\App\Http\Controllers\OrganizationInformationController::class,'organizationInformationCreate'])->name('organization-information.create');
+    Route::post('/organization-information/store',[\Module\GovtStakeholder\App\Http\Controllers\OrganizationInformationController::class,'organizationInformationStore'])->name('organization-information.store');
+
+
+    Route::get('youths/certificate/{youth}', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'youthCertificateList'])
+        ->name('youths.certificate');
 });
 
 
