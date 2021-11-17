@@ -126,7 +126,7 @@
                                                 <label for="image">
                                                     <img class="figure-img"
                                                          src={{ $edit && $galleryCategory->image ? asset('storage/'.$galleryCategory->image) : "https://via.placeholder.com/350x350?text=Photo+Album"}}
-                                                             height="200" width="200"
+                                                             height="300" width="500"
                                                          alt="Photo Album"/>
                                                     <span class="p-1 bg-gray"
                                                           style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
@@ -141,7 +141,7 @@
                                         </div>
                                     </div>
                                     <p class="font-italic text-secondary">
-                                        (Image max 500kb, size 80x80 & file type must be jpg,bmp,png,jpeg or svg)
+                                        (Image max 2Mb, size 1920x1080 & file type must be jpg,bmp,png,jpeg or svg)
                                     </p>
                                 </div>
                             </div>
@@ -195,15 +195,15 @@
         $.validator.addMethod(
             "coverImageSize",
             function (value, element) {
-                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 80;
-                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 80;
+                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 1080;
+                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 1920;
                 return this.optional(element) || (isHeightMatched && isWidthMatched);
             },
-            "Invalid picture size. Size must be  80x80",
+            "Invalid picture size. Size must be  1920x1080",
         );
         $.validator.addMethod('filesize', function(value, element, param) {
             return this.optional(element) || (element.files[0].size <= param)
-        }, 'File size must be less than {0} bytes');
+        }, 'Please upload maximum 2Mb Image size');
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -243,7 +243,8 @@
                 image: {
                     accept: "image/*",
                     extension: "jpg|bmp|png|jpeg|svg",
-                    filesize:500000,
+                    // filesize:500000,
+                    filesize:1000*2048,
                     coverImageSize:true,
                 }
 

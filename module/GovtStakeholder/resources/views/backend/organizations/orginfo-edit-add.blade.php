@@ -176,7 +176,7 @@
                                                         <option value="আইসিটি এন্ড ই-কমারস">আইসিটি এন্ড ই-কমার্স</option>
                                                         <option value="আইসিটি এন্ড ই-কমারস">লাইট ইঞ্জিনিয়ারিং</option>
                                                         <option value="কন্সট্রাকশন">কন্সট্রাকশন</option>
-                                                        <option value="ফারনিচার">ফারনিচার</option>
+                                                        <option value="ফার্নিচার">ফার্নিচার</option>
                                                         <option value="ক্রিয়েটিভ ইঞ্জিনিয়ারিং">ক্রিয়েটিভ ইঞ্জিনিয়ারিং</option>
                                                         <option value="ইনফরমাল/এসএমই">ইনফরমাল/এসএমই</option>
                                                         <option value="ইনস্যুরেন্স এন্ড ব্যাংকিং">ইনস্যুরেন্স এন্ড ব্যাংকিং</option>
@@ -218,9 +218,9 @@
                                                         <option value="দেশি">দেশি</option>
                                                         <option value="পবিদেশি">বিদেশি</option>
                                                         <option value="পব্যক্তি মালিকানা">ব্যক্তি মালিকানা</option>
-                                                        <option value="অংশিদারিত্ত">অংশিদারিত্ত</option>
-                                                        <option value="প্রাইভেট লিমিটেদ কোম্পানি">প্রাইভেট লিমিটেদ কোম্পানি</option>
-                                                        <option value="পাবলিক লিমিটেদ কোম্পানি">পাবলিক লিমিটেদ কোম্পানি</option>
+                                                        <option value="অংশিদারিত্ত">অংশীদারিত্ব</option>
+                                                        <option value="প্রাইভেট লিমিটেদ কোম্পানি">প্রাইভেট লিমিটেড কোম্পানি</option>
+                                                        <option value="পাবলিক লিমিটেদ কোম্পানি">পাবলিক লিমিটেড কোম্পানি</option>
                                                         <option value="সরকারি মালিকানা">সরকারি মালিকানা</option>
                                                         <option value="অন্যান্য">অন্যান্য</option>
                                                     </select>
