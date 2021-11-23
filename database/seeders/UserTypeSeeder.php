@@ -64,11 +64,19 @@ class UserTypeSeeder extends Seeder
 
             5 =>
                 array(
-                    'id' => '6',
+                    'id' => 6,
                     'title' => 'DivCom',
                     'code' => '6',
                     'row_status' => 1,
                     'default_role_id' => '6'
+                ),
+            6 =>
+                array(
+                    'id' => 7,
+                    'title' => 'SMEF',
+                    'code' => 7,
+                    'row_status' => 1,
+                    'default_role_id' => 7
                 ),
         ));
 

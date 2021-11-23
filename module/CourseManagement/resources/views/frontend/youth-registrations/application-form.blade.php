@@ -20,11 +20,11 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row mt-2">
-            @if(!$authYouth || !empty($publishCourse))
-                <div class="col-md-12">
-                    <div class="card card mb-0">
-                        <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-success card mb-0 mt-2">
+                    @if(!$authYouth || !empty($publishCourse))
+                        <div class="pt-2">
                             @if(!$authYouth)
                                 <div class="text-info text-center">
                                     আপনি যদি পূর্বে নিবন্ধন করে থাকেন তাহলে <a
@@ -35,18 +35,14 @@
 
                             @if(!empty($publishCourse))
                                 <div class="text-info text-center">
-                                    ( আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong> কোর্স এ
-                                    আবেদন
-                                    করছেন )
+                                    (আপনি এখন <strong>{{optional($publishCourse->course)->title_bn}}</strong>
+                                    কোর্স এ আবেদন করছেন)
                                 </div>
                             @endif
                         </div>
-                    </div>
-                </div>
-            @endif
+                    @endif
 
-            <div class="col-md-12">
-                <div class="card card-success card mb-0">
+
                     <div class="card-header text-center pt-4 pb-4">
                         <h3>কোর্স নিবন্ধন</h3>
                     </div>

@@ -51,6 +51,7 @@ class User extends AuthBaseModel
     const USER_TYPE_ORGANIZATION_USER_CODE = '4';
     const USER_TYPE_DC_USER_CODE = '5';
     const USER_TYPE_DIVCOM_USER_CODE = '6';
+    const USER_TYPE_SMEF_USER_CODE = '7';
 
     const DEFAULT_PROFILE_PIC = 'users/default.jpg';
     const PROFILE_PIC_FOLDER_NAME = 'users';
@@ -135,6 +136,11 @@ class User extends AuthBaseModel
     public function isDivcomUser(): bool
     {
         return $this->userType->code === self::USER_TYPE_DIVCOM_USER_CODE;
+    }
+
+    public function isSmefUser(): bool
+    {
+        return $this->userType->code === self::USER_TYPE_SMEF_USER_CODE;
     }
 
     public function institute(): BelongsTo

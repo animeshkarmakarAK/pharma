@@ -20,7 +20,7 @@ class VisitorFeedbackController extends Controller
     public function __construct(VisitorFeedbackService $visitorFeedbackService)
     {
         $this->visitorFeedbackService = $visitorFeedbackService;
-        $this->authorizeResource(VisitorFeedback::class);
+        //$this->authorizeResource(VisitorFeedback::class);
     }
 
     public function index(): View
@@ -36,9 +36,8 @@ class VisitorFeedbackController extends Controller
         return view(self::VIEW_PATH . 'read', compact('visitorFeedback'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
         $validatedData = $this->visitorFeedbackService->validator($request)->validate();
         try {
             $this->visitorFeedbackService->createVisitorFeedback($validatedData);

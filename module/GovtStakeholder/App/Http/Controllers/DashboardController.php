@@ -175,10 +175,19 @@ class DashboardController
             return \view('govt_stakeholder::backend.institute-dashboard', compact('data'));
         }
 
+
         if ($authUser->isDCUser()) {
             $totalOrganizationUnit = OrganizationUnit::where('loc_district_id', $authUser->loc_district_id)->count();
         } else {
             $totalOrganizationUnit = OrganizationUnit::count();
+        }
+
+        if($authUser->isSmefUser()){
+            return view('govt_stakeholder::backend.smef-dashboard', with([
+                'data' => $data,
+                'totalOrganizationUnit' => $totalOrganizationUnit,
+                'lastTwoMonthsEmploymentInfos' => $lastTwoMonthsEmploymentInfos
+            ]));
         }
 
         return view('govt_stakeholder::backend.dashboard', with([
