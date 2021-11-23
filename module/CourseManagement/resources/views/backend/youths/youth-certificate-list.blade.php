@@ -46,7 +46,7 @@
                                             <td>{{ $youthCourseEnroll->publishCourse->course->title_en }}</td>
                                             <td>
                                                 @if($youthCourseEnroll->youth_batch_id!=null && $youthCourseEnroll->batch_status==\Module\CourseManagement\App\Models\Batch::BATCH_STATUS_COMPLETE)
-                                                    <a href="{{ route('course_management::admin.youths.certificate.course', $youthCourseEnroll->id) }}"
+                                                    <a href="{{ route('course_management::admin.youths.certificate', $youthCourseEnroll->id) }}"
                                                        target="_blank"
                                                        class="btn btn-sm btn-info">
                                                         <i class="fas fa-download"></i>

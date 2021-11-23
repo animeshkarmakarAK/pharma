@@ -69,6 +69,14 @@ class RoleTableSeeder extends Seeder
                     'code' => 'divcom',
                     'is_deletable' => '0'
                 ),
+            6 =>
+                array(
+                    'id' => 7,
+                    'title_en' => 'SMEF',
+                    'title_bn' => 'এসএমইএফ',
+                    'code' => 'smef',
+                    'is_deletable' => '0'
+                ),
         ));
 
         Schema::enableForeignKeyConstraints();

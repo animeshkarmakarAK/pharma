@@ -73,9 +73,6 @@ Route::group(['prefix' => 'admin/stakeholder', 'as' => 'govt_stakeholder::admin.
     Route::get('/organization-information/create',[\Module\GovtStakeholder\App\Http\Controllers\OrganizationInformationController::class,'organizationInformationCreate'])->name('organization-information.create');
     Route::post('/organization-information/store',[\Module\GovtStakeholder\App\Http\Controllers\OrganizationInformationController::class,'organizationInformationStore'])->name('organization-information.store');
 
-
-    Route::get('youths/certificate/{youth}', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'youthCertificateList'])
-        ->name('youths.certificate');
 });
 
 

@@ -121,7 +121,8 @@ class HomeController extends BaseController
             'youth_registrations' => YouthRegistration::count(),
         ];
 
-        return view('course_management::welcome', compact('institute'));
+        //return view('course_management::welcome', compact('institute'));
+        return view('smef_management::frontend.home');
     }
 
     public function success()
