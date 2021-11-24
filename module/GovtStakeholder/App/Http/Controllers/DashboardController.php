@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Branch;
 use Module\CourseManagement\App\Models\Course;
+use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Programme;
 use Module\CourseManagement\App\Models\TrainingCenter;
@@ -66,6 +67,7 @@ class DashboardController
             )
             ->join('batches', 'youth_batches.batch_id', '=', 'batches.id')
             ->join('courses', 'batches.course_id', '=', 'courses.id')
+            ->where(['courses.institute_id'=>AuthHelper::getAuthUser()->institute_id])
             ->groupBy('batches.course_id')
             ->orderBy('total','DESC')->limit(6)
             ->get();
@@ -77,6 +79,12 @@ class DashboardController
         $totalTrainingCenter = TrainingCenter::acl()->active()->count();
         $totalProgramme = Programme::acl()->active()->count();
         $totalBatch = Batch::acl()->count();
+        $totalCertificateIssue = CourseWiseYouthCertificate::join('publish_courses','publish_courses.id','=','course_wise_youth_certificates.publish_course_id');
+        if(AuthHelper::getAuthUser()->institute_id){
+            $totalCertificateIssue = $totalCertificateIssue->where(['publish_courses.institute_id'=>AuthHelper::getAuthUser()->institute_id])->get();
+        }else{
+            $totalCertificateIssue = $totalCertificateIssue->get();
+        }
 
         $data = [];
         $data['total_institute'] = $totalInstitute;
@@ -86,7 +94,9 @@ class DashboardController
         $data['total_training_center'] = $totalTrainingCenter;
         $data['total_programme'] = $totalProgramme;
         $data['totalBatch'] = $totalBatch;
+        $data['total_certificate_issue'] = $totalCertificateIssue->count();;
         $data['most_demandable_courses'] = $mostDemandableCourses->toJson();
+
         return $data;
     }
 

@@ -128,8 +128,9 @@ class OrganizationService
     {
         $authUser = AuthHelper::getAuthUser();
 
+
         /** @var Builder|Organization $organization */
-        $organization = Organization::acl('', 'id')->select([
+        $organization = Organization::select([
             'organizations.id',
             'organizations.title_en',
             'organizations.title_bn',
@@ -143,6 +144,7 @@ class OrganizationService
         return DataTables::eloquent($organization)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Organization $organization) use ($authUser) {
                 $str = '';
+                //dd($authUser->can('view', $organization));
                 if ($authUser->can('view', $organization)) {
                     $str .= '<a href="' . route('govt_stakeholder::admin.organizations.show', $organization->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }

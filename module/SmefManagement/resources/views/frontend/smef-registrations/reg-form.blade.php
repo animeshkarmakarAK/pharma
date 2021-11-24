@@ -15,12 +15,13 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form>
+                <form class="row reg-form" action="" method="" enctype="multipart/form-data">
                     <div class="card mt-2">
                         <div class="card-header d-flex custom-bg-gradient-info mt-2">
                             <h3 class="card-title font-weight-bold text-primary">
-                                <i class="fab fa-wpforms"> </i> ব্যক্তিগত এবং সংস্থার তথ্য/Personal And Organization
-                                Information</h3>
+                                <i class="fab fa-wpforms"> </i>
+                                ব্যক্তিগত এবং সংস্থার তথ্য/Personal And Organization Information
+                            </h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -76,7 +77,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="father_or_husband_name">পিতা/স্বামীর নাম <span class="required">*</span>
                                         :</label>
-                                    <input type="text" class="form-control" name="name_en" id="name_en"
+                                    <input type="text" class="form-control" name="father_or_husband_name" id="father_or_husband_name"
                                            value="{{ old('father_or_husband_name') }}"
                                            placeholder="পিতা/স্বামীর নাম">
                                 </div>
@@ -87,10 +88,11 @@
                                            placeholder="মাতার নাম">
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 mb-5">
                                     <label for="district">জেলা <span class="required">*</span> :</label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="loc_district_id"
+                                            id="loc_district_id"
                                             data-model="{{base64_encode(App\Models\LocDistrict::class)}}"
                                             data-label-fields="{title} - {title_en}"
                                             data-placeholder="{{ __('নির্বাচন করুন') }}">
@@ -98,10 +100,11 @@
                                 </div>
 
                                 <div
-                                    class="form-group col-md-6">
+                                    class="form-group col-md-6 mb-5">
                                     <label for="date_of_birth">জন্ম তারিখ
                                         <span class="required">*</span> :</label>
-                                    <input type="text" class="form-control flat-date date_of_birth" name="date_of_birth"
+                                    <input type="text" class="form-control flat-date date_of_birth"
+                                           name="date_of_birth"
                                            id="date_of_birth"
                                            value="{{ old('date_of_birth') }}"
                                            placeholder="জন্ম তারিখ">
@@ -129,7 +132,7 @@
                                                    name="gender"
                                                    value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER }}">
                                             <label for="gender_transgender"
-                                                   class="custom-control-label">হিজড়া</label>
+                                                   class="custom-control-label">তৃতীয় লিঙ্গ</label>
                                         </div>
                                     </div>
                                 </div>
@@ -138,8 +141,9 @@
                                     <label for="current_occupation">
                                         বর্তমান পেশা
                                         <span class="required">*</span> :</label>
-                                    <select class="form-control"
-                                            name="current_occupation">
+
+                                    <select class="form-control form-control"
+                                            name="current_occupation" id="current_occupation">
                                         <option value="">নির্বাচন করুন</option>
                                         <option value="Business">বিসনেস - Business</option>
                                         <option value="Service">সার্ভিস - Service</option>
@@ -166,8 +170,89 @@
         .date_of_birth {
             background-color: #fafdff !important;
         }
+
+        #loc_district_id-error, #date_of_birth-error{
+            position: absolute;
+            left: 5px;
+            bottom: -21px;
+        }
+
+        #gender-error{
+            position: absolute;
+            width: 200px;
+            bottom: -30px;
+            left: -14px;
+        }
+
     </style>
 
 @endpush
 @push('js')
+    <script>
+        const regForm = $('.reg-form');
+        regForm.validate({
+            rules: {
+                name_en: {
+                    required: true
+                },
+                name_bn: {
+                    required: true
+                },
+                mobile: {
+                    required: true
+                },
+                mailing_address: {
+                    required: true
+                },
+                current_occupation: {
+                    required: true
+                },
+
+                email: {
+                    required: true,
+                    /*remote: {
+                        param: {
+                            type: "post",
+                            url: "{{ route('course_management::admin.check-batch-code') }}",
+                        },
+                        depends: function (element) {
+                            return $(element).val() !== $('#code').attr('data-code');
+                        }
+                    },*/
+                },
+                conform_email: {
+                    required: true,
+                },
+                father_or_husband_name: {
+                    required: true,
+                },
+                mother_name: {
+                    required: true,
+                },
+                loc_district_id: {
+                    required: true,
+                },
+                date_of_birth: {
+                    required: true,
+                },
+                gender: {
+                    required: true,
+                },
+
+            },
+            messages: {
+
+            },
+            submitHandler: function (htmlForm) {
+                $('.overlay').show();
+                htmlForm.submit();
+            }
+        });
+
+        $(document).ready(function () {
+            $('#date_of_birth').on('change',function (){
+                $("#date_of_birth").valid();
+            });
+        });
+    </script>
 @endpush

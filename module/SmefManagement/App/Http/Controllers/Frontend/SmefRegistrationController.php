@@ -16,7 +16,15 @@ class SmefRegistrationController extends Controller
 
     public function index()
     {
+        $currentInstitute = domainConfig('institute');
+
+        if(!empty($currentInstitute)){
+            abort(404);
+
+        }
+
         return view(self::VIEW_PATH.'reg-form');
+
     }
 
 }

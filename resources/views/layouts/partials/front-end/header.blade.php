@@ -19,9 +19,11 @@
             <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
                     <li class="nav-item">
                         <a class="nav-item nav-link header-slogan font-weight-600 pl-0"
-                           href="#">
-                            <p class="slogan float-right font-weight-500">National Intelligence for Skills Education </p>
-                         <p class="slogan py-1 text-right font-weight-500">Employment and Entrepreneurship</p>
+                           href="{{ route('/') }}">
+                            {{--<p class="slogan float-right font-weight-500">National Intelligence for Skills Education </p>
+                         <p class="slogan py-1 text-right font-weight-500">Employment and Entrepreneurship</p>--}}
+                            <img src="{{asset('assets/logo/nise3-logo/logo1.png')}}" height="60px"
+                                 alt="Logo"/>
                         </a>
                     </li>
             </ul>

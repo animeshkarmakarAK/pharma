@@ -61,7 +61,7 @@ class YouthService
     }
 
 
-    public function getListDataForDatatable($request): JsonResponse
+    public function getListDataForDatatable(Request $request): JsonResponse
     {
         $instituteId = AuthHelper::getAuthUser()->institute_id;
         $youths = Youth::select([
@@ -90,7 +90,7 @@ class YouthService
         $youthNameEn = $request->youth_name_en;
         $youthNameBn = $request->youth_name_bn;
         $youthRegNo = $request->reg_no;
-        $organizationId = $request->input('organization_id');
+        $organizationId = $request->organization_id;
 
         if ($organizationId) {
             $youths->where(['youth_organizations.organization_id' => $organizationId]);

@@ -22,10 +22,10 @@ class OrganizationPolicy extends BasePolicy
      * Determine whether the user can view the model.
      *
      * @param User $user
-     * @param Organization $model
+     * @param Organization $organization
      * @return mixed
      */
-    public function view(User $user, Organization $model)
+    public function view(User $user, Organization $organization)
     {
         return $user->hasPermission('view_organization');
     }
