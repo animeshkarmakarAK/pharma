@@ -59,5 +59,4 @@ class Organization extends BaseModel
         return $this->belongsToMany(Youth::class,"youth_organizations");
     }
 
-
 }

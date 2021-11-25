@@ -53,7 +53,6 @@ class YouthRegistrationManagementController extends Controller
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
-
             Log::debug($exception->getMessage());
             Log::debug($exception->getTraceAsString());
             return back()->with([

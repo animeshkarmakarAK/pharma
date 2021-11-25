@@ -45,7 +45,4 @@ class YouthCourseEnroll extends Model
     {
         return $this->hasOne(youthBatch::class);
     }
-
-
-
 }
