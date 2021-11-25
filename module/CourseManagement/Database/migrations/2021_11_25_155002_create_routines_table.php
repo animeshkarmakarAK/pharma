@@ -14,7 +14,7 @@ class CreateRoutinesTable extends Migration
     public function up()
     {
         Schema::create('routines', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('batch_id')->index('routines_fk_batch_id');
             $table->unsignedInteger('training_center_id')->index('routines_fk_training_center_id');
             $table->tinyInteger('row_status')->default(1);
