@@ -45,10 +45,9 @@ class User extends AuthBaseModel
     const USER_TYPE_SUPER_USER_CODE = '1';
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
-    const USER_TYPE_ORGANIZATION_USER_CODE = '4';
     const USER_TYPE_DC_USER_CODE = '5';
     const USER_TYPE_DIVCOM_USER_CODE = '6';
-    const USER_TYPE_SMEF_USER_CODE = '7';
+    const USER_TYPE_TRAINER_USER_CODE = '7';
 
     const DEFAULT_PROFILE_PIC = 'users/default.jpg';
     const PROFILE_PIC_FOLDER_NAME = 'users';
@@ -112,6 +111,11 @@ class User extends AuthBaseModel
     public function isInstituteUser(): bool
     {
         return $this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE;
+    }
+
+    public function isTrainer(): bool
+    {
+        return $this->userType->code === self::USER;
     }
 
 

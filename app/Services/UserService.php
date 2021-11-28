@@ -3,21 +3,19 @@
 
 namespace App\Services;
 
-
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Models\Permission;
+use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
-use App\Models\Permission;
-use App\Models\User;
-use App\Models\UserType;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserService
@@ -46,7 +44,7 @@ class UserService
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_ORGANIZATION_USER_CODE) {
+        } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINER_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['institute_id'] = null;
             $data['loc_division_id'] = null;
@@ -185,6 +183,9 @@ class UserService
                 }
                 if ($authUser->can('delete', $user)) {
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                }
+                if ($authUser->isInstituteUser()) {
+                    $str .= '<a href="'. {{ route('admin.users.trainers', $user->id)}} .'"  data-action="' . route('admin.users.trainers', $user->id) . '" class="btn btn-outline-info btn-sm info"> <i class="fas fa-trash"></i> ' . __('generic.trainers') . '</a>';
                 }
                 return $str;
             }))

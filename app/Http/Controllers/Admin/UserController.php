@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\BaseController;
 use App\Models\Permission;
 use App\Models\Role;
@@ -217,5 +218,12 @@ class UserController extends BaseController
         } else {
             return response()->json('Email already in use!');
         }
+    }
+
+    public function trainers(User $user): View
+    {
+        $trainerList = User::where('institute_id', $user->institute_id)->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)->get();
+        dd($trainerList);
+        return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
     }
 }

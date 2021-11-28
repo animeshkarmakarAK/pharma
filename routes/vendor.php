@@ -15,6 +15,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     //    Route::get('/profile', [App\Http\Controllers\Admin\UserController::class, 'profile'])->name('admin-profile');
     Route::resource('/users', App\Http\Controllers\Admin\UserController::class);
+    Route::get('/users/{user}/trainers', [App\Http\Controllers\Admin\UserController::class, 'trainers'])->name('users.trainers');
     Route::resource('user-types', App\Http\Controllers\UserTypeController::class)
         ->except(['create', 'store', 'destroy']);
 

@@ -149,5 +149,6 @@ return [
     'institute_calender'=>'Institute Calender',
     'trending_jobs'=>'Trending Jobs',
     'map'=>'Map',
+    'trainers' => 'Trainers',
 ];
 
