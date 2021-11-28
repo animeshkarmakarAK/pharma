@@ -31,15 +31,6 @@
                         {{ $videoCategory->title_en }}
                     </div>
                 </div>
-
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title(BN)') }}</p>
-                    <div class="input-box">
-                        {{ $videoCategory->title_bn }}
-                    </div>
-                </div>
-
-
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Institute Name') }}</p>
                     <div class="input-box">

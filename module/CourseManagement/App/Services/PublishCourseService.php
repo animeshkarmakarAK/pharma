@@ -35,17 +35,10 @@ class PublishCourseService
             'training_center_id' => ["required", "array", "min:1",'exists:training_centers,id'],
             'programme_id' => ['nullable', 'int'],
             'title_en' => 'nullable',
-            'title_bn' => 'nullable',
             'application_form_type_id' => ['required', 'int'],
             'branch_id' => ['nullable', 'int'],
             'course_sessions' => ["required", "array", "min:1"],
             'course_sessions.*.session_name_en' => ['required', 'string', 'max:30'],
-            'course_sessions.*.session_name_bn' => [
-                'required',
-                'string',
-                'max:30',
-                'regex:/^[\x{0980}-\x{09FF}\s\-\*!@#%\+=\._\^\'()]*$/u',
-            ],
             'course_sessions.*.number_of_batches' => ['required', 'int'],
             'course_sessions.*.application_start_date' => ['required', 'date'],
             'course_sessions.*.application_end_date' => ['required', 'date'],
@@ -53,9 +46,7 @@ class PublishCourseService
             'course_sessions.*.max_seat_available' => ['required', 'int']
         ];
 
-        $messages = [
-            'course_sessions.*.session_name_bn.regex' => "Session Name(Bangla) is required in Bangla",
-        ];
+
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
     }

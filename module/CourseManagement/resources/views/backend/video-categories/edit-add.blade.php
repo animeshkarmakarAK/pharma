@@ -44,19 +44,6 @@
                                            placeholder="{{ __('Title') . ' (English)' }}">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }}<span
-                                            class="required"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $videoCategory->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
-                                </div>
-                            </div>
-
-
                             @if($authUser->isInstituteUser())
                                 <input type="hidden" id="institute_id" name="institute_id"
                                        value="{{$authUser->institute_id}}">
@@ -152,10 +139,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 parent_id: {
                     required: false,
                 },
@@ -169,9 +152,6 @@
             messages: {
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 }
             },
             submitHandler: function (htmlForm) {

@@ -58,11 +58,6 @@
                         name: "application_form_types.title_en"
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "application_form_types.title_bn"
-                    },
-                    {
                         title: "Institute Name",
                         data: "institute_title",
                         name: "institutes.title_en",

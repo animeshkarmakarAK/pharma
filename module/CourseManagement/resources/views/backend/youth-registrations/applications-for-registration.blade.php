@@ -114,18 +114,6 @@
                                                     >
                                                     </select>
                                                 </div>
-
-                                                {{--<div class="col-md-3 mb-2">
-                                                    <select class="form-control select2-ajax-wizard"
-                                                            name="branch_id"
-                                                            id="branch_id"
-                                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Branch::class)}}"
-                                                            data-label-fields="{title_en}"
-                                                            data-depend-on-optional="institute_id"
-                                                            data-placeholder="Branch"
-                                                    >
-                                                    </select>
-                                                </div>--}}
                                             @endif
 
                                             <div class="col-md-3 mb-2">
@@ -424,11 +412,6 @@
                         title: "Name (En)",
                         data: "name_en",
                         name: "youths.name_en"
-                    },
-                    {
-                        title: "Name (Bn)",
-                        data: "name_bn",
-                        name: "youths.name_bn"
                     },
                     {
                         title: "Application Date",

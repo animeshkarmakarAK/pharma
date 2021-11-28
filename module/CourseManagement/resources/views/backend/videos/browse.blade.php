@@ -61,12 +61,6 @@
                         name: "title_en"
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "title_bn"
-                    },
-
-                    {
                         title: "Institute Name",
                         data: "institute_name",
                         name: "institutes.title_en",

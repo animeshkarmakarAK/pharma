@@ -47,13 +47,6 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="title_bn">Title (Bn) <span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" name="title_bn" id="title_bn"
-                                           value="{{$edit ? $role->title_bn : old('title_bn')}}"
-                                           placeholder="Title (Bn)" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
                                     <label for="">Deletable?</label>
                                     <div class="input-group form-control">
                                         <div class="custom-control custom-radio custom-radio-is-deletable">

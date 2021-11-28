@@ -43,15 +43,6 @@
                                            placeholder="{{ __('Title') . ' (English)' }}" required>
                                 </div>
 
-                                <div class="form-group col-md-6">
-                                    <label for="title_bn">{{ __('Title') . ' (Bangla)' }} <span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control custom-input-box" name="title_bn"
-                                           id="title_bn"
-                                           value="{{$edit ? $programme->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Title') . ' (Bangla)' }}" required>
-                                </div>
-
                                 @if($authUser->isInstituteUser())
                                     <input type="hidden" id="institute_id" name="institute_id"
                                            value="{{$authUser->institute_id}}">
@@ -175,10 +166,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 institute_id: {
                     required: true
                 },
@@ -203,9 +190,6 @@
             messages: {
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 },
                 code: {
                     required: "This field is required",

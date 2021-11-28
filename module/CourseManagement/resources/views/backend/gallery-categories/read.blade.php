@@ -40,14 +40,6 @@
                         {{ $galleryCategory->title_en }}
                     </div>
                 </div>
-
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title (Bn)') }}</p>
-                    <div class="input-box">
-                        {{ $galleryCategory->title_bn }}
-                    </div>
-                </div>
-
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6 custom-view-box">
                         <p class="label-text">{{ __('Institute Name') }}</p>

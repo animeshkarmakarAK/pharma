@@ -63,11 +63,6 @@
                         visible: true,
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title",
-                        name: "title"
-                    },
-                    {
                         title: "Title (En)",
                         data: "title_en",
                         name: "title_en"

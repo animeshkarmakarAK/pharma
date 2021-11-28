@@ -40,11 +40,6 @@
                                                    placeholder="Name En">
                                         </div>
                                         <div class="col-md-2 mb-2">
-                                            <input type="text" class="form-control search-text-fields"
-                                                   id="youth_name_bn"
-                                                   placeholder="Name Bn">
-                                        </div>
-                                        <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields" id="reg_no"
                                                    placeholder="Reg. No.">
                                         </div>
@@ -232,11 +227,6 @@
                         title: "Name (En)",
                         data: "name_en",
                         name: "name_en",
-                    },
-                    {
-                        title: "Name (Bn)",
-                        data: "name_bn",
-                        name: "name_bn",
                     },
                     {
                         title: "Reg. No.",

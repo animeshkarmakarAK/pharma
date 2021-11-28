@@ -23,7 +23,6 @@ class StaticPageService
     {
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
-            'title_bn' => ['required', 'string', 'max:191'],
             'institute_id' => ['bail', 'required', 'int', 'exists:institutes,id'],
             'page_id' => [
                 'required',
@@ -61,7 +60,6 @@ class StaticPageService
             'static_pages.id as id',
             'static_pages.title_en',
             'static_pages.institute_id',
-            'static_pages.title_bn',
             'static_pages.page_id',
             'static_pages.page_contents',
             'institutes.title_en as institute_title_en',

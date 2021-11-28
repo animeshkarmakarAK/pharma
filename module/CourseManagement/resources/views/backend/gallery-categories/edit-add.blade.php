@@ -51,17 +51,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="content_title">{{ __('Title (Bn)') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $galleryCategory->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Title (Bn)') }}">
-                                </div>
-                            </div>
-
                             @if($authUser->isInstituteUser())
                                 <input type="hidden" id="institute_id" name="institute_id"
                                        value="{{$authUser->institute_id}}">
@@ -233,10 +222,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 institute_id: {
                     required: true,
                 },
@@ -252,9 +237,6 @@
             messages: {
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 },
                 image:{
                     accept:"Please upload valid image",

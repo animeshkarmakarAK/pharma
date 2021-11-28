@@ -77,14 +77,6 @@
                             {{ $user->name_en ?? "" }}
                         </div>
                     </div>
-
-                    <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('Name(BN)') }}</p>
-                        <div class="input-box">
-                            {{ $user->name_bn ?? ""}}
-                        </div>
-                    </div>
-
                     <div class="col-md-6 custom-view-box">
                         <p class="label-text">{{ __('Email') }}</p>
                         <div class="input-box">
