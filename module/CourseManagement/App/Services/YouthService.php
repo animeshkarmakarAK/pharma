@@ -5,45 +5,26 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
-use App\Models\BaseModel as BaseModelAlias;
 use App\Models\LocDistrict;
 use App\Models\LocDivision;
 use App\Models\LocUpazila;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Module\CourseManagement\App\Models\BaseModel;
-use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Youth;
-use Module\CourseManagement\App\Models\YouthAcademicQualification;
-use Module\CourseManagement\App\Models\YouthBatch;
 use Module\CourseManagement\App\Models\YouthCourseEnroll;
 use Module\CourseManagement\App\Models\YouthFamilyMemberInfo;
-use Module\CourseManagement\App\Models\YouthOrganization;
 use Module\CourseManagement\App\Models\YouthRegistration;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Module\GovtStakeholder\App\Models\Organization;
 use Yajra\DataTables\Facades\DataTables;
 
 class YouthService
 {
-    public function validateAddYouthToOrganization(Request $request): Validator
-    {
-        $rules = [
-            'organization_id' => ['bail', 'required'],
-            'youth_ids' => ['required', 'array', 'min:1'],
-            'youth_ids.*' => [
-                "required"
-            ]
-        ];
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
-    }
-
-
     public function validateAcceptNowAll(Request $request): Validator
     {
         $rules = [
@@ -71,7 +52,6 @@ class YouthService
             DB::raw('max(youths.name_bn) AS name_bn'),
             DB::raw('max(institutes.title_en) AS institute_title_en'),
             DB::raw('max(institutes.id) AS institute_id'),
-            DB::raw('max(youth_organizations.organization_id) AS youth_organization_id'),
             DB::raw('max(organizations.title_en) AS organization_title_en'),
         ]);
         $youths->leftJoin('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
@@ -79,9 +59,7 @@ class YouthService
         $youths->leftJoin('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
 
         $youths->leftJoin('youth_organizations', 'youth_organizations.youth_id', '=', 'youths.id');
-        $youths->leftJoin('organizations', 'organizations.id', '=', 'youth_organizations.organization_id');
         $youths->groupBy('youth_registration_no');
-        //$youths->groupBy('institute_title_en');
 
         if ($instituteId) {
             $youths->where(['institutes.id' => $instituteId]);
@@ -90,11 +68,7 @@ class YouthService
         $youthNameEn = $request->youth_name_en;
         $youthNameBn = $request->youth_name_bn;
         $youthRegNo = $request->reg_no;
-        $organizationId = $request->organization_id;
 
-        if ($organizationId) {
-            $youths->where(['youth_organizations.organization_id' => $organizationId]);
-        }
         if ($youthNameEn) {
             $youths->where('youths.name_en', 'LIKE', '%' . $youthNameEn . '%');
         }
@@ -127,33 +101,6 @@ class YouthService
             ->toJson();
     }
 
-    public function addYouthToOrganization(Organization $organization, array $youthIds): bool
-    {
-        $currentDate = Carbon::now()->toDateTimeString();
-
-        foreach ($youthIds as $youthId) {
-            $youthOrgCheck = YouthOrganization::where('youth_id', $youthId)->get();
-            if ($youthOrgCheck) {
-                $youthOrg = YouthOrganization::where('youth_id', $youthId)->update(['current_employment_status' => 0]);
-            }
-            /** @var Youth $youth */
-            $youth = Youth::findOrFail($youthId);
-            YouthOrganization::updateOrCreate(
-                [
-                    'organization_id' => $organization->id,
-                    'youth_id' => $youth->id,
-                    'current_employment_status' => 1,
-                    'started_at' => $currentDate
-                ]
-            );
-            $youtEndDate = YouthOrganization::where('youth_id', $youthId)
-                ->where('current_employment_status', 0)
-                ->orderByDesc('created_at')->take(1)->update(['ended_at' => $currentDate]);
-
-            $youth->save();
-        }
-        return true;
-    }
 
     public function addToTraineeAcceptedList(array $youthAcceptListNowIds): bool
     {
@@ -380,12 +327,12 @@ class YouthService
             "have_family_own_house" => [
                 "nullable",
                 //Rule::in([Youth::HAVE_NO_FAMILY_OWN_HOUSE, Youth::HAVE_FAMILY_OWN_HOUSE]),
-                Rule::in([0,1,2,3]),
+                Rule::in([0, 1, 2, 3]),
             ],
             "have_family_own_land" => [
                 "nullable",
                 //Rule::in([Youth::HAVE_FAMILY_OWN_LAND, Youth::HAVE_NO_FAMILY_OWN_LAND]),
-                Rule::in([0,1,2,3]),
+                Rule::in([0, 1, 2, 3]),
             ],
             "number_of_siblings" => [
                 "nullable",
@@ -543,7 +490,7 @@ class YouthService
             "physical_disabilities" => [
                 "nullable",
                 //"string"
-                Rule::in([0,1,2,3]),
+                Rule::in([0, 1, 2, 3]),
             ],
             "disable_status" => [
                 "nullable",

@@ -574,51 +574,5 @@ class YouthController extends Controller
         return \view(self::VIEW_PATH . 'youth.youth-complain-to-organization', compact('youth', 'youthOrganization'));
     }
 
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function youthComplainToOrganization(Request $request)
-    {
-
-        $youth = AuthHelper::getAuthUser('youth');
-        $youthOrganization = YouthOrganization::where(['youth_id' => $youth->id])
-            ->orderBy('id', 'DESC')
-            ->first();
-
-        $currentInstitute = domainConfig('institute');
-
-        if ($request->youth_id == $youth->id && $request->organization_id == $youthOrganization->organization_id) {
-            $youthTotalComplainedToOrganization = YouthComplainToOrganization::where(['youth_id' => $youth->id, 'organization_id' => $request->organization_id, 'institute_id'=>$currentInstitute->id])->get()->count();
-            if ($youthTotalComplainedToOrganization >= YouthComplainToOrganization::COMPLAIN_LIMITATION) {
-                return back()->with([
-                    'message' => __('আপনার অভিযোগের লিমিট শেষ হয়েছে'),
-                    'alert-type' => 'error'
-                ]);
-            }
-
-            $validateData = $this->youthRegistrationService->validationYouthComplainToOrganization($request)->validate();
-
-            try {
-                $this->youthRegistrationService->addYouthComplainToOrganization($validateData);
-            } catch (\Throwable $exception) {
-                Log::debug($exception->getMessage());
-                return back()->with([
-                    'message' => __('generic.something_wrong_try_again'),
-                    'alert-type' => 'error'
-                ]);
-            }
-
-            return redirect()->route('course_management::youth-current-organization')->with([
-                'message' => __('Your complain successfully submitted to Institute'),
-                'alert-type' => 'success'
-            ]);
-        } else {
-            return back()->with([
-                'message' => __('generic.something_wrong_try_again'),
-                'alert-type' => 'error'
-            ]);
-        }
-
-    }
 }
 

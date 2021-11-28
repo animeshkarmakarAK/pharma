@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::get('row-status', [App\Http\Controllers\RowStatusController::class, 'index'])->name('row-status');
 
-    //thgemes
+    //themes
     Route::resource('/themes', App\Http\Controllers\ThemesController::class);
     Route::post('themes/datatable', [App\Http\Controllers\ThemesController::class, 'getDatatable'])->name('themes.datatable');
     Route::get('change-themes', [App\Http\Controllers\ThemesController::class, 'changeThemeList'])->name('themes.changeThemeList');

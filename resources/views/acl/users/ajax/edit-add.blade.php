@@ -112,23 +112,6 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6" style="display: none;">
-                        <div class="form-group">
-                            <label for="organization_id">{{ __('Organization') }} <span
-                                    style="color: red"> * </span></label>
-                            <select class="form-control select2-ajax-wizard"
-                                    name="organization_id"
-                                    id="organization_id"
-                                    data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
-                                    data-label-fields="{title_en}"
-                                    @if($edit && $user->organization)
-                                    data-preselected-option="{{json_encode(['text' =>  $user->organization->title_en, 'id' =>  $user->organization->id])}}"
-                                    @endif
-                                    data-placeholder="{{ __('generic.select_placeholder') }}"
-                            >
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="col-sm-6" style="display: none;">
                         <div class="form-group">
@@ -169,19 +152,16 @@
                     <input type="hidden" name="user_type_id" id="user_type_id"
                            value="{{\App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE}}">
                     <input type="hidden" name="institute_id" id="institute_id" value="{{$authUser->institute_id}}">
-                @elseif($authUser->isOrganizationUser())
-                    <input type="hidden" name="user_type_id" id="user_type_id"
-                           value="{{\App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE}}">
-                    <input type="hidden" name="organization_id" id="organization_id"
-                           value="{{$authUser->organization_id}}">
                 @elseif($authUser->isDCUser())
                     <input type="hidden" name="user_type_id" id="user_type_id"
                            value="{{\App\Models\UserType::USER_TYPE_DC_USER_CODE}}">
-                    <input type="hidden" name="loc_district_id" id="loc_district_id" value="{{$authUser->loc_district_id}}">
+                    <input type="hidden" name="loc_district_id" id="loc_district_id"
+                           value="{{$authUser->loc_district_id}}">
                 @elseif($authUser->isDivcomUser())
                     <input type="hidden" name="user_type_id" id="user_type_id"
                            value="{{\App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE}}">
-                    <input type="hidden" name="loc_division_id" id="loc_division_id" value="{{$authUser->loc_division_id}}">
+                    <input type="hidden" name="loc_division_id" id="loc_division_id"
+                           value="{{$authUser->loc_division_id}}">
                 @endif
 
                 @if($edit && $authUser->id == $user->id && $authUser->can('changePassword', $user))

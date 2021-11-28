@@ -97,12 +97,6 @@
                         visible: false,
                     },
                     {
-                        title: "Organization",
-                        data: "organization_name",
-                        name: "organizations.title_en",
-                        visible: false,
-                    },
-                    {
                         title: "District",
                         data: "loc_district_name",
                         name: "loc_districts.title_en",
@@ -187,10 +181,6 @@
                         enableShowFormFields($('#institute_id'));
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
-                    case {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!}:
-                        enableShowFormFields($('#organization_id'));
-                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
                     default:
                         disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
                 }
@@ -246,11 +236,6 @@
                         },
                         user_type_id: {
                             required: true
-                        },
-                        organization_id: {
-                            required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_ORGANIZATION_USER_CODE !!};
-                            }
                         },
                         institute_id: {
                             required: function () {

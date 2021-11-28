@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 class UserTypeSeeder extends Seeder
@@ -45,14 +46,6 @@ class UserTypeSeeder extends Seeder
                     'row_status' => 1,
                     'default_role_id' => '3'
                 ),
-            3 =>
-                array(
-                    'id' => 4,
-                    'title' => 'Organization User',
-                    'code' => '4',
-                    'row_status' => 1,
-                    'default_role_id' => '4'
-                ),
             4 =>
                 array(
                     'id' => 5,
@@ -70,15 +63,17 @@ class UserTypeSeeder extends Seeder
                     'row_status' => 1,
                     'default_role_id' => '6'
                 ),
-            6 =>
-                array(
-                    'id' => 7,
-                    'title' => 'SMEF',
-                    'code' => 7,
-                    'row_status' => 1,
-                    'default_role_id' => 7
-                ),
         ));
+
+        DB::table('users')->insert([
+            'id' => 1,
+            'name_en' => 'admin',
+            'email' => 'admin@gmail.com',
+            'user_type_id' => 1,
+            'role_id' => 1,
+            'row_status' => 1,
+            'password' => Hash::make('password')
+        ]);
 
         Schema::enableForeignKeyConstraints();
     }

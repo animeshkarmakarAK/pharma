@@ -338,11 +338,6 @@ class YouthRegistrationService
                 'integer',
                 'exists:institutes,id'
             ],
-            'organization_id' => [
-                'required',
-                'integer',
-                'exists:organizations,id'
-            ],
             'youth_id' => [
                 'exists:youths,id'
             ],

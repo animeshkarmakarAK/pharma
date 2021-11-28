@@ -50,16 +50,6 @@
                                         </div>
 
                                         <div class="col-md-2 mb-2">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="organization_id"
-                                                    id="organization_id"
-                                                    data-model="{{base64_encode(\Module\GovtStakeholder\App\Models\Organization::class)}}"
-                                                    data-label-fields="{title_en}"
-                                                    data-placeholder="Organization"
-                                            >
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2 mb-2">
                                             <button class="btn btn-primary" id="reset-btn">Reset</button>
                                         </div>
                                     </div>
@@ -94,20 +84,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="assign_organization_id">Select Organization<span
-                                        style="color: red"> * </span></label>
-                                <select name="organization_id" id="assign_organization_id" class="select2"
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
-                                    <option selected disabled>{{ __('generic.select_placeholder') }}</option>
-                                    @foreach($organizations as $organization)
-                                        <option value="{{$organization->id}}">{{$organization->title_en}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                 Close

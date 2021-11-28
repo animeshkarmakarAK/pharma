@@ -26,7 +26,6 @@ use Module\CourseManagement\App\Models\Institute;
  * @property int loc_district_id
  * @property int loc_division_id
  * @property int institute_id
- * @property int organization_id
  * @property-read Collection|UsersPermission[] activePermissions
  * @property-read int|null active_permissions_count
  * @property-read Collection|UsersPermission[] inActivePermissions

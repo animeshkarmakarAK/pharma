@@ -42,11 +42,9 @@ class UserService
     {
         if ($data['user_type_id'] == UserType::USER_TYPE_DC_USER_CODE) {
             $data['institute_id'] = null;
-            $data['organization_id'] = null;
             $data['loc_division_id'] = null;
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
             $data['loc_district_id'] = null;
-            $data['organization_id'] = null;
             $data['loc_division_id'] = null;
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_ORGANIZATION_USER_CODE) {
             $data['loc_district_id'] = null;
@@ -55,11 +53,9 @@ class UserService
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_DIVCOM_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['institute_id'] = null;
-            $data['organization_id'] = null;
         } else {
             $data['loc_district_id'] = null;
             $data['institute_id'] = null;
-            $data['organization_id'] = null;
             $data['loc_division_id'] = null;
         }
 
@@ -92,11 +88,6 @@ class UserService
                 'requiredIf:user_type_id,' . UserType::USER_TYPE_INSTITUTE_USER_CODE,
                 'int',
                 'exists:institutes,id'
-            ],
-            'organization_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_ORGANIZATION_USER_CODE,
-                'int',
-                'exists:organizations,id'
             ],
             'loc_district_id' => [
                 'requiredIf:user_type_id,' . UserType::USER_TYPE_DC_USER_CODE,
@@ -168,7 +159,6 @@ class UserService
             'users.name_en',
             'users.name_bn',
             'users.user_type_id',
-            'organizations.title_en as organization_name',
             'institutes.title_en as institute_name',
             'loc_districts.title_en as loc_district_name',
             'user_types.title as user_type_title',
@@ -178,15 +168,10 @@ class UserService
         ]);
         $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
         $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
-        $users->leftJoin('organizations', 'users.organization_id', '=', 'organizations.id');
         $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
-        if ($authUser->isInstituteUser() || $authUser->isOrganizationUser()) {
-            $users->where('users.user_type_id', $authUser->user_type_id);
-            if($authUser->isInstituteUser()){
-                $users->where('users.institute_id', $authUser->institute_id);
-            }else{
-                $users->where('users.organization_id', $authUser->organization_id);
-            }
+
+        if ($authUser->isInstituteUser()) {
+            $users->where('users.institute_id', $authUser->institute_id);
         }
 
         return DataTables::eloquent($users)
