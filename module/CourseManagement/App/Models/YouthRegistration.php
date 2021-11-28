@@ -6,7 +6,6 @@ use App\Helpers\Classes\Helper;
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class YouthRegistration
@@ -63,15 +62,4 @@ class YouthRegistration extends BaseModel
 
         return $employmentStatusArray[$this->current_employment_status];
     }
-
-    /*public function youth(): BelongsTo
-    {
-        return $this->belongsTo(Youth::class);
-    }
-
-    public function publishCourse(): BelongsTo
-    {
-        return $this->belongsTo(PublishCourse::class);
-    }*/
-
 }

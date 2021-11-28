@@ -8,11 +8,11 @@
             <div class="navbar-nav-scroll">
                 <div class="nise3-logo" style="height: 70px;">
                     <a href="{{ route('/') }}">
-                        <img class="float-left" src="{{asset('storage/' .$currentInstitute->logo)}}" height="100%"
+                        <img class="float-left"  src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/nise3-logo/logo1.png')}}" height="100%"
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
-                        <p class="slogan slogan-tag">{{ $currentInstitute->title_bn }}</p>
+                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title_bn : "DPG Training & Certificate Management" }}</p>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             RowStatusSeeder::class,
             UserTypeSeeder::class,
             \Module\CourseManagement\Database\Seeders\DatabaseSeeder::class,
-            \Module\GovtStakeholder\Database\Seeders\DatabaseSeeder::class,
         ]);
     }
 }

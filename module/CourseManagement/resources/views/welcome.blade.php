@@ -1,6 +1,11 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
+    $sliders = $sliders ?? collect([]);
+    $staticPages = $staticPages ?? collect([]);
+    $runningCourses = $runningCourse ?? collect([]);
+    $upcomingCourses = $upcomingCourses ?? collect([]);
+    $galleryCategories = $galleryCategories ?? collect([]);
 
 @endphp
 @extends($layout)
@@ -210,7 +215,8 @@
                                                                         <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
                                                                     </p>
                                                                     <p class="card-p1 float-left mb-1">
-                                                                        <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                                        <span
+                                                                            style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
                                                                         {{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
@@ -275,7 +281,8 @@
                                                                 class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'' )}} )</span>
                                                         </p>
                                                         <p class="card-p1 float-left mb-1">
-                                                            <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                            <span
+                                                                style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
                                                             {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
                                                         <p class="float-right">
@@ -327,7 +334,8 @@
                                                                         <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
                                                                     </p>
                                                                     <p class="card-p1 float-left mb-1">
-                                                                        <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                                        <span
+                                                                            style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
                                                                         {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
@@ -389,7 +397,8 @@
                                                                 class="course-p"> আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
                                                         </p>
                                                         <p class="card-p1 float-left mb-1">
-                                                            <span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
+                                                            <span
+                                                                style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
                                                             {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
                                                         <p class="float-right">
@@ -557,7 +566,7 @@
                         </div>
                         @endif
                     </div>
-                    @if(($galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
+                    @if((isset($galleryAllCategories) && $galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
                         <div class="col-md-12 text-center pb-5">
                             <a href="{{ route('course_management::gallery-categories') }}" target="_blank"
                                class="more-course-button mt-3">আরও দেখুন <i
@@ -1266,30 +1275,30 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
     <script>
-        function todayEvent(){
+        function todayEvent() {
             let today = new Date();
             today = new Intl.DateTimeFormat('bn-BD').format(today);
             return today;
         }
 
-        function eventDate(date){
+        function eventDate(date) {
             let eventDate = new Date(date);
             eventDate = new Intl.DateTimeFormat('bn-BD').format(eventDate);
             return eventDate;
         }
+
         function eventTime(date) {
             let time = new Date(date);
-            time = time.toLocaleTimeString(['bn-BD'], {hour: '2-digit', minute:'2-digit'});
+            time = time.toLocaleTimeString(['bn-BD'], {hour: '2-digit', minute: '2-digit'});
             return time;
         }
 
         function eventsTemplate(key) {
             let eventClass = '';
-            if(todayEvent() == eventDate(this.date)){
-                eventClass= 'today-event';
-            }
-            else{
-                eventClass='';
+            if (todayEvent() == eventDate(this.date)) {
+                eventClass = 'today-event';
+            } else {
+                eventClass = '';
             }
             return '<div class="card shadow-none mb-0">' +
                 '<div id="heading' + key + '" class="card-header bg-white shadow-sm border-0">' +
@@ -1300,7 +1309,7 @@
                 this.caption +
                 '<p class="mb-0 mt-1">' +
                 '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) +'    '+eventTime(this.date) + '</span>' +
+                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) + '    ' + eventTime(this.date) + '</span>' +
                 '</p> </button> </h2>' +
                 '</div>' +
                 '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
@@ -1315,9 +1324,12 @@
         }
 
         let events = '';
-        @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
+        @if(isset($currentInstituteEvents))
+            @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
             events += eventsTemplate.call(@json($currentInstituteEvent), '{{$key}}');
         @endforeach
+        @endif
+
         $("#eventArea").html(events);
 
         function eventsOfSpecificDate(date) {

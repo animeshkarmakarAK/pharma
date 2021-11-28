@@ -7,10 +7,12 @@
             <!--footer widget one-->
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget">
-                    <img src="{{asset('storage/' .$currentInstitute->logo)}}" alt=""
-                         class="img-responsive logo-change" style="height: 60px;">
+                    <img
+                        src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/nise3-logo/logo1.png')}}"
+                        alt=""
+                        class="img-responsive logo-change" style="height: 60px;">
                     <p>
-                        {{  !empty($currentInstitute->description)?$currentInstitute->description:'' }}
+                        {{  !empty($currentInstitute->description) ? $currentInstitute->description : '' }}
                     </p>
                     <span>
                             <a href="{{route('course_management::static-content.show', 'aboutus')}}" class="read-more"> <i
@@ -129,7 +131,7 @@
                 <div class="float-left">
                     <h3>পরিকল্পনা ও বাস্তবায়নে</h3>
                     <a href="#" target="_blank">
-                        <img src="{{asset('/assets/logo/planner-logo.png')}}" alt="A2i Logo" ></a>
+                        <img src="{{asset('/assets/logo/planner-logo.png')}}" alt="A2i Logo"></a>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12" style="width: auto">

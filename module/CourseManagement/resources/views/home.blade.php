@@ -1,7 +1,5 @@
 @php
-    $currentInstitute = domainConfig('institute');
-    $layout = 'master::layouts.smef-front-end';
-
+    $layout = 'master::layouts.front-end';
 @endphp
 
 @extends($layout)
@@ -11,15 +9,10 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <h1>Hello</h1>
-    </div>
+    <h1>Home page</h1>
 @endsection
 
 @push('css')
-
 @endpush
-
 @push('js')
-
 @endpush

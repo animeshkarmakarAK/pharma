@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\View;
 use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
@@ -13,15 +14,14 @@ use Module\CourseManagement\App\Models\Slider;
 use Module\CourseManagement\App\Models\StaticPage;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Models\YouthRegistration;
-use Module\CourseManagement\App\Models\CourseSession;
 
 class HomeController extends BaseController
 {
     /**
      * Show the application dashboard.
-     * @return Renderable
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $currentInstitute = domainConfig('institute');
         if ($currentInstitute) {
@@ -121,8 +121,7 @@ class HomeController extends BaseController
             'youth_registrations' => YouthRegistration::count(),
         ];
 
-        //return view('course_management::welcome', compact('institute'));
-        return view('smef_management::frontend.home');
+        return view('course_management::home');
     }
 
     public function success()
