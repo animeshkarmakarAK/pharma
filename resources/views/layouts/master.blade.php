@@ -91,7 +91,7 @@
         }
 
         .theme-box:hover .theme-inner-box{
-            box-shadow: 0px 0px 45px -10px #a6d1ff !important;
+            box-shadow: 0 0 45px -10px #a6d1ff !important;
         }
         .theme-image{
             width: 80px;
@@ -110,7 +110,7 @@
     </style>
     @stack('css')
     <script>
-        windoow.select_option_placeholder = '{{__('generic.add_button_label')}}';
+        window.select_option_placeholder = '{{__('generic.add_button_label')}}';
     </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

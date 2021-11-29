@@ -46,7 +46,7 @@ class UserService
             $data['loc_division_id'] = null;
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINER_USER_CODE) {
             $data['loc_district_id'] = null;
-            $data['institute_id'] = null;
+            $data['institute_id'] = auth()->user()->institute_id;
             $data['loc_division_id'] = null;
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_DIVCOM_USER_CODE) {
             $data['loc_district_id'] = null;
@@ -167,9 +167,11 @@ class UserService
         $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
         $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
         $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
+        $users->where('users.user_type_id', '!=', User::USER_TYPE_TRAINER_USER_CODE);
 
         if ($authUser->isInstituteUser()) {
-            $users->where('users.institute_id', $authUser->institute_id);
+            $users->where('users.institute_id', $authUser->institute_id)
+                ->where('users.user_type_id', $authUser->user_type_id);
         }
 
         return DataTables::eloquent($users)
@@ -185,7 +187,7 @@ class UserService
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 if ($authUser->isInstituteUser()) {
-                    $str .= '<a href="'. {{ route('admin.users.trainers', $user->id)}} .'"  data-action="' . route('admin.users.trainers', $user->id) . '" class="btn btn-outline-info btn-sm info"> <i class="fas fa-trash"></i> ' . __('generic.trainers') . '</a>';
+                    $str .= '<a href="'. route('admin.users.trainers', $user->id) .'"  data-action="' . route('admin.users.trainers', $user->id) . '" class="btn btn-outline-info btn-sm info"> <i class="fas fa-trash"></i> ' . __('generic.trainers') . '</a>';
                 }
                 return $str;
             }))

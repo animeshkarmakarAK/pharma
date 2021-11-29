@@ -65,6 +65,7 @@
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
         const editAddModal = $("#edit-add-modal");
         const viewModal = $("#user-profile-view-modal");
+        const isInstituteUser = {!! \App\Helpers\Classes\AuthHelper::getAuthUser()->isInstituteUser() !!}
 
         $(function () {
             let params = serverSideDatatableFactory({
@@ -186,7 +187,7 @@
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}:
-                        enableShowFormFields($('#institute_id'));
+                        isInstituteUser ? disabledHideFormFields($('#institute_id')) : enableShowFormFields($('#institute_id'));
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     default:

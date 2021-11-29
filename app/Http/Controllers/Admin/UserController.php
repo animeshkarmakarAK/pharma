@@ -222,7 +222,10 @@ class UserController extends BaseController
 
     public function trainers(User $user): View
     {
-        $trainerList = User::where('institute_id', $user->institute_id)->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)->get();
+        $trainerList = User::where('institute_id', $user->institute_id)
+            ->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)
+            ->get();
+
         dd($trainerList);
         return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
     }
