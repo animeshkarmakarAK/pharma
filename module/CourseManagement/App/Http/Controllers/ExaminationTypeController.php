@@ -59,8 +59,9 @@ class ExaminationTypeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationTypeService->validator($request)->validate();
-
+        $authUser = AuthHelper::getAuthUser();
         try {
+            $validatedData['institute_id'] = $authUser->institute_id;
             $this->examinationTypeService->createExaminationType($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());

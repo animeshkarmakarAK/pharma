@@ -15,13 +15,13 @@ class ExaminationService
 {
     public function createExamination(array $data): Examination
     {
-        $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
+        //$data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         return Examination::create($data);
     }
 
     public function updateExamination(Examination $examination, array $data): Examination
     {
-        $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
+        //$data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         $examination->fill($data);
         $examination->save();
         return $examination;
@@ -38,23 +38,24 @@ class ExaminationService
     public function validator(Request $request): Validator
     {
         $rules = [
-            'title_en' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max: 191',
-            ],
-            'institute_id' => [
+            'batch_id' => [
                 'required',
                 'int',
-                'exists:institutes,id',
             ],
-            'address' => ['nullable', 'string', 'max:191'],
-            'google_map_src' => ['nullable', 'string'],
+
+            'training_center_id' => [
+                'required',
+                'int',
+            ],
+
+            'examination_type_id' => [
+                'required',
+                'int',
+            ],
+
+            'total_mark' => ['required'],
+            'pass_mark' => ['required'],
+            'exam_details' => ['required'],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -63,18 +64,13 @@ class ExaminationService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Examination $examinations */
-        $examinations = Examination::acl()->select(
+        $examinations = Examination::with('Batch','trainingCenter','ExaminationType')->select(
             [
-                'examinations.id as id',
-                'examinations.title_en',
-                'examinations.title_bn',
-                'institutes.title_en as institute_title_en',
-                'examinations.row_status',
-                'examinations.created_at',
-                'examinations.updated_at',
+                'examinations.*'
             ]
         );
-        $examinations->leftJoin('institutes', 'examinations.institute_id', '=', 'institutes.id');
+
+        $examinations->where('examinations.institute_id', '=', $authUser->institute_id);
 
         return DataTables::eloquent($examinations)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Examination $examination) use ($authUser) {

@@ -74,6 +74,7 @@ class PublishCourseController extends Controller
     {
         $validatedData = $this->publishCourseService->validator($request)->validate();
 
+
         DB::beginTransaction();
         try {
             $this->publishCourseService->createPublishCourse($validatedData);

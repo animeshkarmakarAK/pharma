@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'question-answers' => Module\CourseManagement\App\Http\Controllers\QuestionAnswerController::class,
 
         'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
-        'examination' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
+        'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
     ]);
 
 
@@ -114,7 +114,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         ->name('youths.certificate.course');
 
     Route::post('examination-types/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class, 'getDatatable'])->name('examination-types.datatable');
-    Route::post('examination/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examination.datatable');
+    Route::post('examinations/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examinations.datatable');
 
 });
 

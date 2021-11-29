@@ -103,13 +103,13 @@ class CourseService
                 'required',
                 'int'
             ],
-            'cover_image' => [
+            /*'cover_image' => [
                 'nullable',
                 'image',
                 'mimes:jpg,bmp,png,jpeg,svg',
                 'max:500',
                 'dimensions:width=820,height=312'
-            ]
+            ]*/
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

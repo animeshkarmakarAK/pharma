@@ -15,7 +15,6 @@ class ExaminationTypeService
 {
     public function createExaminationType(array $data): ExaminationType
     {
-        $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         return ExaminationType::create($data);
     }
 
@@ -58,6 +57,7 @@ class ExaminationTypeService
                 'examination_types.updated_at',
             ]
         );
+        $examinationTypes->where('examination_types.institute_id', $authUser->institute_id);
         return DataTables::eloquent($examinationTypes)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (ExaminationType $examinationType) use ($authUser) {
                 $str = '';

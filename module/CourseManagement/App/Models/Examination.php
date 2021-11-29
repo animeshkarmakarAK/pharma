@@ -31,17 +31,17 @@ class Examination extends BaseModel
     protected $guarded = ['id'];
 
 
-    public function Batch(): BelongsTo
+    public function batch(): BelongsTo
     {
-        return $this->belongsTo(Batch::class, batch_id);
+        return $this->belongsTo(Batch::class, 'batch_id');
     }
 
-    public function ExaminationType(): BelongsTo
+    public function examinationType(): BelongsTo
     {
-        return $this->belongsTo(ExaminationType::class, examination_type_id);
+        return $this->belongsTo(ExaminationType::class, 'examination_type_id');
     }
-    public function TrainingCenter(): BelongsTo
+    public function trainingCenter(): BelongsTo
     {
-        return $this->belongsTo(TrainingCenter::class, training_center_id);
+        return $this->belongsTo(TrainingCenter::class, 'training_center_id');
     }
 }

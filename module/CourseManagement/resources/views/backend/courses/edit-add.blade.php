@@ -288,14 +288,14 @@
             rules: {
                 title_en: {
                     required: true,
-                    pattern: /^[a-zA-Z0-9 ]*$/,
+                    //pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                cover_image: {
+                /*cover_image: {
                     required: false,
-                    accept: "image/*",
+                    accept: "image/!*",
                     filesize: 500000,
                     imageSize: true,
-                },
+                },*/
                 code: {
                     required: true,
                     remote: {
@@ -351,11 +351,11 @@
                 },
             },
             messages: {
-                cover_image: {
+                /*cover_image: {
                     required: "Cover image is required",
                     accept: "Please upload valid image file only",
                     filesize: "Image size max 500Kb",
-                },
+                },*/
                 title_en: {
                     pattern: "This field is required in English.",
                 },
