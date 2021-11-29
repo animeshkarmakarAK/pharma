@@ -32,12 +32,6 @@ class VideoCategoryService
                 'string',
                 'max:191',
             ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-
             'institute_id' => [
                 'required',
                 'int',
@@ -66,7 +60,6 @@ class VideoCategoryService
         $videoCategories = VideoCategory::acl()->select([
             'video_categories.id as id',
             'video_categories.title_en',
-            'video_categories.title_bn',
             'video_categories.parent_id',
 //            'parent.title_en as video_parent_category_title_en',
             'video_categories.created_at',

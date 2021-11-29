@@ -68,13 +68,6 @@
                                            value="{{ $authYouth?$authYouth->name_en: old('name_en') }}"
                                            placeholder="নাম">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="name_bn">নাম (বাংলা) <span class="required">*</span> :</label>
-                                    <input type="text" class="form-control" name="name_bn" id="name_bn"
-                                           {{ $authYouth?'readonly':'' }}
-                                           value="{{ $authYouth?$authYouth->name_bn: old('name_bn') }}"
-                                           placeholder="নাম">
-                                </div>
 
                                 @if(!empty($publishCourse))
                                     <input type="hidden" name="institute_id" id="institute_id"
@@ -1779,11 +1772,6 @@
                     pattern: /^[a-zA-Z0-9 ]*$/,
                     maxlength: 30,
                 },
-                name_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                    maxlength: 30,
-                },
                 number_of_siblings: {
                     max: 99,
                 },
@@ -2249,11 +2237,6 @@
                 name_en: {
                     required: "এখানে আপনার নাম ইংরেজিতে লিখুন",
                     pattern: "এখানে আপনার সঠিক নামটি ইংরেজিতে লিখুন",
-                    maxlength: "এখানে সর্বোচ্চ ৩০ টির অক্ষর লিখবেন",
-                },
-                name_bn: {
-                    required: "এখানে আপনার নাম বাংলায় লিখুন",
-                    pattern: "এখানে আপনার সঠিক নামটি বাংলায় লিখুন",
                     maxlength: "এখানে সর্বোচ্চ ৩০ টির অক্ষর লিখবেন",
                 },
                 mobile: {

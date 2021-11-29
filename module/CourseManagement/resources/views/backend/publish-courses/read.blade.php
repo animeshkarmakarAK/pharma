@@ -103,13 +103,6 @@
                                                     </div>
 
                                                     <div class="col-md-6 custom-view-box">
-                                                        <p class="label-text">{{ __('Session Name (Bangla)') }}</p>
-                                                        <div class="input-box">
-                                                            {{ $courseSession->session_name_bn }}
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6 custom-view-box">
                                                         <p class="label-text">{{ __('Number of Batches') }}</p>
                                                         <div class="input-box">
                                                             {{ $courseSession->number_of_batches }}

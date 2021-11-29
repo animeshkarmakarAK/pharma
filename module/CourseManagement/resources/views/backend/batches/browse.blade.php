@@ -59,11 +59,6 @@
                         name: "batches.title_en",
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "batches.title_bn",
-                    },
-                    {
                         title: "Institute Name",
                         data: "institutes.title_en",
                         name: "institutes.title_en",

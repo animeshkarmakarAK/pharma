@@ -97,11 +97,7 @@
                                                    id="youth_name_en"
                                                    placeholder="Name En">
                                         </div>
-                                        <div class="col-md-2 mb-2">
-                                            <input type="text" class="form-control search-text-fields"
-                                                   id="youth_name_bn"
-                                                   placeholder="Name Bn">
-                                        </div>
+
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields" id="reg_no"
                                                    placeholder="Reg. No.">
@@ -326,11 +322,7 @@
                         data: "name_en",
                         name: "youths.name_en"
                     },
-                    {
-                        title: "Name (Bn)",
-                        data: "name_bn",
-                        name: "youths.name_bn"
-                    },
+
                     {
                         title: "Application Date",
                         data: "application_date",

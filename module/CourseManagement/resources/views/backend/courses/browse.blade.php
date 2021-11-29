@@ -61,11 +61,6 @@
                         name: "title_en"
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "title_bn"
-                    },
-                    {
                         title: "Code",
                         data: "code",
                         name: "code"

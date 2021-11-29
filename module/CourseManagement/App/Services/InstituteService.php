@@ -33,7 +33,6 @@ class InstituteService
     {
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
-            'title_bn' => ['required', 'string', 'max:191'],
             'email' => [
                 'required',
                 'string',
@@ -93,7 +92,6 @@ class InstituteService
         $institutes = Institute::acl()->select([
             'institutes.id as id',
             'institutes.title_en',
-            'institutes.title_bn',
             'institutes.code',
             'institutes.address',
             'institutes.domain',

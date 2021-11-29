@@ -67,11 +67,6 @@
                         name: "title_en"
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "title_bn"
-                    },
-                    {
                         title: "Page ID",
                         data: "page_id",
                         name: "page_id"

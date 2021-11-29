@@ -264,16 +264,6 @@
                     "Please fill this field in English."
                 );
 
-                $.validator.addMethod(
-                    "sessionNameBn",
-                    function (value, element) {
-                        let regexp = /^[\s'\u0980-\u09ff]+$/;
-                        let re = new RegExp(regexp);
-                        return this.optional(element) || re.test(value);
-                    },
-                    "This field is required in Bangla."
-                );
-
                 $.validator.addMethod("cGreaterThan", $.validator.methods.greaterThan,
                     "Application start date must be greater than today");
                 $.validator.addMethod("cApplicationEndDate", $.validator.methods.greaterThan,
@@ -302,10 +292,6 @@
                 $.validator.addClassRules("session_name_en", {
                     required: true,
                     sessionNameEn: true,
-                });
-                $.validator.addClassRules("session_name_bn", {
-                    required: true,
-                    sessionNameBn: true,
                 });
                 SL++;
             }
@@ -405,19 +391,6 @@
                                        placeholder="{{ __('Session Name (English)') }}"
                                        value="<%=edit ? data.session_name_en : ''%>"
                                        onkeyup="$('.session-name-english<%=sl%>').html($(this).val())">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="session_name_bn">{{ __('Session Name (Bangla)') }} <span
-                                        style="color: red"> * </span></label>
-                                <input type="text"
-                                       class="form-control session_name_bn"
-                                       name="course_sessions[<%=sl%>][session_name_bn]"
-                                       placeholder="{{ __('Session Name (Bangla)') }}"
-                                       value="<%=edit ? data.session_name_bn : ''%>"
-                                >
                             </div>
                         </div>
 

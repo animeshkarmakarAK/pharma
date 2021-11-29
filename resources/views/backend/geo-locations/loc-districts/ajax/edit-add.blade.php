@@ -23,10 +23,6 @@
                 @if($edit)
                     @method('put')
                 @endif
-                <div class="col-sm-6 col-md-4">
-                    <label for="name_en">Title <span style="color: red"> * </span></label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{$edit ? $locDistrict->title : ''}}"/>
-                </div>
 
                 <div class="col-sm-6 col-md-4">
                     <label for="name_en">Title (En) <span style="color: red"> * </span></label>

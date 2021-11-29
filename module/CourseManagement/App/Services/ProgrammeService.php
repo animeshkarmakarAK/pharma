@@ -49,7 +49,6 @@ class ProgrammeService
     {
         $rules = [
             'title_en' => 'required|string|max:191',
-            'title_bn' => 'required|string|max:191',
             'institute_id' => 'required|int',
             'code' => [
                 'required',
@@ -76,7 +75,6 @@ class ProgrammeService
             [
                 'programmes.id as id',
                 'programmes.title_en',
-                'programmes.title_bn',
                 'institutes.title_en as institute_title_en',
                 'programmes.code as programme_code',
                 'programmes.logo as programme_logo',

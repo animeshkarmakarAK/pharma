@@ -42,14 +42,6 @@
                                            value="{{$edit ? $trainingCenter->title_en : old('title_en')}}"
                                            placeholder="Title (En)" required>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="title_bn">Title (Bn) <span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control custom-input-box" name="title_bn"
-                                           id="title_bn"
-                                           value="{{$edit ? $trainingCenter->title_bn : old('title_bn')}}"
-                                           placeholder="Title (Bn)" required>
-                                </div>
-
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="address">{{ __('Address') }}</label>
@@ -195,10 +187,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 institute_id: {
                     required: true
                 },
@@ -232,9 +220,6 @@
             messages: {
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 }
             },
             submitHandler: function (htmlForm) {

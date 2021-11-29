@@ -103,18 +103,6 @@
                                            placeholder="{{ __('Content Title') . ' (English)' }}">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">{{ __('Content Title') . ' (Bangla)' }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $staticPage->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Content Title') . ' (Bangla)' }}">
-                                </div>
-                            </div>
-
                             @if($authUser->isInstituteUser())
                                 <input type="hidden" id="institute_id" name="institute_id"
                                        value="{{$authUser->institute_id}}">
@@ -215,10 +203,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 page_id: {
                     required: true,
                     pattern: /^[a-zA-Z0-9-_]*$/,
@@ -252,9 +236,6 @@
             messages: {
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 },
                 page_contents: {
                     required: function () {

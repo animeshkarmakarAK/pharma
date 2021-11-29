@@ -46,17 +46,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="title_bn">{{ __('Title (Bn) ') }} <span
-                                            style="color: red">*</span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           placeholder="{{ __('Title (Bn) ') }}"
-                                           value="{{ $edit ? $batch->title_bn : old('title_bn') }}">
-                                </div>
-                            </div>
-
                             @if($authUser->isInstituteUser())
                                 <input type="hidden" id="institute_id" name="institute_id"
                                        value="{{$authUser->institute_id}}">
@@ -240,10 +229,6 @@
                 title_en: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 institute_id: {
                     required: true

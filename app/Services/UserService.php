@@ -70,10 +70,6 @@ class UserService
                 'required',
                 'string'
             ],
-            'name_bn' => [
-                'nullable',
-                'string'
-            ],
             'email' => [
                 'bail',
                 'required',
@@ -157,7 +153,6 @@ class UserService
         $users = User::select([
             'users.id as id',
             'users.name_en',
-            'users.name_bn',
             'users.user_type_id',
             'institutes.title_en as institute_name',
             'loc_districts.title_en as loc_district_name',

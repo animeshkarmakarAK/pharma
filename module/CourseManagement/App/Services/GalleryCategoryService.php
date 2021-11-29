@@ -37,7 +37,6 @@ class GalleryCategoryService
     {
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
-            'title_bn' => ['required', 'string', 'max:191'],
             'institute_id' => [
                 'required',
                 'int',
@@ -125,7 +124,6 @@ class GalleryCategoryService
         $galleryCategories = GalleryCategory::acl()->select([
             'gallery_categories.id',
             'gallery_categories.title_en',
-            'gallery_categories.title_bn',
             'gallery_categories.featured',
             'institutes.title_en as institute_title_en',
             'programmes.title_en as programme_title_en',
