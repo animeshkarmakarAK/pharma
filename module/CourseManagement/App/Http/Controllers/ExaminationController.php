@@ -56,6 +56,7 @@ class ExaminationController extends Controller
         $authUser = AuthHelper::getAuthUser();
         try {
             $validatedData['institute_id'] = $authUser->institute_id;
+            $validatedData['created_by'] = $authUser->id;
             $this->examinationService->createExamination($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());

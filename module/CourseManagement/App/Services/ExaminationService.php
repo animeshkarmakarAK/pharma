@@ -21,6 +21,7 @@ class ExaminationService
 
     public function updateExamination(Examination $examination, array $data): Examination
     {
+        //dd($data);
         //$data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         $examination->fill($data);
         $examination->save();

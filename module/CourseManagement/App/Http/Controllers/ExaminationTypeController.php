@@ -62,6 +62,7 @@ class ExaminationTypeController extends Controller
         $authUser = AuthHelper::getAuthUser();
         try {
             $validatedData['institute_id'] = $authUser->institute_id;
+            $validatedData['created_by'] = $authUser->id;
             $this->examinationTypeService->createExaminationType($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -104,6 +105,7 @@ class ExaminationTypeController extends Controller
      */
     public function update(Request $request, ExaminationType $examinationType): RedirectResponse
     {
+        //dd($examinationType);
         $validatedData = $this->examinationTypeService->validator($request)->validate();
 
         try {

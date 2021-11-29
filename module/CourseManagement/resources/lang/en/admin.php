@@ -56,5 +56,21 @@ return [
         'examination_type' => 'Examination Type'
 
     ],
+
+
+    'routine' => [
+        'sort' => 'Sort',
+        'list' => 'Examination',
+        'action' => 'Action',
+        'sl' => '#',
+        'title' => 'Title',
+        'total_mark' => 'Total Mark',
+        'pass_mark' => 'Pass Mark',
+        'batch_title' => 'Batch Title',
+        'training_center' => 'Training Center',
+        'exam_details' => 'Examination Details',
+        'examination_type' => 'Examination Type'
+
+    ],
 ];
 

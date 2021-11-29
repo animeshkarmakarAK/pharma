@@ -20,6 +20,7 @@ class ExaminationTypeService
 
     public function updateExaminationType(ExaminationType $examinationType, array $data): ExaminationType
     {
+
         $examinationType->fill($data);
         $examinationType->save();
         return $examinationType;
