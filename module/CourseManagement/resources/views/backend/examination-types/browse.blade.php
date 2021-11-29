@@ -50,7 +50,7 @@
                 order: [[2, "desc"]],
                 columns: [
                     {
-                        title: "SL#",
+                        title: '{{__('course_management::admin.examination_type.action')}}',
                         data: null,
                         defaultContent: "SL#",
                         searchable: false,
@@ -58,7 +58,7 @@
                         visible: true,
                     },
                     {
-                        title: "Title",
+                        title: "{{__('course_management::admin.examination_type.title')}}",
                         data: "title",
                         name: "examination_types.title"
                     },
