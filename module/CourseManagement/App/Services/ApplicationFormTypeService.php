@@ -50,7 +50,6 @@ class ApplicationFormTypeService
     {
         $data = [];
         $data['title_en'] = $request->title_en;
-        $data['title_bn'] = $request->title_bn;
         $data['institute_id'] = $request->institute_id;
         $data['jsc'] = $request->jsc;
         $data['ssc'] = $request->ssc;
@@ -108,7 +107,6 @@ class ApplicationFormTypeService
     {
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
-            'title_bn' => ['required', 'string', 'max:191'],
             'institute_id' => 'required',
             'ethnic' => 'boolean',
             'freedom_fighter' => 'boolean',
@@ -135,7 +133,6 @@ class ApplicationFormTypeService
         $applicationFromType = ApplicationFormType::acl()->select([
             'application_form_types.id as id',
             'application_form_types.title_en',
-            'application_form_types.title_bn',
             'row_status.title as row_status',
             'application_form_types.created_at',
             'application_form_types.updated_at',

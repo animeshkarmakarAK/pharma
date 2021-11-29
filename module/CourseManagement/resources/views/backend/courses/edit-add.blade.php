@@ -99,18 +99,6 @@
                                            placeholder="{{ __('Name') . ' (English)' }}">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">{{ __('Name') . ' (Bangla)' }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $course->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
-                                </div>
-                            </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">{{ __('Code') }}<span
@@ -302,10 +290,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 cover_image: {
                     required: false,
                     accept: "image/*",
@@ -374,9 +358,6 @@
                 },
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 },
                 course_fee: {
                     number: 'Please enter your course fee [Only number]',

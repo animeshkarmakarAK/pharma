@@ -60,10 +60,7 @@
                         title: "Title (En)",
                         data: "title_en"
                     },
-                    {
-                        title: "Title (Bn)",
-                        data: "title_bn"
-                    },
+
                     {
                         title: "Description",
                         data: "description"

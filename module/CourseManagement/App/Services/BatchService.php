@@ -41,7 +41,6 @@ class BatchService
     {
         $rules = [
             'title_en' => 'required|string|max:191',
-            'title_bn' => 'required|string|max: 191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'institute_id' => 'required|int',
             'publish_course_id' => 'required|int',
@@ -74,7 +73,6 @@ class BatchService
             [
                 'batches.id as id',
                 'batches.title_en',
-                'batches.title_bn',
                 'institutes.title_en as institutes.title_en',
                 'courses.title_en as courses.title_en',
                 'batches.max_student_enrollment as batches.max_student_enrollment',

@@ -34,14 +34,6 @@
                         {{ $batch->title_en }}
                     </div>
                 </div>
-
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Batch Title(BN)') }}</p>
-                    <div class="input-box">
-                        {{ $batch->title_bn }}
-                    </div>
-                </div>
-
                 @if(!$authUser->isInstituteUser())
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('Institute Name') }}</p>
@@ -106,8 +98,6 @@
                         {{ date("g:i A", strtotime($batch->end_time)) }}
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

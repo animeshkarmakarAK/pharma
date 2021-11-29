@@ -47,18 +47,6 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . ' (Bangla)' }} <span
-                                            style="color: red">*</span></label>
-                                    <input type="text" class="form-control custom-input-box" id="title_bn"
-                                           name="title_bn"
-                                           value="{{$edit ? $branch->title_bn : old('title_bn')}}"
-                                           placeholder="{{ __('Title') . ' (Bangla)' }}">
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
                                     <label for="address">{{ __('Address') }}</label>
                                     <textarea class="form-control" id="address" name="address"
                                               placeholder="{{ __('Address') }}"
@@ -136,10 +124,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
                 institute_id: {
                     required: true
                 },
@@ -148,9 +132,6 @@
                 title_en: {
                         pattern: "This field is required in English.",
                 },
-                title_bn: {
-                        pattern: "This field is required in Bangla.",
-                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

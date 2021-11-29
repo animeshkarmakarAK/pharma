@@ -58,15 +58,6 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="name_bn">Name (Bangla) <span style="color: red"> * </span></label>
-                        <input type="text" class="form-control" id="name_bn"
-                               name="name_bn"
-                               value="{{$edit ? $user->name_bn : old('name_bn')}}"
-                               placeholder="Name (Bangla)">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
                         <label for="email">{{ __('Email') }} <span style="color: red"> * </span></label>
                         <input type="email" class="form-control" id="email"
                                name="email"

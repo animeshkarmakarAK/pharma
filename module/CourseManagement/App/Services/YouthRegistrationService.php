@@ -42,7 +42,7 @@ class YouthRegistrationService
     {
         $presentAddress = data_get($data, 'address.present');
         $permanentAddress = data_get($data, 'address.permanent');
-        $youth = Arr::only($data, ['name_en', 'name_bn', 'mobile', 'email', 'ethnic_group', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status', 'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land', 'number_of_siblings', 'student_signature_pic', 'student_pic']);
+        $youth = Arr::only($data, ['name_en','mobile', 'email', 'ethnic_group', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status', 'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land', 'number_of_siblings', 'student_signature_pic', 'student_pic']);
         $youth = array_merge($youth, $presentAddress);
         $youth = array_merge($youth, $permanentAddress);
 
@@ -278,7 +278,6 @@ class YouthRegistrationService
             'youth_course_enrolls.payment_status',
             'youth_course_enrolls.created_at as enroll_date',
             'youth_course_enrolls.updated_at as enroll_updated_date',
-            'courses.title_bn as course_title_bn',
             'courses.course_fee as course_fee',
             'youth_batches.batch_id as batch_id',
             'batches.batch_status as batch_status',

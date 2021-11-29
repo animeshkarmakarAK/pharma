@@ -85,11 +85,7 @@
                         data: "name_en",
                         name: "users.name_en"
                     },
-                    {
-                        title: "Name (Bn)",
-                        data: "name_bn",
-                        name: "users.name_bn"
-                    },
+
                     {
                         title: "User Type",
                         data: "user_type_title",

@@ -63,11 +63,6 @@
                         name: "branches.title_en"
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "branches.title_bn"
-                    },
-                    {
                         title: "Institute Name",
                         data: "institute_title_en",
                         name: "title_en"

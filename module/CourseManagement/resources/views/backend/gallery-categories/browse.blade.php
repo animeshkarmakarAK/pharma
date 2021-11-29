@@ -63,11 +63,6 @@
                         name: "gallery_categories.title_en",
                     },
                     {
-                        title: "Title (Bn)",
-                        data: "title_bn",
-                        name: "gallery_categories.title_bn",
-                    },
-                    {
                         title: "Institute Name",
                         data: "institute_title_en",
                         name: "institutes.title_en",

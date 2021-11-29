@@ -44,11 +44,6 @@ class CourseService
                 'string',
                 'max:191'
             ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max:191'
-            ],
             'code' => [
                 'required',
                 'string',
@@ -174,7 +169,6 @@ class CourseService
         $courses = Course::acl()->select([
             'courses.id as id',
             'courses.title_en',
-            'courses.title_bn',
             'courses.duration',
             'courses.code',
             'courses.course_fee',

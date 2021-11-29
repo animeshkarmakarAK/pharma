@@ -121,10 +121,7 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
+
                 youtube_video_url: {
                     required: true,
                     pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
@@ -146,9 +143,6 @@
             messages: {
                 title_en: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 },
                 youtube_video_id: {
                     pattern: "invalid youtube video url",

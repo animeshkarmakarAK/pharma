@@ -43,17 +43,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="title_bn">{{ __('Name') . ' (Bangla)' }} <span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $applicationFormType->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
-                                </div>
-                            </div>
-
                             @if($authUser->isInstituteUser())
                                 <input type="hidden" id="institute_id" name="institute_id"
                                        value="{{$authUser->institute_id}}">
@@ -263,11 +252,6 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-
-                },
                 institute_id: {
                     required: true
                 },
@@ -275,10 +259,7 @@
             messages: {
                 title_en: {
                     pattern: "Please fill this field in English"
-                },
-                title_bn: {
-                    pattern: "Please fill this field in Bangla"
-                },
+                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
