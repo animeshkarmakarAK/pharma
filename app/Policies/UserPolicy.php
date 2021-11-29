@@ -95,7 +95,7 @@ class UserPolicy extends MasterBasePolicy
 
     public function viewUserPermission(User $user, User $model): bool
     {
-        return $user->id == $model->id || $user->hasPermission('view_user_permission');
+        return  $user->id != $model->id && $user->hasPermission('view_user_permission');
     }
 
     public function changeUserPermission(User $user, User $model): bool
@@ -108,9 +108,13 @@ class UserPolicy extends MasterBasePolicy
         return $this->viewUserPermission($user, $model) && $user->hasPermission('change_user_role');
     }
 
-
     public function changeUserType(User $user, User $model): bool
     {
         return !($user->isDCUser() || $user->isInstituteUser() || $user->isOrganizationUser()) && !($user->id == $model->id);
+    }
+
+    public function editTrainerInformation(User $user, User $model): bool
+    {
+        return $user->isTrainer();
     }
 }

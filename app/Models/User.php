@@ -115,7 +115,7 @@ class User extends AuthBaseModel
 
     public function isTrainer(): bool
     {
-        return $this->userType->code === self::USER;
+        return $this->userType->code === self::USER_TYPE_TRAINER_USER_CODE;
     }
 
 

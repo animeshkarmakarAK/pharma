@@ -166,5 +166,5 @@ return [
     'institute_calender'=>'ইনস্টিটিউট ক্যালেন্ডার',
     'trending_jobs'=>'কাজের ট্রেন্ডস',
     'map'=>'মানচিত্র',
-
+    'additional_info_button_label' => 'অতিরিক্ত তথ্য',
 ];

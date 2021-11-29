@@ -109,7 +109,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::get('youths/certificate/{youth}', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'youthCertificateList'])
         ->name('youths.certificate.course');
-
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {

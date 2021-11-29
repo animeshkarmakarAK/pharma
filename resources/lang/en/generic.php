@@ -150,5 +150,6 @@ return [
     'trending_jobs'=>'Trending Jobs',
     'map'=>'Map',
     'trainers' => 'Trainers',
+    'additional_info_button_label' => 'Additional Info',
 ];
 

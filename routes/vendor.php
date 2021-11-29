@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    Route::get('/', [\App\Http\Controllers\Admin\UserController::class, 'dashboard'])->name('dashboard');
+
     Route::post('loc-divisions/datatable', [App\Http\Controllers\GeoLocations\LocDivisionController::class, 'getDatatable'])->name('loc-divisions.datatable');
     Route::post('loc-districts/datatable', [App\Http\Controllers\GeoLocations\LocDistrictController::class, 'getDatatable'])->name('loc-districts.datatable');
     Route::post('loc-upazilas/datatable', [App\Http\Controllers\GeoLocations\LocUpazilaController::class, 'getDatatable'])->name('loc-upazilas.datatable');
@@ -15,7 +17,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     //    Route::get('/profile', [App\Http\Controllers\Admin\UserController::class, 'profile'])->name('admin-profile');
     Route::resource('/users', App\Http\Controllers\Admin\UserController::class);
-    Route::get('/users/{user}/trainers', [App\Http\Controllers\Admin\UserController::class, 'trainers'])->name('users.trainers');
+    Route::get('/users/{user}/trainers', [App\Http\Controllers\Admin\UserController::class, 'trainerList'])->name('users.trainers');
     Route::resource('user-types', App\Http\Controllers\UserTypeController::class)
         ->except(['create', 'store', 'destroy']);
 
@@ -43,6 +45,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('change-themes', [App\Http\Controllers\ThemesController::class, 'changeThemeList'])->name('themes.changeThemeList');
     Route::post('apply-theme', [App\Http\Controllers\ThemesController::class, 'applyTheme'])->name('themes.applyTheme');
 
+    Route::post('/trainers/datatable', [App\Http\Controllers\Admin\UserController::class, 'getTrainersDatatable'])->name('trainers.datatable');
+    Route::get('/trainer/{user}/additional-info', [App\Http\Controllers\Admin\TrainerController::class, 'index'])->name('trainers.additional-info');
 });
 
 Route::group(['middleware' => ['auth']], function () {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\BaseController;
 use App\Models\Permission;
 use App\Models\Role;
@@ -26,6 +25,11 @@ class UserController extends BaseController
     {
         $this->userService = $userService;
         $this->authorizeResource(User::class);
+    }
+
+    public function dashboard()
+    {
+        return view(self::VIEW_PATH . 'dashboard');
     }
 
     public function index()
@@ -220,13 +224,17 @@ class UserController extends BaseController
         }
     }
 
-    public function trainers(User $user): View
+    public function trainerList(User $user): View
     {
         $trainerList = User::where('institute_id', $user->institute_id)
             ->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)
             ->get();
 
-        dd($trainerList);
         return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
+    }
+
+    public function getTrainersDatatable(Request $request): JsonResponse
+    {
+        return $this->userService->getListDataForTrainerDatatable($request);
     }
 }
