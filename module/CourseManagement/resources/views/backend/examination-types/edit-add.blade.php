@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ $edit?'Edit Branch':'Create Branch' }}
+    {{ $edit? __('course_management::admin.examination_type.list')  .' :: '. __('course_management::admin.common.edit') : __('course_management::admin.examination_type.list')  .' :: '.  __('course_management::admin.common.add')  }}
 @endsection
 
 @section('content')
@@ -16,11 +16,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Examination Type':'Create Examination Type' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit? __('course_management::admin.common.edit'):__('course_management::admin.common.add') }}</h3>
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.examination-types.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>
@@ -36,19 +36,19 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . ' (English)' }} <span
+                                    <label for="name">{{__('course_management::admin.examination_type.title')}} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title"
                                            name="title"
                                            value="{{$edit ? $examinationType->title : old('title')}}"
-                                           placeholder="{{ __('Title') . ' (English)' }}">
+                                           placeholder="{{__('course_management::admin.examination_type.title')}}">
                                 </div>
                             </div>
 
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add') }}</button>
                             </div>
                         </form>
                     </div>

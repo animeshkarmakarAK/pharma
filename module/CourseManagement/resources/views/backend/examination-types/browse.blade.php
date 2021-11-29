@@ -10,13 +10,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">ExaminationType List</h3>
+                        <h3 class="card-title font-weight-bold">{{__('course_management::admin.examination_type.list')}}</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\ExaminationType::class)
                                 <a href="{{route('course_management::admin.examination-types.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                 </a>
                             @endcan
 
@@ -50,7 +50,7 @@
                 order: [[2, "desc"]],
                 columns: [
                     {
-                        title: '{{__('course_management::admin.examination_type.action')}}',
+                        title: '{{__('course_management::admin.examination_type.sl')}}',
                         data: null,
                         defaultContent: "SL#",
                         searchable: false,
@@ -63,7 +63,7 @@
                         name: "examination_types.title"
                     },
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.examination_type.action')}}",
                         data: "action",
                         orderable: false,
                         searchable: false,

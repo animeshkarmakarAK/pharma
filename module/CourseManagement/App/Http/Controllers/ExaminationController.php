@@ -26,8 +26,9 @@ class ExaminationController extends Controller
     /**
      * @return View
      */
-    public function index(): View
+    public function index()
     {
+        return "Examination";
         return \view(self::VIEW_PATH . 'browse');
     }
 

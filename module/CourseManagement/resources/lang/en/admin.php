@@ -2,11 +2,12 @@
 
 return [
     'common' => [
-        'back' => 'Back',
+        'back' => 'Back To List',
         'save' => 'Save',
         'list' => 'Record List',
         'info' => 'Information',
-        'add' => 'Add',
+        'read' => 'Read',
+        'add' => 'Add New',
         'edit' => 'Edit',
         'update' => 'Update',
         'delete' => 'Delete',
@@ -35,7 +36,7 @@ return [
 
     'examination_type' => [
         'sort' => 'Sort',
-        'list' => ' List',
+        'list' => 'Examination Type',
         'action' => 'Action',
         'sl' => '#',
         'title' => ' Title',
