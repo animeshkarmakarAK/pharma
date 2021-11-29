@@ -5,291 +5,340 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Institute' : 'Update Institute' }}
+    {{ 'Trainer Information' }}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-md-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Institute' : 'Update Institute' }}</h3>
-
-                        <div class="card-tools">
-                            @can('viewAny', \Module\CourseManagement\App\Models\Institute::class)
-                                <a href="{{route('course_management::admin.institutes.index')}}"
-                                   class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-backward"></i> Back to list
-                                </a>
-                            @endcan
-                        </div>
-
+                        <h3 class="card-title font-weight-bold text-primary">{{ 'Trainer Information'}}</h3>
                     </div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="card card-outline">
+                                <div class="card-header text-primary custom-bg-gradient-info">
+                                    <h3 class="card-title font-weight-bold text-primary">{{ 'Personal Information'}}</h3>
 
-                    <div class="card-body">
-                        <form class="row edit-add-form" method="post"
-                              enctype="multipart/form-data"
-                              action="{{ $edit ? route('course_management::admin.institutes.update', [$institute->id]) : route('course_management::admin.institutes.store')}}">
-                            @csrf
-                            @if($edit)
-                                @method('put')
-                            @endif
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">{{ __('Name') . ' (English)' }}<span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $institute->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') . ' (English)' }}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">{{ __('Name') . ' (Bangla)' }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $institute->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">{{ __('Code') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="code"
-                                           name="code"
-                                           data-code="{{ $edit ? $institute->code : '' }}"
-                                           value="{{ $edit ? $institute->code : old('code') }}"
-                                           placeholder="{{ __('Code') }}">
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="domain">{{ __('Domain') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="domain"
-                                           name="domain"
-                                           value="{{ $edit ? $institute->domain : old('domain') }}"
-                                           placeholder="{{ __('Domain') }}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="primary_phone">{{ __('Primary Phone') }}</label>
-                                    <input type="text" class="form-control" id="primary_phone"
-                                           name="primary_phone"
-                                           value="{{ $edit ? $institute->primary_phone : old('primary_phone') }}"
-                                           placeholder="{{ __('Primary Phone') }}">
-                                </div>
-                            </div>
-
-                            @if($edit)
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div id='AddMultiPhone' class="mb-2">
-                                            @if(!empty($institute->phone_numbers))
-                                                <?php $sl = 0; $sl_div = 0; $phone_id = 0; ?>
-                                                @foreach($institute->phone_numbers as $phone)
-                                                    <div id="AddPhoneDiv{{ ++$sl_div }}">
-                                                        <label class="label-text"
-                                                               style="margin-bottom: 9px;">{{ __('Phone #') }}{{ ++$sl }}</label>
-                                                        <input type='text' id='phone{{++$phone_id}}'
-                                                               class="form-control phone_numbers" name="phone_numbers[]"
-                                                               value="{{ $phone }}">
-                                                    </div>
-                                                @endforeach
-                                            @else
-                                                <div id="AddPhoneDiv1">
-                                                    <label>Phone #1 : </label>
-                                                    <input type='text' id='phone1' class="form-control phone_numbers"
-                                                           name="phone_numbers[]">
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="float-right  btn-group">
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='addPhone'>
-                                                <i class="fa fa-plus-circle"></i> Add More Phone
+                                    <div class="card-tools">
+                                        @can('viewAny', \Module\CourseManagement\App\Models\Institute::class)
+                                            <a href="{{route('course_management::admin.institutes.index')}}"
+                                               class="btn btn-sm btn-outline-primary btn-rounded">
+                                                <i class="fas fa-backward"></i> Back to list
                                             </a>
-
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='removePhone'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
-                                            </a>
-                                        </div>
+                                        @endcan
                                     </div>
+
                                 </div>
-                            @else
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div id='AddMultiPhone' class="mb-2">
-                                            <div id="AddPhoneDiv1">
-                                                <label>Phone #1 : </label>
-                                                <input type='text' id='phone1' class="form-control"
-                                                       name="phone_numbers[]">
+
+                                <div class="card-body">
+                                    <form class="row edit-add-form" method="post"
+                                          enctype="multipart/form-data"
+                                          action="{{ $edit ? route('course_management::admin.institutes.update', [$institute->id]) : route('course_management::admin.institutes.store')}}">
+                                        @csrf
+                                        @if($edit)
+                                            @method('put')
+                                        @endif
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="name">{{ __('Name') }}<span
+                                                        style="color: red"> * </span></label>
+                                                <input type="text" class="form-control" id="title_en"
+                                                       name="title_en"
+                                                       value="{{ $edit ? $institute->title_en : old('title_en') }}"
+                                                       placeholder="{{ __('Name') }}">
                                             </div>
                                         </div>
-                                        <div class="float-right  btn-group">
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='addPhone'>
-                                                <i class="fa fa-plus-circle"></i> Add More Phone
-                                            </a>
 
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='removePhone'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
-                                            </a>
+                                        <div
+                                            class="form-group col-md-6 {{ !empty($authYouth)? ($authYouth->email?'read-only-input-field':''):'' }}">
+                                            <label for="email">ইমেইল <span class="required">*</span>
+                                                :</label>
+                                            <input type="text" class="form-control" name="email" id="email"
+                                                   value="{{ !empty($authYouth)? $authYouth->email :old('email') }}"
+                                                   placeholder="ইমেল">
                                         </div>
-                                    </div>
-                                </div>
-                            @endif
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="primary_mobile">{{ __('Primary Mobile') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="primary_mobile"
-                                           name="primary_mobile"
-                                           value="{{ $edit ? $institute->primary_mobile : old('primary_mobile') }}"
-                                           placeholder="{{ __('Primary Mobile') }}">
-                                </div>
-                            </div>
+                                        <div
+                                            class="form-group col-md-6 {{ !empty($authYouth)? ($authYouth->mobile?'read-only-input-field':''):'' }}">
+                                            <label for="mobile">মোবাইল নাম্বার <span class="required">*</span>
+                                                :</label>
+                                            <input type="text" class="form-control" name="mobile" id="mobile"
+                                                   value="{{ !empty($authYouth)? $authYouth->mobile :old('mobile') }}"
+                                                   placeholder="মোবাইল">
+                                        </div>
 
-
-                            @if($edit)
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div id='AddMultiMobile' class="mb-2">
-                                            @if(!empty($institute->mobile_numbers))
-                                                <?php $sl = 0; $sl_div = 0; $mobile_id = 0; ?>
-                                                @foreach($institute->mobile_numbers as $mobile)
-                                                    <div id="AddMobileDiv{{ ++$sl_div }}">
-                                                        <label class="label-text"
-                                                               style="margin-bottom: 9px;">{{ __('Mobile #') }}{{ ++$sl }}</label>
-                                                        <input type='text' id='mobile{{++$mobile_id}}'
-                                                               class="form-control mobile_numbers"
-                                                               name="mobile_numbers[]" value="{{ $mobile }}">
-                                                    </div>
-                                                @endforeach
-                                            @else
-                                                <div id="AddMobileDiv1">
-                                                    <label>Mobile #1 : </label>
-                                                    <input type='text' id='mobile1' class="form-control mobile_numbers"
-                                                           name="mobile_numbers[]">
+                                        <div class="form-group col-md-6">
+                                            <label for="gender">লিঙ্গ<span class="required">*</span> :</label>
+                                            <div
+                                                class="d-md-flex form-control {{ !empty($youthSelfInfo)? ($youthSelfInfo->gender?'read-only-input-field':''):'' }}"
+                                                style="display: inline-table;">
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio" id="gender_male"
+                                                           {{ !empty($youthSelfInfo) && $youthSelfInfo->gender==1?' checked':'' }}
+                                                           name="gender"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE }}"
+                                                        {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
+                                                    <label for="gender_male" class="custom-control-label">পুরুষ</label>
                                                 </div>
-                                            @endif
-
-                                        </div>
-                                        <div class="float-right  btn-group">
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='addMobile'>
-                                                <i class="fa fa-plus-circle"></i> Add More Mobile
-                                            </a>
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='removeMobile'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div id='AddMultiMobile' class="mb-2">
-                                            <div id="AddMobileDiv1">
-                                                <label>Mobile #1 : </label>
-                                                <input type='text' id='mobile1' class="form-control mobile_numbers"
-                                                       name="mobile_numbers[]">
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio" id="gender_female"
+                                                           {{ !empty($youthSelfInfo) &&  $youthSelfInfo->gender==2?' checked':'' }}
+                                                           name="gender"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
+                                                        {{ old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
+                                                    <label for="gender_female" class="custom-control-label">নারী</label>
+                                                </div>
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           id="gender_transgender"
+                                                           {{ !empty($youthSelfInfo) && $youthSelfInfo->gender==4?' checked':'' }}
+                                                           name="gender"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER }}"
+                                                        {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER ? 'checked' : ''}}>
+                                                    <label for="gender_transgender"
+                                                           class="custom-control-label">হিজড়া</label>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="float-right  btn-group">
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='addMobile'>
-                                                <i class="fa fa-plus-circle"></i> Add More Mobile
-                                            </a>
-                                            <a class="btn btn-sm btn-outline-primary btn-rounded" id='removeMobile'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
-                                            </a>
+
+                                        <div
+                                            class="form-group col-md-6 {{ !empty($youthSelfInfo)? ($youthSelfInfo->date_of_birth?'read-only-input-field':''):'' }}">
+                                            <label for="date_of_birth">জন্ম তারিখ <span
+                                                    class="required">*</span> :</label>
+                                            <input type="text" class="form-control flat-date" name="date_of_birth"
+                                                   id="date_of_birth"
+                                                   value="{{ !empty($youthSelfInfo)? $youthSelfInfo->date_of_birth :old('date_of_birth') }}"
+                                                   placeholder="জন্ম তারিখ">
                                         </div>
 
-                                    </div>
-                                </div>
-                            @endif
+                                        <div class="form-group col-md-6">
+                                            <label for="marital_status">বৈবাহিক অবস্থা <span
+                                                    class="required">*</span> :</label>
+                                            <div class="form-control">
+                                                <div class="custom-control  custom-radio d-inline-block mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           id="marital_status_married"
+                                                           name="marital_status"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED }}"
+                                                        {{ old('marital_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED ? 'checked' : '' }}>
+                                                    <label for="marital_status_married"
+                                                           class="custom-control-label">বিবাহিত</label>
+                                                </div>
+                                                <div class="custom-control custom-radio d-inline-block mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           id="marital_status_single"
+                                                           name="marital_status"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo:: MARITAL_STATUS_SINGLE}}"
+                                                        {{ old('marital_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_SINGLE ? 'checked' : '' }}>
+                                                    <label for="marital_status_single"
+                                                           class="custom-control-label">অবিবাহিত</label>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="email">{{ __('Email') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="email"
-                                           name="email"
-                                           value="{{ $edit ? $institute->email : old('email') }}"
-                                           placeholder="{{ __('Email') }}">
-                                </div>
-                            </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="religion">ধর্ম<span class="required">*</span> :</label>
+                                            <div class="d-md-flex form-control" style="display: inline-table;">
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio" id="religion_islam"
+                                                           name="religion"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM }}"
+                                                        {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM ? 'checked' : '' }}>
+                                                    <label for="religion_islam"
+                                                           class="custom-control-label">ইসলাম</label>
+                                                </div>
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio" id="religion_hindu"
+                                                           name="religion"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_HINDU }}"
+                                                        {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_HINDU ? 'checked' : '' }}>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="address">{{ __('Address') }}</label>
-                                    <textarea class="form-control" id="address" name="address"
-                                              placeholder="Address"
-                                              rows="3">{{ $edit ? $institute->address : old('address') }}</textarea>
-                                </div>
-                            </div>
+                                                    <label for="religion_hindu"
+                                                           class="custom-control-label">হিন্দু</label>
+                                                </div>
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           id="religion_christian"
+                                                           name="religion"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN }}"
+                                                        {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN ? 'checked' : '' }}>
+                                                    <label for="religion_christian"
+                                                           class="custom-control-label">খ্রিস্টান</label>
+                                                </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="google_map_src">{{ __('Google Map SRC') }}</label>
-                                    <textarea class="form-control" id="google_map_src" name="google_map_src"
-                                              placeholder="Google Map SRC"
-                                              rows="3">{{ $edit ? $institute->google_map_src : old('google_map_src') }}</textarea>
-                                </div>
-                            </div>
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           id="religion_buddhist"
+                                                           name="religion"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST }}"
+                                                        {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST ? 'checked' : '' }}>
+                                                    <label for="religion_buddhist"
+                                                           class="custom-control-label">বৌদ্ধ</label>
+                                                </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="description">{{ __('Description') }}</label>
-                                    <textarea class="form-control" id="description" name="description"
-                                              rows="3">{{ $edit ? $institute->description : old('description') }}</textarea>
-                                </div>
-                            </div>
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio" id="religion_jain"
+                                                           name="religion"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_JAIN }}"
+                                                        {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_JAIN ? 'checked' : '' }}>
+                                                    <label for="religion_jain" class="custom-control-label">জৈন</label>
+                                                </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="logo">{{ __('Logo') }} <span style="color: red"> * </span></label>
-                                    <div class="input-group">
-                                        <div class="logo-upload-section">
-                                            <div class="avatar-preview text-center">
-                                                <label for="logo">
-                                                    <img class="figure-img"
-                                                         src={{ $edit && $institute->logo ? asset('storage/'. $institute->logo) :  "https://via.placeholder.com/350x350?text=Institute+Logo"}}
-                                                             width="200" height="200"
-                                                         alt="Institute logo"/>
-                                                    <span class="p-1 bg-gray"
-                                                          style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio" id="religion_other"
+                                                           name="religion"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS }}"
+                                                        {{ old('religion') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS ? 'checked' : '' }}>
+                                                    <label for="religion_other"
+                                                           class="custom-control-label">অন্যান্য</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="nationality"> জাতীয়তা <span class="required">*</span>
+                                                :</label>
+                                            <select class="select2" name="nationality" id="nationality">
+                                                <option value=""></option>
+                                                <option value="bd">বাংলাদেশী</option>
+                                                <option value="others">অন্যান্য</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="nid">এন.আই.ডি নাম্বার/জন্ম সনদ/পাসপোর্ট নাম্বার [যেকোনো একটি ঘর
+                                                পূর্ণ
+                                                করুন] <span class="required">*</span>:</label>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control mb-2" name="nid" id="nid"
+                                                           value="{{ old('nid') }}"
+                                                           placeholder="এন.আই.ডি নাম্বার">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control mb-2"
+                                                           name="birth_certificate_no"
+                                                           id="birth_certificate_no"
+                                                           value="{{ old('birth_certificate_no') }}"
+                                                           placeholder="জন্ম সনদ নাম্বার">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <input type="text" class="form-control mb-2" name="passport_number"
+                                                           id="passport_number"
+                                                           value="{{ old('passport_number') }}"
+                                                           placeholder="পাসপোর্ট নাম্বার">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6 physical-disability-information">
+                                            <label for="disable_status">শারীরিক প্রতিবন্ধী?
+                                                <span class="required">*</span>:</label>
+                                            <div class="input-group form-control">
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input type="radio" name="disable_status"
+                                                           class="custom-control-input"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
+                                                           id="physically_disable" {{ old('disable_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                           for="physically_disable">হ্যাঁ</label>
+                                                </div>
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input type="radio" name="disable_status"
+                                                           class="custom-control-input"
+                                                           value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT }}"
+                                                           id="physically_not_disable" {{ old('disable_status') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT ? 'checked' : '' }}>
+
+                                                    <label class="custom-control-label"
+                                                           for="physically_not_disable">না</label>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <select name="physical_disabilities" id="physical_disabilities"
+                                                        class="select2" multiple>
+                                                    @foreach(\Module\CourseManagement\App\Models\YouthFamilyMemberInfo::getPhysicalDisabilityOptions() as $key => $value)
+                                                        <option
+                                                            value="{{ $key }}" {{ $key == old('physical_disabilities') ? 'selected': '' }}>{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row justify-content-between">
+                                            <div class="form-group col-md-6">
+                                                <label for="student_pic"> পাসপোর্ট সাইজের ছবি <span
+                                                        class="required">*</span></label>
+                                                <p class="font-italic font-weight-light" style="font-size: 12px;">(ছবি
+                                                    আকার অবশ্যই
+                                                    ৩০০ <i
+                                                        class="fa fa-times" style="color: #CCCCCC"></i> ৩০০ হতে হবে)</p>
+                                                <div class="input-group">
+                                                    <div class="profile-upload-section">
+                                                        <div class="avatar-preview student_pic text-center">
+                                                            <label for="student_pic">
+                                                                <img class="figure-img"
+                                                                     src="https://via.placeholder.com/350x350?text=Student+Picture"
+                                                                     style="width: 200px; height: 200px;"
+                                                                     alt="Profile pic"/>
+                                                                <span class="p-1 bg-gray"
+                                                                      style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
                                                         <i class="fa fa-pencil-alt text-white"></i>
                                                     </span>
-                                                </label>
+                                                            </label>
+                                                        </div>
+                                                        <input type="file" name="student_pic" style="display: none"
+                                                               id="student_pic">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <input type="file" name="logo" style="display: none"
-                                                   id="logo">
+                                            <div class="form-group col-md-6">
+                                                <label for="student_signature_pic">স্বাক্ষর<span
+                                                        class="required">*</span></label>
+                                                <p class=" font-italic font-weight-light text-small"
+                                                   style="font-size: 12px;">(ছবি
+                                                    আকার অবশ্যই ৩০০ <i
+                                                        class="fa fa-times" style="color: #CCCCCC"></i> ৮০ হতে হবে)</p>
+                                                <div class="input-group">
+                                                    <div class="profile-upload-section">
+                                                        <div class="avatar-preview student_signature_pic text-center">
+                                                            <label for="student_signature_pic">
+                                                                <img class="loading-img"
+                                                                     src="https://via.placeholder.com/350x350?text=Student+Signature"
+                                                                     style="width: 250px; height: 100px"
+                                                                     alt="Signature pic"/>
+                                                                <span class="p-1 bg-gray"
+                                                                      style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
+                                                        <i class="fa fa-pencil-alt text-white"></i> </span>
+                                                            </label>
+                                                        </div>
+                                                        <input type="file" name="student_signature_pic"
+                                                               style="display: none"
+                                                               id="student_signature_pic">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="font-italic text-secondary m-0 p-0">
-                                        (Image max 500kb, file type
-                                        must be jpeg,jpg,png or gif)</p>
+
+
+                                        <div class="col-sm-12 text-right">
+                                            <button type="submit"
+                                                    class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        </div>
+                                    </form>
+                                </div><!-- /.card-body -->
+                                <div class="overlay" style="display: none">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                 </div>
                             </div>
-
-                            <div class="col-sm-12 text-right">
-                                <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
-                            </div>
-                        </form>
-                    </div><!-- /.card-body -->
-                    <div class="overlay" style="display: none">
-                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                        </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -298,220 +347,6 @@
 
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
-    <script>
-        const EDIT = !!'{{$edit}}';
-        const editAddForm = $('.edit-add-form');
-
-
-        $.validator.addMethod(
-            "logoSize",
-            function (value, element) {
-                let isHeightMatched = $('.avatar-preview').find('img')[0].naturalHeight === 70;
-                let isWidthMatched = $('.avatar-preview').find('img')[0].naturalWidth === 370;
-                return this.optional(element) || (isHeightMatched && isWidthMatched);
-            },
-            "Invalid logo size. Size must be 370 x 70",
-        );
-        $.validator.addMethod('filesize', function(value, element, param) {
-            return this.optional(element) || (element.files[0].size <= param)
-        }, 'File size must be less than {0} bytes');
-
-        $.validator.addMethod(
-            "mobileValidation",
-            function (value, element) {
-                let regexp1 = /^(?:\+88|88)?(01[3-9]\d{8})$/i;
-                let regexp = /^(?:\+৮৮|৮৮)?(০১[৩-৯][০-৯]{8})$/i;
-                let re = new RegExp(regexp);
-                let re1 = new RegExp(regexp1);
-                return this.optional(element) || re.test(value) || re1.test(value);
-            },
-            "Please enter valid mobile number"
-        );
-
-        $.validator.addMethod(
-            "phoneValidation",
-            function (value, element) {
-                let regexp = /^[0-9[+-]+$/i;
-                let regexp1 = /^[\s-'\u0980-\u09ff+-]{1,255}$/i;
-                let re = new RegExp(regexp);
-                let re1 = new RegExp(regexp1);
-                return this.optional(element) || re.test(value) || re1.test(value);
-            },
-            "Please enter valid phone number"
-        );
-
-        editAddForm.validate({
-            rules: {
-                title_en: {
-                    required: true,
-                    pattern: /^[a-zA-Z0-9 ]*$/,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
-                },
-                email: {
-                    required: true,
-                    pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                    //remote: "{!! route('course_management::youth.check-unique-email') !!}",
-                },
-                code: {
-                    required: true,
-                    remote: {
-                        param: {
-                            type: "post",
-                            url: "{{ route('course_management::admin.check-institute-code') }}",
-                        },
-                        depends: function (element) {
-                            return $(element).val() !== $('#code').attr('data-code');
-                        }
-                    },
-                },
-                domain: {
-                    required: true,
-                    pattern: /^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/,
-                },
-                primary_phone: {
-                    //pattern: /^[0-9]*$/,
-                    phoneValidation: true,
-                },
-                'phone_numbers[]': {
-                    //pattern: /^[0-9]*$/,
-                    phoneValidation: true,
-                },
-                primary_mobile: {
-                    required: true,
-                    //pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
-                    mobileValidation: true,
-                },
-                'mobile_numbers[]': {
-                    //pattern: /^(?:\+88|88)?(01[3-9]\d{8})$/,
-                    mobileValidation: true,
-                },
-                logo: {
-                    required: !EDIT,
-                    accept: 'image/*',
-                    filesize: 500000,
-                    //logoSize: true,
-                },
-            },
-            messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
-                },
-                email: {
-                    required: "Please enter an email address",
-                    pattern: "Please enter valid email address"
-                },
-                code: {
-                    required: "This field is required",
-                    remote: "Code already in use!",
-                },
-                primary_phone: {
-                    //pattern: 'Please enter valid phone number',
-                },
-                'phone_numbers[]': {
-                    //pattern: 'Please enter valid phone number',
-                },
-                primary_mobile: {
-                    //pattern: 'Please enter valid mobile number',
-                },
-                'mobile_numbers[]': {
-                    //pattern: 'Please enter valid mobile number',
-                },
-                logo: {
-                    accept: 'Please upload valid image file',
-                    filesize: "Image size max 500Kb",
-                },
-            },
-            submitHandler: function (htmlForm) {
-                $('.overlay').show();
-                htmlForm.submit();
-            }
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    $(input).parent().find('.avatar-preview img').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]); // convert to base64 string
-            }
-        }
-
-
-        $(document).ready(function () {
-            var counter = 2;
-            if (EDIT == true) {
-                counter = $('.phone_numbers').length + 1;
-            }
-            $("#addPhone").click(function () {
-                if (counter > 10) {
-                    alert("Only 10 phone allow");
-                    return false;
-                }
-                var newAddPhone = $(document.createElement('div'))
-                    .attr("id", 'AddPhoneDiv' + counter);
-                newAddPhone.after().html('<label>Phone #' + counter + ' : </label>' +
-                    '<input type="text" name="phone_numbers[]' +
-                    '" id="phone' + counter + '" value="" class="form-control phone_numbers" >');
-                newAddPhone.appendTo("#AddMultiPhone");
-                counter++;
-            });
-
-            $("#removePhone").click(function () {
-                if (counter == 2) {
-                    $('#phone1').val('');
-                    return false;
-                }
-                counter--;
-                $("#AddPhoneDiv" + counter).remove();
-            });
-
-        });
-
-        //Add multiple Mobile
-        $(document).ready(function () {
-            //var main_counter = $('.mobile_numbers').length+1;
-            var counter = 2;
-            if (EDIT == true) {
-                counter = $('.mobile_numbers').length + 1;
-            }
-            $("#addMobile").click(function () {
-                if (counter > 10) {
-                    alert("Only 10 mobile allow");
-                    return false;
-                }
-                var newAddMobile = $(document.createElement('div'))
-                    .attr("id", 'AddMobileDiv' + counter);
-                newAddMobile.after().html('<label>Mobile #' + counter + ' : </label>' +
-                    '<input type="text" name="mobile_numbers[]' +
-                    '" id="mobile' + counter + '" value="" class="form-control mobile_numbers" >');
-                newAddMobile.appendTo("#AddMultiMobile");
-                counter++;
-            });
-
-            $("#removeMobile").click(function () {
-                if (counter == 2) {
-                    //alert("No more mobile to remove");
-                    $('#mobile1').val('');
-                    return false;
-                }
-                counter--;
-                $("#AddMobileDiv" + counter).remove();
-            });
-
-            $("#logo").change(function () {
-                readURL(this); //preview image
-                editAddForm.validate().element("#logo");
-            });
-
-        });
-    </script>
 @endpush
 
 

@@ -14,6 +14,12 @@ class AddForeignKeysToRoutinesTable extends Migration
     public function up()
     {
         Schema::table('routines', function (Blueprint $table) {
+            $table->foreign('institute_id', 'routines_fk_institute_id')
+                ->references('id')
+                ->on('institutes')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
             $table->foreign('batch_id', 'routines_fk_batch_id')
                 ->references('id')
                 ->on('batches')
@@ -36,6 +42,7 @@ class AddForeignKeysToRoutinesTable extends Migration
     public function down()
     {
         Schema::table('routines', function (Blueprint $table) {
+            $table->dropForeign('routines_fk_institute_id');
             $table->dropForeign('routines_fk_batch_id');
             $table->dropForeign('routines_fk_training_center_id');
         });
