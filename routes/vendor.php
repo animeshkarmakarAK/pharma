@@ -47,6 +47,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::post('/trainers/datatable', [App\Http\Controllers\Admin\UserController::class, 'getTrainersDatatable'])->name('trainers.datatable');
     Route::get('/trainer/{user}/additional-info', [App\Http\Controllers\Admin\TrainerController::class, 'index'])->name('trainers.additional-info');
+
+    Route::post('/trainer-info', [App\Http\Controllers\Admin\TrainerController::class, 'store'])->name('trainer-info.store');
+
 });
 
 Route::group(['middleware' => ['auth']], function () {

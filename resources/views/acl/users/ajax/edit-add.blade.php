@@ -80,6 +80,9 @@
                                     @if($authUser->isInstituteUser())
                                     data-filters="{{json_encode(['id' => \App\Models\User::USER_TYPE_TRAINER_USER_CODE])}}"
                                     @endif
+                                    @if($authUser->isSuperUser())
+                                    data-filters="{{json_encode(['id' => [\App\Models\User::USER_TYPE_TRAINER_USER_CODE, 'type' => 'not-equal']])}}"
+                                    @endif
                                     @if($edit)
                                     data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                     @endif

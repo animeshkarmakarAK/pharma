@@ -14,7 +14,7 @@ class AddForeignKeysToTrainerPersonalInformationTable extends Migration
     public function up()
     {
         Schema::table('trainer_personal_information', function (Blueprint $table) {
-            $table->foreign('user_id', 'trainer_personal_information_fk_user_id')
+            $table->foreign('trainer_id', 'trainer_personal_information_fk_trainer_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('CASCADE')
@@ -36,7 +36,7 @@ class AddForeignKeysToTrainerPersonalInformationTable extends Migration
     public function down()
     {
         Schema::table('trainer_personal_information', function (Blueprint $table) {
-            $table->dropForeign('trainer_personal_information_fk_user_id');
+            $table->dropForeign('trainer_personal_information_fk_trainer_id');
             $table->dropForeign('trainer_personal_information_fk_institute_id');
         });
     }

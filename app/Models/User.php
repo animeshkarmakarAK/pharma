@@ -7,9 +7,12 @@ use App\Traits\LocDistrictBelongsToRelation;
 use App\Traits\LocDivisionBelongsToRelation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Module\CourseManagement\App\Models\Institute;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
 
 /**
  * App\Models\User
@@ -137,5 +140,22 @@ class User extends AuthBaseModel
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function trainerAcademicQualifications(): HasMany
+    {
+        return $this->hasMany(TrainerAcademicQualification::class);
+    }
+    public function trainerExperiences(): HasMany
+    {
+        return $this->hasMany(TrainerExperience::class);
+    }
+
+    public function trainerPersonalInformation(): HasOne
+    {
+        return $this->hasOne(TrainerPersonalInformation::class);
     }
 }

@@ -216,7 +216,7 @@
 
         .has-error {
             position: relative;
-            padding: 0px 0 12px 0;
+            padding: 0 0 12px 0;
         }
 
         #institute_id-error, #application_form_type_id-error, #course_id-error {

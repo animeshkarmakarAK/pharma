@@ -65,7 +65,7 @@
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
         const editAddModal = $("#edit-add-modal");
         const viewModal = $("#user-profile-view-modal");
-        const isInstituteUser = {!! \App\Helpers\Classes\AuthHelper::getAuthUser()->isInstituteUser() !!}
+        const isInstituteUser = {!! $authUser->isInstituteUser() !!}
 
         $(function () {
             let params = serverSideDatatableFactory({
