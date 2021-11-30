@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
         'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
         'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
+        'examination-results' => Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class,
         'routines' => Module\CourseManagement\App\Http\Controllers\RoutineController::class,
     ]);
 
@@ -116,6 +117,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::post('examination-types/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class, 'getDatatable'])->name('examination-types.datatable');
     Route::post('examinations/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examinations.datatable');
+    Route::post('examination-results/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class, 'getDatatable'])->name('examination-results.datatable');
+    Route::get('examination-results/get-youths/{batch_id?}', [Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class, 'getYouths'])->name('examination-results.get-youths');
     Route::post('routines/datatable', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'getDatatable'])->name('routines.datatable');
 });
 

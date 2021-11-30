@@ -70,5 +70,21 @@ return [
         'examination_type' => 'Routine Type'
 
     ],
+
+    'examination_result' => [
+        'sort' => 'Sort',
+        'list' => 'Examination Result',
+        'action' => 'Action',
+        'sl' => '#',
+        'achieved_marks' => 'Achieved Marks',
+        'feedback' => 'Feedback',
+        'institute' => 'Institute',
+        'youth' => 'Youth',
+        'user' => 'Trainer',
+        'examination' => 'Examination',
+        'batch_title' => 'Batch Title',
+        'training_center' => 'Training Center',
+
+    ],
 ];
 

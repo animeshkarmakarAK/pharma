@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
 
 /**
- * Class ExaminationType
+ * Class ExaminationResult
  * @package App\Models
  * @property string title_en
  * @property string title_bn
@@ -25,13 +25,25 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
  * @method static Builder|Institute query()
  */
 
-class ExaminationType extends BaseModel
+class ExaminationResult extends BaseModel
 {
     public $timestamps = true;
     protected $guarded = ['id'];
 
-    public function examination(): HasMany
+    public function institute(): BelongsTo
     {
-        return $this->hasMany(Examination::class, examination_type_id);
+        return $this->belongsTo(Institute::class, 'institute_id');
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function youth(): BelongsTo
+    {
+        return $this->belongsTo(Youth::class, 'youth_id');
+    }
+    public function examination(): BelongsTo
+    {
+        return $this->belongsTo(Examination::class, 'examination_id');
     }
 }
