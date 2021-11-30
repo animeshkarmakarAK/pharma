@@ -15,6 +15,7 @@ class CreateExaminationTypesTable extends Migration
     {
         Schema::create('examination_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('institute_id')->index('examination_types_fk_institute_id');
             $table->string('title');
             $table->timestamps();
         });

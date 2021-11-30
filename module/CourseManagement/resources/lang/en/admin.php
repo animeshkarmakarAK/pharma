@@ -60,16 +60,14 @@ return [
 
     'routine' => [
         'sort' => 'Sort',
-        'list' => 'Examination',
+        'list' => 'Routine',
         'action' => 'Action',
         'sl' => '#',
-        'title' => 'Title',
-        'total_mark' => 'Total Mark',
-        'pass_mark' => 'Pass Mark',
+        'title' => 'Day',
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
-        'exam_details' => 'Examination Details',
-        'examination_type' => 'Examination Type'
+        'routine_details' => 'Routine Details',
+        'examination_type' => 'Routine Type'
 
     ],
 ];

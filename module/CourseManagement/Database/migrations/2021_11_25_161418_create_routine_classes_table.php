@@ -15,9 +15,11 @@ class CreateRoutineClassesTable extends Migration
     {
         Schema::create('routine_classes', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('institute_id')->index('routine_classes_fk_institute_id');
             $table->unsignedInteger('routine_id')->index('routine_classes_fk_routine_id');
-            $table->string('day');
-            $table->mediumText('class')->nullable();
+            $table->unsignedInteger('user_id')->index('routine_classes_fk_user_id');
+            //$table->string('day',256)->nullable();
+            $table->string('class',256)->nullable()->nullable();
             $table->tinyInteger('row_status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
         'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
         'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
+        'routines' => Module\CourseManagement\App\Http\Controllers\RoutineController::class,
     ]);
 
 
@@ -115,7 +116,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::post('examination-types/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class, 'getDatatable'])->name('examination-types.datatable');
     Route::post('examinations/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examinations.datatable');
-
+    Route::post('routines/datatable', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'getDatatable'])->name('routines.datatable');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
