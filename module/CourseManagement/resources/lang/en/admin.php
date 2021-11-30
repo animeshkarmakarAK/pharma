@@ -70,5 +70,13 @@ return [
         'examination_type' => 'Routine Type'
 
     ],
+
+    'daily_routine' => [
+        'day_routine' => 'Daily Routine',
+        'class' => 'Class',
+        'start_time' => 'Start Time',
+        'end_time' => 'End Time',
+        'trainer' => 'Trainer'
+    ],
 ];
 

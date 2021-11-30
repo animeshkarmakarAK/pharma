@@ -7,7 +7,7 @@ use App\Helpers\Classes\DatatableHelper;
 use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Routine;
-use Module\CourseManagement\App\Models\RoutineType;
+use Module\CourseManagement\App\Models\RoutineClass;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\RoutineService;
 use Illuminate\Contracts\View\View;
@@ -51,13 +51,13 @@ class RoutineController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
         $validatedData = $this->routineService->validator($request)->validate();
         $authUser = AuthHelper::getAuthUser();
+        $validatedData['institute_id'] = $authUser->institute_id;
+        $validatedData['created_by'] = $authUser->id;
+        $this->routineService->createRoutine($validatedData);
         try {
-            $validatedData['institute_id'] = $authUser->institute_id;
-            $validatedData['created_by'] = $authUser->id;
-            $this->routineService->createRoutine($validatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -78,7 +78,8 @@ class RoutineController extends Controller
      */
     public function show(Routine $routine): View
     {
-        return view(self::VIEW_PATH . 'read', compact('routine'));
+        $routineClasses = RoutineClass::where(['routine_id' => $routine->id])->get();
+        return view(self::VIEW_PATH . 'read', compact('routine','routineClasses'));
     }
 
     /**
@@ -106,9 +107,10 @@ class RoutineController extends Controller
     public function update(Request $request, Routine $routine): RedirectResponse
     {
         $validatedData = $this->routineService->validator($request)->validate();
+        $this->routineService->updateRoutine($routine, $request->all());
 
         try {
-            $this->routineService->updateRoutine($routine, $validatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

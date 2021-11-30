@@ -47,6 +47,46 @@
                     </div>
                 </div>
 
+                <div class="col-sm-12 course-sessions mt-5">
+                    <div class="card">
+                        <div class="card-header custom-bg-gradient-info">
+                            <h3 class="card-title text-primary font-weight-bold">{{__('course_management::admin.daily_routine.day_routine')}} </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 course-session-contents">
+                                    @foreach($routineClasses as $routineClass)
+                                        <div class="card" id="session-no-0">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{__('course_management::admin.daily_routine.class')}}</p>
+                                                        <div class="input-box">
+                                                            {{ $routineClass->class }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{__('course_management::admin.daily_routine.start_time')}}</p>
+                                                        <div class="input-box">
+                                                            {{ date("g:i A", strtotime($routineClass->start_time)) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{__('course_management::admin.daily_routine.end_time')}}</p>
+                                                        <div class="input-box">
+                                                            {{ date("g:i A", strtotime($routineClass->end_time)) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
