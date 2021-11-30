@@ -37,12 +37,12 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title">{{__('course_management::admin.routine.title')}} <span
+                                    <label for="title">{{__('course_management::admin.routine.day')}} <span
                                             style="color: red">*</span></label>
-                                    <input type="text" class="form-control" id="title"
-                                           name="title"
-                                           value="{{ $edit ? $routine->title : old('title') }}"
-                                           placeholder="{{__('course_management::admin.routine.title')}}">
+                                    <input type="text" class="form-control" id="day"
+                                           name="day"
+                                           value="{{ $edit ? $routine->title : old('day') }}"
+                                           placeholder="{{__('course_management::admin.routine.day')}}">
                                 </div>
                             </div>
 
@@ -97,42 +97,6 @@
                             </div>
 
 
-                            {{--<div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="training_center_id">
-                                        {{__('course_management::admin.routine.training_center')}}
-                                        <span class="required"></span>
-                                    </label>
-
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="training_center_id"
-                                            id="training_center_id"
-                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-dependent-fields="#batch_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $batch->training_center->title_en, 'id' =>  $batch->training_center->id])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
-                                    >
-                                    </select>
-
-                                </div>
-                            </div>--}}
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="routine_details">
-                                        {{__('course_management::admin.routine.routine_details')}}
-                                        <span class="required"></span>
-                                    </label>
-
-                                    <textarea required="required" class="form-control" placeholder="{{__('course_management::admin.routine.routine_details')}}"
-                                              name="routine_details" id=""  rows="1">{{ $edit?$routine->routine_details:old('routine_details') }}</textarea>
-                                </div>
-                            </div>
-
-
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
                                         class="btn btn-success">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add') }}</button>
@@ -174,10 +138,7 @@
                     required: true,
                 },
 
-                title: {
-                    required: true,
-                },
-                routine_details: {
+                day: {
                     required: true,
                 },
 
@@ -192,7 +153,7 @@
                 },
             },
             messages: {
-                title: {
+                day: {
                         pattern: "This field is required in English.",
                 },
             },

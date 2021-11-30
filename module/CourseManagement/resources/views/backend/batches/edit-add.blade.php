@@ -103,7 +103,7 @@
                                         @if($edit)
                                             @foreach($publishCourseTrainingCenters as $publishCourseTrainingCenter)
                                                 <option
-                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}}>{{ $publishCourseTrainingCenter->title_bn }}</option>
+                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}} {{ $publishCourseTrainingCenter->title_bn }}</option>
                                             @endforeach
                                         @endif
 
@@ -350,7 +350,7 @@
                 $("#training_center_id option").remove();
                 $('#training_center_id').append('<option value="">' + 'Select' + '</option>');
                 $.each(res, function (key, val) {
-                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_bn + '</option>');
+                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_en + '</option>');
                 });
             });
 

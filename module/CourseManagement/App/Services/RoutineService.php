@@ -48,8 +48,7 @@ class RoutineService
                 'required',
                 'int',
             ],
-            'title' => ['required'],
-            'routine_details' => ['required'],
+            'day' => ['required']
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }

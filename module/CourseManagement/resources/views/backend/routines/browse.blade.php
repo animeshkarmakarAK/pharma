@@ -71,16 +71,10 @@
                         name: "routines.batch_id"
                     },
                     {
-                        title: "{{__('course_management::admin.routine.title')}}",
-                        data: "title",
-                        name: "routines.title"
+                        title: "{{__('course_management::admin.routine.day')}}",
+                        data: "day",
+                        name: "routines.day"
                     },
-
-                    /*{
-                        title: "{{__('course_management::admin.routine.routine_details')}}",
-                        data: "routine_details",
-                        name: "routines.routine_details"
-                    },*/
                     {
                         title: "{{__('course_management::admin.routine.action')}}",
                         data: "action",

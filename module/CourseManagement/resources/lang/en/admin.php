@@ -63,7 +63,7 @@ return [
         'list' => 'Routine',
         'action' => 'Action',
         'sl' => '#',
-        'title' => 'Day',
+        'day' => 'Day',
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
         'routine_details' => 'Routine Details',

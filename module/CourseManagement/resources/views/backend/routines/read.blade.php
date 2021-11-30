@@ -29,9 +29,9 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('course_management::admin.routine.title')}}</p>
+                    <p class="label-text">{{__('course_management::admin.routine.day')}}</p>
                     <div class="input-box">
-                        {{ $routine->title }}
+                        {{ $routine->day }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
@@ -44,12 +44,6 @@
                     <p class="label-text">{{__('course_management::admin.routine.batch_title')}}</p>
                     <div class="input-box">
                         {{ $routine->batch->title_en }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('course_management::admin.routine.routine_details')}}</p>
-                    <div class="input-box">
-                        {{ $routine->routine_details }}
                     </div>
                 </div>
 
