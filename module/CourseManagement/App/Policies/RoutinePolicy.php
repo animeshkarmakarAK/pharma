@@ -19,6 +19,11 @@ class RoutinePolicy extends BasePolicy
         return $user->hasPermission('view_any_routine');
     }
 
+    public function viewWeeklyRoutine(User $user): bool
+    {
+        return $user->hasPermission('view_weekly_routine');
+    }
+
     /**
      * Determine whether the user can view the model.
      *

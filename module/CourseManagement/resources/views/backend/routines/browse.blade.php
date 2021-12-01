@@ -13,6 +13,13 @@
                         <h3 class="card-title font-weight-bold">{{__('course_management::admin.routine.list')}}</h3>
 
                         <div class="card-tools">
+                            @can('viewWeeklyRoutine', \Module\CourseManagement\App\Models\Routine::class)
+                                <a href="{{route('course_management::admin.weekly-routine')}}"
+                                   class="btn btn-sm btn-outline-primary btn-rounded">
+                                    <i class="fas fa-eye"></i> {{__('course_management::admin.daily_routine.weekly_routine')}}
+                                </a>
+                            @endcan
+
                             @can('create', \Module\CourseManagement\App\Models\Routine::class)
                                 <a href="{{route('course_management::admin.routines.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
