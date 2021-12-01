@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Module\CourseManagement\App\Models\YouthAcademicQualification;
 
 class TrainerController extends BaseController
 {
@@ -20,6 +21,7 @@ class TrainerController extends BaseController
     {
         $this->trainerService = $trainerService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +30,18 @@ class TrainerController extends BaseController
     public function index(int $userId): View
     {
         $trainer = User::findOrFail($userId);
+        $trainerInstitute = User::where('institute_id', $trainer->institute_id)
+            ->where('user_type_id', User::USER_TYPE_INSTITUTE_USER_CODE)
+            ->first();
 
-        return \view(self::VIEW_PATH . 'additional-information', compact('trainer'));
+
+
+        $academicQualifications = $trainer->trainerAcademicQualifications()->get()->keyBy('examination');
+//       dd( isset($academicQualifications[YouthAcademicQualification::EXAMINATION_MASTERS]));
+
+
+        return \view(self::VIEW_PATH . 'additional-information', ['trainer' => $trainer, 'trainerInstitute' => $trainerInstitute, 'academicQualifications' => $academicQualifications]);
+//        return \view(self::VIEW_PATH . 'additional-information', ['academic_qualifications' => $trainerAcademicQualifications, 'experiences' => $trainerExperiences, 'personalInformation' => $trainerPersonalInformations]);
     }
 
     /**
@@ -45,7 +57,7 @@ class TrainerController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -74,7 +86,7 @@ class TrainerController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -85,7 +97,7 @@ class TrainerController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -96,8 +108,8 @@ class TrainerController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -108,7 +120,7 @@ class TrainerController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

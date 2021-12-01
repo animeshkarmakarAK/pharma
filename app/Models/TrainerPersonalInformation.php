@@ -17,6 +17,8 @@ use Module\CourseManagement\App\Models\Institute;
  * @property string|null mobile
  * @property Carbon|null date_of_birth
  * @property int|null gender
+ * @property int|null religion
+ * @property string|null nationality
  * @property string|null nid_no
  * @property string|null passport_no
  * @property string|null birth_registration_no

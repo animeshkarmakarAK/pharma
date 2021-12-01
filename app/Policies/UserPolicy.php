@@ -115,6 +115,6 @@ class UserPolicy extends MasterBasePolicy
 
     public function editTrainerInformation(User $user, User $model): bool
     {
-        return $user->isTrainer();
+        return $model->isTrainer();
     }
 }

@@ -21,6 +21,8 @@ class CreateTrainerPersonalInformationTable extends Migration
             $table->string('email');
             $table->string('mobile');
             $table->unsignedTinyInteger('gender')->nullable();
+            $table->unsignedTinyInteger('religion')->nullable();
+            $table->string('nationality')->nullable();
             $table->dateTime('date_of_birth')->nullable();
             $table->string('nid_no')->nullable();
             $table->string('passport_no')->nullable();

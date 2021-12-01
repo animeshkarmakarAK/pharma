@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Helpers\Classes\FileHandler;
 use App\Models\TrainerAcademicQualification;
+use App\Models\TrainerExperience;
 use App\Models\TrainerPersonalInformation;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
@@ -19,12 +20,11 @@ class TrainerService
     {
         $trainer = User::findOrFail($data['trainer_id']);
         $trainerPersonalInfo = Arr::only($data, ['trainer_id', 'institute_id', 'name', 'mobile', 'date_of_birth', 'gender', 'nid_no', 'passport_no', 'birth_registration_no', 'marital_status', 'email', 'present_address', 'permanent_address', 'profile_pic', 'signature_pic']);
-        $trainerPersonalInfo['mobile'] = 'xxxxxxxx-xxxxx';
 
 
         if (isset($data['signature_pic'])) {
             $filename = FileHandler::storePhoto($data['signature_pic'], 'trainer_signature');
-            $trainerPersonalInfo['signature_pic'] = 'trainer/' . $filename;
+            $trainerPersonalInfo['signature_pic'] = 'trainer_signature/' . $filename;
         }
 
         if (isset($data['profile_pic'])) {
@@ -32,24 +32,40 @@ class TrainerService
             $trainerPersonalInfo['profile_pic'] = 'trainer/' . $filename;
         }
 
-        $trainer->trainerPersonalInformation()->create($trainerPersonalInfo);
+        $existedPersonalInfo  = TrainerPersonalInformation::where('trainer_id', $trainer->id)->first();
+        if ($existedPersonalInfo) {
+            $trainer->trainerPersonalInformation()->update($trainerPersonalInfo);
+        }else {
+            $trainer->trainerPersonalInformation()->create($trainerPersonalInfo);
+        }
+
 
         foreach ($data['academicQualification'] as $key => $academicQualification) {
             if ($academicQualification['examination_name'] == null) continue;
-            $academicQualification['trainer_id'] = $trainer->id;
-            dd($academicQualification);
-            TrainerAcademicQualification::create($academicQualification);
-            dd($academicQualification);
 
-//            $trainer->trainerAcademicQualifications()->create($academicQualification);
+            $existAcademicQualification = TrainerAcademicQualification::where('trainer_id', $trainer->id)
+                ->where('examination', $academicQualification['examination'])
+                ->first();
 
+            if ($existAcademicQualification) {
+                $existAcademicQualification->update($academicQualification);
+            } else {
+                $trainer->trainerAcademicQualifications()->create($academicQualification);
+            }
         }
-        dd($trainer);
 
         foreach ($data['trainer_experiences'] as $key => $trainerExperience) {
             if ($trainerExperience['organization_name'] == null) continue;
 
-            $trainer->trainerExperiences()->create($trainerExperience);
+            if ($trainerExperience['id'] && $trainerExperience['delete']) {
+                TrainerExperience::where('id', $trainerExperience['id'])->delete();
+            } else if ($trainerExperience['id']) {
+                $trainerExp = TrainerExperience::find($trainerExperience['id']);
+                $trainerExp->update($trainerExperience);
+            } else {
+                $trainerExperience['trainer_id'] = $trainer->id;
+                TrainerExperience::create($trainerExperience);
+            }
         }
 
         return $trainer;

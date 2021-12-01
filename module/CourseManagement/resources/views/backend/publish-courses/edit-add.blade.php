@@ -241,9 +241,8 @@
             $('#today').val(today);
 
             function addRow(data = {}) {
-                console.log('SL: ' + SL)
                 let courseSession = _.template($('#course-sessions').html());
-                console.table('course session template:', courseSession);
+                console.table('course session', courseSession);
                 let courseSessionContentElm = $(".course-session-contents");
                 courseSessionContentElm.append(courseSession({sl: SL, data: data, edit: EDIT}))
                 courseSessionContentElm.find('.flat-date').each(function () {
