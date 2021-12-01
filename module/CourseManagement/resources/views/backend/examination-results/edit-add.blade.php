@@ -36,6 +36,17 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label for="achieved_marks">{{__('course_management::admin.examination_result.achieved_marks')}} <span
+                                            style="color: red">*</span></label>
+                                    <input type="number" class="form-control" id="achieved_marks" required
+                                           name="achieved_marks"
+                                           value="{{ $edit ? $examinationResult->achieved_marks : old('achieved_marks') }}"
+                                           placeholder="{{__('course_management::admin.examination_result.achieved_marks')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="name">{{__('course_management::admin.examination_result.feedback')}} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="feedback"
@@ -45,16 +56,35 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+
+
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="achieved_marks">{{__('course_management::admin.examination_result.achieved_marks')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="number" class="form-control" id="achieved_marks"
-                                           name="achieved_marks"
-                                           value="{{ $edit ? $examinationResult->achieved_marks : old('achieved_marks') }}"
-                                           placeholder="{{__('course_management::admin.examination_result.achieved_marks')}}">
+                                    <label for="examination_id">
+                                        {{__('course_management::admin.examination_result.examination')}}
+                                        <span class="required"></span>
+                                    </label>
+
+                                    <select class="form-control select2" id="examination_id"
+                                            name="examination_id" required>
+                                        <option value=""
+                                                selected>{{__('course_management::admin.common.select')}}</option>
+                                        @foreach($examinations as $key => $examination)
+                                            @if ($edit)
+                                                <option {{ $edit && $examinationResult->examination_id == $examination->id ? 'selected' : ''}}
+                                                        value="{{ $examination->id }}">{{ $examination->examinationType->title }}</option>
+                                            @else
+                                                <option {{ old('examination_id') == $examination->id ? 'selected' : '' }}
+                                                        value="{{ $examination->id }}">{{ $examination->examinationType->title }}</option>
+                                            @endif
+
+                                        @endforeach
+                                    </select>
+
                                 </div>
                             </div>
+
+
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -64,7 +94,7 @@
                                     </label>
 
                                     <select class="form-control select2-ajax-wizard"
-                                            name="training_center_id"
+                                            name="training_center_id" required
                                             id="training_center_id"
                                             data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                             data-label-fields="{title_en}"
@@ -89,7 +119,7 @@
                                     </label>
 
                                     <select class="form-control select2-ajax-wizard batch_id"
-                                            name="batch_id"
+                                            name="batch_id" required
                                             id="batch_id"
                                             data-model="{{base64_encode(Module\CourseManagement\App\Models\Batch::class)}}"
                                             data-label-fields="{title_en}"
@@ -112,11 +142,14 @@
                                         {{__('course_management::admin.examination_result.youth')}}
                                         <span class="required"></span>
                                     </label>
-                                    <select class="form-control select2" id="youth_id" name="youth_id">
+                                    <select class="form-control select2" id="youth_id" name="youth_id" required>
                                         <option value="">{{__('course_management::admin.common.select')}}</option>
 
                                         @if($edit)
-
+                                            @foreach($youths as $key => $youth)
+                                                <option  {{ $examinationResult->youth_id == $key ? 'selected' : ''}}
+                                                         value="{{ $key }}">{{ $youth }}</option>
+                                            @endforeach
                                         @endif
                                     </select>
                                 </div>
@@ -200,7 +233,12 @@
                 });
 
             });
+
+            // For presetting feedback value
+            $('#feedback').val('Good');
         });
+
+
     </script>
 @endpush
 

@@ -29,9 +29,46 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('course_management::admin.examination_result.title')}}</p>
+                    <p class="label-text">{{__('course_management::admin.examination_result.achieved_marks')}}</p>
                     <div class="input-box">
-                        {{ $examinationResult->title }}
+                        {{ $examinationResult->achieved_marks }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_result.feedback')}}</p>
+                    <div class="input-box">
+                        {{ $examinationResult->feedback }}
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_result.examination')}}</p>
+                    <div class="input-box">
+                        {{ $examinationResult->examination->examinationType->title }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_result.training_center')}}</p>
+                    <div class="input-box">
+                        {{ $examinationResult->trainingCenter->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_result.batch_title')}}</p>
+                    <div class="input-box">
+                        {{ $examinationResult->batch->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_result.youth')}}</p>
+                    <div class="input-box">
+                        {{ $examinationResult->youth->name_en }}
                     </div>
                 </div>
 

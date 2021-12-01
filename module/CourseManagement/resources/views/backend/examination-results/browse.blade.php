@@ -58,9 +58,40 @@
                         visible: true,
                     },
                     {
+                        title: "{{__('course_management::admin.examination_result.achieved_marks')}}",
+                        data: "achieved_marks",
+                        name: "examination_results.achieved_marks"
+                    },
+
+                    {
                         title: "{{__('course_management::admin.examination_result.feedback')}}",
                         data: "feedback",
                         name: "examination_results.feedback"
+                    },
+
+                    {
+                        title: "{{__('course_management::admin.examination_result.examination')}}",
+                        //data: "examination.exam_details",
+                        data: "examination.examination_type.title",
+                        name: "examination_results.examination_id",
+                        //orderable: false, searchable: false,
+                    },
+
+                    {
+                        title: "{{__('course_management::admin.examination_result.training_center')}}",
+                        data: "training_center.title_en",
+                        name: "examination_results.training_center_id",
+
+                    },
+                    {
+                        title: "{{__('course_management::admin.examination_result.training_center')}}",
+                        data: "training_center.title_en",
+                        name: "examination_results.training_center_id"
+                    },
+                    {
+                        title: "{{__('course_management::admin.examination_result.batch_title')}}",
+                        data: "batch.title_en",
+                        name: "examination_results.batch_id"
                     },
                     {
                         title: "{{__('course_management::admin.examination_result.action')}}",

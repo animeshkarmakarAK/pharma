@@ -44,7 +44,19 @@ class ExaminationResultService
                 'required',
                 'string',
                 'max:191',
-            ]
+            ],
+            'training_center_id' => [
+                'required','int'
+            ],
+            'batch_id' => [
+                'required','int'
+            ],
+            'youth_id' => [
+                'required','int'
+            ],
+            'examination_id' => [
+                'required','int'
+            ],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -53,7 +65,7 @@ class ExaminationResultService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|ExaminationResult $examinationResults */
-        $examinationResults = ExaminationResult::with('user','youth','examination')->select(
+        $examinationResults = ExaminationResult::with('user','youth','examination','batch','trainingCenter')->select(
             [
                 'examination_results.*'
             ]

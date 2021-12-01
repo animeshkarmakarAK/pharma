@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
-
+use App\Models\User;
 /**
  * Class ExaminationResult
  * @package App\Models
@@ -34,16 +34,29 @@ class ExaminationResult extends BaseModel
     {
         return $this->belongsTo(Institute::class, 'institute_id');
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+
     public function youth(): BelongsTo
     {
         return $this->belongsTo(Youth::class, 'youth_id');
     }
     public function examination(): BelongsTo
     {
-        return $this->belongsTo(Examination::class, 'examination_id');
+        return $this->belongsTo(Examination::class, 'examination_id')->with('examinationType');
+    }
+
+    public function trainingCenter(): BelongsTo
+    {
+        return $this->belongsTo(TrainingCenter::class, 'training_center_id');
+    }
+
+    public function batch(): BelongsTo
+    {
+        return $this->belongsTo(Batch::class, 'batch_id');
     }
 }

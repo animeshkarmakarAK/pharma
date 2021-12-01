@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\Examination;
 use Module\CourseManagement\App\Models\ExaminationResult;
+use Module\CourseManagement\App\Models\Youth;
 use Module\CourseManagement\App\Models\YouthBatch;
 use Module\CourseManagement\App\Services\ExaminationResultService;
 use Illuminate\Contracts\View\View;
@@ -35,14 +37,12 @@ class ExaminationResultController extends Controller
      */
     public function index()
     {
-        /*$examinationResults = ExaminationResult::select(
+        /*$examinationResults = ExaminationResult::with('user','youth','examination','batch','trainingCenter')->select(
             [
-                'examination_results.id as id',
-                'examination_results.title',
-                'examination_results.created_at',
-                'examination_results.updated_at',
+                'examination_results.*'
             ]
         );
+
         return DataTables::eloquent($examinationResults)->toJson();*/
 
         return \view(self::VIEW_PATH . 'browse');
@@ -54,18 +54,23 @@ class ExaminationResultController extends Controller
     public function create(): View
     {
         $examinationResult = new Batch();
-        return view(self::VIEW_PATH . 'edit-add', compact('examinationResult'));
+        $examinations = Examination::with('examinationType')->where(['row_status' => 1])->get();
+        //dd($examinations);
+        return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations'));
     }
 
 
     public function store(Request $request): RedirectResponse
     {
+
         $validatedData = $this->examinationResultService->validator($request)->validate();
+        //dd($validatedData);
         $authUser = AuthHelper::getAuthUser();
-        try {
             $validatedData['institute_id'] = $authUser->institute_id;
             $validatedData['created_by'] = $authUser->id;
+            $validatedData['user_id'] = $authUser->id;
             $this->examinationResultService->createExaminationResult($validatedData);
+        try {
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -94,9 +99,16 @@ class ExaminationResultController extends Controller
      * @param ExaminationResult $examinationResult
      * @return View
      */
-    public function edit(ExaminationResult $examinationResult): View
+    public function edit(ExaminationResult $examinationResult)
     {
-        return view(self::VIEW_PATH . 'edit-add', compact('examinationResult'));
+
+        //return $examinationResult->youth_id;
+        $examinations = Examination::with('examinationType')->where(['row_status' => 1])->get();
+
+        $youths = Youth::where(['id' => $examinationResult->youth_id])->pluck('name_en','id');
+        //dd($youths);
+
+        return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations','youths'));
     }
 
     /**

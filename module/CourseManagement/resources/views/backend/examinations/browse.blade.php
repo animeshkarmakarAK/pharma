@@ -64,6 +64,7 @@
                         name: "examinations.examination_type_id"
                     },
 
+
                     {
                         title: "{{__('course_management::admin.examination.training_center')}}",
                         data: "training_center.title_en",
