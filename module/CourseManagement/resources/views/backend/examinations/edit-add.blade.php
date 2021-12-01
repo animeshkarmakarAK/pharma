@@ -23,7 +23,7 @@
                                 <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
-                    </div>
+        </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
@@ -120,7 +120,7 @@
                                             data-model="{{base64_encode(Module\CourseManagement\App\Models\Batch::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on-optional="training_center_id"
-                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'batch_status'=>1 ])}}"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $examination->batch->title_en, 'id' =>  $examination->batch_id])}}"
                                             @endif

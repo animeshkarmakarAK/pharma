@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Examination;
 use Module\CourseManagement\App\Models\ExaminationType;
+use Module\CourseManagement\App\Models\Routine;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\ExaminationService;
 use Illuminate\Contracts\View\View;
@@ -33,6 +34,7 @@ class ExaminationController extends Controller
      */
     public function index()
     {
+        //return $routines = Routine::with('routineClass')->get();
         return \view(self::VIEW_PATH . 'browse');
     }
 
@@ -149,5 +151,33 @@ class ExaminationController extends Controller
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->examinationService->getExaminationLists($request);
+    }
+    public function status($id)
+    {
+        //return $id;
+        $examination = Examination::find($id);
+        if (!$examination){
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
+        $status = $examination->status;
+        if ($status == 0) {
+            $examination->status = 1;
+            $examination->save();
+        } else if($status == 1) {
+            $examination->status = 2;
+            $examination->save();
+        } else {
+            $examination->status = 0;
+            $examination->save();
+        }
+
+        return back()->with([
+            'message' => __('generic.object_deleted_successfully', ['object' => 'Examination']),
+            'alert-type' => 'success'
+        ]);
     }
 }

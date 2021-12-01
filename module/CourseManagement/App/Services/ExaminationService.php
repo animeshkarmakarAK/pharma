@@ -73,7 +73,37 @@ class ExaminationService
 
         $examinations->where('examinations.institute_id', '=', $authUser->institute_id);
 
+        //return DataTables::eloquent($examinations)->get();
+
         return DataTables::eloquent($examinations)
+            ->editColumn('status', function (Examination $examination) use ($authUser) {
+
+                if ($examination->status == 0) {
+                    if ($authUser->can('status', $examination)) {
+                        return $str = '<a href="#" data-action="' . route('course_management::admin.examinations.status', $examination->id) . '" class="btn btn-outline-warning btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('course_management::admin.examination.examination_not_publish') . '</a>';
+                    }else{
+                        return $str = '<a href="#" data-action="" class="btn btn-outline-warning btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('course_management::admin.examination.examination_not_publish') . '</a>';
+                    }
+
+                }elseif($examination->status == 1){
+
+
+                    if ($authUser->can('status', $examination)) {
+                        return $str = '<a href="#" data-action="' . route('course_management::admin.examinations.status', $examination->id) . '" class="btn btn-outline-info btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('course_management::admin.examination.examination_publish') . '</a>';
+                    }else{
+                        return $str = '<a href="#" data-action="" class="btn btn-outline-info btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('course_management::admin.examination.examination_publish') . '</a>';
+                    }
+
+                }elseif($examination->status == 2){
+
+                    if ($authUser->can('status', $examination)) {
+                        return $str = '<a href="#" data-action="' . route('course_management::admin.examinations.status', $examination->id) . '" class="btn btn-outline-success btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('course_management::admin.examination.examination_complete') . '</a>';
+                    }else{
+                        return $str = '<a href="#" data-action="" class="btn btn-outline-success btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('course_management::admin.examination.examination_complete') . '</a>';
+                    }
+                }
+            })
+
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Examination $examination) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $examination)) {
@@ -86,9 +116,10 @@ class ExaminationService
                     $str .= '<a href="#" data-action="' . route('course_management::admin.examinations.destroy', $examination->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
 
+
                 return $str;
             }))
-            ->rawColumns(['action'])
+            ->rawColumns(['status','action'])
             ->toJson();
     }
 

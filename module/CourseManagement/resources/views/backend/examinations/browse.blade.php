@@ -43,6 +43,7 @@
 
 @push('js')
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
@@ -64,6 +65,7 @@
                         name: "examinations.examination_type_id"
                     },
 
+
                     {
                         title: "{{__('course_management::admin.examination.training_center')}}",
                         data: "training_center.title_en",
@@ -74,9 +76,6 @@
                         data: "batch.title_en",
                         name: "examinations.batch_id"
                     },
-
-
-
 
                     {
                         title: "{{__('course_management::admin.examination.exam_details')}}",
@@ -94,6 +93,11 @@
                         name: "examinations.total_mark"
                     },
                     {
+                        title: "{{__('course_management::admin.examination.status')}}",
+                        data: "status",
+                        name: "examinations.status"
+                    },
+                    {
                         title: "{{__('course_management::admin.examination.action')}}",
                         data: "action",
                         orderable: false,
@@ -109,8 +113,39 @@
                 $('#delete_form')[0].action = $(this).data('action');
                 $('#delete_modal').modal('show');
             });
+
+            // $(document, 'td').on('click', '.examination_status', function (e) {
+            //     $('#delete_form')[0].action = $(this).data('action');
+            //     $('#delete_modal').modal('show');
+            // });
+        });
+
+        $(document).ready(function () {
+            $(document, 'td').on('click', '.examination_status', function (e) {
+                e.preventDefault();
+                console.log($(this).attr('data-action'))
+                let href = $(this).attr('data-action');
+                Swal.fire({
+                    title: "{{__('course_management::admin.examination.examination_status_msg')}}",
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Delete',
+                    denyButtonText: `Don't save`,
+                    confirmButtonColor: 'tomato',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        window.location.href = href;
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+
+            });
         });
     </script>
+
+
 @endpush
 
 
