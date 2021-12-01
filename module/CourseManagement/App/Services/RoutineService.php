@@ -115,26 +115,4 @@ class RoutineService
             ->toJson();
     }
 
-    public function getWeeklyRoutineLists(Request $request): JsonResponse
-    {
-        $authUser = AuthHelper::getAuthUser();
-        /** @var Builder|Routine $routines */
-        $routines = Routine::with('Batch','trainingCenter')->select(
-            [
-                'routines.*'
-            ]
-        );
-
-        $routines->where('routines.institute_id', '=', $authUser->institute_id);
-
-        return DataTables::eloquent($routines)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Routine $routine) use ($authUser) {
-                $str = '';
-
-
-                return $str;
-            }))
-            ->toJson();
-    }
-
 }

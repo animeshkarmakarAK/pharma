@@ -71,6 +71,7 @@ return [
         'sl' => '#',
         'day' => 'Day',
         'batch_title' => 'Batch Title',
+        'batch' => 'Batch',
         'training_center' => 'Training Center',
         'routine_details' => 'Routine Details',
         'examination_type' => 'Routine Type'

@@ -5,6 +5,7 @@ namespace Module\CourseManagement\App\Http\Controllers;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Routine;
 use Module\CourseManagement\App\Models\RoutineClass;
@@ -44,7 +45,7 @@ class RoutineController extends Controller
         $authUser = AuthHelper::getAuthUser();
         $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
         $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainers = \App\Models\User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
+        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
         return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','trainers'));
     }
 
@@ -91,7 +92,7 @@ class RoutineController extends Controller
         //return $routine;
         $routineData = Routine::where(['id'=>$routine->id])->with('routineClass')->get();
         $authUser = AuthHelper::getAuthUser();
-        $trainers = \App\Models\User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
+        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
         return view(self::VIEW_PATH . 'edit-add', compact('routine', 'trainers','routineData'));
     }
 
@@ -158,8 +159,10 @@ class RoutineController extends Controller
     public function weeklyRoutine(Routine $routine)
     {
         $authUser = AuthHelper::getAuthUser();
-        return $routines = Routine::with('routineClass')->where(['institute_id'=>$authUser->institute_id])->get();
-        return view(self::VIEW_PATH . 'weekly-routine');
+        $routines = Routine::with('routineClass')->where(['institute_id'=>$authUser->institute_id])->get();
+        $trainers =  User::where(['institute_id' => $authUser->institute_id])->get();
+        $batches = Batch::where(['institute_id' => $authUser->institute_id])->get();
+        return view(self::VIEW_PATH . 'weekly-routine',compact('routines','trainers','batches'));
     }
     public function weeklyGetDatatable(Request $request): JsonResponse
     {
