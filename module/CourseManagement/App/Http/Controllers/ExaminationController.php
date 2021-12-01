@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Examination;
 use Module\CourseManagement\App\Models\ExaminationType;
+use Module\CourseManagement\App\Models\Routine;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\ExaminationService;
 use Illuminate\Contracts\View\View;
@@ -33,6 +34,7 @@ class ExaminationController extends Controller
      */
     public function index()
     {
+        //return $routines = Routine::with('routineClass')->get();
         return \view(self::VIEW_PATH . 'browse');
     }
 
