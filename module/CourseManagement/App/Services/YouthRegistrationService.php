@@ -50,8 +50,6 @@ class YouthRegistrationService
         $youth['youth_registration_no'] = Helper::randomPassword(10, true);
 
 
-
-
         if (isset($data['student_signature_pic'])) {
             $filename = FileHandler::storePhoto($youth['student_signature_pic'], 'student');
             $youth['student_signature_pic'] = 'student/' . $filename;

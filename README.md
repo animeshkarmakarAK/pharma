@@ -166,7 +166,8 @@ multiple
 
 Additional filter.
 ```data-filters="{{json_encode(['name_en' => 'Hasan'])}}"```
-
+```data-filters="{{json_encode(['id' => [\App\Models\User::USER_TYPE_TRAINER_USER_CODE, 'type' => 'not-equal']])}}"```
+```data-filters="{{json_encode(['id' => [\App\Models\User::USER_TYPE_TRAINER_USER_CODE, 'type' => 'equal']])}}"```
 
 ***
 

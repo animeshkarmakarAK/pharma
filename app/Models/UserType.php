@@ -30,6 +30,7 @@ class UserType extends BaseModel
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
     const USER_TYPE_DC_USER_CODE = '5';
     const USER_TYPE_DIVCOM_USER_CODE = '6';
+    const USER_TYPE_TRAINER_USER_CODE = '7';
 
     public function role(): BelongsTo
     {

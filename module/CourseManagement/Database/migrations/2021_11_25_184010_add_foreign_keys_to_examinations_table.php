@@ -40,9 +40,9 @@ class AddForeignKeysToExaminationsTable extends Migration
     public function down()
     {
         Schema::table('examinations', function (Blueprint $table) {
-            Schema::dropIfExists('examinations_fk_batch_id');
-            Schema::dropIfExists('examinations_fk_training_center_id');
-            Schema::dropIfExists('examinations_fk_examination_type_id');
+            $table->dropForeign('examinations_fk_batch_id');
+            $table->dropForeign('examinations_fk_training_center_id');
+            $table->dropForeign('examinations_fk_examination_type_id');
         });
     }
 }

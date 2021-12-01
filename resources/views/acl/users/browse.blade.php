@@ -1,3 +1,7 @@
+@php
+    $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+@endphp
+
 @extends('master::layouts.master')
 
 @section('title')
@@ -43,7 +47,7 @@
     <style>
         .has-error {
             position: relative;
-            padding: 0px 0 12px 0;
+            padding: 0 0 12px 0;
         }
 
         #user_type_id-error {
@@ -61,6 +65,7 @@
         const INSTITUTE_USER = parseInt('{{ \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE }}');
         const editAddModal = $("#edit-add-modal");
         const viewModal = $("#user-profile-view-modal");
+        const isInstituteUser = {!! $authUser->isInstituteUser() !!}
 
         $(function () {
             let params = serverSideDatatableFactory({
@@ -175,6 +180,10 @@
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
                         enableShowFormFields($('#institute_id'));
+                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
+                        break;
+                    case {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}:
+                        isInstituteUser ? disabledHideFormFields($('#institute_id')) : enableShowFormFields($('#institute_id'));
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     default:

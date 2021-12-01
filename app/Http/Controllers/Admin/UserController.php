@@ -27,6 +27,11 @@ class UserController extends BaseController
         $this->authorizeResource(User::class);
     }
 
+    public function dashboard()
+    {
+        return view(self::VIEW_PATH . 'dashboard');
+    }
+
     public function index()
     {
         return view(self::VIEW_PATH . 'browse');
@@ -217,5 +222,19 @@ class UserController extends BaseController
         } else {
             return response()->json('Email already in use!');
         }
+    }
+
+    public function trainerList(User $user): View
+    {
+        $trainerList = User::where('institute_id', $user->institute_id)
+            ->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)
+            ->get();
+
+        return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
+    }
+
+    public function getTrainersDatatable(Request $request): JsonResponse
+    {
+        return $this->userService->getListDataForTrainerDatatable($request);
     }
 }

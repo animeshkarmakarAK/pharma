@@ -216,7 +216,7 @@
 
         .has-error {
             position: relative;
-            padding: 0px 0 12px 0;
+            padding: 0 0 12px 0;
         }
 
         #institute_id-error, #application_form_type_id-error, #course_id-error {
@@ -241,9 +241,8 @@
             $('#today').val(today);
 
             function addRow(data = {}) {
-                console.log('SL: ' + SL)
                 let courseSession = _.template($('#course-sessions').html());
-                console.table('course session template:', courseSession);
+                console.table('course session', courseSession);
                 let courseSessionContentElm = $(".course-session-contents");
                 courseSessionContentElm.append(courseSession({sl: SL, data: data, edit: EDIT}))
                 courseSessionContentElm.find('.flat-date').each(function () {

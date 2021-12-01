@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                @if($authUser->isSuperUser() ||  $authUser->isSystemUser())
+                @if($authUser->isSuperUser() ||  $authUser->isSystemUser() || $authUser->isInstituteUser())
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="user_type_id">{{ __('User Type') }} <span
@@ -77,6 +77,12 @@
                                     id="user_type_id"
                                     data-model="{{base64_encode(App\Models\UserType::class)}}"
                                     data-label-fields="{title}"
+                                    @if($authUser->isInstituteUser())
+                                    data-filters="{{json_encode(['id' => \App\Models\User::USER_TYPE_TRAINER_USER_CODE])}}"
+                                    @endif
+                                    @if($authUser->isSuperUser())
+                                    data-filters="{{json_encode(['id' => [\App\Models\User::USER_TYPE_TRAINER_USER_CODE, 'type' => 'not-equal']])}}"
+                                    @endif
                                     @if($edit)
                                     data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                     @endif

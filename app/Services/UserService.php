@@ -3,21 +3,19 @@
 
 namespace App\Services;
 
-
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Models\Permission;
+use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
-use App\Models\Permission;
-use App\Models\User;
-use App\Models\UserType;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserService
@@ -46,9 +44,9 @@ class UserService
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
             $data['loc_district_id'] = null;
             $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_ORGANIZATION_USER_CODE) {
+        } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINER_USER_CODE) {
             $data['loc_district_id'] = null;
-            $data['institute_id'] = null;
+            $data['institute_id'] = auth()->user()->institute_id;
             $data['loc_division_id'] = null;
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_DIVCOM_USER_CODE) {
             $data['loc_district_id'] = null;
@@ -165,6 +163,64 @@ class UserService
         $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
         $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
 
+        if ($authUser->isTrainer()) {
+            $users->where('users.id', '=', $authUser->id);
+        } else {
+            $users->where('users.user_type_id', '!=', User::USER_TYPE_TRAINER_USER_CODE);
+        }
+
+        if ($authUser->isInstituteUser()) {
+            $users->where('users.institute_id', $authUser->institute_id)
+                ->where('users.user_type_id', $authUser->user_type_id);
+        }
+
+        return DataTables::eloquent($users)
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (User $user) use ($authUser) {
+                $str = '';
+                if ($authUser->can('view', $user)) {
+                    $str .= '<a href="#" data-url="' . route('admin.users.show', $user->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                }
+                if ($authUser->can('update', $user)) {
+                    $str .= '<a href="#" data-url="' . route('admin.users.edit', $user->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                }
+                if ($authUser->can('delete', $user)) {
+                    $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                }
+                if (($authUser->isInstituteUser() || $authUser->isSuperUser()) && $user->isInstituteUser()) {
+                    $str .= '<a href="' . route('admin.users.trainers', $user->id) . '"  data-action="' . route('admin.users.trainers', $user->id) . '" class="btn btn-outline-info btn-sm info"> <i class="fas fa-trash"></i> ' . __('generic.trainers') . '</a>';
+                }
+                if ($authUser->can('editTrainerInformation', $user)) {
+                    $str .= '<a href="' . route('admin.trainers.additional-info', $user->id) . '" class="btn btn-outline-info btn-sm trainer-info"> <i class="fas fa-info"></i> ' . __('generic.additional_info_button_label') . '</a>';
+                }
+
+                return $str;
+            }))
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function getListDataForTrainerDatatable(Request $request): JsonResponse
+    {
+        $authUser = AuthHelper::getAuthUser();
+
+        /** @var Builder|User $users */
+        $users = User::select([
+            'users.id as id',
+            'users.name_en',
+            'users.name_bn',
+            'users.user_type_id',
+            'institutes.title_en as institute_name',
+            'loc_districts.title_en as loc_district_name',
+            'user_types.title as user_type_title',
+            'users.email',
+            'users.created_at',
+            'users.updated_at'
+        ]);
+        $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
+        $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
+        $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
+        $users->where('users.user_type_id', '=', User::USER_TYPE_TRAINER_USER_CODE);
+
         if ($authUser->isInstituteUser()) {
             $users->where('users.institute_id', $authUser->institute_id);
         }
@@ -181,6 +237,11 @@ class UserService
                 if ($authUser->can('delete', $user)) {
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
+
+                if ($authUser->can('editTrainerInformation', $user)) {
+                    $str .= '<a href="' . route('admin.trainers.additional-info', $user->id) . '" class="btn btn-outline-info btn-sm trainer-info"> <i class="fas fa-info"></i> ' . __('generic.additional_info_button_label') . '</a>';
+                }
+
                 return $str;
             }))
             ->rawColumns(['action'])
