@@ -92,5 +92,14 @@ return [
         'training_center' => 'Training Center',
 
     ],
+
+    'daily_routine' => [
+        'day_routine' => 'Daily Routine',
+        'class' => 'Class',
+        'start_time' => 'Start Time',
+        'end_time' => 'End Time',
+        'trainer' => 'Trainer',
+        'select' => 'Select'
+    ],
 ];
 

@@ -41,11 +41,10 @@
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="day"
                                            name="day"
-                                           value="{{ $edit ? $routine->title : old('day') }}"
+                                           value="{{ $edit ? $routine->day : old('day') }}"
                                            placeholder="{{__('course_management::admin.routine.day')}}">
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -96,16 +95,34 @@
                                 </div>
                             </div>
 
-
-                            <div class="col-sm-12 text-right">
-                                <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add') }}</button>
+                            <div class="col-sm-12 daily-routines mt-5">
+                                <div class="card">
+                                    <div class="card-header custom-bg-gradient-info">
+                                        <h3 class="card-title text-primary font-weight-bold">{{__('course_management::admin.daily_routine.day_routine')}}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 daily-routine-contents"></div>
+                                            <div class="col-md-12">
+                                                <button type="button"
+                                                        class="btn btn-primary add-more-routine-btn float-right">
+                                                    <i class="fa fa-plus-circle fa-fw"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+
+                            <div class=col-sm-12 text-right
+                            ">
+                            <button type="submit"
+                                    class="btn btn-success float-right">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add') }}</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     @include('utils.delete-confirm-modal')
 
@@ -113,23 +130,45 @@
 
 @push('css')
     <style>
-        .has-error{
+        .flat-date-custom-bg, .flat-time-custom-bg {
+            background-color: #fafdff !important;
+        }
+
+        .has-error {
             position: relative;
             padding: 0px 0 12px 0;
         }
-        #training_center_id-error{
+
+        #training_center_id-error {
             position: absolute;
             left: 6px;
             bottom: -9px;
+        }
+
+        #institute_id-error, #application_form_type_id-error, #course_id-error, #start_date-error, #end_date-error, #start_time-error, #end_time-error {
+            position: absolute;
+            left: 6px;
+            bottom: -9px;
+        }
+        .select2-container--default .select2-selection--single {
+            background-color: #fafdff;
+            border: 2px solid #ddf1ff;
+            border-radius: 4px;
+        }
+        .select2-container .select2-selection--single{
+            height: 36px;
+            margin-top: 2px;
         }
     </style>
 @endpush
 
 @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
     <script>
         const EDIT = !!'{{$edit}}';
+        let SL = 0;
 
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
@@ -154,7 +193,7 @@
             },
             messages: {
                 day: {
-                        pattern: "This field is required in English.",
+                    pattern: "This field is required in English.",
                 },
             },
             submitHandler: function (htmlForm) {
@@ -162,6 +201,171 @@
                 htmlForm.submit();
             }
         });
+
+        if (!EDIT) {
+            $('#start_time').change(function () {
+                if ($(this).val() != "") {
+                    $(this).valid();
+                }
+            });
+            $('#end_time').change(function () {
+                if ($(this).val() != "") {
+                    $(this).valid();
+                }
+            });
+        }
+
+
+        function addRow(data = {}) {
+            console.log('class id: ' + data.id);
+            //console.log('SL: ' + SL)
+            let dailyRoutine = _.template($('#daily-routines').html());
+            //console.table('Daily Routine template:', dailyRoutine);
+            let dailyRoutineContentElm = $(".daily-routine-contents");
+            dailyRoutineContentElm.append(dailyRoutine({sl: SL, data: data, edit: EDIT}))
+
+            $.validator.addMethod(
+                "dailyRoutine",
+                function (value, element) {
+                    let regexp = /^[a-zA-Z0-9 ]*$/;
+                    let re = new RegExp(regexp);
+                    return this.optional(element) || re.test(value);
+                },
+                "Please fill this field in English."
+            );
+
+            for (let i = 0; i <= SL; i++) {
+                $.validator.addClassRules("start_time" + i, {
+                    required: true,
+
+                });
+                $.validator.addClassRules("end_time" + i, {
+                    required: true,
+
+                });
+            }
+
+            $.validator.addClassRules("class", {
+                required: true,
+                dailyRoutine: true,
+            });
+            $.validator.addClassRules("user_id", {
+                required: true,
+            });
+
+            SL++;
+        }
+
+        function deleteRow(slNo) {
+            let dailyRoutineELm = $("#daily-routine-no" + slNo);
+            if (dailyRoutineELm.find('.delete_status').length) {
+                dailyRoutineELm.find('.delete_status').val(1);
+                dailyRoutineELm.hide();
+            } else {
+                dailyRoutineELm.remove();
+            }
+        }
+
+        $(document).ready(function () {
+            @if($edit && $routine->routineClass->count())
+                @foreach($routine->routineClass as $routine)
+                    addRow(@json($routine));
+                @endforeach
+            @else
+            addRow();
+            @endif
+
+            $(document).on('click', '.add-more-routine-btn', function () {
+                addRow();
+                $('.select20').select2();
+            });
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+            $('.select20').select2();
+        })
+    </script>
+    <script type="text/template" id="daily-routines">
+        <div class="card" id="daily-routine-no<%=sl%>">
+            <div class="card-header d-flex justify-content-between">
+                <h5 class="daily-routine-class<%=sl%>"></h5>
+                <div class="card-tools">
+                    <button type="button"
+                            onclick="deleteRow(<%=sl%>)"
+                            class="btn btn-warning less-session-btn float-right mr-2"><i
+                            class="fa fa-minus-circle fa-fw"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <% if(edit && data.id) { %>
+                    <input type="hidden" id="daily_routine_<%=data.id%>" name="daily_routines[<%=sl%>][id]"
+                           value="<%=data.id%>">
+                    <input type="hidden" name="daily_routines[<%=sl%>][delete]" class="delete_status" value="0"/>
+                    <% } %>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="trainer_id">
+                                {{__('course_management::admin.daily_routine.trainer')}}
+                                <span class="required"></span>
+                            </label>
+
+                            <select class="form-control select20 user_id"
+                                    name="daily_routines[<%=sl%>][user_id]"
+                                    id="daily_routines[<%=sl%>][user_id]"
+                                >
+                                <option value="">{{__('course_management::admin.daily_routine.select')}}</option>
+                                @foreach($trainers as $trainer)
+                                    <option value="{{$trainer->id}}" <%=edit && (data.user_id == {{$trainer->id}}) ? 'selected': ''%>>{{$trainer->name_en}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="class">{{__('course_management::admin.daily_routine.class')}} <span
+                                    style="color: red"> * </span></label>
+                            <input type="text"
+                                   class="form-control class"
+                                   name="daily_routines[<%=sl%>][class]"
+                                   placeholder="{{__('course_management::admin.daily_routine.class')}}"
+                                   value="<%=edit ? data.class : ''%>"
+                                  >
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="start_time">{{__('course_management::admin.daily_routine.start_time')}} <span
+                                    style="color: red">*</span></label>
+                            <input type="time"
+                                   class="flat-time flat-time-custom-bg form-control start_time start_time<%=sl%> "
+                                   name="daily_routines[<%=sl%>][start_time]"
+                                   id="daily_routines[<%=sl%>][start_time]"
+                                   value="<%=edit ? data.start_time : ''%>">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="end_time">{{__('course_management::admin.daily_routine.end_time')}} <span
+                                    style="color: red">*</span></label>
+                            <input type="time"
+                                   class="flat-time flat-time-custom-bg form-control end_time end_time<%=sl%> "
+                                   name="daily_routines[<%=sl%>][end_time]"
+                                   id="daily_routines[<%=sl%>][end_time]"
+                                   value="<%=edit ? data.end_time : ''%>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </script>
 @endpush
 

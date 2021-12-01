@@ -7,7 +7,7 @@ use App\Helpers\Classes\DatatableHelper;
 use Illuminate\Validation\ValidationException;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\Routine;
-use Module\CourseManagement\App\Models\RoutineType;
+use Module\CourseManagement\App\Models\RoutineClass;
 use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\RoutineService;
 use Illuminate\Contracts\View\View;
@@ -44,20 +44,20 @@ class RoutineController extends Controller
         $authUser = AuthHelper::getAuthUser();
         $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
         $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-
-        return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters'));
+        $trainers = \App\Models\User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
+        return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','trainers'));
     }
 
 
     public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
         $validatedData = $this->routineService->validator($request)->validate();
         $authUser = AuthHelper::getAuthUser();
+        $validatedData['institute_id'] = $authUser->institute_id;
+        $validatedData['created_by'] = $authUser->id;
+        $this->routineService->createRoutine($validatedData);
         try {
-            $validatedData['institute_id'] = $authUser->institute_id;
-            $validatedData['created_by'] = $authUser->id;
-            $this->routineService->createRoutine($validatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -78,7 +78,8 @@ class RoutineController extends Controller
      */
     public function show(Routine $routine): View
     {
-        return view(self::VIEW_PATH . 'read', compact('routine'));
+        $routineClasses = RoutineClass::where(['routine_id' => $routine->id])->get();
+        return view(self::VIEW_PATH . 'read', compact('routine','routineClasses'));
     }
 
     /**
@@ -88,13 +89,10 @@ class RoutineController extends Controller
     public function edit(Routine $routine)
     {
         //return $routine;
-
-       /* $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $routineTypes = RoutineType::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title','id');*/
+        $routineData = Routine::where(['id'=>$routine->id])->with('routineClass')->get();
         $authUser = AuthHelper::getAuthUser();
-
-        return view(self::VIEW_PATH . 'edit-add', compact('routine'));
+        $trainers = \App\Models\User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
+        return view(self::VIEW_PATH . 'edit-add', compact('routine', 'trainers','routineData'));
     }
 
     /**
@@ -106,9 +104,10 @@ class RoutineController extends Controller
     public function update(Request $request, Routine $routine): RedirectResponse
     {
         $validatedData = $this->routineService->validator($request)->validate();
+        $this->routineService->updateRoutine($routine, $request->all());
 
         try {
-            $this->routineService->updateRoutine($routine, $validatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

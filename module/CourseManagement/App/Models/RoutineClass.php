@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
+use App\Models\User;
 
 /**
- * Class Routine
+ * Class RoutineClass
  * @package App\Models
  * @property string title_en
- * @property string title_bn
  * @property int Batch_id
  * @property string|null address
  * @property string|null google_map_src
@@ -25,23 +25,19 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
  * @method static Builder|Batch query()
  */
 
-class Routine extends BaseModel
+class RoutineClass extends BaseModel
 {
     public $timestamps = true;
     protected $guarded = ['id'];
 
 
-    public function batch(): BelongsTo
+    public function routine(): BelongsTo
     {
-        return $this->belongsTo(Batch::class, 'batch_id');
+        return $this->belongsTo(Routine::class, 'routine_id');
     }
-    public function trainingCenter(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(TrainingCenter::class, 'training_center_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function routineClass(): HasMany
-    {
-        return $this->hasMany(RoutineClass::class);
-    }
 }

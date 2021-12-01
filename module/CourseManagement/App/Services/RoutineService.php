@@ -5,6 +5,7 @@ namespace Module\CourseManagement\App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use Module\CourseManagement\App\Models\Routine;
+use Module\CourseManagement\App\Models\RoutineClass;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -15,16 +16,42 @@ class RoutineService
 {
     public function createRoutine(array $data): Routine
     {
-        //$data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
-        return Routine::create($data);
+        $authUser = AuthHelper::getAuthUser();
+        $routine = Routine::create($data);
+
+        foreach($data['daily_routines'] as $dailyRoutine){
+            $dailyRoutine['institute_id'] = $authUser->institute_id;
+            $dailyRoutine['routine_id'] = $routine->id;
+            $routine->routineClass()->create($dailyRoutine);
+        }
+        return $routine;
     }
 
     public function updateRoutine(Routine $routine, array $data): Routine
     {
-        //dd($data);
-        //$data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         $routine->fill($data);
         $routine->save();
+        $authUser = AuthHelper::getAuthUser();
+
+        foreach($data['daily_routines'] as $dailyRoutine){
+
+            $dailyRoutine['institute_id'] = $authUser->institute_id;
+            $dailyRoutine['routine_id'] = $routine->id;
+
+            if (empty($dailyRoutine['id'])) {
+                $routine->routineClass()->create($dailyRoutine);
+                continue;
+            }
+
+            $routineClass = RoutineClass::findOrFail($dailyRoutine['id']);
+            if (!empty($dailyRoutine['delete']) && $dailyRoutine['delete'] == 1) {
+                $routineClass->delete();
+            } else {
+                $routineClass->update($dailyRoutine);
+            }
+
+        }
+
         return $routine;
     }
 
@@ -48,7 +75,11 @@ class RoutineService
                 'required',
                 'int',
             ],
-            'day' => ['required']
+            'day' => ['required'],
+            'daily_routines.*.user_id' => ['required'],
+            'daily_routines.*.class' => ['required', 'string', 'max:30'],
+            'daily_routines.*.start_time' => ['required'],
+            'daily_routines.*.end_time' => ['required']
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
