@@ -155,9 +155,10 @@ class RoutineController extends Controller
      * @param Routine $routine
      * @return View
      */
-    public function weeklyRoutine(Routine $routine): View
+    public function weeklyRoutine(Routine $routine)
     {
-
+        $authUser = AuthHelper::getAuthUser();
+        return $routines = Routine::with('routineClass')->where(['institute_id'=>$authUser->institute_id])->get();
         return view(self::VIEW_PATH . 'weekly-routine');
     }
     public function weeklyGetDatatable(Request $request): JsonResponse

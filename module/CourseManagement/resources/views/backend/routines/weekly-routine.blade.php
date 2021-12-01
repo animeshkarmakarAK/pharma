@@ -17,6 +17,30 @@
                     <div class="card-body">
                         <div class="datatable-container">
                             <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>john@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                    <td>mary@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                    <td>Dooley</td>
+                                    <td>july@example.com</td>
+                                </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -34,48 +58,7 @@
 @push('js')
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
     <script>
-        $(function () {
-            let params = serverSideDatatableFactory({
-                url: '{{route('course_management::admin.weekly-routine.datatable')}}',
-                order: [[2, "desc"]],
-                columns: [
-                    {
-                        title: '{{__('course_management::admin.routine.sl')}}',
-                        data: null,
-                        defaultContent: "SL#",
-                        searchable: false,
-                        orderable: false,
-                        visible: true,
-                    },
 
-
-
-                    {
-                        title: "{{__('course_management::admin.routine.training_center')}}",
-                        data: "training_center.title_en",
-                        name: "routines.training_center_id"
-                    },
-                    {
-                        title: "{{__('course_management::admin.routine.batch_title')}}",
-                        data: "batch.title_en",
-                        name: "routines.batch_id"
-                    },
-                    {
-                        title: "{{__('course_management::admin.routine.day')}}",
-                        data: "day",
-                        name: "routines.day"
-                    },
-
-                ]
-            });
-            const datatable = $('#dataTable').DataTable(params);
-            bindDatatableSearchOnPresEnterOnly(datatable);
-
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
-            });
-        });
     </script>
 @endpush
 
