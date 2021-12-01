@@ -95,6 +95,7 @@ return [
 
     'daily_routine' => [
         'day_routine' => 'Daily Routine',
+        'weekly_routine' => 'Weekly Routine',
         'class' => 'Class',
         'start_time' => 'Start Time',
         'end_time' => 'End Time',

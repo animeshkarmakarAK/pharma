@@ -149,4 +149,19 @@ class RoutineController extends Controller
     {
         return $this->routineService->getRoutineLists($request);
     }
+
+
+    /**
+     * @param Routine $routine
+     * @return View
+     */
+    public function weeklyRoutine(Routine $routine): View
+    {
+
+        return view(self::VIEW_PATH . 'weekly-routine');
+    }
+    public function weeklyGetDatatable(Request $request): JsonResponse
+    {
+        return $this->routineService->getWeeklyRoutineLists($request);
+    }
 }
