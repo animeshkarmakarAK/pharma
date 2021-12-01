@@ -115,16 +115,26 @@ class RoutineService
             ->toJson();
     }
 
-    /**
-     * @param string|null $googleMapSrc
-     * @return string
-     */
-    public function parseGoogleMapSrc(?string $googleMapSrc): ?string
+    public function getWeeklyRoutineLists(Request $request): JsonResponse
     {
-        if (!empty($googleMapSrc) && preg_match('/src="([^"]+)"/', $googleMapSrc, $match)) {
-            $googleMapSrc = $match[1];
-        }
+        $authUser = AuthHelper::getAuthUser();
+        /** @var Builder|Routine $routines */
+        $routines = Routine::with('Batch','trainingCenter')->select(
+            [
+                'routines.*'
+            ]
+        );
 
-        return $googleMapSrc;
+        $routines->where('routines.institute_id', '=', $authUser->institute_id);
+
+        return DataTables::eloquent($routines)
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Routine $routine) use ($authUser) {
+                $str = '';
+
+
+                return $str;
+            }))
+            ->toJson();
     }
+
 }
