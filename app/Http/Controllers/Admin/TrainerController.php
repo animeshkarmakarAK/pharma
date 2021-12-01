@@ -6,7 +6,6 @@ use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Services\TrainerService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -54,7 +53,7 @@ class TrainerController extends BaseController
 //        $validated = $this->trainerService->validator($request)->validate();
         DB::beginTransaction();
         try {
-            $youth = $this->trainerService->storeTrainerInfo($request->all());
+            $trainer = $this->trainerService->storeTrainerInfo($request->all());
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -66,8 +65,7 @@ class TrainerController extends BaseController
             ]);
         }
 
-        return back()->with([
-            //'message' => __('generic.object_created_successfully', ['object' => 'Registration']),
+        return response()->json([
             'message' => __('আপনার রেজিস্ট্রেশন সফল হয়েছে'),
             'alertType' => 'success',
         ]);

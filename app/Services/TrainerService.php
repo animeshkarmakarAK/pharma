@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Helpers\Classes\FileHandler;
+use App\Models\TrainerAcademicQualification;
 use App\Models\TrainerPersonalInformation;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
@@ -18,7 +19,6 @@ class TrainerService
     {
         $trainer = User::findOrFail($data['trainer_id']);
         $trainerPersonalInfo = Arr::only($data, ['trainer_id', 'institute_id', 'name', 'mobile', 'date_of_birth', 'gender', 'nid_no', 'passport_no', 'birth_registration_no', 'marital_status', 'email', 'present_address', 'permanent_address', 'profile_pic', 'signature_pic']);
-
         $trainerPersonalInfo['mobile'] = 'xxxxxxxx-xxxxx';
 
 
@@ -32,14 +32,19 @@ class TrainerService
             $trainerPersonalInfo['profile_pic'] = 'trainer/' . $filename;
         }
 
-        TrainerPersonalInformation::create($trainerPersonalInfo);
+        $trainer->trainerPersonalInformation()->create($trainerPersonalInfo);
 
         foreach ($data['academicQualification'] as $key => $academicQualification) {
             if ($academicQualification['examination_name'] == null) continue;
+            $academicQualification['trainer_id'] = $trainer->id;
+            dd($academicQualification);
+            TrainerAcademicQualification::create($academicQualification);
+            dd($academicQualification);
 
-            $trainer->youthAcademicQualifications()->create($academicQualification);
+//            $trainer->trainerAcademicQualifications()->create($academicQualification);
+
         }
-
+        dd($trainer);
 
         foreach ($data['trainer_experiences'] as $key => $trainerExperience) {
             if ($trainerExperience['organization_name'] == null) continue;

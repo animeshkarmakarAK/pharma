@@ -267,7 +267,7 @@
 
                                         <div class="form-row justify-content-between">
                                             <div class="form-group col-md-6">
-                                                <label for="trainer_pic"> পাসপোর্ট সাইজের ছবি <span
+                                                <label for="profile_pic"> পাসপোর্ট সাইজের ছবি <span
                                                         class="required">*</span></label>
                                                 <p class="font-italic font-weight-light" style="font-size: 12px;">(ছবি
                                                     আকার অবশ্যই
@@ -275,8 +275,8 @@
                                                         class="fa fa-times" style="color: #CCCCCC"></i> ৩০০ হতে হবে)</p>
                                                 <div class="input-group">
                                                     <div class="profile-upload-section">
-                                                        <div class="avatar-preview trainer_pic text-center">
-                                                            <label for="trainer_pic">
+                                                        <div class="avatar-preview profile_pic text-center">
+                                                            <label for="profile_pic">
                                                                 <img class="figure-img"
                                                                      src="https://via.placeholder.com/350x350?text=Student+Picture"
                                                                      style="width: 200px; height: 200px;"
@@ -287,13 +287,13 @@
                                                     </span>
                                                             </label>
                                                         </div>
-                                                        <input type="file" name="trainer_pic" style="display: none"
-                                                               id="trainer_pic">
+                                                        <input type="file" name="profile_pic" style="display: none"
+                                                               id="profile_pic">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="trainer_signature_pic">স্বাক্ষর<span
+                                                <label for="signature_pic">স্বাক্ষর<span
                                                         class="required">*</span></label>
                                                 <p class=" font-italic font-weight-light text-small"
                                                    style="font-size: 12px;">(ছবি
@@ -301,8 +301,8 @@
                                                         class="fa fa-times" style="color: #CCCCCC"></i> ৮০ হতে হবে)</p>
                                                 <div class="input-group">
                                                     <div class="profile-upload-section">
-                                                        <div class="avatar-preview trainer_signature_pic text-center">
-                                                            <label for="trainer_signature_pic">
+                                                        <div class="avatar-preview signature_pic text-center">
+                                                            <label for="signature_pic">
                                                                 <img class="loading-img"
                                                                      src="https://via.placeholder.com/350x350?text=Student+Signature"
                                                                      style="width: 250px; height: 100px"
@@ -312,9 +312,9 @@
                                                         <i class="fa fa-pencil-alt text-white"></i> </span>
                                                             </label>
                                                         </div>
-                                                        <input type="file" name="trainer_signature_pic"
+                                                        <input type="file" name="signature_pic"
                                                                style="display: none"
-                                                               id="trainer_signature_pic">
+                                                               id="signature_pic">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1008,14 +1008,14 @@
         let SL = 0;
 
         $(document).ready(function () {
-            $("#trainer_pic").change(async function () {
+            $("#profile_pic").change(async function () {
                 await readURL(this); //preview image
-                youthRegistrationForm.validate().element("#trainer_pic");
+                youthRegistrationForm.validate().element("#profile_pic");
             });
 
-            $("#trainer_signature_pic").change(async function () {
+            $("#signature_pic").change(async function () {
                 await readURL(this);
-                youthRegistrationForm.validate().element("#trainer_signature_pic");
+                youthRegistrationForm.validate().element("#signature_pic");
             });
         })
 

@@ -147,15 +147,15 @@ class User extends AuthBaseModel
      */
     public function trainerAcademicQualifications(): HasMany
     {
-        return $this->hasMany(TrainerAcademicQualification::class);
+        return $this->hasMany(TrainerAcademicQualification::class, 'trainer_id', 'id');
     }
     public function trainerExperiences(): HasMany
     {
-        return $this->hasMany(TrainerExperience::class);
+        return $this->hasMany(TrainerExperience::class, 'trainer_id', 'id');
     }
 
     public function trainerPersonalInformation(): HasOne
     {
-        return $this->hasOne(TrainerPersonalInformation::class);
+        return $this->hasOne(TrainerPersonalInformation::class, 'trainer_id', 'id');
     }
 }
