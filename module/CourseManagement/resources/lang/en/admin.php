@@ -76,7 +76,8 @@ return [
         'class' => 'Class',
         'start_time' => 'Start Time',
         'end_time' => 'End Time',
-        'trainer' => 'Trainer'
+        'trainer' => 'Trainer',
+        'select' => 'Select'
     ],
 ];
 

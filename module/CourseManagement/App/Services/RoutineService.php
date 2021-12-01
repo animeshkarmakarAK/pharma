@@ -76,6 +76,7 @@ class RoutineService
                 'int',
             ],
             'day' => ['required'],
+            'daily_routines.*.user_id' => ['required'],
             'daily_routines.*.class' => ['required', 'string', 'max:30'],
             'daily_routines.*.start_time' => ['required'],
             'daily_routines.*.end_time' => ['required']

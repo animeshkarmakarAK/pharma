@@ -60,6 +60,12 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text"> {{__('course_management::admin.daily_routine.trainer')}}</p>
+                                                        <div class="input-box">
+                                                            {{ $routineClass->user->name_en}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 custom-view-box">
                                                         <p class="label-text">{{__('course_management::admin.daily_routine.class')}}</p>
                                                         <div class="input-box">
                                                             {{ $routineClass->class }}
@@ -77,11 +83,11 @@
                                                             {{ date("g:i A", strtotime($routineClass->end_time)) }}
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-
                                 </div>
                             </div>
                         </div>

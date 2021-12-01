@@ -44,8 +44,8 @@ class RoutineController extends Controller
         $authUser = AuthHelper::getAuthUser();
         $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
         $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-
-        return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters'));
+        $trainers = \App\Models\User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
+        return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','trainers'));
     }
 
 
@@ -89,13 +89,10 @@ class RoutineController extends Controller
     public function edit(Routine $routine)
     {
         //return $routine;
-
-       /* $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $routineTypes = RoutineType::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title','id');*/
+        $routineData = Routine::where(['id'=>$routine->id])->with('routineClass')->get();
         $authUser = AuthHelper::getAuthUser();
-
-        return view(self::VIEW_PATH . 'edit-add', compact('routine'));
+        $trainers = \App\Models\User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
+        return view(self::VIEW_PATH . 'edit-add', compact('routine', 'trainers','routineData'));
     }
 
     /**

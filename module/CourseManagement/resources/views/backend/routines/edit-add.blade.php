@@ -150,6 +150,15 @@
             left: 6px;
             bottom: -9px;
         }
+        .select2-container--default .select2-selection--single {
+            background-color: #fafdff;
+            border: 2px solid #ddf1ff;
+            border-radius: 4px;
+        }
+        .select2-container .select2-selection--single{
+            height: 36px;
+            margin-top: 2px;
+        }
     </style>
 @endpush
 
@@ -208,9 +217,10 @@
 
 
         function addRow(data = {}) {
-            console.log('SL: ' + SL)
+            console.log('class id: ' + data.id);
+            //console.log('SL: ' + SL)
             let dailyRoutine = _.template($('#daily-routines').html());
-            console.table('Daily Routine template:', dailyRoutine);
+            //console.table('Daily Routine template:', dailyRoutine);
             let dailyRoutineContentElm = $(".daily-routine-contents");
             dailyRoutineContentElm.append(dailyRoutine({sl: SL, data: data, edit: EDIT}))
 
@@ -239,6 +249,10 @@
                 required: true,
                 dailyRoutine: true,
             });
+            $.validator.addClassRules("user_id", {
+                required: true,
+            });
+
             SL++;
         }
 
@@ -254,23 +268,30 @@
 
         $(document).ready(function () {
             @if($edit && $routine->routineClass->count())
-            @foreach($routine->routineClass as $routine)
-            addRow(@json($routine));
-            @endforeach
+                @foreach($routine->routineClass as $routine)
+                    addRow(@json($routine));
+                @endforeach
             @else
             addRow();
             @endif
 
             $(document).on('click', '.add-more-routine-btn', function () {
                 addRow();
+                $('.select20').select2();
             });
         });
 
     </script>
+
+    <script>
+        $(function () {
+            $('.select20').select2();
+        })
+    </script>
     <script type="text/template" id="daily-routines">
         <div class="card" id="daily-routine-no<%=sl%>">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="daily-routine-class<%=sl%>"><%= edit ? data.class : "Routine " + (sl+1)%></h5>
+                <h5 class="daily-routine-class<%=sl%>"></h5>
                 <div class="card-tools">
                     <button type="button"
                             onclick="deleteRow(<%=sl%>)"
@@ -286,19 +307,22 @@
                     <input type="hidden" name="daily_routines[<%=sl%>][delete]" class="delete_status" value="0"/>
                     <% } %>
 
+
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="trainer_id">
                                 {{__('course_management::admin.daily_routine.trainer')}}
                                 <span class="required"></span>
                             </label>
-                            <select class="form-control select2-ajax-wizard"
-                                    name="trainer_id"
-                                    id="trainer_id"
-                                    data-model="{{base64_encode(\App\Models\User::class)}}"
-                                    data-label-fields="{name_en}"
-                                    data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
-                            >
+
+                            <select class="form-control select20 user_id"
+                                    name="daily_routines[<%=sl%>][user_id]"
+                                    id="daily_routines[<%=sl%>][user_id]"
+                                >
+                                <option value="">{{__('course_management::admin.daily_routine.select')}}</option>
+                                @foreach($trainers as $trainer)
+                                    <option value="{{$trainer->id}}" <%=edit && (data.user_id == {{$trainer->id}}) ? 'selected': ''%>>{{$trainer->name_en}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -312,7 +336,7 @@
                                    name="daily_routines[<%=sl%>][class]"
                                    placeholder="{{__('course_management::admin.daily_routine.class')}}"
                                    value="<%=edit ? data.class : ''%>"
-                                   onkeyup="$('.daily-routine-class<%=sl%>').html($(this).val())">
+                                  >
                         </div>
                     </div>
 

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
+use App\Models\User;
 
 /**
  * Class RoutineClass
@@ -33,6 +34,10 @@ class RoutineClass extends BaseModel
     public function routine(): BelongsTo
     {
         return $this->belongsTo(Routine::class, 'routine_id');
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
