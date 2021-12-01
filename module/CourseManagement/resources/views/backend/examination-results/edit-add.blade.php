@@ -65,17 +65,17 @@
                                         <span class="required"></span>
                                     </label>
 
-                                    <select class="form-control select2" id="examination_id"
+                                    <select class="form-control select2 examination_id" id="examination_id"
                                             name="examination_id" required>
                                         <option value=""
                                                 selected>{{__('course_management::admin.common.select')}}</option>
                                         @foreach($examinations as $key => $examination)
                                             @if ($edit)
                                                 <option {{ $edit && $examinationResult->examination_id == $examination->id ? 'selected' : ''}}
-                                                        value="{{ $examination->id }}">{{ $examination->examinationType->title }}</option>
+                                                        value="{{ $examination->id }}">{{ $examination->exam_details }}</option>
                                             @else
                                                 <option {{ old('examination_id') == $examination->id ? 'selected' : '' }}
-                                                        value="{{ $examination->id }}">{{ $examination->examinationType->title }}</option>
+                                                        value="{{ $examination->id }}">{{ $examination->exam_details }}</option>
                                             @endif
 
                                         @endforeach
@@ -86,7 +86,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="training_center_id">
                                         {{__('course_management::admin.examination_result.training_center')}}
@@ -133,7 +133,7 @@
                                     </select>
 
                                 </div>
-                            </div>
+                            </div>--}}
 
 
                             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -215,13 +215,37 @@
         });
 
 
-        $(document).ready(function() {
+        /*$(document).ready(function() {
             $('.batch_id').on('change', function(e){
                 let batch_id = e.target.value;
                 if (!batch_id) {
                     batch_id = 0;
                 }
                 var route = "{{route('course_management::admin.examination-results.get-youths')}}/"+batch_id;
+                $.get(route, function(data) {
+                    console.log(data);
+                    $('#youth_id').empty();
+                    $('#youth_id').append('<option value="'+'">{{__('course_management::admin.common.select')}}</option>');
+                    $.each(data, function(index,data){
+                        console.log(data);
+                        $('#youth_id').append('<option value="' + data.id + '">' + data.youth_name_en + '</option>');
+                    });
+                });
+
+            });
+
+            // For presetting feedback value
+            $('#feedback').val('Good');
+        });*/
+
+
+        $(document).ready(function() {
+            $('.examination_id').on('change', function(e){
+                let examination_id = e.target.value;
+                if (!examination_id) {
+                    examination_id = 0;
+                }
+                var route = "{{route('course_management::admin.examination-results.get-youths')}}/"+examination_id;
                 $.get(route, function(data) {
                     console.log(data);
                     $('#youth_id').empty();

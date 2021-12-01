@@ -45,12 +45,12 @@ class ExaminationResultService
                 'string',
                 'max:191',
             ],
-            'training_center_id' => [
-                'required','int'
-            ],
-            'batch_id' => [
-                'required','int'
-            ],
+//            'training_center_id' => [
+//                'required','int'
+//            ],
+//            'batch_id' => [
+//                'required','int'
+//            ],
             'youth_id' => [
                 'required','int'
             ],

@@ -43,9 +43,15 @@ return [
     ],
 
     'examination' => [
+        'examination_status_msg' => 'Are you sure you want to change this examination status?',
+        'examination_complete' => 'Examination Complete',
+        'examination_publish' => 'Examination Publish',
+        'examination_not_publish' => 'Examination Not Publish',
+        'examination_status' => 'Examination Status',
         'sort' => 'Sort',
         'list' => 'Examination',
         'action' => 'Action',
+        'status' => 'Examination Status',
         'sl' => '#',
         'title' => 'Title',
         'total_mark' => 'Total Mark',

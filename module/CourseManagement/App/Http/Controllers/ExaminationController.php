@@ -150,4 +150,32 @@ class ExaminationController extends Controller
     {
         return $this->examinationService->getExaminationLists($request);
     }
+    public function status($id)
+    {
+        //return $id;
+        $examination = Examination::find($id);
+        if (!$examination){
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
+        $status = $examination->status;
+        if ($status == 0) {
+            $examination->status = 1;
+            $examination->save();
+        } else if($status == 1) {
+            $examination->status = 2;
+            $examination->save();
+        } else {
+            $examination->status = 0;
+            $examination->save();
+        }
+
+        return back()->with([
+            'message' => __('generic.object_deleted_successfully', ['object' => 'Examination']),
+            'alert-type' => 'success'
+        ]);
+    }
 }

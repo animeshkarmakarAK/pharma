@@ -54,7 +54,7 @@ class ExaminationResultController extends Controller
     public function create(): View
     {
         $examinationResult = new Batch();
-        $examinations = Examination::with('examinationType')->where(['row_status' => 1])->get();
+        $examinations = Examination::with('examinationType')->where(['row_status' => 1,'status'=>2])->get();
         //dd($examinations);
         return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations'));
     }
@@ -66,11 +66,18 @@ class ExaminationResultController extends Controller
         $validatedData = $this->examinationResultService->validator($request)->validate();
         //dd($validatedData);
         $authUser = AuthHelper::getAuthUser();
+        $examination = Examination::where(['id'=> $request->examination_id])->first();
+        //dd($examination);
+        $batch_id = $examination->batch_id;
+        $training_center_id  = $examination->training_center_id;
+
+        try {
+            $validatedData['batch_id'] = $batch_id;
+            $validatedData['training_center_id'] = $training_center_id;
             $validatedData['institute_id'] = $authUser->institute_id;
             $validatedData['created_by'] = $authUser->id;
             $validatedData['user_id'] = $authUser->id;
             $this->examinationResultService->createExaminationResult($validatedData);
-        try {
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -121,8 +128,13 @@ class ExaminationResultController extends Controller
     {
         //dd($examinationResult);
         $validatedData = $this->examinationResultService->validator($request)->validate();
-
+        $examination = Examination::where(['id'=> $request->examination_id])->first();
+        //dd($examination);
+        $batch_id = $examination->batch_id;
+        $training_center_id  = $examination->training_center_id;
         try {
+            $validatedData['batch_id'] = $batch_id;
+            $validatedData['training_center_id'] = $training_center_id;
             $this->examinationResultService->updateExaminationResult($examinationResult, $validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -166,11 +178,10 @@ class ExaminationResultController extends Controller
         return $this->examinationResultService->getExaminationResultLists($request);
     }
 
-    public function getYouths($batchId)
+    public function getYouths($examinationIid)
     {
-        //return $batchId;
-        //return $this->examinationResultService->getExaminationResultLists($request);
-
+        $examination = Examination::where(['id'=>$examinationIid])->first();
+        $batchId = $examination->batch_id;
         $youthBatches = YouthBatch::select(
             [
                 'youths.id as id',

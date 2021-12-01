@@ -71,8 +71,8 @@
 
                     {
                         title: "{{__('course_management::admin.examination_result.examination')}}",
-                        //data: "examination.exam_details",
-                        data: "examination.examination_type.title",
+                        data: "examination.exam_details",
+                        //data: "examination.examination_type.title",
                         name: "examination_results.examination_id",
                         //orderable: false, searchable: false,
                     },
