@@ -16,9 +16,11 @@ class CreateExaminationResultsTable extends Migration
         Schema::create('examination_results', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('institute_id')->index('examination_results_fk_institute_id');
-            $table->unsignedInteger('user_id')->comment('trainer id');
-            $table->unsignedInteger('youth_id');
-            $table->unsignedInteger('examination_id');
+            $table->unsignedInteger('user_id')->comment('trainer id')->index('examination_results_fk_user_id');;
+            $table->unsignedInteger('youth_id')->index('examination_results_fk_institute_id');
+            $table->unsignedInteger('examination_id')->index('examination_results_fk_examination_id');
+            $table->unsignedInteger('batch_id')->index('examination_results_fk_batch_id');
+            $table->unsignedInteger('training_center_id')->index('examination_results_fk_training_center_id');
             $table->unsignedInteger('achieved_marks');
             $table->tinyInteger('feedback')->nullable();
             $table->timestamps();

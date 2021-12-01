@@ -60,7 +60,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::get('batches/{id}/youths', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'index'])->name('batches.youths');
     Route::post('batches/{id}/youths-import', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'importYouth'])->name('batches.youths-import');
 
-    Route::post('batches/{id}/youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'getDatatable'])->name('batches.youths.datatable');
+Route::post('batches/{id}/youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'getDatatable'])->name('batches.youths.datatable');
 
     Route::get('youth-registrations', [Module\CourseManagement\App\Http\Controllers\YouthRegistrationManagementController::class, 'index'])
         ->name('youth.registrations.index');
