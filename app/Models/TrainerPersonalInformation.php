@@ -33,7 +33,6 @@ use Module\CourseManagement\App\Models\Institute;
  * @property-read User created_by
  * @property-read User updated_by
  */
-
 class TrainerPersonalInformation extends BaseModel
 {
     protected $guarded = ['id'];

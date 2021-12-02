@@ -19,7 +19,7 @@
                             @can('viewAny', App\Models\User::class)
                                 <a href="{{route('admin.users.trainers', $trainerInstitute->id)}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-backward"></i> Back to list
+                                    <i class="fas fa-backward"></i> {{ __('generic.back_to_list') }}
                                 </a>
                             @endcan
                         </div>
@@ -43,12 +43,12 @@
                                         <div class="form-row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="name">{{ __('Name') }}<span
+                                                    <label for="name">{{ __('generic.name') }}<span
                                                             style="color: red"> * </span></label>
                                                     <input type="text" class="form-control" id="name"
                                                            name="name"
                                                            value="{{ $trainer ? $trainer->name_en : old('title_en') }}"
-                                                           placeholder="{{ __('Name') }}">
+                                                           placeholder="{{ __('generic.name') }}">
                                                 </div>
                                             </div>
 
@@ -59,24 +59,26 @@
 
                                             <div
                                                 class="form-group col-md-6 {{ !empty($authYouth)? ($authYouth->email?'read-only-input-field':''):'' }}">
-                                                <label for="email">ইমেইল <span class="required">*</span>
+                                                <label for="email">{{ __('generic.email') }} <span
+                                                        class="required">*</span>
                                                     :</label>
                                                 <input type="text" class="form-control" name="email" id="email"
                                                        value="{{ $trainer ? $trainer->email :old('email') }}"
-                                                       placeholder="ইমেল">
+                                                       placeholder="{{ __('generic.email') }}">
                                             </div>
 
                                             <div
                                                 class="form-group col-md-6 {{ !empty($authYouth)? ($authYouth->mobile?'read-only-input-field':''):'' }}">
-                                                <label for="mobile">মোবাইল নাম্বার <span class="required">*</span>
+                                                <label for="mobile">{{__('generic.mobile') }} <span
+                                                        class="required">*</span>
                                                     :</label>
                                                 <input type="text" class="form-control" name="mobile" id="mobile"
                                                        value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->mobile :old('mobile') }}"
-                                                       placeholder="মোবাইল">
+                                                       placeholder="{{__('generic.mobile') }}">
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="gender">লিঙ্গ<span class="required">*</span> :</label>
+                                                <label for="gender">{{__('generic.gender') }}:</label>
                                                 <div
                                                     class="d-md-flex form-control {{ !empty($youthSelfInfo)? ($youthSelfInfo->gender?'read-only-input-field':''):'' }}"
                                                     style="display: inline-table;">
@@ -88,7 +90,7 @@
                                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE }}"
                                                             {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
                                                         <label for="gender_male"
-                                                               class="custom-control-label">পুরুষ</label>
+                                                               class="custom-control-label">{{__('generic.gender.male') }}</label>
                                                     </div>
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -98,7 +100,7 @@
                                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
                                                             {{ old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
                                                         <label for="gender_female"
-                                                               class="custom-control-label">নারী</label>
+                                                               class="custom-control-label">{{__('generic.gender.female') }}</label>
                                                     </div>
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -108,24 +110,22 @@
                                                                value="{{ \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER }}"
                                                             {{old('gender') == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER ? 'checked' : ''}}>
                                                         <label for="gender_transgender"
-                                                               class="custom-control-label">হিজড়া</label>
+                                                               class="custom-control-label">{{__('generic.gender.hermaphrodite') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div
                                                 class="form-group col-md-6 {{ !empty($trainer->trainerPersonalInformation)? ($trainer->trainerPersonalInformation->date_of_birth?'read-only-input-field':''):'' }}">
-                                                <label for="date_of_birth">জন্ম তারিখ <span
-                                                        class="required">*</span> :</label>
+                                                <label for="date_of_birth">{{__('generic.date_of_birth') }}:</label>
                                                 <input type="text" class="form-control flat-date" name="date_of_birth"
                                                        id="date_of_birth"
                                                        value="{{ !empty($trainer->trainerPersonalInformation)? $trainer->trainerPersonalInformation->date_of_birth :old('date_of_birth') }}"
-                                                       placeholder="জন্ম তারিখ">
+                                                       placeholder="{{__('generic.date_of_birth') }}">
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="marital_status">বৈবাহিক অবস্থা <span
-                                                        class="required">*</span> :</label>
+                                                <label for="marital_status">{{__('generic.marital_status') }} :</label>
                                                 <div class="form-control">
                                                     <div class="custom-control  custom-radio d-inline-block mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -136,7 +136,7 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->marital_status == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED?' checked' : '' }}
                                                         >
                                                         <label for="marital_status_married"
-                                                               class="custom-control-label">বিবাহিত</label>
+                                                               class="custom-control-label">{{__('generic.marital_status.married') }}</label>
                                                     </div>
                                                     <div class="custom-control custom-radio d-inline-block mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -147,13 +147,13 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->marital_status == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_SINGLE?' checked' : '' }}
                                                         >
                                                         <label for="marital_status_single"
-                                                               class="custom-control-label">অবিবাহিত</label>
+                                                               class="custom-control-label">{{__('generic.marital_status.unmarried') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="religion">ধর্ম<span class="required">*</span> :</label>
+                                                <label for="religion">{{ __('generic.religion') }}:</label>
                                                 <div class="d-md-flex form-control" style="display: inline-table;">
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -164,7 +164,7 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM ?' checked' : '' }}
                                                         >
                                                         <label for="religion_islam"
-                                                               class="custom-control-label">ইসলাম</label>
+                                                               class="custom-control-label">{{ __('generic.religion.islam') }}</label>
                                                     </div>
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -176,7 +176,7 @@
                                                         >
 
                                                         <label for="religion_hindu"
-                                                               class="custom-control-label">হিন্দু</label>
+                                                               class="custom-control-label">{{ __('generic.religion.hindu') }}</label>
                                                     </div>
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -187,7 +187,7 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN ?' checked' : '' }}
                                                         >
                                                         <label for="religion_christian"
-                                                               class="custom-control-label">খ্রিস্টান</label>
+                                                               class="custom-control-label">{{ __('generic.religion.christian') }}</label>
                                                     </div>
 
                                                     <div class="custom-control custom-radio mr-3">
@@ -199,7 +199,7 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST ?' checked' : '' }}
                                                         >
                                                         <label for="religion_buddhist"
-                                                               class="custom-control-label">বৌদ্ধ</label>
+                                                               class="custom-control-label">{{ __('generic.religion.buddhist') }}</label>
                                                     </div>
 
                                                     <div class="custom-control custom-radio mr-3">
@@ -211,7 +211,7 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_JAIN ?' checked' : '' }}
                                                         >
                                                         <label for="religion_jain"
-                                                               class="custom-control-label">জৈন</label>
+                                                               class="custom-control-label">{{ __('generic.religion.jain') }}</label>
                                                     </div>
 
                                                     <div class="custom-control custom-radio mr-3">
@@ -223,70 +223,69 @@
                                                             {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \Module\CourseManagement\App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS ?' checked' : '' }}
                                                         >
                                                         <label for="religion_other"
-                                                               class="custom-control-label">অন্যান্য</label>
+                                                               class="custom-control-label">{{ __('generic.religion.other') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="nationality"> জাতীয়তা <span class="required">*</span>
-                                                    :</label>
-                                                <select class="select2" name="nationality" id="nationality">
-                                                    <option value=""></option>
-                                                    <option
-                                                        value="bd" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}
-                                                    >বাংলাদেশী
-                                                    </option>
-                                                    <option
-                                                        value="others" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}>
-                                                        অন্যান্য
-                                                    </option>
-                                                </select>
+                                                <label for="nationality">{{ __('generic.nationality')}}</label>
+                                                    <select class="select2" name="nationality" id="nationality">
+                                                        <option value=""></option>
+                                                        <option
+                                                            value="bd" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}
+                                                        >বাংলাদেশী
+                                                        </option>
+                                                        <option
+                                                            value="others" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}>
+                                                            অন্যান্য
+                                                        </option>
+                                                    </select>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="nid_no">এন.আই.ডি নাম্বার/জন্ম সনদ/পাসপোর্ট নাম্বার <span
-                                                        class="required">*</span>:</label>
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control mb-2" name="nid_no"
-                                                               id="nid_no"
-                                                               value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->nid_no : old('nid_no') }}"
-                                                               placeholder="এন.আই.ডি নাম্বার">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control mb-2"
-                                                               name="birth_registration_no"
-                                                               id="birth_registration_no"
-                                                               value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->birth_registration_no : old('birth_registration_no') }}"
-                                                               placeholder="জন্ম সনদ নাম্বার">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control mb-2"
-                                                               name="passport_no"
-                                                               id="passport_no"
-                                                               value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->passport_no : old('passport_no') }}"
-                                                               placeholder="পাসপোর্ট নাম্বার">
-                                                    </div>
+                                                <label for="nid_no">{{ __('generic.nid_no') }}</label>
+                                                <input type="text" class="form-control mb-2" name="nid_no"
+                                                       id="nid_no"
+                                                       value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->nid_no : old('nid_no') }}"
+                                                       placeholder="{{__('generic.nid_no')}}">
+                                            </div>
 
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="nid_no">{{ __('generic.birth_certificate') }}</label>
+                                                <input type="text" class="form-control mb-2"
+                                                       name="birth_registration_no"
+                                                       id="birth_registration_no"
+                                                       value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->birth_registration_no : old('birth_registration_no') }}"
+                                                       placeholder="{{ __('generic.birth_certificate')}}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="nid_no">{{ __('generic.passport_no') }}</label>
+                                                <input type="text" class="form-control mb-2"
+                                                       name="passport_no"
+                                                       id="passport_no"
+                                                       value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->passport_no : old('passport_no') }}"
+                                                       placeholder="{{ __('generic.passport_no')}}">
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="present_address">Present Address</label>
+                                                    <label
+                                                        for="present_address">{{ __('generic.present_address')}}</label>
                                                     <textarea id="present_address" name="present_address"
                                                               class="form-control" rows="3"
-                                                              placeholder="Ex: holding No./village/road/upazila/district">{{ $trainer->trainerPersonalInformation->present_address }}</textarea>
+                                                              placeholder="{{ __('generic.Ex')  }}: {{__('generic.holding_no')}}/{{__('generic.village')}}/{{__('generic.upazila')}}/{{__('generic.district')}}">{{ isset($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->present_address : '' }}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="permanent_address">Permanent Address</label>
+                                                    <label
+                                                        for="permanent_address">{{ __('generic.permanent_address')}}</label>
                                                     <textarea id="permanent_address" name="permanent_address"
                                                               class="form-control" rows="3"
-                                                              placeholder="Ex: holding No./village/road/upazila/district">{{ $trainer->trainerPersonalInformation->permanent_address }}</textarea>
+                                                              placeholder="{{ __('generic.Ex')  }}: {{__('generic.holding_no')}}/{{__('generic.village')}}/{{__('generic.upazila')}}/{{__('generic.district')}}">{{ isset($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->permanent_address : '' }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,12 +293,7 @@
 
                                         <div class="form-row justify-content-between">
                                             <div class="form-group col-md-6">
-                                                <label for="profile_pic"> পাসপোর্ট সাইজের ছবি <span
-                                                        class="required">*</span></label>
-                                                <p class="font-italic font-weight-light" style="font-size: 12px;">(ছবি
-                                                    আকার অবশ্যই
-                                                    ৩০০ <i
-                                                        class="fa fa-times" style="color: #CCCCCC"></i> ৩০০ হতে হবে)</p>
+                                                <label for="profile_pic"> {{ __('generic.profile_pic')}}</label>
                                                 <div class="input-group">
                                                     <div class="profile-upload-section">
                                                         <div class="avatar-preview profile_pic text-center">
@@ -320,12 +314,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="signature_pic">স্বাক্ষর<span
-                                                        class="required">*</span></label>
-                                                <p class=" font-italic font-weight-light text-small"
-                                                   style="font-size: 12px;">(ছবি
-                                                    আকার অবশ্যই ৩০০ <i
-                                                        class="fa fa-times" style="color: #CCCCCC"></i> ৮০ হতে হবে)</p>
+                                                <label for="signature_pic">{{ __('generic.signature')}}</label>
                                                 <div class="input-group">
                                                     <div class="profile-upload-section">
                                                         <div class="avatar-preview signature_pic text-center">
@@ -353,14 +342,16 @@
                                 <div class="card">
                                     <div class="card-header custom-bg-gradient-info academic-qualifications">
                                         <h3 class="card-title font-weight-bold text-primary"><i
-                                                class="fa fa-address-book"> </i> শিক্ষাগত যোগ্যতা </h3>
+                                                class="fa fa-address-book"> </i> {{ __('generic.academic_qualification')}}
+                                        </h3>
                                     </div>
                                     <div class="card-body row">
                                         <div class="col-md-6 academic-qualification-jsc mb-2">
                                             <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                                 <div class="card-header">
-                                                    <h3 class="card-title text-primary d-inline-flex">জে.এস.সি/সমমান
-                                                        (পাস)</h3>
+                                                    <h3 class="card-title text-primary d-inline-flex">{{ __('course_management::admin.examination_name.jsc')}}
+                                                        /{{ __('generic.equivalent')}}
+                                                        ({{ __('generic.pass')}})</h3>
                                                 </div>
                                                 <div class="card-body jsc_collapse hide">
 
@@ -369,8 +360,8 @@
 
                                                     <div class="form-row form-group">
                                                         <label for="jsc_examination_name"
-                                                               class="col-md-4 col-form-label">পরীক্ষা<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                          </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][examination_name]"
                                                                     id="jsc_examination_name"
@@ -389,8 +380,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="jsc_board"
-                                                               class="col-md-4 col-form-label">বোর্ড<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}
+                                                            </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][board]"
                                                                     id="jsc_board"
@@ -408,9 +399,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="jsc_roll" class="col-md-4 col-form-label">রোল
-                                                            নং<span
-                                                                class="required">*</span></label>
+                                                        <label for="jsc_roll"
+                                                               class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[jsc][roll_no]"
@@ -421,8 +411,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="jsc_reg_no" class="col-md-4 col-form-label">
-                                                            রেজিস্ট্রেশান নং <span class="required">*</span></label>
+                                                        <label for="jsc_reg_no"
+                                                               class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text" id="jsc_reg_no"
                                                                    name="academicQualification[jsc][reg_no]"
@@ -436,21 +426,21 @@
                                                            value="5">
                                                     <div class="form-row form-group mt-2">
                                                         <label for="jsc_result"
-                                                               class="col-md-4 col-form-label">ফলাফল<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}
+                                                            </label>
                                                         <div class="col-md-8">
                                                             <input type="number"
                                                                    name="academicQualification[jsc][grade]"
                                                                    id="jsc_gpa" class="form-control"
-                                                                   width="10" placeholder="জি.পি.এ"
+                                                                   width="10" placeholder="{{ __('generic.result')}}"
                                                                    value="{{ isset($academicQualifications[\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->grade :  old('academicQualification.jsc.grade') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="jsc_passing_year" class="col-md-4 col-form-label">
-                                                            পাসের বছর<span class="required">*</span></label>
+                                                        <label for="jsc_passing_year"
+                                                               class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][passing_year]"
                                                                     id="jsc_passing_year" class="select2">
@@ -470,8 +460,9 @@
                                             <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                                 <div class="card-header">
                                                     <h3 class="card-title text-primary d-inline-flex">
-                                                        এস.এস.সি/সমমান/A-লেভেল
-                                                        (পাস) </h3>
+                                                        {{ __('course_management::admin.examination_name.ssc')}}
+                                                        /{{ __('generic.equivalent')}}/{{ __('generic.o-level')}}
+                                                        ({{ __('generic.pass')}}) </h3>
                                                 </div>
                                                 <div class="card-body ssc_collapse {{--collapse--}} hide">
 
@@ -480,8 +471,8 @@
 
                                                     <div class="form-row form-group">
                                                         <label for="ssc_examination_name"
-                                                               class="col-md-4 col-form-label">পরীক্ষা<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                       </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][examination_name]"
                                                                     id="ssc_examination_name"
@@ -500,8 +491,7 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="ssc_board"
-                                                               class="col-md-4 col-form-label">বোর্ড<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][board]"
                                                                     id="ssc_board"
@@ -520,9 +510,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="ssc_roll" class="col-md-4 col-form-label">রোল
-                                                            নং<span
-                                                                class="required">*</span></label>
+                                                        <label for="ssc_roll"
+                                                               class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[ssc][roll_no]"
@@ -533,9 +522,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="ssc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
-                                                            নং<span
-                                                                class="required">*</span></label>
+                                                        <label for="ssc_reg_no"
+                                                               class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text" id="ssc_reg_no"
                                                                    name="academicQualification[ssc][reg_no]"
@@ -547,8 +535,7 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="ssc_result"
-                                                               class="col-md-4 col-form-label">ফলাফল<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}</label>
                                                         <div class="col-md-8" id="ssc_result_div">
                                                             <select name="academicQualification[ssc][result]"
                                                                     id="ssc_result"
@@ -578,8 +565,7 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="ssc_group"
-                                                               class="col-md-4 col-form-label">বিভাগ<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.division')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][group]"
                                                                     class="select2"
@@ -590,8 +576,6 @@
                                                                         value="{{ $key }}" {{ isset($academicQualifications[\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->group == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.group') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
-                                                                    <option
-                                                                        value="{{ $key }}" {{ old('academicQualification.ssc.group') == $key ? 'selected' : '' }}>{{ $value }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -599,9 +583,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="ssc_passing_year" class="col-md-4 col-form-label">পাসের
-                                                            বছর<span
-                                                                class="required">*</span></label>
+                                                        <label for="ssc_passing_year"
+                                                               class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][passing_year]"
                                                                     id="ssc_passing_year" class="select2">
@@ -624,7 +607,9 @@
                                             <div class="card custom-bg-gradient-info col-md-12" style="height: 100%;">
                                                 <div class="card-header">
                                                     <h3 class="card-title text-primary d-inline-flex">
-                                                        এইচ.এস.সি/সমমান(পাস)
+                                                        {{ __('course_management::admin.examination_name.hsc')}}
+                                                        /{{ __('generic.equivalent')}}
+                                                        ({{ __('generic.pass')}})
                                                     </h3>
                                                 </div>
                                                 <div class="card-body hsc_collapse hide">
@@ -632,8 +617,8 @@
                                                            value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
                                                     <div class="form-row form-group">
                                                         <label for="hsc_examination_name"
-                                                               class="col-md-4 col-form-label">পরীক্ষা<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                          </label>
 
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][examination_name]"
@@ -652,8 +637,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_board"
-                                                               class="col-md-4 col-form-label">বোর্ড<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}
+                                                          </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][board]"
                                                                     id="hsc_board"
@@ -671,9 +656,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="hsc_roll" class="col-md-4 col-form-label">রোল
-                                                            নং<span
-                                                                class="required">*</span></label>
+                                                        <label for="hsc_roll"
+                                                               class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[hsc][roll_no]"
@@ -684,9 +668,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="hsc_reg_no" class="col-md-4 col-form-label">রেজিস্ট্রেশান
-                                                            নং<span
-                                                                class="required">*</span></label>
+                                                        <label for="hsc_reg_no"
+                                                               class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text" name="academicQualification[hsc][reg_no]"
                                                                    id="hsc_reg_no" class="form-control"
@@ -699,8 +682,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_result"
-                                                               class="col-md-4 col-form-label">ফলাফল<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}
+                                                        </label>
                                                         <div class="col-md-8" id="hsc_result_div">
                                                             <select name="academicQualification[hsc][result]"
                                                                     id="hsc_result"
@@ -730,8 +713,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_group"
-                                                               class="col-md-4 col-form-label">বিভাগ<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.division')}}
+                                                          </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][group]"
                                                                     id="hsc_group"
@@ -749,9 +732,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="hsc_passing_year" class="col-md-4 col-form-label">
-                                                            পাসের বছর
-                                                            <span class="required">*</span></label>
+                                                        <label for="hsc_passing_year"
+                                                               class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][passing_year]"
                                                                     id="hsc_passing_year" class="select2">
@@ -773,8 +755,8 @@
                                         <div class="col-md-6 academic-qualification-graduation mb-2">
                                             <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                                 <div class="card-header">
-                                                    <h3 class="card-title text-primary d-inline-flex">স্নাতক লেভেল
-                                                        (পাস)</h3>
+                                                    <h3 class="card-title text-primary d-inline-flex">{{ __('course_management::admin.examination_name.honors')}}
+                                                        ({{ __('generic.pass')}})</h3>
                                                 </div>
                                                 <div class="card-body graduation_collapse hide">
                                                     <input type="hidden"
@@ -783,8 +765,8 @@
 
                                                     <div class="form-row form-group">
                                                         <label for="graduation_examination_name"
-                                                               class="col-md-4 col-form-label">পরীক্ষা<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                            </label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[graduation][examination_name]"
@@ -802,8 +784,9 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="graduation_subject" class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
-                                                                class="required">*</span></label>
+                                                        <label for="graduation_subject"
+                                                               class="col-md-4 col-form-label">{{ __('generic.subject')}}
+                                                            /{{ __('generic.degree')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[graduation][subject]"
@@ -815,8 +798,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_institute"
-                                                               class="col-md-4 col-form-label">প্রতিষ্ঠান/বিশ্ববিদ্যালয়<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.institute')}}
+                                                            /{{ __('generic.university')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[graduation][institute]"
                                                                     id="graduation_institute"
@@ -836,8 +819,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_result"
-                                                               class="col-md-4 col-form-label">ফলাফল<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}
+                                                         </label>
                                                         <div class="col-md-8" id="graduation_result_div">
                                                             <select name="academicQualification[graduation][result]"
                                                                     id="graduation_result"
@@ -866,7 +849,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_passing_year"
                                                                class="col-md-4 col-form-label">
-                                                            পাসের বছর<span class="required">*</span></label>
+                                                            {{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[graduation][passing_year]"
@@ -886,7 +869,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_course_duration"
                                                                class="col-md-4 col-form-label">
-                                                            কোর্স সময়কাল<span class="required">*</span></label>
+                                                            {{ __('generic.course_duration')}}</label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[graduation][course_duration]"
@@ -908,8 +891,8 @@
                                         <div class="col-md-6 academic-qualification-masters mb-2">
                                             <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                                 <div class="card-header">
-                                                    <h3 class="card-title text-primary d-inline-flex">স্নাতকোত্তর লেভেল
-                                                        (পাস) </h3>
+                                                    <h3 class="card-title text-primary d-inline-flex">{{ __('course_management::admin.examination_name.masters')}}
+                                                        ({{ __('generic.pass')}}) </h3>
                                                 </div>
                                                 <div class="card-body masters_collapse {{--collapse--}} hide">
                                                     <input type="hidden"
@@ -917,8 +900,7 @@
                                                            value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS }}">
                                                     <div class="form-row form-group">
                                                         <label for="masters_examination_name"
-                                                               class="col-md-4 col-form-label">পরীক্ষা<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}</label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[masters][examination_name]"
@@ -937,8 +919,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="masters_subject"
-                                                               class="col-md-4 col-form-label">বিষয়/ডিগ্রি<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.subject')}}
+                                                            /{{ __('generic.degree')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[masters][subject]"
@@ -951,8 +933,9 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="masters_institute" class="col-md-4 col-form-label">প্রতিষ্ঠান/বিশ্ববিদ্যালয়<span
-                                                                class="required">*</span></label>
+                                                        <label for="masters_institute"
+                                                               class="col-md-4 col-form-label">{{ __('generic.institute')}}
+                                                            /{{ __('generic.university')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[masters][institute]"
                                                                     id="masters_institute" class="select2">
@@ -971,8 +954,7 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="masters_result"
-                                                               class="col-md-4 col-form-label">ফলাফল<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}</label>
                                                         <div class="col-md-8" id="masters_result_div">
                                                             <select name="academicQualification[masters][result]"
                                                                     id="masters_result"
@@ -1001,7 +983,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="masters_passing_year"
                                                                class="col-md-4 col-form-label">
-                                                            পাসের বছর<span class="required">*</span></label>
+                                                            {{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[masters][passing_year]"
                                                                     class="select2" id="masters_passing_year">
@@ -1021,7 +1003,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="masters_course_duration"
                                                                class="col-md-4 col-form-label">
-                                                            কোর্স সময়কাল<span class="required">*</span></label>
+                                                            {{ __('generic.course_duration')}}</label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[masters][course_duration]"
@@ -1047,7 +1029,7 @@
                                 <div class="card">
                                     <div class="card-header custom-bg-gradient-info experiences">
                                         <h3 class="card-title font-weight-bold text-primary"><i
-                                                class="fa fa-address-book"> </i> Experience </h3>
+                                                class="fa fa-address-book"> </i> {{ __('generic.experience')}} </h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -1065,7 +1047,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('generic.update') : __('generic.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->
@@ -1086,6 +1068,7 @@
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
     <script>
+
         const EDIT = !!'{{$edit}}';
         let SL = 0;
 
@@ -1122,6 +1105,10 @@
             console.table('course session template:', trainerExperience);
             let experienceContentElm = $(".trainer-experience-contents");
             experienceContentElm.append(trainerExperience({sl: SL, data: data, edit: EDIT}))
+
+            if (data.current_working_status) {
+                $('#job_end_date'+ SL).parent().hide();
+            }
             experienceContentElm.find('.flat-date').each(function () {
                 $(this).flatpickr({
                     altInput: false,
@@ -1153,18 +1140,16 @@
             });
 
             for (let i = 0; i <= SL; i++) {
-                $.validator.addClassRules("application_end_date" + i, {
+
+                $.validator.addClassRules("job_start_date" + i, {
                     required: true,
-                    cApplicationEndDate: '.application_start_date' + i,
-                });
-                $.validator.addClassRules("course_start_date" + i, {
-                    required: true,
-                    cCourseStartDate: ".application_end_date" + i,
+                    // cApplicationEndDate: '.application_start_date' + i,
                 });
             }
 
 
-            $.validator.addClassRules("max_seat_available", {required: true});
+            $.validator.addClassRules("organization_name", {required: true});
+            $.validator.addClassRules("position", {required: true});
             $.validator.addClassRules("session_name_en", {
                 required: true,
                 sessionNameEn: true,
@@ -1200,19 +1185,14 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                institute_id: {
+                name: {
                     required: true
                 },
-                course_id: {
+                email: {
                     required: true
                 },
-                application_form_type_id: {
+                mobile: {
                     required: true
-                },
-                max_seat_available: {
-                    required: true,
-                    number: true,
-                    min: 1,
                 },
             },
 
@@ -1250,12 +1230,87 @@
 
         });
 
+        $("#ssc_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#ssc_gpa').removeAttr('hidden');
+                $('#ssc_result_div').removeAttr('class');
+                $('#ssc_result_div').addClass('col-md-6');
+                $('#ssc_gpa_div').addClass('col-md-2');
+
+            } else {
+                $('#ssc_gpa').attr('hidden', true);
+                $('#ssc_result_div').removeAttr('class');
+                $('#ssc_result_div').addClass('col-md-8');
+                $('#ssc_gpa_div').removeAttr('class');
+            }
+        });
+
+        $("#hsc_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#hsc_gpa').removeAttr('hidden');
+                $('#hsc_result_div').removeAttr('class');
+                $('#hsc_result_div').addClass('col-md-6');
+                $('#hsc_gpa_div').addClass('col-md-2');
+            } else {
+                $('#hsc_gpa').attr('hidden', true);
+                $('#hsc_result_div').removeAttr('class');
+                $('#hsc_result_div').addClass('col-md-8');
+                $('#hsc_gpa_div').removeAttr('class');
+            }
+        });
+
+        $("#graduation_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#graduation_cgpa').removeAttr('hidden');
+
+                $('#graduation_result_div').removeAttr('class');
+                $('#graduation_result_div').addClass('col-md-6');
+                $('#graduation_cgpa_div').addClass('col-md-2');
+            } else {
+                $('#graduation_cgpa').attr('hidden', true);
+
+                $('#graduation_result_div').removeAttr('class');
+                $('#graduation_result_div').addClass('col-md-8');
+                $('#graduation_cgpa_div').removeAttr('class');
+            }
+        });
+
+        $("#masters_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#masters_cgpa').removeAttr('hidden');
+
+                $('#masters_result_div').removeAttr('class');
+                $('#masters_result_div').addClass('col-md-6');
+                $('#masters_cgpa_div').addClass('col-md-2');
+            } else {
+                $('#masters_cgpa').attr('hidden', true);
+
+                $('#masters_result_div').removeAttr('class');
+                $('#masters_result_div').addClass('col-md-8');
+                $('#masters_cgpa_div').removeAttr('class');
+            }
+        });
+
+
+        const handleCurrentWorkingStatus = function (obj, sl) {
+            const jobEndDate = "#job_end_date" + sl;
+            if (obj.checked) {
+                $(jobEndDate).parent().hide();
+            } else {
+                $(jobEndDate).parent().show();
+            }
+        }
+
     </script>
 
     <script type="text/template" id="trainer-experiences">
         <div class="card" id="session-no-<%=sl%>">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="session-name-english<%=sl%>"><%= "Experience " + (sl+1)%></h5>
+                <h5 class="session-name-english<%=sl%>"><%= "{{ __('generic.experience')}} " + (sl+1)%></h5>
                 <div class="card-tools">
                     <button type="button"
                             onclick="deleteRow(<%=sl%>)"
@@ -1273,7 +1328,7 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="session_name_en">{{ __('Organization Name') }} <span
+                            <label for="session_name_en">{{ __('generic.organization')}} <span
                                     style="color: red"> * </span></label>
                             <input type="text"
                                    class="form-control organization_name"
@@ -1286,7 +1341,7 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="job_position">{{ __('Position') }} <span
+                            <label for="job_position">{{ __('generic.position')}} <span
                                     style="color: red"> * </span></label>
                             <input type="text"
                                    class="form-control position"
@@ -1304,10 +1359,11 @@
                                    name="trainer_experiences[<%=sl%>][current_working_status]"
                                    id="trainer_experiences[<%=sl%>][current_working_status]"
                                    value="1"
+                                   onclick="handleCurrentWorkingStatus(this, <%=sl%>)"
                             <%=data.current_working_status ? "checked" : ''%>
                             >
                             <label class="form-check-label" for="trainer_experience_current_work_status">
-                                Currently working?
+                                {{ __('generic.currently_working')}}?
                             </label>
                         </div>
                     </div>
@@ -1316,7 +1372,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label
-                                for="job_start_date">{{ __('Start Date') }} <span
+                                for="job_start_date">{{ __('generic.job_start_date')}} <span
                                     style="color: red"> * </span></label>
                             <input type="text"
                                    class="flat-date flat-date-custom-bg form-control job_start_date job_start_date<%=sl%> "
@@ -1329,11 +1385,12 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label
-                                for="job_end_date">{{ __('End Date') }} <span
+                                for="job_end_date">{{ __('generic.job_end_date')}} <span
                                     style="color: red"> * </span></label>
                             <input type="text"
                                    class="flat-date flat-date-custom-bg form-control job_end_date job_end_date<%=sl%>"
                                    name="trainer_experiences[<%=sl%>][job_end_date]"
+                                   id="job_end_date<%=sl%>"
                                    value="<%=edit ? data.job_end_date : ''%>"
                             >
                         </div>

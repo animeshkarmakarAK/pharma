@@ -1698,6 +1698,7 @@
             },
             "addressWithoutSpecialChar is require"
         );
+
         $.validator.addMethod(
             "birthRegNo",
             function (value, element) {

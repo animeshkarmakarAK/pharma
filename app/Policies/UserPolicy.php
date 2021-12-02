@@ -37,7 +37,7 @@ class UserPolicy extends MasterBasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermission('create_user');
+        return $user->hasPermission('create_user') && !$user->isTrainer();
     }
 
     /**
@@ -69,9 +69,9 @@ class UserPolicy extends MasterBasePolicy
      *
      * @param User $user
      * @param User $model
-     * @return mixed
+     * @return bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, User $model): bool
     {
         return $user->id != $model->id && $user->hasPermission('restore_user');
     }
@@ -81,9 +81,9 @@ class UserPolicy extends MasterBasePolicy
      *
      * @param User $user
      * @param User $model
-     * @return mixed
+     * @return bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, User $model): bool
     {
         return $user->id != $model->id && $user->hasPermission('force_delete_user');
     }
@@ -110,7 +110,7 @@ class UserPolicy extends MasterBasePolicy
 
     public function changeUserType(User $user, User $model): bool
     {
-        return !($user->isDCUser() || $user->isInstituteUser() || $user->isOrganizationUser()) && !($user->id == $model->id);
+        return !($user->isDCUser() || $user->isInstituteUser()) && !($user->id == $model->id);
     }
 
     public function editTrainerInformation(User $user, User $model): bool
