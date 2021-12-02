@@ -277,7 +277,7 @@
                                                     <label for="present_address">Present Address</label>
                                                     <textarea id="present_address" name="present_address"
                                                               class="form-control" rows="3"
-                                                              placeholder="Ex: holding No./village/road/upazila/district">{{ $trainer->trainerPersonalInformation->present_address }}</textarea>
+                                                              placeholder="Ex: holding No./village/road/upazila/district">{{ isset($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->present_address : '' }}</textarea>
                                                 </div>
                                             </div>
 
@@ -286,7 +286,7 @@
                                                     <label for="permanent_address">Permanent Address</label>
                                                     <textarea id="permanent_address" name="permanent_address"
                                                               class="form-control" rows="3"
-                                                              placeholder="Ex: holding No./village/road/upazila/district">{{ $trainer->trainerPersonalInformation->permanent_address }}</textarea>
+                                                              placeholder="Ex: holding No./village/road/upazila/district">{{ isset($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->permanent_address : '' }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1153,6 +1153,7 @@
             });
 
             for (let i = 0; i <= SL; i++) {
+
                 $.validator.addClassRules("job_start_date" + i, {
                     required: true,
                     // cApplicationEndDate: '.application_start_date' + i,
@@ -1162,6 +1163,10 @@
 
             $.validator.addClassRules("organization_name", {required: true});
             $.validator.addClassRules("position", {required: true});
+            $.validator.addClassRules("session_name_en", {
+                required: true,
+                sessionNameEn: true,
+            });
             SL++;
         }
 
@@ -1193,17 +1198,6 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                name: {
-                    required: true,
-                },
-                mobile: {
-                    required: true,
-                    mobileValidation: true,
-                },
-                email: {
-                    required: true,
-                    pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                },
                 institute_id: {
                     required: true
                 },

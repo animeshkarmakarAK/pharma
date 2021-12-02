@@ -32,16 +32,16 @@ class TrainerService
             $trainerPersonalInfo['profile_pic'] = 'trainer/' . $filename;
         }
 
-        $existedPersonalInfo  = TrainerPersonalInformation::where('trainer_id', $trainer->id)->first();
+
+        $existedPersonalInfo = TrainerPersonalInformation::where('trainer_id', $trainer->id)->first();
         if ($existedPersonalInfo) {
             $trainer->trainerPersonalInformation()->update($trainerPersonalInfo);
-        }else {
+        } else {
             $trainer->trainerPersonalInformation()->create($trainerPersonalInfo);
         }
 
-
         foreach ($data['academicQualification'] as $key => $academicQualification) {
-            if ($academicQualification['examination_name'] == null) continue;
+            if (empty($academicQualification['examination_name'])) continue;
 
             $existAcademicQualification = TrainerAcademicQualification::where('trainer_id', $trainer->id)
                 ->where('examination', $academicQualification['examination'])
@@ -54,17 +54,21 @@ class TrainerService
             }
         }
 
-        foreach ($data['trainer_experiences'] as $key => $trainerExperience) {
-            if ($trainerExperience['organization_name'] == null) continue;
 
-            if ($trainerExperience['id'] && $trainerExperience['delete']) {
-                TrainerExperience::where('id', $trainerExperience['id'])->delete();
-            } else if ($trainerExperience['id']) {
-                $trainerExp = TrainerExperience::find($trainerExperience['id']);
-                $trainerExp->update($trainerExperience);
-            } else {
-                $trainerExperience['trainer_id'] = $trainer->id;
-                TrainerExperience::create($trainerExperience);
+        if (isset($data['trainer_experiences'])) {
+            foreach ($data['trainer_experiences'] as $key => $trainerExperience) {
+                if ($trainerExperience['organization_name'] == null) {
+                    continue;
+                }
+
+                if (!empty($trainerExperience['id']) && !empty($trainerExperience['delete'])) {
+                    TrainerExperience::where('id', $trainerExperience['id'])->delete();
+                } elseif (!empty($trainerExperience['id'])) {
+                    $trainerExp = TrainerExperience::find($trainerExperience['id']);
+                    $trainerExp->update($trainerExperience);
+                } else {
+                    $trainer->trainerExperiences()->create($trainerExperience);
+                }
             }
         }
 

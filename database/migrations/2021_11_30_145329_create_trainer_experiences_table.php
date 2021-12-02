@@ -15,12 +15,12 @@ class CreateTrainerExperiencesTable extends Migration
     {
         Schema::create('trainer_experiences', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('trainer_id');
+            $table->unsignedInteger('trainer_id')->index('trainer_experiences_fk_trainer_id');
             $table->string('organization_name');
             $table->string('position');
             $table->dateTime('job_start_date');
             $table->dateTime('job_end_date')->nullable();
-            $table->tinyInteger('current_working_status')->default(0);
+            $table->tinyInteger('current_working_status')->nullable()->default(0);
             $table->timestamps();
             $table->foreign('trainer_id', 'trainer_experiences_fk_trainer_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
         });

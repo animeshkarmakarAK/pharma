@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
 /**
  * Class TrainerExperience
@@ -11,8 +10,8 @@ use Illuminate\Support\Carbon;
  * @property int trainer_id
  * @property string organization_name
  * @property string position
- * @property Carbon job_start_date
- * @property Carbon job_end_date
+ * @property \Carbon\Carbon job_start_date
+ * @property \Carbon\Carbon job_end_date
  * @property-read  User trainer
  *
  */
