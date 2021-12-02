@@ -244,32 +244,29 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="nid_no">{{__('generic.nid_no')}}
-                                                    /{{ __('generic.birth_certificate')}}/{{ __('generic.passport_no')}}
-                                                    :</label>
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control mb-2" name="nid_no"
-                                                               id="nid_no"
-                                                               value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->nid_no : old('nid_no') }}"
-                                                               placeholder="{{__('generic.nid_no')}}">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control mb-2"
-                                                               name="birth_registration_no"
-                                                               id="birth_registration_no"
-                                                               value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->birth_registration_no : old('birth_registration_no') }}"
-                                                               placeholder="{{ __('generic.birth_certificate')}}">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <input type="text" class="form-control mb-2"
-                                                               name="passport_no"
-                                                               id="passport_no"
-                                                               value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->passport_no : old('passport_no') }}"
-                                                               placeholder="{{ __('generic.passport_no')}}">
-                                                    </div>
+                                                <label for="nid_no">{{ __('generic.nid_no') }}</label>
+                                                <input type="text" class="form-control mb-2" name="nid_no"
+                                                       id="nid_no"
+                                                       value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->nid_no : old('nid_no') }}"
+                                                       placeholder="{{__('generic.nid_no')}}">
+                                            </div>
 
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="nid_no">{{ __('generic.birth_certificate') }}</label>
+                                                <input type="text" class="form-control mb-2"
+                                                       name="birth_registration_no"
+                                                       id="birth_registration_no"
+                                                       value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->birth_registration_no : old('birth_registration_no') }}"
+                                                       placeholder="{{ __('generic.birth_certificate')}}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="nid_no">{{ __('generic.passport_no') }}</label>
+                                                <input type="text" class="form-control mb-2"
+                                                       name="passport_no"
+                                                       id="passport_no"
+                                                       value="{{ !empty($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->passport_no : old('passport_no') }}"
+                                                       placeholder="{{ __('generic.passport_no')}}">
                                             </div>
 
                                             <div class="col-sm-6">
@@ -1232,6 +1229,72 @@
             }
 
         });
+
+        $("#ssc_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#ssc_gpa').removeAttr('hidden');
+                $('#ssc_result_div').removeAttr('class');
+                $('#ssc_result_div').addClass('col-md-6');
+                $('#ssc_gpa_div').addClass('col-md-2');
+
+            } else {
+                $('#ssc_gpa').attr('hidden', true);
+                $('#ssc_result_div').removeAttr('class');
+                $('#ssc_result_div').addClass('col-md-8');
+                $('#ssc_gpa_div').removeAttr('class');
+            }
+        });
+
+        $("#hsc_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#hsc_gpa').removeAttr('hidden');
+                $('#hsc_result_div').removeAttr('class');
+                $('#hsc_result_div').addClass('col-md-6');
+                $('#hsc_gpa_div').addClass('col-md-2');
+            } else {
+                $('#hsc_gpa').attr('hidden', true);
+                $('#hsc_result_div').removeAttr('class');
+                $('#hsc_result_div').addClass('col-md-8');
+                $('#hsc_gpa_div').removeAttr('class');
+            }
+        });
+
+        $("#graduation_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#graduation_cgpa').removeAttr('hidden');
+
+                $('#graduation_result_div').removeAttr('class');
+                $('#graduation_result_div').addClass('col-md-6');
+                $('#graduation_cgpa_div').addClass('col-md-2');
+            } else {
+                $('#graduation_cgpa').attr('hidden', true);
+
+                $('#graduation_result_div').removeAttr('class');
+                $('#graduation_result_div').addClass('col-md-8');
+                $('#graduation_cgpa_div').removeAttr('class');
+            }
+        });
+
+        $("#masters_result").on('change', function () {
+            if ($(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#masters_cgpa').removeAttr('hidden');
+
+                $('#masters_result_div').removeAttr('class');
+                $('#masters_result_div').addClass('col-md-6');
+                $('#masters_cgpa_div').addClass('col-md-2');
+            } else {
+                $('#masters_cgpa').attr('hidden', true);
+
+                $('#masters_result_div').removeAttr('class');
+                $('#masters_result_div').addClass('col-md-8');
+                $('#masters_cgpa_div').removeAttr('class');
+            }
+        });
+
 
         const handleCurrentWorkingStatus = function (obj, sl) {
             const jobEndDate = "#job_end_date" + sl;
