@@ -187,7 +187,7 @@ class UserService
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 if (($authUser->isInstituteUser() || $authUser->isSuperUser()) && $user->isInstituteUser()) {
-                    $str .= '<a href="' . route('admin.users.trainers', $user->id) . '"  data-action="' . route('admin.users.trainers', $user->id) . '" class="btn btn-outline-info btn-sm info"> <i class="fas fa-trash"></i> ' . __('generic.trainers') . '</a>';
+                    $str .= '<a href="' . route('admin.users.trainers', $user->id) . '"  data-action="' . route('admin.users.trainers', $user->id) . '" class="btn btn-outline-info btn-sm info"> <i class="fas fa-user"></i> ' . __('generic.trainers') . '</a>';
                 }
                 if ($authUser->can('editTrainerInformation', $user) && $user->isTrainer()) {
                     $str .= '<a href="' . route('admin.trainers.additional-info', $user->id) . '" class="btn btn-outline-info btn-sm trainer-info"> <i class="fas fa-info"></i> ' . __('generic.additional_info_button_label') . '</a>';
