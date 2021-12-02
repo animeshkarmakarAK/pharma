@@ -125,8 +125,7 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="marital_status">{{__('generic.marital_status') }} <span
-                                                        class="required">*</span> :</label>
+                                                <label for="marital_status">{{__('generic.marital_status') }} :</label>
                                                 <div class="form-control">
                                                     <div class="custom-control  custom-radio d-inline-block mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -154,8 +153,7 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="religion">{{ __('generic.religion') }}<span
-                                                        class="required">*</span> :</label>
+                                                <label for="religion">{{ __('generic.religion') }}:</label>
                                                 <div class="d-md-flex form-control" style="display: inline-table;">
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -231,19 +229,18 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="nationality"> জাতীয়তা <span class="required">*</span>
-                                                    :</label>
-                                                <select class="select2" name="nationality" id="nationality">
-                                                    <option value=""></option>
-                                                    <option
-                                                        value="bd" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}
-                                                    >বাংলাদেশী
-                                                    </option>
-                                                    <option
-                                                        value="others" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}>
-                                                        অন্যান্য
-                                                    </option>
-                                                </select>
+                                                <label for="nationality">{{ __('generic.nationality')}}</label>
+                                                    <select class="select2" name="nationality" id="nationality">
+                                                        <option value=""></option>
+                                                        <option
+                                                            value="bd" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}
+                                                        >বাংলাদেশী
+                                                        </option>
+                                                        <option
+                                                            value="others" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}>
+                                                            অন্যান্য
+                                                        </option>
+                                                    </select>
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -287,7 +284,8 @@
 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="permanent_address">{{ __('generic.permanent_address')}}</label>
+                                                    <label
+                                                        for="permanent_address">{{ __('generic.permanent_address')}}</label>
                                                     <textarea id="permanent_address" name="permanent_address"
                                                               class="form-control" rows="3"
                                                               placeholder="{{ __('generic.Ex')  }}: {{__('generic.holding_no')}}/{{__('generic.village')}}/{{__('generic.upazila')}}/{{__('generic.district')}}">{{ isset($trainer->trainerPersonalInformation) ? $trainer->trainerPersonalInformation->permanent_address : '' }}</textarea>
@@ -299,10 +297,6 @@
                                         <div class="form-row justify-content-between">
                                             <div class="form-group col-md-6">
                                                 <label for="profile_pic"> {{ __('generic.profile_pic')}}</label>
-                                                <p class="font-italic font-weight-light" style="font-size: 12px;">(ছবি
-                                                    আকার অবশ্যই
-                                                    ৩০০ <i
-                                                        class="fa fa-times" style="color: #CCCCCC"></i> ৩০০ হতে হবে)</p>
                                                 <div class="input-group">
                                                     <div class="profile-upload-section">
                                                         <div class="avatar-preview profile_pic text-center">
@@ -323,12 +317,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="signature_pic">{{ __('generic.signature')}}<span
-                                                        class="required">*</span></label>
-                                                <p class=" font-italic font-weight-light text-small"
-                                                   style="font-size: 12px;">(ছবি
-                                                    আকার অবশ্যই ৩০০ <i
-                                                        class="fa fa-times" style="color: #CCCCCC"></i> ৮০ হতে হবে)</p>
+                                                <label for="signature_pic">{{ __('generic.signature')}}</label>
                                                 <div class="input-group">
                                                     <div class="profile-upload-section">
                                                         <div class="avatar-preview signature_pic text-center">
@@ -356,13 +345,15 @@
                                 <div class="card">
                                     <div class="card-header custom-bg-gradient-info academic-qualifications">
                                         <h3 class="card-title font-weight-bold text-primary"><i
-                                                class="fa fa-address-book"> </i> {{ __('generic.academic_qualification')}} </h3>
+                                                class="fa fa-address-book"> </i> {{ __('generic.academic_qualification')}}
+                                        </h3>
                                     </div>
                                     <div class="card-body row">
                                         <div class="col-md-6 academic-qualification-jsc mb-2">
                                             <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                                 <div class="card-header">
-                                                    <h3 class="card-title text-primary d-inline-flex">{{ __('course_management::admin.examination_name.jsc')}}/{{ __('generic.equivalent')}}
+                                                    <h3 class="card-title text-primary d-inline-flex">{{ __('course_management::admin.examination_name.jsc')}}
+                                                        /{{ __('generic.equivalent')}}
                                                         ({{ __('generic.pass')}})</h3>
                                                 </div>
                                                 <div class="card-body jsc_collapse hide">
@@ -372,8 +363,8 @@
 
                                                     <div class="form-row form-group">
                                                         <label for="jsc_examination_name"
-                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                          </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][examination_name]"
                                                                     id="jsc_examination_name"
@@ -392,8 +383,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="jsc_board"
-                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}
+                                                            </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][board]"
                                                                     id="jsc_board"
@@ -411,7 +402,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="jsc_roll" class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
+                                                        <label for="jsc_roll"
+                                                               class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[jsc][roll_no]"
@@ -422,7 +414,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="jsc_reg_no" class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
+                                                        <label for="jsc_reg_no"
+                                                               class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text" id="jsc_reg_no"
                                                                    name="academicQualification[jsc][reg_no]"
@@ -436,8 +429,8 @@
                                                            value="5">
                                                     <div class="form-row form-group mt-2">
                                                         <label for="jsc_result"
-                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}
+                                                            </label>
                                                         <div class="col-md-8">
                                                             <input type="number"
                                                                    name="academicQualification[jsc][grade]"
@@ -449,7 +442,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="jsc_passing_year" class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
+                                                        <label for="jsc_passing_year"
+                                                               class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][passing_year]"
                                                                     id="jsc_passing_year" class="select2">
@@ -469,7 +463,8 @@
                                             <div class="card col-md-12 custom-bg-gradient-info" style="height: 100%;">
                                                 <div class="card-header">
                                                     <h3 class="card-title text-primary d-inline-flex">
-                                                        {{ __('course_management::admin.examination_name.ssc')}}/{{ __('generic.equivalent')}}/{{ __('generic.o-level')}}
+                                                        {{ __('course_management::admin.examination_name.ssc')}}
+                                                        /{{ __('generic.equivalent')}}/{{ __('generic.o-level')}}
                                                         ({{ __('generic.pass')}}) </h3>
                                                 </div>
                                                 <div class="card-body ssc_collapse {{--collapse--}} hide">
@@ -479,8 +474,8 @@
 
                                                     <div class="form-row form-group">
                                                         <label for="ssc_examination_name"
-                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                       </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][examination_name]"
                                                                     id="ssc_examination_name"
@@ -518,7 +513,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="ssc_roll" class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
+                                                        <label for="ssc_roll"
+                                                               class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[ssc][roll_no]"
@@ -529,7 +525,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="ssc_reg_no" class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
+                                                        <label for="ssc_reg_no"
+                                                               class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text" id="ssc_reg_no"
                                                                    name="academicQualification[ssc][reg_no]"
@@ -589,7 +586,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="ssc_passing_year" class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
+                                                        <label for="ssc_passing_year"
+                                                               class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][passing_year]"
                                                                     id="ssc_passing_year" class="select2">
@@ -612,7 +610,8 @@
                                             <div class="card custom-bg-gradient-info col-md-12" style="height: 100%;">
                                                 <div class="card-header">
                                                     <h3 class="card-title text-primary d-inline-flex">
-                                                        {{ __('course_management::admin.examination_name.hsc')}}/{{ __('generic.equivalent')}}
+                                                        {{ __('course_management::admin.examination_name.hsc')}}
+                                                        /{{ __('generic.equivalent')}}
                                                         ({{ __('generic.pass')}})
                                                     </h3>
                                                 </div>
@@ -621,8 +620,8 @@
                                                            value="{{ \Module\CourseManagement\App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
                                                     <div class="form-row form-group">
                                                         <label for="hsc_examination_name"
-                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                          </label>
 
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][examination_name]"
@@ -641,8 +640,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_board"
-                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.board')}}
+                                                          </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][board]"
                                                                     id="hsc_board"
@@ -660,7 +659,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="hsc_roll" class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
+                                                        <label for="hsc_roll"
+                                                               class="col-md-4 col-form-label">{{ __('generic.roll_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[hsc][roll_no]"
@@ -671,7 +671,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="hsc_reg_no" class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
+                                                        <label for="hsc_reg_no"
+                                                               class="col-md-4 col-form-label">{{ __('generic.reg_no')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text" name="academicQualification[hsc][reg_no]"
                                                                    id="hsc_reg_no" class="form-control"
@@ -684,8 +685,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_result"
-                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}
+                                                        </label>
                                                         <div class="col-md-8" id="hsc_result_div">
                                                             <select name="academicQualification[hsc][result]"
                                                                     id="hsc_result"
@@ -715,8 +716,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_group"
-                                                               class="col-md-4 col-form-label">{{ __('generic.division')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.division')}}
+                                                          </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][group]"
                                                                     id="hsc_group"
@@ -734,7 +735,8 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="hsc_passing_year" class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
+                                                        <label for="hsc_passing_year"
+                                                               class="col-md-4 col-form-label">{{ __('generic.passing_year')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][passing_year]"
                                                                     id="hsc_passing_year" class="select2">
@@ -766,8 +768,8 @@
 
                                                     <div class="form-row form-group">
                                                         <label for="graduation_examination_name"
-                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.examination')}}
+                                                            </label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[graduation][examination_name]"
@@ -785,8 +787,9 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="graduation_subject" class="col-md-4 col-form-label">{{ __('generic.subject')}}/{{ __('generic.degree')}}<span
-                                                                class="required">*</span></label>
+                                                        <label for="graduation_subject"
+                                                               class="col-md-4 col-form-label">{{ __('generic.subject')}}
+                                                            /{{ __('generic.degree')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[graduation][subject]"
@@ -798,7 +801,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_institute"
-                                                               class="col-md-4 col-form-label">{{ __('generic.institute')}}/{{ __('generic.university')}}</label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.institute')}}
+                                                            /{{ __('generic.university')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[graduation][institute]"
                                                                     id="graduation_institute"
@@ -818,8 +822,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_result"
-                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}<span
-                                                                class="required">*</span></label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.result')}}
+                                                         </label>
                                                         <div class="col-md-8" id="graduation_result_div">
                                                             <select name="academicQualification[graduation][result]"
                                                                     id="graduation_result"
@@ -918,7 +922,8 @@
 
                                                     <div class="form-row form-group mt-2">
                                                         <label for="masters_subject"
-                                                               class="col-md-4 col-form-label">{{ __('generic.subject')}}/{{ __('generic.degree')}}</label>
+                                                               class="col-md-4 col-form-label">{{ __('generic.subject')}}
+                                                            /{{ __('generic.degree')}}</label>
                                                         <div class="col-md-8">
                                                             <input type="text"
                                                                    name="academicQualification[masters][subject]"
@@ -931,7 +936,9 @@
                                                     </div>
 
                                                     <div class="form-row form-group mt-2">
-                                                        <label for="masters_institute" class="col-md-4 col-form-label">{{ __('generic.institute')}}/{{ __('generic.university')}}</label>
+                                                        <label for="masters_institute"
+                                                               class="col-md-4 col-form-label">{{ __('generic.institute')}}
+                                                            /{{ __('generic.university')}}</label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[masters][institute]"
                                                                     id="masters_institute" class="select2">
@@ -1064,6 +1071,7 @@
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
     <script>
+
         const EDIT = !!'{{$edit}}';
         let SL = 0;
 
@@ -1100,6 +1108,10 @@
             console.table('course session template:', trainerExperience);
             let experienceContentElm = $(".trainer-experience-contents");
             experienceContentElm.append(trainerExperience({sl: SL, data: data, edit: EDIT}))
+
+            if (data.current_working_status) {
+                $('#job_end_date'+ SL).parent().hide();
+            }
             experienceContentElm.find('.flat-date').each(function () {
                 $(this).flatpickr({
                     altInput: false,
@@ -1176,19 +1188,14 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                institute_id: {
+                name: {
                     required: true
                 },
-                course_id: {
+                email: {
                     required: true
                 },
-                application_form_type_id: {
+                mobile: {
                     required: true
-                },
-                max_seat_available: {
-                    required: true,
-                    number: true,
-                    min: 1,
                 },
             },
 
@@ -1225,6 +1232,15 @@
             }
 
         });
+
+        const handleCurrentWorkingStatus = function (obj, sl) {
+            const jobEndDate = "#job_end_date" + sl;
+            if (obj.checked) {
+                $(jobEndDate).parent().hide();
+            } else {
+                $(jobEndDate).parent().show();
+            }
+        }
 
     </script>
 
@@ -1280,6 +1296,7 @@
                                    name="trainer_experiences[<%=sl%>][current_working_status]"
                                    id="trainer_experiences[<%=sl%>][current_working_status]"
                                    value="1"
+                                   onclick="handleCurrentWorkingStatus(this, <%=sl%>)"
                             <%=data.current_working_status ? "checked" : ''%>
                             >
                             <label class="form-check-label" for="trainer_experience_current_work_status">
@@ -1310,6 +1327,7 @@
                             <input type="text"
                                    class="flat-date flat-date-custom-bg form-control job_end_date job_end_date<%=sl%>"
                                    name="trainer_experiences[<%=sl%>][job_end_date]"
+                                   id="job_end_date<%=sl%>"
                                    value="<%=edit ? data.job_end_date : ''%>"
                             >
                         </div>
