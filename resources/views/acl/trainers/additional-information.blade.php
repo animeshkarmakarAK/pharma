@@ -1153,22 +1153,15 @@
             });
 
             for (let i = 0; i <= SL; i++) {
-                $.validator.addClassRules("application_end_date" + i, {
+                $.validator.addClassRules("job_start_date" + i, {
                     required: true,
-                    cApplicationEndDate: '.application_start_date' + i,
-                });
-                $.validator.addClassRules("course_start_date" + i, {
-                    required: true,
-                    cCourseStartDate: ".application_end_date" + i,
+                    // cApplicationEndDate: '.application_start_date' + i,
                 });
             }
 
 
-            $.validator.addClassRules("max_seat_available", {required: true});
-            $.validator.addClassRules("session_name_en", {
-                required: true,
-                sessionNameEn: true,
-            });
+            $.validator.addClassRules("organization_name", {required: true});
+            $.validator.addClassRules("position", {required: true});
             SL++;
         }
 
@@ -1200,6 +1193,17 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
+                name: {
+                    required: true,
+                },
+                mobile: {
+                    required: true,
+                    mobileValidation: true,
+                },
+                email: {
+                    required: true,
+                    pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+                },
                 institute_id: {
                     required: true
                 },

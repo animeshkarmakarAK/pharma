@@ -78,7 +78,7 @@ class TrainerController extends BaseController
         }
 
         return response()->json([
-            'message' => __('আপনার রেজিস্ট্রেশন সফল হয়েছে'),
+            'message' => __('information stored successfully!'),
             'alertType' => 'success',
         ]);
     }

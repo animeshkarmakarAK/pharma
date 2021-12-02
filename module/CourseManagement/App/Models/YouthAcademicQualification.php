@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class YouthAcademicQualification extends BaseModel
 {
     use HasFactory, CreatedByUpdatedByRelationTrait;
+
     protected $guarded = ['id'];
 
     public function getJSCExaminationName(): string
@@ -41,16 +42,16 @@ class YouthAcademicQualification extends BaseModel
 
 
     public function getSSCExaminationName(): string
-        {
-            $examinationName = '';
+    {
+        $examinationName = '';
 
-            $arr = self::getSSCExaminationOptions();
+        $arr = self::getSSCExaminationOptions();
 
-            if (empty($arr[$this->examination_name])) return $examinationName;
+        if (empty($arr[$this->examination_name])) return $examinationName;
 
-            return $arr[$this->examination_name];
+        return $arr[$this->examination_name];
 
-        }
+    }
 
     public function getHSCExaminationName(): string
     {
@@ -121,13 +122,14 @@ class YouthAcademicQualification extends BaseModel
     public static function getExaminationOptions(): array
     {
         return [
-          self::EXAMINATION_JSC => __('J.S.C'),
-          self::EXAMINATION_SSC => __('S.S.C'),
-          self::EXAMINATION_HSC => __('H.S.C'),
-          self::EXAMINATION_GRADUATION => __('Graduation'),
-          self::EXAMINATION_MASTERS => __('Master\'s'),
+            self::EXAMINATION_JSC => __('J.S.C'),
+            self::EXAMINATION_SSC => __('S.S.C'),
+            self::EXAMINATION_HSC => __('H.S.C'),
+            self::EXAMINATION_GRADUATION => __('Graduation'),
+            self::EXAMINATION_MASTERS => __('Master\'s'),
         ];
     }
+
     public function getExamination(): string
     {
         $examination = '';
@@ -158,6 +160,7 @@ class YouthAcademicQualification extends BaseModel
 
     public const JSC_EXAMINATION_JSC = 1;
     public const JDC_EXAMINATION_JDC = 2;
+
     public static function getJSCExaminationOptions(): array
     {
         return [
@@ -346,8 +349,6 @@ class YouthAcademicQualification extends BaseModel
 
         return $arr[$this->institute];
     }
-
-
 
     public function youth(): BelongsTo
     {
