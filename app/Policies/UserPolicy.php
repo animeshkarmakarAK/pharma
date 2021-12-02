@@ -37,7 +37,7 @@ class UserPolicy extends MasterBasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermission('create_user');
+        return $user->hasPermission('create_user') && !$user->isTrainer();
     }
 
     /**

@@ -12,7 +12,6 @@ use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
 
 class TrainerService
 {
