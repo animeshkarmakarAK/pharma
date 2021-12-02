@@ -48,7 +48,7 @@ class PublishCourseService
 
 
 
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
 

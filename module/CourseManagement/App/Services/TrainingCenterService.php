@@ -29,7 +29,7 @@ class TrainingCenterService
             $data['course_director_signature'] = 'training-center/signature/course-director/' .  $filename;
         }
 
-        $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
+//        $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
         return TrainingCenter::create($data);
     }
 
@@ -76,27 +76,13 @@ class TrainingCenterService
     {
         $rules = [
             'title_en' => 'required|string|max: 191',
-            'title_bn' => 'required|string|max: 191',
             'institute_id' => 'required|int',
             'branch_id' => 'nullable|int',
             'address' => ['nullable', 'string', 'max:191'],
-            'google_map_src' => ['nullable', 'string'],
             "mobile" => [
                 "required",
                 BaseModel::MOBILE_REGEX
-            ],
-            'course_coordinator_signature' => [
-                new RequiredIf($id == null),
-                'image',
-                'mimes:jpg,bmp,png,jpeg,svg',
-                'dimensions:width=300,height=80',
-            ],
-            'course_director_signature' => [
-                new RequiredIf($id == null),
-                'image',
-                'mimes:jpg,bmp,png,jpeg,svg',
-                'dimensions:width=300,height=80',
-            ],
+            ]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }

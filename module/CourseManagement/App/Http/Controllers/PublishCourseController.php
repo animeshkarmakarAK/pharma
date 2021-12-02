@@ -73,10 +73,11 @@ class PublishCourseController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->publishCourseService->validator($request)->validate();
+        $this->publishCourseService->createPublishCourse($validatedData);
 
         DB::beginTransaction();
         try {
-            $this->publishCourseService->createPublishCourse($validatedData);
+
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -117,7 +118,6 @@ class PublishCourseController extends Controller
         foreach ($preSelectedTrainingCenters as $preSelectedTrainingCenter) {
             array_push($selectedTrainingCenters, $preSelectedTrainingCenter->id);
         }
-
         $publishCourse->load('courseSessions');
         $courses = Course::where('institute_id', $publishCourse->institute_id)->active()->get();
         $programmes = Programme::where('institute_id', $publishCourse->institute_id)->active()->get();

@@ -71,7 +71,7 @@
                                 <div class="form-group">
                                     <label for="publish_course_id">{{ __('Publish Course') }} <span
                                             style="color: red">*</span></label>
-                                    <select class="form-control select2-ajax-wizard"
+                                    <select class="form-control select2-ajax-wizard"d
                                             name="publish_course_id"
                                             id="publish_course_id"
                                         {{--data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
@@ -85,7 +85,7 @@
                                         <option value="">Select</option>
                                         @foreach($publishCourses as $publishCourse)
                                             <option
-                                                value="{{ $publishCourse->id}}" {{ $edit && $batch->publish_course_id == $publishCourse->id? 'selected':''}}>{{ $publishCourse->course->title_bn }}</option>
+                                                value="{{ $publishCourse->id}}" {{ $edit && $batch->publish_course_id == $publishCourse->id? 'selected':''}}>{{ $publishCourse->course->title_en }}</option>
                                         @endforeach
 
                                     </select>
@@ -103,7 +103,7 @@
                                         @if($edit)
                                             @foreach($publishCourseTrainingCenters as $publishCourseTrainingCenter)
                                                 <option
-                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}}>{{ $publishCourseTrainingCenter->title_bn }}</option>
+                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}} {{ $publishCourseTrainingCenter->title_bn }}</option>
                                             @endforeach
                                         @endif
 
@@ -350,7 +350,7 @@
                 $("#training_center_id option").remove();
                 $('#training_center_id').append('<option value="">' + 'Select' + '</option>');
                 $.each(res, function (key, val) {
-                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_bn + '</option>');
+                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_en + '</option>');
                 });
             });
 

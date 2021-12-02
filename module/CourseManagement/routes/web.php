@@ -22,9 +22,17 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'events' => Module\CourseManagement\App\Http\Controllers\EventController::class,
         'intro-videos' => Module\CourseManagement\App\Http\Controllers\IntroVideoController::class,
         'question-answers' => Module\CourseManagement\App\Http\Controllers\QuestionAnswerController::class,
+
+        'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
+        'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
+        'examination-results' => Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class,
+        'routines' => Module\CourseManagement\App\Http\Controllers\RoutineController::class,
     ]);
 
-
+    /**********Routine**********/
+    Route::get('weekly-routine', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyRoutine'])->name('weekly-routine');
+    Route::post('weekly-routine/datatable', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyGetDatatable'])->name('weekly-routine.datatable');
+    /***************************/
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
     Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
@@ -109,6 +117,14 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     Route::get('youths/certificate/{youth}', [Module\CourseManagement\App\Http\Controllers\YouthManagementController::class, 'youthCertificateList'])
         ->name('youths.certificate.course');
+
+    Route::post('examination-types/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class, 'getDatatable'])->name('examination-types.datatable');
+    Route::post('examinations/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examinations.datatable');
+    Route::get('examinations/status/{id?}', [Module\CourseManagement\App\Http\Controllers\ExaminationController::class, 'status'])->name('examinations.status');
+    Route::post('examination-results/datatable', [Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class, 'getDatatable'])->name('examination-results.datatable');
+    //Route::get('examination-results/get-youths/{batch_id?}', [Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class, 'getYouths'])->name('examination-results.get-youths');
+    Route::get('examination-results/get-youths/{examination_id?}', [Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class, 'getYouths'])->name('examination-results.get-youths');
+    Route::post('routines/datatable', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'getDatatable'])->name('routines.datatable');
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {

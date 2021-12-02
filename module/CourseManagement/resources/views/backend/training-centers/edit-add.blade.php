@@ -51,15 +51,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="google_map_src">{{ __('Google Map SRC') }}</label>
-                                        <textarea class="form-control" id="google_map_src" name="google_map_src"
-                                                  placeholder="Google Map SRC"
-                                                  rows="3">{{ $edit ? $trainingCenter->google_map_src : old('google_map_src') }}</textarea>
-                                    </div>
-                                </div>
-
                                 @if($authUser->isInstituteUser())
                                     <input type="hidden" id="institute_id" name="institute_id"
                                            value="{{$authUser->institute_id}}">
@@ -82,26 +73,6 @@
                                     </div>
                                 @endif
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="course_coordinator_signature">{{ __('Course Coordinator Signature') }}
-                                            <span
-                                                style="color: red">*</span></label>
-                                        <input type="file" class="form-control" id="course_coordinator_signature"
-                                               name="course_coordinator_signature"
-                                               value="{{ $edit ? $trainingCenter->course_coordinator_signature : old('course_coordinator_signature') }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="course_director_signature">{{ __('Course Director Signature') }} <span
-                                                style="color: red">*</span></label>
-                                        <input type="file" class="form-control" id="course_director_signature"
-                                               name="course_director_signature"
-                                               value="{{ $edit ? $trainingCenter->course_director_signature : old('course_director_signature') }}">
-                                    </div>
-                                </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="mobile">Mobile <span style="color: red"> * </span></label>
@@ -191,28 +162,6 @@
                     required: true
                 },
 
-                course_coordinator_signature: {
-                    required: function (){
-                        if(!EDIT){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    },
-                    accept: "image/*",
-                    dimension: [300, 80],
-                },
-                course_director_signature: {
-                    required: function (){
-                        if(!EDIT){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    },
-                    accept: "image/*",
-                    dimension: [300, 80],
-                },
                 mobile:{
                     required: true,
                 },

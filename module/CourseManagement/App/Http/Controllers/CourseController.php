@@ -52,8 +52,9 @@ class CourseController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $courseValidatedData = $this->courseService->validator($request)->validate();
+        $this->courseService->createCourse($courseValidatedData);
         try {
-            $this->courseService->createCourse($courseValidatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

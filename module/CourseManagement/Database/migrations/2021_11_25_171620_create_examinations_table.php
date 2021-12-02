@@ -22,6 +22,7 @@ class CreateExaminationsTable extends Migration
             $table->unsignedInteger('pass_mark');
             $table->unsignedInteger('total_mark');
             $table->mediumText('exam_details')->nullable();
+            $table->tinyInteger('status')->default(0)->comment('0 = not publish, 1 = publish, 2 = complete');
             $table->tinyInteger('row_status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
