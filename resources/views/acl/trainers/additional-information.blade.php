@@ -299,7 +299,7 @@
                                                         <div class="avatar-preview profile_pic text-center">
                                                             <label for="profile_pic">
                                                                 <img class="figure-img"
-                                                                     src={{ $trainer->trainerPersonalInformation && $trainer->trainerPersonalInformation->profile_pic ? asset('storage/'. $trainer->trainerPersonalInformation->profile_pic) :  "https://via.placeholder.com/350x350?text=Trainer+Profile_pic"}}
+                                                                     src={{ !empty($trainer->profile_pic) ? asset('storage/'. $trainer->profile_pic) : ($trainer->trainerPersonalInformation && $trainer->trainerPersonalInformation->profile_pic ? asset('storage/'. $trainer->trainerPersonalInformation->profile_pic) :  "https://via.placeholder.com/350x350?text=Trainer+Profile_pic")}}
                                                                          width="300" height="300"
                                                                      alt="Profile pic"/>
                                                                 <span class="p-1 bg-gray"

@@ -117,4 +117,9 @@ class UserPolicy extends MasterBasePolicy
     {
         return $model->isTrainer();
     }
+
+    public function updateTrainer(User $user, User $model): bool
+    {
+        return $user->hasPermission('update_trainer') && !$user->isSuperUser();
+    }
 }

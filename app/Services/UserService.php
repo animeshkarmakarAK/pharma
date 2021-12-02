@@ -231,13 +231,12 @@ class UserService
                 if ($authUser->can('view', $user)) {
                     $str .= '<a href="#" data-url="' . route('admin.users.show', $user->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }
-                if ($authUser->can('update', $user)) {
+                if ($authUser->can('update', $user) && $authUser->can('updateTrainer', $user)) {
                     $str .= '<a href="#" data-url="' . route('admin.users.edit', $user->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $user)) {
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
-
                 if ($authUser->can('editTrainerInformation', $user)) {
                     $str .= '<a href="' . route('admin.trainers.additional-info', $user->id) . '" class="btn btn-outline-info btn-sm trainer-info"> <i class="fas fa-info"></i> ' . __('generic.additional_info_button_label') . '</a>';
                 }
