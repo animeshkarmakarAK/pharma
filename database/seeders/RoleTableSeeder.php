@@ -72,9 +72,9 @@ class RoleTableSeeder extends Seeder
             6 =>
                 array(
                     'id' => 7,
-                    'title_en' => 'SMEF',
-                    'title_bn' => 'এসএমইএফ',
-                    'code' => 'smef',
+                    'title_en' => 'Trainer',
+                    'title_bn' => 'Trainer',
+                    'code' => 'trainer',
                     'is_deletable' => '0'
                 ),
         ));

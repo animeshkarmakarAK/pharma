@@ -47,10 +47,10 @@ class PublishCourseController extends Controller
     {
         $currentInstitute = domainConfig('institute');
 
-        $courses = Course::where('institute_id',$currentInstitute->id )->active()->get();
-        $programmes = Programme::where('institute_id',$currentInstitute->id )->active()->get();
-        $trainingCenters = TrainingCenter::where('institute_id',$currentInstitute->id )->active()->get();
-        $applicationFormTypes = ApplicationFormType::where('institute_id',$currentInstitute->id )->active()->get();
+        $courses = Course::where('institute_id', $currentInstitute->id)->active()->get();
+        $programmes = Programme::where('institute_id', $currentInstitute->id)->active()->get();
+        $trainingCenters = TrainingCenter::where('institute_id', $currentInstitute->id)->active()->get();
+        $applicationFormTypes = ApplicationFormType::where('institute_id', $currentInstitute->id)->active()->get();
 
 
         return \view(self::VIEW_PATH . 'edit-add')->with([
@@ -103,7 +103,7 @@ class PublishCourseController extends Controller
         $preSelectedTrainingCenters = TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
         $courseSessions = CourseSession::where(['publish_course_id' => $publishCourse->id])->get();
 
-        return \view(self::VIEW_PATH . 'read', compact('publishCourse','preSelectedTrainingCenters', 'courseSessions'));
+        return \view(self::VIEW_PATH . 'read', compact('publishCourse', 'preSelectedTrainingCenters', 'courseSessions'));
     }
 
     /**
@@ -111,18 +111,17 @@ class PublishCourseController extends Controller
      */
     public function edit(PublishCourse $publishCourse)
     {
-
-        $preSelectedTrainingCenters = TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
-        $trainingCenters = TrainingCenter::where('institute_id',$publishCourse->institute_id )->active()->get();
+        $preSelectedTrainingCenters = TrainingCenter::where('id', $publishCourse->training_center_id)->get();
+        $trainingCenters = TrainingCenter::where('institute_id', $publishCourse->institute_id)->active()->get();
 
         $selectedTrainingCenters = [];
         foreach ($preSelectedTrainingCenters as $preSelectedTrainingCenter) {
             array_push($selectedTrainingCenters, $preSelectedTrainingCenter->id);
         }
         $publishCourse->load('courseSessions');
-        $courses = Course::where('institute_id',$publishCourse->institute_id)->active()->get();
-        $programmes = Programme::where('institute_id',$publishCourse->institute_id)->active()->get();
-        $applicationFormTypes = ApplicationFormType::where('institute_id',$publishCourse->institute_id)->active()->get();
+        $courses = Course::where('institute_id', $publishCourse->institute_id)->active()->get();
+        $programmes = Programme::where('institute_id', $publishCourse->institute_id)->active()->get();
+        $applicationFormTypes = ApplicationFormType::where('institute_id', $publishCourse->institute_id)->active()->get();
 
 
         return \view(self::VIEW_PATH . 'edit-add', compact('publishCourse'))->with([

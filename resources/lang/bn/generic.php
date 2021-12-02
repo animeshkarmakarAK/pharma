@@ -4,6 +4,7 @@ return [
     'add_button_label' => 'সম্পাদনা করুণ',
     'edit_button_label' => 'যোগ করুণ',
     'delete_button_label' => 'মুছুন',
+    'trainers' => 'প্রশিক্ষক',
     'read_button_label' => 'প্রদর্শন',
     'user_details' => 'ব্যবহারকারির বিস্তারিত',
     'change_info' => 'তথ্য পরিবর্তন',
@@ -165,5 +166,5 @@ return [
     'institute_calender'=>'ইনস্টিটিউট ক্যালেন্ডার',
     'trending_jobs'=>'কাজের ট্রেন্ডস',
     'map'=>'মানচিত্র',
-
+    'additional_info_button_label' => 'অতিরিক্ত তথ্য',
 ];

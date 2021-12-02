@@ -30,7 +30,7 @@ class AddForeignKeysToRoutineClassesTable extends Migration
     public function down()
     {
         Schema::table('routine_classes', function (Blueprint $table) {
-            Schema::dropIfExists('routine_classes_fk_routine_id');
+            $table->dropForeign('routine_classes_fk_routine_id');
         });
     }
 }

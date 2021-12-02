@@ -3176,11 +3176,11 @@
             });
         });
 
-        function validationCheckSelect2(n) {
-            if ($(n).val() != "") {
-                $(n).valid();
+        function validationCheckSelect2(selectField) {
+            if ($(selectField).val() != "") {
+                $(selectField).valid();
             } else {
-                $(n).valid(false);
+                $(selectField).valid(false);
             }
         }
 
