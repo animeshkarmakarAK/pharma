@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
+use Session;
+
 class RoutineController extends Controller
 {
     const VIEW_PATH = 'course_management::backend.routines.';
@@ -152,20 +154,65 @@ class RoutineController extends Controller
     }
 
 
+    public function weeklyGetDatatable(Request $request): JsonResponse
+    {
+
+        return $this->routineService->getWeeklyRoutineLists($request);
+    }
+
     /**
      * @param Routine $routine
      * @return View
      */
     public function weeklyRoutine(Routine $routine)
     {
+        @$user_id = Session::get('user_id');
+        @$batch_id = Session::get('batch_id');
+
+
         $authUser = AuthHelper::getAuthUser();
-        $routines = Routine::with('routineClass')->where(['institute_id'=>$authUser->institute_id])->get();
         $trainers =  User::where(['institute_id' => $authUser->institute_id])->get();
         $batches = Batch::where(['institute_id' => $authUser->institute_id])->get();
-        return view(self::VIEW_PATH . 'weekly-routine',compact('routines','trainers','batches'));
+        $parameters = [];
+        $routines = [];
+        if ($batch_id && $user_id){
+            $parameters['batch_id'] = $batch_id;
+            $parameters['user_id'] = $user_id;
+            $routines = Routine::with('routineClass')
+                ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
+                ->whereHas('routineClass', function ($query) use($user_id) {
+                        $query->where('user_id', $user_id);
+                    })
+                ->get();
+        }elseif ($batch_id){
+            //return $batch_id;
+            $parameters['batch_id'] = $batch_id;
+            $routines = Routine::with('routineClass')
+                ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
+                ->get();
+        }
+
+        //return $parameters;
+        return view(self::VIEW_PATH . 'weekly-routine',compact('routines','trainers','batches','parameters'));
     }
-    public function weeklyGetDatatable(Request $request): JsonResponse
+
+
+
+    public function weeklyRoutineFilter(Request $request)
     {
-        return $this->routineService->getWeeklyRoutineLists($request);
+        //dd($request->all());
+
+        $this->validate($request, [
+            'batch_id' => 'required'
+        ]);
+        @Session::forget(['user_id','batch_id']);
+        $user_id = $request->get('user_id');
+        $batch_id = $request->get('batch_id');
+
+
+        Session::put(['user_id'=>$user_id,'batch_id'=>$batch_id]);
+        return redirect(route('course_management::admin.weekly-routine'));
+
+
     }
 }

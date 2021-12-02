@@ -159,6 +159,16 @@
             height: 36px;
             margin-top: 2px;
         }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 26px;
+            position: absolute;
+            top: 6px;
+            right: 1px;
+            width: 20px;
+        }
+
+
     </style>
 @endpush
 
@@ -189,11 +199,6 @@
                 },
                 training_center_id: {
                     required: true
-                },
-            },
-            messages: {
-                day: {
-                    pattern: "This field is required in English.",
                 },
             },
             submitHandler: function (htmlForm) {

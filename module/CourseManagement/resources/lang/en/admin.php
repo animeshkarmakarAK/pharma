@@ -9,6 +9,7 @@ return [
         'read' => 'Read',
         'add' => 'Add New',
         'edit' => 'Edit',
+        'search' => 'Search',
         'update' => 'Update',
         'delete' => 'Delete',
         'all' => 'All',
