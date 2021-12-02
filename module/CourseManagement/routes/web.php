@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
     /**********Routine**********/
     Route::get('weekly-routine', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyRoutine'])->name('weekly-routine');
-    Route::post('weekly-routine/datatable', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyGetDatatable'])->name('weekly-routine.datatable');
+    Route::post('weekly-routine/filter', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyRoutineFilter'])->name('weekly-routine.filter');
     /***************************/
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
