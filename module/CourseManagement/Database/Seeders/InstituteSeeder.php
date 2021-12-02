@@ -24,7 +24,6 @@ class InstituteSeeder extends Seeder
                 array(
                     'id' => 1,
                     'title_en' => 'BITAC',
-                    'title_bn' => 'বিটাক',
                     'code' => '1212',
                     'domain' => 'https://www.bitac.com',
                     'address' => 'dhaka-1000',
@@ -33,7 +32,6 @@ class InstituteSeeder extends Seeder
             1 => array(
                 'id' => 2,
                 'title_en' => 'BASIS',
-                'title_bn' => 'বেসিস',
                 'code' => '1213',
                 'domain' => 'https://www.basis.com',
                 'address' => 'dhaka-1000',

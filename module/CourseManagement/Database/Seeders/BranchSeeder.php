@@ -25,7 +25,6 @@ class BranchSeeder extends Seeder
                     'id' => 1,
                     'institute_id' => 1,
                     'title_en' => 'Bashundhara Branch',
-                    'title_bn' => 'বসুন্ধরা শাখা',
                     'created_by' => '1',
                     'address' => '',
                     'row_status' => 1
@@ -35,7 +34,6 @@ class BranchSeeder extends Seeder
                     'id' => 2,
                     'institute_id' => 1,
                     'title_en' => 'Uttara Branch',
-                    'title_bn' => 'উত্তরা শাখা',
                     'created_by' => '1',
                     'address' => '',
                     'row_status' => 1

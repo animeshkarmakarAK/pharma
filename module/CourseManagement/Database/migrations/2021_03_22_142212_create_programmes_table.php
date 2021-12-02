@@ -16,7 +16,6 @@ class CreateProgrammesTable extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title_en', 191)->nullable();
-            $table->string('title_bn', 191)->nullable();
             $table->unsignedInteger('institute_id')->index('programmes_fk_institute_id');
             $table->string('code',191)->nullable();
             $table->text('description')->nullable();

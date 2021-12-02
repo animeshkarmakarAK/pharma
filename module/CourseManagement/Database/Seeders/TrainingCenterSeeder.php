@@ -25,7 +25,6 @@ class TrainingCenterSeeder extends Seeder
                     'id' => 1,
                     'institute_id' => 1,
                     'title_en' => 'CSL Training Centre',
-                    'title_bn' => 'সিএসএল ট্রাইনিং সেন্টার',
                     'address' => '',
                     'created_by' => '1',
                     'row_status' => 1
@@ -35,7 +34,6 @@ class TrainingCenterSeeder extends Seeder
                     'id' => 2,
                     'institute_id' => 1,
                     'title_en' => 'Creative IT',
-                    'title_bn' => 'ক্রিয়েটিভ আইটি',
                     'address' => '',
                     'created_by' => '1',
                     'row_status' => 1

@@ -37,11 +37,9 @@ class TrainerController extends BaseController
 
 
         $academicQualifications = $trainer->trainerAcademicQualifications()->get()->keyBy('examination');
-//       dd( isset($academicQualifications[YouthAcademicQualification::EXAMINATION_MASTERS]));
 
 
         return \view(self::VIEW_PATH . 'additional-information', ['trainer' => $trainer, 'trainerInstitute' => $trainerInstitute, 'academicQualifications' => $academicQualifications]);
-//        return \view(self::VIEW_PATH . 'additional-information', ['academic_qualifications' => $trainerAcademicQualifications, 'experiences' => $trainerExperiences, 'personalInformation' => $trainerPersonalInformations]);
     }
 
     /**

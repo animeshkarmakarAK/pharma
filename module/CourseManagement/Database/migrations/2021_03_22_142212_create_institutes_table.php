@@ -16,7 +16,6 @@ class CreateInstitutesTable extends Migration
         Schema::create('institutes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title_en', 191)->nullable();
-            $table->string('title_bn', 191)->nullable();
             $table->string('code', 191);
             $table->string('domain', 191);
             $table->string('address', 191)->nullable();
