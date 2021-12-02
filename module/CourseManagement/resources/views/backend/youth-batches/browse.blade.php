@@ -11,7 +11,7 @@
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.batches.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
-                                <i class="fas fa-backward"></i> Back to batch list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>

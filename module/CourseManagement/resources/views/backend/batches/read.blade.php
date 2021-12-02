@@ -14,14 +14,14 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                <h3 class="card-title font-weight-bold text-primary">Batch</h3>
+                <h3 class="card-title font-weight-bold text-primary">{{__('course_management::admin.batch.index')}}</h3>
                 <div class="card-tools">
                     <div class="btn-group">
                         <a href="{{route('course_management::admin.batches.edit', [$batch->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-plus-circle"></i> {{ __('Edit Batch') }}
+                            <i class="fas fa-plus-circle"></i> {{__('course_management::admin.batch.edit')}}
                         </a>
                         <a href="{{route('course_management::admin.batches.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-backward"></i> {{ __('Back to list') }}
+                            <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                         </a>
                     </div>
                 </div>

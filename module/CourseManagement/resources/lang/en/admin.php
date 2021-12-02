@@ -35,6 +35,59 @@ return [
         'deleted' => 'Deleted',
     ],
 
+
+    'application_form_type' => [
+        'index' => 'Application Form Type',
+        'list' => 'Application Form Types List',
+        'add' => 'Add Application Form Type',
+        'edit' => 'Edit Application Form Type',
+        'update' => 'Update Application Form Type',
+        'title' => 'Title',
+        'name' => 'Name',
+        'institute_name' => 'Institute Name',
+        'education_information_show' => 'Educational Information To Show',
+        'additional_information_show' => 'Additional Information To Show',
+        'other_information_show' => 'Others Information To Show',
+        'jsc_exam' => 'JSC Exam',
+        'ssc_exam' => 'SSC Exam',
+        'hsc_exam' => 'HSC Exam',
+        'honors_exam' => 'Honors Exam',
+        'masters_exam' => 'Masters Exam',
+        'physical_disability' => 'Physical Disability',
+        'occupation_information' => 'Occupation Information',
+        'ethnic_group' => 'Ethnic Group',
+        'freedom_fighter' => 'Freedom Fighter',
+        'guardian' => 'Guardian Information'
+    ],
+
+    'batch' => [
+        'index' => 'Batch',
+        'list' => 'Batches List',
+        'add' => 'Add Batch',
+        'edit' => 'Edit Batch',
+        'update' => 'Update Batch',
+        'title' => 'Title',
+        'institute_name' => 'Institute Name',
+        'course_title' => 'Course Title',
+        'max_student_enrollment' => 'Max Student Enrollment',
+        'start_date' => 'Start Date',
+        'end_date' => 'End Date',
+        'start_time' => 'Start Time',
+        'end_time' => 'End Time',
+        'batch_status' => 'Batch Status',
+        'publish_course' => 'Publish Course',
+    ],
+
+
+    'branch' =>[
+        'index' => 'Branch',
+        'list' => 'Branch List',
+        'add' => 'Create Branch',
+        'edit' => 'Edit Branch',
+        'update' => 'Update Branch'
+    ],
+
+
     'examination_type' => [
         'sort' => 'Sort',
         'list' => 'Examination Type',

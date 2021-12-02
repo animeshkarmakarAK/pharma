@@ -24,7 +24,7 @@
                                 @if(!$authUser->institute_id)
                                     <a href="{{route('course_management::admin.intro-videos.create')}}"
                                        class="btn btn-sm btn-outline-primary btn-rounded">
-                                        <i class="fas fa-plus-circle"></i> Add new
+                                        <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                     </a>
                                 @endif
 

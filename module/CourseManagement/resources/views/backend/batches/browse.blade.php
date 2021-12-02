@@ -10,11 +10,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">Batches List</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{__('course_management::admin.batch.list')}}</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Batch::class)
                                 <a href="{{route('course_management::admin.batches.create')}}" class="btn btn-sm btn-rounded btn-primary">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                 </a>
                             @endcan
                         </div>
@@ -54,55 +54,55 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{__('course_management::admin.batch.title')}}",
                         data: "title_en",
                         name: "batches.title_en",
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{__('course_management::admin.batch.institute_name')}}",
                         data: "institutes.title_en",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Course Title",
+                        title: "{{__('course_management::admin.batch.course_title')}}",
                         data: "courses.title_en",
                         name: "courses.title_en"
                     },
                     {
-                        title: "Max Student Enrollment",
+                        title: "{{__('course_management::admin.batch.max_student_enrollment')}}",
                         data: "batches.max_student_enrollment",
                         name: "batches.max_student_enrollment",
                         visible: false
                     },
                     {
-                        title: "Start Date",
+                        title: "{{__('course_management::admin.batch.start_date')}}",
                         data: "start_date",
                         name: "batches.start_date",
                     },
 
                     {
-                        title: "End Date",
+                        title: "{{__('course_management::admin.batch.end_date')}}",
                         data: "end_date",
                         name: "batches.end_date",
                         visible: false
                     },
 
                     {
-                        title: "Start Time",
+                        title: "{{__('course_management::admin.batch.start_time')}}",
                         data: "start_time",
                         name: "batches.start_time",
                         visible: false
                     },
 
                     {
-                        title: "End Time",
+                        title: "{{__('course_management::admin.batch.end_time')}}",
                         data: "end_time",
                         name: "batches.end_time",
                         visible: false
                     },
                     {
-                        title: "Batch Status",
+                        title: "{{__('course_management::admin.batch.batch_status')}}",
                         data: "batch_status",
                         name: "batches.batch_status",
                         orderable: false,
@@ -110,7 +110,7 @@
                         visible: true
                     },
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.common.action')}}",
                         data: "action",
                         name: "action",
                         orderable: false,

@@ -95,7 +95,6 @@ class TrainingCenterService
         $trainingCenters = TrainingCenter::acl()->select([
             'training_centers.id as id',
             'training_centers.title_en',
-            'training_centers.title_bn',
             'institutes.title_en as institute_name',
             'branches.title_en as branch_name',
             'users.name_en as training_center_created_by',

@@ -16,11 +16,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Branch':'Create Branch' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit ? __('course_management::admin.branch.edit') : __('course_management::admin.branch.add') }}</h3>
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.branches.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.branch.update') : __('course_management::admin.branch.add') }}</button>
                             </div>
                         </form>
                     </div>

@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header text-primary custom-bg-gradient-info">
-                <h3 class="card-title font-weight-bold">Branch</h3>
+                <h3 class="card-title font-weight-bold">{{__('course_management::admin.branch.index')}}</h3>
 
                 <div class="card-tools">
                     <div class="btn-group">
@@ -20,7 +20,7 @@
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Branch') }}
                         </a>
                         <a href="{{route('course_management::admin.branches.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-backward"></i> {{ __('Back to list') }}
+                            <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                         </a>
                     </div>
                 </div>

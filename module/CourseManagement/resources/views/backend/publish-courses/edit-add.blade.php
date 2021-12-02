@@ -21,7 +21,7 @@
                         <div>
                             <a href="{{route('course_management::admin.publish-courses.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>

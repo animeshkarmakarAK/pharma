@@ -25,7 +25,7 @@
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.courses.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i>{{__('course_management::admin.common.back')}}
                             </a>
                         </div>
 

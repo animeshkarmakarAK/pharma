@@ -43,6 +43,7 @@ class TrainingCenterController extends Controller
         $branches = Branch::active()->get();
 
         $trainingCenter = new TrainingCenter();
+
         return view(self::VIEW_PATH . 'edit-add', compact('trainingCenter', 'institutes', 'branches'));
 
     }

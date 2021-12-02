@@ -13,7 +13,7 @@
                         <div class="card-tools">
                             <a href="{{route('admin.user-types.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('generic.back')}}
                             </a>
                         </div>
                     </div>

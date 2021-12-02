@@ -16,7 +16,7 @@
                             @can('create', Module\CourseManagement\App\Models\StaticPage::class)
                                 <a href="{{route('course_management::admin.static-page.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                 </a>
                             @endcan
                         </div>

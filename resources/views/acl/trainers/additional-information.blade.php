@@ -19,7 +19,7 @@
                             @can('viewAny', App\Models\User::class)
                                 <a href="{{route('admin.users.trainers', $trainerInstitute->id)}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-backward"></i> Back to list
+                                    <i class="fas fa-backward"></i> {{__('generic.back')}}
                                 </a>
                             @endcan
                         </div>

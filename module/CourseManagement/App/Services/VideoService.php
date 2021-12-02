@@ -133,7 +133,6 @@ class VideoService
         $videos = Video::acl()->select([
             'videos.id as id',
             'videos.title_en',
-            'videos.title_bn',
             'videos.description',
             'videos.uploaded_video_path',
             'videos.video_type',

@@ -16,7 +16,7 @@
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Course') }}
                         </a>
                         <a href="{{route('course_management::admin.courses.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-backward"></i> {{ __('Back to list') }}
+                            <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                         </a>
                     </div>
                 </div>

@@ -36,7 +36,6 @@ class YouthManagementService
         $youth = Youth::select([
             'youths.id as id',
             'youths.name_en',
-            'youths.name_bn',
             'youths.mobile',
             DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',

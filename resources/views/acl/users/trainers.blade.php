@@ -19,7 +19,7 @@
                             @can('create', \App\Models\User::class)
                                 <a href="javascript:;"
                                    class="btn btn-sm btn-outline-primary btn-rounded create-new-button">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('generic.add_new')}}
                                 </a>
                             @endcan
                         </div>

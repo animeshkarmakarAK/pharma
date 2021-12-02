@@ -16,7 +16,7 @@
                         <h3 class="card-title font-weight-bold">{{ $edit?'Edit Permission':'Create Permission' }}</h3>
 
                         <a href="{{route('admin.permissions.index')}}" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-backward"></i> Back to list
+                            <i class="fas fa-backward"></i> {{__('generic.back')}}
                         </a>
                     </div>
                     <!-- /.card-header -->

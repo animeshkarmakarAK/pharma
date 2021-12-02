@@ -15,7 +15,7 @@
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\PublishCourse::class)
                                 <a href="{{route('course_management::admin.publish-courses.create')}}" class="btn btn-sm btn-rounded btn-primary">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                 </a>
                             @endcan
                         </div>

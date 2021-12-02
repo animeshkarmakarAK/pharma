@@ -21,7 +21,7 @@
                         @can('viewAny', $institute)
                             <a href="{{route('course_management::admin.institutes.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> {{ __('Back to list') }}
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         @endcan
                     </div>

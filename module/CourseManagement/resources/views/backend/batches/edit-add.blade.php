@@ -16,11 +16,11 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Batch' : 'Update Batch' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? __('course_management::admin.batch.add'): __('course_management::admin.batch.update') }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.batches.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>
@@ -74,13 +74,6 @@
                                     <select class="form-control select2-ajax-wizard"d
                                             name="publish_course_id"
                                             id="publish_course_id"
-                                        {{--data-model="{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}"
-                                        data-label-fields="{course.title_bn}"
-                                        data-depend-on="institute_id"
-                                        @if($edit)
-                                        data-preselected-option="{{json_encode(['text' =>  $batch->course->title_en, 'id' =>  $batch->publish_course_id])}}"
-                                        @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"--}}
                                     >
                                         <option value="">Select</option>
                                         @foreach($publishCourses as $publishCourse)
@@ -103,7 +96,7 @@
                                         @if($edit)
                                             @foreach($publishCourseTrainingCenters as $publishCourseTrainingCenter)
                                                 <option
-                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}} {{ $publishCourseTrainingCenter->title_bn }}</option>
+                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}} {{ $publishCourseTrainingCenter->title_en }}</option>
                                             @endforeach
                                         @endif
 
@@ -179,7 +172,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.batch.update') : __('course_management::admin.batch.add')}}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

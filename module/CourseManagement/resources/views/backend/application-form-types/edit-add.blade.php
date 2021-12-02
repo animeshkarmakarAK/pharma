@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Application Form Type' : 'Update Application Form Type' }}
+    {{ ! $edit ? __('course_management::admin.application_form_type.add') : __('course_management::admin.application_form_type.update') }}
 @endsection
 
 @section('content')
@@ -16,11 +16,11 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Application Form Type' : 'Update Application Form Type' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? __('course_management::admin.application_form_type.add') : __('course_management::admin.application_form_type.update') }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.application-form-types.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i>{{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Name') . ' (English)' }} <span
+                                    <label for="title_en">{{ __('course_management::admin.application_form_type.name') }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
@@ -49,7 +49,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                        <label for="institute_id">{{ __('course_management::admin.application_form_type.institute_name') }} <span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -69,8 +69,7 @@
                             <div class="col-12">
                                 <div class="card card-outline">
                                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                                        <h3 class="card-title font-weight-bold text-primary">Educational Information To
-                                            Show</h3>
+                                        <h3 class="card-title font-weight-bold text-primary">{{ __('course_management::admin.application_form_type.education_information_show') }} </h3>
                                     </div>
 
                                     <div class="card-body">
@@ -81,7 +80,7 @@
                                                            value="{{ $edit ? $applicationFormType->jsc:0 }}">
                                                     <input type="checkbox"
                                                            id="jsc_c" {{ $edit ? $applicationFormType->jsc=='1'?'checked': '' : '' }}>
-                                                    <label for="jsc_c">JSC Exam </label>
+                                                    <label for="jsc_c">{{ __('course_management::admin.application_form_type.jsc_exam') }} </label>
 
                                                 </div>
                                             </div>
@@ -92,7 +91,7 @@
                                                            value="{{ $edit ? $applicationFormType->ssc:0 }}">
                                                     <input type="checkbox"
                                                            id="ssc_c" {{ $edit ? $applicationFormType->ssc=='1'?'checked': '' : '' }}>
-                                                    <label for="ssc_c">SSC Exam </label>
+                                                    <label for="ssc_c">{{ __('course_management::admin.application_form_type.ssc_exam') }}  </label>
 
                                                 </div>
                                             </div>
@@ -103,7 +102,7 @@
                                                            value="{{ $edit ? $applicationFormType->hsc:0 }}">
                                                     <input type="checkbox"
                                                            id="hsc_c"{{ $edit ? $applicationFormType->hsc=='1'?'checked': '' : '' }}>
-                                                    <label for="hsc_c">HSC Exam </label>
+                                                    <label for="hsc_c">{{ __('course_management::admin.application_form_type.hsc_exam') }} </label>
 
                                                 </div>
                                             </div>
@@ -114,7 +113,7 @@
                                                            value="{{ $edit ? $applicationFormType->honors:0 }}">
                                                     <input type="checkbox"
                                                            id="honors_c"{{ $edit ? $applicationFormType->honors=='1'?'checked': '' : '' }}>
-                                                    <label for="honors_c">Honors Exam </label>
+                                                    <label for="honors_c">{{ __('course_management::admin.application_form_type.honors_exam') }} </label>
                                                 </div>
                                             </div>
 
@@ -124,7 +123,7 @@
                                                            value="{{ $edit ? $applicationFormType->masters:0 }}">
                                                     <input type="checkbox"
                                                            id="masters_c" {{ $edit ? $applicationFormType->masters=='1'?'checked': '' : '' }}>
-                                                    <label for="masters_c"> Masters Exam </label>
+                                                    <label for="masters_c"> {{ __('course_management::admin.application_form_type.masters_exam') }}</label>
 
                                                 </div>
                                             </div>
@@ -138,8 +137,7 @@
                             <div class="col-12">
                                 <div class="card card-outline ">
                                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                                        <h3 class="card-title font-weight-bold text-primary">Additional information to
-                                            show</h3>
+                                        <h3 class="card-title font-weight-bold text-primary">{{ __('course_management::admin.application_form_type.additional_information_show') }}</h3>
                                     </div>
 
                                     <div class="card-body">
@@ -153,7 +151,7 @@
                                                            value="{{ $edit ? $applicationFormType->disable_status:0 }}">
                                                     <input type="checkbox"
                                                            id="disable_status_c" {{ $edit ? $applicationFormType->disable_status=='1'?'checked': '' : '' }}>
-                                                    <label for="disable_status_c">Physical Disability </label>
+                                                    <label for="disable_status_c">{{ __('course_management::admin.application_form_type.physical_disability') }} </label>
 
                                                 </div>
                                             </div>
@@ -164,7 +162,7 @@
                                                            value="{{ $edit ? $applicationFormType->occupation:0 }}">
                                                     <input type="checkbox"
                                                            id="occupation_c" {{ $edit ? $applicationFormType->occupation=='1'?'checked': '' : '' }}>
-                                                    <label for="occupation_c"> Occupation Information </label>
+                                                    <label for="occupation_c"> {{ __('course_management::admin.application_form_type.occupation_information') }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +173,7 @@
                                 <div class="card card-outline">
                                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                                         <h3 class="card-title font-weight-bold text-primary">
-                                            Others information to show
+                                            {{ __('course_management::admin.application_form_type.other_information_show') }}
                                         </h3>
                                     </div>
 
@@ -189,7 +187,7 @@
                                                            value="{{ $edit ? $applicationFormType->ethnic:0 }}">
                                                     <input type="checkbox"
                                                            id="ethnic_c" {{ $edit ? $applicationFormType->ethnic=='1'?'checked': '' : '' }}>
-                                                    <label for="ethnic_c">Ethnic Group </label>
+                                                    <label for="ethnic_c">{{ __('course_management::admin.application_form_type.ethnic_group') }}</label>
                                                 </div>
                                             </div>
 
@@ -199,7 +197,7 @@
                                                            value="{{ $edit ? $applicationFormType->freedom_fighter:0 }}">
                                                     <input type="checkbox"
                                                            id="freedom_fighter_c" {{ $edit ? $applicationFormType->freedom_fighter=='1'?'checked': '' : '' }}>
-                                                    <label for="freedom_fighter_c">Freedom Fighter </label>
+                                                    <label for="freedom_fighter_c">{{ __('course_management::admin.application_form_type.freedom_fighter') }} </label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -208,7 +206,7 @@
                                                            value="{{ $edit ? $applicationFormType->guardian:0 }}">
                                                     <input type="checkbox"
                                                            id="guardian_c" {{ $edit ? $applicationFormType->guardian=='1'?'checked': '' : '' }}>
-                                                    <label for="guardian_c"> Guardian Information </label>
+                                                    <label for="guardian_c"> {{ __('course_management::admin.application_form_type.guardian') }} </label>
                                                 </div>
                                             </div>
 
@@ -221,7 +219,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.common.update')  : __('course_management::admin.common.add')  }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->
