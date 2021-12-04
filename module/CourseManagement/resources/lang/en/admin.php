@@ -113,8 +113,25 @@ return [
         'select' => 'Select'
     ],
 
-    'trainer_information' => [
-
-    ]
+    'examination_routine' => [
+        'sort' => 'Sort',
+        'list' => 'Examination Routine',
+        'action' => 'Action',
+        'sl' => '#',
+        'title' => 'Title',
+        'day' => 'Day',
+        'batch_title' => 'Batch Title',
+        'batch' => 'Batch',
+        'training_center' => 'Training Center',
+        'routine_details' => 'Routine Details',
+        'examination_type' => 'Routine Type',
+        'day_routine' => 'Daily Routine',
+        'weekly_routine' => 'View Weekly Routine',
+        'class' => 'Class',
+        'start_time' => 'Start Time',
+        'end_time' => 'End Time',
+        'trainer' => 'Trainer',
+        'select' => 'Select'
+    ],
 ];
 

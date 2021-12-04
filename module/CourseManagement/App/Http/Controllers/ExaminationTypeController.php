@@ -51,7 +51,7 @@ class ExaminationTypeController extends Controller
      */
     public function create(): View
     {
-        $examinationType = new Batch();
+        $examinationType = new ExaminationType();
         return view(self::VIEW_PATH . 'edit-add', compact('examinationType'));
     }
 
