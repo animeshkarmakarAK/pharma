@@ -58,6 +58,12 @@
                         orderable: false,
                         visible: true,
                     },
+                    {
+                        title: "{{__('course_management::admin.examination.code')}}",
+                        data: "code",
+                        name: "examinations.code"
+                    },
+
 
                     {
                         title: "{{__('course_management::admin.examination.examination_type')}}",

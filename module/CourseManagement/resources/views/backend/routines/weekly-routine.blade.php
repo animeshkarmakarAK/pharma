@@ -1,3 +1,9 @@
+@php
+    $edit = false;
+    /** @var \App\Models\User $authUser */
+    $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+@endphp
+
 @extends('master::layouts.master')
 
 @section('title')
@@ -56,7 +62,9 @@
                                 <br>
                             </div>
 
-                            <div class="col-sm-4">
+
+
+                            {{--<div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="trainer_id">
                                         {{__('course_management::admin.routine.batch')}}
@@ -73,9 +81,58 @@
 
                                     </select>
                                 </div>
+                            </div>--}}
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="training_center_id">
+                                        {{__('course_management::admin.routine.training_center')}}
+                                        <span class="required"></span>
+                                    </label>
+
+                                    <select class="form-control select2-ajax-wizard" required
+                                            name="training_center_id"
+                                            id="training_center_id"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
+                                            data-label-fields="{title_en}"
+                                            data-dependent-fields="#batch_id"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            @if(@$parameters['training_center_id'])
+                                            data-preselected-option="{{json_encode(['text' =>  $parameters['training_center_name'], 'id' =>  $parameters['training_center_id']])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+
+                                </div>
                             </div>
 
-                            <div class="col-sm-4">
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="batch_id">
+                                        {{__('course_management::admin.routine.batch_title')}}
+                                        <span class="required"></span>
+                                    </label>
+
+                                    <select class="form-control select2-ajax-wizard" required
+                                            name="batch_id"
+                                            id="batch_id"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Batch::class)}}"
+                                            data-label-fields="{title_en}"
+                                            data-depend-on-optional="training_center_id"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            @if(@$parameters['batch_id'])
+                                            data-preselected-option="{{json_encode(['text' =>  $parameters['batch_name'], 'id' =>  $parameters['batch_id']])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            {{--<div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="trainer_id">
                                         {{__('course_management::admin.daily_routine.trainer')}}
@@ -91,10 +148,36 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>--}}
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="user_id">
+                                        {{__('course_management::admin.daily_routine.trainer')}}
+                                        <span class="required"></span>
+                                    </label>
+
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="user_id"
+                                            id="user_id"
+                                            data-model="{{base64_encode(App\Models\user::class)}}"
+                                            data-label-fields="{name_en}"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'user_type_id'=>1])}}"
+                                            @if(@$parameters['user_id'])
+                                            data-preselected-option="{{json_encode(['text' =>  $parameters['user_name'], 'id' =>  $parameters['user_id']])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+
+                                </div>
                             </div>
 
 
-                            <div class="col-sm-4">
+
+
+
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="trainer_id" style="visibility: hidden">
                                         xsd
@@ -111,6 +194,25 @@
                         </form>
                         @if(count($routines) > 0)
                             <div class="datatable-container">
+                                <p class="text-center text-success border-bottom border-top">
+                                    Report result on
+                                    @if(@$parameters['batch_id'])
+
+                                        <span>
+                                            {{__('course_management::admin.routine.batch_title')}} :
+                                        </span>
+                                    {{$parameters['batch_name']}}
+                                    @endif
+
+                                    @if(@$parameters['user_id'])
+
+                                        <span>
+                                            {{__('course_management::admin.daily_routine.trainer')}} :
+                                        </span>
+                                    {{$parameters['user_name']}}
+                                    @endif
+                                </p>
+
                                 <table id="dataTable" class="table table-bordered table-striped dataTable">
                                     <thead>
                                     <tr>
@@ -157,6 +259,7 @@
 @push('css')
     <link rel="stylesheet" href="{{asset('/css/datatable-bundle.css')}}">
     <style>
+        .select20 { width: 100%}
         .select2-container--default .select2-selection--single {
             background-color: #fafdff;
             border: 2px solid #ddf1ff;
@@ -194,10 +297,13 @@
             rules: {
                 batch_id: {
                     required: true,
-            },
+                },
+                training_center_id: {
+                    required: true,
+                },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
-                htmlForm.submit();
+                    htmlForm.submit();
                 }
             }
         });
@@ -216,7 +322,7 @@
 @endpush
 
 <?php
- @Session::forget(['user_id','batch_id']);
+ @Session::forget(['user_id','batch_id','training_center_id']);
 ?>
 
 

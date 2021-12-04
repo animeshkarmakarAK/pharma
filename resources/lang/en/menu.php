@@ -83,6 +83,14 @@ return [
 
     //tools
     'tools' => 'Tools',
-    'menu_builder' => 'Menu Builder'
+    'menu_builder' => 'Menu Builder',
+
+    'examination_management' => 'Exam Management',
+    'examination_type' => 'Examination Type',
+    'examination' => 'Examination',
+    'examination_result' => 'Examination Result',
+    'routine_management' => 'Routine Management',
+    'examination_routine' => 'Examination Routine',
+    'class_routine' => 'Class Routine'
 ];
 

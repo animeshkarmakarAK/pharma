@@ -48,6 +48,7 @@ class RoutineController extends Controller
         $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
         $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
         $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
+
         return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','trainers'));
     }
 
@@ -168,16 +169,27 @@ class RoutineController extends Controller
     {
         @$user_id = Session::get('user_id');
         @$batch_id = Session::get('batch_id');
-
-
+        @$training_center_id= Session::get('training_center_id');
         $authUser = AuthHelper::getAuthUser();
-        $trainers =  User::where(['institute_id' => $authUser->institute_id])->get();
-        $batches = Batch::where(['institute_id' => $authUser->institute_id])->get();
         $parameters = [];
         $routines = [];
         if ($batch_id && $user_id){
+
+            $user = User::where(['id' => $user_id])->first();
+            $user_name = $user->name_en;
+
+            $batch = Batch::where(['id' => $batch_id])->first();
+            $batch_name = $batch->title_en;
+
+            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
+            $training_center_name = $trainingCenter->title_en;
+
+            $parameters['training_center_id'] = $training_center_id;
+            $parameters['training_center_name'] = $training_center_name;
             $parameters['batch_id'] = $batch_id;
+            $parameters['batch_name'] = $batch_name;
             $parameters['user_id'] = $user_id;
+            $parameters['user_name'] = $user_name;
             $routines = Routine::with('routineClass')
                 ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
                 ->whereHas('routineClass', function ($query) use($user_id) {
@@ -185,15 +197,23 @@ class RoutineController extends Controller
                     })
                 ->get();
         }elseif ($batch_id){
-            //return $batch_id;
+            $batch = Batch::where(['id' => $batch_id])->first();
+            $batch_name = $batch->title_en;
+
+            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
+            $training_center_name = $trainingCenter->title_en;
+
+            $parameters['training_center_id'] = $training_center_id;
+            $parameters['training_center_name'] = $training_center_name;
             $parameters['batch_id'] = $batch_id;
+            $parameters['batch_name'] = $batch_name;
             $routines = Routine::with('routineClass')
                 ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
                 ->get();
         }
 
         //return $parameters;
-        return view(self::VIEW_PATH . 'weekly-routine',compact('routines','trainers','batches','parameters'));
+        return view(self::VIEW_PATH . 'weekly-routine',compact('routines','parameters'));
     }
 
 
@@ -203,14 +223,17 @@ class RoutineController extends Controller
         //dd($request->all());
 
         $this->validate($request, [
+            'training_center_id' => 'required',
             'batch_id' => 'required'
+
         ]);
-        @Session::forget(['user_id','batch_id']);
+        @Session::forget(['user_id','batch_id','training_center_id']);
         $user_id = $request->get('user_id');
         $batch_id = $request->get('batch_id');
+        $training_center_id = $request->get('training_center_id');
 
 
-        Session::put(['user_id'=>$user_id,'batch_id'=>$batch_id]);
+        Session::put(['user_id'=>$user_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
         return redirect(route('course_management::admin.weekly-routine'));
 
 

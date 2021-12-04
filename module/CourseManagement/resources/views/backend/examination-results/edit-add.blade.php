@@ -72,10 +72,10 @@
                                         @foreach($examinations as $key => $examination)
                                             @if ($edit)
                                                 <option {{ $edit && $examinationResult->examination_id == $examination->id ? 'selected' : ''}}
-                                                        value="{{ $examination->id }}">{{ $examination->exam_details }}</option>
+                                                        value="{{ $examination->id }}">{{ $examination->code }} -- {{ substr($examination->exam_details, 0, 200) }}</option>
                                             @else
                                                 <option {{ old('examination_id') == $examination->id ? 'selected' : '' }}
-                                                        value="{{ $examination->id }}">{{ $examination->exam_details }}</option>
+                                                        value="{{ $examination->id }}">{{ $examination->code }} -- {{ substr($examination->exam_details, 0, 200) }}</option>
                                             @endif
 
                                         @endforeach

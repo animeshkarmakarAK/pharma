@@ -17,6 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
+use DB;
 
 class ExaminationController extends Controller
 {
@@ -56,7 +57,13 @@ class ExaminationController extends Controller
     {
         $validatedData = $this->examinationService->validator($request)->validate();
         $authUser = AuthHelper::getAuthUser();
+
+        $statement = DB::select("show table status like 'examinations'");
+        $ainid = $statement[0]->Auto_increment;
+
+
         try {
+            $validatedData['code'] = $ainid + 1000;
             $validatedData['institute_id'] = $authUser->institute_id;
             $validatedData['created_by'] = $authUser->id;
             $this->examinationService->createExamination($validatedData);

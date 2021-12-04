@@ -61,6 +61,7 @@ return [
         'action' => 'Action',
         'status' => 'Examination Status',
         'sl' => '#',
+        'code' => 'Code',
         'title' => 'Title',
         'total_mark' => 'Total Mark',
         'pass_mark' => 'Pass Mark',
