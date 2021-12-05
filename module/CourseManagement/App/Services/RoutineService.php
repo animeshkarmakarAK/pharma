@@ -97,6 +97,7 @@ class RoutineService
         $routines->where('routines.institute_id', '=', $authUser->institute_id);
 
         return DataTables::eloquent($routines)
+
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Routine $routine) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $routine)) {

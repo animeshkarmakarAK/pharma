@@ -55,12 +55,13 @@ class RoutineController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+
         $validatedData = $this->routineService->validator($request)->validate();
         $authUser = AuthHelper::getAuthUser();
-        $validatedData['institute_id'] = $authUser->institute_id;
-        $validatedData['created_by'] = $authUser->id;
-        $this->routineService->createRoutine($validatedData);
         try {
+            $validatedData['institute_id'] = $authUser->institute_id;
+            $validatedData['created_by'] = $authUser->id;
+            $this->routineService->createRoutine($validatedData);
 
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -108,10 +109,8 @@ class RoutineController extends Controller
     public function update(Request $request, Routine $routine): RedirectResponse
     {
         $validatedData = $this->routineService->validator($request)->validate();
-        $this->routineService->updateRoutine($routine, $request->all());
-
         try {
-
+            $this->routineService->updateRoutine($routine, $request->all());
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

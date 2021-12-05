@@ -4,9 +4,16 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
+use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\Examination;
 use Module\CourseManagement\App\Models\ExaminationRoutine;
+use Module\CourseManagement\App\Models\ExaminationRoutineDetail;
+use Module\CourseManagement\App\Models\Routine;
+use Module\CourseManagement\App\Models\RoutineClass;
+use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\ExaminationRoutineService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -51,17 +58,27 @@ class ExaminationRoutineController extends Controller
     public function create(): View
     {
         $examinationRoutine = new ExaminationRoutine();
-        return view(self::VIEW_PATH . 'edit-add', compact('examinationRoutine'));
+
+        $authUser = AuthHelper::getAuthUser();
+        $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
+        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
+        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
+        $examinations = Examination::where(['institute_id' => $authUser->institute_id ])->get();
+
+        return view(self::VIEW_PATH . 'edit-add', compact('examinationRoutine','batches','trainingCenters','trainers','examinations'));
     }
 
 
     public function store(Request $request): RedirectResponse
     {
+        //dd($request->all());
         $validatedData = $this->examinationRoutineService->validator($request)->validate();
         $authUser = AuthHelper::getAuthUser();
         try {
             $validatedData['institute_id'] = $authUser->institute_id;
             $validatedData['created_by'] = $authUser->id;
+
+            //dd($validatedData);
             $this->examinationRoutineService->createExaminationRoutine($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -83,8 +100,9 @@ class ExaminationRoutineController extends Controller
      */
     public function show(ExaminationRoutine $examinationRoutine): View
     {
-        //dd($examinationRoutine);
-        return view(self::VIEW_PATH . 'read', compact('examinationRoutine'));
+        $examinationRoutineDetails = ExaminationRoutineDetail::with('examination','examinationRoutine')->where(['examination_routine_id' => $examinationRoutine->id])->get();
+        //dd($examinationRoutineDetails);
+        return view(self::VIEW_PATH . 'read', compact('examinationRoutine','examinationRoutineDetails'));
     }
 
     /**
@@ -93,7 +111,13 @@ class ExaminationRoutineController extends Controller
      */
     public function edit(ExaminationRoutine $examinationRoutine): View
     {
-        return view(self::VIEW_PATH . 'edit-add', compact('examinationRoutine'));
+        //$examinationRoutine = ExaminationRoutine::where(['id'=>$examinationRoutine->id])->with('ExaminationRoutineDetail')->get();
+        $authUser = AuthHelper::getAuthUser();
+        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
+        $examinations = Examination::where(['institute_id' => $authUser->institute_id])->get();
+
+
+        return view(self::VIEW_PATH . 'edit-add', compact('examinationRoutine','trainers','examinations'));
     }
 
     /**
@@ -104,11 +128,10 @@ class ExaminationRoutineController extends Controller
      */
     public function update(Request $request, ExaminationRoutine $examinationRoutine): RedirectResponse
     {
-        //dd($examinationRoutine);
         $validatedData = $this->examinationRoutineService->validator($request)->validate();
-
+        //dd($validatedData);
         try {
-            $this->examinationRoutineService->updateExaminationRoutine($examinationRoutine, $validatedData);
+            $this->examinationRoutineService->updateExaminationRoutine($examinationRoutine, $request->all());
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

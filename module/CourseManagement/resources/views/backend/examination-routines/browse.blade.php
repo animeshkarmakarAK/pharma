@@ -58,9 +58,24 @@
                         visible: true,
                     },
                     {
+                        title: "{{__('course_management::admin.examination_routine.training_center')}}",
+                        data: "training_center.title_en",
+                        name: "examination_routines.training_center_id"
+                    },
+                    {
+                        title: "{{__('course_management::admin.examination_routine.batch_title')}}",
+                        data: "batch.title_en",
+                        name: "examination_routines.batch_id"
+                    },
+                    {
                         title: "{{__('course_management::admin.examination_routine.day')}}",
                         data: "day",
-                        name: "examination_routines.title"
+                        name: "examination_routines.day"
+                    },
+                    {
+                        title: "{{__('course_management::admin.examination_routine.date')}}",
+                        data: "date",
+                        name: "examination_routines.date"
                     },
                     {
                         title: "{{__('course_management::admin.examination_routine.action')}}",

@@ -42,6 +42,6 @@ class ExaminationRoutine extends BaseModel
 
     public function examinationRoutineDetail(): HasMany
     {
-        return $this->hasMany(ExaminationRoutineClass::class);
+        return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id');
     }
 }

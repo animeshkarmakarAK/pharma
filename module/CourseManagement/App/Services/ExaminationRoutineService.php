@@ -5,24 +5,52 @@ namespace Module\CourseManagement\App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use Module\CourseManagement\App\Models\ExaminationRoutine;
+use Module\CourseManagement\App\Models\ExaminationRoutineDetail;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Module\CourseManagement\App\Models\Routine;
+use Module\CourseManagement\App\Models\RoutineClass;
 use Yajra\DataTables\Facades\DataTables;
 
 class ExaminationRoutineService
 {
     public function createExaminationRoutine(array $data): ExaminationRoutine
     {
-        return ExaminationRoutine::create($data);
+        $authUser = AuthHelper::getAuthUser();
+        $examinationRoutine = ExaminationRoutine::create($data);
+
+        foreach($data['daily_routines'] as $dailyRoutine){
+            $dailyRoutine['institute_id'] = $authUser->institute_id;
+            $dailyRoutine['examination_routine_id'] = $examinationRoutine->id;
+            //$dailyRoutine['examination_id'] = $dailyRoutine->examination_id;
+            $examinationRoutine->examinationRoutineDetail()->create($dailyRoutine);
+        }
+        return $examinationRoutine;
     }
 
     public function updateExaminationRoutine(ExaminationRoutine $examinationRoutine, array $data): ExaminationRoutine
     {
-
         $examinationRoutine->fill($data);
         $examinationRoutine->save();
+        $authUser = AuthHelper::getAuthUser();
+
+        foreach($data['daily_routines'] as $dailyRoutine){
+            $dailyRoutine['institute_id'] = $authUser->institute_id;
+            $dailyRoutine['examination_routine_id'] = $examinationRoutine->id;
+            if (empty($dailyRoutine['id'])) {
+                $examinationRoutine->examinationRoutineDetail()->create($dailyRoutine);
+                continue;
+            }
+            $examinationRoutineDetail = ExaminationRoutineDetail::findOrFail($dailyRoutine['id']);
+            if (!empty($dailyRoutine['delete']) && $dailyRoutine['delete'] == 1) {
+                $examinationRoutineDetail->delete();
+            } else {
+                $examinationRoutineDetail->update($dailyRoutine);
+            }
+        }
+
         return $examinationRoutine;
     }
 
@@ -37,11 +65,21 @@ class ExaminationRoutineService
     public function validator(Request $request): Validator
     {
         $rules = [
-            'title' => [
+
+            'batch_id' => [
                 'required',
-                'string',
-                'max:191',
-            ]
+                'int',
+            ],
+
+            'training_center_id' => [
+                'required',
+                'int',
+            ],
+            'date' => ['required'],
+            'daily_routines.*.examination_id' => ['required'],
+            //'daily_routines.*.class' => ['required', 'string', 'max:30'],
+            'daily_routines.*.start_time' => ['required'],
+            'daily_routines.*.end_time' => ['required']
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -50,13 +88,16 @@ class ExaminationRoutineService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|ExaminationRoutine $examinationRoutines */
-        $examinationRoutines = ExaminationRoutine::select(
+        $examinationRoutines = ExaminationRoutine::with('Batch','trainingCenter')->select(
             [
                 'examination_routines.*',
             ]
         );
         $examinationRoutines->where('examination_routines.institute_id', $authUser->institute_id);
         return DataTables::eloquent($examinationRoutines)
+            ->editColumn('date', function (ExaminationRoutine $examinationRoutine) use ($authUser) {
+                return date('F j, y', strtotime($examinationRoutine->date));
+            })
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (ExaminationRoutine $examinationRoutine) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $examinationRoutine)) {

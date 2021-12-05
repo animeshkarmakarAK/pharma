@@ -35,9 +35,10 @@ class ExaminationRoutineDetail extends BaseModel
     {
         return $this->belongsTo(ExaminationRoutine::class, 'examination_routine_id');
     }
+
     public function examination(): BelongsTo
     {
-        return $this->belongsTo(Examination::class);
+        return $this->belongsTo(Examination::class, 'examination_id');
     }
 
 }

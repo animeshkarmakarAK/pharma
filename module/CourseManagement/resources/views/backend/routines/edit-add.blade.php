@@ -117,7 +117,7 @@
                             ">
                             <button type="submit"
                                     class="btn btn-success float-right">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add') }}</button>
-                    </div>
+                            </div>
                     </form>
                 </div>
             </div>

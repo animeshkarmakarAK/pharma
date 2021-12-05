@@ -29,13 +29,78 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('course_management::admin.examination_routine.title')}}</p>
+                    <p class="label-text">{{__('course_management::admin.examination_routine.day')}}</p>
                     <div class="input-box">
                         {{ $examinationRoutine->day }}
                     </div>
                 </div>
 
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_routine.date')}}</p>
+                    <div class="input-box">
+                        {{ $examinationRoutine->date }}
+                    </div>
+                </div>
 
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_routine.training_center')}}</p>
+                    <div class="input-box">
+                        {{ $examinationRoutine->trainingCenter->title_en }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('course_management::admin.examination_routine.batch_title')}}</p>
+                    <div class="input-box">
+                        {{ $examinationRoutine->batch->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-sm-12 course-sessions mt-5">
+                    <div class="card">
+                        <div class="card-header custom-bg-gradient-info">
+                            <h3 class="card-title text-primary font-weight-bold">{{__('course_management::admin.examination_routine.day_routine')}} </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+
+                                <div class="col-md-12 course-session-contents">
+                                    @foreach($examinationRoutine->examinationRoutineDetail as $examinationRoutineDetail)
+                                        <div class="card" id="session-no-0">
+                                            <div class="card-body">
+                                                <div class="row">
+
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{__('course_management::admin.examination_routine.examination')}}</p>
+                                                        <div class="input-box">
+                                                            {{ @$examinationRoutineDetail->examination->exam_details}} -- {{ @$examinationRoutineDetail->examination->code}}
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{__('course_management::admin.examination_routine.start_time')}}</p>
+                                                        <div class="input-box">
+                                                            {{ date("g:i A", strtotime($examinationRoutineDetail->start_time)) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 custom-view-box">
+                                                        <p class="label-text">{{__('course_management::admin.examination_routine.end_time')}}</p>
+                                                        <div class="input-box">
+                                                            {{ date("g:i A", strtotime($examinationRoutineDetail->end_time)) }}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
