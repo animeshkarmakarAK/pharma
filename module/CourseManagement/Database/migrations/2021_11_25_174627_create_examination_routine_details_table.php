@@ -18,7 +18,7 @@ class CreateExaminationRoutineDetailsTable extends Migration
             $table->unsignedInteger('institute_id')->index('examination_routine_details_fk_institute_id');
             $table->unsignedInteger('examination_routine_id')->index('examination_routine_details_fk_examination_routine_id');
             $table->unsignedInteger('examination_id')->index('examination_routine_details_fk_examination_id');
-            $table->string('class',256)->nullable();
+            //$table->string('class',256)->nullable();
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
             $table->tinyInteger('row_status')->default(1);
