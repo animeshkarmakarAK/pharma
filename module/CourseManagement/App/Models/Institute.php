@@ -37,10 +37,10 @@ class Institute extends BaseModel
 
     const DEFAULT_LOGO = 'institute/default.jpg';
 
-    protected $casts = [
-        'phone_numbers' => 'array',
-        'mobile_numbers' => 'array',
-    ];
+//    protected $casts = [
+//        'phone_numbers' => 'array',
+//        'mobile_numbers' => 'array',
+//    ];
 
     public function title(): ?string
     {

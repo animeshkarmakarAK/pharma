@@ -80,6 +80,14 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('ssp-registration') }}"
+                           id="bd-versions" aria-haspopup="true">
+                            <i class="fa fa-file"> </i>&nbsp;SSP Registration
+                        </a>
+                    </li>
+
                     {{--<li class="nav-item">
                         <a class="btn"
                            href="{{ route('course_management::youth.login-form') }}"

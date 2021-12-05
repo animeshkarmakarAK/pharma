@@ -124,22 +124,27 @@ class HomeController extends BaseController
         return view('course_management::home');
     }
 
-    public function success()
+    public function success(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('course_management::youth-enrolled-courses')
             ->with(['message' => 'আপনার পেমেন্ট সফলভাবে পরিশোধ করা হয়েছে, দয়া করে অপেক্ষা করুন', 'alert-type' => 'success']);
     }
 
-    public function fail()
+    public function fail(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('course_management::youth-enrolled-courses')
             ->with(['message' => 'পেমেন্ট ব্যর্থ হয়েছে, অনুগ্রহ করে পরে আবার চেষ্টা করুন', 'alert-type' => 'warning']);
     }
 
-    public function cancel()
+    public function cancel(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('course_management::youth-enrolled-courses')
             ->with(['message' => 'পেমেন্ট বাতিল হয়েছে, দয়া করে আবার চেষ্টা করুন', 'alert-type' => 'error']);
+    }
+
+    public function sspRegistrationForm(): View
+    {
+       Return \view('course_management::frontend.ssp.registration-form');
     }
 
 }
