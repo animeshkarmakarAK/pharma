@@ -28,12 +28,12 @@
 
             <div class="row card-body">
 
-                <div class="col-md-6 custom-view-box">
+                {{--<div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('course_management::admin.examination_routine.day')}}</p>
                     <div class="input-box">
                         {{ $examinationRoutine->day }}
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('course_management::admin.examination_routine.date')}}</p>
@@ -74,7 +74,7 @@
                                                     <div class="col-md-6 custom-view-box">
                                                         <p class="label-text">{{__('course_management::admin.examination_routine.examination')}}</p>
                                                         <div class="input-box">
-                                                            {{ @$examinationRoutineDetail->examination->exam_details}} -- {{ @$examinationRoutineDetail->examination->code}}
+                                                            {{ @$examinationRoutineDetail->examination->code}} -- {{ substr(@$examinationRoutineDetail->examination->exam_details, 0 , 100)}}
                                                         </div>
                                                     </div>
 

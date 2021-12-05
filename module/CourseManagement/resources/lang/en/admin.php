@@ -128,7 +128,7 @@ return [
         'examination_type' => 'Examination Type',
         'examination' => 'Examination',
         'day_routine' => 'Daily Routine',
-        'weekly_routine' => 'View Weekly Routine',
+        'weekly_routine' => 'View Examination Routine',
         'class' => 'Class',
         'start_time' => 'Start Time',
         'end_time' => 'End Time',

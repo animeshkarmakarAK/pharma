@@ -19,6 +19,11 @@ class ExaminationRoutinePolicy extends BasePolicy
         return $user->hasPermission('view_any_examination_routine');
     }
 
+    public function viewExaminationRoutine(User $user): bool
+    {
+        return $user->hasPermission('view_examination_routine');
+    }
+
     /**
      * Determine whether the user can view the model.
      *

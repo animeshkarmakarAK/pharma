@@ -13,6 +13,14 @@
                         <h3 class="card-title font-weight-bold">{{__('course_management::admin.examination_routine.list')}}</h3>
 
                         <div class="card-tools">
+
+                            @can('viewExaminationRoutine', \Module\CourseManagement\App\Models\ExaminationRoutine::class)
+                                <a href="{{route('course_management::admin.examination-routine')}}"
+                                   class="btn btn-sm btn-outline-primary btn-rounded">
+                                    <i class="fas fa-eye"></i> {{__('course_management::admin.examination_routine.weekly_routine')}}
+                                </a>
+                            @endcan
+
                             @can('create', \Module\CourseManagement\App\Models\ExaminationRoutine::class)
                                 <a href="{{route('course_management::admin.examination-routines.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
@@ -67,11 +75,11 @@
                         data: "batch.title_en",
                         name: "examination_routines.batch_id"
                     },
-                    {
+                    /*{
                         title: "{{__('course_management::admin.examination_routine.day')}}",
                         data: "day",
                         name: "examination_routines.day"
-                    },
+                    },*/
                     {
                         title: "{{__('course_management::admin.examination_routine.date')}}",
                         data: "date",

@@ -35,6 +35,11 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::get('weekly-routine', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyRoutine'])->name('weekly-routine');
     Route::post('weekly-routine/filter', [Module\CourseManagement\App\Http\Controllers\RoutineController::class, 'weeklyRoutineFilter'])->name('weekly-routine.filter');
     /***************************/
+
+    /**********ExaminationRoutine**********/
+    Route::get('examination-routine', [Module\CourseManagement\App\Http\Controllers\ExaminationRoutineController::class, 'examinationRoutine'])->name('examination-routine');
+    Route::post('examination-routine/filter', [Module\CourseManagement\App\Http\Controllers\ExaminationRoutineController::class, 'examinationRoutineFilter'])->name('examination-routine.filter');
+    /***************************/
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
     Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');

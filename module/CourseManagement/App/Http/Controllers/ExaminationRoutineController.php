@@ -21,6 +21,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 
 class ExaminationRoutineController extends Controller
@@ -172,5 +173,79 @@ class ExaminationRoutineController extends Controller
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->examinationRoutineService->getExaminationRoutineLists($request);
+    }
+
+    public function examinationRoutine(Routine $routine)
+    {
+        @$user_id = Session::get('user_id');
+        @$batch_id = Session::get('batch_id');
+        @$training_center_id= Session::get('training_center_id');
+        $authUser = AuthHelper::getAuthUser();
+        $parameters = [];
+        $routines = [];
+        if ($batch_id && $user_id){
+
+            $user = User::where(['id' => $user_id])->first();
+            $user_name = $user->name_en;
+
+            $batch = Batch::where(['id' => $batch_id])->first();
+            $batch_name = $batch->title_en;
+
+            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
+            $training_center_name = $trainingCenter->title_en;
+
+            $parameters['training_center_id'] = $training_center_id;
+            $parameters['training_center_name'] = $training_center_name;
+            $parameters['batch_id'] = $batch_id;
+            $parameters['batch_name'] = $batch_name;
+            $parameters['user_id'] = $user_id;
+            $parameters['user_name'] = $user_name;
+            $routines = Routine::with('routineClass')
+                ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
+                ->whereHas('routineClass', function ($query) use($user_id) {
+                    $query->where('user_id', $user_id);
+                })
+                ->get();
+        }elseif ($batch_id){
+            $batch = Batch::where(['id' => $batch_id])->first();
+            $batch_name = $batch->title_en;
+
+            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
+            $training_center_name = $trainingCenter->title_en;
+
+            $parameters['training_center_id'] = $training_center_id;
+            $parameters['training_center_name'] = $training_center_name;
+            $parameters['batch_id'] = $batch_id;
+            $parameters['batch_name'] = $batch_name;
+            $routines = Routine::with('routineClass')
+                ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
+                ->get();
+        }
+
+        //return $parameters;
+        return view(self::VIEW_PATH . 'examination-routine',compact('routines','parameters'));
+    }
+
+
+
+    public function examinationRoutineFilter(Request $request)
+    {
+        //dd($request->all());
+
+        $this->validate($request, [
+            'training_center_id' => 'required',
+            'batch_id' => 'required'
+
+        ]);
+        @Session::forget(['user_id','batch_id','training_center_id']);
+        $user_id = $request->get('user_id');
+        $batch_id = $request->get('batch_id');
+        $training_center_id = $request->get('training_center_id');
+
+
+        Session::put(['user_id'=>$user_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
+        return redirect(route('course_management::admin.weekly-routine'));
+
+
     }
 }

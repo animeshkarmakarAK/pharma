@@ -340,7 +340,7 @@
                             >
                                 <option value="">{{__('course_management::admin.daily_routine.select')}}</option>
                                 @foreach($examinations as $examination)
-                                    <option value="{{$examination->id}}" <%=edit && (data.examination_id == {{$examination->id}}) ? 'selected': ''%>>{{$examination->code}}</option>
+                                    <option value="{{$examination->id}}" <%=edit && (data.examination_id == {{$examination->id}}) ? 'selected': ''%>>{{$examination->code}} -- {{substr($examination->exam_details, 0 , 100)}}</option>
                                 @endforeach
                             </select>
                         </div>
