@@ -6,7 +6,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ $edit?'Edit Training Center':'Create Training Center' }}
+    {{ $edit ? __('course_management::admin.training_center.edit')  : __('course_management::admin.training_center.add')  }}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Training Center':'Create Training Center' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit ? __('course_management::admin.training_center.edit')  : __('course_management::admin.training_center.add')  }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.training-centers.index')}}"
@@ -36,15 +36,15 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title_en">Title (En) <span style="color: red"> * </span></label>
+                                    <label for="title_en">{{__('course_management::admin.training_center.title') }} <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="title_en"
                                            id="title_en"
                                            value="{{$edit ? $trainingCenter->title_en : old('title_en')}}"
-                                           placeholder="Title (En)" required>
+                                           placeholder="{{__('course_management::admin.training_center.title') }}" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="address">{{ __('Address') }}</label>
+                                        <label for="address">{{__('course_management::admin.training_center.address') }}</label>
                                         <textarea class="form-control" id="address" name="address"
                                                   placeholder="Address"
                                                   rows="3">{{ $edit ? $trainingCenter->address : old('address') }}</textarea>
@@ -56,7 +56,7 @@
                                            value="{{$authUser->institute_id}}">
                                 @else
                                     <div class="form-group col-md-6">
-                                        <label for="institute_id">Institute Name <span
+                                        <label for="institute_id">{{__('course_management::admin.training_center.institute_name') }} <span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -67,7 +67,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $trainingCenter->institute->title_en, 'id' =>  $trainingCenter->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                                data-placeholder="{{__('course_management::admin.training_center.institute_name') }}"
                                         >
                                         </select>
                                     </div>
@@ -75,7 +75,7 @@
 
 
                                 <div class="form-group col-md-6">
-                                    <label for="mobile">Mobile <span style="color: red"> * </span></label>
+                                    <label for="mobile">{{ __('course_management::admin.training_center.mobile') }} <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="mobile"
                                            id="mobile"
                                            value="{{$edit ? $trainingCenter->mobile : old('mobile')}}"
@@ -85,7 +85,7 @@
 
                                 <div class="col-sm-12 text-right">
                                     <button type="submit"
-                                            class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                            class="btn btn-success">{{ $edit ? __('course_management::admin.training_center.update') : __('course_management::admin.training_center.add') }}</button>
                                 </div>
                             </div>
                         </form>

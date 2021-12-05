@@ -29,14 +29,14 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Batch Title(EN)') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.title')}}</p>
                     <div class="input-box">
                         {{ $batch->title_en }}
                     </div>
                 </div>
                 @if(!$authUser->isInstituteUser())
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Institute Name') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.institute_name')}}</p>
                     <div class="input-box">
                         {{ $batch->institute->title_en }}
                     </div>
@@ -44,56 +44,56 @@
                 @endif
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Publish Course Name') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.publish_course')}}</p>
                     <div class="input-box">
                         {{ $batch->course->title_en }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Training Center') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.training_center')}}</p>
                     <div class="input-box">
                         {{ $batch->trainingCenter->title_en }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Code') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.code')}}</p>
                     <div class="input-box">
                         {{ $batch->code }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Max Student Enrollment') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.max_student_enrollment')}}</p>
                     <div class="input-box">
                         {{ $batch->max_student_enrollment }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Batch Start Date') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.start_date')}}</p>
                     <div class="input-box">
                         {{ date("d M, Y", strtotime($batch->start_date)) }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Batch End Date') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.end_date')}}</p>
                     <div class="input-box">
                         {{ date("d M, Y", strtotime($batch->end_date)) }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Batch Start Time') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.start_time')}}</p>
                     <div class="input-box">
                         {{ date("g:i A", strtotime($batch->start_time)) }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Batch End Time') }}</p>
+                    <p class="label-text">{{__('course_management::admin.batch.end_time')}}</p>
                     <div class="input-box">
                         {{ date("g:i A", strtotime($batch->end_time)) }}
                     </div>

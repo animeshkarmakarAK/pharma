@@ -58,17 +58,17 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{__('course_management::admin.branch.title')}}",
                         data: "title_en",
                         name: "branches.title_en"
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{__('course_management::admin.branch.institute_name')}}",
                         data: "institute_title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.common.action')}}",
                         data: "action",
                         orderable: false,
                         searchable: false,

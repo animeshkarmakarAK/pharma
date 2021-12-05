@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Event List') }}
+    {{ __('course_management::admin.event.list') }}
 @endsection
 
 
@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Event List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.event.list') }}</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\TrainingCenter::class)
@@ -58,37 +58,37 @@
                         visible: true,
                     },
                     {
-                        title: "Caption",
+                        title: "{{ __('course_management::admin.event.caption') }}",
                         data: "caption",
                         name: "events.caption"
                     },
                     {
-                        title: "Event Date",
+                        title: "{{ __('course_management::admin.event.date') }}",
                         data: "event_date",
                         name: "events.date"
                     },
 
                     {
-                        title: "Institute Name",
+                        title: "{{ __('course_management::admin.event.institute_name') }}",
                         data: "institute_name_en",
                         name: "institutes.title_en",
                         visible: false,
                     },
 
                     {
-                        title: "Image",
+                        title: "{{ __('course_management::admin.event.image') }}",
                         data: "event_image",
                         name: "events.image",
                         visible: true,
                     },
                     {
-                        title: "Created By",
+                        title: "{{ __('course_management::admin.event.created_by') }}",
                         data: "user_created_by",
                         name: "events.created_by",
                         visible: false,
                     },
                     {
-                        title: "Created Date",
+                        title: "{{ __('course_management::admin.event.created_date') }}",
                         data: "event_created_at",
                         name: "events.created_at",
                         visible: false,
@@ -96,14 +96,14 @@
                     },
 
                     {
-                        title: "Update Date",
+                        title: "{{ __('course_management::admin.event.update_date') }}",
                         data: "event_updated_at",
                         name: "events.updated_at",
                         visible: false,
                         searchable: false,
                     },
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         orderable: false,
                         searchable: false,

@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Course Config List') }}
+    {{ __('course_management::admin.publish_course.list') }}
 @endsection
 
 
@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">Course Config List</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ __('course_management::admin.publish_course.list') }}</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\PublishCourse::class)
                                 <a href="{{route('course_management::admin.publish-courses.create')}}" class="btn btn-sm btn-rounded btn-primary">
@@ -55,18 +55,18 @@
                         visible: true,
                     },
                     {
-                        title: "Course Title",
+                        title: "{{ __('course_management::admin.publish_course.title') }}",
                         data: "course_title",
                         name: "courses.title_en"
                     },
 
                     {
-                        title: "Institute Name",
+                        title: "{{ __('course_management::admin.publish_course.institute_name') }}",
                         data: "institute_title",
                         name: "institutes.title_en",
                     },
                     {
-                        title: "Programme Name",
+                        title: "{{ __('course_management::admin.publish_course.programme') }}",
                         data: "programme_name",
                         name: "programmes.title_en",
                     },/*
@@ -77,7 +77,7 @@
                         visible: false,
                     },*/
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         name: "action",
                         orderable: false,

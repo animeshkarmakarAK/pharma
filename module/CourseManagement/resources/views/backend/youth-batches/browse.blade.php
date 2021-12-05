@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title_en}}</b> - Trainee List
+                        <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title_en}}</b> - {{ __('course_management::admin.youth_batches.index')  }}
                         </h3>
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.batches.index')}}"
@@ -23,7 +23,7 @@
                                 @csrf
                                 <div class="col-md-6 py-2 mb-2">
                                     <div class="form-group">
-                                        <label for="import_youth_file" class="form-label">Import Trainee</label>
+                                        <label for="import_youth_file" class="form-label">{{ __('course_management::admin.youth_batches.import_trainee')  }}</label>
                                         <input class="form-control form-control-lg" id="import_youth" type="file"
                                                name="import_youth_file"/>
                                     </div>
@@ -32,7 +32,7 @@
                                     <div class="form-group row">
                                         <label for="import_youth" class="form-label">&nbsp;</label>
                                         <button class="form-control form-control-lg bg-blue" id="import_youth_btn">
-                                            Import Now
+                                            {{ __('course_management::admin.youth_batches.import_now')  }}
                                         </button>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <div class="form-group row">
                                         <label for="Download_demo" class="form-label">&nbsp;</label>
                                         <a href="{{asset('/assets/demoExcelFormat/backlog-demo.xlsx')}} "
-                                           class="form-control form-control-lg bg-info"> Download Demo</a>
+                                           class="form-control form-control-lg bg-info"> {{ __('course_management::admin.youth_batches.download_demo')  }}</a>
                                     </div>
                                 </div>
 
@@ -87,23 +87,23 @@
                         visible: true,
                     },
                     {
-                        title: "Trainee Reg. No",
+                        title: "{{ __('course_management::admin.youth_batches.trainee_reg_no')  }}",
                         data: "youth_registration_no",
                         name: "youths.youth_registration_no",
                     },
                     {
-                        title: "Trainee Name",
+                        title: "{{ __('course_management::admin.youth_batches.name')  }}",
                         data: "youth_name_en",
                         name: "youths.name_en"
                     },
                     {
-                        title: "Enrollment Date",
+                        title: "{{ __('course_management::admin.youth_batches.enrollment_date')  }}",
                         data: "enrollment_date",
                         name: "youth_batches.enrollment_date",
                     },
 
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action')  }}",
                         data: "action",
                         name: "action",
                         orderable: false,

@@ -8,7 +8,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('FAQ') }}
+    {{ __('course_management::admin.question_answer.list') }}
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">FAQ List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.question_answer.list') }}</h3>
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.question-answers.create')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
@@ -61,24 +61,24 @@
                         visible: true,
                     },
                     {
-                        title: "Question",
+                        title: "{{ __('course_management::admin.question_answer.question') }}",
                         data: "question",
                         name: "question_answers.question",
                     },
                     {
-                        title: "Answer",
+                        title: "{{ __('course_management::admin.question_answer.answer') }}",
                         data: "answer",
                         name: "question_answers.answer",
                         visible: false,
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{ __('course_management::admin.question_answer.institute_name') }}",
                         data: "institute_name",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Active Status",
+                        title: "{{ __('course_management::admin.common.status') }}",
                         data: "row_status",
                         name: "question_answers.row_status",
                     },

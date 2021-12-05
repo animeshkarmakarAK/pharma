@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Gallery Album List') }}
+    {{ __('course_management::admin.gallery-album.list')}}
 @endsection
 
 @section('content')
@@ -10,12 +10,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Album List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.gallery-album.list')}}</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\GalleryCategory::class)
                                 <a href="{{route('course_management::admin.gallery-categories.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
+                                    <i class="fas fa-plus-circle"></i> {{ __('course_management::admin.common.add')}}
                                 </a>
                             @endcan
                         </div>
@@ -58,30 +58,30 @@
                     },
 
                     {
-                        title: "Title (En)",
+                        title: "{{__('course_management::admin.gallery-album.title')}}",
                         data: "title_en",
                         name: "gallery_categories.title_en",
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{__('course_management::admin.gallery-album.institute_name')}}",
                         data: "institute_title_en",
                         name: "institutes.title_en",
                         visible: {{ \App\Helpers\Classes\AuthHelper::getAuthUser()->isSuperUser() ? "true" : "false" }},
                     },
                     {
-                        title: "Programme Name",
+                        title: "{{__('course_management::admin.gallery-album.programme_title')}}",
                         data: "programme_title_en",
                         name: "programmes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Batch Name",
+                        title: "{{__('course_management::admin.gallery-album.batch_title')}}",
                         data: "batch_title_en",
                         name: "batches.title_en",
                         visible: false,
                     },
                     {
-                        title: "Featured",
+                        title: "{{__('course_management::admin.gallery-album.featured')}}",
                         data: "featured",
                         name: "gallery_categories.featured",
                         render: function (data, type, row, meta) {
@@ -97,7 +97,7 @@
                     },
 
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.common.action')}}",
                         data: "action",
                         name: "action",
                         orderable: false,

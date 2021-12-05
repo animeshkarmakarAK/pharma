@@ -12,7 +12,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Batch' : 'Update Batch' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ?  __('course_management::admin.batches.add')  : __('course_management::admin.batches.update') }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.batches.index')}}" class="btn btn-sm btn-rounded btn-outline-primary">
                                 <i class="fas fa-backward"></i>{{__('course_management::admin.common.back')}}
@@ -30,19 +30,10 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title (En) ') }}</label>
+                                    <label for="title_en">{{ __('course_management::admin.batches.title')}}</label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $batch->title_en : old('title_en') }}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="title_bn">{{ __('Title (Bn) ') }}</label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $batch->title_bn : old('title_bn') }}">
                                 </div>
                             </div>
 
@@ -50,10 +41,10 @@
                                 <input type="hidden" id="institute_id" name="institute_id" value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="institute_id">Institute Name</label>
+                                    <label for="institute_id">{{ __('course_management::admin.batches.institute_name')}}</label>
                                     <select class="form-control custom-input-box select2" name="institute_id"
                                             id="institute_id" required>
-                                        <option value="" selected>নির্বাচন করুন</option>
+                                        <option value="" selected>{{ __('course_management::admin.batches.please_select')}}</option>
                                         @foreach($institutes as $institute)
                                             <option
                                                 value="{{ $institute->id}}" {{ $edit && $batch->institute_id == $institute->id ? 'selected':''}}>{{ $institute->title_en }}</option>
@@ -65,7 +56,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_id">{{ __('Course Name') }}</label>
+                                    <label for="course_id">{{ __('course_management::admin.batches.course_title')}}</label>
 
                                         <select name="course_id" id="course_id" class="form-control select2">
                                             @if($edit && !empty($batch->course->id))
@@ -83,27 +74,27 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="code">{{ __('Code') }}</label>
+                                    <label for="code">{{ __('course_management::admin.batches.code')}}</label>
                                     <input type="number" class="form-control" id="code"
                                            name="code"
                                            value="{{ $edit ? $batch->code : old('code') }}"
-                                           placeholder="{{ __('Code') }}">
+                                           placeholder="{{ __('course_management::admin.batches.code')}}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="max_student_enrollment">{{ __('Max Student Enrollment') }}</label>
+                                    <label for="max_student_enrollment">{{ __('course_management::admin.batches.max_student_enrollment')}}</label>
                                     <input type="number" class="form-control" id="max_student_enrollment"
                                            name="max_student_enrollment"
                                            value="{{ $edit ? $batch->max_student_enrollment : old('max_student_enrollment') }}"
-                                           placeholder="{{ __('Max Student Enrollment') }}">
+                                           placeholder="{{ __('course_management::admin.batches.max_student_enrollment')}}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="start_date">{{ __('Batch Start Date') }}</label>
+                                    <label for="start_date">{{ __('course_management::admin.batches.start_date')}}</label>
                                     <input type="text" class="flat-date flat-date-custom-bg" id="start_date"
                                            name="start_date"
                                            value="{{ $edit ? $batch->start_date : old('start_date') }}"
@@ -113,7 +104,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="end_date">{{ __('Batch End Date') }}</label>
+                                    <label for="end_date">{{ __('course_management::admin.batches.end_date')}}</label>
                                     <input type="date" class="flat-date flat-date-custom-bg" id="end_date"
                                            name="end_date"
                                            value="{{ $edit ? $batch->end_date : old('end_date') }}"
@@ -123,7 +114,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="start_time">{{ __('Batch Start Time') }}</label>
+                                    <label for="start_time">{{ __('course_management::admin.batches.start_time')}}</label>
                                     <input type="time" class="flat-time flat-time-custom-bg" id="start_time"
                                            name="start_time"
                                            value="{{ $edit ? $batch->start_time : old('start_time') }}"
@@ -133,7 +124,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="end_time">{{ __('Batch End Time') }}</label>
+                                    <label for="end_time">{{ __('course_management::admin.batches.end_time')}}</label>
                                     <input type="time" class="flat-time flat-time-custom-bg" id="end_time"
                                            name="end_time"
                                            value="{{ $edit ? $batch->end_time : old('end_time') }}">
@@ -143,7 +134,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add')}}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

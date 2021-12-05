@@ -8,7 +8,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Videos List') }}
+    {{ __('course_management::admin.intro-video.list') }}
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ !$authUser->institute_id? 'Intro Videos List':'Intro Video' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ !$authUser->institute_id? __('course_management::admin.intro-video.list') : __('course_management::admin.intro-video.index') }}</h3>
                         <div class="card-tools">
                             @can('create', Module\CourseManagement\App\Models\Video::class)
 
@@ -31,7 +31,7 @@
                                 @if($videosCount == 0 && $authUser->institute_id)
                                     <a href="{{route('course_management::admin.intro-videos.create')}}"
                                        class="btn btn-sm btn-outline-primary btn-rounded">
-                                        <i class="fas fa-plus-circle"></i> Add new
+                                        <i class="fas fa-plus-circle"></i> {{ __('course_management::admin.intro-video.add') }}
                                     </a>
                                 @endif
                             @endcan
@@ -73,24 +73,24 @@
                         visible: true,
                     },
                     {
-                        title: "Youtube Video URL",
+                        title: "{{ __('course_management::admin.intro-video.youtube_video_url') }}",
                         data: "youtube_video_url",
                         name: "intro_videos.youtube_video_url",
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{ __('course_management::admin.intro-video.institute_name') }}",
                         data: "institute_name",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Active Status",
+                        title: "{{ __('course_management::admin.common.status') }}",
                         data: "row_status",
                         name: "intro_videos.row_status",
                     },
 
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         name: "action",
                         orderable: false,

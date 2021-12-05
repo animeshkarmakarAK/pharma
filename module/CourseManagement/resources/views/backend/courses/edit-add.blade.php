@@ -7,12 +7,9 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Course' : 'Update Course' }}
+    {{ ! $edit ? __('course_management::admin.course.edit') : __('course_management::admin.course.update') }}
 @endsection
 
-@section('title')
-    {{ ! $edit ? 'Add Course' : 'Update Course' }}
-@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -20,7 +17,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header custom-bg-gradient-info">
-                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add Course' : 'Update Course' }}</h3>
+                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? __('course_management::admin.course.edit') : __('course_management::admin.course.update') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.courses.index')}}"
@@ -41,7 +38,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cover_image">{{ __('Upload Cover Image') }}</label>
+                                    <label for="cover_image">{{ __('course_management::admin.course.upload_cover_image') }}</label>
                                     <div class="input-group">
                                         <div class="cover-image-upload-section">
                                             <div class="avatar-preview text-center">
@@ -71,7 +68,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                        <label for="institute_id">{{ __('course_management::admin.course.institute_name') }}<span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -81,7 +78,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $course->institute->title_en, 'id' =>  $course->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                                data-placeholder="{{ __('course_management::admin.course.institute_name') }}"
                                         >
                                         </select>
                                     </div>
@@ -91,135 +88,135 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') . ' (English)' }}<span
+                                    <label for="name">{{ __('course_management::admin.course.title') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $course->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') . ' (English)' }}">
+                                           placeholder="{{ __('course_management::admin.course.title') }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Code') }}<span
+                                    <label for="name">{{ __('course_management::admin.course.code') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="code"
                                            name="code"
                                            data-code="{{ $edit ? $course->code : '' }}"
                                            value="{{ $edit ? $course->code : old('code') }}"
-                                           placeholder="{{ __('Code') }}">
+                                           placeholder="{{ __('course_management::admin.course.code') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_fee">{{ __('Course Fee') }}<span
+                                    <label for="course_fee">{{ __('course_management::admin.course.course_fee') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="number" class="form-control" id="course_fee"
                                            name="course_fee"
                                            value="{{ $edit ? $course->course_fee : old('course_fee') }}"
-                                           placeholder="{{ __('Course Fee') }}">
+                                           placeholder="{{ __('course_management::admin.course.course_fee') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="duration">{{ __('Course Duration') }}</label>
+                                    <label for="duration">{{ __('course_management::admin.course.duration') }}</label>
                                     <input type="text" class="form-control" id="duration"
                                            name="duration"
                                            value="{{ $edit ? $course->duration : old('duration') }}"
-                                           placeholder="{{ __('Course Duration') }}">
+                                           placeholder="{{ __('course_management::admin.course.duration') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="target_group">{{ __('Target Group')  }}</label>
+                                    <label for="target_group">{{ __('course_management::admin.course.target_group') }}</label>
                                     <textarea class="form-control" id="target_group"
                                               name="target_group"
                                               rows="3"
-                                              placeholder="{{ __('Target Group') }}">{{ $edit ? $course->target_group : old('target_group') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.target_group') }}">{{ $edit ? $course->target_group : old('target_group') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="objects">{{ __('Course Objects')  }}</label>
+                                    <label for="objects">{{ __('course_management::admin.course.object') }}</label>
                                     <textarea class="form-control" id="objects"
                                               name="objects"
                                               rows="3"
-                                              placeholder="{{ __('Course Objects') }}">{{ $edit ? $course->objects : old('objects') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.object') }}">{{ $edit ? $course->objects : old('objects') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="contents">{{ __('Course Contents')  }}</label>
+                                    <label for="contents">{{ __('course_management::admin.course.content') }}</label>
                                     <textarea class="form-control" id="contents"
                                               name="contents"
                                               rows="3"
-                                              placeholder="{{ __('Course Contents') }}">{{ $edit ? $course->contents : old('contents') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.content') }}">{{ $edit ? $course->contents : old('contents') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="training_methodology">{{ __('Training Methodology')  }}</label>
+                                    <label for="training_methodology">{{ __('course_management::admin.course.training_methodology') }}</label>
                                     <textarea class="form-control" id="training_methodology"
                                               name="training_methodology"
                                               rows="3"
-                                              placeholder="{{ __('Training Methodology') }}">{{ $edit ? $course->training_methodology : old('training_methodology') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.training_methodology') }}">{{ $edit ? $course->training_methodology : old('training_methodology') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="evaluation_system">{{ __('Evaluation System')  }}</label>
+                                    <label for="evaluation_system">{{ __('course_management::admin.course.evaluation_system') }}</label>
                                     <textarea class="form-control" id="evaluation_system"
                                               name="evaluation_system"
                                               rows="3"
-                                              placeholder="{{ __('Evaluation System') }}">{{ $edit ? $course->evaluation_system : old('evaluation_system') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.evaluation_system') }}">{{ $edit ? $course->evaluation_system : old('evaluation_system') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="prerequisite">{{ __('Course Prerequisite') }}</label>
+                                    <label for="prerequisite">{{ __('course_management::admin.course.course_prerequisite') }}</label>
                                     <textarea rows="3" class="form-control" id="prerequisite"
                                               name="prerequisite"
-                                              placeholder="{{ __('Course Prerequisite') }}">{{ $edit ? $course->prerequisite : old('prerequisite') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.course_prerequisite') }}">{{ $edit ? $course->prerequisite : old('prerequisite') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="eligibility">{{ __('Eligibility') }}</label>
+                                    <label for="eligibility">{{ __('course_management::admin.course.eligibility') }}</label>
                                     <textarea rows="3" class="form-control" id="eligibility"
                                               name="eligibility"
-                                              placeholder="{{ __('Eligibility') }}">{{ $edit ? $course->eligibility : old('eligibility') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.eligibility') }}">{{ $edit ? $course->eligibility : old('eligibility') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="description">{{ __('Description')  }}</label>
+                                    <label for="description">{{ __('course_management::admin.course.description') }}</label>
                                     <textarea class="form-control" id="description"
                                               name="description"
                                               rows="3"
-                                              placeholder="{{ __('Description') }}">{{ $edit ? $course->description : old('description') }}</textarea>
+                                              placeholder="{{ __('course_management::admin.course.description') }}">{{ $edit ? $course->description : old('description') }}</textarea>
                                 </div>
                             </div>
 
                             @if($edit)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="row_status">Active Status</label>
+                                        <label for="row_status">{{ __('course_management::admin.course.status') }}</label>
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
-                                            <label for="row_status_active" class="custom-control-label">Active</label>
+                                            <label for="row_status_active" class="custom-control-label">{{ __('course_management::admin.status.active') }}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
@@ -228,7 +225,7 @@
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
                                                 {{ ($edit && $course->row_status == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
-                                                   class="custom-control-label">Inactive</label>
+                                                   class="custom-control-label">{{ __('course_management::admin.status.inactive') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -237,7 +234,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.course.update')  : __('course_management::admin.course.add')  }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

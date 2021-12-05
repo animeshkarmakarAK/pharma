@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Static Page List') }}
+    {{ __('course_management::admin.static_page.list') }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Static Page List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.static_page.list') }}</h3>
 
                         <div class="card-tools">
                             @can('create', Module\CourseManagement\App\Models\StaticPage::class)
@@ -56,23 +56,23 @@
                         visible: true,
                     },
                     {
-                        title: "Institute (En)",
+                        title: "{{ __('course_management::admin.static_page.institute_name') }}",
                         data: "institute_title_en",
                         name: "institutes.title_en",
                         visible: false
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{ __('course_management::admin.static_page.title') }}",
                         data: "title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Page ID",
+                        title: "{{ __('course_management::admin.static_page.link') }}",
                         data: "page_id",
                         name: "page_id"
                     },
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         name: "action",
                         orderable: false,

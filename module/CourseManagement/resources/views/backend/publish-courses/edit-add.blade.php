@@ -8,7 +8,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Create Config Course' : 'Update Course Config' }}
+    {{ ! $edit ? __('course_management::admin.publish_course.add') : __('course_management::admin.publish_course.update')}}
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Create Config Course' : 'Update Course Config' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? __('course_management::admin.publish_course.add') : __('course_management::admin.publish_course.update') }}</h3>
                         <div>
                             <a href="{{route('course_management::admin.publish-courses.index')}}"
                                class="btn btn-sm btn-rounded btn-outline-primary">
@@ -39,7 +39,7 @@
                                        value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="institute_id">Institute Name <span style="color: red"> * </span></label>
+                                    <label for="institute_id">{{__('course_management::admin.publish_course.institute_name')}}<span style="color: red"> * </span></label>
                                     <input type="hidden" id="today" name="today">
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
@@ -50,7 +50,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->institute->title_en, 'id' =>  $publishCourse->institute->id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{__('course_management::admin.publish_course.institute_name')}}"
                                     >
                                     </select>
                                 </div>
@@ -59,7 +59,7 @@
                             @if($edit)
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="training_center_id">{{ __('Training Center') }}
+                                        <label for="training_center_id">{{__('course_management::admin.publish_course.training_center')}}
                                             <span style="color: red"> * </span>
                                         </label>
                                         <select class="form-control"
@@ -75,7 +75,7 @@
                                 </div>
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="training_center_id">Training Center<span
+                                    <label for="training_center_id">{{__('course_management::admin.publish_course.training_center')}}<span
                                             style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             multiple="multiple"
@@ -84,7 +84,7 @@
                                             data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
                                             data-label-fields="{title_en}"
                                             data-depend-on="institute_id"
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{__('course_management::admin.publish_course.training_center')}}"
                                     >
                                     </select>
                                 </div>
@@ -92,7 +92,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="programme_id">{{ __('Programme') }}</label>
+                                    <label for="programme_id">{{__('course_management::admin.publish_course.programme')}}</label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="programme_id"
                                             id="programme_id"
@@ -102,7 +102,7 @@
                                             @if($edit && $publishCourse->programme)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->programme->title_en, 'id' =>  $publishCourse->programme->id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{__('course_management::admin.publish_course.programme')}}"
                                     >
                                     </select>
                                 </div>
@@ -110,7 +110,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_id">{{ __('Course Name') }}<span
+                                    <label for="course_id">{{__('course_management::admin.publish_course.course_name')}}<span
                                             style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="course_id"
@@ -121,7 +121,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->course->title_en, 'id' =>  $publishCourse->course->id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{__('course_management::admin.publish_course.course_name')}}"
                                     >
                                     </select>
                                 </div>
@@ -129,7 +129,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="application_form_type_id">{{ __('Application Form Type') }}<span
+                                    <label for="application_form_type_id">{{__('course_management::admin.publish_course.application_form_type')}}<span
                                             style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="application_form_type_id"
@@ -140,7 +140,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $publishCourse->applicationFormType->title_en, 'id' =>  $publishCourse->applicationFormType->id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{__('course_management::admin.publish_course.application_form_type')}}"
                                     >
                                     </select>
                                 </div>
@@ -150,13 +150,13 @@
                             @if($edit)
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="row_status">Active Status</label>
+                                        <label for="row_status">{{__('course_management::admin.common.status')}}</label>
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $publishCourse->row_status == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
-                                            <label for="row_status_active" class="custom-control-label">Active</label>
+                                            <label for="row_status_active" class="custom-control-label">{{__('course_management::admin.status.active')}}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
@@ -165,7 +165,7 @@
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
                                                 {{ ($edit && $publishCourse->row_status == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\PublishCourse::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
-                                                   class="custom-control-label">Inactive</label>
+                                                   class="custom-control-label">{{__('course_management::admin.status.inactive')}}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@
                             <div class="col-sm-12 course-sessions mt-5">
                                 <div class="card">
                                     <div class="card-header custom-bg-gradient-info">
-                                        <h3 class="card-title text-primary font-weight-bold">Course Sessions</h3>
+                                        <h3 class="card-title text-primary font-weight-bold">{{__('course_management::admin.publish_course.course_session')}}</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -192,7 +192,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Publish') }}
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.publish_course.add') : __('course_management::admin.publish_course.publish') }}
                                 </button>
                             </div>
                         </form>
@@ -382,12 +382,12 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="session_name_en">{{ __('Session Name (English)') }} <span
+                                <label for="session_name_en">{{ __('course_management::admin.publish_course.session_name') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
                                        class="form-control session_name_en"
                                        name="course_sessions[<%=sl%>][session_name_en]"
-                                       placeholder="{{ __('Session Name (English)') }}"
+                                       placeholder="{{ __('course_management::admin.publish_course.session_name') }}"
                                        value="<%=edit ? data.session_name_en : ''%>"
                                        onkeyup="$('.session-name-english<%=sl%>').html($(this).val())">
                             </div>
@@ -395,12 +395,12 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="number_of_batches">{{ __('Number of Batches') }} <span
+                                <label for="number_of_batches">{{ __('course_management::admin.publish_course.number_of_batches') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="number"
                                        class="form-control number_of_batches"
                                        name="course_sessions[<%=sl%>][number_of_batches]"
-                                       placeholder="{{ __('Number of Batches') }}"
+                                       placeholder="{{ __('course_management::admin.publish_course.number_of_batches') }}"
                                        value="<%=edit ? data.number_of_batches : ''%>">
                             </div>
                         </div>
@@ -408,7 +408,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label
-                                    for="application_start_date">{{ __('Application Start Date') }} <span
+                                    for="application_start_date">{{ __('course_management::admin.publish_course.application_start_date') }}<span
                                         style="color: red"> * </span></label>
                                 <input type="text"
                                        class="flat-date flat-date-custom-bg form-control application_start_date application_start_date<%=sl%> "
@@ -421,7 +421,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label
-                                    for="application_end_date">{{ __('Application End Date') }} <span
+                                    for="application_end_date">{{ __('course_management::admin.publish_course.application_end_date') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="text"
                                        class="flat-date flat-date-custom-bg form-control application_end_date application_end_date<%=sl%>"
@@ -433,7 +433,7 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="course_start_date">{{ __('Course Start Date') }} <span
+                                <label for="course_start_date">{{ __('course_management::admin.publish_course.course_start_date') }}<span
                                         style="color: red"> * </span></label>
                                 <input type="text"
                                        class="flat-date flat-date-custom-bg form-control course_start_date<%=sl%>"
@@ -446,12 +446,12 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label
-                                    for="max_seat_available">{{ __('Max Student Enrollment') }} <span
+                                    for="max_seat_available">{{ __('course_management::admin.publish_course.max_student_enrollment') }} <span
                                         style="color: red"> * </span></label>
                                 <input type="number"
                                        class="form-control max_seat_available"
                                        name="course_sessions[<%=sl%>][max_seat_available]"
-                                       placeholder="{{ __('Max Student Enrollment') }}"
+                                       placeholder="{{ __('course_management::admin.publish_course.max_student_enrollment') }}"
                                        value="<%=edit ? data.max_seat_available : ''%>"
                                 >
                             </div>

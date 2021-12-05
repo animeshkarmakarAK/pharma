@@ -7,20 +7,20 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Intro Video') }}
+    {{ __('course_management::admin.question_answer.index') }}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header  custom-bg-gradient-info">
-                <h3 class="card-title text-primary font-weight-bold">{{ __('FAQ') }}</h3>
+                <h3 class="card-title text-primary font-weight-bold"> {{ __('course_management::admin.question_answer.index') }}</h3>
 
                 <div class="card-tools">
                     <div class="btn-group">
                         <a href="{{route('course_management::admin.question-answers.edit', [$questionAnswer->id])}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-plus-circle"></i> {{ __('Edit FAQ') }}
+                            <i class="fas fa-plus-circle"></i>  {{ __('course_management::admin.question_answer.edit') }}
                         </a>
                         <a href="{{route('course_management::admin.question-answers.index')}}"
                            class="btn btn-sm btn-outline-primary btn-rounded">
@@ -34,7 +34,7 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('Institute Name') }}</p>
+                        <p class="label-text"> {{ __('course_management::admin.question_answer.institute_name') }}</p>
                         <div class="input-box">
                             {{ $questionAnswer->institute->title_en??'N/A' }}
                         </div>
@@ -43,14 +43,14 @@
 
 
                     <div class="col-md-12 custom-view-box">
-                        <p class="label-text">{{ __('Question') }}</p>
+                        <p class="label-text">{{ __('course_management::admin.question_answer.question') }}</p>
                         <div class="input-box">
                             {{ $questionAnswer->question ?? 'N/A' }}
                         </div>
                     </div>
 
                     <div class="col-md-12 custom-view-box">
-                        <p class="label-text">{{ __('Answer') }}</p>
+                        <p class="label-text">{{ __('course_management::admin.question_answer.answer') }}</p>
                         <div class="input-box" STYLE="min-height: 150px">
                             {!! $questionAnswer->answer ?? 'N/A' !!}
                         </div>

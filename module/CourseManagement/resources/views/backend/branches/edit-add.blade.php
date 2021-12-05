@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ $edit?'Edit Branch':'Create Branch' }}
+    {{ $edit?__('course_management::admin.branch.edit'): __('course_management::admin.branch.add') }}
 @endsection
 
 @section('content')
@@ -36,29 +36,29 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Title') . ' (English)' }} <span
+                                    <label for="name">{{__('course_management::admin.branch.title')}} <span
                                             style="color: red">*</span></label>
                                     <input type="text" class="form-control custom-input-box" id="title_en"
                                            name="title_en"
                                            value="{{$edit ? $branch->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Title') . ' (English)' }}">
+                                           placeholder="{{__('course_management::admin.branch.title')}}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="address">{{ __('Address') }}</label>
+                                    <label for="address">{{__('course_management::admin.branch.address')}}</label>
                                     <textarea class="form-control" id="address" name="address"
-                                              placeholder="{{ __('Address') }}"
+                                              placeholder="{{__('course_management::admin.branch.address')}}"
                                               rows="3">{{ $edit ? $branch->address : old('address') }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="google_map_src">{{ __('Google Map SRC') }}</label>
+                                    <label for="google_map_src">{{__('course_management::admin.branch.google_map_source')}}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
-                                              placeholder="{{ __('Google Map SRC') }}"
+                                              placeholder="{{__('course_management::admin.branch.google_map_source')}}"
                                               rows="3">{{ $edit ? $branch->google_map_src : old('google_map_src') }}</textarea>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                        value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="institute_id">Institute Name <span style="color: red">*</span></label>
+                                    <label for="institute_id">{{__('course_management::admin.branch.institute_name')}} <span style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
                                             id="institute_id"
@@ -77,7 +77,7 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $branch->institute->title_en, 'id' =>  $branch->institute->id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{__('course_management::admin.branch.institute_name')}} "
                                     >
                                     </select>
                                 </div>

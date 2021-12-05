@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Static Page') }}
+    {{ __('course_management::admin.static_page.index') }}
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                 <div class="card-tools">
                     <div class="btn-group">
                         <a href="{{route('course_management::admin.static-page.edit', [$staticPage->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-plus-circle"></i> {{ __('Edit Static Page') }}
+                            <i class="fas fa-plus-circle"></i> {{ __('course_management::admin.static_page.edit') }}
                         </a>
                         <a href="{{route('course_management::admin.static-page.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
@@ -23,21 +23,15 @@
             </div>
             <div class="row card-body">
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Content Title(EN)') }}</p>
+                    <p class="label-text">{{ __('course_management::admin.static_page.content_title') }}}</p>
                     <div class="input-box">
                         {{ $staticPage->title_en }}
                     </div>
                 </div>
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Content Title(BN)') }}</p>
-                    <div class="input-box">
-                        {{ $staticPage->title_bn }}
-                    </div>
-                </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Page Id') }}</p>
+                    <p class="label-text">{{ __('course_management::admin.static_page.link') }}</p>
                     <div class="input-box">
                         {{ $staticPage->page_id }}
                     </div>
@@ -45,14 +39,14 @@
 
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Static Page') }}</p>
+                    <p class="label-text">{{ __('course_management::admin.static_page.index') }}</p>
                     <div class="input-box">
                         {{ $staticPage->institute->title_en  }}
                     </div>
                 </div>
 
                 <div class="col-md-12 custom-view-box">
-                    <p class="label-text">{{ __('Static Page Details') }}</p>
+                    <p class="label-text">{{ __('course_management::admin.static_page.detail') }}</p>
                     <div class="input-box">
                         {!!  $staticPage->page_contents !!}
                     </div>

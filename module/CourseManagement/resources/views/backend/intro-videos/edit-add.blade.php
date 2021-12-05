@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Intro Video' : 'Update Intro Video' }}
+    {{ ! $edit ? __('course_management::admin.intro-video.add') : __('course_management::admin.intro-video.update') }}
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header  custom-bg-gradient-info">
-                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add Intro Video' : 'Update Intro Video' }}</h3>
+                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? __('course_management::admin.intro-video.add') : __('course_management::admin.intro-video.update') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.intro-videos.index')}}"
@@ -40,7 +40,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                        <label for="institute_id">{{ __('course_management::admin.intro-video.institute_name') }}<span
                                                 class="required"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -51,7 +51,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $introVideo->institute->title_en, 'id' =>  $introVideo->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                                data-placeholder="{{ __('course_management::admin.intro-video.institute_name') }}"
                                         >
                                         </select>
                                     </div>
@@ -61,7 +61,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="youtube_video_url">Youtube Video URL <span
+                                    <label for="youtube_video_url">{{ __('course_management::admin.intro-video.youtube_video_url') }} <span
                                             class="required">*</span></label>
                                     <input type="text"
                                            class="form-control"
@@ -74,7 +74,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.intro-video.update')  : __('course_management::admin.intro-video.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

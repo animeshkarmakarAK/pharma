@@ -5,14 +5,14 @@
 @extends('master::layouts.master')
 
 @section('title')
-    Visitor Feedback
+    {{ __('course_management::admin.visitor_feedback.visitor_feedback')  }}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header text-primary custom-bg-gradient-info">
-                <h3 class="card-title font-weight-bold">Visitor Feedback</h3>
+                <h3 class="card-title font-weight-bold">{{ __('course_management::admin.visitor_feedback.visitor_feedback')  }}</h3>
 
                 <div class="card-tools">
                     <div class="btn-group">
@@ -26,21 +26,21 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Name') }}</p>
+                    <p class="label-text">    {{ __('course_management::admin.visitor_feedback.name')  }}</p>
                     <div class="input-box">
                         {{ $visitorFeedback->name }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Mobile') }}</p>
+                    <p class="label-text">    {{ __('course_management::admin.visitor_feedback.mobile')  }}</p>
                     <div class="input-box">
                         {{ $visitorFeedback->mobile }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Email') }}</p>
+                    <p class="label-text">    {{ __('course_management::admin.visitor_feedback.email')  }}</p>
                     <div class="input-box">
                         {{ $visitorFeedback->email }}
                     </div>
@@ -48,7 +48,7 @@
 
                 @if($visitorFeedback->address)
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Address') }}</p>
+                    <p class="label-text">    {{ __('course_management::admin.visitor_feedback.address')  }}</p>
                     <div class="input-box">
                         {{ $visitorFeedback->address }}
                     </div>
@@ -57,7 +57,7 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6  custom-view-box">
-                        <p class="label-text">{{ __('Institute Name') }}</p>
+                        <p class="label-text">    {{ __('course_management::admin.visitor_feedback.institute_name')  }}</p>
                         <div class="input-box">
                             {{$visitorFeedback->institute->title_en}}
                         </div>
@@ -65,14 +65,14 @@
                 @endif
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Type') }}</p>
+                    <p class="label-text">    {{ __('course_management::admin.visitor_feedback.type')  }}</p>
                     <div class="input-box">
                         {{ $visitorFeedback->form_type==\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK?'Feedback':'Contact' }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Comment') }}</p>
+                    <p class="label-text">    {{ __('course_management::admin.visitor_feedback.comment')  }}</p>
                     <div class="input-box" style="min-height: 130px">
                         {{ $visitorFeedback->comment }}
                     </div>

@@ -6,7 +6,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ $edit?'Edit Event':'Create Event' }}
+    {{ $edit? __('course_management::admin.event.add'): __('course_management::admin.event.edit') }}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Event':'Create Event' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit? __('course_management::admin.event.edit'): __('course_management::admin.event.add') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.events.index')}}"
@@ -40,7 +40,7 @@
                                            value="{{$authUser->institute_id}}">
                                 @else
                                     <div class="form-group col-md-6">
-                                        <label for="institute_id">Institute Name <span
+                                        <label for="institute_id">{{ __('course_management::admin.event.institute_name')}} <span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -51,40 +51,40 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $event->institute->title_en, 'id' =>  $event->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('Select Institute') }}"
+                                                data-placeholder="{{ __('course_management::admin.event.institute_name')}}"
                                         >
                                         </select>
                                     </div>
                                 @endif
 
                                 <div class="form-group col-md-6">
-                                    <label for="caption">Caption <span style="color: red"> * </span></label>
+                                    <label for="caption">{{ __('course_management::admin.event.caption')}} <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="caption"
                                            id="caption"
                                            value="{{$edit ? $event->caption : old('caption')}}"
-                                           placeholder="Caption" required>
+                                           placeholder="{{ __('course_management::admin.event.caption')}}" required>
                                 </div>
                                 <div class="form-group col-md-6 event-image">
-                                    <label for="image">Image </label>
+                                    <label for="image">{{ __('course_management::admin.event.image')}} </label>
                                     <input type="file" class="form-control custom-input-box" name="image"
                                            id="image"
                                            value="{{$edit ? $event->image : old('image')}}"
-                                           placeholder="Image">
+                                           placeholder="{{ __('course_management::admin.event.image')}}">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="date">Date <span style="color: red"> * </span></label>
+                                    <label for="date">{{ __('course_management::admin.event.date')}} <span style="color: red"> * </span></label>
                                     <input type="text" class="flat-datetime flat-date-custom-bg" name="date"
                                            id="date"
                                            value="{{$edit ? $event->date : old('date')}}"
-                                           placeholder="Date">
+                                           placeholder="{{ __('course_management::admin.event.date')}}">
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="details">{{ __('Details') }} <span style="color: red"> * </span></label>
+                                        <label for="details">{{ __('course_management::admin.event.detail')}} <span style="color: red"> * </span></label>
                                         <textarea class="form-control" id="address" name="details"
-                                                  placeholder="Details"
+                                                  placeholder="{{ __('course_management::admin.event.detail')}}"
                                                   rows="3">{{ $edit ? $event->details : old('details') }}</textarea>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
 
                                 <div class="col-sm-12 text-right">
                                     <button type="submit"
-                                            class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                            class="btn btn-success">{{ $edit ? __('course_management::admin.event.update') : __('course_management::admin.event.add') }}</button>
                                 </div>
                             </div>
                         </form>

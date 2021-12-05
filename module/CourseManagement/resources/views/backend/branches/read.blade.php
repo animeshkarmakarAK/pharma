@@ -29,7 +29,7 @@
             <div class="row card-body">
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Title(EN)') }}</p>
+                    <p class="label-text">{{__('course_management::admin.branch.title')}} </p>
                     <div class="input-box">
                         {{ $branch->title_en }}
                     </div>
@@ -37,14 +37,14 @@
 
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Address') }}</p>
+                    <p class="label-text">{{__('course_management::admin.branch.address')}} </p>
                     <div class="input-box" style="min-height: 100px;">
                         {{ $branch->address }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('Google Map SRC') }}</p>
+                    <p class="label-text">{{__('course_management::admin.branch.google_map_source')}} </p>
                     <div class="input-box" style="min-height: 100px;">
                         {{ $branch->google_map_src }}
                     </div>
@@ -52,7 +52,7 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6  custom-view-box">
-                        <p class="label-text">{{ __('Institute Name') }}</p>
+                        <p class="label-text">{{__('course_management::admin.branch.institute_name')}} </p>
                         <div class="input-box">
                             {{$branch->institute->title_en}}
                         </div>

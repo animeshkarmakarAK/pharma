@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Sliders List') }}
+    {{ __('course_management::admin.slider.list') }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Sliders List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.slider.list') }}</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Slider::class)
@@ -56,41 +56,41 @@
                         visible: true,
                     },
                     {
-                        title: "Title",
+                        title: "{{ __('course_management::admin.slider.title') }}",
                         data: "title",
                         name: "sliders.title"
                     },
                     {
-                        title: "Sub-title",
+                        title: "{{ __('course_management::admin.slider.sub_title') }}",
                         data: "sub_title",
                         name: "sliders.sub_title"
                     },
                     {
-                        title: "Picture",
+                        title: "{{ __('course_management::admin.slider.picture') }}",
                         data: "slider",
                         name: "sliders.slider"
                     },
 
                     {
-                        title: "link",
+                        title: "{{ __('course_management::admin.slider.link') }}",
                         data: "link",
                         name: "sliders.link",
                         visible: false,
                     },
                     {
-                        title: "Institute",
+                        title: "{{ __('course_management::admin.slider.institute_name') }}",
                         data: "institute_name",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Button",
+                        title: "{{ __('course_management::admin.slider.button') }}",
                         data: "button_text",
                         name: "sliders.button_text",
                         visible: false,
                     },
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         name: "action",
                         orderable: false,

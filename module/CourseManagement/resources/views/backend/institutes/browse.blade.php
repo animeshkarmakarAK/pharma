@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Institutes List') }}
+    {{ __('course_management::admin.institute.list') }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Institutes List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.institute.list') }}</h3>
 
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Institute::class)
@@ -56,28 +56,28 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{ __('course_management::admin.institute.title') }}",
                         data: "title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Code",
+                        title: "{{ __('course_management::admin.institute.code') }}",
                         data: "code",
                         name: "code"
                     },
                     {
-                        title: "Domain URL",
+                        title: "{{ __('course_management::admin.institute.domain') }}",
                         data: "domain",
                         name: "domain"
                     },
                     {
-                        title: "Address",
+                        title: "{{ __('course_management::admin.institute.address') }}",
                         data: "address",
                         name: "address",
                         visible: false
                     },
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         name: "action",
                         orderable: false,

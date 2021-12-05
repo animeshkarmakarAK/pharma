@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Video Category' : 'Update Video Category' }}
+    {{ ! $edit ? __('course_management::admin.video_categories.add') : __('course_management::admin.video_categories.update') }}
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header  custom-bg-gradient-info">
-                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add Video Category' : 'Update Video Category' }}</h3>
+                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? __('course_management::admin.video_categories.add') : __('course_management::admin.video_categories.update') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.video-categories.index')}}"
@@ -36,12 +36,12 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('Title') . ' (English)' }}<span
+                                    <label for="title_en">{{ __('course_management::admin.video_categories.title') }}<span
                                             class="required"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $videoCategory->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title') . ' (English)' }}">
+                                           placeholder="{{ __('course_management::admin.video_categories.title') }}">
                                 </div>
                             </div>
                             @if($authUser->isInstituteUser())
@@ -50,7 +50,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                        <label for="institute_id">{{ __('course_management::admin.video_categories.institute_name') }}<span
                                                 class="required"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -61,7 +61,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $videoCategory->institute->title_en, 'id' =>  $videoCategory->institute_id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}">
+                                                data-placeholder="{{ __('course_management::admin.video_categories.institute_name') }}">
                                         </select>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="video_category_id">{{ __('Video Parent Category') }}</label>
+                                    <label for="video_category_id">{{ __('course_management::admin.video_categories.parent_category') }}</label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="parent_id"
                                             id="video_category_id"
@@ -80,7 +80,7 @@
                                             data-preselected-option="{{json_encode(['text' =>  optional(\Module\CourseManagement\App\Models\VideoCategory::find($videoCategory->parent_id))->title_en, 'id' =>  $videoCategory->parent_id ]) }}"
                                             data-filters="{{json_encode(['id' != $videoCategory->id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{ __('course_management::admin.video_categories.parent_category') }}"
                                     >
                                         <option value=""></option>
                                     </select>
@@ -90,13 +90,13 @@
                             @if($edit)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="row_status">Active Status</label>
+                                        <label for="row_status">{{ __('course_management::admin.common.status') }}</label>
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $videoCategory->row_status == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
-                                            <label for="row_status_active" class="custom-control-label">Active</label>
+                                            <label for="row_status_active" class="custom-control-label">{{ __('course_management::admin.status.active') }}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
@@ -105,7 +105,7 @@
                                                    value="{{ \Module\CourseManagement\App\Models\Video::ROW_STATUS_INACTIVE }}"
                                                 {{ ($edit && $videoCategory->row_status == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\VideoCategory::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
-                                                   class="custom-control-label">Inactive</label>
+                                                   class="custom-control-label">{{ __('course_management::admin.status.inactive') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.video_categories.update') : __('course_management::admin.video_categories.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

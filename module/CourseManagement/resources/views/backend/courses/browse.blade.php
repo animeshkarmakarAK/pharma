@@ -56,65 +56,65 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{__('course_management::admin.course.title')}}",
                         data: "title_en",
                         name: "title_en"
                     },
                     {
-                        title: "Code",
+                        title: "{{__('course_management::admin.course.code')}}",
                         data: "code",
                         name: "code"
                     },
 
                     {
-                        title: "Institute Name",
+                        title: "{{__('course_management::admin.course.institute_name')}}",
                         data: "institute_title",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Course Fee",
+                        title: "{{__('course_management::admin.course.course_fee')}}",
                         data: "course_fee",
                         name: "course_fee",
                     },
                     {
-                        title: "Duration",
+                        title: "{{__('course_management::admin.course.duration')}}",
                         data: "duration",
                         name: "duration",
                         visible: false,
                     },
                     {
-                        title: "Target Group",
+                        title: "{{__('course_management::admin.course.target_group')}}",
                         data: "target_group",
                         name: "target_group",
                         visible: false,
                     },
                     {
-                        title: "Objects",
+                        title: "{{__('course_management::admin.course.object')}}",
                         data: "objects",
                         name: "objects",
                         visible: false,
                     },
                     {
-                        title: "Contents",
+                        title: "{{__('course_management::admin.course.content')}}",
                         data: "contents",
                         name: "contents",
                         visible: false,
                     },
                     {
-                        title: "Training Methodology",
+                        title: "{{__('course_management::admin.course.training_methodology')}}",
                         data: "training_methodology",
                         name: "training_methodology",
                         visible: false,
                     },
                     {
-                        title: "Evaluation System",
+                        title: "{{__('course_management::admin.course.evaluation_system')}}",
                         data: "evaluation_system",
                         name: "evaluation_system",
                         visible: false,
                     },
                     {
-                        title: "Status",
+                        title: "{{__('course_management::admin.course.status')}}",
                         data: "row_status",
                         name: "courses.row_status",
                         orderable: false,
@@ -122,7 +122,7 @@
                         visible: true
                     },
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.common.action')}}",
                         data: "action",
                         name: "action",
                         orderable: false,
