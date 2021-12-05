@@ -132,10 +132,10 @@ class HomeController extends BaseController
                 'youth_registrations' => YouthRegistration::count(),
             ];
 
-            return view('course_management::home', compact('staticPage', 'institute', 'publishCourses'));
-        }
+            $introVideo = IntroVideo::whereNull('institute_id')->first();
 
-        return view('course_management::home');
+            return view('course_management::home', compact('staticPage', 'institute', 'publishCourses', 'introVideo'));
+        }
     }
 
     public function success(): \Illuminate\Http\RedirectResponse
