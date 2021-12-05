@@ -32,7 +32,6 @@ class StaticPageController extends Controller
         $institutes = Institute::acl()->active()->get();
         $page = StaticPage::select('id', 'page_id')->get();
         return \view(self::VIEW_PATH . 'edit-add', compact('institutes', 'page'));
-
     }
 
     public function store(Request $request): RedirectResponse

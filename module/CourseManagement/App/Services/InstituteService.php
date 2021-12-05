@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\RequiredIf;
 use Module\CourseManagement\App\Models\Institute;
@@ -32,7 +33,7 @@ class InstituteService
         unset($data['name']);
         $data['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
         $data['role_id'] = 3;
-        $data['password'] = $data['contact_person_password'];
+        $data['password'] = Hash::make($data['contact_person_password']);
         $data['row_status'] = 0;
         unset($data['contact_person_password']);
         User::create($data);
