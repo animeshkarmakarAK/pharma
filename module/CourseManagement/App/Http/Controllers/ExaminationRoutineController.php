@@ -174,19 +174,19 @@ class ExaminationRoutineController extends Controller
     {
         return $this->examinationRoutineService->getExaminationRoutineLists($request);
     }
-
     public function examinationRoutine(Routine $routine)
     {
-        @$user_id = Session::get('user_id');
+        @$examination_id = Session::get('examination_id');
         @$batch_id = Session::get('batch_id');
         @$training_center_id= Session::get('training_center_id');
         $authUser = AuthHelper::getAuthUser();
         $parameters = [];
-        $routines = [];
-        if ($batch_id && $user_id){
+        $examinationRoutines = [];
+        if ($batch_id && $examination_id){
 
-            $user = User::where(['id' => $user_id])->first();
-            $user_name = $user->name_en;
+            //dd($examination_id);
+            $examination = Examination::where(['id' => $examination_id])->first();
+            $examination_name = $examination->code . " - ". substr($examination->exam_details, 0, 100) ;
 
             $batch = Batch::where(['id' => $batch_id])->first();
             $batch_name = $batch->title_en;
@@ -198,14 +198,15 @@ class ExaminationRoutineController extends Controller
             $parameters['training_center_name'] = $training_center_name;
             $parameters['batch_id'] = $batch_id;
             $parameters['batch_name'] = $batch_name;
-            $parameters['user_id'] = $user_id;
-            $parameters['user_name'] = $user_name;
-            $routines = Routine::with('routineClass')
+            $parameters['examination_id'] = $examination_id;
+            $parameters['examination_name'] = $examination_name;
+            $examinationRoutines = ExaminationRoutine::with('examinationRoutineDetail')
                 ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
-                ->whereHas('routineClass', function ($query) use($user_id) {
-                    $query->where('user_id', $user_id);
+                ->whereHas('examinationRoutineDetail', function ($query) use ($examination_id) {
+                    $query->where('examination_id','=', $examination_id);
                 })
                 ->get();
+            //dd($examinationRoutines);
         }elseif ($batch_id){
             $batch = Batch::where(['id' => $batch_id])->first();
             $batch_name = $batch->title_en;
@@ -217,13 +218,14 @@ class ExaminationRoutineController extends Controller
             $parameters['training_center_name'] = $training_center_name;
             $parameters['batch_id'] = $batch_id;
             $parameters['batch_name'] = $batch_name;
-            $routines = Routine::with('routineClass')
+            $examinationRoutines = ExaminationRoutine::with('examinationRoutineDetail')
                 ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
                 ->get();
         }
 
+        //dd($examinationRoutines);
         //return $parameters;
-        return view(self::VIEW_PATH . 'examination-routine',compact('routines','parameters'));
+        return view(self::VIEW_PATH . 'examination-routine',compact('examinationRoutines','parameters'));
     }
 
 
@@ -237,14 +239,14 @@ class ExaminationRoutineController extends Controller
             'batch_id' => 'required'
 
         ]);
-        @Session::forget(['user_id','batch_id','training_center_id']);
-        $user_id = $request->get('user_id');
+        @Session::forget(['examination_id','batch_id','training_center_id']);
+        $examination_id = $request->get('examination_id');
         $batch_id = $request->get('batch_id');
         $training_center_id = $request->get('training_center_id');
 
 
-        Session::put(['user_id'=>$user_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
-        return redirect(route('course_management::admin.weekly-routine'));
+        Session::put(['examination_id'=>$examination_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
+        return redirect(route('course_management::admin.examination-routine'));
 
 
     }

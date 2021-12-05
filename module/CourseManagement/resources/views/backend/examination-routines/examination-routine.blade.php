@@ -22,7 +22,7 @@
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
-                            @if(count($routines) > 0)
+                            @if(count($examinationRoutines) > 0)
                                 <button class="btn btn-sm btn-outline-warning btn-rounded pull-right"
                                         style="margin-top: 0px; width: 80px" onclick="PrintDiv()">
                                     <i class="fa fa-print" aria-hidden="true"></i>
@@ -36,7 +36,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form
-                            action="{{route('course_management::admin.weekly-routine.filter') }}"
+                            action="{{route('course_management::admin.examination-routine.filter') }}"
                             method="POST" class="row1 edit-add-form">
                             @csrf
                             <div class="row">
@@ -120,6 +120,7 @@
                                                 id="batch_id"
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Batch::class)}}"
                                                 data-label-fields="{title_en}"
+                                                data-dependent-fields="#examination_id"
                                                 data-depend-on-optional="training_center_id"
                                                 data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                                 @if(@$parameters['batch_id'])
@@ -140,11 +141,11 @@
                                         </label>
 
                                         <select class="form-control select20"
-                                                name="user_id" id="user_id"
+                                                name="examination_id" id="examination_id"
                                         >
                                             <option value="">{{__('course_management::admin.daily_routine.select')}}</option>
                                             @foreach($trainers as $trainer)
-                                                <option value="{{$trainer->id}}" {{(@$parameters['user_id'] == $trainer->id) ? 'selected' : ''}} >{{$trainer->name_en}}</option>
+                                                <option value="{{$trainer->id}}" {{(@$parameters['examination_id'] == $trainer->id) ? 'selected' : ''}} >{{$trainer->name_en}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -152,19 +153,20 @@
 
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="user_id">
-                                            {{__('course_management::admin.daily_routine.trainer')}}
+                                        <label for="examination_id">
+                                            {{__('course_management::admin.examination_routine.examination')}}
                                             <span class="required"></span>
                                         </label>
 
                                         <select class="form-control select2-ajax-wizard"
-                                                name="user_id"
-                                                id="user_id"
-                                                data-model="{{base64_encode(App\Models\user::class)}}"
-                                                data-label-fields="{name_en}"
-                                                data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'user_type_id'=>1])}}"
-                                                @if(@$parameters['user_id'])
-                                                data-preselected-option="{{json_encode(['text' =>  $parameters['user_name'], 'id' =>  $parameters['user_id']])}}"
+                                                name="examination_id"
+                                                id="examination_id"
+                                                data-model="{{base64_encode(Module\CourseManagement\App\Models\Examination::class)}}"
+                                                data-label-fields="{code} -- {exam_details}"
+                                                data-depend-on-optional="batch_id"
+                                                data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                                @if(@$parameters['examination_id'])
+                                                data-preselected-option="{{json_encode(['text' =>  $parameters['examination_name'], 'id' =>  $parameters['examination_id']])}}"
                                                 @endif
                                                 data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
@@ -192,7 +194,7 @@
 
                             </div>
                         </form>
-                        @if(count($routines) > 0)
+                        @if(count($examinationRoutines) > 0)
                             <div class="datatable-container">
                                 <p class="text-center text-success border-bottom border-top">
                                     Report result on
@@ -204,39 +206,41 @@
                                         {{$parameters['batch_name']}}
                                     @endif
 
-                                    @if(@$parameters['user_id'])
+                                    @if(@$parameters['examination_id'])
 
                                         <span>
-                                            {{__('course_management::admin.daily_routine.trainer')}} :
+                                            {{__('course_management::admin.examination_routine.examination')}} :
                                         </span>
-                                        {{$parameters['user_name']}}
+                                        {{$parameters['examination_name']}}
                                     @endif
                                 </p>
 
                                 <table id="dataTable" class="table table-bordered table-striped dataTable">
                                     <thead>
                                     <tr>
-                                        <th class="text-center">{{__('course_management::admin.routine.day')}}</th>
-                                        <th class="text-center">{{__('course_management::admin.daily_routine.class')}}</th>
+                                        <th class="text-center">{{__('course_management::admin.examination_routine.date')}}</th>
+                                        <th class="text-center">{{__('course_management::admin.examination_routine.examination')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($routines as $routine)
+                                    @foreach($examinationRoutines as $examinationRoutine)
                                         <tr>
-                                            <td>{{$routine->day}}</td>
+                                            <td>
+                                                {{date('jS F , y', strtotime($examinationRoutine->date))}}
+                                            </td>
                                             <td>
                                                 <table class="table">
                                                     <tr>
-                                                        @foreach($routine->routineClass as $routineClass)
+                                                        @foreach($examinationRoutine->examinationRoutineDetail as $examinationRoutineDetail)
                                                             <td class="text-center font-weight-bold">
-                                                                {{ date("g:i A", strtotime($routineClass->start_time)) }} -- {{ date("g:i A", strtotime($routineClass->end_time)) }}
+                                                                {{ date("g:i A", strtotime($examinationRoutineDetail->start_time)) }} -- {{ date("g:i A", strtotime($examinationRoutineDetail->end_time)) }}
                                                             </td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        @foreach($routine->routineClass as $routineClass)
+                                                        @foreach($examinationRoutine->examinationRoutineDetail as $examinationRoutineDetail)
                                                             <td class="text-center">
-                                                                {{$routineClass->class}} -- {{$routineClass->user->name_en}}
+                                                                {{$examinationRoutineDetail->examination->code}} -- {{ substr($examinationRoutineDetail->examination->exam_details,0,100) }}
                                                             </td>
                                                         @endforeach
                                                     </tr>
@@ -322,7 +326,7 @@
 @endpush
 
 <?php
-@Session::forget(['user_id','batch_id','training_center_id']);
+@Session::forget(['examination_id','batch_id','training_center_id']);
 ?>
 
 

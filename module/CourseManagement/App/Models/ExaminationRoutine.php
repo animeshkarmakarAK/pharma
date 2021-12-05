@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
-
+use Session;
 /**
  * Class ExaminationRoutine
  * @package App\Models
@@ -42,6 +42,10 @@ class ExaminationRoutine extends BaseModel
 
     public function examinationRoutineDetail(): HasMany
     {
-        return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id');
+        if (@Session::get('examination_id')){
+            return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id')->where('examination_id',Session::get('examination_id'));
+        }else{
+            return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id');
+        }
     }
 }

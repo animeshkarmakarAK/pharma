@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module\CourseManagement\App\Traits\ScopeAclTrait;
-
+use Session;
 /**
  * Class Routine
  * @package App\Models
@@ -42,6 +42,10 @@ class Routine extends BaseModel
 
     public function routineClass(): HasMany
     {
-        return $this->hasMany(RoutineClass::class);
+        if (@Session::get('user_id')){
+            return $this->hasMany(RoutineClass::class,'routine_id')->where('user_id',Session::get('user_id'));
+        }else{
+            return $this->hasMany(RoutineClass::class,'routine_id');
+        }
     }
 }

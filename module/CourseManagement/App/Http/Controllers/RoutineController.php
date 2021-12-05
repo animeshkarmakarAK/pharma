@@ -195,6 +195,7 @@ class RoutineController extends Controller
                         $query->where('user_id', $user_id);
                     })
                 ->get();
+            //dd($routines);
         }elseif ($batch_id){
             $batch = Batch::where(['id' => $batch_id])->first();
             $batch_name = $batch->title_en;
