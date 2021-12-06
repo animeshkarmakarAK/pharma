@@ -5,6 +5,7 @@ namespace Module\CourseManagement\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class InstituteSeeder extends Seeder
 {
@@ -23,20 +24,18 @@ class InstituteSeeder extends Seeder
             0 =>
                 array(
                     'id' => 1,
-                    'title_en' => 'BITAC',
-                    'code' => '1212',
-                    'domain' => 'https://www.bitac.com',
-                    'address' => 'dhaka-1000',
-                    'row_status' => 1
+                    'name' => 'BITAC',
+                    'email' => 'bitac@gmail.com',
+                    'mobile' => '01837473838',
+                    'office_head_name' => 'SK',
+                    'office_head_post' => 'SWE',
+                    'contact_person_name' => 'HR',
+                    'contact_person_email' => 'HR@gmail.com',
+                    'contact_person_mobile' => 'HR@gmail.com',
+                    'contact_person_post' => 'HR',
+                    'row_status' => 1,
+                    'slug' => Str::slug('bitac')
                 ),
-            1 => array(
-                'id' => 2,
-                'title_en' => 'BASIS',
-                'code' => '1213',
-                'domain' => 'https://www.basis.com',
-                'address' => 'dhaka-1000',
-                'row_status' => 1
-            ),
         ));
         Schema::enableForeignKeyConstraints();
     }

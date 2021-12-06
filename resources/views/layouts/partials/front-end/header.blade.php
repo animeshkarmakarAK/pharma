@@ -1,5 +1,11 @@
 @php
     $currentInstitute = domainConfig('institute');
+    $slug = request()->segment(1);
+
+    if ($slug == 'course-management') {
+        $slug = request()->segment(2);
+    }
+
 @endphp
 
 <div class="container-fluid">
@@ -45,8 +51,12 @@
                     <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
                 </li>
 
+                <li class="nav-item {{ request()->routeIs('course_management::institute-page') ? 'active-menu' : '' }}">
+                    <a href="{{ route('course_management::institute-page', ['instituteSlug' => $slug]) }}" class="btn ">SSP</a>
+                </li>
+
                 <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::course_search') }}" class="btn ">কোর্স সমূহ</a>
+                    <a href="{{ route('course_management::course_search', ['instituteSlug' => $slug]) }}" class="btn ">কোর্স সমূহ</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
@@ -80,13 +90,21 @@
                         </a>
                     </li>
 
-                    {{--<li class="nav-item">
+                    <li class="nav-item">
+                        <a class="btn"
+                           href="{{ route('ssp-registration') }}"
+                           id="bd-versions" aria-haspopup="true">
+                            <i class="fa fa-file"> </i>&nbsp;SSP Registration
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="btn"
                            href="{{ route('course_management::youth.login-form') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp; ফি জমা
                         </a>
-                    </li>--}}
+                    </li>
                 @endif
 
                 @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('youth')->check())

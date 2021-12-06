@@ -46,12 +46,12 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{name}"
                                                 data-dependent-fields="#video_category_id"
-                                                @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $introVideo->institute->title_en, 'id' =>  $introVideo->institute->id])}}"
+                                                @if($edit && !empty($introVideo->institute))
+                                                data-preselected-option="{{json_encode(['text' =>  $introVideo->institute->name, 'id' =>  $introVideo->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('course_management::admin.intro-video.institute_name') }}"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -133,7 +133,7 @@
                     accept: "video/*",
                 },
                 institute_id: {
-                    required: true,
+                    required: false,
                 },
 
                 active_status: {

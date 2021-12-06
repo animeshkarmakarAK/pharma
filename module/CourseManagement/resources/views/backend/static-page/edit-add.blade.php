@@ -115,11 +115,11 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{name}"
                                                 @if($edit && $staticPage->institute)
-                                                data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->title_en, 'id' =>  $staticPage->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->name, 'id' =>  $staticPage->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('course_management::admin.static_page.institute_name') }}"
+                                                data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >
                                         </select>
                                     </div>
@@ -224,7 +224,7 @@
                     }
                 },
                 institute_id: {
-                    required: true,
+                    required: false,
                 },
                 page_contents: {
                     required: function () {

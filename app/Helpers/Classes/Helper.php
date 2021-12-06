@@ -308,4 +308,11 @@ class Helper
                 ),
         );
     }
+
+    public static function getCurrentInstitute($slug)
+    {
+        return Institute::where('slug', $slug)->get();
+    }
 }
+
+

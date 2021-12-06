@@ -24,7 +24,13 @@ return [
         'error_related' => 'This data can not be deleted due to related with other data',
         'error_duplicate' => 'Duplicate data is not allowed, this data already existed in this table',
         'confirm_msg' => 'Are you sure you want to delete this record?',
-
+    ],
+    'examination_name' => [
+        'jsc' => 'JSC',
+        'ssc' => 'SSC',
+        'hsc' => 'HSC',
+        'honors' => 'Honor\'s',
+        'masters' => 'Master\'s',
     ],
 
     'status' => [
@@ -473,5 +479,9 @@ return [
         'select_organization' => 'Select Organization',
 
     ],
+
+    'trainer_information' => [
+
+    ]
 ];
 

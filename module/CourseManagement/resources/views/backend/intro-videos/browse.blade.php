@@ -80,7 +80,7 @@
                     {
                         title: "{{ __('course_management::admin.intro-video.institute_name') }}",
                         data: "institute_name",
-                        name: "institutes.title_en",
+                        name: "institutes.name",
                         visible: false,
                     },
                     {

@@ -128,7 +128,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
-    Route::get('courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+    Route::get('{instituteSlug?}/courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
 
     Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
@@ -183,5 +183,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('institute-events', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
     Route::post('institute-events-date', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
     Route::post('publish-course-training-centers', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'publishCourseTrainingCenter'])->name('publish-course-training-centers');
+    Route::post('ssp-registration', [\Module\CourseManagement\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
 
+    Route::get('{instituteSlug?}/institute-page', [Module\CourseManagement\App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-page');
 });

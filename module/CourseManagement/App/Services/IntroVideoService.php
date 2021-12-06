@@ -6,6 +6,7 @@ namespace Module\CourseManagement\App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
+use Illuminate\Support\Facades\Auth;
 use Module\CourseManagement\App\Models\IntroVideo;
 use Module\CourseManagement\App\Models\Video;
 use Illuminate\Contracts\Validation\Validator;
@@ -33,6 +34,7 @@ class IntroVideoService
     public function createIntroVideo(array $data): IntroVideo
     {
         $data['youtube_video_id'] = $this->getYoutubeVideoKey($data['youtube_video_url']);
+        $data['crated_by'] = Auth::user()->id;
 
         $video = IntroVideo::create($data);
 
@@ -56,11 +58,10 @@ class IntroVideoService
             ],
 
             'institute_id' => [
-                'required',
+                'nullable',
                 'int',
                 'exists:institutes,id',
                 'unique:intro_videos,institute_id,' . $id
-
             ],
         ];
 
@@ -83,10 +84,10 @@ class IntroVideoService
             'intro_videos.row_status',
             'intro_videos.created_at',
             'intro_videos.updated_at',
-            'institutes.title_en as institute_name',
+            'institutes.name as institute_name',
         ]);
 
-        $introVideos->join('institutes', 'intro_videos.institute_id', 'institutes.id');
+        $introVideos->leftJoin('institutes', 'intro_videos.institute_id', 'institutes.id');
 
         return DataTables::eloquent($introVideos)
             ->addColumn('action', static function (IntroVideo $introVideos) use ($authUser) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Services\TrainerService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,9 +24,9 @@ class TrainerController extends BaseController
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * display additional information page
+     * @param int $userId
+     * @return View
      */
     public function index(int $userId): View
     {
@@ -34,10 +35,7 @@ class TrainerController extends BaseController
             ->where('user_type_id', User::USER_TYPE_INSTITUTE_USER_CODE)
             ->first();
 
-
-
         $academicQualifications = $trainer->trainerAcademicQualifications()->get()->keyBy('examination');
-
 
         return \view(self::VIEW_PATH . 'additional-information', ['trainer' => $trainer, 'trainerInstitute' => $trainerInstitute, 'academicQualifications' => $academicQualifications]);
     }
@@ -57,13 +55,16 @@ class TrainerController extends BaseController
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+
+    public function store(Request $request): JsonResponse
     {
-//        $validated = $this->trainerService->validator($request)->validate();
+        $validated = $this->trainerService->validator($request)->validate();
+
         DB::beginTransaction();
         try {
-            $trainer = $this->trainerService->storeTrainerInfo($request->all());
+            $trainer = $this->trainerService->storeTrainerInfo($validated);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -76,7 +77,7 @@ class TrainerController extends BaseController
         }
 
         return response()->json([
-            'message' => __('আপনার রেজিস্ট্রেশন সফল হয়েছে'),
+            'message' => __('information stored successfully!'),
             'alertType' => 'success',
         ]);
     }
