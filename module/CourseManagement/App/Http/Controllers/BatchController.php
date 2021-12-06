@@ -261,10 +261,12 @@ class BatchController extends Controller
     public function trainerMappingUpdate(Request $request)
     {
 
+        //dd($request->all());
 
         $batch_id = $request->get('batch_id');
+        $updates = $request->get('update');
         $deletes = $request->get('delete');
-        $users = $request->get('user_id');
+        return $users = array_unique($request->get('user_id'));
         $authUser = AuthHelper::getAuthUser();
         foreach ($deletes as $key=>$user_id){
             if ($key > 0){

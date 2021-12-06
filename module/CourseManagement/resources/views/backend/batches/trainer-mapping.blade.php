@@ -32,6 +32,7 @@
 
                             <input type="hidden" class="batch" name="batch_id" value="{{$batch_id}}">
                             <input type="hidden" class="delete" name="delete[]" value="0">
+                            <input type="hidden" class="update" name="update[]" value="0">
                             <input type="hidden" class="user" name="user_id[]" value="0">
 
                             <div class="col-sm-6">
@@ -43,6 +44,7 @@
                                             @foreach($trainerBatchs as $trainerBatch)
                                                     <br>
                                                 <div id="AddPhoneDiv{{ ++$sl_div }}">
+                                                    <input type="hidden" class="update" name="update[]" value="{{$trainerBatch->user->id}}">
 
                                                     <label for="user_id">{{ __('Training Center1') }}  <span style="color: red">*</span></label>
                                                     <select class="form-control select2 userid" name="user_id[]" id="user_id{{ ++$user_id }}" required>
