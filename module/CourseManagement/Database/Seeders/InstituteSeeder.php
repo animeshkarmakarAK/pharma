@@ -25,6 +25,7 @@ class InstituteSeeder extends Seeder
                 array(
                     'id' => 1,
                     'name' => 'BITAC',
+                    'title_en' => 'BITAC',
                     'email' => 'bitac@gmail.com',
                     'mobile' => '01837473838',
                     'office_head_name' => 'SK',
