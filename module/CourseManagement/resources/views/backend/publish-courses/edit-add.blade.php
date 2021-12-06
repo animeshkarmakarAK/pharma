@@ -192,7 +192,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('course_management::admin.publish_course.add') : __('course_management::admin.publish_course.publish') }}
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.publish_course.update') : __('course_management::admin.publish_course.add') }}
                                 </button>
                             </div>
                         </form>

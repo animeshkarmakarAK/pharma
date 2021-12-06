@@ -24,8 +24,8 @@ class YearlyTrainingCalendarController extends Controller
         $currentInstitute = domainConfig('institute');
         $courseSessions = PublishCourse::select([
             'publish_courses.id as publish_course_id',
-            'courses.title_bn as title',
-            'courses.title_bn as description',//this for tooltip
+            'courses.title_en as title',
+            'courses.title_en as description',//this for tooltip
             DB::raw('DATE(course_sessions.application_start_date) as start'),
             DB::raw('DATE_ADD(DATE(course_sessions.application_end_date), INTERVAL 1 Day) as end'),
             'publish_courses.institute_id',
@@ -67,7 +67,7 @@ class YearlyTrainingCalendarController extends Controller
             ->groupBy('course_id');
 
         $totalCourseVenues = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue
-                                                FROM (SELECT  courses.title_bn as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id
+                                                FROM (SELECT  courses.title_en as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id
                                                 FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id
                                                 GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
 
@@ -104,9 +104,9 @@ class YearlyTrainingCalendarController extends Controller
             ->where(['publish_courses.course_id' => $id])
             ->where(function ($result) use ($query) {
                 $result
-                    ->where('training_centers.title_bn', 'LIKE', '%' . $query . '%')
-                    ->orWhere('branches.title_bn', 'LIKE', '%' . $query . '%')
-                    ->orwhere('institutes.title_bn', 'LIKE', '%' . $query . '%')
+                    ->where('training_centers.title_en', 'LIKE', '%' . $query . '%')
+                    ->orWhere('branches.title_en', 'LIKE', '%' . $query . '%')
+                    ->orwhere('institutes.title_en', 'LIKE', '%' . $query . '%')
                     ->orWhere('training_centers.address', 'LIKE', '%' . $query . '%')
                     ->orWhere('branches.address', 'LIKE', '%' . $query . '%')
                     ->orWhere('institutes.address', 'LIKE', '%' . $query . '%')

@@ -106,9 +106,10 @@ return [
         'add' => 'Create Course',
         'edit' => 'Edit Course',
         'update' => 'Update Course',
-        'title' => 'Title',
+        'title' => 'Course Title',
         'code'=> 'Code',
         'institute_name' => 'Institute Name',
+        'institute_address' => 'Institute Address',
         'course_fee' => 'Course Fee',
         'duration' => 'Duration',
         'target_group' => 'Target Group',
@@ -121,7 +122,13 @@ return [
         'eligibility' => 'Eligibility',
         'description' => 'Description',
         'status' => 'Status',
-
+        'course_session_list' => 'Course Session List',
+        'enrollment_start' => 'Enrollment Start',
+        'enrollment_end' => 'Enrollment End',
+        'class_start' => 'Class Start',
+        'total_seat' => 'Total Seat',
+        'apply' => 'Apply',
+        'not_found' => 'No session found for this course'
     ],
 
     'event' =>[
@@ -263,7 +270,7 @@ return [
     'publish_course' =>[
         'index' => 'Course Config ',
         'list' => 'Course Config List',
-        'add' => 'Course Config  Course',
+        'add' => 'Create Config  Course',
         'edit' => 'Edit Course Config ',
         'update' => 'Update Course Config',
         'publish' => 'Publish',

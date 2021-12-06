@@ -45,12 +45,12 @@ class CourseSearchController extends Controller
 
     /**
      * @param int $publishCourseId
-     * @return string
+     * @return View
      */
-    public function courseDetails(int $publishCourseId): string
+    public function courseDetails(int $publishCourseId): View
     {
         $publishCourse = PublishCourse::findOrFail($publishCourseId);
-        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details-ajax', ['publishCourse' => $publishCourse])->render();
+        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details', ['publishCourse' => $publishCourse]);
     }
 
 }

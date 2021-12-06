@@ -22,7 +22,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'events' => Module\CourseManagement\App\Http\Controllers\EventController::class,
         'intro-videos' => Module\CourseManagement\App\Http\Controllers\IntroVideoController::class,
         'question-answers' => Module\CourseManagement\App\Http\Controllers\QuestionAnswerController::class,
-
         'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
         'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
         'examination-results' => Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class,
@@ -129,7 +128,9 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
     Route::get('{instituteSlug?}/courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
-    Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+    Route::get('{instituteSlug?}/courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+//    Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+    Route::get('course-details/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
 
     Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
     Route::get('youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');

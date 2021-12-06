@@ -255,7 +255,7 @@
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_en + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span ';
                     html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
@@ -272,7 +272,7 @@
                     html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
                     html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
                     html += '<p class="float-right">';
-                    html += '<a href="javascript:;"';
+                    html += '<a href="{{ route('course_management::course-details', '__') }}"'.replace('__', item.id);
                     html += 'onclick="courseDetailsModalOpen(' + item.id + ')"';
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
@@ -425,18 +425,18 @@
 
                 });
 
-                async function courseDetailsModalOpen(publishCourseId) {
-                    let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));
+                {{--async function courseDetailsModalOpen(publishCourseId) {--}}
+                {{--    let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));--}}
 
-                    if (response?.length) {
-                        $("#course_details_modal").find(".modal-content").html(response);
-                    } else {
-                        let notFound = `<div class="alert alert-danger">Not Found</div>`
-                        $("#course_details_modal").find(".modal-content").html(notFound);
-                    }
+                {{--    if (response?.length) {--}}
+                {{--        $("#course_details_modal").find(".modal-content").html(response);--}}
+                {{--    } else {--}}
+                {{--        let notFound = `<div class="alert alert-danger">Not Found</div>`--}}
+                {{--        $("#course_details_modal").find(".modal-content").html(notFound);--}}
+                {{--    }--}}
 
-                    $("#course_details_modal").modal('show');
-                }
+                {{--    $("#course_details_modal").modal('show');--}}
+                {{--}--}}
 
 
             </script>
