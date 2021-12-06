@@ -1,7 +1,9 @@
 <?php
+
 namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\Helper;
+use Illuminate\Support\Facades\DB;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Services\InstituteService;
 use Illuminate\Contracts\View\View;
@@ -121,5 +123,30 @@ class InstituteController extends Controller
         $institute = Institute::where(['code' => $request->code])->first();
 
         return response()->json($institute === null ? 'true' : 'Code already in use!', 200);
+    }
+
+    public function SSPRegistration(Request $request): RedirectResponse
+    {
+        $sspValidatedData = $this->instituteService->validator($request)->validate();
+
+        DB::beginTransaction();
+
+        try {
+            $this->instituteService->createSSP($sspValidatedData);
+            DB::commit();
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            DB::rollBack();
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
+        return redirect()->route('admin.login-form')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'SSP']),
+            'alert-type' => 'success'
+        ]);
+
     }
 }

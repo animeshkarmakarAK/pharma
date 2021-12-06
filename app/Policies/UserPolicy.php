@@ -22,9 +22,9 @@ class UserPolicy extends MasterBasePolicy
      *
      * @param User $user
      * @param User $model
-     * @return mixed
+     * @return bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user, User $model): bool
     {
         return $user->id == $model->id || $user->hasPermission('view_single_user');
     }
@@ -33,9 +33,9 @@ class UserPolicy extends MasterBasePolicy
      * Determine whether the user can create models.
      *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->hasPermission('create_user') && !$user->isTrainer();
     }
@@ -45,9 +45,9 @@ class UserPolicy extends MasterBasePolicy
      *
      * @param User $user
      * @param User $model
-     * @return mixed
+     * @return bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, User $model): bool
     {
         return $user->id == $model->id || $user->hasPermission('update_user');
     }
@@ -57,9 +57,9 @@ class UserPolicy extends MasterBasePolicy
      *
      * @param User $user
      * @param User $model
-     * @return mixed
+     * @return bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, User $model): bool
     {
         return $user->id != $model->id && $user->hasPermission('delete_user');
     }
@@ -116,5 +116,10 @@ class UserPolicy extends MasterBasePolicy
     public function editTrainerInformation(User $user, User $model): bool
     {
         return $model->isTrainer();
+    }
+
+    public function updateTrainer(User $user, User $model): bool
+    {
+        return $user->hasPermission('update_trainer') && !$user->isSuperUser();
     }
 }

@@ -1,6 +1,19 @@
 @php
-    $currentInstitute = domainConfig('institute');
+
+    $slug = request()->segment(count(request()->segments()));
+
+    if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
+        $slug = null;
+    }
+
+    $currentInstitute = null;
+
+    if ($slug) {
+        $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
+    }
+
 @endphp
+
 <section class="main-footer">
     <div class="container">
         <div class="row">
@@ -8,14 +21,14 @@
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget">
                     <img
-                        src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/nise3-logo/logo1.png')}}"
+                        src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/dpg/logo.svg')}}"
                         alt=""
                         class="img-responsive logo-change" style="height: 60px;">
                     <p>
                         {{  !empty($currentInstitute->description) ? $currentInstitute->description : '' }}
                     </p>
                     <span>
-                            <a href="{{route('course_management::static-content.show', 'aboutus')}}" class="read-more"> <i
+                            <a href="{{route('course_management::static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $slug])}}" class="read-more"> <i
                                     class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                         </span>
                 </div>

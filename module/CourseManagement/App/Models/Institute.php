@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * Class Institute
@@ -37,10 +37,34 @@ class Institute extends BaseModel
 
     const DEFAULT_LOGO = 'institute/default.jpg';
 
-    protected $casts = [
-        'phone_numbers' => 'array',
-        'mobile_numbers' => 'array',
-    ];
+//    protected $casts = [
+//        'phone_numbers' => 'array',
+//        'mobile_numbers' => 'array',
+//    ];
+
+    public function setSlugAttribute($value) {
+
+        if (static::whereSlug($slug = Str::slug($value))->exists()) {
+
+            $slug = $this->incrementSlug($slug);
+        }
+
+        $this->attributes['slug'] = $slug;
+    }
+
+    public function incrementSlug($slug) {
+
+        $original = $slug;
+
+        $count = 2;
+
+        while (static::whereSlug($slug)->exists()) {
+
+            $slug = "{$original}-" . $count++;
+        }
+
+        return $slug;
+    }
 
     public function title(): ?string
     {

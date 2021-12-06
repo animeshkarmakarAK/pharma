@@ -45,7 +45,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
     Route::put('youth-reject-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
 
-
 //    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
 
     Route::post('static-page/image-upload', [Module\CourseManagement\App\Http\Controllers\StaticPageController::class, 'imageUpload'])->name('staticPage.imageUpload');
@@ -138,7 +137,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 });
 
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
-    Route::get('courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+    Route::get('courses-search/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
 
     Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
@@ -153,15 +152,15 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::get('youth-certificate-two', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
 
 
-    Route::get('skill-videos', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
+    Route::get('skill-videos/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
     Route::get('skill-videos/{skill_video}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('youth.skill-single-video');
     Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
-    Route::get('general-ask-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
-    Route::get('contact-us-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
+    Route::get('general-ask-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
+    Route::get('contact-us-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
     Route::post('visitor-feedback-store', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');
     Route::get('yearly-training-calendar', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'index'])->name('yearly-training-calendar.index');
     Route::post('yearly-training-calendar-ajax', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'allEvent'])->name('yearly-training-calendar.all-event');
-    Route::get('fiscal-year', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'fiscalYear'])->name('fiscal-year');
+    Route::get('fiscal-year/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'fiscalYear'])->name('fiscal-year');
     Route::get('venue-list/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueList'])->name('venue-list');
 
 //    Route::post('venue-list', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
@@ -177,7 +176,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('youth-login', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
     Route::post('youth-logout', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
 
-    Route::get('sc/{page_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
+    Route::get('sc/{page_id}/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
         ->name('static-content.show');
 
     Route::post('youth/recover-access-key-by-email', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
@@ -193,5 +192,8 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('institute-events', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
     Route::post('institute-events-date', [Module\CourseManagement\App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
     Route::post('publish-course-training-centers', [\Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'publishCourseTrainingCenter'])->name('publish-course-training-centers');
+    Route::post('ssp-registration', [\Module\CourseManagement\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
 
+    Route::get('institute-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-page');
+    Route::get('institute-details/{id}', [Module\CourseManagement\App\Http\Controllers\Frontend\InstitutePageController::class, 'details'])->name('institute-details');
 });

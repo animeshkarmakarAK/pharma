@@ -23,7 +23,7 @@ class StaticPageService
     {
         $rules = [
             'title_en' => ['required', 'string', 'max:191'],
-            'institute_id' => ['bail', 'required', 'int', 'exists:institutes,id'],
+            'institute_id' => ['bail', 'nullable', 'int', 'exists:institutes,id'],
             'page_id' => [
                 'required',
                 'string',
@@ -62,12 +62,12 @@ class StaticPageService
             'static_pages.institute_id',
             'static_pages.page_id',
             'static_pages.page_contents',
-            'institutes.title_en as institute_title_en',
+            'institutes.name as institute_title_en',
             'static_pages.created_by',
             'static_pages.created_at',
             'static_pages.updated_at'
         ]);
-        $staticPage->join('institutes', 'static_pages.institute_id', 'institutes.id');
+        $staticPage->leftJoin('institutes', 'static_pages.institute_id', 'institutes.id');
 
         return DataTables::eloquent($staticPage)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (StaticPage $staticPage) use ($authUser) {

@@ -189,6 +189,7 @@
                     default:
                         disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
                 }
+
             })
 
             editAddModal.on('hidden.bs.modal', function () {
