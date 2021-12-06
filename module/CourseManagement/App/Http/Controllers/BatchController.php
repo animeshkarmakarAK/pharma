@@ -44,8 +44,10 @@ class BatchController extends Controller
      */
     public function create()
     {
-        $currentInstitute = domainConfig('institute');
-        $publishCourses = PublishCourse::where('institute_id',$currentInstitute->id)->get();
+        //dd('sdf');
+        //return $currentInstitute = domainConfig('institute');
+        $authUser = AuthHelper::getAuthUser();
+        $publishCourses = PublishCourse::where('institute_id',$authUser->institute_id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
             'publishCourses' => $publishCourses,
