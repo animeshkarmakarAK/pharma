@@ -26,7 +26,7 @@ class StaticPageSeeder extends Seeder
                     'id' => 1,
                     'title_en' => 'About Us',
                     'title_bn' => 'আমাদের সম্পর্কে',
-                    'page_id' => 'about_us',
+                    'page_id' => 'aboutus',
                     'institute_id' => '1',
                     'created_by' => '1',
                     'page_contents' => '<h2 class="section-heading" style="text-align: center;">আমাদের সম্পর্কে</h2>
