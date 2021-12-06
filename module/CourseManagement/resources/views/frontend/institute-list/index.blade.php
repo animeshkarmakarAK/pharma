@@ -27,11 +27,6 @@
                                         </label>
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <button class="btn btn-success button-bg mb-2"
-                                                id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
-                                    </div>
-
                                     <div class="col-md-3 mb-3">
                                         <div class="input-group">
                                             <input type="search" name="search" id="search" class="form-control"
@@ -188,27 +183,19 @@
                     html += '<div class="card-bar-home-course">';
                     html += '<div class="pb-3">';
                     html += '<img class="slider-img border-top-radius"';
-                    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item?.cover_image) + '" width="100%"';
+                    html += item?.cover_image ? 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"' : 'src="http://via.placeholder.com/640x360" width="100%"';
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item?.title_en + '</p>';
-                    html += '<p class="font-weight-light mb-1"><i';
-                    html += 'class="fas fa-clock gray-color"></i> <span ';
-                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item?.post_head_name ? item.post_head_name : ' সময়কাল নির্ধারিত হয়নি') +
-                        '</span>';
-                    html += '</p>';
-                    html += '<p class="font-weight-light mb-0"><i';
-                    html += 'class="fas fa-user-plus gray-color"></i>';
-                    html += '<span ';
-                    html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'আসন সংখ্যা ( <span class="max-enroll">' + item?.total_seat + '</span> )</span>';
-                    html += '</p>';
-
+                    html += '<p class="font-weight-bold course-heading-wrap">SSP Name: ' + item?.title_en + '</p>';
+                    html += '<p class="course-heading-wrap"><span class="font-weight-bold">Office Head:</span> ' + item?.office_head_post + ' ' + item?.office_head_name + '</p>';
+                    html += '<h5>Contact Information</h5>';
+                    html += '<p class="font-weight-bold course-heading-wrap">Name: ' + item?.contact_person_name + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">Mobile: ' + item?.contact_person_mobile + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">Address: ' + item?.address ?? " " + '</p>';
                     html += '<p class="float-right">';
-                    html += '<a href="javascript:;"';
-                    html += 'onclick="courseDetailsModalOpen(' + item?.id + ')"';
+                    html += '<a href="{{ route('course_management::institute-details', '__')}}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';
@@ -267,7 +254,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const instituteFetch = searchAPI({
                     model: "{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}",
-                    columns: 'id|title_en'
+                    columns: 'id|title_en|contact_person_name|contact_person_email|contact_person_mobile|address|office_head_name|office_head_post'
                 });
 
                 function instituteSearch(url = baseUrl) {
@@ -276,7 +263,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['institute.title_en'] = {
+                        filters['title_en'] = {
                             type: 'contain',
                             value: searchQuery
                         };

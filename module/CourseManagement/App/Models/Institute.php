@@ -64,7 +64,6 @@ class Institute extends BaseModel
         }
 
         return $slug;
-
     }
 
     public function title(): ?string

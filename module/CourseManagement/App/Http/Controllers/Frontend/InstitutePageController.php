@@ -5,7 +5,6 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 use Illuminate\Contracts\View\View;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Institute;
-use Module\CourseManagement\App\Models\Programme;
 use Module\CourseManagement\App\Models\PublishCourse;
 
 class InstitutePageController extends Controller
@@ -27,13 +26,12 @@ class InstitutePageController extends Controller
     }
 
     /**
-     * @param int $publishCourseId
-     * @return string
+     * @param int $id
+     * @return View
      */
-    public function courseDetails(int $publishCourseId): string
+    public function details(int $id): View
     {
-        $publishCourse = PublishCourse::findOrFail($publishCourseId);
-        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details-ajax', ['publishCourse' => $publishCourse])->render();
+        $institute = Institute::findOrFail($id);
+        return \view('course_management::frontend.ssp.details', compact('institute'));
     }
-
 }

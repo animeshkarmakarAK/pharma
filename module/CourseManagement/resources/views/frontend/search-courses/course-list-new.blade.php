@@ -42,7 +42,7 @@
                                                         name="institute_id"
                                                         id="institute_id"
                                                         data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                                        data-label-fields="{title_bn}"
+                                                        data-label-fields="{title_en}"
                                                         data-dependent-fields="#publish_course_id|#programme_id"
                                                         data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                                 >
