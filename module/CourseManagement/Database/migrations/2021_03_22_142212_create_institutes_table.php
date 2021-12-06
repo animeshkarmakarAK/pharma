@@ -15,6 +15,7 @@ class CreateInstitutesTable extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title_en', 191);
             $table->string('name', 191);
             $table->string('email', 191);
             $table->string('mobile', 191);
