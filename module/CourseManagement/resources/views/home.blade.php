@@ -1,5 +1,17 @@
 @php
     $layout = 'master::layouts.front-end';
+    $slug = request()->segment(count(request()->segments()));
+
+    if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
+        $slug = null;
+    }
+
+    $currentInstitute = null;
+
+    if ($slug) {
+        $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
+    }
+
 @endphp
 
 @extends($layout)
@@ -25,7 +37,7 @@
 
                                     </p>
 
-                                    <a href="{{route('course_management::static-content.show', 'aboutus')}}"
+                                    <a href="{{route('course_management::static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
                                        target="_blank"
                                        class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন <i
                                             class="fas fa-arrow-right btn-arrow"></i></a>

@@ -5,6 +5,7 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\CourseSession;
+use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -52,9 +53,9 @@ class YearlyTrainingCalendarController extends Controller
         return $courseSessions->get()->toArray();
     }
 
-    public function fiscalYear(): view
+    public function fiscalYear($instituteSlug): view
     {
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
         $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
         $from = date(($year - 1) . '-07-01');
         $to = date($year . '-06-30');

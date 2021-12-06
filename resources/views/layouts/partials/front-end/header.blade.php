@@ -1,10 +1,15 @@
 @php
-    $currentInstitute = domainConfig('institute');
-    $slug = request()->segment(1);
+    $slug = request()->segment(count(request()->segments()));
 
-    if ($slug == 'course-management') {
-        $slug = request()->segment(2);
-    }
+   if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
+       $slug = null;
+   }
+
+   $currentInstitute = null;
+
+   if ($slug) {
+       $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
+   }
 
 @endphp
 
@@ -14,7 +19,9 @@
             <div class="navbar-nav-scroll">
                 <div class="nise3-logo" style="height: 70px;">
                     <a href="{{ route('/') }}">
-                        <img class="float-left"  src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/nise3-logo/logo1.png')}}" height="100%"
+                        <img class="float-left"
+                             src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/dpg/logo.svg')}}"
+                             height="100%"
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
@@ -22,17 +29,6 @@
                     </div>
                 </div>
             </div>
-            <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
-                    <li class="nav-item">
-                        <a class="nav-item nav-link header-slogan font-weight-600 pl-0"
-                           href="{{ route('/') }}">
-                            {{--<p class="slogan float-right font-weight-500">National Intelligence for Skills Education </p>
-                         <p class="slogan py-1 text-right font-weight-500">Employment and Entrepreneurship</p>--}}
-                            <img src="{{asset('assets/logo/nise3-logo/logo1.png')}}" height="60px"
-                                 alt="Logo"/>
-                        </a>
-                    </li>
-            </ul>
         </header>
     </div>
 </div>
@@ -56,26 +52,32 @@
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::course_search', ['instituteSlug' => $slug]) }}" class="btn ">কোর্স সমূহ</a>
+                    <a href="{{ route('course_management::course_search', ['instituteSlug' => $slug]) }}" class="btn ">কোর্স
+                        সমূহ</a>
                 </li>
 
-                <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::fiscal-year') }}" class="btn ">
-                        প্রশিক্ষণ বর্ষপঞ্জি
-                    </a>
-                </li>
+                @if($slug)
+                    <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
+                        <a href="{{ route('course_management::fiscal-year', $slug) }}" class="btn ">
+                            প্রশিক্ষণ বর্ষপঞ্জি
+                        </a>
+                    </li>
+                @endif
+
 
                 <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::youth.skill_videos') }}" class="btn ">ভিডিও সমূহ</a>
+                    <a href="{{ route('course_management::youth.skill_videos', $slug) }}" class="btn ">ভিডিও সমূহ</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::general-ask-page') }}" class="btn">সাধারণ জিজ্ঞাসা</a>
+                    <a href="{{ route('course_management::general-ask-page', $slug) }}" class="btn">সাধারণ জিজ্ঞাসা</a>
                 </li>
 
-                <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::contact-us-page') }}" class="btn">যোগাযোগ</a>
-                </li>
+                @if($slug)
+                    <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
+                        <a href="{{ route('course_management::contact-us-page', $slug) }}" class="btn">যোগাযোগ</a>
+                    </li>
+                @endif
 
             </ul>
 

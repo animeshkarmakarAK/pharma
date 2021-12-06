@@ -313,6 +313,15 @@ class Helper
     {
         return Institute::where('slug', $slug)->get();
     }
+
+    public static function validSlug($slug): bool
+    {
+        if (!$slug) {
+            return false;
+        }
+        $institute = Institute::where('slug', $slug)->first();
+        return !empty($institute);
+    }
 }
 
 

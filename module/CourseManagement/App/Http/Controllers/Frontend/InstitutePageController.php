@@ -5,7 +5,6 @@ namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 use Illuminate\Contracts\View\View;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\Institute;
-use Module\CourseManagement\App\Models\PublishCourse;
 
 class InstitutePageController extends Controller
 {
@@ -16,9 +15,9 @@ class InstitutePageController extends Controller
      */
     const VIEW_PATH = 'course_management::frontend.institute-list.';
 
-    public function index($instituteSlug): View
+    public function index($instituteSlug = null): View
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->get();
+//        $currentInstitute = Institute::where('slug', $instituteSlug)->get();
 
         $institutes = Institute::all();
 

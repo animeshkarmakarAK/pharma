@@ -23,6 +23,7 @@ class InstituteService
     public function createSSP(array $data): Institute
     {
         $instituteData = Arr::except($data, ['contact_person_password', 'contact_person_password_confirmation']);
+        $instituteData['title_en'] = $instituteData['name'];
         $instituteData['slug'] = Str::slug($instituteData['name']);
         $institute = Institute::create($instituteData);
 

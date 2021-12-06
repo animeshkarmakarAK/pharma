@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Module\CourseManagement\App\Http\Controllers\Controller;
 use Module\CourseManagement\App\Models\CourseSession;
 use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
+use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\Payment;
 use Module\CourseManagement\App\Models\QuestionAnswer;
 use Module\CourseManagement\App\Models\Video;
@@ -154,11 +155,19 @@ class YouthController extends Controller
         //return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
 
-    public function videos(): View
+    public function videos($instituteSlug = null): View
     {
-        $currentInstitute = domainConfig('institute');
-        $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
-        $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
+        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+
+        $youthVideos = collect([]);
+        $youthVideoCategories = collect([]);
+        if ($currentInstitute) {
+            $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
+            $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
+        }else {
+            $youthVideos = Video::whereNull('institute_id')->get();
+        }
+
         return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
 
@@ -225,10 +234,17 @@ class YouthController extends Controller
         return \view(self::VIEW_PATH . 'static-contents.advice-page');
     }
 
-    public function generalAskPage(): View
+    public function generalAskPage($instituteSlug = null): View
     {
-        $currentInstitute = domainConfig('institute');
-        $data = QuestionAnswer::where('institute_id',$currentInstitute->id)->get();
+        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+
+        $data = collect([]);
+
+        if (!empty($currentInstitute)) {
+            $data = QuestionAnswer::where('institute_id',$currentInstitute->id)->get();
+        }
+
+
         $dataOld = [
             [
                 "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
@@ -272,12 +288,17 @@ class YouthController extends Controller
             ],
         ];
 
+        if (empty($currentInstitute)) {
+            $data = collect($dataOld);
+        }
+
         return \view(self::VIEW_PATH . 'static-contents.general-ask-page', compact('data'));
     }
 
-    public function contactUsPage(): View
+    public function contactUsPage($instituteSlug): View
     {
-        return \view(self::VIEW_PATH . 'static-contents.contact-us-page');
+        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        return \view(self::VIEW_PATH . 'static-contents.contact-us-page', compact('currentInstitute'));
     }
 
     public function sendMailToRecoverAccessKey(Request $request): \Illuminate\Http\RedirectResponse
