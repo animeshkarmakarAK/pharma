@@ -30,6 +30,11 @@ class BatchPolicy extends BasePolicy
         return $user->hasPermission('view_single_batch');
     }
 
+    public function trainerMapping(User $user, Batch $batch): bool
+    {
+        return $user->hasPermission('trainer_mapping_batch');
+    }
+
     /**
      * Determine whether the user can create models.
      *

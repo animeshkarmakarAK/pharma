@@ -98,6 +98,9 @@ class BatchService
                 if ($authUser->can('viewBachYouth', $batch)) {
                     $str .= '<a href="' . route('course_management::admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('Trainee List') . '</a>';
                 }
+                if ($authUser->can('trainerMapping', $batch)) {
+                    $str .= '<a href="' . route('course_management::admin.batches.trainer-mapping', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('Trainer Mapping') . '</a>';
+                }
 
                 if ($authUser->can('update', $batch)) {
                     $str .= '<a href="' . route('course_management::admin.batches.edit', $batch->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . '</a>';

@@ -68,6 +68,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::post('question-answers/datatable', [Module\CourseManagement\App\Http\Controllers\QuestionAnswerController::class, 'getDatatable'])->name('question-answers.datatable');
 
     Route::get('batches/{id}/youths', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'index'])->name('batches.youths');
+    Route::get('batches/{id}/trainer-mapping', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'trainerMapping'])->name('batches.trainer-mapping');
+    Route::post('batches/trainer-mapping-update', [Module\CourseManagement\App\Http\Controllers\BatchController::class, 'trainerMappingUpdate'])->name('batches.trainer-mapping-update');
     Route::post('batches/{id}/youths-import', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'importYouth'])->name('batches.youths-import');
 
     Route::post('batches/{id}/youths/datatable', [Module\CourseManagement\App\Http\Controllers\YouthBatchController::class, 'getDatatable'])->name('batches.youths.datatable');

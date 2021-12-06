@@ -2,6 +2,10 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use App\Helpers\Classes\AuthHelper;
+use App\Models\User;
+use Module\CourseManagement\App\Models\Examination;
+use Module\CourseManagement\App\Models\TrainerBatch;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\TrainingCenter;
@@ -237,5 +241,57 @@ class BatchController extends Controller
     {
         $publishCourse = PublishCourse::findOrFail($request->publish_course_id);
         return TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
+    }
+
+    public function trainerMapping($id)
+    {
+        //return $trainerBatch =  TrainerBatch::get();
+        $trainerBatchs =  TrainerBatch::with('batch','user')
+            ->where(['batch_id'=>$id])
+            ->whereHas('user', function ($query) {
+                $query->where('user_type_id', 7);
+            })
+            ->get();
+
+        $trainers = User::where('user_type_id', 7)->get();
+        $batch_id = $id;
+        return view(self::VIEW_PATH . 'trainer-mapping', compact('trainers','trainerBatchs','batch_id'));
+    }
+
+    public function trainerMappingUpdate(Request $request)
+    {
+
+
+        $batch_id = $request->get('batch_id');
+        $deletes = $request->get('delete');
+        $users = $request->get('user_id');
+        $authUser = AuthHelper::getAuthUser();
+        foreach ($deletes as $key=>$user_id){
+            if ($key > 0){
+                $count = Examination::where(['batch_id'=>$batch_id, 'created_by'=>$user_id])->count();
+                if ($count == 0 ){
+                    TrainerBatch::where(['batch_id'=>$batch_id, 'user_id'=>$user_id])->delete();
+                }
+            }
+        }
+
+        foreach ($users as $key=>$user_id){
+            if ($key > 0){
+                //echo $user_id;
+                $count = TrainerBatch::where(['batch_id'=>$batch_id, 'user_id'=>$user_id])->count();
+                if ($count == 0){
+                    TrainerBatch::create(['batch_id'=>$batch_id, 'user_id'=>$user_id, 'created_at'=>$authUser->id]);
+                }
+            }
+        }
+
+        //dd($request->all());
+
+
+        return back()->with([
+            'message' => __('course_management::admin.common.success'),
+            'alert-routine' => 'success'
+        ]);
+
     }
 }
