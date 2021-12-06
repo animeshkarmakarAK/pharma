@@ -2,12 +2,15 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
+use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\IntroVideo;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\Slider;
@@ -21,14 +24,14 @@ class HomeController extends BaseController
      * Show the application dashboard.
      * @return View
      */
-    public function index(): View
+    public function index($SSPSlug = null): View
     {
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = Institute::where('slug', $SSPSlug)->first();
+
         if ($currentInstitute) {
             $currentInstituteCourses = PublishCourse::where([
                 'institute_id' => $currentInstitute->id,
             ]);
-
 
             $runningCourses = PublishCourse::select([
                 'publish_courses.id as id',
@@ -113,33 +116,49 @@ class HomeController extends BaseController
             ])->orderBy('id', 'DESC')->first();
 
             return view('course_management::welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents', 'introVideo', 'runningCourses', 'upcomingCourses'));
+        } else {
+            $staticPage = StaticPage::orderBy('id', 'DESC')
+                ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)
+                ->whereNull('institute_id')
+                ->where('created_by', User::USER_TYPE_SUPER_USER_CODE)
+                ->limit(1)
+                ->first();
+
+            $publishCourses = PublishCourse::with('course')->get();
+
+            $institute = [
+                'courses' => PublishCourse::count(),
+                'training_centers' => TrainingCenter::count(),
+                'youth_registrations' => YouthRegistration::count(),
+            ];
+
+            $introVideo = IntroVideo::whereNull('institute_id')->first();
+
+            return view('course_management::home', compact('staticPage', 'institute', 'publishCourses', 'introVideo'));
         }
-
-        $institute = [
-            'courses' => PublishCourse::count(),
-            'training_centers' => TrainingCenter::count(),
-            'youth_registrations' => YouthRegistration::count(),
-        ];
-
-        return view('course_management::home');
     }
 
-    public function success()
+    public function success(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('course_management::youth-enrolled-courses')
             ->with(['message' => 'আপনার পেমেন্ট সফলভাবে পরিশোধ করা হয়েছে, দয়া করে অপেক্ষা করুন', 'alert-type' => 'success']);
     }
 
-    public function fail()
+    public function fail(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('course_management::youth-enrolled-courses')
             ->with(['message' => 'পেমেন্ট ব্যর্থ হয়েছে, অনুগ্রহ করে পরে আবার চেষ্টা করুন', 'alert-type' => 'warning']);
     }
 
-    public function cancel()
+    public function cancel(): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('course_management::youth-enrolled-courses')
             ->with(['message' => 'পেমেন্ট বাতিল হয়েছে, দয়া করে আবার চেষ্টা করুন', 'alert-type' => 'error']);
+    }
+
+    public function sspRegistrationForm(): View
+    {
+        return \view('course_management::frontend.ssp.registration-form');
     }
 
 }

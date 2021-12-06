@@ -1,25 +1,20 @@
 @php
-    $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
-
 @endphp
 
 @extends($layout)
 
 @section('title')
-    কোর্স সমূহ
+    Institutes
 @endsection
 
 @section('content')
-{{--    @foreach($maxEnrollmentNumber[0] as $max)--}}
-{{--        <pre>{{$max->publish_course_id}} => {{$max->total_seat}}</pre>--}}
-{{--    @endforeach--}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header p-5">
-                        <h2 class="card-header-title text-center text-dark font-weight-bold">কোর্স সমূহ</h2>
+                        <h2 class="card-header-title text-center text-dark font-weight-bold">Institutes</h2>
                     </div>
                     <div class="card-background-white px-5 py-4">
                         <div class="row mb-3">
@@ -30,62 +25,6 @@
                                             style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
                                             &nbsp;&nbsp;<i class="fa fa-filter mr-2"></i> ফিল্টার
                                         </label>
-                                    </div>
-
-                                    @if(!empty($currentInstitute))
-                                        <input type="hidden" name="institute_id" id="institute_id"
-                                               value="{{ $currentInstitute->id }}">
-                                    @else
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <select class="form-control select2-ajax-wizard"
-                                                        name="institute_id"
-                                                        id="institute_id"
-                                                        data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
-                                                        data-label-fields="{title_en}"
-                                                        data-dependent-fields="#publish_course_id|#programme_id"
-                                                        data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
-                                                >
-                                                    <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="publish_course_id"
-                                                    id="publish_course_id"
-                                            >
-                                                <option value="">কোর্সের নাম নির্বাচন করুন</option>
-                                                @foreach($publishCourses as $publishCourse)
-                                                    <option
-                                                        value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_bn }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control"
-                                                    name="programme_id"
-                                                    id="programme_id"
-                                            >
-                                                <option value="">প্রোগ্রামের নাম নির্বাচন করুন</option>
-                                                @foreach($programmes as $programme)
-                                                    <option
-                                                        value="{{ $programme->id }}">{{ $programme->title_bn }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-2">
-                                        <button class="btn btn-success button-bg mb-2"
-                                                id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
                                     </div>
 
                                     <div class="col-md-3 mb-3">
@@ -101,7 +40,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="overlay" style="display: none">
+                                        <div class="overlay" style="display: none; background: inherit; color: inherit">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                         </div>
                                     </div>
@@ -122,18 +61,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
-                <div class="row">
-                    <div class="col-sm-10 mx-auto">
-                        <div class="modal-dialog" style="max-width: 100%">
-                            <div class="modal-content modal-xlg" style="background-color: #e6eaeb">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
         @endsection
         @push('css')
@@ -191,31 +118,37 @@
                 .gray-color {
                     color: #73727f;
                 }
+
                 .course-heading-wrap {
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     overflow: hidden;
                 }
+
                 .course-heading-wrap:hover {
                     overflow: visible;
                     white-space: normal;
                     cursor: pointer;
                 }
+
                 .course-p {
                     font-size: 14px;
                     font-weight: 400;
                     color: #671688;
                 }
+
                 .header-bg {
                     background: #671688;
-                    color:white;
+                    color: white;
                 }
+
                 .modal-header .close, .modal-header .mailbox-attachment-close {
                     padding: 1rem;
                     margin: -1rem -1rem -1rem auto;
                     color: white;
                     outline: none;
                 }
+
                 .card-p1 {
                     color: #671688;
                 }
@@ -243,37 +176,26 @@
                     return str;
                 };
 
-                const template = function (key, item) {
+                const template = function (item) {
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-3">';
                     html += '<div class="card-bar-home-course">';
                     html += '<div class="pb-3">';
                     html += '<img class="slider-img border-top-radius"';
-                    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.course_cover_image) + '" width="100%"';
+                    html += item?.cover_image ? 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"' : 'src="http://via.placeholder.com/640x360" width="100%"';
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
-                    html += '<p class="font-weight-light mb-1"><i';
-                    html += 'class="fas fa-clock gray-color"></i> <span ';
-                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
-                        '</span>';
-                    html += '</p>';
-                    html += '<p class="font-weight-light mb-0"><i';
-                    html += 'class="fas fa-user-plus gray-color"></i>';
-                    html += '<span ';
-                    html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'আসন সংখ্যা ( <span class="max-enroll">'+ item.total_seat +'</span> )</span>';
-                    html += '</p>';
-
-                    html += '<p class="card-p1 float-left mb-1">';
-                    html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
-                    html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">SSP Name: ' + item?.title_en + '</p>';
+                    html += '<p class="course-heading-wrap"><span class="font-weight-bold">Office Head:</span> ' + item?.office_head_post + ' ' + item?.office_head_name + '</p>';
+                    html += '<h5>Contact Information</h5>';
+                    html += '<p class="font-weight-bold course-heading-wrap">Name: ' + item?.contact_person_name + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">Mobile: ' + item?.contact_person_mobile + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">Address: ' + item?.address ?? " " + '</p>';
                     html += '<p class="float-right">';
-                    html += '<a href="javascript:;"';
-                    html += 'onclick="courseDetailsModalOpen(' + item.id + ')"';
+                    html += '<a href="{{ route('course_management::institute-details', '__')}}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';
@@ -285,7 +207,6 @@
                 }
 
                 const paginatorLinks = function (link) {
-                    //console.log(link)
                     if (link.label == 'pagination.previous') {
                         link.label = 'Previous'
                     }
@@ -306,7 +227,6 @@
                     }
                     return html;
                 }
-
 
 
                 const searchAPI = function ({model, columns}) {
@@ -332,36 +252,24 @@
                 };
 
                 let baseUrl = '{{route('web-api.model-resources')}}';
-                const publishCourseFetch = searchAPI({
-                    model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
-                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.cover_image|course.course_fee|course.duration|course_session.max_seat_available'
+                const instituteFetch = searchAPI({
+                    model: "{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}",
+                    columns: 'id|title_en|contact_person_name|contact_person_email|contact_person_mobile|address|office_head_name|office_head_post'
                 });
 
-                function publishCourseSearch(url = baseUrl) {
+                function instituteSearch(url = baseUrl) {
                     $('.overlay').show();
                     let searchQuery = $('#search').val();
-                    let institute = $('#institute_id').val();
-                    let videoCategory = $('#programme_id').val();
-                    let video = $('#publish_course_id').val();
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['course.title_bn'] = {
+                        filters['title_en'] = {
                             type: 'contain',
                             value: searchQuery
                         };
                     }
-                    if (institute?.toString()?.length) {
-                        filters['institute_id'] = institute;
-                    }
-                    if (videoCategory?.toString()?.length) {
-                        filters['programme_id'] = videoCategory;
-                    }
-                    if (video?.toString()?.length) {
-                        filters['id'] = video;
-                    }
 
-                    publishCourseFetch(url, filters)?.then(function (response) {
+                    instituteFetch(url, filters)?.then(function (response) {
                         $('.overlay').hide();
                         window.scrollTo(0, 0);
                         let html = '';
@@ -369,18 +277,8 @@
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
 
-                        let seat = @php echo json_encode($maxEnrollmentNumber); @endphp;
-
                         $.each(response.data?.data, function (i, item) {
-
-                            for(let k=0; k < seat[0].length; k++){
-                                let name = seat[0][k].publish_course_id;
-                                if(name == item.id){
-                                    item.total_seat = engToBdNum(seat[0][k].total_seat);
-                                    break;
-                                }
-                            }
-                            html += template(seat[0][i].publish_course_id, item);
+                            html += template(item);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -398,47 +296,19 @@
                 }
 
                 $(document).ready(function () {
-                    publishCourseSearch();
+                    instituteSearch();
                     $(document).on('click', '.pagination .page-link', function (e) {
                         e.preventDefault();
                         let url = $(this).attr('href');
                         if (url) {
-                            publishCourseSearch(url);
+                            instituteSearch(url);
                         }
                     });
 
                     $("#search").on("keyup change", function (e) {
-                        publishCourseSearch();
+                        instituteSearch();
                     })
-
-                    $('#skill-video-search-btn').on('click', function () {
-                        publishCourseSearch();
-                    });
-
-                    $('#programme_id').on('change', function () {
-                        publishCourseSearch();
-                    });
-
-                    $('#publish_course_id').on('change', function () {
-                        publishCourseSearch();
-                    });
-
                 });
-
-                async function courseDetailsModalOpen(publishCourseId) {
-                    let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));
-
-                    if (response?.length) {
-                        $("#course_details_modal").find(".modal-content").html(response);
-                    } else {
-                        let notFound = `<div class="alert alert-danger">Not Found</div>`
-                        $("#course_details_modal").find(".modal-content").html(notFound);
-                    }
-
-                    $("#course_details_modal").modal('show');
-                }
-
-
             </script>
-
     @endpush
+

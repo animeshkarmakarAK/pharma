@@ -18,19 +18,29 @@ class CourseSearchController extends Controller
      */
     const VIEW_PATH = 'course_management::frontend.search-courses.';
 
-    public function findCourse(): View
+    public function findCourse($instituteSlug = null): View
     {
-        $currentInstitute = domainConfig('institute');
-        $programmes = Programme::where('institute_id',$currentInstitute->id)->get();
-        $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->get();
+        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        $programmes = null;
+        $publishCourses = null;
 
         $maxEnrollmentNumber = [];
-        foreach ($publishCourses as $publishCourse) {
-              $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::select('publish_course_id',\DB::raw("SUM(max_seat_available) as total_seat"))
-                  ->groupBy('publish_course_id')->get();
+
+        if ($currentInstitute) {
+            $programmes = Programme::where('institute_id', $currentInstitute->id)->get();
+            $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->get();
+
+        } else {
+            $programmes = Programme::all();
+            $publishCourses = PublishCourse::all();
         }
 
-        return view(self::VIEW_PATH.'course-list-new', compact('programmes', 'publishCourses','maxEnrollmentNumber'));
+        foreach ($publishCourses as $publishCourse) {
+            $maxEnrollmentNumber[] = \Module\CourseManagement\App\Models\CourseSession::select('publish_course_id', \DB::raw("SUM(max_seat_available) as total_seat"))
+                ->groupBy('publish_course_id')->get();
+        }
+
+        return view(self::VIEW_PATH . 'course-list-new', compact('programmes', 'publishCourses', 'maxEnrollmentNumber'));
     }
 
     /**
@@ -40,7 +50,7 @@ class CourseSearchController extends Controller
     public function courseDetails(int $publishCourseId): string
     {
         $publishCourse = PublishCourse::findOrFail($publishCourseId);
-        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH.'course-details-ajax', ['publishCourse' => $publishCourse])->render();
+        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details-ajax', ['publishCourse' => $publishCourse])->render();
     }
 
 }

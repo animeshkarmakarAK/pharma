@@ -76,9 +76,9 @@
 
                                     </p>
 
-                                    <a href="{{route('course_management::static-content.show', 'aboutus')}}"
+                                    <a href="{{route('course_management::static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
                                        target="_blank"
-                                       class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন <i
+                                       class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন<i
                                             class="fas fa-arrow-right btn-arrow"></i></a>
                                 @else
                                     <p> {!! $staticPage->page_contents !!}</p>
