@@ -273,7 +273,6 @@
                     html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
                     html += '<p class="float-right">';
                     html += '<a href="{{ route('course_management::course-details', '__') }}"'.replace('__', item.id);
-                    html += 'onclick="courseDetailsModalOpen(' + item.id + ')"';
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';
