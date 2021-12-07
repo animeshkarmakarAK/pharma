@@ -27,6 +27,9 @@ class CreateInstitutesTable extends Migration
             $table->string('contact_person_post');
             $table->string('contact_person_email');
             $table->string('contact_person_mobile');
+            $table->mediumText('description')->nullable();
+            $table->string('google_map_src')->nullable();
+            $table->string('logo')->nullable();
             $table->tinyInteger('row_status')->default(0);
             $table->string('slug');
             $table->timestamps();

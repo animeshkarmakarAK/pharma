@@ -1,7 +1,6 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
-
 @endphp
 
 @extends($layout)
@@ -61,7 +60,7 @@
                                                 <option value="">কোর্সের নাম নির্বাচন করুন</option>
                                                 @foreach($publishCourses as $publishCourse)
                                                     <option
-                                                        value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_bn }}</option>
+                                                        value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -76,7 +75,7 @@
                                                 <option value="">প্রোগ্রামের নাম নির্বাচন করুন</option>
                                                 @foreach($programmes as $programme)
                                                     <option
-                                                        value="{{ $programme->id }}">{{ $programme->title_bn }}</option>
+                                                        value="{{ $programme->id }}">{{ $programme->title_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -243,7 +242,7 @@
                     return str;
                 };
 
-                const template = function (key, item) {
+                const template = function (item) {
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-3">';
@@ -368,8 +367,6 @@
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
 
-                        let seat = @php echo json_encode($maxEnrollmentNumber); @endphp;
-
                         $.each(response.data?.data, function (i, item) {
 
                             for(let k=0; k < seat[0].length; k++){
@@ -379,7 +376,7 @@
                                     break;
                                 }
                             }
-                            html += template(seat[0][i].publish_course_id, item);
+                            html += template(item);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -423,19 +420,6 @@
                     });
 
                 });
-
-                {{--async function courseDetailsModalOpen(publishCourseId) {--}}
-                {{--    let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));--}}
-
-                {{--    if (response?.length) {--}}
-                {{--        $("#course_details_modal").find(".modal-content").html(response);--}}
-                {{--    } else {--}}
-                {{--        let notFound = `<div class="alert alert-danger">Not Found</div>`--}}
-                {{--        $("#course_details_modal").find(".modal-content").html(notFound);--}}
-                {{--    }--}}
-
-                {{--    $("#course_details_modal").modal('show');--}}
-                {{--}--}}
 
 
             </script>
