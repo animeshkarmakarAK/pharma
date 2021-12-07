@@ -4,9 +4,7 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;

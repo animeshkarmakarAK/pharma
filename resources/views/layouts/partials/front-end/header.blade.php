@@ -44,7 +44,7 @@
             <ul class="navbar-nav mr-auto">
                 <!-- Left menu item empty -->
                 <li class="nav-item {{ request()->is('/') ? 'active-menu' : '' }}">
-                    <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
+                    <a href="{{ route('/', ['instituteSlug' => $slug]) }}" class="btn ">প্রথম পাতা</a>
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('course_management::institute-page') ? 'active-menu' : '' }}">

@@ -165,8 +165,7 @@
                                                                         {{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
-                                                                        <a href="javascript:;"
-                                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                                        <a href="{{ route('course-details', $publishCourse->id) }}"
                                                                            class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                                     </p>
                                                                 </div>
@@ -229,8 +228,7 @@
                                                             {{$publishCourse->course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
                                                         <p class="float-right">
-                                                            <a href="javascript:;"
-                                                               onclick="courseDetailsModalOpen('{{ $publishCourse->course->id }}')"
+                                                            <a href="{{ route('course_management::course-details', $publishCourse->id) }}"
                                                                class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                         </p>
                                                     </div>
