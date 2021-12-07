@@ -43,11 +43,6 @@ class BranchService
                 'string',
                 'max:191',
             ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max: 191',
-            ],
             'institute_id' => [
                 'required',
                 'int',
@@ -67,7 +62,6 @@ class BranchService
             [
                 'branches.id as id',
                 'branches.title_en',
-                'branches.title_bn',
                 'institutes.title_en as institute_title_en',
                 'branches.row_status',
                 'branches.created_at',

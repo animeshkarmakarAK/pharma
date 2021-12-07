@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Institute' : 'Update Institute' }}
+    {{ ! $edit ? __('course_management::admin.institute.add') : __('course_management::admin.institute.update') }}
 @endsection
 
 @section('content')
@@ -14,13 +14,13 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Institute' : 'Update Institute' }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? __('course_management::admin.institute.add') : __('course_management::admin.institute.update') }}</h3>
 
                         <div class="card-tools">
                             @can('viewAny', \Module\CourseManagement\App\Models\Institute::class)
                                 <a href="{{route('course_management::admin.institutes.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-backward"></i> Back to list
+                                    <i class="fas fa-backward"></i>{{__('course_management::admin.common.back')}}
                                 </a>
                             @endcan
                         </div>
@@ -37,44 +37,44 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') . ' (English)' }}<span style="color: red"> * </span></label>
+                                    <label for="name">{{ __('course_management::admin.institute.title') }}<span style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $institute->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') . ' (English)' }}">
+                                           placeholder="{{ __('course_management::admin.institute.title') }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Code') }}<span
+                                    <label for="name">{{ __('course_management::admin.institute.code') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="code"
                                            name="code"
                                            data-code="{{ $edit ? $institute->code : '' }}"
                                            value="{{ $edit ? $institute->code : old('code') }}"
-                                           placeholder="{{ __('Code') }}">
+                                           placeholder="{{ __('course_management::admin.institute.code') }}">
 
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="domain">{{ __('Domain') }}<span
+                                    <label for="domain">{{ __('course_management::admin.institute.domain') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="domain"
                                            name="domain"
                                            value="{{ $edit ? $institute->domain : old('domain') }}"
-                                           placeholder="{{ __('Domain') }}">
+                                           placeholder="{{ __('course_management::admin.institute.domain') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="primary_phone">{{ __('Primary Phone') }}</label>
+                                    <label for="primary_phone">{{ __('course_management::admin.institute.primary_phone') }}</label>
                                     <input type="text" class="form-control" id="primary_phone"
                                            name="primary_phone"
                                            value="{{ $edit ? $institute->primary_phone : old('primary_phone') }}"
-                                           placeholder="{{ __('Primary Phone') }}">
+                                           placeholder="{{ __('course_management::admin.institute.primary_phone') }}">
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                                                 @endforeach
                                             @else
                                                 <div id="AddPhoneDiv1">
-                                                    <label>Phone #1 : </label>
+                                                    <label>{{ __('course_management::admin.institute.phone') }} #1 : </label>
                                                     <input type='text' id='phone1' class="form-control phone_numbers"
                                                            name="phone_numbers[]">
                                                 </div>
@@ -103,11 +103,11 @@
                                         </div>
                                         <div class="float-right  btn-group">
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='addPhone'>
-                                                <i class="fa fa-plus-circle"></i> Add More Phone
+                                                <i class="fa fa-plus-circle"></i> {{ __('course_management::admin.institute.add_more_phone') }}
                                             </a>
 
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='removePhone'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
+                                                <i class="fa fa-minus-circle"></i>{{ __('course_management::admin.institute.remove_one') }}
                                             </a>
                                         </div>
                                     </div>
@@ -117,18 +117,18 @@
                                     <div class="form-group">
                                         <div id='AddMultiPhone' class="mb-2">
                                             <div id="AddPhoneDiv1">
-                                                <label>Phone #1 : </label>
+                                                <label>{{ __('course_management::admin.institute.phone') }} #1 : </label>
                                                 <input type='text' id='phone1' class="form-control"
                                                        name="phone_numbers[]">
                                             </div>
                                         </div>
                                         <div class="float-right  btn-group">
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='addPhone'>
-                                                <i class="fa fa-plus-circle"></i> Add More Phone
+                                                <i class="fa fa-plus-circle"></i> {{ __('course_management::admin.institute.add_more_phone') }}
                                             </a>
 
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='removePhone'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
+                                                <i class="fa fa-minus-circle"></i> {{ __('course_management::admin.institute.remove_one') }}
                                             </a>
                                         </div>
                                     </div>
@@ -137,12 +137,12 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="primary_mobile">{{ __('Primary Mobile') }}<span
+                                    <label for="primary_mobile">{{ __('course_management::admin.institute.primary_mobile') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="primary_mobile"
                                            name="primary_mobile"
                                            value="{{ $edit ? $institute->primary_mobile : old('primary_mobile') }}"
-                                           placeholder="{{ __('Primary Mobile') }}">
+                                           placeholder="{{ __('course_management::admin.institute.primary_mobile') }}">
                                 </div>
                             </div>
 
@@ -164,7 +164,7 @@
                                                 @endforeach
                                             @else
                                                 <div id="AddMobileDiv1">
-                                                    <label>Mobile #1 : </label>
+                                                    <label>{{ __('course_management::admin.institute.mobile') }} #1 : </label>
                                                     <input type='text' id='mobile1' class="form-control mobile_numbers"
                                                            name="mobile_numbers[]">
                                                 </div>
@@ -173,10 +173,10 @@
                                         </div>
                                         <div class="float-right  btn-group">
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='addMobile'>
-                                                <i class="fa fa-plus-circle"></i> Add More Mobile
+                                                <i class="fa fa-plus-circle"></i> {{ __('course_management::admin.institute.add_more_mobile') }}
                                             </a>
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='removeMobile'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
+                                                <i class="fa fa-minus-circle"></i> {{ __('course_management::admin.institute.remove_one') }}
                                             </a>
                                         </div>
                                     </div>
@@ -193,10 +193,10 @@
                                         </div>
                                         <div class="float-right  btn-group">
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='addMobile'>
-                                                <i class="fa fa-plus-circle"></i> Add More Mobile
+                                                <i class="fa fa-plus-circle"></i> {{ __('course_management::admin.institute.add_more_mobile') }}
                                             </a>
                                             <a class="btn btn-sm btn-outline-primary btn-rounded" id='removeMobile'>
-                                                <i class="fa fa-minus-circle"></i> Remove One
+                                                <i class="fa fa-minus-circle"></i> {{ __('course_management::admin.institute.remove_one') }}
                                             </a>
                                         </div>
 
@@ -206,18 +206,18 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="email">{{ __('Email') }}<span
+                                    <label for="email">{{ __('course_management::admin.institute.email') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="email"
                                            name="email"
                                            value="{{ $edit ? $institute->email : old('email') }}"
-                                           placeholder="{{ __('Email') }}">
+                                           placeholder="{{ __('course_management::admin.institute.email') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="address">{{ __('Address') }}</label>
+                                    <label for="address">{{ __('course_management::admin.institute.address') }}</label>
                                     <textarea class="form-control" id="address" name="address"
                                               placeholder="Address"
                                               rows="3">{{ $edit ? $institute->address : old('address') }}</textarea>
@@ -226,7 +226,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="google_map_src">{{ __('Google Map SRC') }}</label>
+                                    <label for="google_map_src">{{ __('course_management::admin.institute.google_map_src') }}</label>
                                     <textarea class="form-control" id="google_map_src" name="google_map_src"
                                               placeholder="Google Map SRC"
                                               rows="3">{{ $edit ? $institute->google_map_src : old('google_map_src') }}</textarea>
@@ -235,7 +235,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="description">{{ __('Description') }}</label>
+                                    <label for="description">{{ __('course_management::admin.institute.description') }}</label>
                                     <textarea class="form-control" id="description" name="description"
                                               rows="3">{{ $edit ? $institute->description : old('description') }}</textarea>
                                 </div>
@@ -243,7 +243,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="logo">{{ __('Logo') }} <span style="color: red"> * </span></label>
+                                    <label for="logo">{{ __('course_management::admin.institute.logo') }} <span style="color: red"> * </span></label>
                                     <div class="input-group">
                                         <div class="logo-upload-section">
                                             <div class="avatar-preview text-center">
@@ -270,7 +270,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.institute.update') : __('course_management::admin.institute.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

@@ -118,8 +118,8 @@ class LocUpazilaController extends BaseController
             'loc_upazilas.bbs_code',
             'loc_upazilas.created_at',
             'loc_upazilas.updated_at',
-            'loc_divisions.title as loc_divisions.title',
-            'loc_districts.title as loc_districts.title'
+            'loc_divisions.title_en as loc_divisions.title',
+            'loc_districts.title_en as loc_districts.title'
         ]);
 
         /** relations */

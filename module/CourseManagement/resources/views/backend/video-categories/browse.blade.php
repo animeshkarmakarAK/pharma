@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Video Category List') }}
+    {{ __('course_management::admin.video_categories.list') }}
 @endsection
 
 @section('content')
@@ -10,12 +10,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Video Category List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.video_categories.list') }}</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\VideoCategory::class)
                                 <a href="{{route('course_management::admin.video-categories.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                 </a>
                             @endcan
                         </div>
@@ -56,31 +56,31 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{ __('course_management::admin.video_categories.title') }}",
                         data: "title_en",
                         name: "video_categories.title_en"
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{ __('course_management::admin.video_categories.institute_name') }}",
                         data: "institute_name",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Parent Category",
+                        title: "{{ __('course_management::admin.video_categories.parent_category') }}",
                         name: "video_categories.parent_id",
                         data: "parent",
                         visible: true,
                     },
                     {
-                        title: "Active Status",
+                        title: "{{ __('course_management::admin.common.status') }}",
                         data: "row_status",
                         name: "video_categories.row_status",
                         visible: false,
                     },
 
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action') }}",
                         data: "action",
                         name: "video_categories.action",
                         orderable: false,

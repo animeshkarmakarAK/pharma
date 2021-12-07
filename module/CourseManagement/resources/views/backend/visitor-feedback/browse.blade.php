@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    Visitor Feedback List
+    {{ __('course_management::admin.visitor_feedback.index')  }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Visitor Feedback List</h3>
+                        <h3 class="card-title font-weight-bold">{{ __('course_management::admin.visitor_feedback.list')  }}</h3>
 
                     </div>
                     <!-- /.card-header -->
@@ -21,25 +21,25 @@
                                     <div class="filter-item filter-label-header">
                                         <labe>
                                             <i class="fas fa-sort-amount-up-alt filter-icon"></i>
-                                            <b>Filter : </b>
+                                            <b>{{ __('course_management::admin.visitor_feedback.filter')  }} : </b>
                                         </labe>
                                     </div>
 
                                     <div class="filter-item">
                                         <input type="radio"id="all_filter" name="form_type" class="form_type" value="">
-                                        <label for="all_filter">All</label>
+                                        <label for="all_filter">{{ __('course_management::admin.visitor_feedback.all')  }}</label>
                                     </div>
 
                                     <div class="filter-item">
                                         <input type="radio" id="feedbacl_filter" name="form_type" class="form_type"
                                                value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK}}">
-                                        <label for="feedbacl_filter">Feedback</label>
+                                        <label for="feedbacl_filter">{{ __('course_management::admin.visitor_feedback.feedback')  }}</label>
                                     </div>
 
                                     <div class="filter-item">
                                         <input type="radio" id="contact_filter" name="form_type" class="form_type"
                                                value="{{\Module\CourseManagement\App\Models\VisitorFeedback::FORM_TYPE_CONTACT}}">
-                                        <label for="contact_filter">Contact</label>
+                                        <label for="contact_filter">{{ __('course_management::admin.visitor_feedback.contact')  }}</label>
                                     </div>
 
                                 </div>
@@ -102,44 +102,44 @@
 
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{ __('course_management::admin.visitor_feedback.institute_name')  }}",
                         data: "institute_name",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Name",
+                        title: "{{ __('course_management::admin.visitor_feedback.name')  }}",
                         data: "name",
                         name: "visitor_feedback.name"
                     },
                     {
-                        title: "Mobile",
+                        title: "{{ __('course_management::admin.visitor_feedback.mobile')  }}",
                         data: "mobile",
                         name: "visitor_feedback.mobile"
                     },
                     {
-                        title: "Email",
+                        title: "{{ __('course_management::admin.visitor_feedback.email')  }}",
                         data: "email",
                         name: "visitor_feedback.email"
                     },
                     {
-                        title: "Type",
+                        title: "{{ __('course_management::admin.visitor_feedback.type')  }}",
                         data: "form_type",
                         name: "visitor_feedback.form_type",
                     },
                     {
-                        title: "View Status",
+                        title: "{{ __('course_management::admin.common.status')  }}",
                         data: "read_at",
                         name: "visitor_feedback.read_at"
                     },
                     {
-                        title: "Date",
+                        title: "{{ __('course_management::admin.visitor_feedback.date')  }}",
                         data: "created_at",
                         name: "visitor_feedback.created_at",
                         visible: true
                     },
                     {
-                        title: "Action",
+                        title: "{{ __('course_management::admin.common.action')  }}",
                         data: "action",
                         orderable: false,
                         searchable: false,

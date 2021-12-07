@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Youth List') }}
+    {{ __('course_management::admin.youth.list')  }}
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">Youth List</h3>
+                        <h3 class="card-title font-weight-bold text-primary">  {{ __('course_management::admin.youth.list')  }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -23,7 +23,7 @@
                                 <button id="add-to-organization-area" style="visibility: hidden; " type="button"
                                         class="mb-3 btn btn-sm btn-rounded btn-primary float-right"
                                         data-toggle="modal" data-target="#addToOrganizationModal">
-                                    <i class="fas fa-plus-circle d-inline-block"></i> Add to Organization
+                                    <i class="fas fa-plus-circle d-inline-block"></i>   {{ __('course_management::admin.youth.add_to_organization')  }}
                                 </button>
                             </div>
 
@@ -32,7 +32,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-1 mb-2">
                                             <label class="filter-label text-primary">
-                                                <i class="fas fa-sort-amount-down-alt"></i> Filter </label>
+                                                <i class="fas fa-sort-amount-down-alt"></i>   {{ __('course_management::admin.youth.filter')  }} </label>
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields"
@@ -45,7 +45,7 @@
                                         </div>
 
                                         <div class="col-md-2 mb-2">
-                                            <button class="btn btn-primary" id="reset-btn">Reset</button>
+                                            <button class="btn btn-primary" id="reset-btn">  {{ __('course_management::admin.youth.reset')  }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -73,7 +73,7 @@
                           action="{{route('course_management::admin.youths.add-to-organization')}}">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Select Organization</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">{{ __('course_management::admin.youth.select_organization')  }}</h5>
                             <button type="button" class="close" data-dismiss="modal"
                                     aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -84,7 +84,7 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-primary ">Add</button>
+                            <button type="submit" class="btn btn-primary ">{{ __('course_management::admin.common.add')  }}</button>
                         </div>
                     </form>
                 @else

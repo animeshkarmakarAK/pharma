@@ -10,11 +10,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">Application Form Types List</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{__('course_management::admin.application_form_type.list')}}</h3>
                         <div>
                             <a href="{{route('course_management::admin.application-form-types.create')}}"
                                class="btn btn-sm btn-rounded btn-primary">
-                                <i class="fas fa-plus-circle"></i> Add new
+                                <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                             </a>
                         </div>
                     </div>
@@ -53,18 +53,18 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
+                        title: "{{__('course_management::admin.application_form_type.title')}}",
                         data: "title_en",
                         name: "application_form_types.title_en"
                     },
                     {
-                        title: "Institute Name",
+                        title: "{{__('course_management::admin.application_form_type.institute_name')}}",
                         data: "institute_title",
                         name: "institutes.title_en",
                         visible: false,
                     },
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.common.action')}}",
                         data: "action",
                         name: "action",
                         orderable: false,

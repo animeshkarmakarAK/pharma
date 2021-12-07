@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('ExaminationResult List') }}
+    {{__('course_management::admin.examination_result.list')}}
 @endsection
 
 @section('content')

@@ -8,7 +8,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Gallery' : 'Update Gallery' }}
+    {{ ! $edit ? __('course_management::admin.gallery.edit') : __('course_management::admin.gallery.update')}}
 @endsection
 
 @section('content')
@@ -17,12 +17,12 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ ! $edit ? 'Add Gallery' : 'Update Gallery' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ ! $edit ? __('course_management::admin.gallery.edit') : __('course_management::admin.gallery.update') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.galleries.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
 
@@ -39,7 +39,7 @@
                             {{--<input type="hidden" name="id" id="id" value="{{$edit ? $gallery->id : ''}}">--}}
 
                             <div class="form-group col-md-6">
-                                <label for="gallery_category_id">Gallery Album <span
+                                <label for="gallery_category_id">{{__('course_management::admin.gallery.album')}} <span
                                         style="color: red"> * </span></label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="gallery_category_id"
@@ -49,19 +49,19 @@
                                         @if($edit && $gallery->gallery_category_id)
                                         data-preselected-option="{{json_encode(['text' => $gallery->galleryCategory->title_en, 'id' => $gallery->gallery_category_id])}}"
                                         @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        data-placeholder="{{__('course_management::admin.gallery.album')}} "
                                 >
                                 </select>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="content_title">{{ __('Caption') }}<span
+                                    <label for="content_title">{{__('course_management::admin.gallery.caption')}} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="content_title"
                                            name="content_title"
                                            value="{{ $edit ? $gallery->content_title : old('content_title') }}"
-                                           placeholder="{{ __('Caption') }}">
+                                           placeholder="{{__('course_management::admin.gallery.caption')}}">
                                 </div>
                             </div>
 
@@ -72,10 +72,10 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                        <label for="institute_id">{{__('course_management::admin.gallery.institute_name')}}<span
                                                 style="color: red"> * </span></label>
                                         <select name="institute_id" id="institute_id" class="form-control select2"
-                                                data-placeholder="{{ __('generic.select_placeholder') }}">
+                                                data-placeholder="{{__('course_management::admin.gallery.institute_name')}}">
                                             <option></option>
                                             @foreach($institutes as $institute)
                                                 <option
@@ -91,7 +91,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label
-                                        for="publish_date">{{ __('Publish Date') }} <span
+                                        for="publish_date">{{__('course_management::admin.gallery.publish_date')}} <span
                                             style="color: red"> * </span></label>
                                     <input type="hidden" id="today">
                                     <input type="text"
@@ -105,7 +105,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label
-                                        for="archive_date">{{ __('Archive Date') }} <span
+                                        for="archive_date">{{__('course_management::admin.gallery.archive_date')}} <span
                                             style="color: red"> * </span></label>
                                     <input type="text"
                                            class="flat-datetime form-control flat-date-custom-bg"
@@ -117,7 +117,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="content_type">Content Type<span
+                                    <label for="content_type">{{__('course_management::admin.gallery.content_type')}}<span
                                             class="required">*</span> :</label>
                                     @foreach(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPES as $key => $type)
                                         <div class="custom-control custom-radio">
@@ -134,14 +134,14 @@
                             <div class="col-sm-6" id="video_type"
                                  style="display:{{($edit && \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type) || old('content_type') ==\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO  ? 'block' : 'none' }}">
                                 <div class="form-group">
-                                    <label for="is_youtube_video">{{ __('Video Type') }}<span
+                                    <label for="is_youtube_video">{{__('course_management::admin.gallery.video_type')}}<span
                                             style="color: red"> * </span></label>
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" id="is_youtube_video_no"
                                                name="is_youtube_video"
                                                value="0"
                                             {{ ($edit && !$gallery->is_youtube_video) || (old('is_youtube_video') != null && !old('is_youtube_video'))  ? 'checked' : '' }}>
-                                        <label for="is_youtube_video_no" class="custom-control-label">Custom</label>
+                                        <label for="is_youtube_video_no" class="custom-control-label">{{__('course_management::admin.gallery.custom')}}</label>
                                     </div>
                                     <div class="custom-control custom-radio ">
                                         <input class="custom-control-input" type="radio"
@@ -149,8 +149,8 @@
                                                id="is_youtube_video_yes"
                                                value="1"
                                             {{ ($edit && $gallery->is_youtube_video) || old('is_youtube_video')  ? 'checked' : '' }}>
-                                        <label for="is_youtube_video_yes" class="custom-control-label col-4">Youtube
-                                            Video</label>
+                                        <label for="is_youtube_video_yes" class="custom-control-label col-4">{{__('course_management::admin.gallery.youtube')}}
+                                            </label>
                                     </div>
 
                                 </div>
@@ -160,18 +160,18 @@
                             <div class="col-sm-6" id="youtube_id"
                                  style="display:{{($edit && $gallery->is_youtube_video) || old('is_youtube_video')  ? 'block' : 'none' }}">
                                 <div class="form-group">
-                                    <label for="you_tube_video_id">{{ __('Youtube Video Link') }}<span
+                                    <label for="you_tube_video_id">{{__('course_management::admin.gallery.youtube_link')}}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="you_tube_video_id"
                                            name="you_tube_video_id"
                                            value="{{ $edit && $gallery->is_youtube_video ? $gallery->content_path : old('you_tube_video_id') }}"
-                                           placeholder="{{ __('Youtube Video Link') }}">
+                                           placeholder="{{__('course_management::admin.gallery.youtube_link')}}">
                                 </div>
                             </div>
 
                             <div class="form-group col-md-6" id="file_upload"
                                  style="display:{{ (($edit && (\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type || $gallery->is_youtube_vide)) || ((old('is_youtube_video')!=null && !old('is_youtube_video'))|| old('content_type') == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE) || ($edit && ($gallery->is_youtube_vide == 0 && $gallery->content_type == \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO)) ) ? 'block' : 'none' }}">
-                                <label for="content_path">Gallery Content <span style="color: red"> * </span></label>
+                                <label for="content_path">{{__('course_management::admin.gallery.gallery_content')}} <span style="color: red"> * </span></label>
                                 <input type="file" class="form-control custom-input-box" name="content_path"
                                        id="content_path"
                                        value="{{$edit ? $gallery->content_path : old('content_path')}}">
@@ -182,7 +182,7 @@
                             @if($edit)
                                 @if( \Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_IMAGE == $gallery->content_type)
                                     <div class="col-md-6 custom-view-box">
-                                        <p class="label-text">{{ __('Content') }}</p>
+                                        <p class="label-text">{{__('course_management::admin.gallery.content')}}</p>
 
                                         <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                                             <img src="{{asset('storage/' .$gallery->content_path)}}" class="img-fluid"
@@ -191,7 +191,7 @@
                                     </div>
                                 @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type && $gallery->is_youtube_video)
                                     <div class="col-md-6 custom-view-box">
-                                        <p class="label-text">{{ __('Youtube Video Content') }}</p>
+                                        <p class="label-text">{{__('course_management::admin.gallery.video_content')}}</p>
                                         <iframe width="100%" height="100%"
                                                 src={{"https://www.youtube.com/embed/".$gallery->you_tube_video_id}}>
                                         </iframe>
@@ -199,7 +199,7 @@
 
                                 @elseif(\Module\CourseManagement\App\Models\Gallery::CONTENT_TYPE_VIDEO == $gallery->content_type)
                                     <div class="col-md-6 custom-view-box">
-                                        <p class="label-text">{{ __('Content') }}</p>
+                                        <p class="label-text">{{__('course_management::admin.gallery.content')}}</p>
                                         <iframe width="100%" height="100%"
                                                 src="{{asset('storage/' .$gallery->content_path)}}">
                                         </iframe>
@@ -210,7 +210,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.gallery.update') :__('course_management::admin.gallery.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

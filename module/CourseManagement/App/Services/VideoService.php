@@ -44,7 +44,6 @@ class VideoService
         $video = Video::create($data);
         $tag_data = Arr::only($data, ['institute_id']);
         $tag_data['tag_en'] = $data['title_en'];
-        $tag_data['tag_bn'] = $data['title_bn'];
         return $video->tags()->create($tag_data);
     }
 
@@ -72,11 +71,7 @@ class VideoService
                 'string',
                 'max:191',
             ],
-            'title_bn' => [
-                'required',
-                'string',
-                'max:191',
-            ],
+
             'description' => [
                 'nullable',
                 'string',
@@ -133,7 +128,6 @@ class VideoService
         $videos = Video::acl()->select([
             'videos.id as id',
             'videos.title_en',
-            'videos.title_bn',
             'videos.description',
             'videos.uploaded_video_path',
             'videos.video_type',

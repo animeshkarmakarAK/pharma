@@ -6,7 +6,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ $edit?'Edit Programme':'Create Programme' }}
+    {{ $edit? __('course_management::admin.programme.edit'): __('course_management::admin.programme.add') }}
 @endsection
 
 @section('content')
@@ -15,12 +15,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit?'Edit Programme':'Create Programme' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit?  __('course_management::admin.programme.edit') : __('course_management::admin.programme.add') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.programmes.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>
@@ -35,12 +35,12 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title_en">{{ __('Title') . ' (English)' }} <span
+                                    <label for="title_en">{{ __('course_management::admin.programme.title') }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="title_en"
                                            id="title_en"
                                            value="{{$edit ? $programme->title_en : old('title_en')}}"
-                                           placeholder="{{ __('Title') . ' (English)' }}" required>
+                                           placeholder="{{ __('course_management::admin.programme.title') }}" required>
                                 </div>
 
                                 @if($authUser->isInstituteUser())
@@ -48,7 +48,7 @@
                                            value="{{$authUser->institute_id}}">
                                 @else
                                     <div class="form-group col-md-6">
-                                        <label for="institute_id">Institute Name <span
+                                        <label for="institute_id">{{ __('course_management::admin.programme.institute_name') }} <span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -58,14 +58,14 @@
                                                 @if($edit && $programme->institute)
                                                 data-preselected-option="{{json_encode(['text' => $programme->institute->title_en, 'id' => $programme->institute_id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                                data-placeholder="{{ __('course_management::admin.programme.institute_name') }}"
                                         >
                                         </select>
                                     </div>
                                 @endif
 
                                 <div class="form-group col-md-6">
-                                    <label for="code">Code <span style="color: red"> * </span></label>
+                                    <label for="code">{{ __('course_management::admin.programme.code') }} <span style="color: red"> * </span></label>
                                     <input type="text" class="form-control custom-input-box" name="code"
                                            id="code"
                                            data-code="{{ $edit ? $programme->code : '' }}"
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="logo">{{ __('Logo') }}</label>
+                                        <label for="logo">{{ __('course_management::admin.programme.logo') }}</label>
                                         <div class="input-group">
                                             <div class="programme-logo-upload-section">
                                                 <div class="avatar-preview text-center">
@@ -102,7 +102,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="description">Description</label>
+                                    <label for="description">{{ __('course_management::admin.programme.description') }}</label>
                                     <textarea class="form-control custom-input-box" name="description"
                                               id="description"
                                               placeholder="Description"
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-sm-12 text-right">
                                     <button type="submit"
-                                            class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                            class="btn btn-success">{{ $edit ? __('course_management::admin.programme.update') : __('course_management::admin.programme.add') }}</button>
                                 </div>
                             </div>
                         </form>

@@ -25,7 +25,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 1,
                     'title_en' => 'Super Admin',
-                    'title_bn' => 'সুপার এডমিন',
                     'code' => 'super_admin',
                     'is_deletable' => '0'
                 ),
@@ -33,7 +32,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 2,
                     'title_en' => 'System Admin',
-                    'title_bn' => 'সিস্টেম এডমিন',
                     'code' => 'system_admin',
                     'is_deletable' => '0'
                 ),
@@ -41,7 +39,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 3,
                     'title_en' => 'Institute Admin',
-                    'title_bn' => 'ইনস্টিটিউট এডমিন',
                     'code' => 'institute_admin',
                     'is_deletable' => '0'
                 ),
@@ -49,7 +46,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 4,
                     'title_en' => 'Organization Admin',
-                    'title_bn' => 'অর্গানাইজেশন এডমিন',
                     'code' => 'organization_admin',
                     'is_deletable' => '0'
                 ),
@@ -57,7 +53,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 5,
                     'title_en' => 'DC',
-                    'title_bn' => 'ডিসি',
                     'code' => 'dc',
                     'is_deletable' => '0'
                 ),
@@ -65,7 +60,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 6,
                     'title_en' => 'DivCom',
-                    'title_bn' => 'ডিভিসান কমিশনার',
                     'code' => 'divcom',
                     'is_deletable' => '0'
                 ),
@@ -73,7 +67,6 @@ class RoleTableSeeder extends Seeder
                 array(
                     'id' => 7,
                     'title_en' => 'Trainer',
-                    'title_bn' => 'Trainer',
                     'code' => 'trainer',
                     'is_deletable' => '0'
                 ),

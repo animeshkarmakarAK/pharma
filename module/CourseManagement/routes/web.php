@@ -22,7 +22,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'events' => Module\CourseManagement\App\Http\Controllers\EventController::class,
         'intro-videos' => Module\CourseManagement\App\Http\Controllers\IntroVideoController::class,
         'question-answers' => Module\CourseManagement\App\Http\Controllers\QuestionAnswerController::class,
-
         'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
         'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
         'examination-results' => Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class,
@@ -37,6 +36,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
     Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
     Route::put('youth-reject-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
+
 
 //    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
 
@@ -129,6 +129,10 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
     Route::get('courses-search/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+    Route::get('{instituteSlug?}/courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+    Route::get('{instituteSlug?}/courses-search', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+//    Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+    Route::get('course-details/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
 
     Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
     Route::get('youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');

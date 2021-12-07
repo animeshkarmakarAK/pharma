@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add FAQ' : 'Update FAQ' }}
+    {{ ! $edit ? __('course_management::admin.question_answer.add') : __('course_management::admin.question_answer.update') }}
 @endsection
 
 @section('content')
@@ -16,12 +16,12 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header  custom-bg-gradient-info">
-                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? 'Add FAQ' : 'Update FAQ' }}</h3>
+                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? __('course_management::admin.question_answer.add') : __('course_management::admin.question_answer.update') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.question-answers.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}<span
+                                        <label for="institute_id">{{ __('course_management::admin.question_answer.institute_name') }}<span
                                                 class="required"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -49,9 +49,9 @@
                                                 data-label-fields="{title_en}"
                                                 data-dependent-fields="#video_category_id"
                                                 @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $introVideo->institute->title_en, 'id' =>  $introVideo->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $questionAnswer->institute->title_en, 'id' =>  $questionAnswer->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                                data-placeholder="{{ __('course_management::admin.question_answer.institute_name') }}"
                                         >
                                         </select>
                                     </div>
@@ -61,7 +61,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="question">Question: <span
+                                    <label for="question">{{ __('course_management::admin.question_answer.question') }}: <span
                                             class="required">*</span></label>
                                     <input type="text"
                                            class="form-control"
@@ -74,7 +74,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="answer">Answer: <span
+                                    <label for="answer">{{ __('course_management::admin.question_answer.answer') }}: <span
                                             class="required">*</span></label>
 
                                     <textarea class="form-control"
@@ -86,7 +86,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.question_answer.update') : __('course_management::admin.question_answer.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

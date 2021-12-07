@@ -9,7 +9,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Static Page' : 'Update Static Page' }}
+    {{ ! $edit ? __('course_management::admin.static_page.add') : __('course_management::admin.static_page.update') }}
 @endsection
 
 @section('style')
@@ -75,12 +75,12 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ ! $edit ? 'Add Static Page' : 'Update Static Page' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ ! $edit ? __('course_management::admin.static_page.add') : __('course_management::admin.static_page.update')}}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.static-page.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i>{{__('course_management::admin.common.back')}}
                             </a>
                         </div>
 
@@ -95,12 +95,12 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Content Title') . ' (English)' }}<span
+                                    <label for="name">{{ __('course_management::admin.static_page.content_title') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $staticPage->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Content Title') . ' (English)' }}">
+                                           placeholder="{{ __('course_management::admin.static_page.content_title') }}">
                                 </div>
                             </div>
                             @if($authUser->isInstituteUser())
@@ -109,7 +109,8 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('Institute Name') }}</label>
+                                        <label for="institute_id">{{ __('course_management::admin.static_page.institute_name') }}<span
+                                                style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
@@ -127,21 +128,21 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="page_id">{{ __('Page ID')}}<span
+                                    <label for="page_id">{{ __('course_management::admin.static_page.link') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text"
                                            {{--{{($edit && $staticPage->institute_id) ?'': 'disabled'}}--}} class="form-control"
                                            id="page_id"
                                            name="page_id"
                                            value="{{ $edit ? $staticPage->page_id : '' }}"
-                                           placeholder="{{ __('Page ID')}}">
+                                           placeholder="{{ __('course_management::admin.static_page.link') }}">
                                 </div>
                             </div>
 
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="page_contents">{{ __('Page Content') }}<span
+                                    <label for="page_contents">{{ __('course_management::admin.static_page.page_content') }}<span
                                             style="color: red"> * </span></label>
                                     <textarea class="form-control"
                                               id="page_contents"
@@ -153,7 +154,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.static_page.update') : __('course_management::admin.static_page.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

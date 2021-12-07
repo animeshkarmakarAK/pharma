@@ -37,12 +37,11 @@ class HomeController extends BaseController
                 'publish_courses.id as id',
                 'publish_courses.course_id',
                 'courses.title_en',
-                'courses.title_bn',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',
                 'course_sessions.max_seat_available',
-                'course_sessions.session_name_bn',
+                'course_sessions.session_name_en',
                 'course_sessions.application_start_date',
                 'course_sessions.application_end_date'
             ]);
@@ -58,12 +57,11 @@ class HomeController extends BaseController
                 'publish_courses.id as id',
                 'publish_courses.course_id',
                 'courses.title_en',
-                'courses.title_bn',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',
                 'course_sessions.max_seat_available',
-                'course_sessions.session_name_bn',
+                'course_sessions.session_name_en',
                 'course_sessions.application_start_date',
                 'course_sessions.application_end_date'
             ]);

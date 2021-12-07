@@ -16,7 +16,7 @@
                             <i class="fas fa-plus-circle"></i> {{ __('Edit Role') }}
                         </a>
                         <a href="{{route('admin.roles.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-backward"></i> {{ __('Back to list') }}
+                            <i class="fas fa-backward"></i> {{__('generic.back')}}
                         </a>
                     </div>
                 </div>

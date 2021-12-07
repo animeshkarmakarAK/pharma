@@ -130,31 +130,6 @@
 
                                 </div>
                             </div>
-
-
-                            {{--<div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="training_center_id">
-                                        {{__('course_management::admin.examination.training_center')}}
-                                        <span class="required"></span>
-                                    </label>
-
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="training_center_id"
-                                            id="training_center_id"
-                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-dependent-fields="#batch_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $batch->training_center->title_en, 'id' =>  $batch->training_center->id])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
-                                    >
-                                    </select>
-
-                                </div>
-                            </div>--}}
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exam_details">

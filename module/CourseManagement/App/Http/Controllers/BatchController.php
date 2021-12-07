@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use App\Helpers\Classes\AuthHelper;
 use Module\CourseManagement\App\Models\Batch;
 use Module\CourseManagement\App\Models\PublishCourse;
 use Module\CourseManagement\App\Models\TrainingCenter;
@@ -40,8 +41,8 @@ class BatchController extends Controller
      */
     public function create()
     {
-        $currentInstitute = domainConfig('institute');
-        $publishCourses = PublishCourse::where('institute_id',$currentInstitute->id)->get();
+        $authUser = AuthHelper::getAuthUser();
+        $publishCourses = PublishCourse::where('institute_id',$authUser->institute_id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
             'publishCourses' => $publishCourses,
