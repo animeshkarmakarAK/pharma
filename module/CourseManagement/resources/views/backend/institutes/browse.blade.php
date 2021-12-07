@@ -61,16 +61,6 @@
                         name: "title_en"
                     },
                     {
-                        title: "{{ __('course_management::admin.institute.code') }}",
-                        data: "code",
-                        name: "code"
-                    },
-                    {
-                        title: "{{ __('course_management::admin.institute.domain') }}",
-                        data: "domain",
-                        name: "domain"
-                    },
-                    {
                         title: "{{ __('course_management::admin.institute.address') }}",
                         data: "address",
                         name: "address",

@@ -24,7 +24,6 @@
                                 </a>
                             @endcan
                         </div>
-
                     </div>
 
                     <div class="card-body">

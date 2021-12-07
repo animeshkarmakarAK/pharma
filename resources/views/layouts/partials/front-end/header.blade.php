@@ -3,7 +3,7 @@
 
     $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
 
-    $currentInstitute =  new \Module\CourseManagement\App\Models\Institute();
+    $currentInstitute =  null;
     if ($institute) {
         $currentInstitute = $institute;
     }else {
@@ -24,7 +24,7 @@
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
-                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title_bn : "DPG Training & Certificate Management" }}</p>
+                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title_en : "DPG Training & Certificate Management" }}</p>
                     </div>
                 </div>
             </div>
