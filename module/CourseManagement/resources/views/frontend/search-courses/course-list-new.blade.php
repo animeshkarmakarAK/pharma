@@ -333,7 +333,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const publishCourseFetch = searchAPI({
                     model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
-                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.cover_image|course.course_fee|course.duration|course_session.max_seat_available'
+                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.title_en|course.cover_image|course.course_fee|course.duration|course_session.session_name_en'
                 });
 
                 function publishCourseSearch(url = baseUrl) {
@@ -381,7 +381,6 @@
                                 }
                             }
                             html += template(seat[0][i].publish_course_id, item);
-                            $('#container-publish-courses').append(html);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -426,5 +425,4 @@
                 });
 
             </script>
-
     @endpush
