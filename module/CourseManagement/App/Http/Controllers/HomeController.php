@@ -24,7 +24,7 @@ class HomeController extends BaseController
      */
     public function index($SSPSlug = null): View
     {
-        $currentInstitute = Institute::where('slug', $SSPSlug)->first();
+        $currentInstitute = Institute::where('slug', $SSPSlug)->firstOrFail();
 
         if ($currentInstitute) {
             $currentInstituteCourses = PublishCourse::where([

@@ -146,7 +146,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
 
     Route::get('skill-videos/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
     Route::get('skill-videos/{skill_video}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('youth.skill-single-video');
-    Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
+    Route::get('advice-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
     Route::get('general-ask-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
     Route::get('contact-us-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
     Route::post('visitor-feedback-store', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');

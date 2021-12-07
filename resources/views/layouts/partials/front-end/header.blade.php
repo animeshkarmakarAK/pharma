@@ -1,15 +1,14 @@
 @php
     $slug = request()->segment(count(request()->segments()));
 
-   if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
-       $slug = null;
-   }
+    $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
 
-   $currentInstitute = null;
-
-   if ($slug) {
-       $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
-   }
+    $currentInstitute =  new \Module\CourseManagement\App\Models\Institute();
+    if ($institute) {
+        $currentInstitute = $institute;
+    }else {
+        $slug = null;
+    }
 
 @endphp
 

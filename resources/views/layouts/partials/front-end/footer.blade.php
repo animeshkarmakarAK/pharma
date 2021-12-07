@@ -2,16 +2,14 @@
 
     $slug = request()->segment(count(request()->segments()));
 
-    if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
+    $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
+
+    $currentInstitute =  new \Module\CourseManagement\App\Models\Institute();
+    if ($institute) {
+        $currentInstitute = $institute;
+    }else {
         $slug = null;
     }
-
-    $currentInstitute = null;
-
-    if ($slug) {
-        $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
-    }
-
 @endphp
 
 <section class="main-footer">
@@ -56,44 +54,22 @@
                         </p>
                     @endif
 
-                    @if(!empty($currentInstitute->primary_phone) || !empty($currentInstitute->phone_numbers))
-                        <p>
-                            <i class="fas fa-phone fa-flip-horizontal" style="padding: 10px 0px 0px 0px;"></i> &nbsp;
-                            <a
-                                href="tel:{{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:''}}"
-                                onclick="">
-                                {{  !empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone.' ':''}}
-                            </a>
-
-
-                            @foreach($currentInstitute->phone_numbers as $phoneNumber)
-                                <a
-                                    href="tel:{{  $phoneNumber }}"
-                                    onclick="">
-                                    {{  ', '.$phoneNumber }}
-                                </a>
-                            @endforeach
-                        </p>
-                    @endif
-
-                    @if(!empty($currentInstitute->primary_mobile) || !empty($currentInstitute->mobile_numbers))
+                    @if(!empty($currentInstitute->mobile) || !empty($currentInstitute->contact_person_mobile))
                         <p>
                             <i class="fas fa-mobile"></i>
                             {{--<i class="fas fa-phone fa-flip-horizontal" style="padding: 10px 0px 0px 0px;"></i>--}}
                             &nbsp;
                             <a
-                                href="tel:{{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:''}}"
+                                href="tel:{{  !empty($currentInstitute->mobile)?$currentInstitute->mobile:''}}"
                                 onclick="">
-                                {{  !empty($currentInstitute->primary_mobile)?$currentInstitute->primary_mobile:' '}}
+                                {{  !empty($currentInstitute->mobile)?$currentInstitute->mobile:' '}}
                             </a>
 
-                            @foreach($currentInstitute->mobile_numbers as $mobileNumber)
                                 <a
-                                    href="tel:{{  $mobileNumber }}"
+                                    href="tel:{{  $currentInstitute->contact_person_mobile }}"
                                     onclick="">
-                                    {{  ', '.$mobileNumber }}
+                                    {{  ', '.$currentInstitute->contact_person_mobile }}
                                 </a>
-                            @endforeach
                         </p>
                     @endif
 
@@ -113,14 +89,14 @@
                         <li><i class="fa  fa-angle-right"></i> <a href="#">সংবাদ </a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('course_management::static-content.show', 'aboutus')}}">আমাদের
+                                href="{{route('course_management::static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}">আমাদের
                                 সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{ route('course_management::advice-page') }}">পরামর্শ</a></li>
+                                href="{{ route('course_management::advice-page', ['instituteSlug' => $slug]) }}">পরামর্শ</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('course_management::contact-us-page')}}">যোগাযোগ</a></li>
+                                href="{{route('course_management::contact-us-page', ['instituteSlug' => $slug])}}">যোগাযোগ</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('course_management::general-ask-page')}}">প্রশ্নোত্তর</a></li>
+                                href="{{route('course_management::general-ask-page', ['instituteSlug' => $slug])}}">প্রশ্নোত্তর</a></li>
                         @guest
                             <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
                             <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>

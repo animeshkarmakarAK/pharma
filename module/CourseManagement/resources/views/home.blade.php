@@ -2,14 +2,13 @@
     $layout = 'master::layouts.front-end';
     $slug = request()->segment(count(request()->segments()));
 
-    if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
+    $currInstitute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
+
+    $currentInstitute =  new \Module\CourseManagement\App\Models\Institute();
+    if ($currInstitute) {
+        $currentInstitute = $currInstitute;
+    }else {
         $slug = null;
-    }
-
-    $currentInstitute = null;
-
-    if ($slug) {
-        $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
     }
 
 @endphp
