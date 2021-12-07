@@ -22,7 +22,6 @@ class CreatePublishCoursesTable extends Migration
             $table->unsignedInteger('application_form_type_id')->index('publish_courses_fk_application_form_type_id');
             $table->unsignedInteger('course_id')->index('publish_courses_fk_course_id');
             $table->string('title_en', 191)->nullable();
-            $table->string('title_bn', 191)->nullable();
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
             $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();

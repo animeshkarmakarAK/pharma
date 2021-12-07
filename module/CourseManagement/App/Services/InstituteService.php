@@ -120,9 +120,7 @@ class InstituteService
         $institutes = Institute::acl()->select([
             'institutes.id as id',
             'institutes.title_en',
-            'institutes.code',
             'institutes.address',
-            'institutes.domain',
             'institutes.created_at',
             'institutes.updated_at'
         ]);

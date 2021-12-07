@@ -16,7 +16,6 @@ class CreateTrainingCentersTable extends Migration
         Schema::create('training_centers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title_en', 191)->nullable();
-            $table->string('title_bn', 191)->nullable();
             $table->unsignedInteger('institute_id')->index('training_centers_fk_institute_id');
             $table->unsignedInteger('branch_id')->nullable()->index('training_centers_fk_branch_id');
             $table->string('address', 191)->nullable();

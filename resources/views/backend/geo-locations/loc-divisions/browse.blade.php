@@ -12,7 +12,7 @@
                         <div class="card-tools">
                             <a href="javascript:;"
                                class="btn btn-sm btn-outline-primary btn-rounded create-new-button">
-                                <i class="fas fa-plus-circle"></i> Add new
+                                <i class="fas fa-plus-circle"></i> {{__('generic.add_new')}}
                             </a>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>

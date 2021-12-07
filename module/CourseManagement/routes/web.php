@@ -22,7 +22,6 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
         'events' => Module\CourseManagement\App\Http\Controllers\EventController::class,
         'intro-videos' => Module\CourseManagement\App\Http\Controllers\IntroVideoController::class,
         'question-answers' => Module\CourseManagement\App\Http\Controllers\QuestionAnswerController::class,
-
         'examination-types' => Module\CourseManagement\App\Http\Controllers\ExaminationTypeController::class,
         'examinations' => Module\CourseManagement\App\Http\Controllers\ExaminationController::class,
         'examination-results' => Module\CourseManagement\App\Http\Controllers\ExaminationResultController::class,
@@ -44,6 +43,7 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
     Route::put('youth-accpet-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
     Route::put('youth-reject-all', [Module\CourseManagement\App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
+
 
 //    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
 
@@ -139,6 +139,8 @@ Route::group(['prefix' => 'admin/course-management', 'as' => 'course_management:
 Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], function () {
     Route::get('courses-search/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+//    Route::get('course-details-ajax/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+    Route::get('course-details/{publish_course_id}', [Module\CourseManagement\App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
 
     Route::get('youth-profile', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
     Route::get('youth-enrolled-courses', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
@@ -154,7 +156,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
 
     Route::get('skill-videos/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
     Route::get('skill-videos/{skill_video}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('youth.skill-single-video');
-    Route::get('advice-page', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
+    Route::get('advice-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
     Route::get('general-ask-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
     Route::get('contact-us-page/{instituteSlug?}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
     Route::post('visitor-feedback-store', [Module\CourseManagement\App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');

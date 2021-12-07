@@ -14,7 +14,7 @@
 
                         <div class="card-tools">
                             <a href="{{route('admin.roles.index')}}" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i>{{__('generic.back')}}
                             </a>
                         </div>
                     </div>

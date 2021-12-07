@@ -9,7 +9,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ ! $edit ? 'Add Album' : 'Update Album' }}
+    {{ ! $edit ? __('course_management::admin.gallery-album.edit') : __('course_management::admin.gallery-album.update') }}
 @endsection
 
 @section('content')
@@ -18,12 +18,12 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ ! $edit ? 'Add Album' : 'Update Album' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ ! $edit ? __('course_management::admin.gallery-album.add') : __('course_management::admin.gallery-album.update') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('course_management::admin.gallery-categories.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
-                                <i class="fas fa-backward"></i> Back to list
+                                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                             </a>
                         </div>
 
@@ -42,12 +42,12 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="content_title">{{ __('Title (En)') }}<span
+                                    <label for="content_title">{{ __('course_management::admin.gallery-album.title') }}<span
                                             style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title_en"
                                            name="title_en"
                                            value="{{ $edit ? $galleryCategory->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Title (En)') }}">
+                                           placeholder="{{ __('course_management::admin.gallery-album.title') }}">
                                 </div>
                             </div>
 
@@ -56,7 +56,7 @@
                                        value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="institute_id">Institute Name <span
+                                    <label for="institute_id">{{ __('course_management::admin.gallery-album.institute_name') }} <span
                                             style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
@@ -67,7 +67,7 @@
                                             @if($edit && $galleryCategory->institute_id)
                                             data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title_en, 'id' => $galleryCategory->institute_id])}}"
                                             @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            data-placeholder="{{ __('course_management::admin.gallery-album.institute_name') }}"
                                     >
                                     </select>
                                 </div>
@@ -75,7 +75,7 @@
 
 
                             <div class="form-group col-md-6">
-                                <label for="programme_id">Programme</label>
+                                <label for="programme_id">{{ __('course_management::admin.gallery-album.programme_title') }}</label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="programme_id"
                                         id="programme_id"
@@ -86,12 +86,12 @@
                                         @if($edit && $galleryCategory->programme_id)
                                         data-preselected-option="{{json_encode(['text' => $galleryCategory->programme->title_en, 'id' => $galleryCategory->programme_id])}}"
                                         @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        data-placeholder="{{ __('course_management::admin.gallery-album.programme_title') }}"
                                 >
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="batch_id">Batch</label>
+                                <label for="batch_id">{{ __('course_management::admin.gallery-album.batch_title') }}</label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="batch_id"
                                         id="batch_id"
@@ -101,14 +101,14 @@
                                         @if($edit && $galleryCategory->batch_id)
                                         data-preselected-option="{{json_encode(['text' => $galleryCategory->batch->title_en, 'id' => $galleryCategory->batch_id])}}"
                                         @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                        data-placeholder="{{ __('course_management::admin.gallery-album.batch_title') }}"
                                 >
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="image">{{ __('Cover Image') }}</label>
+                                    <label for="image">{{ __('course_management::admin.gallery-album.cover_image') }}</label>
                                     <div class="input-group">
                                         <div class="programme-image-upload-section">
                                             <div class="avatar-preview text-center">
@@ -138,13 +138,13 @@
                             @if($edit)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="row_status">Active Status</label>
+                                        <label for="row_status">{{ __('course_management::admin.common.status') }}</label>
                                         <div class="custom-control custom-radio">
                                             <input class="custom-control-input" type="radio" id="row_status_active"
                                                    name="row_status"
                                                    value="{{ \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $galleryCategory->row_status == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_ACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
-                                            <label for="row_status_active" class="custom-control-label">Active</label>
+                                            <label for="row_status_active" class="custom-control-label">{{ __('course_management::admin.status.active') }}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
@@ -153,7 +153,7 @@
                                                    value="{{ \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_INACTIVE }}"
                                                 {{ ($edit && $galleryCategory->row_status == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_INACTIVE) || old('row_status') == \Module\CourseManagement\App\Models\GalleryCategory::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
                                             <label for="row_status_inactive"
-                                                   class="custom-control-label">Inactive</label>
+                                                   class="custom-control-label">{{ __('course_management::admin.status.inactive') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.gallery-album.update') : __('course_management::admin.gallery-album.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

@@ -1,7 +1,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('Gallery List') }}
+    {{__('course_management::admin.gallery.list')}}
 @endsection
 
 @section('content')
@@ -10,12 +10,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">Gallery List</h3>
+                        <h3 class="card-title font-weight-bold">{{__('course_management::admin.gallery.list')}}</h3>
                         <div class="card-tools">
                             @can('create', \Module\CourseManagement\App\Models\Gallery::class)
                                 <a href="{{route('course_management::admin.galleries.create')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                                 </a>
                             @endcan
                         </div>
@@ -56,29 +56,28 @@
                         visible: true,
                     },
                     {
-                        title: "Institute (En)",
+                        title: "{{__('course_management::admin.gallery.institute_name')}}",
                         data: "institute_title_en",
                         name: "institutes.title_en",
                         visible: false
                     },
                     {
-                        title: "Gallery Category",
+                        title: "{{__('course_management::admin.gallery.category')}}",
                         data: "gallery_category_title_en",
                         name: "gallery_categories.title_en",
                     },
                     {
-                        title: "Caption",
+                        title: "{{__('course_management::admin.gallery.caption')}}",
                         data: "content_title",
                         name: "content_title"
                     },
                     {
-                        title: "Type",
+                        title: "{{__('course_management::admin.gallery.type')}}",
                         data: "content_type",
                         name: "content_type"
                     },
-
                     {
-                        title: "Action",
+                        title: "{{__('course_management::admin.common.action')}}",
                         data: "action",
                         name: "action",
                         orderable: false,

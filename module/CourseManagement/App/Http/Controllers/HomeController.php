@@ -4,9 +4,7 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
@@ -26,7 +24,11 @@ class HomeController extends BaseController
      */
     public function index($SSPSlug = null): View
     {
-        $currentInstitute = Institute::where('slug', $SSPSlug)->first();
+        if ($SSPSlug) {
+            $currentInstitute = Institute::where('slug', $SSPSlug)->firstOrFail();
+        }else {
+            $currentInstitute = Institute::where('slug', $SSPSlug)->first();
+        }
 
         if ($currentInstitute) {
             $currentInstituteCourses = PublishCourse::where([
@@ -37,12 +39,11 @@ class HomeController extends BaseController
                 'publish_courses.id as id',
                 'publish_courses.course_id',
                 'courses.title_en',
-                'courses.title_bn',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',
                 'course_sessions.max_seat_available',
-                'course_sessions.session_name_bn',
+                'course_sessions.session_name_en',
                 'course_sessions.application_start_date',
                 'course_sessions.application_end_date'
             ]);
@@ -58,12 +59,11 @@ class HomeController extends BaseController
                 'publish_courses.id as id',
                 'publish_courses.course_id',
                 'courses.title_en',
-                'courses.title_bn',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',
                 'course_sessions.max_seat_available',
-                'course_sessions.session_name_bn',
+                'course_sessions.session_name_en',
                 'course_sessions.application_start_date',
                 'course_sessions.application_end_date'
             ]);

@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Http\Controllers;
 
+use App\Helpers\Classes\AuthHelper;
 use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Branch;
 use Module\CourseManagement\App\Models\Course;
@@ -45,12 +46,11 @@ class PublishCourseController extends Controller
      */
     public function create(): View
     {
-        $currentInstitute = domainConfig('institute');
-
-        $courses = Course::where('institute_id', $currentInstitute->id)->active()->get();
-        $programmes = Programme::where('institute_id', $currentInstitute->id)->active()->get();
-        $trainingCenters = TrainingCenter::where('institute_id', $currentInstitute->id)->active()->get();
-        $applicationFormTypes = ApplicationFormType::where('institute_id', $currentInstitute->id)->active()->get();
+        $authUser = AuthHelper::getAuthUser();
+        $courses = Course::where('institute_id', $authUser->institute_id)->active()->get();
+        $programmes = Programme::where('institute_id', $authUser->institute_id)->active()->get();
+        $trainingCenters = TrainingCenter::where('institute_id', $authUser->institute_id)->active()->get();
+        $applicationFormTypes = ApplicationFormType::where('institute_id', $authUser->institute_id)->active()->get();
 
 
         return \view(self::VIEW_PATH . 'edit-add')->with([

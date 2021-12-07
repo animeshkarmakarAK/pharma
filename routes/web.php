@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/{slug?}', [\Module\CourseManagement\App\Http\Controllers\HomeController::class, 'index'])->name('/');
+Route::get('/{instituteSlug?}', [\Module\CourseManagement\App\Http\Controllers\HomeController::class, 'index'])->name('/');
 Route::get('/registration/ssp-registration', [\Module\CourseManagement\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
 
 Route::get('/success', [\Module\CourseManagement\App\Http\Controllers\HomeController::class, 'success'])->name('success');

@@ -2,14 +2,13 @@
     $layout = 'master::layouts.front-end';
     $slug = request()->segment(count(request()->segments()));
 
-    if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
+    $currInstitute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
+
+    $currentInstitute =  new \Module\CourseManagement\App\Models\Institute();
+    if ($currInstitute) {
+        $currentInstitute = $currInstitute;
+    }else {
         $slug = null;
-    }
-
-    $currentInstitute = null;
-
-    if ($slug) {
-        $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
     }
 
 @endphp
@@ -165,8 +164,7 @@
                                                                         {{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
-                                                                        <a href="javascript:;"
-                                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                                        <a href="{{ route('course-details', $publishCourse->id) }}"
                                                                            class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                                     </p>
                                                                 </div>
@@ -229,8 +227,7 @@
                                                             {{$publishCourse->course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
                                                         <p class="float-right">
-                                                            <a href="javascript:;"
-                                                               onclick="courseDetailsModalOpen('{{ $publishCourse->course->id }}')"
+                                                            <a href="{{ route('course_management::course-details', $publishCourse->id) }}"
                                                                class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                         </p>
                                                     </div>

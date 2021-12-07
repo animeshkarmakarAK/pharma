@@ -229,9 +229,15 @@ class YouthController extends Controller
         }
     }
 
-    public function advicePage(): View
+    public function advicePage($instituteSlug = null): View
     {
-        return \view(self::VIEW_PATH . 'static-contents.advice-page');
+        $currentInstitute = new Institute();
+
+        if ($instituteSlug) {
+            $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        }
+
+        return \view(self::VIEW_PATH . 'static-contents.advice-page', compact('currentInstitute'));
     }
 
     public function generalAskPage($instituteSlug = null): View

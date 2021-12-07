@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ $edit ? 'Update Slider' : 'Add Slider' }}
+    {{ $edit ? __('course_management::admin.slider.update')  : __('course_management::admin.slider.add')  }}
 @endsection
 
 @section('content')
@@ -14,13 +14,13 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{ $edit ? 'Update Slider' : 'Add Slider' }}</h3>
+                        <h3 class="card-title font-weight-bold">{{ $edit ? __('course_management::admin.slider.update')  : __('course_management::admin.slider.add')  }}</h3>
 
                         <div class="card-tools">
                             @can('viewAny', Module\CourseManagement\App\Models\Slider::class)
                                 <a href="{{route('course_management::admin.sliders.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-backward"></i> Back to list
+                                    <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
                                 </a>
                             @endcan
                         </div>
@@ -38,7 +38,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cover_image">{{ __('Upload Slider Image') }}<span
+                                    <label for="cover_image">{{ __('course_management::admin.slider.upload_slider_image') }}<span
                                             class="required">*</span></label>
                                     <div class="input-group">
                                         <div class="slider-upload-section">
@@ -66,23 +66,23 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title">{{ __('Title') }}<span
+                                    <label for="title">{{ __('course_management::admin.slider.title') }}<span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control" id="title"
                                            name="title"
                                            value="{{ $edit ? $slider->title : old('title') }}"
-                                           placeholder="{{ __('Title') }}">
+                                           placeholder="{{ __('course_management::admin.slider.title') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('Subtitle') }}<span
+                                    <label for="name">{{ __('course_management::admin.slider.sub_title') }}<span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control" id="sub_title"
                                            name="sub_title"
                                            value="{{ $edit ? $slider->sub_title : old('sub_title') }}"
-                                           placeholder="{{ __('Subtitle') }}">
+                                           placeholder="{{ __('course_management::admin.slider.sub_title') }}">
                                 </div>
                             </div>
 
@@ -92,7 +92,7 @@
                             @else
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="institute_id">Institute<span
+                                        <label for="institute_id">{{ __('course_management::admin.slider.institute_name') }}<span
                                                 class="required">*</span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -102,7 +102,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $slider->institute->title_en, 'id' =>  $slider->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('generic.select_placeholder') }}"
+                                                data-placeholder="{{ __('course_management::admin.slider.institute_name') }}"
                                         >
                                         </select>
                                     </div>
@@ -111,7 +111,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="is_button_available">Is Button Available<span class="required">*</span>:</label>
+                                    <label for="is_button_available">{{ __('course_management::admin.slider.is_button_available') }}<span class="required">*</span>:</label>
                                     <div class="custom-control custom-radio ml-2">
                                         <input class="custom-control-input" type="radio"
                                                id="is_button_available_yes"
@@ -119,7 +119,7 @@
                                                value="{{ \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES }}"
                                             {{ ($edit && $slider->is_button_available == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES) || (old('is_button_available') == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_YES) ? 'checked' : ''}}>
                                         <label for="is_button_available_yes"
-                                               class="custom-control-label">Yes</label>
+                                               class="custom-control-label">{{ __('course_management::admin.slider.yes') }}</label>
                                     </div>
 
                                     <div class="custom-control custom-radio ml-2">
@@ -129,35 +129,35 @@
                                                value="{{ \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_NO }}"
                                             {{ ($edit && $slider->is_button_available === \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_NO) || (!empty(old('is_button_available')) && old('is_button_available') == \Module\CourseManagement\App\Models\Slider::IS_BUTTON_AVAILABLE_NO) ? 'checked' : ''}}>
                                         <label for="is_button_available_no"
-                                               class="custom-control-label">No</label>
+                                               class="custom-control-label">{{ __('course_management::admin.slider.no') }}</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="button_text">Button Text<span class="required">*</span></label>
+                                    <label for="button_text">{{ __('course_management::admin.slider.button_text') }}<span class="required">*</span></label>
                                     <input type="text"
                                            name="button_text" id="button_text" class="form-control"
                                            value="{{ $edit ? $slider->button_text : old('button_text') }}"
-                                           placeholder="{{ __('Button Text') }}">
+                                           placeholder="{{ __('course_management::admin.slider.button_text') }}">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="link">{{ __('Link') }}<span class="required">*</span></label> (Page ID)
+                                    <label for="link">{{ __('course_management::admin.slider.link') }}<span class="required">*</span></label> (Page ID)
                                     <input type="text" class="form-control" id="link"
                                            name="link"
                                            value="{{ $edit ? $slider->link : old('link') }}"
-                                           placeholder="{{ __('Page ID') }}">
+                                           placeholder="{{ __('course_management::admin.slider.link') }}">
                                 </div>
                             </div>
 
                             @if($edit)
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="row_status">Active Status<span class="required">*</span>
+                                        <label for="row_status">{{ __('course_management::admin.common.status') }}<span class="required">*</span>
                                             :</label>
                                         <div class="custom-control custom-radio ml-2">
                                             <input class="custom-control-input" type="radio"
@@ -166,7 +166,7 @@
                                                    value="{{ \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $slider->row_status == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE) || (old('row_status') == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_ACTIVE) ? 'checked' : ''}}>
                                             <label for="slider_active_status_yes"
-                                                   class="custom-control-label">Yes</label>
+                                                   class="custom-control-label">{{ __('course_management::admin.slider.yes') }}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio ml-2">
@@ -176,7 +176,7 @@
                                                    value="{{ \Module\CourseManagement\App\Models\Slider::ROW_STATUS_INACTIVE }}"
                                                 {{ ($edit && $slider->row_status == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_INACTIVE) || (old('row_status') == \Module\CourseManagement\App\Models\Slider::ROW_STATUS_INACTIVE) ? 'checked' : ''}}>
                                             <label for="slider_active_status_no"
-                                                   class="custom-control-label">No</label>
+                                                   class="custom-control-label">{{ __('course_management::admin.slider.no') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
-                                        class="btn btn-success">{{ $edit ? __('Update') : __('Add') }}</button>
+                                        class="btn btn-success">{{ $edit ? __('course_management::admin.slider.update') : __('course_management::admin.slider.add') }}</button>
                             </div>
                         </form>
                     </div><!-- /.card-body -->

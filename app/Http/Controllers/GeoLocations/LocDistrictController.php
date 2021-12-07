@@ -119,7 +119,7 @@ class LocDistrictController extends BaseController
             'loc_districts.bbs_code',
             'loc_districts.created_at',
             'loc_districts.updated_at',
-            'loc_divisions.title as loc_divisions.title',
+            'loc_divisions.title_en as loc_divisions.title',
         ]);
 
         /** relations */

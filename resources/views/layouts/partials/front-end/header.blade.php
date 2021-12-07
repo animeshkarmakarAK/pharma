@@ -1,15 +1,14 @@
 @php
     $slug = request()->segment(count(request()->segments()));
 
-   if (!\App\Helpers\Classes\Helper::validSlug($slug)) {
-       $slug = null;
-   }
+    $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
 
-   $currentInstitute = null;
-
-   if ($slug) {
-       $currentInstitute = \Module\CourseManagement\App\Models\Institute::where('slug', $slug)->first();
-   }
+    $currentInstitute =  null;
+    if ($institute) {
+        $currentInstitute = $institute;
+    }else {
+        $slug = null;
+    }
 
 @endphp
 
@@ -25,7 +24,7 @@
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
-                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title_bn : "DPG Training & Certificate Management" }}</p>
+                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title_en : "DPG Training & Certificate Management" }}</p>
                     </div>
                 </div>
             </div>
@@ -44,7 +43,7 @@
             <ul class="navbar-nav mr-auto">
                 <!-- Left menu item empty -->
                 <li class="nav-item {{ request()->is('/') ? 'active-menu' : '' }}">
-                    <a href="{{ route('/') }}" class="btn ">প্রথম পাতা</a>
+                    <a href="{{ route('/', ['instituteSlug' => $slug]) }}" class="btn ">প্রথম পাতা</a>
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('course_management::institute-page') ? 'active-menu' : '' }}">

@@ -10,7 +10,7 @@
 
                         <div class="card-tools">
                             <a href="{{route('admin.loc-divisions.create')}}" class="btn btn-sm btn-primary">
-                                <i class="fas fa-plus-circle"></i> Add new
+                                <i class="fas fa-plus-circle"></i> {{__('course_management::admin.common.add')}}
                             </a>
 
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">

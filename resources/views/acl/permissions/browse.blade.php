@@ -13,7 +13,7 @@
                         <div class="card-tools">
                             @can('create', \App\Models\Permission::class)
                                 <a href="{{route('admin.permissions.create')}}" class="btn btn-sm btn-outline-primary">
-                                    <i class="fas fa-plus-circle"></i> Add new
+                                    <i class="fas fa-plus-circle"></i> {{__('generic.add_new')}}
                                 </a>
                             @endcan
                         </div>

@@ -9,7 +9,7 @@
         <div class="card-header d-flex justify-content-between">
             <h3 class="card-title">{{!$edit ? 'Add Division': 'Update Division'}}</h3>
             <a href="{{route('admin.loc-divisions.index')}}" class="btn btn-sm btn-outline-primary">
-                <i class="fas fa-backward"></i> Back to list
+                <i class="fas fa-backward"></i> {{__('course_management::admin.common.back')}}
             </a>
         </div>
         <div class="card-body">

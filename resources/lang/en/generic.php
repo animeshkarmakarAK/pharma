@@ -73,6 +73,7 @@ return [
     'open' => 'Open',
     'options' => 'Options',
     'password' => 'Password',
+    'retype_password' => 'Retype password',
     'permissions' => 'Permissions',
     'profile' => 'Profile',
     'public_url' => 'Public URL',
@@ -211,5 +212,11 @@ return [
     'Ex' => 'Ex',
     'subject' => 'Subject',
     'degree' => 'Degree',
+    'address' => 'Address',
+    'office_head_name' => 'Office head name',
+    'office_head_post' => 'Office head post',
+    'contact_person_information' => 'Contact person information',
+    'post' => 'Post',
+    'registration' => 'Registration'
 ];
 

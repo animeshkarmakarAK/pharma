@@ -1105,10 +1105,6 @@
             console.table('course session template:', trainerExperience);
             let experienceContentElm = $(".trainer-experience-contents");
             experienceContentElm.append(trainerExperience({sl: SL, data: data, edit: EDIT}))
-
-            if (data.current_working_status) {
-                $('#job_end_date'+ SL).parent().hide();
-            }
             experienceContentElm.find('.flat-date').each(function () {
                 $(this).flatpickr({
                     altInput: false,
