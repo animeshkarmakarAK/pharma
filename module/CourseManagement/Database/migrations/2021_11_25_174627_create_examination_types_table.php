@@ -17,6 +17,7 @@ class CreateExaminationTypesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('institute_id')->index('examination_types_fk_institute_id');
             $table->string('title');
+            $table->tinyInteger('row_status')->default(1);
             $table->timestamps();
         });
     }
