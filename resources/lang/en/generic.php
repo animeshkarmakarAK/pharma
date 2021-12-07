@@ -217,6 +217,10 @@ return [
     'office_head_post' => 'Office head post',
     'contact_person_information' => 'Contact person information',
     'post' => 'Post',
-    'registration' => 'Registration'
+    'registration' => 'Registration',
+    'contact_person_name' => 'Contact person name',
+    'contact_person_email' => 'Contact person email',
+    'contact_person_mobile' => 'Contact person mobile',
+    'contact_person_post' => 'Contact person post',
 ];
 

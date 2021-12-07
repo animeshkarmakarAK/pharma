@@ -57,12 +57,12 @@ class InstituteService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'name' => ['required', 'string', 'max:191'],
+            'name' => ['nullable', 'string', 'max:191'],
+            'title_en' => ['nullable', 'string', 'max:191'],
             'email' => [
                 'required',
                 'string',
                 'regex:/^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/',
-                'unique:users'
             ],
             'mobile' => ['required', 'string', 'max:191'],
             'address' => ['nullable', 'string', 'max:191'],
@@ -93,14 +93,15 @@ class InstituteService
                 'confirmed'
             ],
 
-            /* 'logo' => [
-                 new RequiredIf($id == null),
-                 'image',
-                 'mimes:jpeg,jpg,png,gif',
-                 'max:500',
-                 //'dimensions:width=370,height=70'
-             ],
-             'description'=>['nullable', 'string']*/
+            'logo' => [
+                new RequiredIf($id == null),
+                'image',
+                'mimes:jpeg,jpg,png,gif',
+                'max:500',
+                //'dimensions:width=370,height=70'
+            ],
+            'description' => ['nullable', 'string'],
+            'google_map_src' => ['nullable', 'string'],
         ];
 
         $messages = [

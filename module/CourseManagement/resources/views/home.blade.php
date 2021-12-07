@@ -939,8 +939,6 @@
                 margin-right: 10%;
             }
         }
-
-
     </style>
 
     <style>
@@ -1096,7 +1094,6 @@
                     next.children(':first-child').clone().appendTo($(this));
                 }
             });
-
         });
     </script>
 @endpush
