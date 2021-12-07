@@ -1,6 +1,7 @@
 @php
     $currentInstitute = domainConfig('institute');
     $layout = 'master::layouts.front-end';
+
 @endphp
 
 @extends($layout)
@@ -242,7 +243,7 @@
                     return str;
                 };
 
-                const template = function (item) {
+                const template = function (key, item) {
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-3">';
@@ -254,7 +255,7 @@
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_en + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span ';
                     html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
@@ -344,7 +345,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['course.title_bn'] = {
+                        filters['course.title_en'] = {
                             type: 'contain',
                             value: searchQuery
                         };
@@ -367,6 +368,9 @@
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
 
+
+                        let seat = @php echo json_encode($maxEnrollmentNumber); @endphp;
+
                         $.each(response.data?.data, function (i, item) {
 
                             for(let k=0; k < seat[0].length; k++){
@@ -376,7 +380,8 @@
                                     break;
                                 }
                             }
-                            html += template(item);
+                            html += template(seat[0][i].publish_course_id, item);
+                            $('#container-publish-courses').append(html);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -418,9 +423,7 @@
                     $('#publish_course_id').on('change', function () {
                         publishCourseSearch();
                     });
-
                 });
-
 
             </script>
 
