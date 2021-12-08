@@ -129,14 +129,16 @@ class YouthFamilyMemberInfo extends BaseModel
      */
     public const GENDER_MALE = 1;
     public const GENDER_FEMALE = 2;
+    public const GENDER_OTHER = 3;
+
     /**
      * Hijra
      */
-    public const GENDER_HERMAPHRODITE = 3;
+    public const GENDER_HERMAPHRODITE = 4;
     /**
      * Who transform gender
      */
-    public const GENDER_TRANSGENDER = 4;
+    public const GENDER_TRANSGENDER = 5;
 
 
     /**
