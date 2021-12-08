@@ -48,9 +48,11 @@ class BatchController extends Controller
         //return $currentInstitute = domainConfig('institute');
         $authUser = AuthHelper::getAuthUser();
         $publishCourses = PublishCourse::where('institute_id',$authUser->institute_id)->get();
+        $trainingCenters = TrainingCenter::where('institute_id',$authUser->institute_id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
             'publishCourses' => $publishCourses,
+            'trainingCenters' => $trainingCenters,
         ]);
     }
 

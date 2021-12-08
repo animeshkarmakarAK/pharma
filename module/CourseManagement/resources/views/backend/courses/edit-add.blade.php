@@ -75,6 +75,7 @@
                                                 id="institute_id"
                                                 data-model="{{base64_encode(\Module\CourseManagement\App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
+                                                data-dependent-fields="#branch_id"
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $course->institute->title_en, 'id' =>  $course->institute->id])}}"
                                                 @endif
@@ -85,6 +86,60 @@
                                 </div>
                             @endif
 
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="application_form_type_id">{{__('course_management::admin.course.branch')}}<span
+                                            style="color: red"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="branch_id"
+                                            id="branch_id"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\Branch::class)}}"
+                                            data-label-fields="{title_en}"
+                                            data-depend-on="institute_id"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $course->branch->title_en, 'id' =>  $course->branch->id])}}"
+                                            @endif
+                                            data-placeholder="{{__('course_management::admin.course.branch')}}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="training_center_id">{{__('course_management::admin.publish_course.training_center')}}<span
+                                        style="color: red"> * </span></label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="training_center_id"
+                                        id="training_center_id"
+                                        data-model="{{base64_encode(Module\CourseManagement\App\Models\TrainingCenter::class)}}"
+                                        data-label-fields="{title_en}"
+                                        data-depend-on="institute_id"
+                                        @if($edit)
+                                        data-preselected-option="{{json_encode(['text' =>  $course->trainingCenter->title_en, 'id' =>  $course->trainingCenter->id])}}"
+                                        @endif
+                                        data-placeholder="{{__('course_management::admin.course.training_center')}}"
+                                >
+                                </select>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="application_form_type_id">{{__('course_management::admin.publish_course.application_form_type')}}<span
+                                            style="color: red"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="application_form_type_id"
+                                            id="application_form_type_id"
+                                            data-model="{{base64_encode(\Module\CourseManagement\App\Models\ApplicationFormType::class)}}"
+                                            data-label-fields="{title_en}"
+                                            data-depend-on="institute_id"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $course->applicationFormType->title_en, 'id' =>  $course->applicationFormType->id])}}"
+                                            @endif
+                                            data-placeholder="{{__('course_management::admin.course.application_form_type')}}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -116,6 +171,59 @@
                                            name="course_fee"
                                            value="{{ $edit ? $course->course_fee : old('course_fee') }}"
                                            placeholder="{{ __('course_management::admin.course.course_fee') }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="application_start_date">{{ __('course_management::admin.course.application_start_date') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="application_start_date"
+                                           id="application_start_date"
+                                           value="{{ $edit ? $course->application_start_date : old('application_start_date') }}"
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="application_end_date">{{ __('course_management::admin.course.application_end_date') }} <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="application_end_date"
+                                           id="application_end_date"
+                                           value="{{ $edit ? $course->application_end_date : old('application_end_date') }}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="course_start_date">{{ __('course_management::admin.course.course_start_date') }} <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="course_start_date"
+                                           id="course_start_date"
+                                           value="{{ $edit ? $course->course_start_date : old('course_start_date') }}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="course_end_date">{{ __('course_management::admin.course.course_end_date') }} <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="course_end_date"
+                                           id="course_end_date"
+                                           value="{{ $edit ? $course->course_end_date : old('course_end_date') }}"
+                                    >
                                 </div>
                             </div>
 
@@ -247,6 +355,14 @@
     </div>
 @endsection
 
+@push('css')
+    <style>
+        .flat-date-custom-bg {
+            background-color: #fafdff !important;
+        }
+    </style>
+@endpush
+
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
 
@@ -266,6 +382,31 @@
                 }, 200);
             }
         });
+
+
+        $('#application_start_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
+        $('#application_end_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
+        $('#course_start_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+        $('#course_end_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
 
         $.validator.addMethod(
             "imageSize",
@@ -346,6 +487,28 @@
                 prerequisite: {
                     required: false,
                 },
+                application_form_type_id: {
+                    required: true
+                },
+                application_start_date: {
+                    required: true
+
+                },
+                application_end_date: {
+                    required: true,
+                    greaterThan: '#application_start_date'
+                },
+                course_start_date: {
+                    required: true,
+                    greaterThan: '#application_end_date'
+                },
+                course_end_date: {
+                    required: true,
+                    greaterThan: '#course_start_date'
+                },
+                training_center_id: {
+                    required: true
+                }
             },
             messages: {
                 /*cover_image: {
@@ -359,6 +522,15 @@
                 course_fee: {
                     number: 'Please enter your course fee [Only number]',
                 },
+                application_end_date: {
+                    greaterThan: "This should be greater than Application Start Date"
+                },
+                course_start_date: {
+                    greaterThan: "This should be greater than Application End Date"
+                },
+                course_end_date: {
+                    greaterThan: "This should be greater than Course Start Date"
+                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();

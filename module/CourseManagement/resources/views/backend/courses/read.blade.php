@@ -29,16 +29,36 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.course.title') }}</p>
-                    <div class="input-box">
-                        {{ $course->title_en }}
-                    </div>
-                </div>
+
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('course_management::admin.course.institute_name') }}</p>
                     <div class="input-box">
                         {{ $course->institute->title_en }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.branch') }}</p>
+                    <div class="input-box">
+                        {{ $course->branch->title_en }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.training_center') }}</p>
+                    <div class="input-box">
+                        {{ $course->trainingCenter->title_en }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.application_form_type') }}</p>
+                    <div class="input-box">
+                        {{ $course->applicationFormType->title_en }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.title') }}</p>
+                    <div class="input-box">
+                        {{ $course->title_en }}
                     </div>
                 </div>
 
@@ -55,7 +75,29 @@
                         {{ $course->course_fee }}
                     </div>
                 </div>
-
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.application_start_date') }}</p>
+                    <div class="input-box flat">
+                        {{ $course->application_start_date }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.application_end_date') }}</p>
+                    <div class="input-box">
+                        {{ $course->application_end_date }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.course_start_date') }}</p>
+                    <div class="input-box">
+                        {{ $course->course_start_date }}
+                    </div>
+                </div> <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('course_management::admin.course.course_end_date') }}</p>
+                    <div class="input-box">
+                        {{ $course->course_end_date }}
+                    </div>
+                </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('course_management::admin.course.duration') }}</p>
                     <div class="input-box">

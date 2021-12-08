@@ -50,14 +50,17 @@ class Course extends BaseModel
         return $this->belongsTo(Institute::class);
     }
 
-    public function courseSessions(): HasMany
+    public function branch(): BelongsTo
     {
-        return $this->hasMany(CourseSession::class,'course_id','id');
+        return $this->belongsTo(Branch::class);
     }
-
-    public function publishCourses(): HasMany
+    public function trainingCenter(): BelongsTo
     {
-        return $this->hasMany(PublishCourse::class);
+        return $this->belongsTo(TrainingCenter::class);
+    }
+    public function applicationFormType(): BelongsTo
+    {
+        return $this->belongsTo(ApplicationFormType::class);
     }
 
 }

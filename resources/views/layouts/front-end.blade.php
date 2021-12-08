@@ -32,7 +32,7 @@
 
         .menu-bg-color li a {
             color: #fff;
-            padding: 15px 15px;
+            padding: 15px 8px;
             border-radius: unset;
             transition: .5s;
             font-size: 14px;

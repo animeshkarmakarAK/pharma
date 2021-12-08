@@ -25,8 +25,8 @@ class CreateCoursesTable extends Migration
             $table->unsignedMediumInteger('total_seat')->default(0);
             $table->dateTime('application_start_date');
             $table->dateTime('application_end_date');
-            $table->dateTime('class_start_date');
-            $table->dateTime('class_end_date')->nullable();
+            $table->dateTime('course_start_date');
+            $table->dateTime('course_end_date')->nullable();
             $table->text('description')->nullable();
             $table->text('target_group')->nullable();
             $table->text('objects')->nullable();

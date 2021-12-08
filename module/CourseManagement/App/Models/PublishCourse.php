@@ -94,10 +94,6 @@ class PublishCourse extends BaseModel
         return $this->belongsTo(TrainingCenter::class);
     }
 
-    public function programme(): BelongsTo
-    {
-        return $this->belongsTo(Programme::class);
-    }
 
     public function applicationFormType(): BelongsTo
     {

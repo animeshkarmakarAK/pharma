@@ -26,6 +26,7 @@ class InstituteSeeder extends Seeder
                     'id' => 1,
                     'name' => 'BITAC',
                     'title_en' => 'BITAC',
+                    'address' => 'Kawranbazar',
                     'email' => 'bitac@gmail.com',
                     'mobile' => '01837473838',
                     'office_head_name' => 'SK',

@@ -154,13 +154,6 @@
                                     </select>
                                 </div>
                             </div>
-
-
-
-
-
-
-
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
                                         class="btn btn-success">{{ $edit ? __('course_management::admin.common.update') : __('course_management::admin.common.add') }}</button>

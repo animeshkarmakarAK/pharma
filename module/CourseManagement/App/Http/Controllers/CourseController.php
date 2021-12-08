@@ -4,7 +4,9 @@
 namespace Module\CourseManagement\App\Http\Controllers;
 
 
+use App\Helpers\Classes\AuthHelper;
 use Module\CourseManagement\App\Models\Course;
+use Module\CourseManagement\App\Models\TrainingCenter;
 use Module\CourseManagement\App\Services\CourseService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -76,7 +78,9 @@ class CourseController extends Controller
      */
     public function edit(Request $request, Course $course): View
     {
-        return \view(self::VIEW_PATH . 'edit-add', compact('course'));
+        $authUser = AuthHelper::getAuthUser();
+        $trainingCenters = TrainingCenter::where('institute_id', $authUser->institute_id)->active()->get();
+        return \view(self::VIEW_PATH . 'edit-add', compact('course','trainingCenters'));
     }
 
     /**

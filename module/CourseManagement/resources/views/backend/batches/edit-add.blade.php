@@ -98,8 +98,11 @@
                                                 <option
                                                     value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}} {{ $publishCourseTrainingCenter->title_en }}</option>
                                             @endforeach
+                                        @else
+                                            @foreach($trainingCenters as $trainingCenter)
+                                                <option value="{{$trainingCenter->id}}">{{$trainingCenter->title_en}}</option>
+                                            @endforeach
                                         @endif
-
                                     </select>
                                 </div>
                             </div>

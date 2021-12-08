@@ -103,6 +103,30 @@ class CourseService
                 'required',
                 'int'
             ],
+            'training_center_id' => [
+                'required',
+                'int'
+            ],
+            'application_form_type_id' => [
+                'required',
+                'int'
+            ],
+            'application_start_date' => [
+                'required'
+            ],
+            'application_end_date' => [
+                'required'
+            ],
+            'course_start_date' => [
+                'required'
+            ],
+            'course_end_date' => [
+                'required'
+            ],
+            'branch_id' => [
+                'required',
+                'int'
+            ],
             /*'cover_image' => [
                 'nullable',
                 'image',
