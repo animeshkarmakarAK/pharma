@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Module\CourseManagement\App\Models\Institute;
-use Module\CourseManagement\App\Models\YouthAcademicQualification;
 
 /**
  * App\Models\User

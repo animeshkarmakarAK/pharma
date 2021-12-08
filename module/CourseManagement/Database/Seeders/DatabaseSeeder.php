@@ -21,8 +21,6 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             TrainingCenterSeeder::class,
             ProgrammeSeeder::class,
-            PublishedCourseSeeder::class,
-            CourseSessionSeeder::class,
         ]);
     }
 }

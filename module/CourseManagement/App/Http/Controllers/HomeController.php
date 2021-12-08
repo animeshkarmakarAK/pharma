@@ -5,6 +5,7 @@ namespace Module\CourseManagement\App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Module\CourseManagement\App\Models\Course;
 use Module\CourseManagement\App\Models\Event;
 use Module\CourseManagement\App\Models\Gallery;
 use Module\CourseManagement\App\Models\GalleryCategory;
@@ -26,53 +27,38 @@ class HomeController extends BaseController
     {
         if ($SSPSlug) {
             $currentInstitute = Institute::where('slug', $SSPSlug)->firstOrFail();
-        }else {
+        } else {
             $currentInstitute = Institute::where('slug', $SSPSlug)->first();
         }
 
         if ($currentInstitute) {
-            $currentInstituteCourses = PublishCourse::where([
+            $currentInstituteCourses = Course::where([
                 'institute_id' => $currentInstitute->id,
             ]);
 
-            $runningCourses = PublishCourse::select([
-                'publish_courses.id as id',
-                'publish_courses.course_id',
+            $runningCourses = Course::select([
+                'courses.id as id',
                 'courses.title_en',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',
-                'course_sessions.max_seat_available',
-                'course_sessions.session_name_en',
-                'course_sessions.application_start_date',
-                'course_sessions.application_end_date'
             ]);
-            $runningCourses->join('courses', 'courses.id', '=', 'publish_courses.course_id');
-            $runningCourses->join('course_sessions', 'course_sessions.publish_course_id', '=', 'publish_courses.id');
-            $runningCourses->whereDate('course_sessions.application_start_date', '<=', Carbon::now()->format('Y-m-d'))
-                ->whereDate('course_sessions.application_end_date', '>=', Carbon::now()->format('Y-m-d'));
-            $runningCourses->where(['publish_courses.institute_id' => $currentInstitute->id]);
+            $runningCourses->whereDate('courses.application_start_date', '<=', now()->format('Y-m-d'))->whereDate('application_end_date', '>=', now()->format('Y-m-d'));
+            $runningCourses->where(['courses.institute_id' => $currentInstitute->id]);
             $runningCourses = $runningCourses->get();
 
 
             $upcomingCourses = PublishCourse::select([
-                'publish_courses.id as id',
-                'publish_courses.course_id',
+                'courses.id as id',
                 'courses.title_en',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',
-                'course_sessions.max_seat_available',
-                'course_sessions.session_name_en',
-                'course_sessions.application_start_date',
-                'course_sessions.application_end_date'
+                'courses.total_seat',
             ]);
-            $upcomingCourses->join('courses', 'courses.id', '=', 'publish_courses.course_id');
-            $upcomingCourses->join('course_sessions', 'course_sessions.publish_course_id', '=', 'publish_courses.id');
-            $upcomingCourses->whereDate('course_sessions.application_start_date', '>', Carbon::now()->format('Y-m-d'));
-            $upcomingCourses->where(['publish_courses.institute_id' => $currentInstitute->id]);
+            $upcomingCourses->whereDate('courses.application_start_date', '>=', now()->format('Y-m-d'))->whereDate('courses.application_end_date', '>=', now()->format('Y-m-d'));
+            $upcomingCourses->where(['courses.institute_id' => $currentInstitute->id]);
             $upcomingCourses = $upcomingCourses->get();
-
 
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
             $galleryCategories = GalleryCategory::active()
@@ -124,10 +110,10 @@ class HomeController extends BaseController
                 ->limit(1)
                 ->first();
 
-            $publishCourses = PublishCourse::with('course')->get();
+            $publishCourses = Course::all();
 
             $institute = [
-                'courses' => PublishCourse::count(),
+                'courses' => Course::count(),
                 'training_centers' => TrainingCenter::count(),
                 'youth_registrations' => YouthRegistration::count(),
             ];
@@ -160,5 +146,4 @@ class HomeController extends BaseController
     {
         return \view('course_management::frontend.ssp.registration-form');
     }
-
 }

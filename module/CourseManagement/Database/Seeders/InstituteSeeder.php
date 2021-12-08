@@ -35,7 +35,8 @@ class InstituteSeeder extends Seeder
                     'contact_person_mobile' => 'HR@gmail.com',
                     'contact_person_post' => 'HR',
                     'row_status' => 1,
-                    'slug' => Str::slug('bitac')
+                    'slug' => Str::slug('bitac'),
+                    'address' => 'CA'
                 ),
         ));
         Schema::enableForeignKeyConstraints();

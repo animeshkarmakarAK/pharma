@@ -85,9 +85,9 @@
                 @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('course_management::youth-registrations.index') }}"
+                           href="{{ route('course_management::trainee-registrations.index') }}"
                            id="bd-versions" aria-haspopup="true">
-                            <i class="fa fa-file"> </i>&nbsp; অনলাইন আবেদন
+                            <i class="fa fa-file"> </i>&nbsp;Trainee Registration
                         </a>
                     </li>
 
@@ -98,6 +98,7 @@
                             <i class="fa fa-file"> </i>&nbsp;SSP Registration
                         </a>
                     </li>
+
 
                     <li class="nav-item">
                         <a class="btn"

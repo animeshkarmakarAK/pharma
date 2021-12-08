@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration
             $table->string('title_en', 191);
             $table->unsignedDouble('course_fee', 11, 2)->default(0);
             $table->string('duration', 30)->nullable();
-            $table->unsignedMediumInteger('max_seat')->default(0);
+            $table->unsignedMediumInteger('total_seat')->default(0);
             $table->dateTime('application_start_date');
             $table->dateTime('application_end_date');
             $table->dateTime('class_start_date');
