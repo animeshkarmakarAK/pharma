@@ -58,7 +58,6 @@ class YouthRegistrationController extends Controller
                 //'branch',
                 'applicationFormType'
             ]);
-
         }
 
         $institutes = DB::table('institutes')

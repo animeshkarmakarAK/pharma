@@ -159,7 +159,7 @@ Route::group(['prefix' => 'course-management', 'as' => 'course_management::'], f
     Route::post('venue-list-search', [Module\CourseManagement\App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
 
     Route::resources([
-        'youth-registrations' => Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class,
+        'trainee-registrations' => Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class,
     ]);
 
     Route::get('youth-registration/success/{accessKey}', [Module\CourseManagement\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
