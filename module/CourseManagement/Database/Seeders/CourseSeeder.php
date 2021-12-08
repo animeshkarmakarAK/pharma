@@ -3,9 +3,13 @@
 namespace Module\CourseManagement\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Module\CourseManagement\App\Models\ApplicationFormType;
+use Module\CourseManagement\App\Models\Branch;
 use Module\CourseManagement\App\Models\Institute;
+use Module\CourseManagement\App\Models\TrainingCenter;
 
 class CourseSeeder extends Seeder
 {
@@ -20,21 +24,30 @@ class CourseSeeder extends Seeder
 
         DB::table('courses')->truncate();
         $institutes = Institute::active()->pluck('id')->toArray();
+        $branches = Branch::active()->pluck('id')->toArray();
+        $applicationFormTypes = ApplicationFormType::active()->pluck('id')->toArray();
+        $trainingCenters = TrainingCenter::active()->pluck('id')->toArray();
 
         \DB::table('courses')->insert(array(
             0 =>
                 array(
                     'id' => 1,
                     'institute_id' => array_rand($institutes),
+                    'branch_id' => 1,
+                    'application_form_type_id' => 1,
+                    'training_center_id' => 1,
                     'title_en' => 'Graphic Design',
                     'course_fee' => '500',
+                    'application_start_date' => Date::now(),
+                    'application_end_date' => Date::now()->addDays(6),
+                    'class_start_date' => Date::now()->addDays(12),
                     'objects' => "Introduction to different types of welding processes;
                                             l Identification of different metals;
                                             l Preparation of different types of welding joints;
                                             l Welding practice at positions;
                                             l Safety awareness",
-                    'contents' => "l Welding Theory on Arc Welding    l Heat Treatment l Gas Welding/Cutting l Safety & Mainteance",
-                    'target_group' => "Candidate having SSC or equivalent certificat.",
+                    'contents' => "l Welding Theory on Arc Welding Heat Treatment l Gas Welding/Cutting l Safety & Maintenance",
+                    'target_group' => "Candidate having SSC or equivalent certificate.",
                     'training_methodology' => "l Class-room lecture",
                     "evaluation_system" => "l Observation
                                             l Question and answer
