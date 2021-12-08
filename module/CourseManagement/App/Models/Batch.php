@@ -26,6 +26,7 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
  * @property string course_coordinator_signature
  * @property string course_director_signature
  * @property int created_by
+ * @property int batch_status
  * @property Carbon start_date
  * @property Carbon end_date
  * @property Carbon start_time

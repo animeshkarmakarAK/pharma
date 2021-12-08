@@ -4,6 +4,7 @@ namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
 use Module\CourseManagement\App\Models\Examination;
 use Module\CourseManagement\App\Models\TrainerBatch;
 use Module\CourseManagement\App\Models\Batch;
@@ -30,7 +31,7 @@ class BatchController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -40,19 +41,12 @@ class BatchController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //dd('sdf');
-        //return $currentInstitute = domainConfig('institute');
-        $authUser = AuthHelper::getAuthUser();
-        $publishCourses = PublishCourse::where('institute_id',$authUser->institute_id)->get();
-        $trainingCenters = TrainingCenter::where('institute_id',$authUser->institute_id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
-            'publishCourses' => $publishCourses,
-            'trainingCenters' => $trainingCenters,
         ]);
     }
 
@@ -87,7 +81,7 @@ class BatchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \Module\CourseManagement\App\Models\Batch $trainingBatch
+     * @param Batch $trainingBatch
      * @return \Illuminate\Http\Response
      */
     public function show(Batch $batch): View
@@ -97,18 +91,11 @@ class BatchController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param \Module\CourseManagement\App\Models\Batch $trainingBatch
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Batch $batch): View
     {
-        $publishCourses = PublishCourse::where('institute_id', $batch->institute_id)->get();
-        $publishCourseTrainingCenters = TrainingCenter::whereIn('id', $batch->publishCourse->training_center_id)->get();
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => $batch,
-            'publishCourseTrainingCenters' => $publishCourseTrainingCenters,
-            'publishCourses' => $publishCourses,
         ]);
     }
 
@@ -116,7 +103,7 @@ class BatchController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Module\CourseManagement\App\Models\Batch $trainingBatch
+     * @param Batch $trainingBatch
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */

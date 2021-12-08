@@ -73,6 +73,7 @@ return [
         'edit' => 'Edit Batch',
         'update' => 'Update Batch',
         'title' => ' Batch Title',
+        'course' => 'Course Name',
         'institute_name' => 'Institute Name',
         'course_title' => 'Course Title',
         'max_student_enrollment' => 'Max Student Enrollment',

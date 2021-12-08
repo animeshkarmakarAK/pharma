@@ -19,14 +19,11 @@ class BatchService
 {
     public function createBatch(array $data): Batch
     {
-        $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
         return Batch::create($data);
     }
 
-    public function updateBatch(Batch $batch, array $data):Batch
+    public function updateBatch(Batch $batch, array $data): Batch
     {
-        $data['course_id'] = $this->courseIdByPublishCourseId($data['publish_course_id']);
-
         $batch->fill($data);
         $batch->save();
         return $batch;
@@ -42,51 +39,34 @@ class BatchService
         $rules = [
             'title_en' => 'required|string|max:191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
-            'institute_id' => 'required|int',
-            'publish_course_id' => 'required|int',
-            'training_center_id' => 'required|int|exists:training_centers,id',
-            'max_student_enrollment' => ['required', 'int'],
-            'start_date' => ['required', 'date', 'after:today,' . $id],
-            'end_date' => ['required', 'date', 'after:start_date'],
-            'start_time' => ['required'],
-            'end_time' => ['required'],
+            'course_id' => 'required|int|exists:courses,id',
         ];
 
-        if (!empty($id)) {
-            $rules['start_date'] = [
-                'start_date' => ['required', 'date']
-            ];
-        }
+        /*$validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            dd($validator);
+        }else{
+            dd('all is okay');
+        }*/
 
-        $customMessages = [
-            'start_date.after' => 'Start Date will must be greater than Today'
-        ];
-
-        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $customMessages);
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
     public function getBatchLists(Request $request): JsonResponse
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Batch $batches */
-        $batches = Batch::acl()->select(
+        $batches = Batch::select(
             [
                 'batches.id as id',
                 'batches.title_en',
-                'institutes.title_en as institutes.title_en',
                 'courses.title_en as courses.title_en',
-                'batches.max_student_enrollment as batches.max_student_enrollment',
-                'batches.start_date',
-                'batches.end_date',
-                'batches.start_time',
-                'batches.end_time',
                 'batches.row_status',
                 'batches.batch_status',
                 'batches.created_at',
                 'batches.updated_at',
             ]
         );
-        $batches->join('institutes', 'batches.institute_id', '=', 'institutes.id');
         $batches->join('courses', 'batches.course_id', '=', 'courses.id');
 
         return DataTables::eloquent($batches)
@@ -113,23 +93,18 @@ class BatchService
             ->addColumn('batch_status', function (Batch $batch) {
                 $str = '';
                 $str .= '<div class="btn-group" role="group" aria-label="Basic example">';
-                if($batch->batch_status != Batch::BATCH_STATUS_COMPLETE){
-                    $str .= '<a type="button" href="' . route('course_management::admin.batch-on-going', $batch->id) . '" class="btn btn-outline-secondary btn-sm '.($batch->batch_status == Batch::BATCH_STATUS_ON_GOING? 'active':'').'"> <i class="fas fa-running"></i> ' . __($batch->batch_status ==null ? 'Start the Batch':'Now On Going') . '</a>';
+                if ($batch->batch_status != Batch::BATCH_STATUS_COMPLETE) {
+                    $str .= '<a type="button" href="' . route('course_management::admin.batch-on-going', $batch->id) . '" class="btn btn-outline-secondary btn-sm ' . ($batch->batch_status == Batch::BATCH_STATUS_ON_GOING ? 'active' : '') . '"> <i class="fas fa-running"></i> ' . __($batch->batch_status == null ? 'Start the Batch' : 'Now On Going') . '</a>';
                 }
 
-                if($batch->batch_status != null){
-                    $str .= '<a type="button" href="' . route('course_management::admin.batch-complete', $batch->id) . '" class="btn btn-outline-secondary btn-sm '.($batch->batch_status == Batch::BATCH_STATUS_COMPLETE ? ' active ':'').'"> <i class="fas fa-check-square"></i> ' .  __($batch->batch_status !=Batch::BATCH_STATUS_COMPLETE ? 'Complete Now':'Completed') . '</a>';
+                if ($batch->batch_status != null) {
+                    $str .= '<a type="button" href="' . route('course_management::admin.batch-complete', $batch->id) . '" class="btn btn-outline-secondary btn-sm ' . ($batch->batch_status == Batch::BATCH_STATUS_COMPLETE ? ' active ' : '') . '"> <i class="fas fa-check-square"></i> ' . __($batch->batch_status != Batch::BATCH_STATUS_COMPLETE ? 'Complete Now' : 'Completed') . '</a>';
                 }
                 $str .= '</div>';
                 return $str;
             })
             ->rawColumns(['action', 'batch_status'])
             ->toJson();
-    }
-
-    private function courseIdByPublishCourseId(int $publishCourseId)
-    {
-        return PublishCourse::findOrFail($publishCourseId)->course_id;
     }
 
     public function changeBatchStatus(Batch $branch, array $data): Batch
