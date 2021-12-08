@@ -3,28 +3,24 @@
 namespace Module\CourseManagement\App\Http\Controllers\Frontend;
 
 use App\Models\LocDivision;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Mail;
-use Module\CourseManagement\App\Http\Controllers\Controller;
-use Module\CourseManagement\App\Models\ApplicationFormType;
-use Module\CourseManagement\App\Models\Course;
-use Module\CourseManagement\App\Models\PublishCourse;
-use Module\CourseManagement\App\Models\TrainingCenter;
-use Module\CourseManagement\App\Models\Youth;
-use Module\CourseManagement\App\Models\YouthCourseEnroll;
-use Module\CourseManagement\App\Models\YouthRegistration;
-use Module\CourseManagement\App\Services\YouthRegistrationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use function Module\CourseManagement\App\Services\barcodeNumberExists;
-use function Module\CourseManagement\App\Services\generateBarcodeNumber;
+use Illuminate\Support\Facades\Mail;
+use Module\CourseManagement\App\Http\Controllers\Controller;
+use Module\CourseManagement\App\Models\Course;
+use Module\CourseManagement\App\Models\PublishCourse;
+use Module\CourseManagement\App\Models\TrainingCenter;
+use Module\CourseManagement\App\Models\Youth;
+use Module\CourseManagement\App\Models\YouthCourseEnroll;
+use Module\CourseManagement\App\Services\YouthRegistrationService;
+use phpDocumentor\Reflection\Types\Self_;
 
 class YouthRegistrationController extends Controller
 {
-    const VIEW_PATH = 'course_management::frontend.youth-registrations.';
+    const VIEW_PATH = 'course_management::frontend.trainee-registration.';
     protected YouthRegistrationService $youthRegistrationService;
 
     public function __construct(YouthRegistrationService $youthRegistrationService)
@@ -36,41 +32,9 @@ class YouthRegistrationController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(Request $request): View
+    public function index(): View
     {
-        $publishedCourseId = $request->query('publish_course_id');
-
-        $divisions = LocDivision::active()->get();
-
-        /** @var PublishCourse $publishedCourse */
-        $publishCourse = [];
-        if ($publishedCourseId) {
-            $publishCourse = PublishCourse::where('id', $publishedCourseId)->firstOrFail();
-            if (!$publishCourse) {
-                $publishCourse = [];
-            }
-
-            $publishCourse->load([
-                'institute',
-                'course',
-                'programme',
-                //'trainingCenter',
-                //'branch',
-                'applicationFormType'
-            ]);
-        }
-
-        $institutes = DB::table('institutes')
-            ->join('courses', 'courses.institute_id', '=', 'institutes.id')
-            ->select('institutes.*')
-            ->where('courses.row_status', Course::ROW_STATUS_ACTIVE)
-            ->distinct()
-            ->get();
-        return \view(self::VIEW_PATH . 'application-form')->with([
-            'institutes' => $institutes,
-            'divisions' => $divisions,
-            'publishCourse' => $publishCourse
-        ]);
+        return \view(self::VIEW_PATH . 'registration-form');
     }
 
     /**

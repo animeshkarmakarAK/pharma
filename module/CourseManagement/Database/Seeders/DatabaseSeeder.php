@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             InstituteSeeder::class,
             CourseSeeder::class,
-            ApplicationFormTypeSeeder::class,
             StaticPageSeeder::class,
             BranchSeeder::class,
             TrainingCenterSeeder::class,

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Module\CourseManagement\App\Models\ApplicationFormType;
 use Module\CourseManagement\App\Models\Branch;
 use Module\CourseManagement\App\Models\Institute;
 use Module\CourseManagement\App\Models\TrainingCenter;
@@ -25,7 +24,6 @@ class CourseSeeder extends Seeder
         DB::table('courses')->truncate();
         $institutes = Institute::active()->pluck('id')->toArray();
         $branches = Branch::active()->pluck('id')->toArray();
-        $applicationFormTypes = ApplicationFormType::active()->pluck('id')->toArray();
         $trainingCenters = TrainingCenter::active()->pluck('id')->toArray();
 
         \DB::table('courses')->insert(array(
@@ -34,7 +32,6 @@ class CourseSeeder extends Seeder
                     'id' => 1,
                     'institute_id' => array_rand($institutes),
                     'branch_id' => 1,
-                    'application_form_type_id' => 1,
                     'training_center_id' => 1,
                     'title_en' => 'Graphic Design',
                     'course_fee' => '500',
