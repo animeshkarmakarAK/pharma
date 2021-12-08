@@ -242,11 +242,10 @@
             for (let i = 0; i <= SL; i++) {
                 $.validator.addClassRules("start_time" + i, {
                     required: true,
-
                 });
                 $.validator.addClassRules("end_time" + i, {
                     required: true,
-
+                    greaterThan: ''
                 });
             }
 

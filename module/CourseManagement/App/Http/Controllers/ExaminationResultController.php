@@ -64,13 +64,10 @@ class ExaminationResultController extends Controller
     {
 
         $validatedData = $this->examinationResultService->validator($request)->validate();
-        //dd($validatedData);
         $authUser = AuthHelper::getAuthUser();
         $examination = Examination::where(['id'=> $request->examination_id])->first();
-        //dd($examination);
         $batch_id = $examination->batch_id;
         $training_center_id  = $examination->training_center_id;
-
         try {
             $validatedData['batch_id'] = $batch_id;
             $validatedData['training_center_id'] = $training_center_id;
