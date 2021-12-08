@@ -21,7 +21,7 @@ class CreateYouthRegistrationsTable extends Migration
             $table->unsignedInteger('branch_id')->nullable()->index('youth_registrations_fk_branch_id');
             $table->unsignedInteger('training_center_id')->nullable()->index('youth_registrations_fk_training_center_id');
             $table->unsignedInteger('programme_id')->nullable()->index('youth_registrations_fk_programme_id');
-            $table->unsignedInteger('publish_course_id')->nullable()->index('youth_registrations_fk_publish_course_id');
+            $table->unsignedInteger('course_id')->nullable()->index('youth_registrations_fk_course_id');
             $table->tinyInteger('recommended_by_organization')->nullable();
             $table->string('recommended_org_name', 191)->nullable();
             $table->tinyInteger('current_employment_status')->nullable();
