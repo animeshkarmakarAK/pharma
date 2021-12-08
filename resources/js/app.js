@@ -259,6 +259,7 @@ window.initializeSelect2 = function (selector) {
         }
 
         $(this).on('select2:select', function (e) {
+            console.log('depend on:', 'dependOn');
             if (typeof dependentFields !== undefined && dependentFields?.length) {
                 dependentFields.split('|').forEach(function (item) {
                     let elem = formElem.find(item);
