@@ -37,78 +37,76 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.code') }}</p>
+                    <p class="label-text">{{ __('generic.email') }}</p>
                     <div class="input-box">
-                        {{ $institute->code }}
-                    </div>
-                </div>
-
-
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.domain') }}</p>
-                    <div class="input-box">
-                        {{ $institute->domain }}
-                    </div>
-                </div>
-
-                <div class="col-md-6 mt-2 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.primary_phone') }}</p>
-                    <div class="input-box">
-                        {{ $institute->primary_phone }}
-                    </div>
-                </div>
-
-                @if(!empty($institute->phone_numbers))
-                    <div class="col-md-6 mt-2 custom-view-box">
-                        <?php $sl = 0; ?>
-                        @foreach($institute->phone_numbers as $phone)
-                            <p class="label-text">{{ __('course_management::admin.institute.phone') }} # {{ ++$sl }}</p>
-                            <div class="input-box">
-                                {{ $phone }}
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-
-                <div class="col-md-6 mt-2 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.primary_mobile') }}</p>
-                    <div class="input-box">
-                        {{ $institute->primary_mobile }}
-                    </div>
-                </div>
-
-                @if(!empty($institute->mobile_numbers))
-                    <div class="col-md-6 mt-2 custom-view-box">
-                        <?php $sl = 0; ?>
-                        @foreach($institute->mobile_numbers as $mobile)
-                            <p class="label-text">{{ __('course_management::admin.institute.mobile') }} # {{ ++$sl }}</p>
-                            <div class="input-box">
-                                {{ $mobile }}
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.email') }}</p>
-                    <div class="input-box">
-                        {{ !empty($institute->email)? $institute->email: '' }}
+                        {{ $institute->email }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.address') }}</p>
+                    <p class="label-text">{{ __('generic.mobile') }}</p>
+                    <div class="input-box">
+                        {{ $institute->mobile }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('generic.mobile') }}</p>
+                    <div class="input-box">
+                        {{ $institute->mobile }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('generic.address') }}</p>
                     <div class="input-box">
                         {{ $institute->address }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('course_management::admin.institute.google_map_src') }}</p>
-                    <div class="input-box" style="min-height: 100px;">
+                    <p class="label-text">{{ __('generic.office_head_name') }}</p>
+                    <div class="input-box">
+                        {{ $institute->office_head_name }}
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('generic.office_head_post') }}</p>
+                    <div class="input-box">
+                        {{ $institute->office_head_post }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('generic.contact_person_name') }}</p>
+                    <div class="input-box">
+                        {{ $institute->contact_person_name }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('generic.contact_person_post') }}</p>
+                    <div class="input-box">
+                        {{ $institute->contact_person_post }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('generic.contact_person_email') }}</p>
+                    <div class="input-box">
+                        {{ $institute->contact_person_email }}
+                    </div>
+                </div>
+
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{  __('course_management::admin.institute.google_map_src') }}</p>
+                    <div class="input-box">
                         {{ $institute->google_map_src }}
                     </div>
                 </div>
+
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('course_management::admin.institute.description') }}</p>
@@ -120,9 +118,17 @@
                 <div class="col-md-6 mt-2 custom-view-box">
                     <p class="label-text">{{ __('course_management::admin.institute.logo') }}</p>
                     <div class="input-box">
-                        <img src="{{ asset("storage/{$institute->logo}") }}" alt="" title="" height="50px"/>
+                        <img src="{{ $institute->logo ?  asset("storage/{$institute->logo}") : "http://via.placeholder.com/640x360"}}" alt="" title="" height="50px"/>
                     </div>
                 </div>
+
+                <div class="col-md-6 mt-2 custom-view-box">
+                    <p class="label-text">Active status</p>
+                    <div class="input-box">
+                        {!! $institute->getCurrentRowStatus(true) !!}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

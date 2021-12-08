@@ -61,7 +61,7 @@
                                                 <option value="">কোর্সের নাম নির্বাচন করুন</option>
                                                 @foreach($publishCourses as $publishCourse)
                                                     <option
-                                                        value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_bn }}</option>
+                                                        value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -76,7 +76,7 @@
                                                 <option value="">প্রোগ্রামের নাম নির্বাচন করুন</option>
                                                 @foreach($programmes as $programme)
                                                     <option
-                                                        value="{{ $programme->id }}">{{ $programme->title_bn }}</option>
+                                                        value="{{ $programme->id }}">{{ $programme->title_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -255,7 +255,7 @@
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_en + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span ';
                     html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
@@ -333,7 +333,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const publishCourseFetch = searchAPI({
                     model: "{{base64_encode(\Module\CourseManagement\App\Models\PublishCourse::class)}}",
-                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.cover_image|course.course_fee|course.duration|course_session.max_seat_available'
+                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.title_en|course.cover_image|course.course_fee|course.duration|course_session.session_name_en'
                 });
 
                 function publishCourseSearch(url = baseUrl) {
@@ -345,7 +345,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['course.title_bn'] = {
+                        filters['course.title_en'] = {
                             type: 'contain',
                             value: searchQuery
                         };
@@ -367,6 +367,7 @@
                         if (response?.data?.data.length <= 0) {
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
+
 
                         let seat = @php echo json_encode($maxEnrollmentNumber); @endphp;
 
@@ -421,23 +422,7 @@
                     $('#publish_course_id').on('change', function () {
                         publishCourseSearch();
                     });
-
                 });
 
-                {{--async function courseDetailsModalOpen(publishCourseId) {--}}
-                {{--    let response = await $.get('{{route('course_management::course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));--}}
-
-                {{--    if (response?.length) {--}}
-                {{--        $("#course_details_modal").find(".modal-content").html(response);--}}
-                {{--    } else {--}}
-                {{--        let notFound = `<div class="alert alert-danger">Not Found</div>`--}}
-                {{--        $("#course_details_modal").find(".modal-content").html(notFound);--}}
-                {{--    }--}}
-
-                {{--    $("#course_details_modal").modal('show');--}}
-                {{--}--}}
-
-
             </script>
-
     @endpush

@@ -95,7 +95,7 @@ class UserPolicy extends MasterBasePolicy
 
     public function viewUserPermission(User $user, User $model): bool
     {
-        return  $user->id != $model->id && $user->hasPermission('view_user_permission');
+        return $user->id != $model->id && $user->hasPermission('view_user_permission');
     }
 
     public function changeUserPermission(User $user, User $model): bool
