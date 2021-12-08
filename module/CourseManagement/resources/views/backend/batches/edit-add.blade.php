@@ -46,60 +46,23 @@
                                 </div>
                             </div>
 
-                            @if($authUser->isInstituteUser())
-                                <input type="hidden" id="institute_id" name="institute_id"
-                                       value="{{$authUser->institute_id}}">
-                            @else
-                                <div class="form-group col-md-6">
-                                    <label for="institute_id">{{__('course_management::admin.batch.institute_name')}} <span style="color: red">*</span></label>
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="institute_id"
-                                            id="institute_id"
-                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Institute::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-dependent-fields="#course_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $batch->institute->title_en, 'id' =>  $batch->institute->id])}}"
-                                            @endif
-                                            data-placeholder="{{__('course_management::admin.batch.institute_name')}}"
-                                    >
-                                    </select>
-                                </div>
-                            @endif
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="publish_course_id">{{__('course_management::admin.batch.publish_course')}}  <span
+                                    <label for="course_id">{{__('course_management::admin.batch.course')}}  <span
                                             style="color: red">*</span></label>
-                                    <select class="form-control select2-ajax-wizard"d
-                                            name="publish_course_id"
-                                            id="publish_course_id"
-                                    >
-                                        <option value="">Select</option>
-                                        @foreach($publishCourses as $publishCourse)
-                                            <option
-                                                value="{{ $publishCourse->id}}" {{ $edit && $batch->publish_course_id == $publishCourse->id? 'selected':''}}>{{ $publishCourse->course->title_en }}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="publish_course_id">{{__('course_management::admin.batch.training_center')}}
-                                        <span style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
-                                            name="training_center_id"
-                                            id="training_center_id">
-                                        <option value="">Select</option>
-                                        @if($edit)
-                                            @foreach($publishCourseTrainingCenters as $publishCourseTrainingCenter)
-                                                <option
-                                                    value="{{ $publishCourseTrainingCenter->id}}" {{ $batch->training_center_id == $publishCourseTrainingCenter->id? 'selected':''}} {{ $publishCourseTrainingCenter->title_en }}</option>
-                                            @endforeach
-                                        @endif
-
+                                            name="course_id"
+                                            id="course_id"
+                                            data-model="{{base64_encode(Module\CourseManagement\App\Models\Course::class)}}"
+                                            data-label-fields="{institute.title_en} - {title_en}"
+                                            @if($authUser->isInstituteUser())
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            @endif
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' => $batch->course->institute->title_en.' - '.  $batch->course->title_en, 'id' =>  $batch->course->id])}}"
+                                            @endif
+                                            data-placeholder="{{__('Select Course')}}"
+                                    >
                                     </select>
                                 </div>
                             </div>
@@ -114,61 +77,6 @@
                                            placeholder="{{__('course_management::admin.batch.code')}}">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="max_student_enrollment">{{__('course_management::admin.batch.max_student_enrollment')}}<span
-                                            style="color: red">*</span></label>
-                                    <input type="number" class="form-control" id="max_student_enrollment"
-                                           name="max_student_enrollment"
-                                           value="{{ $edit ? $batch->max_student_enrollment : old('max_student_enrollment') }}"
-                                           placeholder="{{__('course_management::admin.batch.max_student_enrollment')}}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="start_date">{{__('course_management::admin.batch.start_date')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="text" class="flat-date flat-date-custom-bg start_date" id="start_date"
-                                           name="start_date"
-                                           value="{{ $edit ? $batch->start_date : old('start_date') }}"
-                                    >
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="end_date">{{__('course_management::admin.batch.end_date')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="date" class="flat-date flat-date-custom-bg" id="end_date"
-                                           name="end_date"
-                                           value="{{ $edit ? $batch->end_date : old('end_date') }}"
-                                    >
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="start_time">{{__('course_management::admin.batch.start_time')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="time" class="flat-time flat-time-custom-bg" id="start_time"
-                                           name="start_time"
-                                           value="{{ $edit ? $batch->start_time : old('start_time') }}"
-                                    >
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="end_time">{{__('course_management::admin.batch.end_time')}}  <span
-                                            style="color: red">*</span></label>
-                                    <input type="time" class="flat-time flat-time-custom-bg" id="end_time"
-                                           name="end_time"
-                                           value="{{ $edit ? $batch->end_time : old('end_time') }}">
-                                </div>
-                            </div>
-
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"

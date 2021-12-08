@@ -59,47 +59,9 @@
                         name: "batches.title_en",
                     },
                     {
-                        title: "{{__('course_management::admin.batch.institute_name')}}",
-                        data: "institutes.title_en",
-                        name: "institutes.title_en",
-                        visible: false,
-                    },
-                    {
                         title: "{{__('course_management::admin.batch.course_title')}}",
                         data: "courses.title_en",
                         name: "courses.title_en"
-                    },
-                    {
-                        title: "{{__('course_management::admin.batch.max_student_enrollment')}}",
-                        data: "batches.max_student_enrollment",
-                        name: "batches.max_student_enrollment",
-                        visible: false
-                    },
-                    {
-                        title: "{{__('course_management::admin.batch.start_date')}}",
-                        data: "start_date",
-                        name: "batches.start_date",
-                    },
-
-                    {
-                        title: "{{__('course_management::admin.batch.end_date')}}",
-                        data: "end_date",
-                        name: "batches.end_date",
-                        visible: false
-                    },
-
-                    {
-                        title: "{{__('course_management::admin.batch.start_time')}}",
-                        data: "start_time",
-                        name: "batches.start_time",
-                        visible: false
-                    },
-
-                    {
-                        title: "{{__('course_management::admin.batch.end_time')}}",
-                        data: "end_time",
-                        name: "batches.end_time",
-                        visible: false
                     },
                     {
                         title: "{{__('course_management::admin.batch.batch_status')}}",
