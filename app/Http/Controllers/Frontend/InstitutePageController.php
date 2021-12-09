@@ -15,10 +15,8 @@ class InstitutePageController extends Controller
      */
     const VIEW_PATH = 'frontend.institute-list.';
 
-    public function index($instituteSlug = null): View
+    public function index(): View
     {
-//        $currentInstitute = Institute::where('slug', $instituteSlug)->get();
-
         $institutes = Institute::all();
 
         return view(self::VIEW_PATH . 'index', compact('institutes'));

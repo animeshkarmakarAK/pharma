@@ -44,12 +44,12 @@ class HomeController extends BaseController
                 'courses.duration',
                 'courses.cover_image',
             ]);
-            $runningCourses->whereDate('courses.application_start_date', '<=', now()->format('Y-m-d'))->whereDate('application_end_date', '>=', now()->format('Y-m-d'));
+            //$runningCourses->whereDate('courses.application_start_date', '<=', now()->format('Y-m-d'))->whereDate('application_end_date', '>=', now()->format('Y-m-d'));
             $runningCourses->where(['courses.institute_id' => $currentInstitute->id]);
             $runningCourses = $runningCourses->get();
 
 
-            $upcomingCourses = PublishCourse::select([
+            /*$upcomingCourses = PublishCourse::select([
                 'courses.id as id',
                 'courses.title_en',
                 'courses.course_fee',
@@ -59,7 +59,7 @@ class HomeController extends BaseController
             ]);
             $upcomingCourses->whereDate('courses.application_start_date', '>=', now()->format('Y-m-d'))->whereDate('courses.application_end_date', '>=', now()->format('Y-m-d'));
             $upcomingCourses->where(['courses.institute_id' => $currentInstitute->id]);
-            $upcomingCourses = $upcomingCourses->get();
+            $upcomingCourses = $upcomingCourses->get();*/
 
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
             $galleryCategories = GalleryCategory::active()
@@ -87,9 +87,9 @@ class HomeController extends BaseController
             ];
             $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
             $maxEnrollmentNumber = [];
-            foreach ($currentInstituteCourses as $course) {
+            /*foreach ($currentInstituteCourses as $course) {
                 $maxEnrollmentNumber[] = \App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
-            }
+            }*/
 
             $currentInstituteEvents = Event::where([
                 'institute_id' => $currentInstitute->id,
@@ -102,7 +102,7 @@ class HomeController extends BaseController
                 'institute_id' => $currentInstitute->id,
             ])->orderBy('id', 'DESC')->first();
 
-            return view('welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents', 'introVideo', 'runningCourses', 'upcomingCourses'));
+            return view('welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents', 'introVideo', 'runningCourses'/*, 'upcomingCourses'*/));
         } else {
             $staticPage = StaticPage::orderBy('id', 'DESC')
                 ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)

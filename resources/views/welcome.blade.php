@@ -76,7 +76,7 @@
 
                                     </p>
 
-                                    <a href="{{route('static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
+                                    <a href="{{route('static-content.show', ['page_id' => 'aboutus'/*, 'instituteSlug' => $slug*/])}}"
                                        target="_blank"
                                        class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন<i
                                             class="fas fa-arrow-right btn-arrow"></i></a>
