@@ -19,12 +19,12 @@ class TrainingCenterSeeder extends Seeder
 
         DB::table('training_centers')->truncate();
 
-        \DB::table('training_centers')->insert(array(
+        DB::table('training_centers')->insert(array(
             0 =>
                 array(
                     'id' => 1,
                     'institute_id' => 1,
-                    'title_en' => 'CSL Training Centre',
+                    'title' => 'CSL Training Centre',
                     'address' => '',
                     'created_by' => '1',
                     'row_status' => 1
@@ -33,7 +33,7 @@ class TrainingCenterSeeder extends Seeder
                 array(
                     'id' => 2,
                     'institute_id' => 1,
-                    'title_en' => 'Creative IT',
+                    'title' => 'Creative IT',
                     'address' => '',
                     'created_by' => '1',
                     'row_status' => 1
