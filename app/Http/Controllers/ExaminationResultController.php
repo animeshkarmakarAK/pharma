@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
-use App\Helpers\Classes\DatatableHelper;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Models\Batch;
@@ -18,8 +17,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\DataTables;
-
 
 class ExaminationResultController extends Controller
 {
@@ -37,14 +34,6 @@ class ExaminationResultController extends Controller
      */
     public function index()
     {
-        /*$examinationResults = ExaminationResult::with('user','youth','examination','batch','trainingCenter')->select(
-            [
-                'examination_results.*'
-            ]
-        );
-
-        return DataTables::eloquent($examinationResults)->toJson();*/
-
         return \view(self::VIEW_PATH . 'browse');
     }
 
@@ -55,7 +44,6 @@ class ExaminationResultController extends Controller
     {
         $examinationResult = new Batch();
         $examinations = Examination::with('examinationType')->where(['row_status' => 1,'status'=>2])->get();
-        //dd($examinations);
         return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations'));
     }
 
@@ -64,7 +52,7 @@ class ExaminationResultController extends Controller
     {
 
         $validatedData = $this->examinationResultService->validator($request)->validate();
-        $authUser = AuthHelper::getAuthUser();
+        $authUser = User::acl()->get();
         $examination = Examination::where(['id'=> $request->examination_id])->first();
         $batch_id = $examination->batch_id;
         $training_center_id  = $examination->training_center_id;
@@ -95,7 +83,6 @@ class ExaminationResultController extends Controller
      */
     public function show(ExaminationResult $examinationResult): View
     {
-        //dd($examinationResult);
         return view(self::VIEW_PATH . 'read', compact('examinationResult'));
     }
 
@@ -106,27 +93,20 @@ class ExaminationResultController extends Controller
     public function edit(ExaminationResult $examinationResult)
     {
 
-        //return $examinationResult->youth_id;
         $examinations = Examination::with('examinationType')->where(['row_status' => 1])->get();
-
         $youths = Youth::where(['id' => $examinationResult->youth_id])->pluck('name_en','id');
-        //dd($youths);
-
         return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations','youths'));
     }
 
     /**
      * @param Request $request
-     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
     public function update(Request $request, ExaminationResult $examinationResult): RedirectResponse
     {
-        //dd($examinationResult);
         $validatedData = $this->examinationResultService->validator($request)->validate();
         $examination = Examination::where(['id'=> $request->examination_id])->first();
-        //dd($examination);
         $batch_id = $examination->batch_id;
         $training_center_id  = $examination->training_center_id;
         try {

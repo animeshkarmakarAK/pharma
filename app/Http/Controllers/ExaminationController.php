@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Classes\AuthHelper;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +32,6 @@ class ExaminationController extends Controller
      */
     public function index()
     {
-        //return $routines = Routine::with('routineClass')->get();
         return \view(self::VIEW_PATH . 'browse');
     }
 
@@ -52,7 +51,7 @@ class ExaminationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationService->validator($request)->validate();
-        $authUser = AuthHelper::getAuthUser();
+        $authUser = User::acl()->get();
 
         $statement = DB::select("show table status like 'examinations'");
         $ainid = $statement[0]->Auto_increment;
@@ -92,19 +91,14 @@ class ExaminationController extends Controller
      */
     public function edit(Examination $examination)
     {
-        //return $examination;
 
-       /* $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $examinationTypes = ExaminationType::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title','id');*/
-        $authUser = AuthHelper::getAuthUser();
-        $examinationTypes = ExaminationType::where(['row_status' => 1, 'institute_id' => $authUser->institute_id])->pluck('title','id');
+        $authUser = User::acl()->get();
+        $examinationTypes = ExaminationType::acl()->where(['row_status' => 1, ])->pluck('title','id');
         return view(self::VIEW_PATH . 'edit-add', compact('examination','examinationTypes'));
     }
 
     /**
      * @param Request $request
-     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
@@ -157,7 +151,6 @@ class ExaminationController extends Controller
     }
     public function status($id)
     {
-        //return $id;
         $examination = Examination::find($id);
         if (!$examination){
             return back()->with([

@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
-use App\Helpers\Classes\DatatableHelper;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use App\Models\Batch;
 use App\Models\Examination;
 use App\Models\ExaminationRoutine;
 use App\Models\ExaminationRoutineDetail;
 use App\Models\Routine;
-use App\Models\RoutineClass;
 use App\Models\TrainingCenter;
 use App\Services\ExaminationRoutineService;
 use Illuminate\Contracts\View\View;
@@ -20,8 +18,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\DataTables;
-use Session;
 
 
 class ExaminationRoutineController extends Controller
@@ -40,31 +36,20 @@ class ExaminationRoutineController extends Controller
      */
     public function index()
     {
-        /*$examinationRoutines = ExaminationRoutine::select(
-            [
-                'examination_routines.id as id',
-                'examination_routines.title',
-                'examination_routines.created_at',
-                'examination_routines.updated_at',
-            ]
-        );
-        return DataTables::eloquent($examinationRoutines)->toJson();*/
-
         return \view(self::VIEW_PATH . 'browse');
     }
 
     /**
+     * @param ExaminationRoutine  $examinationRoutine
      * @return View
      */
-    public function create(): View
-    {
-        $examinationRoutine = new ExaminationRoutine();
 
-        $authUser = AuthHelper::getAuthUser();
-        $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
-        $examinations = Examination::where(['institute_id' => $authUser->institute_id ])->get();
+    public function create(ExaminationRoutine $examinationRoutine ): View
+    {
+        $batches = Batch::acl()->active()->pluck('title_en','id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title_en','id');
+        $trainers = User::acl()->where(['user_type_id' => 1 ])->get();
+        $examinations = Examination::acl()->get();
 
         return view(self::VIEW_PATH . 'edit-add', compact('examinationRoutine','batches','trainingCenters','trainers','examinations'));
     }
@@ -72,14 +57,12 @@ class ExaminationRoutineController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
         $validatedData = $this->examinationRoutineService->validator($request)->validate();
-        $authUser = AuthHelper::getAuthUser();
+        $authUser = User::acl()->get();
         try {
             $validatedData['institute_id'] = $authUser->institute_id;
             $validatedData['created_by'] = $authUser->id;
 
-            //dd($validatedData);
             $this->examinationRoutineService->createExaminationRoutine($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -102,7 +85,6 @@ class ExaminationRoutineController extends Controller
     public function show(ExaminationRoutine $examinationRoutine): View
     {
         $examinationRoutineDetails = ExaminationRoutineDetail::with('examination','examinationRoutine')->where(['examination_routine_id' => $examinationRoutine->id])->get();
-        //dd($examinationRoutineDetails);
         return view(self::VIEW_PATH . 'read', compact('examinationRoutine','examinationRoutineDetails'));
     }
 
@@ -112,10 +94,8 @@ class ExaminationRoutineController extends Controller
      */
     public function edit(ExaminationRoutine $examinationRoutine): View
     {
-        //$examinationRoutine = ExaminationRoutine::where(['id'=>$examinationRoutine->id])->with('ExaminationRoutineDetail')->get();
-        $authUser = AuthHelper::getAuthUser();
-        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
-        $examinations = Examination::where(['institute_id' => $authUser->institute_id])->get();
+        $trainers = User::acl()->where(['user_type_id' => 1])->get();
+        $examinations = Examination::acl()->get();
 
 
         return view(self::VIEW_PATH . 'edit-add', compact('examinationRoutine','trainers','examinations'));
@@ -123,14 +103,12 @@ class ExaminationRoutineController extends Controller
 
     /**
      * @param Request $request
-     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
     public function update(Request $request, ExaminationRoutine $examinationRoutine): RedirectResponse
     {
-        $validatedData = $this->examinationRoutineService->validator($request)->validate();
-        //dd($validatedData);
+        $this->examinationRoutineService->validator($request)->validate();
         try {
             $this->examinationRoutineService->updateExaminationRoutine($examinationRoutine, $request->all());
         } catch (\Throwable $exception) {
@@ -179,13 +157,12 @@ class ExaminationRoutineController extends Controller
         @$examination_id = Session::get('examination_id');
         @$batch_id = Session::get('batch_id');
         @$training_center_id= Session::get('training_center_id');
-        $authUser = AuthHelper::getAuthUser();
+        $authUser = User::acl()->get();
         $parameters = [];
         $examinationRoutines = [];
         if ($batch_id && $examination_id){
 
-            //dd($examination_id);
-            $examination = Examination::where(['id' => $examination_id])->first();
+            $examination = Examination::acl()->where(['id' => $examination_id])->first();
             $examination_name = $examination->code . " - ". substr($examination->exam_details, 0, 100) ;
 
             $batch = Batch::where(['id' => $batch_id])->first();
@@ -206,7 +183,6 @@ class ExaminationRoutineController extends Controller
                     $query->where('examination_id','=', $examination_id);
                 })
                 ->get();
-            //dd($examinationRoutines);
         }elseif ($batch_id){
             $batch = Batch::where(['id' => $batch_id])->first();
             $batch_name = $batch->title_en;
@@ -222,9 +198,6 @@ class ExaminationRoutineController extends Controller
                 ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
                 ->get();
         }
-
-        //dd($examinationRoutines);
-        //return $parameters;
         return view(self::VIEW_PATH . 'examination-routine',compact('examinationRoutines','parameters'));
     }
 
@@ -232,7 +205,6 @@ class ExaminationRoutineController extends Controller
 
     public function examinationRoutineFilter(Request $request)
     {
-        //dd($request->all());
 
         $this->validate($request, [
             'training_center_id' => 'required',
@@ -243,7 +215,6 @@ class ExaminationRoutineController extends Controller
         $examination_id = $request->get('examination_id');
         $batch_id = $request->get('batch_id');
         $training_center_id = $request->get('training_center_id');
-
 
         Session::put(['examination_id'=>$examination_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
         return redirect(route('admin.examination-routine'));

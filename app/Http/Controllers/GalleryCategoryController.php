@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class GalleryCategoryController extends Controller
 {
@@ -29,7 +30,7 @@ class GalleryCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function index(): View
     {
@@ -39,7 +40,7 @@ class GalleryCategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function create(): View
     {
@@ -49,9 +50,9 @@ class GalleryCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -100,7 +101,7 @@ class GalleryCategoryController extends Controller
      * @param Request $request
      * @param GalleryCategory $galleryCategory
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function update(Request $request, GalleryCategory $galleryCategory): RedirectResponse
     {
@@ -157,7 +158,6 @@ class GalleryCategoryController extends Controller
      */
     public function showFeaturedGalleries(): View
     {
-//        $this->authorize('viewAny'); TODO:permission: only super admin|institute user can see this page to edit
         $currentInstitute = domainConfig('institute');
         $authUser = AuthHelper::getAuthUser();
         $albums = GalleryCategory::active();
@@ -189,7 +189,6 @@ class GalleryCategoryController extends Controller
                 'alertType' => 'error',
             ]);
         }
-        //update the feature
         $galleryCategory->update(['featured' => $isFeatured]);
 
         return response()->json([

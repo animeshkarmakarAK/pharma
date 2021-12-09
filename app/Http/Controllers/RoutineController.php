@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
-use App\Helpers\Classes\DatatableHelper;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Models\Batch;
@@ -16,9 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\DataTables;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class RoutineController extends Controller
 {
@@ -45,9 +43,9 @@ class RoutineController extends Controller
     public function create(): View
     {
         $authUser = AuthHelper::getAuthUser();
-        $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1 ])->get();
+        $batches = Batch::acl()->active()->pluck('title_en','id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title_en','id');
+        $trainers = User::acl()->where(['user_type_id' => 1 ])->get();
 
         return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','trainers'));
     }
@@ -57,7 +55,7 @@ class RoutineController extends Controller
     {
 
         $validatedData = $this->routineService->validator($request)->validate();
-        $authUser = AuthHelper::getAuthUser();
+        $authUser = User::acl()->get();
         try {
             $validatedData['institute_id'] = $authUser->institute_id;
             $validatedData['created_by'] = $authUser->id;
@@ -93,22 +91,20 @@ class RoutineController extends Controller
      */
     public function edit(Routine $routine)
     {
-        //return $routine;
         $routineData = Routine::where(['id'=>$routine->id])->with('routineClass')->get();
-        $authUser = AuthHelper::getAuthUser();
-        $trainers = User::where(['institute_id' => $authUser->institute_id, 'user_type_id' => 1])->get();
+        $trainers = User::acl()->where(['user_type_id' => 1])->get();
         return view(self::VIEW_PATH . 'edit-add', compact('routine', 'trainers','routineData'));
     }
 
     /**
      * @param Request $request
-     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
     public function update(Request $request, Routine $routine): RedirectResponse
     {
-        $validatedData = $this->routineService->validator($request)->validate();
+        $this->routineService->validator($request)->validate();
+
         try {
             $this->routineService->updateRoutine($routine, $request->all());
         } catch (\Throwable $exception) {
@@ -154,11 +150,6 @@ class RoutineController extends Controller
     }
 
 
-    public function weeklyGetDatatable(Request $request): JsonResponse
-    {
-
-        return $this->routineService->getWeeklyRoutineLists($request);
-    }
 
     /**
      * @param Routine $routine
@@ -169,7 +160,7 @@ class RoutineController extends Controller
         @$user_id = Session::get('user_id');
         @$batch_id = Session::get('batch_id');
         @$training_center_id= Session::get('training_center_id');
-        $authUser = AuthHelper::getAuthUser();
+        $authUser = User::acl()->get();
         $parameters = [];
         $routines = [];
         if ($batch_id && $user_id){
@@ -212,7 +203,6 @@ class RoutineController extends Controller
                 ->get();
         }
 
-        //return $parameters;
         return view(self::VIEW_PATH . 'weekly-routine',compact('routines','parameters'));
     }
 
@@ -220,8 +210,6 @@ class RoutineController extends Controller
 
     public function weeklyRoutineFilter(Request $request)
     {
-        //dd($request->all());
-
         $this->validate($request, [
             'training_center_id' => 'required',
             'batch_id' => 'required'
@@ -231,8 +219,6 @@ class RoutineController extends Controller
         $user_id = $request->get('user_id');
         $batch_id = $request->get('batch_id');
         $training_center_id = $request->get('training_center_id');
-
-
         Session::put(['user_id'=>$user_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
         return redirect(route('admin.weekly-routine'));
 

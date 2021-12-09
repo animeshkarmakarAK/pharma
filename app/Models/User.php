@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\AuthenticatableUser;
 use App\Traits\LocDistrictBelongsToRelation;
 use App\Traits\LocDivisionBelongsToRelation;
+use App\Traits\ScopeAclTrait;
+use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,7 +44,7 @@ use App\Models\Institute;
  */
 class User extends AuthBaseModel
 {
-    use AuthenticatableUser, LocDistrictBelongsToRelation, LocDivisionBelongsToRelation;
+    use AuthenticatableUser, LocDistrictBelongsToRelation, LocDivisionBelongsToRelation, ScopeAclTrait, ScopeRowStatusTrait;
 
     const USER_TYPE_SUPER_USER_CODE = '1';
     const USER_TYPE_SYSTEM_USER_CODE = '2';

@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
-use App\Traits\CreatedByUpdatedByRelationTrait;
-use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\ScopeAclTrait;
-use App\Models\User;
+use Carbon\Carbon;
 
 /**
  * Class RoutineClass
  * @package App\Models
- * @property string title_en
- * @property int Batch_id
- * @property string|null address
- * @property string|null google_map_src
+ * @property int institute_id
+ * @property int routine_id
+ * @property int user_id
+ * @property int batch_id
+ * @property int row_status
+ * @property int created_by
+ * @property int updated_by
+ * @property string|null class
+ * @property Carbon start_time
+ * @property Carbon end_time
  * @method static \Illuminate\Database\Eloquent\Builder|Batch acl()
  * @method static Builder|Batch active()
  * @method static Builder|Batch newModelQuery()
