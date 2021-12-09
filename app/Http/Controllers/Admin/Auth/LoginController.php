@@ -49,7 +49,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('master::acl.auth.custom1.login');
+        return view('master::acl.auth.login');
     }
 
     /**
