@@ -335,8 +335,8 @@
                     },
                     {
                         title: "Institute Name",
-                        data: "institutes.title_en",
-                        name: "institutes.title_en",
+                        data: "institutes.title",
+                        name: "institutes.title",
                         visible: false
                     },
                     {

@@ -63,7 +63,7 @@
                     {
                         title: " {{ __('admin.videos.institute_name') }}",
                         data: "institute_name",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false,
                     },
                     {

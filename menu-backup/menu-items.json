@@ -90,36 +90,6 @@
         "parameters": null
     },
     {
-        "id": 21,
-        "menu_id": 3,
-        "title": "",
-        "title_lang_key": "menu.course_config",
-        "permission_key": "view_any_publish_course",
-        "url": "",
-        "target": "_self",
-        "icon_class": "fas fa-upload",
-        "color": "#806f6f",
-        "parent_id": 42,
-        "order": 3,
-        "route": "admin.publish-courses.index",
-        "parameters": null
-    },
-    {
-        "id": 22,
-        "menu_id": 3,
-        "title": "",
-        "title_lang_key": "menu.application_form_types",
-        "permission_key": "view_any_application_form_type",
-        "url": "",
-        "target": "_self",
-        "icon_class": "fas fa-sticky-note",
-        "color": "#000000",
-        "parent_id": 42,
-        "order": 1,
-        "route": "admin.application-form-types.index",
-        "parameters": null
-    },
-    {
         "id": 23,
         "menu_id": 3,
         "title": "",

@@ -108,7 +108,7 @@
                                                             name="institute_id"
                                                             id="institute_id"
                                                             data-model="{{base64_encode(App\Models\Institute::class)}}"
-                                                            data-label-fields="{title_en}"
+                                                            data-label-fields="{title}"
                                                             data-dependent-fields="#branch_id|#course_id"
                                                             data-placeholder="Institute"
                                                     >
@@ -121,7 +121,7 @@
                                                         name="training_center_id"
                                                         id="training_center_id"
                                                         data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                                        data-label-fields="{title_en}"
+                                                        data-label-fields="{title}"
                                                         data-depend-on-optional="institute_id"
                                                         data-placeholder="Training Center"
                                                 >
@@ -133,7 +133,7 @@
                                                         name="programme_id"
                                                         id="programme_id"
                                                         data-model="{{base64_encode(App\Models\Programme::class)}}"
-                                                        data-label-fields="{title_en}"
+                                                        data-label-fields="{title}"
                                                         data-depend-on-optional="institute_id"
                                                         data-placeholder="Programme"
                                                 >
@@ -145,7 +145,7 @@
                                                         name="course_id"
                                                         id="course_id"
                                                         data-model="{{base64_encode(App\Models\Course::class)}}"
-                                                        data-label-fields="{title_en}"
+                                                        data-label-fields="{title}"
                                                         data-depend-on-optional="institute_id"
                                                         data-placeholder="Course"
                                                 >
@@ -201,7 +201,7 @@
                                 >
                                     <option selected disabled>{{ __('generic.select_placeholder') }}</option>
                                     @foreach($batches as $batch)
-                                        <option value="{{$batch->id}}">{{$batch->title_en}}</option>
+                                        <option value="{{$batch->id}}">{{$batch->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -397,7 +397,6 @@
                         defaultContent: '',
                         orderable: false,
                         searchable: false,
-                        //className: 1 ? 'select-checkbox' : '',
                         targets: 0
                     },
                     {
@@ -425,35 +424,35 @@
                     },
                     {
                         title: "Institute Name",
-                        data: "institutes.title_en",
-                        name: "institutes.title_en",
+                        data: "institutes.title",
+                        name: "institutes.title",
                         visible: false
                     },
                     {
                         title: "Branch Name",
-                        data: "branches.title_en",
-                        name: "branches.title_en",
+                        data: "branches.title",
+                        name: "branches.title",
                         defaultContent: '',
                         visible: false
                     },
                     {
                         title: "Training Center",
-                        data: "training_centers.title_en",
-                        name: "training_centers.title_en",
+                        data: "training_centers.title",
+                        name: "training_centers.title",
                         defaultContent: '',
                         visible: false
                     },
                     {
                         title: "Programme",
-                        data: "programmes.title_en",
-                        name: "programmes.title_en",
+                        data: "programmes.title",
+                        name: "programmes.title",
                         defaultContent: '',
                         visible: false
                     },
                     {
                         title: "Course Name",
-                        data: "courses.title_en",
-                        name: "courses.title_en",
+                        data: "courses.title",
+                        name: "courses.title",
                         defaultContent: '',
                     },
                     {

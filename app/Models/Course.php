@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\File;
 use App\Traits\ScopeAclTrait;
 
@@ -36,7 +34,6 @@ use App\Traits\ScopeAclTrait;
  * @method static Builder|Institute newQuery()
  * @method static Builder|Institute query()
  */
-
 class Course extends BaseModel
 {
     use HasFactory, ScopeRowStatusTrait, CreatedByUpdatedByRelationTrait, ScopeAclTrait;
@@ -54,13 +51,10 @@ class Course extends BaseModel
     {
         return $this->belongsTo(Branch::class);
     }
+
     public function trainingCenter(): BelongsTo
     {
         return $this->belongsTo(TrainingCenter::class);
-    }
-    public function applicationFormType(): BelongsTo
-    {
-        return $this->belongsTo(ApplicationFormType::class);
     }
 
 }

@@ -31,7 +31,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text"> {{__('admin.training_center.title') }}</p>
                     <div class="input-box">
-                        {{ $trainingCenter->title_en }}
+                        {{ $trainingCenter->title }}
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
                     <div class="col-md-6 mt-2 custom-view-box">
                         <p class="label-text"> {{__('admin.training_center.institute_name') }}</p>
                         <div class="input-box">
-                            {{ $trainingCenter->institute->title_en }}
+                            {{ $trainingCenter->institute->title }}
                         </div>
                     </div>
                 @endif

@@ -13,6 +13,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BranchService
 {
+    /**
+     * @param array $data
+     * @return Branch
+     */
     public function createBranch(array $data): Branch
     {
         $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
@@ -35,10 +39,14 @@ class BranchService
         return $branch->delete();
     }
 
+    /**
+     * @param Request $request
+     * @return Validator
+     */
     public function validator(Request $request): Validator
     {
         $rules = [
-            'title_en' => [
+            'title' => [
                 'required',
                 'string',
                 'max:191',
@@ -62,7 +70,7 @@ class BranchService
             [
                 'branches.id as id',
                 'branches.title_en',
-                'institutes.title_en as institute_title_en',
+                'institutes.title as institute_title_en',
                 'branches.row_status',
                 'branches.created_at',
                 'branches.updated_at',

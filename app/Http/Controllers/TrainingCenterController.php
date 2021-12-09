@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Classes\DatatableHelper;
 use App\Models\Branch;
 use App\Models\Institute;
 use App\Models\TrainingCenter;
 use App\Services\TrainingCenterService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\DataTables;
 
 class TrainingCenterController extends Controller
 {
@@ -48,9 +45,11 @@ class TrainingCenterController extends Controller
 
     }
 
+
     /**
      * @param Request $request
      * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -100,7 +99,7 @@ class TrainingCenterController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      *
      */
-    public function update(Request $request, TrainingCenter $trainingCenter)
+    public function update(Request $request, TrainingCenter $trainingCenter): RedirectResponse
     {
         $validateData = $this->trainingCenterService->validator($request, $trainingCenter->id)->validate();
 
@@ -142,6 +141,10 @@ class TrainingCenterController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->trainingCenterService->getListDataForDatatable($request);

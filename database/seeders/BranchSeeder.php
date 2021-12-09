@@ -24,7 +24,7 @@ class BranchSeeder extends Seeder
                 array(
                     'id' => 1,
                     'institute_id' => 1,
-                    'title_en' => 'Bashundhara Branch',
+                    'title' => 'Bashundhara Branch',
                     'created_by' => '1',
                     'address' => '',
                     'row_status' => 1
@@ -33,7 +33,7 @@ class BranchSeeder extends Seeder
                 array(
                     'id' => 2,
                     'institute_id' => 1,
-                    'title_en' => 'Uttara Branch',
+                    'title' => 'Uttara Branch',
                     'created_by' => '1',
                     'address' => '',
                     'row_status' => 1

@@ -132,7 +132,7 @@ class GalleryService
             'galleries.id as id',
             'galleries.content_title',
             'galleries.content_type',
-            'institutes.title_en as institute_title_en',
+            'institutes.title as institutes.title',
             'gallery_categories.title_en as gallery_category_title_en',
         ]);
         $galleries->join('gallery_categories', 'galleries.gallery_category_id', 'gallery_categories.id');

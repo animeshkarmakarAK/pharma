@@ -15,8 +15,7 @@ class CreateInstitutesTable extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title_en', 191)->nullable();
-            $table->string('name', 191)->nullable();
+            $table->string('title', 191)->nullable();
             $table->string('email', 191);
             $table->string('mobile', 191);
             $table->string('address', 191);

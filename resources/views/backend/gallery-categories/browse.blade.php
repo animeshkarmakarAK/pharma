@@ -65,7 +65,7 @@
                     {
                         title: "{{__('admin.gallery-album.institute_name')}}",
                         data: "institute_title_en",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: {{ \App\Helpers\Classes\AuthHelper::getAuthUser()->isSuperUser() ? "true" : "false" }},
                     },
                     {

@@ -23,8 +23,6 @@ return [
     //course management
     'course_management' => 'কোর্স ম্যানেজমেন্ট',
     'courses' => 'কোর্সসমূহ',
-    'application_form_types' => 'আবেদন ফর্মের ধরন',
-    'course_config' => 'কোর্স কনফিগার',
 
     //batch management
     'batch_management' => 'ব্যাচ ম্যানেজমেন্ট',

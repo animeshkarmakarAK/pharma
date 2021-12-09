@@ -79,7 +79,7 @@ class EventService
             'events.date',
             'events.details',
             'events.institute_id',
-            'institutes.title_en as institute_name_en',
+            'institutes.title as institute_name_en',
             'users.name_en as user_created_by',
             'events.created_at as event_created_at',
             'events.updated_at as event_updated_at'

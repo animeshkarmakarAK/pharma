@@ -75,7 +75,7 @@ class ProgrammeService
             [
                 'programmes.id as id',
                 'programmes.title_en',
-                'institutes.title_en as institute_title_en',
+                'institutes.title as institutes.title',
                 'programmes.code',
                 'programmes.logo',
                 'programmes.row_status',
@@ -102,9 +102,8 @@ class ProgrammeService
             ->editColumn('logo', static function (Programme $programme) {
                 return '<img src="' . asset('storage/' . $programme->logo) . '"  style="width: 100px"/>';
             })
-            ->rawColumns(['action', 'programme_logo'])
+            ->rawColumns(['action', 'logo'])
             ->toJson();
     }
-
 
 }

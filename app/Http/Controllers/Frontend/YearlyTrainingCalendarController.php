@@ -91,7 +91,7 @@ class YearlyTrainingCalendarController extends Controller
                 $result
                     ->where('training_centers.title_en', 'LIKE', '%' . $query . '%')
                     ->orWhere('branches.title_en', 'LIKE', '%' . $query . '%')
-                    ->orwhere('institutes.title_en', 'LIKE', '%' . $query . '%')
+                    ->orwhere('institutes.title', 'LIKE', '%' . $query . '%')
                     ->orWhere('training_centers.address', 'LIKE', '%' . $query . '%')
                     ->orWhere('branches.address', 'LIKE', '%' . $query . '%')
                     ->orWhere('institutes.address', 'LIKE', '%' . $query . '%')

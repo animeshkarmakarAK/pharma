@@ -70,8 +70,8 @@ class ProgrammeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Programme $programme
-     * @return \Illuminate\Http\Response
+     * @param Programme $programme
+     * @return View
      */
     public function show(Programme $programme): View
     {
@@ -81,8 +81,8 @@ class ProgrammeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Programme $programme
-     * @return \Illuminate\Http\Response
+     * @param Programme $programme
+     * @return View
      */
     public function edit(Programme $programme): View
     {
@@ -93,8 +93,8 @@ class ProgrammeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Programme $programme
+     * @param Request $request
+     * @param Programme $programme
      * @return RedirectResponse
      */
     public function update(Request $request, Programme $programme): RedirectResponse
@@ -119,7 +119,7 @@ class ProgrammeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Programme $programme
+     * @param Programme $programme
      * @return RedirectResponse
      */
     public function destroy(Programme $programme): RedirectResponse

@@ -76,7 +76,7 @@ class VisitorFeedbackService
         $visitorFeedback = VisitorFeedback::acl()->select(
             [
                 'visitor_feedback.id as id',
-                'institutes.title_en as institute_name',
+                'institutes.title as institute_name',
                 'visitor_feedback.name',
                 'visitor_feedback.mobile',
                 'visitor_feedback.email',

@@ -63,45 +63,8 @@
             </div>
         </div>
     </div>
-    <!-- Modal start-->
-    <div class="modal fade" id="addToOrganizationModal" tabindex="-1" role="dialog"
-         aria-labelledby="addToOrganizationModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                @if($organizations->count())
-                    <form id="add-to-organization-form" method="post"
-                          action="{{route('admin.youths.add-to-organization')}}">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">{{ __('admin.youth.select_organization')  }}</h5>
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="submit" class="btn btn-primary ">{{ __('admin.common.add')  }}</button>
-                        </div>
-                    </form>
-                @else
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Create Organization</h5>
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal End-->
 @endsection
+
 @push('css')
     <style>
         .select2 {
@@ -229,14 +192,9 @@
                         name: "name_en",
                     },
                     {
-                        title: "Reg. No.",
-                        data: "youth_registration_no",
-                        name: "youths.youth_registration_no"
-                    },
-                    {
                         title: "Institute",
                         data: "institute_title_en",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false
                     },
                     {
