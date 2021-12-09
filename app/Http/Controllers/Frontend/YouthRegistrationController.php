@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Models\PublishCourse;
 use App\Models\TrainingCenter;
 use App\Models\Youth;
 use App\Models\YouthCourseEnroll;
 use App\Services\YouthRegistrationService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class YouthRegistrationController extends Controller
 {
@@ -26,7 +25,6 @@ class YouthRegistrationController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return View
      */
     public function index(): View
@@ -62,36 +60,28 @@ class YouthRegistrationController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): RedirectResponse
     {
         $validated = $this->youthRegistrationService->validator($request)->validate();
-        DB::beginTransaction();
+
         try {
-            $youth = $this->youthRegistrationService->createRegistration($validated);
-            DB::commit();
+            $this->youthRegistrationService->createRegistration($validated);
         } catch (\Throwable $exception) {
-            DB::rollBack();
             Log::debug($exception->getMessage());
 
-            return response()->json([
+            return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
                 'alertType' => 'error'
             ]);
         }
 
-        $accessKey = $youth->access_key;
-        $redirectTo = route('youth-registration.success', $accessKey);
-
-        return response()->json([
-            //'message' => __('generic.object_created_successfully', ['object' => 'Registration']),
+        return back()->with([
             'message' => __('আপনার রেজিস্ট্রেশন সফল হয়েছে'),
             'alertType' => 'success',
-            'accessKey' => $accessKey,
-            'redirectTo' => $redirectTo,
         ]);
 
     }
