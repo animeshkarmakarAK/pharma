@@ -21,25 +21,18 @@ class CourseSearchController extends Controller
     {
         $currentInstitute = Institute::where('slug', $instituteSlug)->first();
         $programmes = null;
-        $publishCourses = null;
 
         $maxEnrollmentNumber = [];
 
         if ($currentInstitute) {
             $programmes = Programme::where('institute_id', $currentInstitute->id)->get();
-            $publishCourses = PublishCourse::where('institute_id', $currentInstitute->id)->get();
 
         } else {
             $programmes = Programme::all();
-            $publishCourses = PublishCourse::all();
         }
 
-        foreach ($publishCourses as $publishCourse) {
-            $maxEnrollmentNumber[] = \App\Models\CourseSession::select('publish_course_id', \DB::raw("SUM(max_seat_available) as total_seat"))
-                ->groupBy('publish_course_id')->get();
-        }
 
-        return view(self::VIEW_PATH . 'course-list-new', compact('programmes', 'publishCourses', 'maxEnrollmentNumber'));
+        return view(self::VIEW_PATH . 'course-list-new', compact('programmes', 'maxEnrollmentNumber'));
     }
 
     /**

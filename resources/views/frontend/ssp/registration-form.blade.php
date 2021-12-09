@@ -26,9 +26,9 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="name">{{ __('generic.name') }}</label>
+                                            <label for="name">{{ __('generic.title') }}</label>
                                             <input type="text" class="form-control" name="name" id="name"
-                                                   placeholder="{{ __('generic.name') }}" value="{{old('name')}}">
+                                                   placeholder="{{ __('generic.title') }}" value="{{old('title')}}">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="email">{{ __('generic.email') }}</label>

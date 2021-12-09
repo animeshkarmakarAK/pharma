@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/{instituteSlug?}', [\App\Http\Controllers\HomeController::class, 'index'])->name('/');
-Route::get('/registration/ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
+Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
 
 Route::get('/success', [\App\Http\Controllers\HomeController::class, 'success'])->name('success');
 Route::get('/fail', [\App\Http\Controllers\HomeController::class, 'fail'])->name('fail');
@@ -201,7 +200,9 @@ Route::group([], function () {
     Route::post('institute-events-date', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
     Route::post('publish-course-training-centers', [\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'publishCourseTrainingCenter'])->name('publish-course-training-centers');
     Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
-
-    Route::get('institute-page/{instituteSlug?}', [App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-page');
+    Route::get('/institute-page', [App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-page');
     Route::get('institute-details/{id}', [App\Http\Controllers\Frontend\InstitutePageController::class, 'details'])->name('institute-details');
 });
+
+
+Route::get('/{instituteSlug?}', [\App\Http\Controllers\HomeController::class, 'index'])->name('/');

@@ -81,7 +81,7 @@
             @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
                 <li class="nav-item dropdown">
                     <a class="nav-item nav-link mr-md-2 text-white"
-                       href="{{ route('youth-registrations.index') }}"
+                       {{--href="{{ route('youth-registrations.index') }}"--}}
                        id="bd-versions" aria-haspopup="true">
                         <i class="fa fa-file"> </i>&nbsp; অনলাইন আবেদন
                     </a>

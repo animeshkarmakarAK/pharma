@@ -46,8 +46,8 @@
                     <a href="{{ route('/', ['instituteSlug' => $slug]) }}" class="btn ">প্রথম পাতা</a>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('institute-page') ? 'active-menu' : '' }}">
-                    <a href="{{ route('institute-page', ['instituteSlug' => $slug]) }}" class="btn ">SSP's</a>
+                <li class="nav-item {{ request()->routeIs('institute-page*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('institute-page') }}" class="btn ">SSP's</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CourseSession;
@@ -60,17 +61,9 @@ class YearlyTrainingCalendarController extends Controller
         $from = date(($year - 1) . '-07-01');
         $to = date($year . '-06-30');
 
-        $courses = CourseSession::join('courses', 'course_sessions.course_id', 'courses.id')
-            ->whereBetween('course_sessions.application_start_date', [$from, $to])
-            ->orderBy('course_sessions.application_start_date', 'asc')
-            ->where(['courses.institute_id' => $currentInstitute->id])
-            ->get()
-            ->groupBy('course_id');
+        $courses = Course::get();
 
-        $totalCourseVenues = DB::select('SELECT course_name,course_fee, course_id,COUNT(*) as total_venue
-                                                FROM (SELECT  courses.title_en as course_name,courses.course_fee as course_fee, course_id,publish_courses.institute_id,branch_id,training_center_id, count(course_id) AS total_course_id
-                                                FROM `publish_courses` join `courses` on courses.id = publish_courses.course_id
-                                                GROUP BY course_id, institute_id, branch_id, training_center_id) as publish_courses_vertual_table group by course_id');
+        $totalCourseVenues = [];
 
 
         $totalCourseVenue = [];
@@ -78,16 +71,7 @@ class YearlyTrainingCalendarController extends Controller
             $totalCourseVenue[$venueCourse->course_id] = $venueCourse;
         }
 
-        $totalAnnualTrainingTarget = CourseSession::select(
-            'course_id',
-            DB::raw('SUM(course_sessions.max_seat_available) as total_seat'),
-
-        )
-            ->join('courses', 'course_sessions.course_id', 'courses.id')
-            ->groupBy('course_id')
-            ->pluck('total_seat', 'course_id');
-
-        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('totalCourseVenue', 'courses', 'totalAnnualTrainingTarget'));
+        return \view(self::VIEW_PATH . 'training-calendar.fiscal-year', compact('totalCourseVenue', 'courses'/*, 'totalAnnualTrainingTarget'*/));
     }
 
     public function venueList(Request $request, $id): view
