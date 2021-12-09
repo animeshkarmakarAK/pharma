@@ -62,7 +62,7 @@ class StaticPageService
             'static_pages.institute_id',
             'static_pages.page_id',
             'static_pages.page_contents',
-            'institutes.name as institute_title_en',
+            'institutes.name as institutes.title',
             'static_pages.created_by',
             'static_pages.created_at',
             'static_pages.updated_at'

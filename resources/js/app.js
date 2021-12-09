@@ -128,7 +128,7 @@ window.initializeSelect2 = function (selector) {
 
 
         /**
-         * name_en|institutes.title_en
+         * name_en|institutes.title
          * @type {string}
          */
         let columns = (labelFields.match(/\{([^}]*)\}/g) || [])

@@ -204,7 +204,7 @@ class CourseService
             'courses.row_status',
             'courses.created_at',
             'courses.updated_at',
-            'institutes.title_en as institute_title',
+            'institutes.title as institute_title',
         ]);
         $courses->join('institutes', 'courses.institute_id', '=', 'institutes.id');
 

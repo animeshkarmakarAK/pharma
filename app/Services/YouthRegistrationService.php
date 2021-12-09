@@ -6,18 +6,14 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
 use App\Helpers\Classes\Helper;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\Rule;
 use App\Models\Batch;
-use App\Models\Institute;
 use App\Models\Youth;
-use App\Models\YouthComplainToOrganization;
 use App\Models\YouthCourseEnroll;
 use App\Models\YouthFamilyMemberInfo;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -217,7 +213,6 @@ class YouthRegistrationService
             'batches.title_en as batch_title_en',
         ]);
 
-        $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
         $youthCourseEnrolls->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
         $youthCourseEnrolls->leftJoin('batches', 'youth_batches.batch_id', '=', 'batches.id');

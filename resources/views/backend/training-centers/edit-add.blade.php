@@ -36,10 +36,10 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title_en">{{__('admin.training_center.title') }} <span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control custom-input-box" name="title_en"
-                                           id="title_en"
-                                           value="{{$edit ? $trainingCenter->title_en : old('title_en')}}"
+                                    <label for="title">{{__('admin.training_center.title') }} <span style="color: red"> * </span></label>
+                                    <input type="text" class="form-control custom-input-box" name="title"
+                                           id="title"
+                                           value="{{$edit ? $trainingCenter->title : old('title')}}"
                                            placeholder="{{__('admin.training_center.title') }}" required>
                                 </div>
                                 <div class="col-sm-6">
@@ -62,10 +62,10 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 data-dependent-fields="#branch_id"
                                                 @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $trainingCenter->institute->title_en, 'id' =>  $trainingCenter->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $trainingCenter->institute->title, 'id' =>  $trainingCenter->institute->id])}}"
                                                 @endif
                                                 data-placeholder="{{__('admin.training_center.institute_name') }}"
                                         >
@@ -154,7 +154,7 @@
 
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -167,7 +167,7 @@
                 },
             },
             messages: {
-                title_en: {
+                title: {
                     pattern: "This field is required in English.",
                 }
             },

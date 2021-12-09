@@ -3,20 +3,17 @@
 namespace App\Models;
 
 use App\Helpers\Classes\AuthHelper;
-use App\Models\User;
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 /**
  * Class Institute
  * @package App\Models
- * @property string title_en
- * @property string|null title_bn
+ * @property string title
  * @property string code
  * @property string domain
  * @property string|null address
@@ -36,11 +33,6 @@ class Institute extends BaseModel
     protected $guarded = ['id'];
 
     const DEFAULT_LOGO = 'institute/default.jpg';
-
-//    protected $casts = [
-//        'phone_numbers' => 'array',
-//        'mobile_numbers' => 'array',
-//    ];
 
     public function setSlugAttribute($value) {
 
@@ -64,11 +56,6 @@ class Institute extends BaseModel
         }
 
         return $slug;
-    }
-
-    public function title(): ?string
-    {
-        return $this->title_bn || $this->title_en;
     }
 
     /**
@@ -100,40 +87,58 @@ class Institute extends BaseModel
         return $this->hasMany(Branch::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function programmes(): HasMany
     {
         return $this->hasMany(Programme::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function trainingCenters(): HasMany
     {
         return $this->hasMany(TrainingCenter::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function publishCourses(): HasMany
     {
         return $this->hasMany(PublishCourse::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
-    public function applicationFormType(): HasOne
-    {
-        return $this->hasOne(ApplicationFormType::class);
-    }
 
+
+    /**
+     * @return bool
+     */
     public function logoIsDefault(): bool
     {
         return $this->logo === self::DEFAULT_LOGO;
     }
 
+    /**
+     * @return HasMany
+     */
     public function sliders(): HasMany
     {
         return $this->hasMany(Slider::class);

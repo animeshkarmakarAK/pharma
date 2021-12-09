@@ -36,12 +36,12 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{__('admin.batch.title')}} <span
+                                    <label for="title">{{__('admin.batch.title')}} <span
                                             style="color: red">*</span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
                                            placeholder="{{__('admin.batch.title')}} "
-                                           value="{{ $edit ? $batch->title_en : old('title_en') }}">
+                                           value="{{ $edit ? $batch->title : old('title') }}">
                                     <input type="hidden" id="today">
                                 </div>
                             </div>
@@ -54,12 +54,12 @@
                                             name="course_id"
                                             id="course_id"
                                             data-model="{{base64_encode(App\Models\Course::class)}}"
-                                            data-label-fields="{institute.title_en} - {title_en}"
+                                            data-label-fields="{institute.title} - {title}"
                                             @if($authUser->isInstituteUser())
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @endif
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' => $batch->course->institute->title_en.' - '.  $batch->course->title_en, 'id' =>  $batch->course->id])}}"
+                                            data-preselected-option="{{json_encode(['text' => $batch->course->institute->title.' - '.  $batch->course->title, 'id' =>  $batch->course->id])}}"
                                             @endif
                                             data-placeholder="{{__('Select Course')}}"
                                     >
@@ -127,7 +127,7 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -179,7 +179,7 @@
 
             },
             messages: {
-                title_en: {
+                title: {
                     pattern: "This field is required in English."
                 },
                 title_bn: {
@@ -251,7 +251,7 @@
                 $("#training_center_id option").remove();
                 $('#training_center_id').append('<option value="">' + 'Select' + '</option>');
                 $.each(res, function (key, val) {
-                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title_en + '</option>');
+                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title + '</option>');
                 });
             });
 

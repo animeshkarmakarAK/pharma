@@ -136,7 +136,7 @@ class VideoService
             'videos.row_status',
             'videos.created_at',
             'videos.updated_at',
-            'institutes.title_en as institute_name',
+            'institutes.title as institute_name',
             'video_categories.title_en as video_category_title_en',
         ]);
 

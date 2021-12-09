@@ -157,13 +157,13 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
             },
             messages: {
-                title_en: {
+                title: {
                     pattern: "This field is required in English."
                 },
 
@@ -184,7 +184,7 @@
                 $("#user_id option").remove();
                 $('#user_id').append('<option value="">' + 'Select' + '</option>');
                 $.each(res, function (key, val) {
-                    $('#user_id').append('<option value="' + val.id + '">' + val.title_en + '</option>');
+                    $('#user_id').append('<option value="' + val.id + '">' + val.title + '</option>');
                 });
             });
 

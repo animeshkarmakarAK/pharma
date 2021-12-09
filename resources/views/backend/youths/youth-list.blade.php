@@ -236,7 +236,7 @@
                     {
                         title: "Institute",
                         data: "institute_title_en",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false
                     },
                     {

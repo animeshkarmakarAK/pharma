@@ -24,8 +24,7 @@ class InstituteSeeder extends Seeder
             0 =>
                 array(
                     'id' => 1,
-                    'name' => 'BITAC',
-                    'title_en' => 'BITAC',
+                    'title' => 'BITAC',
                     'address' => 'Kawranbazar',
                     'email' => 'bitac@gmail.com',
                     'mobile' => '01837473838',
@@ -37,7 +36,6 @@ class InstituteSeeder extends Seeder
                     'contact_person_post' => 'HR',
                     'row_status' => 1,
                     'slug' => Str::slug('bitac'),
-                    'address' => 'CA'
                 ),
         ));
         Schema::enableForeignKeyConstraints();

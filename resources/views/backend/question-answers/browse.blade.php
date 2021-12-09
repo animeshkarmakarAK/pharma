@@ -74,7 +74,7 @@
                     {
                         title: "{{ __('admin.question_answer.institute_name') }}",
                         data: "institute_name",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false,
                     },
                     {

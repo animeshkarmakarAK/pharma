@@ -55,13 +55,13 @@
                     },
                     {
                         title: "{{__('admin.batch.title')}}",
-                        data: "title_en",
-                        name: "batches.title_en",
+                        data: "title",
+                        name: "batches.title",
                     },
                     {
                         title: "{{__('admin.batch.course_title')}}",
-                        data: "courses.title_en",
-                        name: "courses.title_en"
+                        data: "courses.title",
+                        name: "courses.title"
                     },
                     {
                         title: "{{__('admin.batch.batch_status')}}",

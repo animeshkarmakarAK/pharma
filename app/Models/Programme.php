@@ -31,6 +31,7 @@ class Programme extends BaseModel
 
     const DEFAULT_LOGO = 'programme/default.jpg';
 
+
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);

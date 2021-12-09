@@ -50,7 +50,7 @@ class YouthService
             DB::raw('max(youths.youth_registration_no) AS youth_registration_no'),
             DB::raw('max(youths.name_en) AS name_en'),
             DB::raw('max(youths.name_bn) AS name_bn'),
-            DB::raw('max(institutes.title_en) AS institute_title_en'),
+            DB::raw('max(institutes.title) AS institute_title_en'),
             DB::raw('max(institutes.id) AS institute_id'),
             DB::raw('max(organizations.title_en) AS organization_title_en'),
         ]);
@@ -531,7 +531,7 @@ class YouthService
             'youths.youth_registration_no as youth_registration_id',
             'youths.youth_registration_no',
             'publish_courses.id as publish_courses.id',
-            'institutes.title_en as institutes.title_en',
+            'institutes.title as institutes.title',
             'branches.title_en as branches.title_en',
             'training_centers.title_en as training_centers.title_en',
             'programmes.title_en as programmes.title_en',

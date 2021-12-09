@@ -13,8 +13,7 @@ use App\Traits\ScopeAclTrait;
 /**
  * Class Branch
  * @package App\Models
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property int institute_id
  * @property string|null address
  * @property string|null google_map_src

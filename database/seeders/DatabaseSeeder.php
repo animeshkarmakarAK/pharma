@@ -3,12 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\BranchSeeder;
-use Database\Seeders\CourseSeeder;
-use Database\Seeders\InstituteSeeder;
-use Database\Seeders\ProgrammeSeeder;
-use Database\Seeders\StaticPageSeeder;
-use Database\Seeders\TrainingCenterSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +18,6 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             RowStatusSeeder::class,
             UserTypeSeeder::class,
-            \Database\Seeders\DatabaseSeeder::class,
             InstituteSeeder::class,
             CourseSeeder::class,
             StaticPageSeeder::class,

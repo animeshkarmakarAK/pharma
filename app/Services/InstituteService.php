@@ -23,13 +23,12 @@ class InstituteService
     public function createSSP(array $data): Institute
     {
         $instituteData = Arr::except($data, ['contact_person_password', 'contact_person_password_confirmation']);
-        $instituteData['title_en'] = $instituteData['name'];
         $instituteData['slug'] = Str::slug($instituteData['name']);
         $institute = Institute::create($instituteData);
 
-        $data = Arr::only($data, ['name', 'email', 'contact_person_password']);
+        $data = Arr::only($data, ['title', 'email', 'contact_person_password']);
         $data['institute_id'] = $institute->id;
-        $data['name_en'] = $data['name'];
+        $data['name_en'] = $data['title'];
         unset($data['name']);
         $data['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
         $data['role_id'] = 3;
@@ -56,8 +55,7 @@ class InstituteService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'name' => ['nullable', 'string', 'max:191'],
-            'title_en' => ['nullable', 'string', 'max:191'],
+            'title' => ['nullable', 'string', 'max:191'],
             'email' => [
                 'required',
                 'string',
@@ -118,7 +116,7 @@ class InstituteService
 
         $institutes = Institute::acl()->select([
             'institutes.id as id',
-            'institutes.title_en',
+            'institutes.title',
             'institutes.address',
             'institutes.created_at',
             'institutes.updated_at'
