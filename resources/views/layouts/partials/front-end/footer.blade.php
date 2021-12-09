@@ -4,7 +4,7 @@
 
     $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
 
-    $currentInstitute =  new \Module\CourseManagement\App\Models\Institute();
+    $currentInstitute =  new \App\Models\Institute();
     if ($institute) {
         $currentInstitute = $institute;
     }else {
@@ -26,7 +26,7 @@
                         {{  !empty($currentInstitute->description) ? $currentInstitute->description : '' }}
                     </p>
                     <span>
-                            <a href="{{route('course_management::static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $slug])}}" class="read-more"> <i
+                            <a href="{{route('static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $slug])}}" class="read-more"> <i
                                     class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                         </span>
                 </div>
@@ -89,14 +89,14 @@
                         <li><i class="fa  fa-angle-right"></i> <a href="#">সংবাদ </a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('course_management::static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}">আমাদের
+                                href="{{route('static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}">আমাদের
                                 সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{ route('course_management::advice-page', ['instituteSlug' => $slug]) }}">পরামর্শ</a></li>
+                                href="{{ route('advice-page', ['instituteSlug' => $slug]) }}">পরামর্শ</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('course_management::contact-us-page', ['instituteSlug' => $slug])}}">যোগাযোগ</a></li>
+                                href="{{route('contact-us-page', ['instituteSlug' => $slug])}}">যোগাযোগ</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('course_management::general-ask-page', ['instituteSlug' => $slug])}}">প্রশ্নোত্তর</a></li>
+                                href="{{route('general-ask-page', ['instituteSlug' => $slug])}}">প্রশ্নোত্তর</a></li>
                         @guest
                             <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
                             <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>

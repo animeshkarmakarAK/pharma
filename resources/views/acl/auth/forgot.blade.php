@@ -1,4 +1,4 @@
-@extends('master::layouts.front-end')
+@extends('master::layouts.custom1')
 
 @section('content')
     <div class="container pb-5">
@@ -31,7 +31,9 @@
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-6">
-                                    <button type="submit" class="btn btn-primary btn-block form-submit-btn">Reset Password</button>
+                                    <button type="submit" class="btn btn-primary btn-block form-submit-btn">Reset
+                                        Password
+                                    </button>
                                 </div>
                                 <!-- /.col -->
                             </div>

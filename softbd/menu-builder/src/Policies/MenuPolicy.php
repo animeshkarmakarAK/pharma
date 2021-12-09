@@ -3,10 +3,10 @@
 namespace Softbd\MenuBuilder\Policies;
 
 use App\Models\User;
-use App\Policies\MasterBasePolicy;
+use App\Policies\BasePolicy;
 use Softbd\MenuBuilder\Models\Menu;
 
-class MenuPolicy extends MasterBasePolicy
+class MenuPolicy extends BasePolicy
 {
     public function viewAny(User $user)
     {

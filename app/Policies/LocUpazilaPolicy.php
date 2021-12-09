@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\LocUpazila;
 use App\Models\User;
 
-class LocUpazilaPolicy extends MasterBasePolicy
+class LocUpazilaPolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view any models.

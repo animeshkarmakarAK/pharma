@@ -17,8 +17,8 @@
                         <h3 class="card-title font-weight-bold text-primary">{{ ! $edit ? 'Add Institute' : 'Update Institute' }}</h3>
 
                         <div class="card-tools">
-                            @can('viewAny', \Module\CourseManagement\App\Models\Institute::class)
-                                <a href="{{route('course_management::admin.institutes.index')}}"
+                            @can('viewAny', \App\Models\Institute::class)
+                                <a href="{{route('admin.institutes.index')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> {{__('generic.back')}}
                                 </a>
@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
                               enctype="multipart/form-data"
-                              action="{{ $edit ? route('course_management::admin.institutes.update', [$institute->id]) : route('course_management::admin.institutes.store')}}">
+                              action="{{ $edit ? route('admin.institutes.update', [$institute->id]) : route('admin.institutes.store')}}">
                             @csrf
                             @if($edit)
                                 @method('put')
@@ -353,14 +353,14 @@
                 email: {
                     required: true,
                     pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                    //remote: "{!! route('course_management::youth.check-unique-email') !!}",
+                    //remote: "{!! route('youth.check-unique-email') !!}",
                 },
                 code: {
                     required: true,
                     remote: {
                         param: {
                             type: "post",
-                            url: "{{ route('course_management::admin.check-institute-code') }}",
+                            url: "{{ route('admin.check-institute-code') }}",
                         },
                         depends: function (element) {
                             return $(element).val() !== $('#code').attr('data-code');

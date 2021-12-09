@@ -79,7 +79,7 @@ return [
         // ],
         'youths' => [
             'driver' => 'eloquent',
-            'model' => Module\CourseManagement\App\Models\Youth::class,
+            'model' => App\Models\Youth::class,
         ],
     ],
 

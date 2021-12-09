@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\LocDivision;
 use App\Models\User;
 
-class LocDivisionPolicy extends MasterBasePolicy
+class LocDivisionPolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view any models.

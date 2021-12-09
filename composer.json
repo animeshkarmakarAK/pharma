@@ -1,10 +1,10 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "NISE-3",
+    "description": "DPG-TCM",
     "keywords": [
         "training",
-        "skill"
+        "certifications"
     ],
     "license": "MIT",
     "require": {
@@ -46,8 +46,7 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "Module\\": "module/"
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {

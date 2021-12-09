@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Module\CourseManagement\App\Models\Institute;
+use App\Models\Institute;
 
 /**
  * App\Models\TrainerPersonalInformation

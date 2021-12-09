@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class LocalizationController extends BaseController
 {
-    public function changeLanguage(Request $request, string $language)
+    public function changeLanguage(Request $request, string $language): \Illuminate\Http\RedirectResponse
     {
         try {
             App::setLocale($language);

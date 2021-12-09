@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\Role;
 use App\Models\User;
 
-class RolePolicy extends MasterBasePolicy
+class RolePolicy extends BasePolicy
 {
 
     /**

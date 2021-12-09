@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
-use Module\CourseManagement\App\Models\CourseWiseYouthCertificate;
+use App\Models\CourseWiseYouthCertificate;
 
 
 class CertificateGenerator

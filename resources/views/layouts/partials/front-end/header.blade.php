@@ -46,18 +46,18 @@
                     <a href="{{ route('/', ['instituteSlug' => $slug]) }}" class="btn ">প্রথম পাতা</a>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('course_management::institute-page') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::institute-page', ['instituteSlug' => $slug]) }}" class="btn ">SSP's</a>
+                <li class="nav-item {{ request()->routeIs('institute-page') ? 'active-menu' : '' }}">
+                    <a href="{{ route('institute-page', ['instituteSlug' => $slug]) }}" class="btn ">SSP's</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::course_search', ['instituteSlug' => $slug]) }}" class="btn ">কোর্স
+                    <a href="{{ route('course_search', ['instituteSlug' => $slug]) }}" class="btn ">কোর্স
                         সমূহ</a>
                 </li>
 
                 @if($slug)
                     <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
-                        <a href="{{ route('course_management::fiscal-year', $slug) }}" class="btn ">
+                        <a href="{{ route('fiscal-year', $slug) }}" class="btn ">
                             প্রশিক্ষণ বর্ষপঞ্জি
                         </a>
                     </li>
@@ -65,16 +65,16 @@
 
 
                 <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::youth.skill_videos', $slug) }}" class="btn ">ভিডিও সমূহ</a>
+                    <a href="{{ route('youth.skill_videos', $slug) }}" class="btn ">ভিডিও সমূহ</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_management::general-ask-page', $slug) }}" class="btn">সাধারণ জিজ্ঞাসা</a>
+                    <a href="{{ route('general-ask-page', $slug) }}" class="btn">সাধারণ জিজ্ঞাসা</a>
                 </li>
 
                 @if($slug)
                     <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
-                        <a href="{{ route('course_management::contact-us-page', $slug) }}" class="btn">যোগাযোগ</a>
+                        <a href="{{ route('contact-us-page', $slug) }}" class="btn">যোগাযোগ</a>
                     </li>
                 @endif
 
@@ -85,7 +85,7 @@
                 @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('course_management::trainee-registrations.index') }}"
+                           href="{{ route('trainee-registrations.index') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp;Trainee Registration
                         </a>
@@ -102,7 +102,7 @@
 
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('course_management::youth.login-form') }}"
+                           href="{{ route('youth.login-form') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp; ফি জমা
                         </a>
@@ -112,7 +112,7 @@
                 @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('youth')->check())
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('course_management::youth.login-form') }}"
+                           href="{{ route('youth.login-form') }}"
                            id="bd-versions">
                             <i class="far fa-user"></i>&nbsp; প্রশিক্ষণার্থী লগইন
                         </a>
@@ -140,15 +140,15 @@
                         </a>
                         <div class="dropdown-menu menu-bg-color" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                               href="{{ route('course_management::youth') }}">
+                               href="{{ route('youth') }}">
                                 <i class="fas fa-clipboard-list"></i>&nbsp; আমার প্রোফাইল
                             </a>
                             <a class="dropdown-item"
-                               href="{{ route('course_management::youth-enrolled-courses') }}">
+                               href="{{ route('youth-enrolled-courses') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
                             </a>
                             <a class="dropdown-item"
-                               href="{{ route('course_management::youth-current-organization') }}">
+                               href="{{ route('youth-current-organization') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কর্মস্থল
                             </a>
                         </div>
@@ -161,7 +161,7 @@
                             <i class="fas fa-lock-open"></i>&nbsp; লগআউট
                         </a>
                         <form id="youth-logout" style="display: none" method="post"
-                              action="{{route('course_management::youth.logout-submit')}}">
+                              action="{{route('youth.logout-submit')}}">
                             @csrf
                         </form>
                     </li>

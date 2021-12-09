@@ -13,7 +13,7 @@
                         {{  !empty($currentInstitute->description)?$currentInstitute->description:'' }}
                     </p>
                     <span>
-                            <a href='{{route('course_management::static-content.show', 'aboutus')}}' class="read-more"> <i class="fas fa-angle-double-right"></i> বিস্তারিত</a>
+                            <a href='{{route('static-content.show', 'aboutus')}}' class="read-more"> <i class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                     </span>
                 </div>
             </div>

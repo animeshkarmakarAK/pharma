@@ -83,18 +83,15 @@ class TrainerService
             'nid' => [
                 'nullable',
                 'string',
-//                'unique:trainer_personal_information',
             ],
             'passport_number' => [
                 'nullable',
                 'string',
-//                'unique:trainer_personal_information',
             ],
 
             'birth_registration_no' => [
                 'nullable',
                 'string',
-//                'unique:trainer_personal_information',
             ],
             'gender' => [
                 'nullable',

@@ -46,7 +46,6 @@
             </div>
             <a class="carousel-control-prev slider-previous-link" href="#carouselExampleIndicators" role="button"
                data-slide="prev">
-                <!--<span class="carousel-control-prev-icon sliders-previous-icon" aria-hidden="true"></span>-->
                 <span class="slider-previous-icon" aria-hidden="true">
                     <i class="fas fa-chevron-circle-left"></i>
                 </span>
@@ -54,7 +53,6 @@
             </a>
             <a class="carousel-control-next slider-next-link" href="#carouselExampleIndicators" role="button"
                data-slide="next">
-                <!--<span class="carousel-control-next-icon sliders-next-icon" aria-hidden="true"></span>-->
                 <span class="slider-next-icon" aria-hidden="true">
                     <i class="fas fa-chevron-circle-right"></i>
                 </span>
@@ -92,7 +90,6 @@
                             করা হয় ।
                         </li>
                     </ul>
-                    <!--<a class="service-box-button"></a>-->
                 </div>
 
                 <div class="col-md-4 notice">

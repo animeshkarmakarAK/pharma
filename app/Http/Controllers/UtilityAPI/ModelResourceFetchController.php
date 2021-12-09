@@ -4,7 +4,7 @@ namespace App\Http\Controllers\UtilityAPI;
 
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
-use Module\CourseManagement\App\Services\WebAPI\ModelResourceService;
+use App\Services\WebAPI\ModelResourceService;
 
 class ModelResourceFetchController extends BaseController
 {

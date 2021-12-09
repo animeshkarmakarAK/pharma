@@ -3,9 +3,9 @@
 namespace Softbd\MenuBuilder\Policies;
 
 use App\Models\User;
-use App\Policies\MasterBasePolicy;
+use App\Policies\BasePolicy;
 
-class MenuItemPolicy extends MasterBasePolicy
+class MenuItemPolicy extends BasePolicy
 {
     protected static $permissions = null;
 

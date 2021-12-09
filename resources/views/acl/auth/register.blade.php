@@ -1,5 +1,4 @@
-@extends('master::layouts.front-end')
-
+@extends('master::layouts.custom1')
 @section('content')
     <div class="container-fluid pb-5">
         <div class="row justify-content-center align-items-center">

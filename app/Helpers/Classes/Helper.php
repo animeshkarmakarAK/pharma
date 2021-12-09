@@ -3,7 +3,7 @@
 namespace App\Helpers\Classes;
 
 use Illuminate\Support\Facades\Cache;
-use Module\CourseManagement\App\Models\Institute;
+use App\Models\Institute;
 
 class Helper
 {

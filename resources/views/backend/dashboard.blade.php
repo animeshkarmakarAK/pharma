@@ -4,26 +4,6 @@
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
 @section('content')
-    {{--<div class="container">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <div class="card" style="width: 300px; height: 300px; overflow: scroll">
-                    <fetch-user></fetch-user>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 300px; height: 300px; overflow: scroll">
-                    <fetch-user></fetch-user>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 300px; height: 300px; overflow: scroll">
-                    <fetch-user></fetch-user>
-                </div>
-            </div>
-        </div>
-    </div>--}}
-@section('content')
     <div class="container-fluid">
         <div class="row my-3">
             <div class="col-md-3">

@@ -132,10 +132,8 @@ class UserService
             unset($data['password']);
         }
 
-//        if (empty($user->role_id)) {
         $userType = UserType::findOrFail($data['user_type_id']);
         $data['role_id'] = $userType->default_role_id;
-//        }
 
         $data = $this->setAndClearData($data);
         $user->update($data);

@@ -7,8 +7,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class GeneralNotification extends Notification
 {
-//    use Queueable;
-
     protected $data = [];
 
     /**
@@ -16,7 +14,7 @@ class GeneralNotification extends Notification
      *
      * @param array $data
      */
-    public function __construct($data = [])
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
@@ -27,7 +25,7 @@ class GeneralNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -38,7 +36,7 @@ class GeneralNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
                     ->action($this->data['title'], url('/'))
@@ -49,7 +47,7 @@ class GeneralNotification extends Notification
      * @param $notifiable
      * @return
      */
-    public function toDatabase($notifiable)
+    public function toDatabase($notifiable): array
     {
         return $this->data;
     }
@@ -60,7 +58,7 @@ class GeneralNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return $this->data;
     }
