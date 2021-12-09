@@ -20,7 +20,7 @@
                 <div class="col-sm-12 pt-5">
                     <a href="{{ route('/') }}">
                         <img
-                            src="{{ !empty($currentInstitute)? asset("storage/{$currentInstitute->logo}") : 'http://skills.gov.bd/skills/images/new-skill-logo-header.png' }}"
+                            src="{{ !empty($currentInstitute)? asset("storage/{$currentInstitute->logo}") : asset('assets/company/images/nise-logo.jpeg') }}"
                             height="62px"
                             alt="Institute Logo" data-extra-logo="">
                     </a>
