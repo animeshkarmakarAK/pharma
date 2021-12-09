@@ -2,6 +2,7 @@
 
 namespace Module\CourseManagement\App\Models;
 
+use App\Traits\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,7 +41,7 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
 
 class Batch extends Model
 {
-    use HasFactory, ScopeAclTrait;
+    use HasFactory, ScopeAclTrait, ScopeRowStatusTrait;
 
     const BATCH_STATUS_ON_GOING = 1;
     const BATCH_STATUS_COMPLETE = 2;

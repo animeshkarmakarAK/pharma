@@ -27,6 +27,8 @@ use Module\CourseManagement\App\Traits\ScopeAclTrait;
 
 class ExaminationType extends BaseModel
 {
+    use ScopeRowStatusTrait, ScopeAclTrait;
+
     public $timestamps = true;
     protected $guarded = ['id'];
 

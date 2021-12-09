@@ -19,16 +19,16 @@ trait ScopeAclMasterTrait
      */
     public function scopeAcl(Builder $query, string $alias = null): Builder
     {
-//        if (empty($alias)) {
-//            $alias = $this->getTable() . '.';
-//        }
-//
-//        if (AuthHelper::checkAuthUser()) {
-//            $authUser = AuthHelper::getAuthUser();
-//            if ($authUser->isInstituteUser()) {
-//                $query->where($alias. 'institute_id', $authUser->institute_id);
-//            }
-//        }
+        if (empty($alias)) {
+            $alias = $this->getTable() . '.';
+        }
+
+        if (AuthHelper::checkAuthUser()) {
+            $authUser = AuthHelper::getAuthUser();
+            if ($authUser->isInstituteUser()) {
+                $query->where($alias. 'institute_id', $authUser->institute_id);
+            }
+        }
 
         return $query;
     }
