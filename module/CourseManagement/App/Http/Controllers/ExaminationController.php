@@ -3,21 +3,18 @@
 namespace Module\CourseManagement\App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
-use App\Helpers\Classes\DatatableHelper;
-use Illuminate\Validation\ValidationException;
-use Module\CourseManagement\App\Models\Batch;
-use Module\CourseManagement\App\Models\Examination;
-use Module\CourseManagement\App\Models\ExaminationType;
-use Module\CourseManagement\App\Models\Routine;
-use Module\CourseManagement\App\Models\TrainingCenter;
-use Module\CourseManagement\App\Services\ExaminationService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\DataTables;
-use DB;
+use Illuminate\Validation\ValidationException;
+use Module\CourseManagement\App\Models\Batch;
+use Module\CourseManagement\App\Models\Examination;
+use Module\CourseManagement\App\Models\ExaminationType;
+use Module\CourseManagement\App\Models\TrainingCenter;
+use Module\CourseManagement\App\Services\ExaminationService;
 
 class ExaminationController extends Controller
 {
@@ -44,10 +41,9 @@ class ExaminationController extends Controller
      */
     public function create(): View
     {
-        $authUser = AuthHelper::getAuthUser();
-        $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $examinationTypes = ExaminationType::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title','id');
+        $batches = Batch::acl()->active()->pluck('title_en','id');
+        $trainingCenters = TrainingCenter::active()->acl()->pluck('title_en','id');
+        $examinationTypes = ExaminationType::active()->acl()->pluck('title','id');
 
         return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','examinationTypes'));
     }

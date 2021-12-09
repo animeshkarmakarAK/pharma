@@ -15,21 +15,16 @@ class CreateYouthsTable extends Migration
     {
         Schema::create('youths', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('access_key', 50)->unique();
-            $table->string('name_en', 191)->nullable();
-            $table->string('mobile', 20)->index('youths_mobile');
-            $table->string('email', 191)->index('youths_email')->unique();
-            $table->unsignedTinyInteger('present_address_division_id');
-            $table->unsignedTinyInteger('present_address_district_id');
-            $table->unsignedSmallInteger('present_address_upazila_id');
-            $table->string('present_address_house_address', 255);
-            $table->unsignedTinyInteger('permanent_address_division_id');
-            $table->unsignedTinyInteger('permanent_address_district_id');
-            $table->unsignedSmallInteger('permanent_address_upazila_id');
-            $table->string('permanent_address_house_address', 255);
+            $table->string('name', 191)->nullable();
+            $table->string('mobile', 20)->index('trainee_mobile');
+            $table->string('email', 191)->index('trainee_email')->unique();
+            $table->unsignedTinyInteger('loc_division_id');
+            $table->unsignedTinyInteger('loc_district_id');
+            $table->unsignedSmallInteger('loc_upazila_id');
+            $table->dateTime('date_of_birth');
+            $table->unsignedTinyInteger('gender');
+            $table->unsignedTinyInteger('disable_status')->comment('1 => yes(disable) , 2 => no(not disable)');
             $table->unsignedTinyInteger('ethnic_group')->nullable()->default(2);
-
-            $table->string('youth_registration_no', 30)->nullable();
             $table->tinyInteger('recommended_by_organization')->nullable();
             $table->string('recommended_org_name', 191)->nullable();
             $table->tinyInteger('current_employment_status')->nullable();
@@ -40,8 +35,7 @@ class CreateYouthsTable extends Migration
             $table->tinyInteger('number_of_siblings')->nullable();
             $table->string('student_signature_pic')->nullable();
             $table->string('student_pic')->nullable();
-
-
+            $table->string('password');
             $table->timestamps();
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
         });

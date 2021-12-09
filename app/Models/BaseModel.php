@@ -82,6 +82,4 @@ abstract class BaseModel extends Model
 
         return parent::update($attributes, $options);
     }
-
-
 }
