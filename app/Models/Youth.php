@@ -3,10 +3,6 @@
 namespace App\Models;
 
 use App\Helpers\Classes\Helper;
-use App\Models\AuthBaseModel;
-use App\Models\LocDistrict;
-use App\Models\LocDivision;
-use App\Models\LocUpazila;
 use App\Traits\AuthenticatableUser;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -432,6 +428,4 @@ class Youth extends AuthBaseModel
     {
         return Youth::where(['youth_registration_no' => $regNumber])->exists();
     }
-
-
 }
