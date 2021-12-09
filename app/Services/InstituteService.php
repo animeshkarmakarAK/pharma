@@ -5,7 +5,9 @@ namespace App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Models\RowStatus;
 use App\Models\User;
+use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -25,6 +27,7 @@ class InstituteService
         $instituteData = Arr::except($data, ['contact_person_password', 'contact_person_password_confirmation']);
         $instituteData['title_en'] = $instituteData['name'];
         $instituteData['slug'] = Str::slug($instituteData['name']);
+
         $institute = Institute::create($instituteData);
 
         $data = Arr::only($data, ['name', 'email', 'contact_person_password']);
@@ -34,7 +37,10 @@ class InstituteService
         $data['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
         $data['role_id'] = 3;
         $data['password'] = Hash::make($data['contact_person_password']);
-        $data['row_status'] = 0;
+        $data['row_status'] = User::ROW_STATUS_INACTIVE;
+        if(AuthHelper::getAuthUser()->isSuperUser()){
+            $data['row_status'] = User::ROW_STATUS_ACTIVE;
+        }
         unset($data['contact_person_password']);
         User::create($data);
         return $institute;
@@ -42,6 +48,10 @@ class InstituteService
 
     public function createInstitute(array $data): Institute
     {
+        $password = $data['contact_person_password'];
+        $email = $data['email'];
+
+        $data = Arr::except($data, 'contact_person_password');
         $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
 
         if (!empty($data['logo'])) {
@@ -50,7 +60,9 @@ class InstituteService
         } else {
             $data['logo'] = Institute::DEFAULT_LOGO;
         }
+
         return Institute::create($data);
+
     }
 
     public function validator(Request $request, $id = null): Validator
@@ -91,7 +103,6 @@ class InstituteService
                 new RequiredIf($id == null),
                 'confirmed'
             ],
-
             'logo' => [
                 new RequiredIf($id == null),
                 'image',
@@ -102,10 +113,20 @@ class InstituteService
             'google_map_src' => ['nullable', 'string'],
         ];
 
+        if(!AuthHelper::getAuthUser()){
+            $rules['logo'] = [
+                'nullable',
+                'image',
+                'mimes:jpeg,jpg,png,gif',
+                'max:500',
+            ];
+        }
+
         $messages = [
             'logo.dimensions' => 'Please upload 370x70 size of image',
             'logo.max' => 'Please upload maximum 500kb size of image',
         ];
+
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
 

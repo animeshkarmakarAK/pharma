@@ -4,7 +4,7 @@
 
     $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
 
-    $currentInstitute =  new \App\Models\Institute();
+    $currentInstitute =  [];
     if ($institute) {
         $currentInstitute = $institute;
     }else {
@@ -23,10 +23,14 @@
                         alt=""
                         class="img-responsive logo-change" style="height: 60px;">
                     <p>
-                        {{  !empty($currentInstitute->description) ? $currentInstitute->description : '' }}
+                        <?php
+                        $descriptions = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
+                        ?>
+                        {{  !empty($currentInstitute)?  (!empty($currentInstitute->description) ? $currentInstitute->description : ''): $descriptions }}
                     </p>
                     <span>
-                            <a href="{{route('static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $slug])}}" class="read-more"> <i
+                            <a href="{{route('static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
+                               class="read-more"> <i
                                     class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                         </span>
                 </div>
@@ -37,41 +41,35 @@
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget-address">
                     <h3 class="mb-3">যোগাযোগ</h3>
-                    @if(!empty($currentInstitute->address))
-                        <p>
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            {{  !empty($currentInstitute->address)?$currentInstitute->address:'' }}
-                        </p>
-                    @endif
+                    <p>
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        {{  !empty($currentInstitute)?  (!empty($currentInstitute->address) ? $currentInstitute->address : ''):'Dhaka-1212' }}
+                    </p>
 
-                    @if(!empty($currentInstitute->email))
-                        <p>
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <a class="footer-email"
-                               href="mailto:{{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}">
-                                {{  !empty($currentInstitute->email)?$currentInstitute->email:'' }}
-                            </a>
-                        </p>
-                    @endif
+                    <p>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a class="footer-email"
+                           href="mailto:{{  !empty($currentInstitute)?  (!empty($currentInstitute->email) ? $currentInstitute->email : ''):'email@example.com' }}">
+                            {{  !empty($currentInstitute)?  (!empty($currentInstitute->email) ? $currentInstitute->email : ''):'email@example.com' }}
+                        </a>
+                    </p>
+                    <p>
+                        <i class="fas fa-mobile"></i>
+                        &nbsp;
+                        <a
+                            href="tel:{{  !empty($currentInstitute)?  (!empty($currentInstitute->mobile) ? $currentInstitute->mobile : ''):'017xxxxxxxx' }}">
+                            {{  !empty($currentInstitute)?  (!empty($currentInstitute->mobile) ? $currentInstitute->mobile : ''):'017xxxxxxxx' }}
+                        </a>
+                    </p>
+                    <p>
+                        <i class="fas fa-mobile"></i>
+                        &nbsp;
 
-                    @if(!empty($currentInstitute->mobile) || !empty($currentInstitute->contact_person_mobile))
-                        <p>
-                            <i class="fas fa-mobile"></i>
-                            {{--<i class="fas fa-phone fa-flip-horizontal" style="padding: 10px 0px 0px 0px;"></i>--}}
-                            &nbsp;
-                            <a
-                                href="tel:{{  !empty($currentInstitute->mobile)?$currentInstitute->mobile:''}}"
-                                onclick="">
-                                {{  !empty($currentInstitute->mobile)?$currentInstitute->mobile:' '}}
-                            </a>
-
-                                <a
-                                    href="tel:{{  $currentInstitute->contact_person_mobile }}"
-                                    onclick="">
-                                    {{  ', '.$currentInstitute->contact_person_mobile }}
-                                </a>
-                        </p>
-                    @endif
+                        <a
+                            href="tel:{{  !empty($currentInstitute)?  (!empty($currentInstitute->contact_person_mobile) ? $currentInstitute->contact_person_mobile : ''):'019xxxxxxxx' }}">
+                            {{  !empty($currentInstitute)?  (!empty($currentInstitute->contact_person_mobile) ? $currentInstitute->contact_person_mobile : ''):'019xxxxxxxx' }}
+                        </a>
+                    </p>
 
                 </div>
             </div>

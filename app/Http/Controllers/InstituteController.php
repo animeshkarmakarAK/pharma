@@ -40,7 +40,7 @@ class InstituteController extends Controller
         $instituteValidatedData = $this->instituteService->validator($request)->validate();
 
         try {
-            $this->instituteService->createInstitute($instituteValidatedData);
+            $this->instituteService->createSSP($instituteValidatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

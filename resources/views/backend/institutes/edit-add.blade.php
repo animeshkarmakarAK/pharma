@@ -37,9 +37,9 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">{{ __('admin.institute.title') }}<span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $institute->title_en : old('title_en') }}"
+                                    <input type="text" class="form-control" id="name"
+                                           name="name"
+                                           value="{{ $edit ? $institute->name : old('name') }}"
                                            placeholder="{{ __('admin.institute.title') }}">
                                 </div>
                             </div>
@@ -52,6 +52,32 @@
                                            data-code="{{ $edit ? $institute->email : '' }}"
                                            value="{{ $edit ? $institute->email : old('email') }}"
                                            placeholder="{{ __('generic.email') }}">
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contact_person_password">{{ __('generic.password') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="password" class="form-control"
+                                           id="contact_person_password"
+                                           name="contact_person_password"
+                                           value="{{ old('contact_person_password') }}"
+                                           placeholder="{{ __('generic.password') }}">
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contact_person_password_confirmation">{{ __('generic.retype_password') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="password" class="form-control"
+                                           id="contact_person_password_confirmation"
+                                           name="contact_person_password_confirmation"
+                                           value="{{ old('contact_person_password_confirmation') }}"
+                                           placeholder="{{ __('generic.retype_password') }}">
 
                                 </div>
                             </div>
@@ -250,7 +276,7 @@
 
         editAddForm.validate({
             rules: {
-                title_en: {
+                name: {
                     required: true,
                 },
                 email: {
@@ -294,7 +320,7 @@
                 },
             },
             messages: {
-                title_en: {
+                name: {
                     // pattern: "This field is required in English.",
                 },
                 email: {
