@@ -46,33 +46,19 @@ class UserTypeSeeder extends Seeder
                     'row_status' => 1,
                     'default_role_id' => '3'
                 ),
+
             3 =>
                 array(
-                    'id' => 5,
-                    'title' => 'DC',
-                    'code' => '5',
-                    'row_status' => 1,
-                    'default_role_id' => '5'
-                ),
-
-            4 =>
-                array(
-                    'id' => 6,
-                    'title' => 'DivCom',
-                    'code' => '6',
-                    'row_status' => 1,
-                    'default_role_id' => '6'
-                ),
-
-            5 =>
-                array(
-                    'id' => 7,
+                    'id' => 4,
                     'title' => 'Trainer',
-                    'code' => '7',
+                    'code' => '4',
                     'row_status' => 1,
-                    'default_role_id' => '7'
+                    'default_role_id' => '4'
                 ),
         ));
+
+
+        DB::table('users')->truncate();
 
         DB::table('users')->insert([
             'id' => 1,

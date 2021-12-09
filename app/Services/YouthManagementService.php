@@ -4,11 +4,9 @@ namespace App\Services;
 
 
 use App\Helpers\Classes\DatatableHelper;
+use App\Models\Batch;
 use App\Models\LocDistrict;
 use App\Models\LocDivision;
-use App\Models\LocUpazila;
-use Illuminate\Support\Facades\DB;
-use App\Models\Batch;
 use App\Models\Youth;
 use App\Models\YouthBatch;
 use App\Models\YouthCourseEnroll;
@@ -17,6 +15,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class YouthManagementService
@@ -41,12 +40,11 @@ class YouthManagementService
             'youths.updated_at',
             'youths.youth_registration_no as youth_registration_id',
             'youths.youth_registration_no',
-            'publish_courses.id as publish_courses.id',
-            'institutes.title_en as institutes.title_en',
-            'branches.title_en as branches.title_en',
+            'institutes.title as institutes.title',
+            'branches.title as branches.title',
             'training_centers.title_en as training_centers.title_en',
-            'programmes.title_en as programmes.title_en',
-            'courses.title_en as courses.title_en',
+            'programmes.title as programmes.title',
+            'courses.title as courses.title',
             'youth_course_enrolls.id as youth_course_enroll_id',
             'youth_course_enrolls.enroll_status',
             'youth_course_enrolls.payment_status',
@@ -54,7 +52,6 @@ class YouthManagementService
             'youth_batches.youth_course_enroll_id as youth_batch_youth_course_enroll_id',
         ]);
         $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
         $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
         $youth->leftJoin('branches', 'branches.id', '=', 'publish_courses.branch_id');
         $youth->leftJoin('training_centers', 'training_centers.id', '=', 'publish_courses.training_center_id');
@@ -74,19 +71,19 @@ class YouthManagementService
 
 
         if ($instituteId) {
-            $youth->where('publish_courses.institute_id', $instituteId);
+            $youth->where('courses.institute_id', $instituteId);
         }
         if ($branchId) {
-            $youth->where('publish_courses.branch_id', $branchId);
+            $youth->where('courses.branch_id', $branchId);
         }
         if ($trainingCenterId) {
-            $youth->where('publish_courses.training_center_id', $trainingCenterId);
+            $youth->where('courses.training_center_id', $trainingCenterId);
         }
         if ($courseId) {
-            $youth->where('publish_courses.course_id', $courseId);
+            $youth->where('courses.course_id', $courseId);
         }
         if ($programmeId) {
-            $youth->where('publish_courses.programme_id', $programmeId);
+            $youth->where('courses.programme_id', $programmeId);
         }
         if ($applicationDate) {
             $youth->whereDate('youths.created_at', Carbon::parse($applicationDate)->format('Y-m-d'));
@@ -161,14 +158,5 @@ class YouthManagementService
         $locDistrict = $locDistrict->first();
 
         return $locDistrict->id ?? 0;
-    }
-
-    public function getUpazilaId($title, $districtTitle): int
-    {
-        return (
-            LocUpazila::where("title_en", $title)
-                ->where("loc_district_id", $this->getDistrictId($districtTitle))
-                ->first()
-            )->id ?? 0;
     }
 }

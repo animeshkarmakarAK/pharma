@@ -59,10 +59,10 @@
                                                     id="publish_course_id"
                                             >
                                                 <option value="">কোর্সের নাম নির্বাচন করুন</option>
-                                                @foreach($publishCourses as $publishCourse)
+                                                {{--@foreach($publishCourses as $publishCourse)
                                                     <option
                                                         value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_en }}</option>
-                                                @endforeach
+                                                @endforeach--}}
                                             </select>
                                         </div>
                                     </div>

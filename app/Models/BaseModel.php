@@ -21,6 +21,7 @@ abstract class BaseModel extends Model
     public const ROW_STATUS_ACTIVE = '1';
     public const ROW_STATUS_INACTIVE = '0';
     public const ROW_STATUS_DELETED = '99';
+    const MOBILE_REGEX = "/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/";
 
 
     /**
@@ -52,7 +53,7 @@ abstract class BaseModel extends Model
     }
 
 
-    public function save(array $options = [])
+    public function save(array $options = []): bool
     {
         if (AuthHelper::checkAuthUser()) {
             $authUser = AuthHelper::getAuthUser();
@@ -70,7 +71,7 @@ abstract class BaseModel extends Model
         return parent::save($options);
     }
 
-    public function update(array $attributes = [], array $options = [])
+    public function update(array $attributes = [], array $options = []): bool
     {
         if (Auth::check()) {
             $authUser = AuthHelper::getAuthUser();

@@ -62,18 +62,18 @@
                     },
                     {
                         title: "{{ __('admin.programme.institute_name') }}",
-                        data: "institute_title_en",
-                        name: "institutes.title_en"
+                        data: "institutes.title",
+                        name: "institutes.title"
                     },
                     {
                         title: "{{ __('admin.programme.code') }}",
-                        data: "programme_code",
+                        data: "code",
                         name: "programmes.code"
                     },
 
                     {
                         title: "{{ __('admin.programme.logo') }}",
-                        data: "programme_logo",
+                        data: "logo",
                         name: "programmes.logo",
                         visible: false,
                     },

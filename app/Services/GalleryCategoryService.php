@@ -125,7 +125,7 @@ class GalleryCategoryService
             'gallery_categories.id',
             'gallery_categories.title_en',
             'gallery_categories.featured',
-            'institutes.title_en as institute_title_en',
+            'institutes.title as institutes.title',
             'programmes.title_en as programme_title_en',
             'batches.title_en as batch_title_en'
         ]);

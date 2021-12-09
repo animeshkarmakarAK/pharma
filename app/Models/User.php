@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
-use App\Models\Institute;
 
 /**
  * App\Models\User
@@ -49,9 +48,7 @@ class User extends AuthBaseModel
     const USER_TYPE_SUPER_USER_CODE = '1';
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
-    const USER_TYPE_DC_USER_CODE = '5';
-    const USER_TYPE_DIVCOM_USER_CODE = '6';
-    const USER_TYPE_TRAINER_USER_CODE = '7';
+    const USER_TYPE_TRAINER_USER_CODE = '4';
 
     const DEFAULT_PROFILE_PIC = 'users/default.jpg';
     const PROFILE_PIC_FOLDER_NAME = 'users';
@@ -125,16 +122,6 @@ class User extends AuthBaseModel
     public function isSuperUser(): bool
     {
         return $this->userType->code === self::USER_TYPE_SUPER_USER_CODE;
-    }
-
-    public function isDCUser(): bool
-    {
-        return $this->userType->code === self::USER_TYPE_DC_USER_CODE;
-    }
-
-    public function isDivcomUser(): bool
-    {
-        return $this->userType->code === self::USER_TYPE_DIVCOM_USER_CODE;
     }
 
     public function institute(): BelongsTo

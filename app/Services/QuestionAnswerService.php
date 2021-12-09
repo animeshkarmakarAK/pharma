@@ -74,7 +74,7 @@ class QuestionAnswerService
             'question_answers.row_status',
             'question_answers.created_at',
             'question_answers.updated_at',
-            'institutes.title_en as institute_name',
+            'institutes.title as institute_name',
         ]);
 
         $questionAnswers->join('institutes', 'question_answers.institute_id', 'institutes.id');

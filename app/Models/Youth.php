@@ -3,12 +3,9 @@
 namespace App\Models;
 
 use App\Helpers\Classes\Helper;
-use App\Models\AuthBaseModel;
-use App\Models\LocDistrict;
-use App\Models\LocDivision;
-use App\Models\LocUpazila;
 use App\Traits\AuthenticatableUser;
 use App\Traits\ScopeRowStatusTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -18,20 +15,26 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * Class Youth
  * @package App\Models
- * @property string $name_en
- * @property string $name_bn
+ * @property string name
  * @property string $mobile
- * @property int $present_address_division_bbs_code
- * @property int $present_address_district_bbs_code
- * @property int $present_address_upazila_bbs_code
- * @property string $present_address_house_address
- * @property int $permanent_address_division_bbs_code
- * @property int $permanent_address_district_bbs_code
- * @property int $permanent_address_upazila_bbs_code
- * @property string $permanent_address_house_address
- * @property string $ethnic_group
- * @property string|null youth_registration_no
- * @property int youth_course_enroll_id
+ * @property int loc_division_id
+ * @property int loc_district_id
+ * @property int loc_upazila_id
+ * @property int gender
+ * @property int disable_status
+ * @property int|null ethnic_group
+ * @property Carbon date_of_birth
+ * @property int|null recommended_by_organization
+ * @property int|null recommended_org_name
+ * @property int|null current_employment_status
+ * @property int|null year_of_experience
+ * @property int|null personal_monthly_income
+ * @property int|null have_family_own_house
+ * @property int|null have_family_own_land
+ * @property int|null number_of_siblings
+ * @property string|null student_signature_pic
+ * @property string|null student_pic
+ * @property string password
  * @property YouthFamilyMemberInfo youthFamilyMemberInfo
  */
 class Youth extends AuthBaseModel
@@ -48,9 +51,8 @@ class Youth extends AuthBaseModel
     ];
 
     /**
-     * @var mixed
+     * @return string
      */
-
     public static function getUniqueAccessKey(): string
     {
         while (true) {
@@ -432,6 +434,4 @@ class Youth extends AuthBaseModel
     {
         return Youth::where(['youth_registration_no' => $regNumber])->exists();
     }
-
-
 }

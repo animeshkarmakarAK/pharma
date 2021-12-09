@@ -59,20 +59,20 @@
                     },
                     {
                         title: "{{ __('admin.training_center.title') }}",
-                        data: "title_en",
-                        name: "training_centers.title_en"
+                        data: "title",
+                        name: "training_centers.title"
                     },
                     {
                         title: "{{ __('admin.training_center.institute_name') }}",
                         data: "institute_name",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false,
                     },
 
                     {
                         title: "{{ __('admin.training_center.branch_name') }}",
                         data: "branch_name",
-                        name: "branches.title_en",
+                        name: "branches.title",
                         visible: true,
                     },
                     {

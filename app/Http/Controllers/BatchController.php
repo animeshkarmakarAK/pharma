@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Classes\AuthHelper;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use App\Models\Examination;
@@ -11,6 +10,7 @@ use App\Models\Batch;
 use App\Models\PublishCourse;
 use App\Models\TrainingCenter;
 use App\Services\BatchService;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -31,9 +31,9 @@ class BatchController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
         return \view(self::VIEW_PATH . 'browse');
     }
@@ -41,9 +41,9 @@ class BatchController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return \view(self::VIEW_PATH . 'edit-add')->with([
             'batch' => new Batch(),
@@ -53,8 +53,8 @@ class BatchController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
@@ -81,8 +81,8 @@ class BatchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Batch $trainingBatch
-     * @return \Illuminate\Http\Response
+     * @param Batch $batch
+     * @return View
      */
     public function show(Batch $batch): View
     {
@@ -91,6 +91,8 @@ class BatchController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param Batch $batch
+     * @return View
      */
     public function edit(Batch $batch): View
     {
@@ -101,10 +103,9 @@ class BatchController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param Batch $trainingBatch
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Batch $batch
+     * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Batch $batch): RedirectResponse
@@ -152,12 +153,20 @@ class BatchController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->batchService->getBatchLists($request);
 
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function checkCode(Request $request): JsonResponse
     {
         $batch = Batch::where(['code' => $request->code])->first();
@@ -195,6 +204,10 @@ class BatchController extends Controller
         ]);
     }
 
+    /**
+     * @param Batch $batch
+     * @return RedirectResponse
+     */
     public function batchComplete(Batch $batch): RedirectResponse
     {
         if ($batch->batch_status == Batch::BATCH_STATUS_COMPLETE) {
@@ -228,6 +241,11 @@ class BatchController extends Controller
         ]);
     }
 
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function batchTrainingCenter(Request $request)
     {
         $publishCourse = PublishCourse::findOrFail($request->publish_course_id);
@@ -236,7 +254,6 @@ class BatchController extends Controller
 
     public function trainerMapping($id)
     {
-        //return $trainerBatch =  TrainerBatch::get();
         $trainerBatchs =  TrainerBatch::with('batch','user')
             ->where(['batch_id'=>$id])
             ->whereHas('user', function ($query) {
@@ -244,21 +261,17 @@ class BatchController extends Controller
             })
             ->get();
 
-        $trainers = User::where('user_type_id', 7)->get();
+        $trainers = User::where('user_type_id', User::USER_TYPE_TRAINER_USER_CODE)->get();
         $batch_id = $id;
         return view(self::VIEW_PATH . 'trainer-mapping', compact('trainers','trainerBatchs','batch_id'));
     }
 
     public function trainerMappingUpdate(Request $request)
     {
-
-        //dd($request->all());
-
         $batch_id = $request->get('batch_id');
         $updates = $request->get('update');
         $deletes = $request->get('delete');
-        return $users = array_unique($request->get('user_id'));
-        $authUser = AuthHelper::getAuthUser();
+
         foreach ($deletes as $key=>$user_id){
             if ($key > 0){
                 $count = Examination::where(['batch_id'=>$batch_id, 'created_by'=>$user_id])->count();
@@ -268,9 +281,10 @@ class BatchController extends Controller
             }
         }
 
+        $users = User::all();
+
         foreach ($users as $key=>$user_id){
             if ($key > 0){
-                //echo $user_id;
                 $count = TrainerBatch::where(['batch_id'=>$batch_id, 'user_id'=>$user_id])->count();
                 if ($count == 0){
                     TrainerBatch::create(['batch_id'=>$batch_id, 'user_id'=>$user_id, 'created_at'=>$authUser->id]);
@@ -278,13 +292,9 @@ class BatchController extends Controller
             }
         }
 
-        //dd($request->all());
-
-
         return back()->with([
             'message' => __('admin.common.success'),
             'alert-routine' => 'success'
         ]);
-
     }
 }

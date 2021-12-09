@@ -19,6 +19,7 @@ use App\Services\YouthRegistrationService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -37,13 +38,11 @@ class YouthController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function index()
     {
         $youth = AuthHelper::getAuthUser('youth');
+
         if (!$youth) {
             return redirect()->route('youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
@@ -144,7 +143,6 @@ class YouthController extends Controller
         $template = 'frontend.youth/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
         return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
-        //return Storage::download($pdf->generateCertificate($template, $youthInfo));
     }
 
     public function videos($instituteSlug = null): View
@@ -254,7 +252,7 @@ class YouthController extends Controller
             ],
             [
                 "question" => "প্রশ্ন ৩: প্রশিক্ষণ গ্রহণের জন্য ভর্তি ফরম কোথা থেকে এবং কিভাবে পাব?",
-                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন ( <a target='_blank' href='" . route('youth-registrations.index') . "'>এখানে ক্লিক করে অনলাইন আবেদন করুন</a>)",
+                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন ( <a target='_blank' href='#'>এখানে ক্লিক করে অনলাইন আবেদন করুন</a>)",
             ],
             [
                 "question" => "প্রশ্ন ৪: নিজ বাড়িতে থেকে প্রশিক্ষণ গ্রহণের সুযোগ আছে কিনা?",
@@ -299,7 +297,7 @@ class YouthController extends Controller
         return \view(self::VIEW_PATH . 'static-contents.contact-us-page', compact('currentInstitute'));
     }
 
-    public function sendMailToRecoverAccessKey(Request $request): \Illuminate\Http\RedirectResponse
+    public function sendMailToRecoverAccessKey(Request $request): RedirectResponse
     {
         $youth = Youth::where('email', $request->input('email'))->first();
 
@@ -529,7 +527,6 @@ class YouthController extends Controller
 
     public function certificate(): View
     {
-
         return \view(self::VIEW_PATH . 'youth/certificate/certificate');
     }
 

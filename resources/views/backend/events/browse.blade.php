@@ -71,7 +71,7 @@
                     {
                         title: "{{ __('admin.event.institute_name') }}",
                         data: "institute_name_en",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false,
                     },
 

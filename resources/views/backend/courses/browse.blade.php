@@ -69,7 +69,7 @@
                     {
                         title: "{{__('admin.course.institute_name')}}",
                         data: "institute_title",
-                        name: "institutes.title_en",
+                        name: "institutes.title",
                         visible: false,
                     },
                     {

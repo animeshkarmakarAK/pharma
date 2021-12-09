@@ -18,23 +18,38 @@ class InstituteController extends Controller
 
     protected InstituteService $instituteService;
 
+    /**
+     * InstituteController constructor.
+     * @param InstituteService $instituteService
+     */
     public function __construct(InstituteService $instituteService)
     {
         $this->instituteService = $instituteService;
         $this->authorizeResource(Institute::class);
     }
 
+    /**
+     * @return View
+     */
     public function index(): View
     {
         return \view(self::VIEW_PATH . 'browse');
     }
 
+    /**
+     * @return View
+     */
     public function create(): View
     {
         $institute = new Institute();
         return \view(self::VIEW_PATH . 'edit-add', compact('institute'));
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request): RedirectResponse
     {
         $instituteValidatedData = $this->instituteService->validator($request)->validate();
@@ -56,17 +71,32 @@ class InstituteController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param Institute $institute
+     * @return View
+     */
     public function edit(Request $request, Institute $institute): View
     {
         return \view(self::VIEW_PATH . 'edit-add', compact('institute'));
     }
 
+    /**
+     * @param Institute $institute
+     * @return View
+     */
     public function show(Institute $institute): View
     {
         return \view(self::VIEW_PATH . 'read', compact('institute'));
     }
 
 
+    /**
+     * @param Request $request
+     * @param Institute $institute
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Request $request, Institute $institute): RedirectResponse
     {
         $validatedData = $this->instituteService->validator($request, $institute->id)->validate();
@@ -89,6 +119,10 @@ class InstituteController extends Controller
     }
 
 
+    /**
+     * @param Institute $institute
+     * @return RedirectResponse
+     */
     public function destroy(Institute $institute): RedirectResponse
     {
         try {
@@ -118,6 +152,10 @@ class InstituteController extends Controller
         return $this->instituteService->getListDataForDatatable($request);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function checkCode(Request $request): JsonResponse
     {
         $institute = Institute::where(['code' => $request->code])->first();
@@ -125,6 +163,11 @@ class InstituteController extends Controller
         return response()->json($institute === null ? 'true' : 'Code already in use!', 200);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function SSPRegistration(Request $request): RedirectResponse
     {
         $sspValidatedData = $this->instituteService->validator($request)->validate();

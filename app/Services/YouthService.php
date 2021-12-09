@@ -50,16 +50,13 @@ class YouthService
             DB::raw('max(youths.youth_registration_no) AS youth_registration_no'),
             DB::raw('max(youths.name_en) AS name_en'),
             DB::raw('max(youths.name_bn) AS name_bn'),
-            DB::raw('max(institutes.title_en) AS institute_title_en'),
+            DB::raw('max(institutes.title) AS institute_title_en'),
             DB::raw('max(institutes.id) AS institute_id'),
-            DB::raw('max(organizations.title_en) AS organization_title_en'),
         ]);
         $youths->leftJoin('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youths->leftJoin('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
-        $youths->leftJoin('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
-
-        $youths->leftJoin('youth_organizations', 'youth_organizations.youth_id', '=', 'youths.id');
-        $youths->groupBy('youth_registration_no');
+        $youths->leftJoin('courses', 'courses.id', '=', 'youth_course_enrolls.course_id');
+        $youths->leftJoin('institutes', 'institutes.id', '=', 'courses.institute_id');
+        $youths->groupBy('id');
 
         if ($instituteId) {
             $youths->where(['institutes.id' => $instituteId]);
@@ -74,9 +71,6 @@ class YouthService
         }
         if ($youthNameBn) {
             $youths->where('youths.name_bn', 'LIKE', '%' . $youthNameBn . '%');
-        }
-        if ($youthRegNo) {
-            $youths->where('youths.youth_registration_no', $youthRegNo);
         }
 
 
@@ -531,7 +525,7 @@ class YouthService
             'youths.youth_registration_no as youth_registration_id',
             'youths.youth_registration_no',
             'publish_courses.id as publish_courses.id',
-            'institutes.title_en as institutes.title_en',
+            'institutes.title as institutes.title',
             'branches.title_en as branches.title_en',
             'training_centers.title_en as training_centers.title_en',
             'programmes.title_en as programmes.title_en',

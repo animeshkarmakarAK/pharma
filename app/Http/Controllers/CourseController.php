@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Helpers\Classes\AuthHelper;
 use App\Models\Course;
 use App\Models\TrainingCenter;
 use App\Services\CourseService;
@@ -13,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class CourseController extends Controller
 {
@@ -49,14 +49,13 @@ class CourseController extends Controller
     /**
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
         $courseValidatedData = $this->courseService->validator($request)->validate();
-        $this->courseService->createCourse($courseValidatedData);
         try {
-
+            $this->courseService->createCourse($courseValidatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -78,9 +77,8 @@ class CourseController extends Controller
      */
     public function edit(Request $request, Course $course): View
     {
-        $authUser = AuthHelper::getAuthUser();
-        $trainingCenters = TrainingCenter::where('institute_id', $authUser->institute_id)->active()->get();
-        return \view(self::VIEW_PATH . 'edit-add', compact('course','trainingCenters'));
+        $trainingCenters = TrainingCenter::acl()->active()->get();
+        return \view(self::VIEW_PATH . 'edit-add', compact('course', 'trainingCenters'));
     }
 
     /**
@@ -96,7 +94,7 @@ class CourseController extends Controller
      * @param Request $request
      * @param Course $course
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function update(Request $request, Course $course): RedirectResponse
     {
@@ -150,6 +148,10 @@ class CourseController extends Controller
         return $this->courseService->getListDataForDatatable($request);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function checkCode(Request $request): JsonResponse
     {
         $course = Course::where(['code' => $request->code])->first();
@@ -159,7 +161,6 @@ class CourseController extends Controller
             return response()->json('Code already in use!');
         }
     }
-
 
 
 }
