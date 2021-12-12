@@ -157,6 +157,7 @@ return [
     ],
 
     'examination' => [
+        'code' => ' Examination Code',
         'examination_status_msg' => 'Are you sure you want to change this examination status?',
         'examination_complete' => 'Examination Complete',
         'examination_publish' => 'Examination Publish',
@@ -167,7 +168,6 @@ return [
         'action' => 'Action',
         'status' => 'Examination Status',
         'sl' => '#',
-        'code' => 'Code',
         'title' => 'Title',
         'total_mark' => 'Total Mark',
         'pass_mark' => 'Pass Mark',
