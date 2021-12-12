@@ -17,6 +17,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\RequiredIf;
 use Illuminate\Validation\ValidationException;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -36,90 +38,22 @@ class YouthRegistrationService
 
     public function createRegistration(array $data)
     {
-        $presentAddress = data_get($data, 'address.present');
-        $permanentAddress = data_get($data, 'address.permanent');
-        $youth = Arr::only($data, ['name_en','mobile', 'email', 'ethnic_group', 'recommended_by_organization', 'recommended_org_name', 'current_employment_status', 'year_of_experience', 'personal_monthly_income', 'have_family_own_house', 'have_family_own_land', 'number_of_siblings', 'student_signature_pic', 'student_pic']);
-        $youth = array_merge($youth, $presentAddress);
-        $youth = array_merge($youth, $permanentAddress);
-
-        $youth['access_key'] = Youth::getUniqueAccessKey();
-        $youth['youth_registration_no'] = Helper::randomPassword(10, true);
-
+        $data['password'] = Hash::make($data['password']);
 
         if (isset($data['student_signature_pic'])) {
-            $filename = FileHandler::storePhoto($youth['student_signature_pic'], 'student');
+            $filename = FileHandler::storePhoto($data['student_signature_pic'], 'student');
             $youth['student_signature_pic'] = 'student/' . $filename;
         }
 
         if (isset($data['student_pic'])) {
-            $filename = FileHandler::storePhoto($youth['student_pic'], 'student', 'signature_' . $youth['access_key']);
+            $filename = FileHandler::storePhoto($data['student_pic'], 'student', 'signature_' . $data['access_key']);
             $youth['student_pic'] = 'student/' . $filename;
         }
 
-        if (!$youth = Youth::create($youth)) {
-            throw ValidationException::withMessages(['publish_course_id' => 'Youth creation failed!']);
-        }
-
-        $youthCourseEnrollInfo = Arr::only($data, ['publish_course_id']);
-
-        $youth->youthCourseEnroll()->create($youthCourseEnrollInfo);
-        $skipGuardian = false;
-
-        if (empty($data['guardian'])) {
-            $data['guardian'] = null;
-        }
-
-        foreach ($data['familyMember'] as $key => $familyMember) {
-            if (($skipGuardian && $key == 'guardian') || (empty($data['guardian']) && $key == "guardian")) continue;
-
-            if ($key == 'father') {
-                if ($this->guardian($data['guardian'], YouthFamilyMemberInfo::GUARDIAN_FATHER)) {
-                    $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_FATHER;
-                    $skipGuardian = true;
-                }
-                $familyMember['relation_with_youth'] = "father";
-
-            } elseif ($key == 'mother') {
-                if ($this->guardian($data['guardian'], YouthFamilyMemberInfo::GUARDIAN_MOTHER)) {
-                    $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_MOTHER;
-                    $skipGuardian = true;
-                }
-                $familyMember['relation_with_youth'] = "mother";
-            } elseif (!empty($data['guardian']) && $data['guardian'] == YouthFamilyMemberInfo::GUARDIAN_OTHER && $key == 'guardian') {
-                $familyMember['is_guardian'] = YouthFamilyMemberInfo::GUARDIAN_OTHER;
-            }
-            $youth->youthFamilyMemberInfo()->create($familyMember);
-        }
-
-
-        /**
-         * youth self info
-         */
-
-        $youthSelfInfo = Arr::only($data, ['mobile', 'personal_monthly_income',
-            'gender', 'marital_status', 'main_occupation', 'other_occupations', 'physical_disabilities', 'disable_status',
-            'freedom_fighter_status', 'nid', 'birth_certificate_no', 'passport_number', 'religion', 'nationality', 'date_of_birth']);
-        $youthSelfInfo['relation_with_youth'] = "self";
-
-
-        $disabilities = null;
-        if (isset($youthSelfInfo['disable_status']) && $youthSelfInfo['disable_status'] == YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES) {
-            $disabilities = $youthSelfInfo['physical_disabilities'];
-            $youthSelfInfo['physical_disabilities'] = collect($disabilities)->toJson();
-        }
-
-        $youth->youthFamilyMemberInfo()->create($youthSelfInfo);
-
-        foreach ($data['academicQualification'] as $key => $academicQualification) {
-            if ($academicQualification['examination_name'] == null) continue;
-
-            $youth->youthAcademicQualifications()->create($academicQualification);
-        }
-
-        return $youth;
+        return Youth::create($data);
     }
 
-    public function validator(Request $request): Validator
+    public function validator(Request $request, $id = null): Validator
     {
         $rules = [
             'name' => 'required|string|max:191',
@@ -132,6 +66,11 @@ class YouthRegistrationService
             'physically_disable' => 'nullable',
             'physical_disabilities' => 'nullable',
             'gender' => 'required|int',
+            'password' => [
+                'bail',
+                new RequiredIf($id == null),
+                'confirmed'
+            ]
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

@@ -222,5 +222,6 @@ return [
     'contact_person_email' => 'Contact person email',
     'contact_person_mobile' => 'Contact person mobile',
     'contact_person_post' => 'Contact person post',
+    'disability' => 'Disability',
 ];
 

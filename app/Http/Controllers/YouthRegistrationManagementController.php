@@ -31,7 +31,6 @@ class YouthRegistrationManagementController extends Controller
     }
 
 
-
     /**
      * @param Request $request
      * @return JsonResponse

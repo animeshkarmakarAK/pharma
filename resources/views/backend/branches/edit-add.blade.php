@@ -73,9 +73,9 @@
                                             name="institute_id"
                                             id="institute_id"
                                             data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $branch->institute->title_en, 'id' =>  $branch->institute->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $branch->institute->title, 'id' =>  $branch->institute->id])}}"
                                             @endif
                                             data-placeholder="{{__('admin.branch.institute_name')}} "
                                     >

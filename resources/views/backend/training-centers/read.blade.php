@@ -17,10 +17,12 @@
 
                 <div class="card-tools">
                     <div class="btn-group">
-                        <a href="{{route('admin.training-centers.edit', [$trainingCenter->id])}}" class="btn btn-sm btn-outline-primary btn-rounded">
-                            <i class="fas fa-plus-circle"></i>  {{__('admin.training_center.edit') }}
+                        <a href="{{route('admin.training-centers.edit', [$trainingCenter->id])}}"
+                           class="btn btn-sm btn-outline-primary btn-rounded">
+                            <i class="fas fa-plus-circle"></i> {{__('admin.training_center.edit') }}
                         </a>
-                        <a href="{{route('admin.training-centers.index')}}" class="btn btn-sm btn-outline-primary btn-rounded">
+                        <a href="{{route('admin.training-centers.index')}}"
+                           class="btn btn-sm btn-outline-primary btn-rounded">
                             <i class="fas fa-backward"></i> {{__('admin.common.back')}}
                         </a>
                     </div>
@@ -59,21 +61,23 @@
                 @endif
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{ {{__('admin.training_center.course_coordinator_signature') }}</p>
+                    <p class="label-text">{{__('admin.training_center.course_coordinator_signature') }}</p>
                     <div class="input-box">
-                        <img src="{{ asset("storage/{$trainingCenter->course_coordinator_signature}") }}" alt="" title="" height="50px"  />
+                        <img src="{{ asset("storage/$trainingCenter->course_coordinator_signature") }}" alt="" title=""
+                             height="50px"/>
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{ {{__('admin.training_center.course_director_signature') }}</p>
+                    <p class="label-text">{{__('admin.training_center.course_director_signature') }}</p>
                     <div class="input-box">
-                        <img src="{{ asset("storage/{$trainingCenter->course_director_signature}") }}" alt="" title="" height="50px"  />
+                        <img src="{{ asset("storage/$trainingCenter->course_director_signature") }}" alt="" title=""
+                             height="50px"/>
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{ {{__('admin.training_center.mobile') }}</p>
+                    <p class="label-text">{{__('admin.training_center.mobile') }}</p>
                     <div class="input-box">
                         {{ $trainingCenter->mobile }}
                     </div>

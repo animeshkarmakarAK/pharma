@@ -289,7 +289,6 @@
                         "targets": 0,
                         "orderable": false,
                         "createdCell": function(td, cellData, rowData, row, col) {
-                            console.log(rowData)
                             if (rowData.paid_or_unpaid == 1) {
                                 $(td).addClass('select-checkbox').prop('disabled', null);
                             }else {

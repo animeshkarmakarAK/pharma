@@ -82,7 +82,7 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label for="physically_disable">{{ __('generic.disability') }}<span
+                                            <label for="disable_status">{{ __('generic.disability') }}<span
                                                     class="required">*</span> :</label>
                                             <div
                                                 class="d-md-flex form-control"
@@ -90,18 +90,18 @@
                                                 <div class="custom-control custom-radio mr-3">
                                                     <input class="custom-control-input" type="radio"
                                                            id="physically_disable_yes"
-                                                           name="physically_disable"
+                                                           name="disable_status"
                                                            value="{{ \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
-                                                        {{old('physically_disable') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : ''}}>
+                                                        {{old('disable_status') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : ''}}>
                                                     <label for="physically_disable_yes"
                                                            class="custom-control-label">{{ __('generic.yes') }}</label>
                                                 </div>
                                                 <div class="custom-control custom-radio mr-3">
                                                     <input class="custom-control-input" type="radio"
                                                            id="physically_disable_no"
-                                                           name="physically_disable"
+                                                           name="disable_status"
                                                            value="{{ \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT }}"
-                                                        {{ old('physically_disable') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT ? 'checked' : ''}}>
+                                                        {{ old('disable_status') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT ? 'checked' : ''}}>
                                                     <label for="physically_disable_no"
                                                            class="custom-control-label">{{__('generic.no')}}</label>
                                                 </div>

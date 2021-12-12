@@ -47,16 +47,14 @@ class YouthService
         $instituteId = AuthHelper::getAuthUser()->institute_id;
         $youths = Youth::select([
             DB::raw('max(youths.id) AS id'),
-            DB::raw('max(youths.youth_registration_no) AS youth_registration_no'),
-            DB::raw('max(youths.name_en) AS name_en'),
-            DB::raw('max(youths.name_bn) AS name_bn'),
+            DB::raw('max(youths.name) AS name'),
             DB::raw('max(institutes.title) AS institute_title_en'),
             DB::raw('max(institutes.id) AS institute_id'),
         ]);
         $youths->leftJoin('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
         $youths->leftJoin('courses', 'courses.id', '=', 'youth_course_enrolls.course_id');
         $youths->leftJoin('institutes', 'institutes.id', '=', 'courses.institute_id');
-        $youths->groupBy('id');
+        $youths->groupBy('youths.id');
 
         if ($instituteId) {
             $youths->where(['institutes.id' => $instituteId]);
@@ -67,10 +65,7 @@ class YouthService
         $youthRegNo = $request->reg_no;
 
         if ($youthNameEn) {
-            $youths->where('youths.name_en', 'LIKE', '%' . $youthNameEn . '%');
-        }
-        if ($youthNameBn) {
-            $youths->where('youths.name_bn', 'LIKE', '%' . $youthNameBn . '%');
+            $youths->where('youths.name', 'LIKE', '%' . $youthNameEn . '%');
         }
 
 
@@ -522,9 +517,7 @@ class YouthService
             'youths.mobile',
             DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',
-            'youths.youth_registration_no as youth_registration_id',
-            'youths.youth_registration_no',
-            'publish_courses.id as publish_courses.id',
+            'courses.id as courses.id',
             'institutes.title as institutes.title',
             'branches.title_en as branches.title_en',
             'training_centers.title_en as training_centers.title_en',
@@ -537,12 +530,12 @@ class YouthService
             'youth_batches.youth_course_enroll_id as youth_batch_youth_course_enroll_id',
         ]);
         $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youth->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
+        $youth->join('courses', 'courses.id', '=', 'youth_course_enrolls.course_id');
         $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
         $youth->leftJoin('branches', 'branches.id', '=', 'publish_courses.branch_id');
-        $youth->leftJoin('training_centers', 'training_centers.id', '=', 'publish_courses.training_center_id');
-        $youth->leftJoin('programmes', 'programmes.id', '=', 'publish_courses.programme_id');
-        $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
+        $youth->leftJoin('training_centers', 'training_centers.id', '=', 'courses.training_center_id');
+        $youth->leftJoin('programmes', 'programmes.id', '=', 'courses.programme_id');
+        $youth->leftJoin('courses', 'courses.id', '=', 'courses.course_id');
         $youth->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
         $youth->where('youth_batches.youth_course_enroll_id', null);
         $youth->where('youth_course_enrolls.enroll_status', '=', YouthCourseEnroll::ENROLL_STATUS_ACCEPT);
@@ -557,19 +550,19 @@ class YouthService
 
 
         if ($instituteId) {
-            $youth->where('publish_courses.institute_id', $instituteId);
+            $youth->where('courses.institute_id', $instituteId);
         }
         if ($branchId) {
-            $youth->where('publish_courses.branch_id', $branchId);
+            $youth->where('courses.branch_id', $branchId);
         }
         if ($trainingCenterId) {
-            $youth->where('publish_courses.training_center_id', $trainingCenterId);
+            $youth->where('courses.training_center_id', $trainingCenterId);
         }
         if ($courseId) {
-            $youth->where('publish_courses.course_id', $courseId);
+            $youth->where('courses.course_id', $courseId);
         }
         if ($programmeId) {
-            $youth->where('publish_courses.programme_id', $programmeId);
+            $youth->where('courses.programme_id', $programmeId);
         }
         if ($applicationDate) {
             $youth->whereDate('youths.created_at', Carbon::parse($applicationDate)->format('Y-m-d'));
@@ -604,5 +597,4 @@ class YouthService
             ->rawColumns(['action', 'enroll_status', 'payment_status', 'paid_or_unpaid', 'enroll_status_check'])
             ->toJson();
     }
-
 }
