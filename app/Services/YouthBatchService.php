@@ -32,7 +32,7 @@ class YouthBatchService
         return DataTables::eloquent($youthBatches)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (YouthBatch $youthBatches) {
                 $str = '';
-                $str .= '<a href="' . route('youth-registrations.show', $youthBatches->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
+                $str .= '<a href="' . route('frontend.youth-registrations.show', $youthBatches->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> Read </a>';
                 return $str;
             }))
             ->rawColumns(['action'])

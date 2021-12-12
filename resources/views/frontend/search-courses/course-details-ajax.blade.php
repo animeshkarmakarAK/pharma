@@ -160,7 +160,7 @@
                                             <td colspan="3">
                                                 <button type="button" style="min-width: 130px;"
                                                         class="btn btn-success btn-block course-apply-btn"
-                                                        onclick="window.location.href = `{{route('youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
+                                                        onclick="window.location.href = `{{route('frontend.youth-registrations.store')}}?publish_course_id={{$publishCourse->id}}`"
                                                 >আবেদন করুন
                                                 </button>
                                             </td>

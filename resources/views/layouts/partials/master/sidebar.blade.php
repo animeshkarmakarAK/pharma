@@ -1,5 +1,5 @@
 @php
-    $currentInstitute = domainConfig('institute');
+    $currentInstitute = app('currentInstitute');
 @endphp
 <!-- Main Sidebar Container -->
 {{--elevation-4--}}

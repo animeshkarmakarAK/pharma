@@ -158,7 +158,7 @@ class GalleryCategoryController extends Controller
      */
     public function showFeaturedGalleries(): View
     {
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
         $authUser = AuthHelper::getAuthUser();
         $albums = GalleryCategory::active();
         if ($currentInstitute) {

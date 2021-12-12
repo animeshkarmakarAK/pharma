@@ -23,7 +23,7 @@ class YearlyTrainingCalendarController extends Controller
 
     public function allEvent(Request $request)
     {
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
         $courseSessions = PublishCourse::select([
             'publish_courses.id as publish_course_id',
             'courses.title_en as title',

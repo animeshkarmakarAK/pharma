@@ -131,7 +131,7 @@ class YouthRegistrationService
     {
         $youth = AuthHelper::getAuthUser('youth');
         if (!$youth) {
-            return redirect()->route('youth.login-form')->with([
+            return redirect()->route('frontend.youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
@@ -172,10 +172,10 @@ class YouthRegistrationService
             ->addColumn('action', static function (YouthCourseEnroll $youthCourseEnroll) {
                 $str = '';
                 if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT and !$youthCourseEnroll->payment_status and (date("Y-m-d H:i:s") < date('Y-m-d H:i:s', strtotime($youthCourseEnroll->enroll_updated_date . ' + 3 days')))) {
-                    $str .= '<a href="#" data-action="' . route('youth-course-enroll-pay-now', $youthCourseEnroll->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
+                    $str .= '<a href="#" data-action="' . route('frontend.youth-course-enroll-pay-now', $youthCourseEnroll->id) . '" class="btn btn-info btn-sm pay-now"> <i class="fas fa-dollar-sign"></i> ' . __(' Pay Now') . ' </a>';
                 }
                 if ($youthCourseEnroll->batch_id != null && $youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE) {
-                    $str .= '<a href="' . route('youth-certificate-view', $youthCourseEnroll->id) . '" data-action="' . route('youth-certificate-view', $youthCourseEnroll->id) . '" class="btn btn-info btn-sm" target="_blank"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
+                    $str .= '<a href="' . route('frontend.youth-certificate-view', $youthCourseEnroll->id) . '" data-action="' . route('youth-certificate-view', $youthCourseEnroll->id) . '" class="btn btn-info btn-sm" target="_blank"> <i class="fas fa-download"></i> ' . __(' Certificate') . ' </a>';
                 }
                 return $str;
             })

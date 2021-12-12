@@ -1,5 +1,5 @@
 @php
-    $currentInstitute = domainConfig('institute');
+    $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
 @endphp
 @extends($layout)
@@ -103,7 +103,7 @@
                                                     class="" alt="My Industry Logo" width="80px">
                                                 <div>
                                                     <h5 class="text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
-                                                    <a href="{{ route('youth-complain-to-organization-form') }}"
+                                                    <a href="{{ route('frontend.youth-complain-to-organization-form') }}"
                                                        class="btn btn-primary mt-3">অভিযোগ করুন</a>
                                                 </div>
                                             </div>

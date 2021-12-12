@@ -44,7 +44,7 @@ class YouthController extends Controller
         $youth = AuthHelper::getAuthUser('youth');
 
         if (!$youth) {
-            return redirect()->route('youth.login-form')->with([
+            return redirect()->route('frontend.youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
@@ -77,7 +77,7 @@ class YouthController extends Controller
     {
         $youth = AuthHelper::getAuthUser('youth');
         if (!$youth) {
-            return redirect()->route('youth.login-form')->with([
+            return redirect()->route('frontend.youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
@@ -112,7 +112,7 @@ class YouthController extends Controller
         $youth = AuthHelper::getAuthUser('youth');
 
         if (!$youth) {
-            return redirect()->route('youth.login-form')->with([
+            return redirect()->route('frontend.youth.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
@@ -161,9 +161,9 @@ class YouthController extends Controller
         return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
 
-    public function singleVideo($skillVideo): View
+    public function singleVideo($videoId): View
     {
-        $youthVideos = Video::findOrFail($skillVideo);
+        $youthVideos = Video::findOrFail($videoId);
         return \view(self::VIEW_PATH . 'skill-single-video', compact('youthVideos'));
     }
 

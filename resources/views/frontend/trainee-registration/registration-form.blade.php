@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('trainee-registrations.store') }}" method="post"
+                <form action="{{ route('frontend.trainee-registrations.store') }}" method="post"
                       class="trainee-registration-form">
                     @csrf
                     <div class="row justify-content-center py-4">

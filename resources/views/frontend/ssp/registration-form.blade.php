@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('ssp-registration') }}" method="post" class="ssp-registration-form">
+                <form action="{{ route('frontend.ssp-registration') }}" method="post" class="ssp-registration-form">
                     @csrf
                     <div class="row justify-content-center py-4">
                         <div class="col-md-8">

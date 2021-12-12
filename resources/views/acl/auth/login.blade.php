@@ -1,10 +1,10 @@
 @php
-    $currentInstitute = domainConfig('institute');
-    $layout = $currentInstitute ? 'master::layouts.custom1' : 'master::layouts.front-end';
+    $currentInstitute = app('currentInstitute');
+    $layout = 'master::layouts.front-end';
     $currentFileName = "Login";
 @endphp
 
-@extends('master::layouts.custom1')
+@extends($layout)
 @section('title')
     {{ !empty($currentInstitute) ? strtoupper($currentInstitute->title_en)."-".$currentFileName : env('APP_NAME')."-".$currentFileName }}
 @endsection

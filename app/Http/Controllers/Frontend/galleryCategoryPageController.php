@@ -16,7 +16,7 @@ class galleryCategoryPageController
     public function allGalleryCategoryPage()
     {
 
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
         $galleryCategories = GalleryCategory::active()
             ->orderBy('id', 'DESC')
             ->where(['institute_id' => $currentInstitute->id])

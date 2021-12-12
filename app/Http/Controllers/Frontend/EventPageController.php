@@ -24,7 +24,7 @@ class EventPageController
 
     public function instituteEvent(Request $request)
     {
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
         $events = Event::select([
             DB::raw('DATE(DATE_FORMAT(events.date, "%Y-%c-%d")) as start'),
             DB::raw('DATE(DATE_FORMAT(events.date, "%Y-%c-%d")) as end'),
@@ -36,7 +36,7 @@ class EventPageController
     }
     public function instituteEventDate(Request $request)
     {
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
         $currentInstituteEvents = Event::where([
             'institute_id' => $currentInstitute->id,
         ]);

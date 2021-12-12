@@ -49,7 +49,7 @@
                         সমূহ</a>
                 </li>
 
-                @if($currentInstitute->slug)
+                @if($currentInstitute && $currentInstitute->slug)
                     <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
                         <a href="{{ route('frontend.fiscal-year', $currentInstitute->slug ?? '') }}" class="btn ">
                             প্রশিক্ষণ বর্ষপঞ্জি
@@ -68,7 +68,7 @@
                         জিজ্ঞাসা</a>
                 </li>
 
-                @if($currentInstitute->slug)
+                @if($currentInstitute && $currentInstitute->slug)
                     <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
                         <a href="{{ route('frontend.contact-us-page', $currentInstitute->slug) }}"
                            class="btn">যোগাযোগ</a>
@@ -82,7 +82,7 @@
                 @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('trainee-registrations.index') }}"
+                           href="{{ route('frontend.trainee-registrations.index') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp;Trainee Registration
                         </a>
@@ -90,7 +90,7 @@
 
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('ssp-registration') }}"
+                           href="{{ route('frontend.ssp-registration') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp;SSP Registration
                         </a>
@@ -99,7 +99,7 @@
 
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('youth.login-form') }}"
+                           href="{{ route('frontend.youth.login-form') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp; ফি জমা
                         </a>
@@ -109,7 +109,7 @@
                 @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('youth')->check())
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('youth.login-form') }}"
+                           href="{{ route('frontend.youth.login-form') }}"
                            id="bd-versions">
                             <i class="far fa-user"></i>&nbsp; প্রশিক্ষণার্থী লগইন
                         </a>
@@ -137,15 +137,15 @@
                         </a>
                         <div class="dropdown-menu menu-bg-color" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                               href="{{ route('youth') }}">
+                               href="{{ route('frontend.youth') }}">
                                 <i class="fas fa-clipboard-list"></i>&nbsp; আমার প্রোফাইল
                             </a>
                             <a class="dropdown-item"
-                               href="{{ route('youth-enrolled-courses') }}">
+                               href="{{ route('frontend.youth-enrolled-courses') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
                             </a>
                             <a class="dropdown-item"
-                               href="{{ route('youth-current-organization') }}">
+                               href="{{ route('frontend.youth-current-organization') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কর্মস্থল
                             </a>
                         </div>
@@ -158,7 +158,7 @@
                             <i class="fas fa-lock-open"></i>&nbsp; লগআউট
                         </a>
                         <form id="youth-logout" style="display: none" method="post"
-                              action="{{route('youth.logout-submit')}}">
+                              action="{{route('frontend.youth.logout-submit')}}">
                             @csrf
                         </form>
                     </li>

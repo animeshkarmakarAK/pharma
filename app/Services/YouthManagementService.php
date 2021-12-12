@@ -90,7 +90,7 @@ class YouthManagementService
         return DataTables::eloquent($youth)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<a href="' . route('youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                $str .= '<a href="' . route('frontend.youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 if ($youth->enroll_status == YouthCourseEnroll::ENROLL_STATUS_PROCESSING) {
                     $str .= '<a href="#" data-action="' . route('admin.youth-course-enroll-accept', $youth->youth_course_enroll_id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
                     $str .= '<a href="#" data-action="' . route('admin.youth-course-enroll-reject', $youth->youth_course_enroll_id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';

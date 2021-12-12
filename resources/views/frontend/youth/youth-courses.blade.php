@@ -1,5 +1,5 @@
 @php
-    $currentInstitute = domainConfig('institute');
+    $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
 @endphp
 @extends($layout)
@@ -143,7 +143,7 @@
     <script>
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('youth-courses-datatable') }}',
+                url: '{{ route('frontend.youth-courses-datatable') }}',
                 order: [[2, "asc"]],
                 columns: [
                     {

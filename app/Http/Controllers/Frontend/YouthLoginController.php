@@ -16,7 +16,7 @@ class YouthLoginController
             return redirect()->route('frontend.main');
         }
 
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
 
         return view('acl.auth.youth-login', compact('currentInstitute'));
     }
@@ -27,7 +27,7 @@ class YouthLoginController
             return redirect()->route('frontend.main');
         }
 
-        $currentInstitute = domainConfig('institute');
+        $currentInstitute = app('currentInstitute');
 
         return view('acl.auth.youth-password-reset', compact('currentInstitute'));
     }
@@ -39,7 +39,7 @@ class YouthLoginController
             Auth::shouldUse('youth');
             return $request->wantsJson()
                 ? new JsonResponse([], 204)
-                : redirect()->route('youth-enrolled-courses')
+                : redirect()->route('frontend.youth-enrolled-courses')
                     ->with(['message' => 'লগইন সফল হয়েছে', 'alert-type' => 'success']);
         }
 

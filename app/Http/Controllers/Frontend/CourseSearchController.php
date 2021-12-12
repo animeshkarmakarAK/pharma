@@ -28,11 +28,11 @@ class CourseSearchController extends Controller
         if ($currentInstitute) {
             $programmes->where('institute_id', $currentInstitute->id);
         }
-        
+
         $programmes = $programmes->get();
 
 
-        return view(self::VIEW_PATH . 'course-list-new', compact('programmes', 'maxEnrollmentNumber'));
+        return view(self::VIEW_PATH . 'course-list', compact('programmes', 'maxEnrollmentNumber'));
     }
 
     /**

@@ -1,5 +1,5 @@
 @php
-    $currentInstitute = domainConfig('institute');
+    $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
 
 @endphp
@@ -11,9 +11,6 @@
 @endsection
 
 @section('content')
-{{--    @foreach($maxEnrollmentNumber[0] as $max)--}}
-{{--        <pre>{{$max->publish_course_id}} => {{$max->total_seat}}</pre>--}}
-{{--    @endforeach--}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -191,31 +188,37 @@
                 .gray-color {
                     color: #73727f;
                 }
+
                 .course-heading-wrap {
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     overflow: hidden;
                 }
+
                 .course-heading-wrap:hover {
                     overflow: visible;
                     white-space: normal;
                     cursor: pointer;
                 }
+
                 .course-p {
                     font-size: 14px;
                     font-weight: 400;
                     color: #671688;
                 }
+
                 .header-bg {
                     background: #671688;
-                    color:white;
+                    color: white;
                 }
+
                 .modal-header .close, .modal-header .mailbox-attachment-close {
                     padding: 1rem;
                     margin: -1rem -1rem -1rem auto;
                     color: white;
                     outline: none;
                 }
+
                 .card-p1 {
                     color: #671688;
                 }
@@ -265,14 +268,14 @@
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
                     html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'আসন সংখ্যা ( <span class="max-enroll">'+ item.total_seat +'</span> )</span>';
+                        'আসন সংখ্যা ( <span class="max-enroll">' + item.total_seat + '</span> )</span>';
                     html += '</p>';
 
                     html += '<p class="card-p1 float-left mb-1">';
                     html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
-                    html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
+                    html += '</span> ' + (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') + ' </p>';
                     html += '<p class="float-right">';
-                    html += '<a href="{{ route('frontend.course-details', '__') }}"'.replace('__', item.id);
+                    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__']) }}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';
@@ -305,7 +308,6 @@
                     }
                     return html;
                 }
-
 
 
                 const searchAPI = function ({model, columns}) {
@@ -373,9 +375,9 @@
 
                         $.each(response.data?.data, function (i, item) {
 
-                            for(let k=0; k < seat[0].length; k++){
+                            for (let k = 0; k < seat[0].length; k++) {
                                 let name = seat[0][k].publish_course_id;
-                                if(name == item.id){
+                                if (name == item.id) {
                                     item.total_seat = engToBdNum(seat[0][k].total_seat);
                                     break;
                                 }

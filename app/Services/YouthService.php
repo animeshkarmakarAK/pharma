@@ -72,7 +72,7 @@ class YouthService
         return DataTables::eloquent($youths)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<a href="' . route('youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                $str .= '<a href="' . route('frontend.youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 $str .= '<a href="' . route('admin.youths.certificate.course', $youth->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-user-graduate"></i> ' . __('View Certificate') . ' </a>';
                 return $str;
             }))
@@ -97,7 +97,7 @@ class YouthService
             if ($youthCourseEnroll->update($data)) {
                 if (!empty($youth->mobile)) {
                     try {
-                        $link = route('youth-enrolled-courses');
+                        $link = route('frontend.youth-enrolled-courses');
                         $youthName = strtoupper($youth->name_en);
                         $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
                         $smsResponse = sms()->send($youth->mobile, $messageBody);
@@ -110,7 +110,7 @@ class YouthService
                 };
 
                 if (!empty($youth->email)) {
-                    $link = route('youth-enrolled-courses');
+                    $link = route('frontend.youth-enrolled-courses');
                     $youthEmailAddress = $youth->email;
                     $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: $link </p>";
                     $mailSubject = "Congratulations! Your application has been accepted";
@@ -572,7 +572,7 @@ class YouthService
         return DataTables::eloquent($youth)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Youth $youth) {
                 $str = '';
-                $str .= '<a href="' . route('youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                $str .= '<a href="' . route('frontend.youth-registrations.show', $youth->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 if ($youth->payment_status == YouthCourseEnroll::PAYMENT_STATUS_PAID) {
                     $str .= '<a href="#" data-action="' . route('admin.youth.add-single-youth-to-batch', $youth->id) . '"' . ' class="btn btn-outline-success btn-sm accept-to-batch"><i class="fas fa-plus-circle"></i> ' . __('Add to Batch') . ' </a>';
                 }

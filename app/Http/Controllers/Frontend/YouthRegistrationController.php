@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\PublishCourse;
-use App\Models\TrainingCenter;
 use App\Models\Youth;
 use App\Models\YouthCourseEnroll;
 use App\Services\YouthRegistrationService;
@@ -99,7 +97,7 @@ class YouthRegistrationController extends Controller
         /**
          * Check youth application already rejected or not
          * */
-        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT){
+        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT) {
             return back()->with([
                 'message' => __('Already rejected this application'),
                 'alert-type' => 'warning'
@@ -109,7 +107,7 @@ class YouthRegistrationController extends Controller
         /**
          * Check youth application already accepted or not
          * */
-        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
             return back()->with([
                 'message' => __('Already accepted this application'),
                 'alert-type' => 'warning'
@@ -119,7 +117,7 @@ class YouthRegistrationController extends Controller
         try {
             if (!empty($youthCourseEnroll->youth->mobile)) {
                 try {
-                    $link = route('youth-enrolled-courses');
+                    $link = route('frontend.youth-enrolled-courses');
                     $youthName = strtoupper($youthCourseEnroll->youth->name_en);
                     $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
                     $smsResponse = sms()->send($youthCourseEnroll->youth->mobile, $messageBody);
@@ -129,8 +127,7 @@ class YouthRegistrationController extends Controller
                 } catch (\Throwable $exception) {
                     Log::debug($exception->getMessage());
                 }
-            };
-
+            }
 
             /**
              * Send mail to youth for conformation
@@ -175,7 +172,7 @@ class YouthRegistrationController extends Controller
         /**
          * Check youth application already accepted or not
          * */
-        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT){
+        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
             return back()->with([
                 'message' => __('Already accepted this application'),
                 'alert-type' => 'warning'
@@ -185,7 +182,7 @@ class YouthRegistrationController extends Controller
         /**
          * Check youth application already accepted or not
          * */
-        if($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT){
+        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT) {
             return back()->with([
                 'message' => __('Already rejected this application'),
                 'alert-type' => 'warning'
@@ -198,7 +195,7 @@ class YouthRegistrationController extends Controller
              * Send mail to youth for reject conformation
              * */
             $youthEmailAddress = $youthCourseEnroll->youth->email;
-            $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="'.( route('frontend.course_search')).'">Courses</a></p>';
+            $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="' . (route('frontend.course_search')) . '">Courses</a></p>';
             $mailSubject = "Your application has been rejected";
             $youthName = $youthCourseEnroll->youth->name_en;
             try {
@@ -231,12 +228,4 @@ class YouthRegistrationController extends Controller
 
 
     }
-
-
-    public function publishCourseTrainingCenter(Request $request)
-    {
-        $publishCourse = PublishCourse::findOrFail($request->publish_course_id);
-        return TrainingCenter::whereIn('id', $publishCourse->training_center_id)->get();
-    }
-
 }
