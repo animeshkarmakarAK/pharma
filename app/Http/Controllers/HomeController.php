@@ -2,35 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Contracts\View\View;
 use App\Models\Course;
 use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\GalleryCategory;
 use App\Models\Institute;
 use App\Models\IntroVideo;
-use App\Models\PublishCourse;
 use App\Models\Slider;
 use App\Models\StaticPage;
 use App\Models\TrainingCenter;
+use App\Models\User;
 use App\Models\YouthRegistration;
+use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 
 class HomeController extends BaseController
 {
     /**
      * Show the application dashboard.
-     * @param null $SSPSlug
      * @return View
      */
-    public function index($SSPSlug = null): View
+    public function index(): View
     {
-        if ($SSPSlug) {
-            $currentInstitute = Institute::where('slug', $SSPSlug)->firstOrFail();
-        } else {
-            $currentInstitute = Institute::where('slug', $SSPSlug)->first();
-        }
+        $currentInstitute = app('currentInstitute');
 
         if ($currentInstitute) {
             $currentInstituteCourses = Course::where([
@@ -47,19 +41,6 @@ class HomeController extends BaseController
             //$runningCourses->whereDate('courses.application_start_date', '<=', now()->format('Y-m-d'))->whereDate('application_end_date', '>=', now()->format('Y-m-d'));
             $runningCourses->where(['courses.institute_id' => $currentInstitute->id]);
             $runningCourses = $runningCourses->get();
-
-
-            /*$upcomingCourses = PublishCourse::select([
-                'courses.id as id',
-                'courses.title_en',
-                'courses.course_fee',
-                'courses.duration',
-                'courses.cover_image',
-                'courses.total_seat',
-            ]);
-            $upcomingCourses->whereDate('courses.application_start_date', '>=', now()->format('Y-m-d'))->whereDate('courses.application_end_date', '>=', now()->format('Y-m-d'));
-            $upcomingCourses->where(['courses.institute_id' => $currentInstitute->id]);
-            $upcomingCourses = $upcomingCourses->get();*/
 
             $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
             $galleryCategories = GalleryCategory::active()

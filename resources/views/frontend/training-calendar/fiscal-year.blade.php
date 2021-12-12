@@ -26,11 +26,11 @@
                     <div class="card-body">
                         <div class="fc-toolbar-chunk float-right pb-3 calender-custom-btn">
                             <div class="fc-button-group">
-                                <a href="{{ route('yearly-training-calendar.index') }}"
+                                <a href="{{ route('frontend.yearly-training-calendar.index') }}"
                                    class="fc-timeGridDay-button fc-button fc-button-primary">দিন</a>
-                                <a href="{{ route('yearly-training-calendar.index') }}"
+                                <a href="{{ route('frontend.yearly-training-calendar.index') }}"
                                    class="fc-timeGridDay-button fc-button fc-button-primary">সপ্তাহ</a>
-                                <a href="{{ route('yearly-training-calendar.index') }}"
+                                <a href="{{ route('frontend.yearly-training-calendar.index') }}"
                                    class="fc-timeGridDay-button fc-button fc-button-primary">মাস</a>
                                 <a href="#"
                                    class="fc-myCustomButton-button fc-button fc-button-primary fc-button-active">বছর</a>
@@ -111,7 +111,7 @@
                                             </th>
                                             <th class="align-middle text-center"
                                                 rowspan="{{ count($course)+1 }}">
-                                                <a href="{{ route('venue-list', $totalCourseVenue?$totalCourseVenue[$key]->course_id:'' ) }}">বিস্তারিত</a>
+                                                <a href="{{ route('frontend.venue-list', $totalCourseVenue?$totalCourseVenue[$key]->course_id:'' ) }}">বিস্তারিত</a>
                                             </th>
                                         </tr>
 

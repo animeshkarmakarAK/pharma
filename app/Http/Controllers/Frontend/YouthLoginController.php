@@ -13,7 +13,7 @@ class YouthLoginController
     public function loginForm()
     {
         if (AuthHelper::checkAuthUser('youth')) {
-            return redirect()->route('/');
+            return redirect()->route('frontend.main');
         }
 
         $currentInstitute = domainConfig('institute');
@@ -24,7 +24,7 @@ class YouthLoginController
     public function passwordResetForm()
     {
         if (AuthHelper::checkAuthUser('youth')) {
-            return redirect()->route('/');
+            return redirect()->route('frontend.main');
         }
 
         $currentInstitute = domainConfig('institute');
@@ -53,7 +53,7 @@ class YouthLoginController
             Auth::guard('youth')->logout();
         }
 
-        return redirect()->route('/')
+        return redirect()->route('frontend.main')
             ->with(['message' => 'সফলভাবে লগ আউট হয়েছে.', 'alert-type' => 'success']);
     }
 }

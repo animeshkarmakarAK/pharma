@@ -1,5 +1,5 @@
 @php
-    $currentInstitute = domainConfig('institute');
+    $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
     $sliders = $sliders ?? collect([]);
     $staticPages = $staticPages ?? collect([]);
@@ -76,7 +76,7 @@
 
                                     </p>
 
-                                    <a href="{{route('static-content.show', ['page_id' => 'aboutus'/*, 'instituteSlug' => $slug*/])}}"
+                                    <a href="{{route('frontend.static-content.show', ['page_id' => 'aboutus'/*, 'instituteSlug' => $slug*/])}}"
                                        target="_blank"
                                        class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন<i
                                             class="fas fa-arrow-right btn-arrow"></i></a>
@@ -420,7 +420,7 @@
         </div>
         @if($upcomingCourses->count() > 4)
             <div class="col-md-12 text-center pt-3">
-                <a href="{{ route('course_search') }}" target="_blank" class="more-course-button">আরও
+                <a href="{{ route('frontend.course_search') }}" target="_blank" class="more-course-button">আরও
                     দেখুন <i
                         class="fas fa-arrow-right btn-arrow"></i></a>
             </div>
@@ -483,7 +483,7 @@
                         <div class="row">
                             @foreach($galleryCategories as $galleryCategory)
                                 <div class="col-md-3">
-                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                    <a href="{{ route('frontend.gallery-category', $galleryCategory->id) }}">
                                         <div class="card card-main mb-2 shadow-none bg-transparent">
                                             <img class="slider-img slider-radius"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
@@ -499,7 +499,7 @@
                         <div class="row">
                             @foreach($galleryCategories as $galleryCategory)
                                 <div class="col-md-4">
-                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                    <a href="{{ route('frontend.gallery-category', $galleryCategory->id) }}">
                                         <div class="card card-main mb-2 shadow-none bg-transparent">
                                             <img class="slider-img slider-radius"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
@@ -516,7 +516,7 @@
                             @foreach($galleryCategories as $galleryCategory)
 
                                 <div class="col-md-4 ">
-                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                    <a href="{{ route('frontend.gallery-category', $galleryCategory->id) }}">
                                         <div class="card card-main mb-2 shadow-none bg-transparent">
                                             <img class="slider-img slider-radius"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
@@ -532,7 +532,7 @@
                         <div class="row w-100 justify-content-center text-center">
                             @foreach($galleryCategories as $galleryCategory)
                                 <div class="col-md-4">
-                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                    <a href="{{ route('frontend.gallery-category', $galleryCategory->id) }}">
                                         <div class="card card-main mb-2 shadow-none bg-transparent">
                                             <img class="slider-img slider-radius"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
@@ -554,7 +554,7 @@
                         <div class="row">
                             @foreach($galleryCategories as $galleryCategory)
                                 <div class="col-md-3">
-                                    <a href="{{ route('gallery-category', $galleryCategory->id) }}">
+                                    <a href="{{ route('frontend.gallery-category', $galleryCategory->id) }}">
                                         <div class="card card-main mb-2 shadow-none bg-transparent">
                                             <img class="slider-img slider-radius"
                                                  src="{{asset('/storage/'. $galleryCategory->image)}}">
@@ -568,7 +568,7 @@
                     </div>
                     @if((isset($galleryAllCategories) && $galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
                         <div class="col-md-12 text-center pb-5">
-                            <a href="{{ route('gallery-categories') }}" target="_blank"
+                            <a href="{{ route('frontend.gallery-categories') }}" target="_blank"
                                class="more-course-button mt-3">আরও দেখুন <i
                                     class="fas fa-arrow-right btn-arrow"></i></a>
                         </div>
@@ -1317,7 +1317,7 @@
                 'data-parent="#eventArea" class="collapse">' +
                 '<div class="card-body p-5">' +
                 '<p class="font-weight-light m-0">' + this.details +
-                '</p> <a href="{{ route('single-event','__') }}"'.replace('__', this.id) +
+                '</p> <a href="{{ route('frontend.single-event','__') }}"'.replace('__', this.id) +
                 'class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>' +
                 '</div>' +
                 '</div>' +
@@ -1366,7 +1366,7 @@
                     myCustomButton: {
                         text: 'বছর',
                         click: function () {
-                            window.location = '{{ route('fiscal-year') }}';
+                            window.location = '{{ route('frontend.fiscal-year') }}';
                         }
                     }
                 },
@@ -1407,8 +1407,8 @@
         });
 
 
-        async function courseDetailsModalOpen(publishCourseId) {
-            let response = await $.get('{{route('course-details.ajax', ['publish_course_id' => '_'])}}'.replace('_', publishCourseId));
+        async function courseDetailsModalOpen(courseId) {
+            let response = await $.get('{{route('frontend.course-details.ajax', ['course_id' => '_'])}}'.replace('_', courseId));
 
             if (response?.length) {
                 $("#course_details_modal").find(".modal-content").html(response);

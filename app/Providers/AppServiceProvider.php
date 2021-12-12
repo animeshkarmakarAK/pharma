@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Schema;
+use App\Models\Institute;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +15,17 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadHelpers();
+
+        $this->app->singleton('currentInstitute', static function ($app) {
+            $currentInstituteSlug = $app->request->input('current_institute_slug');
+            $currentInstitute = null;
+
+            if ($currentInstituteSlug) {
+                $currentInstitute = Institute::where('slug', $currentInstituteSlug)->first();
+            }
+
+            return $currentInstitute;
+        });
     }
 
     /**

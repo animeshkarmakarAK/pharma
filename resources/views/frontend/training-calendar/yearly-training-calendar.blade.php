@@ -143,7 +143,7 @@
             <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
             <script>
                 async function courseDetailsModalOpen(publishCourseId) {
-                    let response = await $.get('{{route('course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', publishCourseId));
+                    let response = await $.get('{{route('frontend.course-details.ajax', ['publish_course_id' => '__'])}}'.replace('__', publishCourseId));
 
                     if (response?.length) {
                         $("#course_details_modal").find(".modal-content").html(response);
@@ -168,7 +168,7 @@
                             myCustomButton: {
                                 text: 'বছর',
                                 click: function () {
-                                    window.location = '{{ route('fiscal-year') }}';
+                                    window.location = '{{ route('frontend.fiscal-year') }}';
                                 }
                             }
                         },
@@ -180,7 +180,7 @@
                         locale: initialLocaleCode,
                         events: function (fetchInfo, successCallback, failureCallback) {
                             $.ajax({
-                                url: '{{route('yearly-training-calendar.all-event')}}',
+                                url: '{{route('frotend.yearly-training-calendar.all-event')}}',
                                 type: "POST",
                             }).done(function (response) {
                                 successCallback(response);
@@ -210,7 +210,7 @@
                                 myCustomButton: {
                                     text: 'বছর',
                                     click: function () {
-                                        window.location = '{{ route('fiscal-year') }}';
+                                        window.location = '{{ route('frontend.fiscal-year') }}';
                                     }
                                 }
                             },
@@ -222,7 +222,7 @@
                             locale: initialLocaleCode,
                             events: function (fetchInfo, successCallback, failureCallback) {
                                 $.ajax({
-                                    url: '{{route('yearly-training-calendar.all-event')}}',
+                                    url: '{{route('frontend.yearly-training-calendar.all-event')}}',
                                     data: {training_center_id: training_center_id},
                                     type: "POST",
                                 }).done(function (response) {

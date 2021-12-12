@@ -124,7 +124,7 @@
         const template = function (item) {
             let html = ` <div class="col-md-3 mb-3">`;
             html += `<div class="card m-1">`;
-            let src = "{{ route('gallery-category', '__') }}".replace('__', item.id)
+            let src = "{{ route('frontend.gallery-category', '__') }}".replace('__', item.id)
             html += '<a href="' + src + '">';
             html += '<img class="card-img-top" src="/storage/' + item.image + '" height="200" alt="Card image cap">';
             html += '</a>';

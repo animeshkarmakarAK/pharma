@@ -195,7 +195,7 @@
                     html += '<p class="font-weight-bold course-heading-wrap">Mobile: ' + item?.contact_person_mobile + '</p>';
                     html += '<p class="font-weight-bold course-heading-wrap">Address: ' + item?.address ?? " " + '</p>';
                     html += '<p class="float-right">';
-                    html += '<a href="{{ route('institute-details', '__')}}"'.replace('__', item.id);
+                    html += '<a href="{{ route('frontend.institute-details', '__')}}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';

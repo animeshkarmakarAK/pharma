@@ -36,7 +36,7 @@
 
                                     </p>
 
-                                    <a href="{{route('static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
+                                    <a href="{{route('frontend.static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
                                        target="_blank"
                                        class="more-course-button mt-3 mb-5 bg-transparent">আরও দেখুন <i
                                             class="fas fa-arrow-right btn-arrow"></i></a>
@@ -234,124 +234,6 @@
                         </div>
                     @endif
                 </div>
-
-                {{--                <div class="tab-content">--}}
-                {{--                    @if($publishCourses->count() > 4)--}}
-                {{--                        <div id="all-course" class="tab-pane active">--}}
-                {{--                            <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">--}}
-                {{--                                <div class="custom-carousel-inner w-100" role="listbox">--}}
-                {{--                                    <div class="col-md-12 p-0">--}}
-                {{--                                        <div class="row">--}}
-
-                {{--                                            @php--}}
-                {{--                                                $ml=0;--}}
-                {{--                                            @endphp--}}
-
-                {{--                                            @foreach($publishCourses as $key => $publishCourse)--}}
-                {{--                                                <div--}}
-                {{--                                                    class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">--}}
-                {{--                                                    <div class="col-md-12">--}}
-                {{--                                                        <div class="card card-main mb-2">--}}
-                {{--                                                            <div class="card-bar-home-course">--}}
-                {{--                                                                <div class="pb-3">--}}
-                {{--                                                                    <img class="slider-img border-top-radius"--}}
-                {{--                                                                         src="{{asset('/storage/'.$publishCourse->course->cover_image)}}"--}}
-                {{--                                                                         alt="icon">--}}
-                {{--                                                                </div>--}}
-                {{--                                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">--}}
-                {{--                                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse->course->title_en ?? '' }}</p>--}}
-                {{--                                                                    <p class="font-weight-light mb-1"><i--}}
-                {{--                                                                            class="fas fa-clock gray-color mr-2"></i>--}}
-                {{--                                                                        <span--}}
-                {{--                                                                            class="course-p">{{ !empty($publishCourse->duration) ? $publishCourse->course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>--}}
-                {{--                                                                    </p>--}}
-                {{--                                                                    <p class="font-weight-light mb-1"><i--}}
-                {{--                                                                            class="fas fa-user-plus gray-color mr-2"></i>--}}
-
-                {{--                                                                        <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->course->max_seat_available:'') }} )</span>--}}
-                {{--                                                                    </p>--}}
-                {{--                                                                    <p class="card-p1 float-left mb-1">--}}
-                {{--                                                                        <span--}}
-                {{--                                                                            style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>--}}
-                {{--                                                                        {{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course->course_fee).' টাকা' : 'ফ্রি'}}--}}
-                {{--                                                                    </p>--}}
-                {{--                                                                    <p class="float-right">--}}
-                {{--                                                                        <a href="{{ route('course-details', $publishCourse->id) }}"--}}
-                {{--                                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>--}}
-                {{--                                                                    </p>--}}
-                {{--                                                                </div>--}}
-                {{--                                                            </div>--}}
-                {{--                                                        </div>--}}
-                {{--                                                    </div>--}}
-                {{--                                                </div>--}}
-                {{--                                            @endforeach--}}
-                {{--                                        </div>--}}
-                {{--                                    </div>--}}
-                {{--                                </div>--}}
-
-                {{--                                <!--Controls-->--}}
-                {{--                                <div class="controls-top">--}}
-                {{--                                    <a class="btn-floating left-btn-arrow" href="#courseCarousel"--}}
-                {{--                                       data-slide="prev"><i--}}
-                {{--                                            class="fas fa-chevron-left"></i></a>--}}
-                {{--                                    <a class="btn-floating right-btn-arrow" href="#courseCarousel"--}}
-                {{--                                       data-slide="next"><i--}}
-                {{--                                            class="fas fa-chevron-right"></i></a>--}}
-                {{--                                </div>--}}
-                {{--                                <!--/.Controls-->--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    @elseif($publishCourses->isEmpty())--}}
-                {{--                        <div id="all-course" class="tab-pane active">--}}
-                {{--                            <div class="col-md-12">--}}
-                {{--                                <div class="alert text-danger text-center">--}}
-                {{--                                    কোন চলমান কোর্স পাওয়া যাইনি!--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    @else--}}
-                {{--                        <div id="all-course" class="tab-pane active">--}}
-                {{--                            <div class="col-md-12 p-0">--}}
-                {{--                                <div class="row justify-content-center">--}}
-                {{--                                    @foreach($publishCourses as $key => $publishCourse)--}}
-                {{--                                        <div class="col-md-6">--}}
-                {{--                                            <div class="card card-main mb-2">--}}
-                {{--                                                <div class="card-bar-home-course">--}}
-                {{--                                                    <div class="pb-3">--}}
-                {{--                                                        <img class="slider-img border-top-radius"--}}
-                {{--                                                             src="{{asset('/storage/'. $publishCourse->course->cover_image)}}"--}}
-                {{--                                                             alt="icon">--}}
-                {{--                                                    </div>--}}
-                {{--                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">--}}
-                {{--                                                        <p class="font-weight-bold course-heading-wrap">{{ $publishCourse ? $publishCourse->course->title_bn/*." (".$course->session_name_bn.")"*/:'' }}</p>--}}
-                {{--                                                        <p class="font-weight-light mb-1"><i--}}
-                {{--                                                                class="fas fa-clock gray-color mr-2"></i> <span--}}
-                {{--                                                                class="course-p">{{ !empty($publishCourse->course->duration) ? $publishCourse->course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>--}}
-                {{--                                                        </p>--}}
-                {{--                                                        <p class="font-weight-light mb-1"><i--}}
-                {{--                                                                class="fas fa-user-plus gray-color mr-2"></i>--}}
-                {{--                                                            <span--}}
-                {{--                                                                class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->course->max_seat_available:'' )}} )</span>--}}
-                {{--                                                        </p>--}}
-                {{--                                                        <p class="card-p1 float-left mb-1">--}}
-                {{--                                                            <span--}}
-                {{--                                                                style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>--}}
-                {{--                                                            {{$publishCourse->course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course->course_fee).' টাকা' : 'ফ্রি'}}--}}
-                {{--                                                        </p>--}}
-                {{--                                                        <p class="float-right">--}}
-                {{--                                                            <a href="{{ route('course-details', $publishCourse->id) }}"--}}
-                {{--                                                               class="btn btn-primary btn-sm">বিস্তারিত</a>--}}
-                {{--                                                        </p>--}}
-                {{--                                                    </div>--}}
-                {{--                                                </div>--}}
-                {{--                                            </div>--}}
-                {{--                                        </div>--}}
-                {{--                                    @endforeach--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    @endif--}}
-                {{--                </div>--}}
             </div>
         </div>
         <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">

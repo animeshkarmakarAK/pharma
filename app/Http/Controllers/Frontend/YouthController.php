@@ -232,7 +232,8 @@ class YouthController extends Controller
 
     public function generalAskPage($instituteSlug = null): View
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        /** @var Institute $currentInstitute */
+        $currentInstitute = app('currentInstitute');
 
         $data = collect([]);
 
@@ -240,15 +241,14 @@ class YouthController extends Controller
             $data = QuestionAnswer::where('institute_id', $currentInstitute->id)->get();
         }
 
-
         $dataOld = [
             [
                 "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
-                "answer" => 'উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target="_blank" href="' . route('course_search') . '">এখানে ক্লিক করুন</a> ) ',
+                "answer" => 'উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target="_blank" href="' . route('frontend.course_search') . '">এখানে ক্লিক করুন</a> ) ',
             ],
             [
                 "question" => "প্রশ্ন ২: প্রশিক্ষণের বিষয়ে বিস্তারিত জানার জন্য কোথায় যোগাযোগ করব?",
-                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন ( <a target='_blank' href='" . route('contact-us-page') . "'>এখানে ক্লিক করুন</a> )",
+                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন ( <a target='_blank' href='" . route('frontend.contact-us-page') . "'>এখানে ক্লিক করুন</a> )",
             ],
             [
                 "question" => "প্রশ্ন ৩: প্রশিক্ষণ গ্রহণের জন্য ভর্তি ফরম কোথা থেকে এবং কিভাবে পাব?",
@@ -293,7 +293,8 @@ class YouthController extends Controller
 
     public function contactUsPage($instituteSlug): View
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        /** @var Institute $currentInstitute */
+        $currentInstitute = app('currentInstitute');
         return \view(self::VIEW_PATH . 'static-contents.contact-us-page', compact('currentInstitute'));
     }
 
@@ -404,7 +405,7 @@ class YouthController extends Controller
         $merchantKey = 'NiSe@TsT11';
 
         $macAddress = '1.1.1.1';
-        $applicationURL = route('/');
+        $applicationURL = route('frontend.main');
 
         $time = Carbon::now()->format('Y-m-d H:i:s');
 

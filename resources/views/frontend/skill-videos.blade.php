@@ -181,7 +181,7 @@
 
 
                     html +=
-                        '<a target="_blank" href="{{ route('youth.skill-single-video','__') }}"'.replace('__', item.id) + '>' +
+                        '<a target="_blank" href="{{ route('frontend.skill-single-video','__') }}"'.replace('__', item.id) + '>' +
                         '<img class="embed-responsive-item youtube-video"';
                     html += item.youtube_video_id ? ' src="http://img.youtube.com/vi/' + item.youtube_video_id + '/0.jpg "' : 'src="https://via.placeholder.com/350x350?text=Custom+Video"';
                     html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; ' +

@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
  * @property string|null google_map_src
  * @property string logo
  * @property string|null config
+ * @property string slug
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()
  * @method static Builder|Institute newModelQuery()
@@ -34,7 +35,8 @@ class Institute extends BaseModel
 
     const DEFAULT_LOGO = 'institute/default.jpg';
 
-    public function setSlugAttribute($value) {
+    public function setSlugAttribute($value)
+    {
 
         if (static::whereSlug($slug = Str::slug($value))->exists()) {
 
@@ -44,7 +46,8 @@ class Institute extends BaseModel
         $this->attributes['slug'] = $slug;
     }
 
-    public function incrementSlug($slug) {
+    public function incrementSlug($slug)
+    {
 
         $original = $slug;
 

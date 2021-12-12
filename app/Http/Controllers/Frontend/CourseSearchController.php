@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\PublishCourse;
+use App\Models\Course;
+use App\Models\Institute;
+use App\Models\Programme;
 use Illuminate\Contracts\View\View;
-use \App\Models\Institute;
-use \App\Models\Programme;
 
 class CourseSearchController extends Controller
 {
@@ -17,32 +17,32 @@ class CourseSearchController extends Controller
      */
     const VIEW_PATH = 'frontend.search-courses.';
 
-    public function findCourse($instituteSlug = null): View
+    public function findCourse(): View
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
-        $programmes = null;
+        /** @var Institute $currentInstitute */
+        $currentInstitute = app('currentInstitute');
+        $programmes = Programme::query();
 
         $maxEnrollmentNumber = [];
 
         if ($currentInstitute) {
-            $programmes = Programme::where('institute_id', $currentInstitute->id)->get();
-
-        } else {
-            $programmes = Programme::all();
+            $programmes->where('institute_id', $currentInstitute->id);
         }
+        
+        $programmes = $programmes->get();
 
 
         return view(self::VIEW_PATH . 'course-list-new', compact('programmes', 'maxEnrollmentNumber'));
     }
 
     /**
-     * @param int $publishCourseId
+     * @param int $courseId
      * @return View
      */
-    public function courseDetails(int $publishCourseId): View
+    public function courseDetails(int $courseId): View
     {
-        $publishCourse = PublishCourse::findOrFail($publishCourseId);
-        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details', ['publishCourse' => $publishCourse]);
+        $course = Course::findOrFail($courseId);
+        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details', ['course' => $course]);
     }
 
 }

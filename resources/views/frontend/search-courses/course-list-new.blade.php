@@ -272,7 +272,7 @@
                     html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
                     html += '</span> '+ (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') +' </p>';
                     html += '<p class="float-right">';
-                    html += '<a href="{{ route('course-details', '__') }}"'.replace('__', item.id);
+                    html += '<a href="{{ route('frontend.course-details', '__') }}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';

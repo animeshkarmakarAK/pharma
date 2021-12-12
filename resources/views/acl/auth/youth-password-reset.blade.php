@@ -11,7 +11,7 @@
         <div class="login-area text-center">
             <div class="row">
                 <div class="col-sm-12 pt-5">
-                    <a href="{{ route('/') }}">
+                    <a href="{{ route('frontend.main') }}">
                         <img
                             src="{{ !empty($currentInstitute)? asset("storage/{$currentInstitute->logo}") : 'http://skills.gov.bd/skills/images/new-skill-logo-header.png' }}"
                             height="62px"

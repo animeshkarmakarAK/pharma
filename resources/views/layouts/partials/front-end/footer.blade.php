@@ -1,15 +1,6 @@
 @php
-
-    $slug = request()->segment(count(request()->segments()));
-
-    $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
-
-    $currentInstitute =  [];
-    if ($institute) {
-        $currentInstitute = $institute;
-    }else {
-        $slug = null;
-    }
+    /** @var \App\Models\Institute $currentInstitute */
+    $currentInstitute =  app('currentInstitute');
 @endphp
 
 <section class="main-footer">
@@ -19,17 +10,17 @@
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget">
                     <img
-                        src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/dpg/logo.svg')}}"
+                        src="{{$currentInstitute && $currentInstitute->logo ? asset('storage/' . $currentInstitute->logo) : asset('assets/logo/dpg/logo.svg')}}"
                         alt=""
                         class="img-responsive logo-change" style="height: 60px;">
                     <p>
                         <?php
                         $descriptions = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
                         ?>
-                        {{  !empty($currentInstitute)?  (!empty($currentInstitute->description) ? $currentInstitute->description : ''): $descriptions }}
+                        {{  $currentInstitute && !empty($currentInstitute->description) ? $currentInstitute->description : '' }}
                     </p>
                     <span>
-                            <a href="{{route('static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
+                            <a href="{{route('frontend.static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $currentInstitute->slug ?? ''])}}"
                                class="read-more"> <i
                                     class="fas fa-angle-double-right"></i> বিস্তারিত</a>
                         </span>
@@ -43,22 +34,22 @@
                     <h3 class="mb-3">যোগাযোগ</h3>
                     <p>
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        {{  !empty($currentInstitute)?  (!empty($currentInstitute->address) ? $currentInstitute->address : ''):'Dhaka-1212' }}
+                        {{  $currentInstitute && !empty($currentInstitute->address) ? $currentInstitute->address : 'Dhaka-1212' }}
                     </p>
 
                     <p>
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         <a class="footer-email"
-                           href="mailto:{{  !empty($currentInstitute)?  (!empty($currentInstitute->email) ? $currentInstitute->email : ''):'email@example.com' }}">
-                            {{  !empty($currentInstitute)?  (!empty($currentInstitute->email) ? $currentInstitute->email : ''):'email@example.com' }}
+                           href="mailto:{{  $currentInstitute && !empty($currentInstitute->email) ? $currentInstitute->email :'email@example.com' }}">
+                            {{  $currentInstitute && !empty($currentInstitute->email) ? $currentInstitute->email :'email@example.com' }}
                         </a>
                     </p>
                     <p>
                         <i class="fas fa-mobile"></i>
                         &nbsp;
                         <a
-                            href="tel:{{  !empty($currentInstitute)?  (!empty($currentInstitute->mobile) ? $currentInstitute->mobile : ''):'017xxxxxxxx' }}">
-                            {{  !empty($currentInstitute)?  (!empty($currentInstitute->mobile) ? $currentInstitute->mobile : ''):'017xxxxxxxx' }}
+                            href="tel:{{  $currentInstitute && !empty($currentInstitute->mobile) ? $currentInstitute->mobile :'017xxxxxxxx' }}">
+                            {{  $currentInstitute && !empty($currentInstitute->mobile) ? $currentInstitute->mobile :'017xxxxxxxx' }}
                         </a>
                     </p>
                     <p>
@@ -66,8 +57,8 @@
                         &nbsp;
 
                         <a
-                            href="tel:{{  !empty($currentInstitute)?  (!empty($currentInstitute->contact_person_mobile) ? $currentInstitute->contact_person_mobile : ''):'019xxxxxxxx' }}">
-                            {{  !empty($currentInstitute)?  (!empty($currentInstitute->contact_person_mobile) ? $currentInstitute->contact_person_mobile : ''):'019xxxxxxxx' }}
+                            href="tel:{{  $currentInstitute && !empty($currentInstitute->contact_person_mobile) ? $currentInstitute->contact_person_mobile :'019xxxxxxxx' }}">
+                            {{  $currentInstitute && !empty($currentInstitute->contact_person_mobile) ? $currentInstitute->contact_person_mobile :'019xxxxxxxx' }}
                         </a>
                     </p>
 
@@ -87,14 +78,17 @@
                         <li><i class="fa  fa-angle-right"></i> <a href="#">সংবাদ </a></li>
                         <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}">আমাদের
+                                href="{{route('frontend.static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $currentInstitute->slug ?? ''])}}">আমাদের
                                 সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{ route('advice-page', ['instituteSlug' => $slug]) }}">পরামর্শ</a></li>
+                                href="{{ route('frontend.advice-page', ['instituteSlug' => $currentInstitute->slug ?? '']) }}">পরামর্শ</a>
+                        </li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('contact-us-page', ['instituteSlug' => $slug])}}">যোগাযোগ</a></li>
+                                href="{{route('frontend.contact-us-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">যোগাযোগ</a>
+                        </li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('general-ask-page', ['instituteSlug' => $slug])}}">প্রশ্নোত্তর</a></li>
+                                href="{{route('frontend.general-ask-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">প্রশ্নোত্তর</a>
+                        </li>
                         @guest
                             <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
                             <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>

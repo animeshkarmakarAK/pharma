@@ -198,7 +198,7 @@ class YouthRegistrationController extends Controller
              * Send mail to youth for reject conformation
              * */
             $youthEmailAddress = $youthCourseEnroll->youth->email;
-            $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="'.( route('course_search')).'">Courses</a></p>';
+            $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="'.( route('frontend.course_search')).'">Courses</a></p>';
             $mailSubject = "Your application has been rejected";
             $youthName = $youthCourseEnroll->youth->name_en;
             try {

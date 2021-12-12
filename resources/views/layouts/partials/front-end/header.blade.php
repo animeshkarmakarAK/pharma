@@ -1,15 +1,6 @@
 @php
-    $slug = request()->segment(count(request()->segments()));
-
-    $institute = \App\Helpers\Classes\Helper::validInstituteSlug($slug);
-
-    $currentInstitute =  null;
-    if ($institute) {
-        $currentInstitute = $institute;
-    }else {
-        $slug = null;
-    }
-
+    /** @var \App\Models\Institute $currentInstitute */
+    $currentInstitute =  app('currentInstitute');
 @endphp
 
 <div class="container-fluid">
@@ -17,14 +8,14 @@
         <header class="navbar navbar-expand flex-column flex-md-row bd-navbar">
             <div class="navbar-nav-scroll">
                 <div class="nise3-logo" style="height: 70px;">
-                    <a href="{{ route('/') }}">
+                    <a href="{{ route('frontend.main') }}">
                         <img class="float-left"
-                             src="{{!empty($currentInstitute) ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/dpg/logo.svg')}}"
+                             src="{{$currentInstitute ? asset('storage/' .$currentInstitute->logo) : asset('assets/logo/dpg/logo.svg')}}"
                              height="100%"
                              alt="Logo"/>
                     </a>
                     <div class="float-left px-1" style="max-width: 311px; padding: 20px;">
-                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title_en : "DPG Training & Certificate Management" }}</p>
+                        <p class="slogan slogan-tag">{{ $currentInstitute ? $currentInstitute->title : "DPG Training & Certificate Management" }}</p>
                     </div>
                 </div>
             </div>
@@ -43,21 +34,24 @@
             <ul class="navbar-nav mr-auto">
                 <!-- Left menu item empty -->
                 <li class="nav-item {{ request()->is('/') ? 'active-menu' : '' }}">
-                    <a href="{{ route('/', ['instituteSlug' => $slug]) }}" class="btn ">প্রথম পাতা</a>
+                    <a href="{{ route('frontend.main', ['instituteSlug' => $currentInstitute->slug ?? '']) }}"
+                       class="btn ">প্রথম
+                        পাতা</a>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('institute-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('institute-page') }}" class="btn ">SSP's</a>
+                <li class="nav-item {{ request()->routeIs('institute-list*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('frontend.institute-list') }}" class="btn ">SSP's</a>
                 </li>
 
-                <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('course_search', ['instituteSlug' => $slug]) }}" class="btn ">কোর্স
+                <li class="nav-item {{ request()->routeIs('course-management/courses-search*') ? 'active-menu' : '' }}">
+                    <a href="{{ route('frontend.course_search', ['instituteSlug' => $currentInstitute->slug ?? '']) }}"
+                       class="btn ">কোর্স
                         সমূহ</a>
                 </li>
 
-                @if($slug)
+                @if($currentInstitute->slug)
                     <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
-                        <a href="{{ route('fiscal-year', $slug) }}" class="btn ">
+                        <a href="{{ route('frontend.fiscal-year', $currentInstitute->slug ?? '') }}" class="btn ">
                             প্রশিক্ষণ বর্ষপঞ্জি
                         </a>
                     </li>
@@ -65,16 +59,19 @@
 
 
                 <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('youth.skill_videos', $slug) }}" class="btn ">ভিডিও সমূহ</a>
+                    <a href="{{ route('frontend.skill_videos', $currentInstitute->slug ?? '') }}" class="btn ">ভিডিও
+                        সমূহ</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('general-ask-page', $slug) }}" class="btn">সাধারণ জিজ্ঞাসা</a>
+                    <a href="{{ route('frontend.general-ask-page', $currentInstitute->slug ?? '') }}" class="btn">সাধারণ
+                        জিজ্ঞাসা</a>
                 </li>
 
-                @if($slug)
+                @if($currentInstitute->slug)
                     <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
-                        <a href="{{ route('contact-us-page', $slug) }}" class="btn">যোগাযোগ</a>
+                        <a href="{{ route('frontend.contact-us-page', $currentInstitute->slug) }}"
+                           class="btn">যোগাযোগ</a>
                     </li>
                 @endif
 

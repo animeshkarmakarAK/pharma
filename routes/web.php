@@ -12,10 +12,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('/check-unique-user-email', [App\Http\Controllers\Admin\UserController::class, 'checkUserEmailUniqueness'])->name('users.check-unique-user-email');
 });
 
-
-
-
-
 Route::post('ipn-handler', [App\Http\Controllers\Frontend\YouthController::class, 'ipnHandler'])->name('api-ipn-handler');
 Route::post('youth-bulk-import', [App\Http\Controllers\YouthManagementController::class, 'importYouth'])->name('api-youth-bulk-import');
 
@@ -143,66 +139,69 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('examination-routines/datatable', [App\Http\Controllers\ExaminationRoutineController::class, 'getDatatable'])->name('examination-routines.datatable');
 });
 
-Route::group([], function () {
-    Route::get('courses-search/{instituteSlug?}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
-    Route::get('course-details-ajax/{publish_course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
-    Route::get('course-details/{publish_course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
+//Route::group([], function () {
+//    Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
+//    Route::get('youth-enrolled-courses', [App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
+//    Route::get('youth-certificate-view/{youth_course_enroll}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCertificateView'])->name('youth-certificate-view');
+//    Route::post('youth-enrolled-courses/datatable', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');
+//    Route::post('youth-profile/youth-course-enroll-pay-now/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseEnrollPayNow'])->name('youth-course-enroll-pay-now');
+//    Route::get('youth-current-organization', [App\Http\Controllers\Frontend\YouthController::class, 'youthCurrentOrganization'])->name('youth-current-organization');
+//
+//    Route::get('youth-certificate', [App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
+//    Route::get('youth-certificate/download', [App\Http\Controllers\Frontend\YouthController::class, 'certificateDownload'])->name('certificate.download');
+//    Route::get('youth-certificate-two', [App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
 
-    Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
-    Route::get('youth-enrolled-courses', [App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
-    Route::get('youth-certificate-view/{youth_course_enroll}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCertificateView'])->name('youth-certificate-view');
-    Route::post('youth-enrolled-courses/datatable', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');
-    Route::post('youth-profile/youth-course-enroll-pay-now/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseEnrollPayNow'])->name('youth-course-enroll-pay-now');
-    Route::get('youth-current-organization', [App\Http\Controllers\Frontend\YouthController::class, 'youthCurrentOrganization'])->name('youth-current-organization');
+//    Route::resources([
+//        'trainee-registrations' => App\Http\Controllers\Frontend\YouthRegistrationController::class,
+//    ]);
+//
+//    Route::get('youth-registration/success/{accessKey}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
+//    Route::get('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
+//    Route::get('youth-password-reset', [App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
+//    Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
+//    Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
+//
+//    Route::post('youth/recover-access-key-by-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
+//    Route::post('youth/registration-success-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRegistrationSuccess'])->name('youth.registration-success-mail');
+//    Route::get('youth/check-unique-email', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthEmailUniqueness'])->name('youth.check-unique-email');
+//    Route::get('youth/check-unique-nid', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueNID'])->name('youth.check-unique-nid');
+//    Route::get('youth/check-unique-birth_certificate_no', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueBirthCertificateNo'])->name('youth.check-unique-birth_certificate_no');
+//    Route::get('youth/check-unique-passport-no', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
 
-    Route::get('youth-certificate', [App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
-    Route::get('youth-certificate/download', [App\Http\Controllers\Frontend\YouthController::class, 'certificateDownload'])->name('certificate.download');
-    Route::get('youth-certificate-two', [App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
-
-
-    Route::get('skill-videos/{instituteSlug?}', [App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('youth.skill_videos');
-    Route::get('skill-videos/{skill_video}', [App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('youth.skill-single-video');
-    Route::get('advice-page/{instituteSlug?}', [App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
-    Route::get('general-ask-page/{instituteSlug?}', [App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
-    Route::get('contact-us-page/{instituteSlug?}', [App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
-    Route::post('visitor-feedback-store', [App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');
-    Route::get('yearly-training-calendar', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'index'])->name('yearly-training-calendar.index');
-    Route::post('yearly-training-calendar-ajax', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'allEvent'])->name('yearly-training-calendar.all-event');
-    Route::get('fiscal-year/{instituteSlug?}', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'fiscalYear'])->name('fiscal-year');
-    Route::get('venue-list/{id}', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueList'])->name('venue-list');
-
-    Route::post('venue-list-search', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
-
-    Route::resources([
-        'trainee-registrations' => App\Http\Controllers\Frontend\YouthRegistrationController::class,
-    ]);
-
-    Route::get('youth-registration/success/{accessKey}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
-    Route::get('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
-    Route::get('youth-password-reset', [App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
-    Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
-    Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
-
-    Route::get('sc/{page_id}/{instituteSlug?}', [App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
-        ->name('static-content.show');
-
-    Route::post('youth/recover-access-key-by-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
-    Route::post('youth/registration-success-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRegistrationSuccess'])->name('youth.registration-success-mail');
-    Route::get('youth/check-unique-email', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthEmailUniqueness'])->name('youth.check-unique-email');
-    Route::get('youth/check-unique-nid', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueNID'])->name('youth.check-unique-nid');
-    Route::get('youth/check-unique-birth_certificate_no', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueBirthCertificateNo'])->name('youth.check-unique-birth_certificate_no');
-    Route::get('youth/check-unique-passport-no', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
-    Route::get('gallery-categories', [\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
-    Route::get('gallery-categories/{galleryCategory}', [\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
-
-    Route::get('events/{event}', [\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
     Route::post('institute-events', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
     Route::post('institute-events-date', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
     Route::post('publish-course-training-centers', [\App\Http\Controllers\Frontend\YouthRegistrationController::class, 'publishCourseTrainingCenter'])->name('publish-course-training-centers');
     Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
-    Route::get('/institute-page', [App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-page');
-    Route::get('institute-details/{id}', [App\Http\Controllers\Frontend\InstitutePageController::class, 'details'])->name('institute-details');
-});
+    Route::get('/institute-list', [App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('frontend.institute-list');
+    Route::get('institute-details/{id}', [App\Http\Controllers\Frontend\InstitutePageController::class, 'details'])->name('frontend.institute-details');
+//});
 
+$routesWithoutInstituteSlug = function () {
+    Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('main');
+    Route::get('courses-search', [App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
+    Route::get('course-details-ajax/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
+    Route::get('course-details/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
 
-Route::get('/{instituteSlug?}', [\App\Http\Controllers\HomeController::class, 'index'])->name('/');
+    Route::get('skill-videos', [App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('skill_videos');
+    Route::get('skill-videos/{skill_video}', [App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('skill-single-video');
+    Route::get('advice-page', [App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
+    Route::get('general-ask-page', [App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
+    Route::get('contact-us-page', [App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
+    Route::post('visitor-feedback-store', [App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');
+    Route::get('yearly-training-calendar', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'index'])->name('yearly-training-calendar.index');
+    Route::post('yearly-training-calendar-ajax', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'allEvent'])->name('yearly-training-calendar.all-event');
+    Route::get('fiscal-year', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'fiscalYear'])->name('fiscal-year');
+    Route::get('venue-list/{id}', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueList'])->name('venue-list');
+
+    Route::post('venue-list-search', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
+
+    Route::get('gallery-categories', [\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
+    Route::get('gallery-categories/{galleryCategory}', [\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
+
+    Route::get('events/{event}', [\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
+    Route::get('sc/{page_id}', [App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
+        ->name('static-content.show');
+};
+
+Route::group(['as' => 'frontend.'], $routesWithoutInstituteSlug);
+Route::group(['prefix' => '{instituteSlug?}', 'as' => 'frontend.', 'middleware' => ['detect-institute']], $routesWithoutInstituteSlug);

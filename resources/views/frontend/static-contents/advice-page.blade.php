@@ -28,7 +28,7 @@
                                             </div>
                                             <div class="col-md-12 input_area">
 
-                                                <form action="{{ route('visitor-feedback.store') }}"
+                                                <form action="{{ route('frontend.visitor-feedback.store') }}"
                                                       method="POST" class="edit-add-form">
                                                     @csrf
                                                     <div class="form-group row" aria-required="true">

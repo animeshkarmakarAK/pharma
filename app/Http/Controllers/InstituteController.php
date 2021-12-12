@@ -103,7 +103,6 @@ class InstituteController extends Controller
 
         try {
             $this->instituteService->updateInstitute($institute, $validatedData);
-            Helper::forgetDomainConfig($institute);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -126,7 +125,6 @@ class InstituteController extends Controller
     public function destroy(Institute $institute): RedirectResponse
     {
         try {
-            Helper::forgetDomainConfig($institute);
             $this->instituteService->deleteInstitute($institute);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
