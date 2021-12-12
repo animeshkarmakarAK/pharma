@@ -38,11 +38,9 @@ class YouthManagementService
             'youths.mobile',
             DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',
-            'youths.youth_registration_no as youth_registration_id',
-            'youths.youth_registration_no',
             'institutes.title as institutes.title',
             'branches.title as branches.title',
-            'training_centers.title_en as training_centers.title_en',
+            'training_centers.title as training_centers.title',
             'programmes.title as programmes.title',
             'courses.title as courses.title',
             'youth_course_enrolls.id as youth_course_enroll_id',
@@ -52,11 +50,10 @@ class YouthManagementService
             'youth_batches.youth_course_enroll_id as youth_batch_youth_course_enroll_id',
         ]);
         $youth->join('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
-        $youth->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
-        $youth->leftJoin('branches', 'branches.id', '=', 'publish_courses.branch_id');
-        $youth->leftJoin('training_centers', 'training_centers.id', '=', 'publish_courses.training_center_id');
-        $youth->leftJoin('programmes', 'programmes.id', '=', 'publish_courses.programme_id');
-        $youth->leftJoin('courses', 'courses.id', '=', 'publish_courses.course_id');
+        $youth->join('institutes', 'institutes.id', '=', 'courses.institute_id');
+        $youth->leftJoin('branches', 'branches.id', '=', 'courses.branch_id');
+        $youth->leftJoin('training_centers', 'training_centers.id', '=', 'courses.training_center_id');
+        $youth->leftJoin('courses', 'courses.id', '=', 'courses.id');
         $youth->leftJoin('youth_batches', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
         $youth->where('youth_batches.youth_course_enroll_id', null);
         $youth->where('youth_course_enrolls.enroll_status', YouthCourseEnroll::ENROLL_STATUS_PROCESSING);

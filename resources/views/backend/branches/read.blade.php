@@ -54,12 +54,10 @@
                     <div class="col-md-6  custom-view-box">
                         <p class="label-text">{{__('admin.branch.institute_name')}} </p>
                         <div class="input-box">
-                            {{$branch->institute->title_en}}
+                            {{$branch->institute->title}}
                         </div>
                     </div>
                 @endif
-
-
             </div>
         </div>
     </div>

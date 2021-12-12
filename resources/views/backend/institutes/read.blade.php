@@ -51,13 +51,6 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('generic.mobile') }}</p>
-                    <div class="input-box">
-                        {{ $institute->mobile }}
-                    </div>
-                </div>
-
-                <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('generic.address') }}</p>
                     <div class="input-box">
                         {{ $institute->address }}

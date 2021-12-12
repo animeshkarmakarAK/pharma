@@ -36,10 +36,10 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('admin.institute.title') }}<span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $institute->title_en : old('title_en') }}"
+                                    <label for="title">{{ __('admin.institute.title') }}<span style="color: red"> * </span></label>
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $institute->title : old('title_en') }}"
                                            placeholder="{{ __('admin.institute.title') }}">
                                 </div>
                             </div>
