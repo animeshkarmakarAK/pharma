@@ -223,5 +223,7 @@ return [
     'contact_person_mobile' => 'Contact person mobile',
     'contact_person_post' => 'Contact person post',
     'disability' => 'Disability',
+    'course.edit' => 'Edit course',
+    'course.add' => 'Add course'
 ];
 

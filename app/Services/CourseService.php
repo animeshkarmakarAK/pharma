@@ -107,33 +107,17 @@ class CourseService
                 'required',
                 'int'
             ],
-            'application_form_type_id' => [
-                'required',
-                'int'
-            ],
-            'application_start_date' => [
-                'required'
-            ],
-            'application_end_date' => [
-                'required'
-            ],
-            'course_start_date' => [
-                'required'
-            ],
-            'course_end_date' => [
-                'required'
-            ],
             'branch_id' => [
                 'required',
                 'int'
             ],
-            /*'cover_image' => [
+            'cover_image' => [
                 'nullable',
                 'image',
                 'mimes:jpg,bmp,png,jpeg,svg',
-                'max:500',
-                'dimensions:width=820,height=312'
-            ]*/
+//                'max:500',
+//                'dimensions:width=820,height=312'
+            ]
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
@@ -143,7 +127,7 @@ class CourseService
     /**
      * @param Course $course
      * @param Request $request
-     * @return bool
+     * @return Course
      * @throws \Exception
      */
     public function updateCourse(Course $course, Request $request): Course
@@ -192,7 +176,7 @@ class CourseService
 
         $courses = Course::acl()->select([
             'courses.id as id',
-            'courses.title_en',
+            'courses.title',
             'courses.duration',
             'courses.code',
             'courses.course_fee',

@@ -15,11 +15,16 @@ class CreateBatchesTable extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('institute_id')->index('batches_fk_institute_id');
+            $table->unsignedInteger('branch_id')->nullable()->index('batches_fk_branch_id');
             $table->unsignedInteger('course_id')->index('batches_fk_course_id');
             $table->unsignedInteger('training_center_id')->index('batches_fk_training_id');
-            $table->string('title_en', 191)->nullable();
             $table->string('title', 191);
             $table->string('code', 191);
+            $table->dateTime('application_start_date');
+            $table->dateTime('application_end_date');
+            $table->dateTime('batch_start_date');
+            $table->dateTime('batch_end_date')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedTinyInteger("batch_status")->nullable()->comment('1=>On Going Batch, 2=>Complete Batch');
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);

@@ -17,7 +17,7 @@
             <div class="col-12">
                 <div class="card card-outline">
                     <div class="card-header custom-bg-gradient-info">
-                        <h3 class="card-title text-primary font-weight-bold">{{ ! $edit ? __('admin.course.edit') : __('admin.course.update') }}</h3>
+                        <h3 class="card-title text-primary font-weight-bold">{{ $edit ? __('generic.course.edit') : __('generic.course.add') }}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('admin.courses.index')}}"
@@ -74,10 +74,10 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 data-dependent-fields="#branch_id"
                                                 @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $course->institute->title_en, 'id' =>  $course->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $course->institute->title, 'id' =>  $course->institute->id])}}"
                                                 @endif
                                                 data-placeholder="{{ __('admin.course.institute_name') }}"
                                         >
@@ -88,16 +88,16 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="application_form_type_id">{{__('admin.course.branch')}}<span
+                                    <label for="branch_id">{{__('admin.course.branch')}}<span
                                             style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="branch_id"
                                             id="branch_id"
                                             data-model="{{base64_encode(\App\Models\Branch::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-depend-on="institute_id"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $course->branch->title_en, 'id' =>  $course->branch->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $course->branch->title, 'id' =>  $course->branch->id])}}"
                                             @endif
                                             data-placeholder="{{__('admin.course.branch')}}"
                                     >
@@ -112,42 +112,24 @@
                                         name="training_center_id"
                                         id="training_center_id"
                                         data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                        data-label-fields="{title_en}"
+                                        data-label-fields="{title}"
                                         data-depend-on="institute_id"
                                         @if($edit)
-                                        data-preselected-option="{{json_encode(['text' =>  $course->trainingCenter->title_en, 'id' =>  $course->trainingCenter->id])}}"
+                                        data-preselected-option="{{json_encode(['text' =>  $course->trainingCenter->title, 'id' =>  $course->trainingCenter->id])}}"
                                         @endif
                                         data-placeholder="{{__('admin.course.training_center')}}"
                                 >
                                 </select>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="application_form_type_id">{{__('admin.publish_course.application_form_type')}}<span
-                                            style="color: red"> * </span></label>
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="application_form_type_id"
-                                            id="application_form_type_id"
-                                            data-model="{{base64_encode(\App\Models\ApplicationFormType::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on="institute_id"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $course->applicationFormType->title_en, 'id' =>  $course->applicationFormType->id])}}"
-                                            @endif
-                                            data-placeholder="{{__('admin.course.application_form_type')}}"
-                                    >
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('admin.course.title') }}<span
+                                    <label for="title">{{ __('generic.course') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $course->title_en : old('title_en') }}"
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $course->title : old('title') }}"
                                            placeholder="{{ __('admin.course.title') }}">
                                 </div>
                             </div>
@@ -163,7 +145,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="course_fee">{{ __('admin.course.course_fee') }}<span
                                             style="color: red"> * </span></label>
@@ -173,6 +155,17 @@
                                            placeholder="{{ __('admin.course.course_fee') }}">
                                 </div>
                             </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="duration">{{ __('admin.course.duration') }}</label>
+                                    <input type="text" class="form-control" id="duration"
+                                           name="duration"
+                                           value="{{ $edit ? $course->duration : old('duration') }}"
+                                           placeholder="{{ __('admin.course.duration') }}">
+                                </div>
+                            </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label
@@ -227,15 +220,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="duration">{{ __('admin.course.duration') }}</label>
-                                    <input type="text" class="form-control" id="duration"
-                                           name="duration"
-                                           value="{{ $edit ? $course->duration : old('duration') }}"
-                                           placeholder="{{ __('admin.course.duration') }}">
-                                </div>
-                            </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -339,6 +323,13 @@
                                 </div>
                             @endif
 
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="ethnic-group" checked>
+                                <label class="form-check-label" for="ethnic-group">
+                                    Ethnic group
+                                </label>
+                            </div>
+
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
@@ -424,16 +415,9 @@
 
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
-                    //pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                /*cover_image: {
-                    required: false,
-                    accept: "image/!*",
-                    filesize: 500000,
-                    imageSize: true,
-                },*/
                 code: {
                     required: true,
                     remote: {
@@ -447,6 +431,9 @@
                     },
                 },
                 institute_id: {
+                    required: true,
+                },
+                training_center_id: {
                     required: true,
                 },
                 course_fee: {
@@ -487,9 +474,6 @@
                 prerequisite: {
                     required: false,
                 },
-                application_form_type_id: {
-                    required: true
-                },
                 application_start_date: {
                     required: true
 
@@ -506,17 +490,17 @@
                     required: true,
                     greaterThan: '#course_start_date'
                 },
-                training_center_id: {
-                    required: true
+                cover_image : {
+                    required: false,
+                    accept: 'image/*'
                 }
             },
             messages: {
-                /*cover_image: {
+                cover_image: {
                     required: "Cover image is required",
-                    accept: "Please upload valid image file only",
-                    filesize: "Image size max 500Kb",
-                },*/
-                title_en: {
+                    accept: "Upload valid image file",
+                },
+                title: {
                     pattern: "This field is required in English.",
                 },
                 course_fee: {
