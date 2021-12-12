@@ -56,34 +56,39 @@ class ExaminationService
             ],
 
             'total_mark' => ['required'],
-            'pass_mark' => ['required']
+            'pass_mark' => ['required'],
+            'exam_details' => ['required'],
+            'code' => ['required'],
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
     public function getExaminationLists(Request $request): JsonResponse
     {
+
         $authUser = AuthHelper::getAuthUser();
-        /** @var Builder|Examination $examinations */
+
         $examinations = Examination::with('Batch','trainingCenter','ExaminationType')->select(
             [
                 'examinations.*'
             ]
         );
 
-        $examinations->where('examinations.institute_id', '=', $authUser->institute_id);
+        if($authUser->isInstituteUser()){
+            $examinations->where('examinations.institute_id', '=', $authUser->institute_id);
+        }
 
         return DataTables::eloquent($examinations)
             ->editColumn('status', function (Examination $examination) use ($authUser) {
 
-                if ($examination->status == 0) {
+                if ($examination->status === Examination::EXAMINATION_STATUS_NOT_PUBLISH) {
                     if ($authUser->can('status', $examination)) {
                         return $str = '<a href="#" data-action="' . route('admin.examinations.status', $examination->id) . '" class="btn btn-outline-warning btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_not_publish') . '</a>';
                     }else{
                         return $str = '<a href="#" data-action="" class="btn btn-outline-warning btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_not_publish') . '</a>';
                     }
 
-                }elseif($examination->status == 1){
+                }elseif($examination->status == Examination::EXAMINATION_STATUS_PUBLISH){
 
                     if ($authUser->can('status', $examination)) {
                         return $str = '<a href="#" data-action="' . route('admin.examinations.status', $examination->id) . '" class="btn btn-outline-info btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_publish') . '</a>';
@@ -91,16 +96,15 @@ class ExaminationService
                         return $str = '<a href="#" data-action="" class="btn btn-outline-info btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_publish') . '</a>';
                     }
 
-                }elseif($examination->status == 2){
+                }elseif($examination->status == Examination::EXAMINATION_STATUS_COMPLETE){
 
                     if ($authUser->can('status', $examination)) {
-                        return $str = '<a href="#" data-action="' . route('admin.examinations.status', $examination->id) . '" class="btn btn-outline-success btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_complete') . '</a>';
+                        return $str = '<span data-action="completed" class="badge badge-success badge-lg examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_complete') . '</span>';
                     }else{
                         return $str = '<a href="#" data-action="" class="btn btn-outline-success btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_complete') . '</a>';
                     }
                 }
             })
-
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Examination $examination) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $examination)) {
@@ -112,7 +116,6 @@ class ExaminationService
                 if ($authUser->can('delete', $examination)) {
                     $str .= '<a href="#" data-action="' . route('admin.examinations.destroy', $examination->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
-
 
                 return $str;
             }))

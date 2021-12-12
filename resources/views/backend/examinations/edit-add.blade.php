@@ -57,6 +57,16 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label for="pass_mark">{{__('admin.examination.code')}} <span
+                                            style="color: red">*</span></label>
+                                    <input type="number" class="form-control" id="code"
+                                           name="code"
+                                           value="{{ $edit ? $examination->pass_mark : old('code') }}"
+                                           placeholder="{{__('admin.examination.code')}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="total_mark">{{__('admin.examination.total_mark')}} <span
                                             style="color: red">*</span></label>
                                     <input type="number" class="form-control" id="total_mark"
@@ -81,7 +91,7 @@
                                 <div class="form-group">
                                     <label for="examination_type_id">
                                         {{__('admin.examination.examination_type')}}
-                                        <span class="required"></span>
+                                        <span style="color: red">*</span></label>
                                     </label>
 
                                     <select class="form-control select2" id="examination_type_id"
@@ -107,7 +117,7 @@
                                 <div class="form-group">
                                     <label for="training_center_id">
                                         {{__('admin.examination.training_center')}}
-                                        <span class="required"></span>
+                                        <span style="color: red">*</span></label>
                                     </label>
 
                                     <select class="form-control select2-ajax-wizard"
@@ -118,7 +128,7 @@
                                             data-dependent-fields="#batch_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $examination->trainingCenter->title_en, 'id' =>  $examination->training_center_id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $examination->trainingCenter->title, 'id' =>  $examination->training_center_id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
@@ -132,7 +142,7 @@
                                 <div class="form-group">
                                     <label for="batch_id">
                                         {{__('admin.examination.batch_title')}}
-                                        <span class="required"></span>
+                                        <span style="color: red">*</span></label>
                                     </label>
 
                                     <select class="form-control select2-ajax-wizard"
@@ -155,11 +165,11 @@
                                 <div class="form-group">
                                     <label for="exam_details">
                                         {{__('admin.examination.exam_details')}}
-                                        <span class="required"></span>
+                                        <span style="color: red">*</span></label>
                                     </label>
 
-                                    <textarea required="required" class="form-control" placeholder="{{__('admin.examination.exam_details')}}"
-                                              name="exam_details" id=""  rows="1">{{ $edit?$examination->exam_details:old('exam_details') }}</textarea>
+                                    <textarea class="form-control" placeholder="{{__('admin.examination.exam_details')}}"
+                                              name="exam_details" id=""  rows="1">{{ $edit ? $examination->exam_details:old('exam_details') }}</textarea>
                                 </div>
                             </div>
 
@@ -220,6 +230,18 @@
                 },
                 training_center_id: {
                     required: true
+                },
+                code: {
+                    required: true,
+                    remote: {
+                        param: {
+                            type: "post",
+                            url: "{{ route('admin.examinations.examinationCodeCheck') }}",
+                        },
+                        depends: function (element) {
+                            return $(element).val() !== $('#code').attr('data-code');
+                        }
+                    },
                 },
             },
             messages: {

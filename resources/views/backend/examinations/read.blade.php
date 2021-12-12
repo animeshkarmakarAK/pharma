@@ -49,13 +49,13 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination.training_center')}}</p>
                     <div class="input-box">
-                        {{ $examination->trainingCenter->title_en }}
+                        {{ $examination->trainingCenter->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination.batch_title')}}</p>
                     <div class="input-box">
-                        {{ $examination->batch->title_en }}
+                        {{ $examination->batch->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">

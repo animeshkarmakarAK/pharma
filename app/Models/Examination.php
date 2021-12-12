@@ -44,6 +44,7 @@ class Examination extends BaseModel
     protected $guarded = ['id'];
 
 
+
     public function batch(): BelongsTo
     {
         return $this->belongsTo(Batch::class, 'batch_id');
