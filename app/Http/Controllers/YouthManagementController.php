@@ -145,7 +145,7 @@ class YouthManagementController extends Controller
             'publish_course_name' => $youthCourseEnroll->publishCourse->course->title_en,
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
-            'institute_name' => $institute->title_en,
+            'institute_title' => $institute->title,
             'from_date' => $youthBatch->batch->start_date,
             'to_date' => $youthBatch->batch->end_date,
             'batch_name' => $youthBatch->batch->title_en,

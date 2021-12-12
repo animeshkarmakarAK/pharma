@@ -63,7 +63,7 @@ class VideoCategoryService
             'video_categories.parent_id',
             'video_categories.created_at',
             'video_categories.updated_at',
-            'institutes.title as institute_name',
+            'institutes.title as institute_title',
             'video_categories.row_status',
         ]);
 

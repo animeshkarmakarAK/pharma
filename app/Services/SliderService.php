@@ -109,7 +109,7 @@ class SliderService
             'sliders.created_at',
             'sliders.updated_at',
             'sliders.institute_id',
-            'institutes.title as institute_name'
+            'institutes.title as institute_title'
         ]);
 
         $slider->join('institutes', 'sliders.institute_id', '=', 'institutes.id');

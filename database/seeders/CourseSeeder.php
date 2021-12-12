@@ -23,8 +23,6 @@ class CourseSeeder extends Seeder
 
         DB::table('courses')->truncate();
         $institutes = Institute::active()->pluck('id')->toArray();
-        $branches = Branch::active()->pluck('id')->toArray();
-        $trainingCenters = TrainingCenter::active()->pluck('id')->toArray();
 
         \DB::table('courses')->insert(array(
             0 =>

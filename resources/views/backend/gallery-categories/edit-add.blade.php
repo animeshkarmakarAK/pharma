@@ -56,7 +56,7 @@
                                        value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="institute_id">{{ __('admin.gallery-album.institute_name') }} <span
+                                    <label for="institute_id">{{ __('admin.gallery-album.institute_title') }} <span
                                             style="color: red"> * </span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="institute_id"
@@ -65,9 +65,9 @@
                                             data-label-fields="{title_en}"
                                             data-dependent-fields="#programme_id|#batch_id"
                                             @if($edit && $galleryCategory->institute_id)
-                                            data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title_en, 'id' => $galleryCategory->institute_id])}}"
+                                            data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title, 'id' => $galleryCategory->institute_id])}}"
                                             @endif
-                                            data-placeholder="{{ __('admin.gallery-album.institute_name') }}"
+                                            data-placeholder="{{ __('admin.gallery-album.institute_title') }}"
                                     >
                                     </select>
                                 </div>

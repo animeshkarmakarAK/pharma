@@ -63,8 +63,8 @@
                         name: "gallery_categories.title_en",
                     },
                     {
-                        title: "{{__('admin.gallery-album.institute_name')}}",
-                        data: "institute_title_en",
+                        title: "{{__('admin.gallery-album.institute_title')}}",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: {{ \App\Helpers\Classes\AuthHelper::getAuthUser()->isSuperUser() ? "true" : "false" }},
                     },

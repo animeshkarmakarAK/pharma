@@ -63,7 +63,7 @@
                         name: "branches.title_en"
                     },
                     {
-                        title: "{{__('admin.branch.institute_name')}}",
+                        title: "{{__('admin.branch.institute_title')}}",
                         data: "institute_title_en",
                         name: "title_en"
                     },

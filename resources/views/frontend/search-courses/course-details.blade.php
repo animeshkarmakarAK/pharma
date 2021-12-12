@@ -103,9 +103,9 @@
                                 </div>
                             </div>
                             <div class="col-md-6 custom-view-box">
-                                <p class="label-text">{{__('admin.course.institute_name')}} </p>
+                                <p class="label-text">{{__('admin.course.institute_title')}} </p>
                                 <div class="input-box" id="institute_name_field">
-                                    {{optional($publishCourse->institute)->title_en}}
+                                    {{optional($publishCourse->institute)->title}}
                                 </div>
                             </div>
                             <div class="col-md-6 custom-view-box">

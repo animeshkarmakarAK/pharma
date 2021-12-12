@@ -105,7 +105,7 @@
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">ইন্সটিটিউটের নাম </p>
                             <div class="input-box" id="institute_name_field">
-                                {{optional($publishCourse->institute)->title_en}}
+                                {{optional($publishCourse->institute)->title}}
                             </div>
                         </div>
                         <div class="col-md-6 custom-view-box">

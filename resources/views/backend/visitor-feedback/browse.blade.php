@@ -102,9 +102,9 @@
 
                     },
                     {
-                        title: "{{ __('admin.visitor_feedback.institute_name')  }}",
-                        data: "institute_name",
-                        name: "institutes.title_en",
+                        title: "{{ __('admin.visitor_feedback.institute_title')  }}",
+                        data: "institute_title",
+                        name: "institutes.title",
                         visible: false,
                     },
                     {

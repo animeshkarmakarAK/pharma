@@ -52,7 +52,7 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6  custom-view-box">
-                        <p class="label-text">{{__('admin.branch.institute_name')}} </p>
+                        <p class="label-text">{{__('admin.branch.institute_title')}} </p>
                         <div class="input-box">
                             {{$branch->institute->title}}
                         </div>

@@ -21,9 +21,9 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.batch.institute_name')  }}</p>
+                    <p class="label-text">{{ __('admin.batch.institute_title')  }}</p>
                     <div class="input-box">
-                        {{ $batch->institute->title_en }}
+                        {{ $batch->institute->title }}
                     </div>
                 </div>
 

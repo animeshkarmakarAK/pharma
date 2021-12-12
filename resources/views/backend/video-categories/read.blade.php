@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.video_categories.institute_name') }}</p>
+                    <p class="label-text">{{ __('admin.video_categories.institute_title') }}</p>
                     <div class="input-box">
-                        {{ $videoCategory->institute->title_en }}
+                        {{ $videoCategory->institute->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">

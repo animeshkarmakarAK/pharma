@@ -56,7 +56,7 @@
                                            value="{{$authUser->institute_id}}">
                                 @else
                                     <div class="form-group col-md-6">
-                                        <label for="institute_id">{{__('admin.training_center.institute_name') }} <span
+                                        <label for="institute_id">{{__('admin.training_center.institute_title') }} <span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -67,7 +67,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $trainingCenter->institute->title, 'id' =>  $trainingCenter->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{__('admin.training_center.institute_name') }}"
+                                                data-placeholder="{{__('admin.training_center.institute_title') }}"
                                         >
                                         </select>
                                     </div>

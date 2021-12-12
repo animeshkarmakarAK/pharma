@@ -92,7 +92,7 @@
                     },
                     {
                         title: "Institute",
-                        data: "institute_name",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false,
                     },

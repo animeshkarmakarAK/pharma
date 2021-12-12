@@ -42,9 +42,9 @@
                 </div>
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('admin.gallery-album.institute_name') }}</p>
+                        <p class="label-text">{{ __('admin.gallery-album.institute_title') }}</p>
                         <div class="input-box">
-                            {{ $galleryCategory->institute->title_en }}
+                            {{ $galleryCategory->institute->title }}
                         </div>
                     </div>
                 @endif

@@ -423,8 +423,8 @@
                         name: "youths.youth_registration_no"
                     },
                     {
-                        title: "Institute Name",
-                        data: "institutes.title",
+                        title: "Institute Title",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false
                     },

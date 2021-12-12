@@ -72,15 +72,15 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{__('admin.gallery.institute_name')}}<span
+                                        <label for="institute_id">{{__('admin.gallery.institute_title')}}<span
                                                 style="color: red"> * </span></label>
                                         <select name="institute_id" id="institute_id" class="form-control select2"
-                                                data-placeholder="{{__('admin.gallery.institute_name')}}">
+                                                data-placeholder="{{__('admin.gallery.institute_title')}}">
                                             <option></option>
                                             @foreach($institutes as $institute)
                                                 <option
                                                     value="{{ $institute->id }}" {{($edit && $gallery->institute_id == $institute->id ) || old('institute_id') == $institute->id ? 'selected' : ''}}>
-                                                    {{ $institute->title_en }}
+                                                    {{ $institute->title }}
                                                 </option>
                                             @endforeach
                                         </select>

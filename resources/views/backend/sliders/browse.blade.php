@@ -78,8 +78,8 @@
                         visible: false,
                     },
                     {
-                        title: "{{ __('admin.slider.institute_name') }}",
-                        data: "institute_name",
+                        title: "{{ __('admin.slider.institute_title') }}",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false,
                     },

@@ -78,9 +78,9 @@
                         name: "intro_videos.youtube_video_url",
                     },
                     {
-                        title: "{{ __('admin.intro-video.institute_name') }}",
-                        data: "institute_name",
-                        name: "institutes.name",
+                        title: "{{ __('admin.intro-video.institute_title') }}",
+                        data: "institute_title",
+                        name: "institutes.title",
                         visible: false,
                     },
                     {

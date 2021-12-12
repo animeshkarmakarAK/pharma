@@ -40,7 +40,7 @@
                                            value="{{$authUser->institute_id}}">
                                 @else
                                     <div class="form-group col-md-6">
-                                        <label for="institute_id">{{ __('admin.event.institute_name')}} <span
+                                        <label for="institute_id">{{ __('admin.event.institute_title')}} <span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -49,9 +49,9 @@
                                                 data-label-fields="{title_en}"
                                                 data-dependent-fields="#branch_id"
                                                 @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $event->institute->title_en, 'id' =>  $event->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $event->institute->title, 'id' =>  $event->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('admin.event.institute_name')}}"
+                                                data-placeholder="{{ __('admin.event.institute_title')}}"
                                         >
                                         </select>
                                     </div>

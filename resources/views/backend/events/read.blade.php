@@ -35,9 +35,9 @@
                 @if(!empty($event))
                     @if(!$authUser->isInstituteUser())
                         <div class="col-md-6 custom-view-box">
-                            <p class="label-text">{{ __('admin.event.institute_name')}}</p>
+                            <p class="label-text">{{ __('admin.event.institute_title')}}</p>
                             <div class="input-box">
-                                {{ $event->institute->title_en }}
+                                {{ $event->institute->title }}
                             </div>
                         </div>
                         <div class="col-md-6 custom-view-box"></div>

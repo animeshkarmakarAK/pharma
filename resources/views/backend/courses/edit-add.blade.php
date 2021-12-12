@@ -68,7 +68,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('admin.course.institute_name') }}<span
+                                        <label for="institute_id">{{ __('admin.course.institute_title') }}<span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -77,9 +77,9 @@
                                                 data-label-fields="{title_en}"
                                                 data-dependent-fields="#branch_id"
                                                 @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $course->institute->title_en, 'id' =>  $course->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $course->institute->title, 'id' =>  $course->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('admin.course.institute_name') }}"
+                                                data-placeholder="{{ __('admin.course.institute_title') }}"
                                         >
                                         </select>
                                     </div>

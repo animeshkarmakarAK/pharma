@@ -61,8 +61,8 @@
                         name: "video_categories.title_en"
                     },
                     {
-                        title: "{{ __('admin.video_categories.institute_name') }}",
-                        data: "institute_name",
+                        title: "{{ __('admin.video_categories.institute_title') }}",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false,
                     },

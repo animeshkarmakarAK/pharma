@@ -92,7 +92,7 @@
                             @else
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('admin.slider.institute_name') }}<span
+                                        <label for="institute_id">{{ __('admin.slider.institute_title') }}<span
                                                 class="required">*</span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -100,9 +100,9 @@
                                                 data-model="{{base64_encode(App\Models\Institute::class)}}"
                                                 data-label-fields="{title_en}"
                                                 @if($edit)
-                                                data-preselected-option="{{json_encode(['text' =>  $slider->institute->title_en, 'id' =>  $slider->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $slider->institute->title, 'id' =>  $slider->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('admin.slider.institute_name') }}"
+                                                data-placeholder="{{ __('admin.slider.institute_title') }}"
                                         >
                                         </select>
                                     </div>

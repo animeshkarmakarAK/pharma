@@ -38,9 +38,9 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6 mt-2 custom-view-box">
-                        <p class="label-text"> {{ __('admin.programme.institute_name') }}</p>
+                        <p class="label-text"> {{ __('admin.programme.institute_title') }}</p>
                         <div class="input-box">
-                            {{ $programme->institute->title_en }}
+                            {{ $programme->institute->title }}
                         </div>
                     </div>
                 @endif

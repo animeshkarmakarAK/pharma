@@ -69,8 +69,8 @@
                     },
 
                     {
-                        title: "{{ __('admin.event.institute_name') }}",
-                        data: "institute_name_en",
+                        title: "{{ __('admin.event.institute_title') }}",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false,
                     },

@@ -56,8 +56,8 @@
                         visible: true,
                     },
                     {
-                        title: "{{__('admin.gallery.institute_name')}}",
-                        data: "institute_title_en",
+                        title: "{{__('admin.gallery.institute_title')}}",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false
                     },

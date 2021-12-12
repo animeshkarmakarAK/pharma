@@ -41,13 +41,13 @@
                                 <input type="hidden" id="institute_id" name="institute_id" value="{{$authUser->institute_id}}">
                             @else
                                 <div class="form-group col-md-6">
-                                    <label for="institute_id">{{ __('admin.batches.institute_name')}}</label>
+                                    <label for="institute_id">{{ __('admin.batches.institute_title')}}</label>
                                     <select class="form-control custom-input-box select2" name="institute_id"
                                             id="institute_id" required>
                                         <option value="" selected>{{ __('admin.batches.please_select')}}</option>
                                         @foreach($institutes as $institute)
                                             <option
-                                                value="{{ $institute->id}}" {{ $edit && $batch->institute_id == $institute->id ? 'selected':''}}>{{ $institute->title_en }}</option>
+                                                value="{{ $institute->id}}" {{ $edit && $batch->institute_id == $institute->id ? 'selected':''}}>{{ $institute->title}}</option>
                                         @endforeach
                                     </select>
                                 </div>

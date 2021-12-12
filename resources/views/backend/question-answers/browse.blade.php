@@ -72,8 +72,8 @@
                         visible: false,
                     },
                     {
-                        title: "{{ __('admin.question_answer.institute_name') }}",
-                        data: "institute_name",
+                        title: "{{ __('admin.question_answer.institute_title') }}",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false,
                     },

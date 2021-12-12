@@ -53,7 +53,7 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6 mt-2 custom-view-box">
-                        <p class="label-text"> {{__('admin.training_center.institute_name') }}</p>
+                        <p class="label-text"> {{__('admin.training_center.institute_title') }}</p>
                         <div class="input-box">
                             {{ $trainingCenter->institute->title }}
                         </div>

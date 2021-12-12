@@ -78,9 +78,9 @@
                         </div>
 
                         <div class="col-md-6 custom-view-box">
-                            <p class="label-text">{{__('admin.gallery.institute_name')}}</p>
+                            <p class="label-text">{{__('admin.gallery.institute_title')}}</p>
                             <div class="input-box">
-                                {{ $gallery->institute->title_en }}
+                                {{ $gallery->institute->title }}
                             </div>
                         </div>
                         <div class="col-md-6 custom-view-box">

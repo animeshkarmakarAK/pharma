@@ -109,7 +109,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('admin.static_page.institute_name') }}<span
+                                        <label for="institute_id">{{ __('admin.static_page.institute_title') }}<span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -117,7 +117,7 @@
                                                 data-model="{{base64_encode(App\Models\Institute::class)}}"
                                                 data-label-fields="{name}"
                                                 @if($edit && $staticPage->institute)
-                                                data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->name, 'id' =>  $staticPage->institute->id])}}"
+                                                data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->title, 'id' =>  $staticPage->institute->id])}}"
                                                 @endif
                                                 data-placeholder="{{ __('generic.select_placeholder') }}"
                                         >

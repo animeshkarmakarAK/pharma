@@ -34,9 +34,9 @@
 
                 @if(!$authUser->isInstituteUser())
                     <div class="col-md-6 custom-view-box">
-                        <p class="label-text"> {{ __('admin.question_answer.institute_name') }}</p>
+                        <p class="label-text"> {{ __('admin.question_answer.institute_title') }}</p>
                         <div class="input-box">
-                            {{ $questionAnswer->institute->title_en??'N/A' }}
+                            {{ $questionAnswer->institute->title ?? 'N/A' }}
                         </div>
                     </div>
                 @endif

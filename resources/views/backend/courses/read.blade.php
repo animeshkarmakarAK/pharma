@@ -31,9 +31,9 @@
 
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.course.institute_name') }}</p>
+                    <p class="label-text">{{ __('admin.course.institute_title') }}</p>
                     <div class="input-box">
-                        {{ $course->institute->title_en }}
+                        {{ $course->institute->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
