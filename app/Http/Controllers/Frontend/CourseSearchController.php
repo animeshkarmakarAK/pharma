@@ -37,12 +37,14 @@ class CourseSearchController extends Controller
 
     /**
      * @param int $courseId
+     * @param string|null $instituteSlug
      * @return View
      */
-    public function courseDetails(int $courseId): View
+    public function courseDetails(string $instituteSlug = null, int $courseId): View
     {
         $course = Course::findOrFail($courseId);
-        return \Illuminate\Support\Facades\View::make(self::VIEW_PATH . 'course-details', ['course' => $course]);
+
+        return view(self::VIEW_PATH . 'course-details', ['course' => $course]);
     }
 
 }

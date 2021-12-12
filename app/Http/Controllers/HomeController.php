@@ -83,7 +83,7 @@ class HomeController extends BaseController
                 'institute_id' => $currentInstitute->id,
             ])->orderBy('id', 'DESC')->first();
 
-            return view('welcome', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents', 'introVideo', 'runningCourses'/*, 'upcomingCourses'*/));
+            return view('home', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents', 'introVideo', 'runningCourses'/*, 'upcomingCourses'*/));
         } else {
             $staticPage = StaticPage::orderBy('id', 'DESC')
                 ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)
@@ -92,7 +92,7 @@ class HomeController extends BaseController
                 ->limit(1)
                 ->first();
 
-            $publishCourses = Course::all();
+            $courses = Course::all();
 
             $institute = [
                 'courses' => Course::count(),
@@ -102,7 +102,7 @@ class HomeController extends BaseController
 
             $introVideo = IntroVideo::whereNull('institute_id')->first();
 
-            return view('home', compact('staticPage', 'institute', 'publishCourses', 'introVideo'));
+            return view('home', compact('staticPage', 'institute', 'courses', 'introVideo'));
         }
     }
 

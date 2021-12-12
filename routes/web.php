@@ -179,7 +179,6 @@ Route::group(['as' => 'frontend.'], function () {
 $routesWithoutInstituteSlug = function () {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('main');
     Route::get('courses-search', [App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
-    Route::get('course-details-ajax/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details.ajax');
     Route::get('course-details/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
 
     Route::get('skill-videos', [App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('skill_videos');

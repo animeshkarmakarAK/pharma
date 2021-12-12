@@ -1,4 +1,5 @@
 @php
+    /** @var \App\Models\Institute $currentInstitute */
     $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
 
@@ -39,8 +40,8 @@
                                                         name="institute_id"
                                                         id="institute_id"
                                                         data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                        data-label-fields="{title_en}"
-                                                        data-dependent-fields="#publish_course_id|#programme_id"
+                                                        data-label-fields="{title}"
+                                                        data-dependent-fields="#course_id|#programme_id"
                                                         data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                                 >
                                                     <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
@@ -48,21 +49,6 @@
                                             </div>
                                         </div>
                                     @endif
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="publish_course_id"
-                                                    id="publish_course_id"
-                                            >
-                                                <option value="">কোর্সের নাম নির্বাচন করুন</option>
-                                                {{--@foreach($publishCourses as $publishCourse)
-                                                    <option
-                                                        value="{{ $publishCourse->id }}">{{ $publishCourse->course->title_en }}</option>
-                                                @endforeach--}}
-                                            </select>
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -82,7 +68,7 @@
 
                                     <div class="col-md-2">
                                         <button class="btn btn-success button-bg mb-2"
-                                                id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
+                                                id="skill-course-search-btn">{{ __('অনুসন্ধান') }}</button>
                                     </div>
 
                                     <div class="col-md-3 mb-3">
@@ -225,7 +211,6 @@
             </style>
         @endpush
         @push('js')
-
             <script>
                 let banglaNumber = {
                     0: "০",
@@ -253,29 +238,26 @@
                     html += '<div class="card-bar-home-course">';
                     html += '<div class="pb-3">';
                     html += '<img class="slider-img border-top-radius"';
-                    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.course_cover_image) + '" width="100%"';
+                    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"';
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item.course_title_bn + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">' + item.title + '</p>';
                     html += '<p class="font-weight-light mb-1"><i';
                     html += 'class="fas fa-clock gray-color"></i> <span ';
-                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.course_duration ? item.course_duration : ' সময়কাল নির্ধারিত হয়নি') +
+                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.duration ? item.duration : ' সময়কাল নির্ধারিত হয়নি') +
                         '</span>';
                     html += '</p>';
                     html += '<p class="font-weight-light mb-0"><i';
                     html += 'class="fas fa-user-plus gray-color"></i>';
                     html += '<span ';
-                    html += 'class="course-p"><i class="fas fa-user-plus gray-color mr-2"></i>' +
-                        'আসন সংখ্যা ( <span class="max-enroll">' + item.total_seat + '</span> )</span>';
-                    html += '</p>';
 
                     html += '<p class="card-p1 float-left mb-1">';
                     html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
-                    html += '</span> ' + (item.course_course_fee ? engToBdNum(item.course_course_fee.toString()) + ' টাকা' : 'ফ্রি') + ' </p>';
+                    html += '</span> ' + (item.course_fee ? engToBdNum(item.course_fee.toString()) + ' টাকা' : 'ফ্রি') + ' </p>';
                     html += '<p class="float-right">';
-                    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__']) }}"'.replace('__', item.id);
+                    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
                     html += '</p>';
                     html += '</div>';
@@ -309,7 +291,6 @@
                     return html;
                 }
 
-
                 const searchAPI = function ({model, columns}) {
                     return function (url, filters = {}) {
                         return $.ajax({
@@ -333,17 +314,16 @@
                 };
 
                 let baseUrl = '{{route('web-api.model-resources')}}';
-                const publishCourseFetch = searchAPI({
-                    model: "{{base64_encode(\App\Models\PublishCourse::class)}}",
-                    columns: 'id|institute_id|course_id|branch_id|training_center_id|programme_id|application_form_type_id|course.title_bn|course.title_en|course.cover_image|course.course_fee|course.duration|course_session.session_name_en'
+                const courseFetch = searchAPI({
+                    model: "{{base64_encode(\App\Models\Course::class)}}",
+                    columns: 'id|title|cover_image|course_fee|duration|institute_id|branch_id|training_center_id|programme_id'
                 });
 
-                function publishCourseSearch(url = baseUrl) {
+                function courseSearch(url = baseUrl) {
                     $('.overlay').show();
                     let searchQuery = $('#search').val();
                     let institute = $('#institute_id').val();
-                    let videoCategory = $('#programme_id').val();
-                    let video = $('#publish_course_id').val();
+                    let programme = $('#programme_id').val();
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
@@ -355,14 +335,11 @@
                     if (institute?.toString()?.length) {
                         filters['institute_id'] = institute;
                     }
-                    if (videoCategory?.toString()?.length) {
-                        filters['programme_id'] = videoCategory;
-                    }
-                    if (video?.toString()?.length) {
-                        filters['id'] = video;
+                    if (programme?.toString()?.length) {
+                        filters['programme_id'] = programme;
                     }
 
-                    publishCourseFetch(url, filters)?.then(function (response) {
+                    courseFetch(url, filters)?.then(function (response) {
                         $('.overlay').hide();
                         window.scrollTo(0, 0);
                         let html = '';
@@ -370,19 +347,8 @@
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
 
-
-                        let seat = @php echo json_encode($maxEnrollmentNumber); @endphp;
-
                         $.each(response.data?.data, function (i, item) {
-
-                            for (let k = 0; k < seat[0].length; k++) {
-                                let name = seat[0][k].publish_course_id;
-                                if (name == item.id) {
-                                    item.total_seat = engToBdNum(seat[0][k].total_seat);
-                                    break;
-                                }
-                            }
-                            html += template(seat[0][i].publish_course_id, item);
+                            html += template(item.id, item);
                         });
 
                         $('#container-publish-courses').html(html);
@@ -400,29 +366,29 @@
                 }
 
                 $(document).ready(function () {
-                    publishCourseSearch();
+                    courseSearch();
                     $(document).on('click', '.pagination .page-link', function (e) {
                         e.preventDefault();
                         let url = $(this).attr('href');
                         if (url) {
-                            publishCourseSearch(url);
+                            courseSearch(url);
                         }
                     });
 
                     $("#search").on("keyup change", function (e) {
-                        publishCourseSearch();
+                        courseSearch();
                     })
 
-                    $('#skill-video-search-btn').on('click', function () {
-                        publishCourseSearch();
+                    $('#skill-course-search-btn').on('click', function () {
+                        courseSearch();
                     });
 
                     $('#programme_id').on('change', function () {
-                        publishCourseSearch();
+                        courseSearch();
                     });
 
-                    $('#publish_course_id').on('change', function () {
-                        publishCourseSearch();
+                    $('#course_id').on('change', function () {
+                        courseSearch();
                     });
                 });
 
