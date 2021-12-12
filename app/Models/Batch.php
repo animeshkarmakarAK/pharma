@@ -13,16 +13,12 @@ use App\Traits\ScopeAclTrait;
 /**
  * Class Batch
  * @package App\Models
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string code
  * @property int institute_id
- * @property int branch_id
+ * @property int|null branch_id
  * @property int training_center_id
  * @property int course_id
- * @property int publish_course_id
- * @property int programme_id
- * @property int application_form_type_id
  * @property int max_student_enrollment
  * @property string course_coordinator_signature
  * @property string course_director_signature
@@ -56,11 +52,6 @@ class Batch extends Model
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
-    }
-
-    public function publishCourse(): BelongsTo
-    {
-        return $this->belongsTo(PublishCourse::class);
     }
 
     public function trainingCenter(): BelongsTo

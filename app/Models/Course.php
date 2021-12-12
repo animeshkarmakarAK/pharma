@@ -13,8 +13,7 @@ use App\Traits\ScopeAclTrait;
 /**
  * Class Course
  * @package App\Models
- * @property string|null title_en
- * @property string|null title_bn
+ * @property string title
  * @property string code
  * @property int institute_id
  * @property double course_fee

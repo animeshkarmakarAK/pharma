@@ -32,7 +32,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.institute.index') }}</p>
                     <div class="input-box">
-                        {{ $institute->title_en }}
+                        {{ $institute->title }}
                     </div>
                 </div>
 
@@ -99,7 +99,6 @@
                         {{ $institute->google_map_src }}
                     </div>
                 </div>
-
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.institute.description') }}</p>

@@ -7,7 +7,6 @@ use Illuminate\Contracts\Foundation\Application;
 use App\Models\Examination;
 use App\Models\TrainerBatch;
 use App\Models\Batch;
-use App\Models\PublishCourse;
 use App\Models\TrainingCenter;
 use App\Services\BatchService;
 use Illuminate\Contracts\View\Factory;

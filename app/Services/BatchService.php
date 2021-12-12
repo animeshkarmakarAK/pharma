@@ -40,6 +40,18 @@ class BatchService
             'title_en' => 'required|string|max:191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'course_id' => 'required|int|exists:courses,id',
+            'application_start_date' => [
+                'required'
+            ],
+            'application_end_date' => [
+                'required'
+            ],
+            'batch_start_date' => [
+                'required'
+            ],
+            'batch_end_date' => [
+                'required'
+            ],
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);

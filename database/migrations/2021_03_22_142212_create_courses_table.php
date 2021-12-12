@@ -18,15 +18,11 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('institute_id')->index('courses_fk_institute_id');
             $table->unsignedInteger('branch_id')->nullable()->index('courses_fk_branch_id');
             $table->unsignedInteger('training_center_id')->index('courses_fk_training_center_id');
-            $table->string('title_en', 191);
+            $table->string('title', 191);
             $table->string('code', 191);
             $table->unsignedDouble('course_fee', 11, 2)->default(0);
             $table->string('duration', 30)->nullable();
             $table->unsignedMediumInteger('total_seat')->default(0);
-            $table->dateTime('application_start_date');
-            $table->dateTime('application_end_date');
-            $table->dateTime('course_start_date');
-            $table->dateTime('course_end_date')->nullable();
             $table->text('description')->nullable();
             $table->text('target_group')->nullable();
             $table->text('objects')->nullable();

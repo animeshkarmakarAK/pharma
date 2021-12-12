@@ -54,9 +54,12 @@ class InstituteController extends Controller
     {
         $instituteValidatedData = $this->instituteService->validator($request)->validate();
 
+        DB::beginTransaction();
         try {
             $this->instituteService->createSSP($instituteValidatedData);
+            DB::commit();
         } catch (\Throwable $exception) {
+            DB::rollBack();
             Log::debug($exception->getMessage());
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),

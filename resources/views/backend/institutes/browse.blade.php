@@ -61,9 +61,61 @@
                         name: "title"
                     },
                     {
+                        title: "{{ __('generic.email') }}",
+                        data: "email",
+                        name: "email"
+                    },
+                    {
+                        title: "{{ __('generic.mobile') }}",
+                        data: "mobile",
+                        name: "mobile"
+                    },
+                    {
                         title: "{{ __('admin.institute.address') }}",
                         data: "address",
                         name: "address",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.office_head_name') }}",
+                        data: "office_head_name",
+                        name: "office_head_name",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.office_head_post') }}",
+                        data: "office_head_post",
+                        name: "office_head_post",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.contact_person_name') }}",
+                        data: "contact_person_name",
+                        name: "contact_person_name",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.contact_person_post') }}",
+                        data: "contact_person_post",
+                        name: "contact_person_post",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.contact_person_email') }}",
+                        data: "contact_person_email",
+                        name: "contact_person_email",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.contact_person_mobile') }}",
+                        data: "contact_person_mobile",
+                        name: "contact_person_mobile",
+                        visible: false
+                    },
+                    {
+                        title: "{{ __('generic.row_status') }}",
+                        data: "row_status",
+                        name: "row_status",
                         visible: false
                     },
                     {
