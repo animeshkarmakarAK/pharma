@@ -27,11 +27,18 @@ class ExaminationType extends BaseModel
 {
     use ScopeRowStatusTrait, ScopeAclTrait;
 
+    const EXAMINATION_TYPE_STATUS_ACTIVE = 1;
+    const EXAMINATION_TYPE_STATUS_INACTIVE = 0;
+
     public $timestamps = true;
     protected $guarded = ['id'];
 
     public function examination(): HasMany
     {
         return $this->hasMany(Examination::class, 'examination_type_id');
+    }
+    public function institute(): BelongsTo
+    {
+        return $this->belongsTo(Institute::class);
     }
 }

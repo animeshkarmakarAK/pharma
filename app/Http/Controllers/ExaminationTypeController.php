@@ -33,11 +33,11 @@ class ExaminationTypeController extends Controller
     }
 
     /**
+     * @param ExaminationType $examinationType
      * @return View
      */
-    public function create(): View
+    public function create(ExaminationType  $examinationType): View
     {
-        $examinationType = new ExaminationType();
         return view(self::VIEW_PATH . 'edit-add', compact('examinationType'));
     }
 
@@ -45,10 +45,7 @@ class ExaminationTypeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationTypeService->validator($request)->validate();
-        $authUser =User::acl()->get();
         try {
-            $validatedData['institute_id'] = $authUser->institute_id;
-            $validatedData['created_by'] = $authUser->id;
             $this->examinationTypeService->createExaminationType($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());

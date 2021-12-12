@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Helpers\Classes\AuthHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -40,10 +40,9 @@ class ExaminationController extends Controller
      */
     public function create(): View
     {
-        $batches = Batch::acl()->active()->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::active()->acl()->pluck('title_en','id');
-        $examinationTypes = ExaminationType::active()->acl()->pluck('title','id');
-
+        $batches = Batch::acl()->active()->pluck('title','id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title','id');
+        $examinationTypes = ExaminationType::acl()->active()->pluck('title','id');
         return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','examinationTypes'));
     }
 
@@ -51,16 +50,10 @@ class ExaminationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationService->validator($request)->validate();
-        $authUser = User::acl()->get();
-
-        $statement = DB::select("show table status like 'examinations'");
-        $ainid = $statement[0]->Auto_increment;
-
+//        $statement = DB::select("show table status like 'examinations'");
+//        $ainid = $statement[0]->Auto_increment;
 
         try {
-            $validatedData['code'] = $ainid + 1000;
-            $validatedData['institute_id'] = $authUser->institute_id;
-            $validatedData['created_by'] = $authUser->id;
             $this->examinationService->createExamination($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -91,14 +84,19 @@ class ExaminationController extends Controller
      */
     public function edit(Examination $examination)
     {
-
-        $authUser = User::acl()->get();
-        $examinationTypes = ExaminationType::acl()->where(['row_status' => 1, ])->pluck('title','id');
+        $authUser = AuthHelper::getAuthUser();
+        if($authUser->isInstituteUser()){
+            $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE, 'institute_id' => $authUser->institute_id])->pluck('title','id');
+        }
+        else{
+            $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE])->pluck('title','id');
+        }
         return view(self::VIEW_PATH . 'edit-add', compact('examination','examinationTypes'));
     }
 
     /**
      * @param Request $request
+     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
@@ -151,6 +149,7 @@ class ExaminationController extends Controller
     }
     public function status($id)
     {
+        //return $id;
         $examination = Examination::find($id);
         if (!$examination){
             return back()->with([

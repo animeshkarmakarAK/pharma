@@ -50,10 +50,13 @@ class ExaminationService
                 'required',
                 'int',
             ],
+            'institute_id' => [
+                'required',
+                'int',
+            ],
 
             'total_mark' => ['required'],
-            'pass_mark' => ['required'],
-            'exam_details' => ['required'],
+            'pass_mark' => ['required']
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
@@ -81,7 +84,6 @@ class ExaminationService
                     }
 
                 }elseif($examination->status == 1){
-
 
                     if ($authUser->can('status', $examination)) {
                         return $str = '<a href="#" data-action="' . route('admin.examinations.status', $examination->id) . '" class="btn btn-outline-info btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_publish') . '</a>';

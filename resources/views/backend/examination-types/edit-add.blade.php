@@ -34,6 +34,26 @@
                                 @method('put')
                             @endif
 
+                            @if($authUser->isInstituteUser())
+                                <input type="hidden" id="institute_id" name="institute_id"
+                                       value="{{$authUser->institute_id}}">
+                            @else
+                                <div class="form-group col-md-6">
+                                    <label for="institute_id">{{ __('admin.examination.institute_name') }} <span
+                                            style="color: red"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="institute_id"
+                                            id="institute_id"
+                                            data-model="{{base64_encode(\App\Models\Institute::class)}}"
+                                            data-label-fields="{title}"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' => $examinationType->institute->title, 'id' => $examinationType->institute_id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('admin.examination.institute_name') }}"
+                                    >
+                                    </select>
+                                </div>
+                            @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">{{__('admin.examination_type.title')}} <span

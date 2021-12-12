@@ -34,6 +34,12 @@ class Examination extends BaseModel
 {
     use HasFactory, ScopeAclTrait, ScopeRowStatusTrait;
 
+    const EXAMINATION_ROW_STATUS_ACTIVE = 1;
+    const EXAMINATION_ROW_STATUS_INACTIVE = 0;
+    const EXAMINATION_STATUS_NOT_PUBLISH= 0;
+    const EXAMINATION_STATUS_PUBLISH= 1;
+    const EXAMINATION_STATUS_COMPLETE= 2;
+
     public $timestamps = true;
     protected $guarded = ['id'];
 
@@ -50,5 +56,9 @@ class Examination extends BaseModel
     public function trainingCenter(): BelongsTo
     {
         return $this->belongsTo(TrainingCenter::class, 'training_center_id');
+    }
+    public function institute(): BelongsTo
+    {
+        return $this->belongsTo(Institute::class);
     }
 }
