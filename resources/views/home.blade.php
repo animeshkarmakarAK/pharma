@@ -26,7 +26,6 @@
                                 @if(strlen(strip_tags($staticPage->page_contents)) > 1136)
                                     <p>
                                         {!! \Illuminate\Support\Str::limit( strip_tags($staticPage->page_contents), 460) !!}
-
                                     </p>
 
                                     <a href="{{route('frontend.static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $slug])}}"
