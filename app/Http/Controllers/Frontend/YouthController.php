@@ -145,7 +145,7 @@ class YouthController extends Controller
         return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
     }
 
-    public function videos($instituteSlug = null): View
+    public function videos(): View
     {
         $currentInstitute = app('currentInstitute');
 
@@ -243,7 +243,7 @@ class YouthController extends Controller
         return \view(self::VIEW_PATH . 'static-contents.general-ask-page', compact('faqs'));
     }
 
-    public function contactUsPage($instituteSlug): View
+    public function contactUsPage(): View
     {
         /** @var Institute $currentInstitute */
         $currentInstitute = app('currentInstitute');
