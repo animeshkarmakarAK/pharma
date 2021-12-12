@@ -23,10 +23,11 @@ class VideoController extends Controller
         $this->videoService = $videoService;
         $this->authorizeResource(Video::class);
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return View
      */
     public function index(): View
     {
@@ -36,7 +37,7 @@ class VideoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create(): View
     {
@@ -54,8 +55,9 @@ class VideoController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $videoValidatedData = $this->videoService->validator($request)->validate();
+        $this->videoService->createVideo($videoValidatedData);
         try {
-            $this->videoService->createVideo($videoValidatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -73,8 +75,8 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Video  $video
-     * @return Response
+     * @param  Video  $video
+     * @return View
      */
     public function show(Video $video): View
     {

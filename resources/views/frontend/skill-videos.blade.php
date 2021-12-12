@@ -58,7 +58,7 @@
                                                 <option value="">ভিডিও সিলেক্ট করুন</option>
                                                 @foreach($youthVideos as $youthVideo)
                                                     <option
-                                                        value="{{ $youthVideo->id }}">{{ $youthVideo->title_en }}</option>
+                                                        value="{{ $youthVideo->id }}">{{ $youthVideo->title}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -74,7 +74,7 @@
                                                 <option value="">ভিডিও ক্যাটাগরি</option>
                                                 @foreach($youthVideoCategories as $youthVideoCategory)
                                                     <option
-                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title_en }}</option>
+                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -171,12 +171,6 @@
                 const template = function (item) {
                     let html = `<div class="col-md-3">
                                 <div class="embed-responsive embed-responsive-16by9">`;
-
-                    /*html += '<iframe class="embed-responsive-item youtube-video"';
-                        html += ' src=https://www.youtube.com/embed/' + item.youtube_video_id + '?html5=1&enablejsapi=1;rel=0';
-                        html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; ' +
-                            'gyroscope; picture-in-picture" allowfullscreen></iframe>';*/
-
                     html +=
                         '<a target="_blank" href="{{ route('frontend.skill-single-video', ['video_id' => '__']) }}"'.replace('__', item.id) + '>' +
                         '<img class="embed-responsive-item youtube-video"';
@@ -186,7 +180,7 @@
 
                     html += '</div>';
                     html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
-                    html += item.title_en;
+                    html += item.title;
                     html += '</div></div>';
                     return html;
                 };
@@ -239,7 +233,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const skillVideoFetch = searchAPI({
                     model: "{{base64_encode(\App\Models\Video::class)}}",
-                    columns: 'youtube_video_id|uploaded_video_path|title_en|title_bn|video_type'
+                    columns: 'youtube_video_id|uploaded_video_path|title|video_type'
                 });
 
                 function videoSearch(url = baseUrl) {
@@ -251,7 +245,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['title_bn'] = {
+                        filters['title'] = {
                             type: 'contain',
                             value: searchQuery
                         };
@@ -278,7 +272,6 @@
                         });
 
                         $('#container-skill-videos').html(html);
-                        // $('.prev-next-button').html(response?.pagination);
                         console.table("response", response.data.links);
 
                         let link_html = '<nav> <ul class="pagination">';
@@ -348,7 +341,6 @@
                             action: "play:" + e.target.getPlaybackQuality(),
                             label: label
                         });
-                        //if one video is play then pause other
                         pauseOthersYoutubes(e.target);
                     }
                     if (e["data"] == YT.PlayerState.PAUSED) {

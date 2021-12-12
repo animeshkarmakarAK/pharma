@@ -19,12 +19,11 @@ class VideoCategoryController extends Controller
     public function __construct(VideoCategoryService $videoCategoryService)
     {
         $this->videoCategoryService = $videoCategoryService;
-//        $this->authorizeResource(VideoCategory::class);
     }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
@@ -34,7 +33,7 @@ class VideoCategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create(): View
     {
@@ -44,16 +43,16 @@ class VideoCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request): RedirectResponse
     {
         $videoCategoryValidatedData = $this->videoCategoryService->validator($request)->validate();
+        $this->videoCategoryService->createVideoCategory($videoCategoryValidatedData);
 
         try {
-            $this->videoCategoryService->createVideoCategory($videoCategoryValidatedData);
+
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -71,8 +70,8 @@ class VideoCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  App\Models\VideoCategory  $videoCategory
-     * @return \Illuminate\Http\Response
+     * @param VideoCategory  $videoCategory
+     * @return View
      */
     public function show(VideoCategory $videoCategory): View
     {
@@ -82,8 +81,8 @@ class VideoCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  App\Models\VideoCategory  $videoCategory
-     * @return \Illuminate\Http\Response
+     * @param  VideoCategory  $videoCategory
+     * @return  View
      */
     public function edit(VideoCategory $videoCategory): View
     {
@@ -93,11 +92,11 @@ class VideoCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param App\Models\VideoCategory $videoCategory
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @param VideoCategory $videoCategory
+     * @return RedirectResponse
      */
+
     public function update(Request $request, VideoCategory $videoCategory): RedirectResponse
     {
         $validatedData = $this->videoCategoryService->validator($request, $videoCategory)->validate();
@@ -121,8 +120,8 @@ class VideoCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  App\Models\VideoCategory  $videoCategory
-     * @return \Illuminate\Http\Response
+     * @param VideoCategory $videoCategory
+     * @return RedirectResponse
      */
     public function destroy(VideoCategory $videoCategory): RedirectResponse
     {
