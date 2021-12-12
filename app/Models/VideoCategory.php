@@ -14,8 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @package App\Models
  * @property int institute_id
  * @property int|null parent_id
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()
  * @method static Builder|Institute newModelQuery()

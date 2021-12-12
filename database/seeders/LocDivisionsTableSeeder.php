@@ -22,7 +22,7 @@ class LocDivisionsTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'title_en' => 'Barisal',
+                'title' => 'Barisal',
                 'bbs_code' => '10',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -33,7 +33,7 @@ class LocDivisionsTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'title_en' => 'Chittagong',
+                'title' => 'Chittagong',
                 'bbs_code' => '20',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -44,7 +44,7 @@ class LocDivisionsTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 3,
-                'title_en' => 'Dhaka',
+                'title' => 'Dhaka',
                 'bbs_code' => '30',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -55,7 +55,7 @@ class LocDivisionsTableSeeder extends Seeder
             3 =>
             array (
                 'id' => 4,
-                'title_en' => 'Khulna',
+                'title' => 'Khulna',
                 'bbs_code' => '40',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -66,7 +66,7 @@ class LocDivisionsTableSeeder extends Seeder
             4 =>
             array (
                 'id' => 5,
-                'title_en' => 'Rajshahi',
+                'title' => 'Rajshahi',
                 'bbs_code' => '50',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -77,7 +77,7 @@ class LocDivisionsTableSeeder extends Seeder
             5 =>
             array (
                 'id' => 6,
-                'title_en' => 'Rangpur',
+                'title' => 'Rangpur',
                 'bbs_code' => '60',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -88,7 +88,7 @@ class LocDivisionsTableSeeder extends Seeder
             6 =>
             array (
                 'id' => 7,
-                'title_en' => 'Sylhet',
+                'title' => 'Sylhet',
                 'bbs_code' => '70',
                 'row_status' => 1,
                 'created_by' => 0,
@@ -99,7 +99,7 @@ class LocDivisionsTableSeeder extends Seeder
             7 =>
             array (
                 'id' => 9,
-                'title_en' => 'Mymensingh',
+                'title' => 'Mymensingh',
                 'bbs_code' => '45',
                 'row_status' => 1,
                 'created_by' => 0,

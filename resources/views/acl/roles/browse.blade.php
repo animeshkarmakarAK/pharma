@@ -57,8 +57,8 @@
                         data: "code"
                     },
                     {
-                        title: "Title (En)",
-                        data: "title_en"
+                        title: "Title",
+                        data: "title"
                     },
 
                     {

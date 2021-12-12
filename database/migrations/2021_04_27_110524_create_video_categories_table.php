@@ -16,7 +16,7 @@ class CreateVideoCategoriesTable extends Migration
         Schema::create('video_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('institute_id');
-            $table->string('title_en', 191);
+            $table->string('title', 191);
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->timestamps();

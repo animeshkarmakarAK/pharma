@@ -11,8 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @property int $id
  * @property string code
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string description
  * @property-read Collection|Permission[] permissions
  * @property-read int|null permissions_count

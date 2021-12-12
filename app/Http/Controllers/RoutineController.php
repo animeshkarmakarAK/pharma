@@ -41,8 +41,8 @@ class RoutineController extends Controller
      */
     public function create(): View
     {
-        $batches = Batch::acl()->active()->pluck('title_en', 'id');
-        $trainingCenters = TrainingCenter::acl()->active()->pluck('title_en', 'id');
+        $batches = Batch::acl()->active()->pluck('title', 'id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title', 'id');
         $trainers = User::acl()->where(['user_type_id' => 1])->get();
 
         return view(self::VIEW_PATH . 'edit-add', compact('batches', 'trainingCenters', 'trainers'));
@@ -165,14 +165,14 @@ class RoutineController extends Controller
         if ($batch_id && $user_id) {
 
             $user = User::where(['id' => $user_id])->first();
-            $user_name = $user->name_en;
+            $user_name = $user->name;
 
             /** @var Batch $batch */
             $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title_en;
+            $batch_name = $batch->title;
 
             $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title_en;
+            $training_center_name = $trainingCenter->title;
 
             $parameters['training_center_id'] = $training_center_id;
             $parameters['training_center_name'] = $training_center_name;
@@ -189,10 +189,10 @@ class RoutineController extends Controller
 
         } elseif ($batch_id) {
             $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title_en;
+            $batch_name = $batch->title;
 
             $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title_en;
+            $training_center_name = $trainingCenter->title;
 
             $parameters['training_center_id'] = $training_center_id;
             $parameters['training_center_name'] = $training_center_name;

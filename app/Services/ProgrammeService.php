@@ -48,7 +48,7 @@ class ProgrammeService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title_en' => 'required|string|max:191',
+            'title' => 'required|string|max:191',
             'institute_id' => 'required|int',
             'code' => [
                 'required',
@@ -74,7 +74,7 @@ class ProgrammeService
         $programmes = Programme::acl()->select(
             [
                 'programmes.id as id',
-                'programmes.title_en',
+                'programmes.title',
                 'institutes.title as institutes.title',
                 'programmes.code',
                 'programmes.logo',

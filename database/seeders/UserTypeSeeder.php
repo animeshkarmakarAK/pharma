@@ -62,7 +62,7 @@ class UserTypeSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 1,
-            'name_en' => 'admin',
+            'name' => 'admin',
             'email' => 'admin@gmail.com',
             'user_type_id' => 1,
             'role_id' => 1,

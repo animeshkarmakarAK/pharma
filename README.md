@@ -77,11 +77,11 @@ Just add class ```select2-ajax-wizard``` to enable select2 on your select elemen
         name="user_id2"
         id="user_id2"
         data-model="{{base64_encode(Softbd\Acl\Models\User::class)}}"
-        data-label-fields="{name_en} - {institute.title_en}"
+        data-label-fields="{title} - {institute.title}"
         data-depend-on="user_type_id:#user_type_id"
         data-depend-on-optional="user_type_id:#user_type_id"
-        data-dependent-fields="#name_en"
-        data-filters="{{json_encode(['name_en' => 'Baker Hasan'])}}"
+        data-dependent-fields="#name"
+        data-filters="{{json_encode(['name' => 'Baker Hasan'])}}"
         data-preselected-option="{{json_encode(['text' => 'Baker Hasan', 'id' => 1])}}"
         data-placeholder="Select option"
 >
@@ -107,15 +107,15 @@ excepted format
 
 The definition of which field you want to fetch from model and display in select2.
 
-```data-label-fields="{name_en}"```
+```data-label-fields="{name}"```
 
 if its relational column
 
-```data-label-fields="{institute.title_en}"```
+```data-label-fields="{institute.title}"```
 
 If you want to show multiple column.
 
-```data-label-fields="{name_en} - {institute.title_en}"```
+```data-label-fields="{name} - {institute.title}"```
 
 ***
 

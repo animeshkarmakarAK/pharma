@@ -23,8 +23,7 @@ class InstituteFactory extends Factory
     {
         $instituteName = $this->faker->company;
         return [
-            'title_en' => $instituteName,
-            'title_bn' => $instituteName,
+            'title' => $instituteName,
             'code' => $this->faker->unique()->countryCode,
             'domain' => 'http://' . $this->faker->domainName,
             'address' => $this->faker->address,

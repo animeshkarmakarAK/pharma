@@ -33,7 +33,7 @@ class HomeController extends BaseController
 
             $runningCourses = Course::select([
                 'courses.id as id',
-                'courses.title_en',
+                'courses.title',
                 'courses.course_fee',
                 'courses.duration',
                 'courses.cover_image',

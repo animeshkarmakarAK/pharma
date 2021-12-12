@@ -6,7 +6,7 @@
 
 @extends($layout)
 @section('title')
-    {{ !empty($currentInstitute) ? strtoupper($currentInstitute->title_en)."-".$currentFileName : env('APP_NAME')."-".$currentFileName }}
+    {{ $currentInstitute && $currentInstitute->title ? strtoupper($currentInstitute->title)."-".$currentFileName : env('APP_NAME')."-".$currentFileName }}
 @endsection
 
 @section('header', '')
@@ -25,7 +25,7 @@
                             alt="Institute Logo" data-extra-logo="">
                     </a>
                     <h2 class="pt-4 pb-4"
-                        style="color: #636f41">{{ !empty($currentInstitute)? $currentInstitute->title_bn.' প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' : 'নাইস-৩ প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' }}
+                        style="color: #636f41">{{ $currentInstitute ? $currentInstitute->title .' প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' : 'নাইস-৩ প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' }}
                     </h2>
                 </div>
                 <div class="col-sm-4 mx-auto">

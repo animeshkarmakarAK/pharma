@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title_en}}</b> - {{ __('admin.youth_batches.index')  }}
+                        <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title}}</b> - {{ __('admin.youth_batches.index')  }}
                         </h3>
                         <div class="card-tools">
                             <a href="{{route('admin.batches.index')}}"
@@ -93,8 +93,8 @@
                     },
                     {
                         title: "{{ __('admin.youth_batches.name')  }}",
-                        data: "youth_name_en",
-                        name: "youths.name_en"
+                        data: "youth_name",
+                        name: "youths.name"
                     },
                     {
                         title: "{{ __('admin.youth_batches.enrollment_date')  }}",

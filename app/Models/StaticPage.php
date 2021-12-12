@@ -14,8 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @package App\Models
  * @property int content_type
  * @property int institute_id
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string page_id
  * @property string page_contents
  * @property int row_status
@@ -37,7 +36,7 @@ class StaticPage extends BaseModel
 
     public function title(): ?string
     {
-        return $this->title_bn || $this->title_en;
+        return $this->title;
     }
 
 

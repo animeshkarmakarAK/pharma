@@ -25,7 +25,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.static_page.content_title') }}}</p>
                     <div class="input-box">
-                        {{ $staticPage->title_en }}
+                        {{ $staticPage->title }}
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.static_page.index') }}</p>
                     <div class="input-box">
-                        {{ $staticPage->institute->title_en  }}
+                        {{ $staticPage->institute->title  }}
                     </div>
                 </div>
 

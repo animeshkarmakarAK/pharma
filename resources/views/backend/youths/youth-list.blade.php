@@ -36,8 +36,8 @@
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields"
-                                                   id="youth_name_en"
-                                                   placeholder="Name En">
+                                                   id="youth_name"
+                                                   placeholder="Name">
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields" id="reg_no"
@@ -187,20 +187,20 @@
                         visible: true,
                     },
                     {
-                        title: "Name (En)",
-                        data: "name_en",
-                        name: "name_en",
+                        title: "Name",
+                        data: "name",
+                        name: "name",
                     },
                     {
                         title: "Institute",
-                        data: "institute_title_en",
+                        data: "institute_title",
                         name: "institutes.title",
                         visible: false
                     },
                     {
                         title: "Already Assigned To",
                         data: "already_added_to_organization",
-                        name: "organizations.title_en",
+                        name: "organizations.title",
                         orderable: true,
                         searchable: false,
                         visible: true
@@ -218,15 +218,13 @@
 
             params.ajax.data = d => {
                 d.organization_id = $('#organization_id').val();
-                d.youth_name_en = $('#youth_name_en').val();
-                d.youth_name_bn = $('#youth_name_bn').val();
+                d.youth_name = $('#youth_name').val();
                 d.reg_no = $('#reg_no').val();
             };
 
             $('#reset-btn').on('click', function () {
                 $('#organization_id').val(null).trigger('change');
-                $('#youth_name_en').val(null).trigger('change');
-                $('#youth_name_bn').val(null).trigger('change');
+                $('#youth_name').val(null).trigger('change');
                 $('#reg_no').val(null).trigger('change');
             })
 

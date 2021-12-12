@@ -34,7 +34,7 @@
                                     <td>{{ $userType->id }}</td>
                                     <td>{{ $userType->code }}</td>
                                     <td>{{ $userType->title }}</td>
-                                    <td>{{ optional($userType->role)->title_en }}</td>
+                                    <td>{{ optional($userType->role)->title }}</td>
                                     <td>{{ !empty($userType->row_status == 0 || $userType->row_status == 1 || $userType->row_status == 99)? $userType->rowStatus->title : ''}}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">

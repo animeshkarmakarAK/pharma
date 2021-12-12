@@ -57,8 +57,8 @@
                     },
                     {
                         title: "{{ __('admin.programme.title') }}",
-                        data: "title_en",
-                        name: "title_en"
+                        data: "title",
+                        name: "title"
                     },
                     {
                         title: "{{ __('admin.programme.institute_title') }}",

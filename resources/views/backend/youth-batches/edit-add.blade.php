@@ -30,10 +30,10 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('admin.batches.title')}}</label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $batch->title_en : old('title_en') }}">
+                                    <label for="title">{{ __('admin.batches.title')}}</label>
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $batch->title: old('title') }}">
                                 </div>
                             </div>
 
@@ -61,7 +61,7 @@
                                         <select name="course_id" id="course_id" class="form-control select2">
                                             @if($edit && !empty($batch->course->id))
                                                 @foreach($courses as $course)
-                                                    <option value="{{ $course->id }}" {{ $course->id == $batch->course->id ? 'selected':''}}>{{ $course->title_en }}</option>
+                                                    <option value="{{ $course->id }}" {{ $course->id == $batch->course->id ? 'selected':''}}>{{ $course->title }}</option>
                                                 @endforeach
                                             @else
                                                 <select name="course_id" id="course_id" class="form-control select2">
@@ -162,13 +162,9 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 institute_id: {
                     required: true

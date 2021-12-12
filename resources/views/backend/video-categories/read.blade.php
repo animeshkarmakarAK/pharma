@@ -28,7 +28,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.video_categories.title') }}</p>
                     <div class="input-box">
-                        {{ $videoCategory->title_en }}
+                        {{ $videoCategory->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
@@ -40,7 +40,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.video_categories.parent_category') }}</p>
                     <div class="input-box">
-                        {{ optional(App\Models\VideoCategory::find($videoCategory->parent_id))->title_en }}
+                        {{ optional(App\Models\VideoCategory::find($videoCategory->parent_id))->title }}
                     </div>
                 </div>
 

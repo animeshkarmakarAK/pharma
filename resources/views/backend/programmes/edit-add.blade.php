@@ -35,11 +35,11 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title_en">{{ __('admin.programme.title') }} <span
+                                    <label for="title">{{ __('admin.programme.title') }} <span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control custom-input-box" name="title_en"
-                                           id="title_en"
-                                           value="{{$edit ? $programme->title_en : old('title_en')}}"
+                                    <input type="text" class="form-control custom-input-box" name="title"
+                                           id="title"
+                                           value="{{$edit ? $programme->title : old('title')}}"
                                            placeholder="{{ __('admin.programme.title') }}" required>
                                 </div>
 
@@ -54,7 +54,7 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 @if($edit && $programme->institute)
                                                 data-preselected-option="{{json_encode(['text' => $programme->institute->title, 'id' => $programme->institute_id])}}"
                                                 @endif
@@ -162,7 +162,7 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -188,7 +188,7 @@
                 },
             },
             messages: {
-                title_en: {
+                title: {
                     pattern: "This field is required in English.",
                 },
                 code: {

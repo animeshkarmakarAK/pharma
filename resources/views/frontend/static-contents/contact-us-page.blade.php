@@ -43,7 +43,7 @@
                                                                         data-address="{{ !empty($currentInstitute->address)? $currentInstitute->address: 'N/A' }}"
                                                                         data-mobile="{{ !empty($currentInstitute->primary_mobile)? $currentInstitute->primary_mobile: 'N/A' }}"
                                                                     >
-                                                                        {{ $currentInstitute->title_bn }}
+                                                                        {{ $currentInstitute->title }}
                                                                     </option>
                                                                 </optgroup>
                                                                 @if(\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
@@ -54,7 +54,7 @@
                                                                                 data-address="{{ !empty($trainingCenter->address)? $trainingCenter->address: 'N/A' }}"
                                                                                 data-mobile="{{ !empty($trainingCenter->mobile)? $trainingCenter->mobile: 'N/A' }}"
                                                                             >
-                                                                                {{ $trainingCenter->title_bn }}
+                                                                                {{ $trainingCenter->title }}
                                                                             </option>
                                                                         @endforeach
                                                                     </optgroup>
@@ -145,7 +145,7 @@
                                                                     value="{{ !empty($currentInstitute->google_map_src)? $currentInstitute->google_map_src: 'institute_id_'.$currentInstitute->id }}"
                                                                     data-address="{{ !empty($currentInstitute->address)? $currentInstitute->address: 'N/A' }}"
                                                                     data-mobile="{{ !empty($currentInstitute->primary_mobile)? $currentInstitute->primary_mobile: 'N/A' }}"
-                                                                >{{ $currentInstitute->title_bn }}
+                                                                >{{ $currentInstitute->title }}
                                                                 </option>
                                                             </optgroup>
                                                             @if(\App\Models\TrainingCenter::where(['institute_id'=>$currentInstitute->id])->count()>0)
@@ -156,7 +156,7 @@
                                                                             data-address="{{ !empty($trainingCenter->address)? $trainingCenter->address: 'N/A' }}"
                                                                             data-mobile="{{ !empty($trainingCenter->mobile)? $trainingCenter->mobile: 'N/A' }}"
                                                                         >
-                                                                            {{ $trainingCenter->title_bn }}
+                                                                            {{ $trainingCenter->title }}
                                                                         </option>
                                                                     @endforeach
                                                                 </optgroup>

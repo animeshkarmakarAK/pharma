@@ -98,7 +98,7 @@ class LocDistrictController extends BaseController
     public function validator(Request $request): Validator
     {
         return \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'title_en' => 'required|max:191',
+            'title' => 'required|max:191',
             'bbs_code' => 'required|max:2',
             'loc_division_id'=> 'required|exists:loc_divisions,id',
             'division_bbs_code'=> 'nullable',
@@ -115,11 +115,11 @@ class LocDistrictController extends BaseController
         /** @var Builder $locDivisions */
         $locDistricts = LocDistrict::select([
             'loc_districts.id',
-            'loc_districts.title_en',
+            'loc_districts.title',
             'loc_districts.bbs_code',
             'loc_districts.created_at',
             'loc_districts.updated_at',
-            'loc_divisions.title_en as loc_divisions.title',
+            'loc_divisions.title as loc_divisions.title',
         ]);
 
         /** relations */

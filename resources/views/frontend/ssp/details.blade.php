@@ -13,13 +13,13 @@
         <div class="row justify-content-center">
             <div class="col-md-10 py-2">
                 <div class="card mb-2">
-                    <h3 class="card-header text-center p-5">{{ $institute->title_en }}</h3>
+                    <h3 class="card-header text-center p-5">{{ $institute->title }}</h3>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <img class="card-img"
                                      src="{{ $institute->cover_image ?? "http://via.placeholder.com/640x360" }}"
-                                     height="300" alt="Card image cap" title="{{$institute->title_en}} image">
+                                     height="300" alt="Card image cap" title="{{$institute->title}} image">
                             </div>
 
                             <div class="col-md-6">

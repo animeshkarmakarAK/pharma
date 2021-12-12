@@ -63,7 +63,7 @@ class UserService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'name_en' => [
+            'name' => [
                 'bail',
                 'required',
                 'string'
@@ -148,10 +148,10 @@ class UserService
         /** @var Builder|User $users */
         $users = User::select([
             'users.id as id',
-            'users.name_en',
+            'users.name',
             'users.user_type_id',
             'institutes.title as institute_title',
-            'loc_districts.title_en as loc_district_name',
+            'loc_districts.title as loc_district_name',
             'user_types.title as user_type_title',
             'users.email',
             'users.created_at',
@@ -204,11 +204,10 @@ class UserService
         /** @var Builder|User $users */
         $users = User::select([
             'users.id as id',
-            'users.name_en',
-            'users.name_bn',
+            'users.name',
             'users.user_type_id',
             'institutes.title as institute_title',
-            'loc_districts.title_en as loc_district_name',
+            'loc_districts.title as loc_district_name',
             'user_types.title as user_type_title',
             'users.email',
             'users.created_at',

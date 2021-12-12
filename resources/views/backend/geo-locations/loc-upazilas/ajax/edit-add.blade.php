@@ -25,11 +25,11 @@
                 @endif
 
                 <div class="col-sm-6 col-md-4">
-                    <label for="name_en">Title (En) <span style="color: red"> * </span></label>
-                    <input type="text" class="form-control" name="title_en" value="{{$edit ? $locUpazila->title_en : ''}}"/>
+                    <label for="name">Title <span style="color: red"> * </span></label>
+                    <input type="text" class="form-control" name="title" value="{{$edit ? $locUpazila->title : ''}}"/>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <label for="name_en">BBS Code <span style="color: red"> * </span></label>
+                    <label for="bbs_code">BBS Code <span style="color: red"> * </span></label>
                     <input type="text" class="form-control" name="bbs_code" value="{{$edit ? $locUpazila->bbs_code : ''}}"/>
                 </div>
                 <div class="col-sm-6 col-md-4">
@@ -38,7 +38,7 @@
                     <select class="form-control select2-ajax-wizard"
                             name="loc_division_id"
                             data-model="{{base64_encode(App\Models\LocDivision::class)}}"
-                            data-label-fields="{title} - {title_en}"
+                            data-label-fields="{title}"
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locUpazila->division->title, 'id' =>  $locUpazila->division->id])}}"
                             @endif
@@ -52,7 +52,7 @@
                     <select class="form-control select2-ajax-wizard"
                             name="loc_district_id"
                             data-model="{{base64_encode(App\Models\LocDistrict::class)}}"
-                            data-label-fields="{title} - {title_en}"
+                            data-label-fields="{title}"
                             data-depend-on="loc_division_id"
                             @if($edit)
                             data-preselected-option="{{json_encode(['text' =>  $locUpazila->district->title, 'id' =>  $locUpazila->district->id])}}"

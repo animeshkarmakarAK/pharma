@@ -20,8 +20,7 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
  * @property int id
  * @property int user_type_id
  * @property int|null role_id
- * @property string name_en
- * @property string name_bn
+ * @property string name
  * @property string|null email
  * @property string password
  * @property string|null remember_token

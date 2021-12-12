@@ -16,7 +16,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.batch.title')  }}</p>
                     <div class="input-box">
-                        {{ $batch->title_en }}
+                        {{ $batch->title }}
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.batch.course_title')  }}</p>
                     <div class="input-box">
-                        {{ $batch->course->title_en }}
+                        {{ $batch->course->title }}
                     </div>
                 </div>
 

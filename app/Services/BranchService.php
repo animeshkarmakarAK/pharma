@@ -69,8 +69,8 @@ class BranchService
         $branches = Branch::acl()->select(
             [
                 'branches.id as id',
-                'branches.title_en',
-                'institutes.title as institute_title_en',
+                'branches.title',
+                'institutes.title as institute_title',
                 'branches.row_status',
                 'branches.created_at',
                 'branches.updated_at',

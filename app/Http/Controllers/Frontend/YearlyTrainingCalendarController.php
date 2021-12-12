@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CourseSession;
-use App\Models\Institute;
-use App\Models\Course;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +23,8 @@ class YearlyTrainingCalendarController extends Controller
         $currentInstitute = app('currentInstitute');
         $courseSessions = Course::select([
             'courses.id as publish_course_id',
-            'courses.title_en as title',
-            'courses.title_en as description',//this for tooltip
+            'courses.title as title',
+            'courses.title as description',//this for tooltip
             DB::raw('DATE(course_sessions.application_start_date) as start'),
             DB::raw('DATE_ADD(DATE(course_sessions.application_end_date), INTERVAL 1 Day) as end'),
             'courses.institute_id',
@@ -89,8 +86,8 @@ class YearlyTrainingCalendarController extends Controller
             ->where(['courses.course_id' => $id])
             ->where(function ($result) use ($query) {
                 $result
-                    ->where('training_centers.title_en', 'LIKE', '%' . $query . '%')
-                    ->orWhere('branches.title_en', 'LIKE', '%' . $query . '%')
+                    ->where('training_centers.title', 'LIKE', '%' . $query . '%')
+                    ->orWhere('branches.title', 'LIKE', '%' . $query . '%')
                     ->orwhere('institutes.title', 'LIKE', '%' . $query . '%')
                     ->orWhere('training_centers.address', 'LIKE', '%' . $query . '%')
                     ->orWhere('branches.address', 'LIKE', '%' . $query . '%')

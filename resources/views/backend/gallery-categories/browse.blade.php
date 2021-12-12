@@ -59,8 +59,8 @@
 
                     {
                         title: "{{__('admin.gallery-album.title')}}",
-                        data: "title_en",
-                        name: "gallery_categories.title_en",
+                        data: "title",
+                        name: "gallery_categories.title",
                     },
                     {
                         title: "{{__('admin.gallery-album.institute_title')}}",
@@ -70,14 +70,14 @@
                     },
                     {
                         title: "{{__('admin.gallery-album.programme_title')}}",
-                        data: "programme_title_en",
-                        name: "programmes.title_en",
+                        data: "programme_title",
+                        name: "programmes.title",
                         visible: false,
                     },
                     {
                         title: "{{__('admin.gallery-album.batch_title')}}",
-                        data: "batch_title_en",
-                        name: "batches.title_en",
+                        data: "batch_title",
+                        name: "batches.title",
                         visible: false,
                     },
                     {

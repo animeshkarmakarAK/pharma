@@ -94,7 +94,7 @@
                                             name="training_center_id"
                                             id="training_center_id"
                                             data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-dependent-fields="#batch_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if(@$parameters['training_center_id'])
@@ -119,7 +119,7 @@
                                             name="batch_id"
                                             id="batch_id"
                                             data-model="{{base64_encode(App\Models\Batch::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-depend-on-optional="training_center_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if(@$parameters['batch_id'])
@@ -161,7 +161,7 @@
                                             name="user_id"
                                             id="user_id"
                                             data-model="{{base64_encode(App\Models\user::class)}}"
-                                            data-label-fields="{name_en}"
+                                            data-label-fields="{name}"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'user_type_id'=>1])}}"
                                             @if(@$parameters['user_id'])
                                             data-preselected-option="{{json_encode(['text' =>  $parameters['user_name'], 'id' =>  $parameters['user_id']])}}"
@@ -236,7 +236,7 @@
                                                     <tr>
                                                     @foreach($routine->routineClass as $routineClass)
                                                         <td class="text-center">
-                                                            {{$routineClass->class}} -- {{$routineClass->user->name_en}}
+                                                            {{$routineClass->class}} -- {{$routineClass->user->name}}
                                                         </td>
                                                     @endforeach
                                                     </tr>

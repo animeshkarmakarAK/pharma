@@ -12,8 +12,7 @@ use Illuminate\Support\Carbon;
  * Class YouthFamilyMemberInfo
  * @package App\Models
  * @property int $youth_id
- * @property string|null $member_name_en
- * @property string|null member_name_bn
+ * @property string|null $member_name
  * @property string|null mobile
  * @property string|null educational_qualification
  * @property string|null relation_with_youth

@@ -39,26 +39,26 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.course.branch') }}</p>
                     <div class="input-box">
-                        {{ $course->branch->title_en }}
+                        {{ $course->branch->title }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.course.training_center') }}</p>
                     <div class="input-box">
-                        {{ $course->trainingCenter->title_en }}
+                        {{ $course->trainingCenter->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.course.application_form_type') }}</p>
                     <div class="input-box">
-                        {{ $course->applicationFormType->title_en }}
+                        {{ $course->applicationFormType->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.course.title') }}</p>
                     <div class="input-box">
-                        {{ $course->title_en }}
+                        {{ $course->title }}
                     </div>
                 </div>
 

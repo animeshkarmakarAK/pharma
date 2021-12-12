@@ -27,7 +27,7 @@ class VideoCategoryService
     public function validator($request, $id = null): Validator
     {
         $rules = [
-            'title_en' => [
+            'title' => [
                 'required',
                 'string',
                 'max:191',
@@ -59,7 +59,7 @@ class VideoCategoryService
 
         $videoCategories = VideoCategory::acl()->select([
             'video_categories.id as id',
-            'video_categories.title_en',
+            'video_categories.title',
             'video_categories.parent_id',
             'video_categories.created_at',
             'video_categories.updated_at',
@@ -72,7 +72,7 @@ class VideoCategoryService
         return DataTables::eloquent($videoCategories)
             ->addColumn('parent', static function(VideoCategory  $videoCategory){
                 $parent = VideoCategory::find($videoCategory->parent_id);
-                return $parent ? $parent->title_en : "N/A";
+                return $parent ? $parent->title : "N/A";
             })
             ->addColumn('action', static function (VideoCategory $videoCategory) use ($authUser) {
                 $str = '';

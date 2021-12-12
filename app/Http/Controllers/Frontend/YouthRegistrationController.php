@@ -118,7 +118,7 @@ class YouthRegistrationController extends Controller
             if (!empty($youthCourseEnroll->youth->mobile)) {
                 try {
                     $link = route('frontend.youth-enrolled-courses');
-                    $youthName = strtoupper($youthCourseEnroll->youth->name_en);
+                    $youthName = strtoupper($youthCourseEnroll->youth->name);
                     $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
                     $smsResponse = sms()->send($youthCourseEnroll->youth->mobile, $messageBody);
                     if (!$smsResponse->is_successful()) {
@@ -135,7 +135,7 @@ class YouthRegistrationController extends Controller
             $youthEmailAddress = $youthCourseEnroll->youth->email;
             $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: https://www.test.com.bd</p>";
             $mailSubject = "Congratulations! Your application has been accepted";
-            $youthName = $youthCourseEnroll->youth->name_en;
+            $youthName = $youthCourseEnroll->youth->name;
             try {
                 Mail::to($youthEmailAddress)->send(new \App\Mail\YouthApplicationAcceptMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
             } catch (\Throwable $exception) {
@@ -197,7 +197,7 @@ class YouthRegistrationController extends Controller
             $youthEmailAddress = $youthCourseEnroll->youth->email;
             $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="' . (route('frontend.course_search')) . '">Courses</a></p>';
             $mailSubject = "Your application has been rejected";
-            $youthName = $youthCourseEnroll->youth->name_en;
+            $youthName = $youthCourseEnroll->youth->name;
             try {
                 Mail::to($youthEmailAddress)->send(new \App\Mail\YouthApplicationRejectMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
             } catch (\Throwable $exception) {

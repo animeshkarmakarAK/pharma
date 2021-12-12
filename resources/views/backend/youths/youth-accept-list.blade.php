@@ -94,8 +94,8 @@
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields"
-                                                   id="youth_name_en"
-                                                   placeholder="Name En">
+                                                   id="youth_name"
+                                                   placeholder="Name">
                                         </div>
 
                                         <div class="col-md-2 mb-2">
@@ -147,7 +147,7 @@
                                         data-placeholder="{{ __('generic.select_placeholder') }}">
                                     <option selected disabled>{{ __('generic.select_placeholder') }}</option>
                                     @foreach($batches as $batch)
-                                        <option value="{{$batch->id}}">{{$batch->title_en}}</option>
+                                        <option value="{{$batch->id}}">{{$batch->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -217,7 +217,7 @@
                                         data-placeholder="{{ __('generic.select_placeholder') }}">
                                     <option selected disabled>{{ __('generic.select_placeholder') }}</option>
                                     @foreach($batches as $batch)
-                                        <option value="{{$batch->id}}">{{$batch->title_en}}</option>
+                                        <option value="{{$batch->id}}">{{$batch->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -317,9 +317,9 @@
                         visible: true,
                     },
                     {
-                        title: "Name (En)",
-                        data: "name_en",
-                        name: "youths.name_en"
+                        title: "Name",
+                        data: "name",
+                        name: "youths.name"
                     },
 
                     {
@@ -340,29 +340,29 @@
                     },
                     {
                         title: "Branch Name",
-                        data: "branches.title_en",
-                        name: "branches.title_en",
+                        data: "branches.title",
+                        name: "branches.title",
                         defaultContent: '',
                         visible: false
                     },
                     {
                         title: "Training Center",
-                        data: "training_centers.title_en",
-                        name: "training_centers.title_en",
+                        data: "training_centers.title",
+                        name: "training_centers.title",
                         defaultContent: '',
                         visible: false
                     },
                     {
                         title: "Programme",
-                        data: "programmes.title_en",
-                        name: "programmes.title_en",
+                        data: "programmes.title",
+                        name: "programmes.title",
                         defaultContent: '',
                         visible: false
                     },
                     {
                         title: "Course Name",
-                        data: "courses.title_en",
-                        name: "courses.title_en",
+                        data: "courses.title",
+                        name: "courses.title",
                         defaultContent: '',
                     },
                     {

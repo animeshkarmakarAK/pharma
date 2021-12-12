@@ -13,8 +13,8 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <input name="name_en" id="name_en" type="text" class="form-control"
-                                           placeholder="Name" value="{{ old('name_en') }}">
+                                    <input name="name" id="name" type="text" class="form-control"
+                                           placeholder="Name" value="{{ old('name') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text input-group-text-border">
                                             <i class="fas fa-user"></i>
@@ -93,7 +93,7 @@
         const loginForm = $('.login-form');
         loginForm.validate({
             rules: {
-                name_en: {
+                name: {
                     required: true
                 },
                 email: {

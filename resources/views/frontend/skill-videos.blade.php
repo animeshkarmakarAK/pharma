@@ -39,7 +39,7 @@
                                                         name="institute_id"
                                                         id="institute_id"
                                                         data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                        data-label-fields="{title_bn}"
+                                                        data-label-fields="{title}"
                                                         data-dependent-fields="#video_id|#video_category_id"
                                                         data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                                 >
@@ -58,7 +58,7 @@
                                                 <option value="">ভিডিও সিলেক্ট করুন</option>
                                                 @foreach($youthVideos as $youthVideo)
                                                     <option
-                                                        value="{{ $youthVideo->id }}">{{ $youthVideo->title_bn }}</option>
+                                                        value="{{ $youthVideo->id }}">{{ $youthVideo->title_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -74,7 +74,7 @@
                                                 <option value="">ভিডিও ক্যাটাগরি</option>
                                                 @foreach($youthVideoCategories as $youthVideoCategory)
                                                     <option
-                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title_bn }}</option>
+                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -118,7 +118,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         @endsection
         @push('css')
@@ -173,12 +172,10 @@
                     let html = `<div class="col-md-3">
                                 <div class="embed-responsive embed-responsive-16by9">`;
 
-
                     /*html += '<iframe class="embed-responsive-item youtube-video"';
                         html += ' src=https://www.youtube.com/embed/' + item.youtube_video_id + '?html5=1&enablejsapi=1;rel=0';
                         html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; ' +
                             'gyroscope; picture-in-picture" allowfullscreen></iframe>';*/
-
 
                     html +=
                         '<a target="_blank" href="{{ route('frontend.skill-single-video', ['video_id' => '__']) }}"'.replace('__', item.id) + '>' +
@@ -187,10 +184,9 @@
                     html += 'frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; ' +
                         'picture-in-picture" allowfullscreen></img></a>';
 
-
                     html += '</div>';
                     html += '<div class="video-title mt-3 mb-3 text-dark font-weight-bold text-center">';
-                    html += item.title_bn;
+                    html += item.title_en;
                     html += '</div></div>';
                     return html;
                 };

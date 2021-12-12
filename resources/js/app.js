@@ -166,7 +166,7 @@ window.initializeSelect2 = function (selector) {
                     };
 
                     /**
-                     * json_encode(['name_en' => 'Baker Hasan'])
+                     * json_encode(['name' => 'Baker Hasan'])
                      * @type {*|jQuery|{}}
                      */
                     const filters = elm.data('filters') || {};

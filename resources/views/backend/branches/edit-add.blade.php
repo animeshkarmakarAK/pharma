@@ -38,9 +38,9 @@
                                 <div class="form-group">
                                     <label for="name">{{__('admin.branch.title')}} <span
                                             style="color: red">*</span></label>
-                                    <input type="text" class="form-control custom-input-box" id="title_en"
-                                           name="title_en"
-                                           value="{{$edit ? $branch->title_en : old('title_en')}}"
+                                    <input type="text" class="form-control custom-input-box" id="title"
+                                           name="title"
+                                           value="{{$edit ? $branch->title : old('title')}}"
                                            placeholder="{{__('admin.branch.title')}}">
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -129,8 +129,8 @@
                 },
             },
             messages: {
-                title_en: {
-                        pattern: "This field is required in English.",
+                title: {
+                        pattern: "This field is required",
                 },
             },
             submitHandler: function (htmlForm) {

@@ -44,9 +44,9 @@
                                 <div class="form-group">
                                     <label for="content_title">{{ __('admin.gallery-album.title') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $galleryCategory->title_en : old('title_en') }}"
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $galleryCategory->title : old('title') }}"
                                            placeholder="{{ __('admin.gallery-album.title') }}">
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                             name="institute_id"
                                             id="institute_id"
                                             data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-dependent-fields="#programme_id|#batch_id"
                                             @if($edit && $galleryCategory->institute_id)
                                             data-preselected-option="{{json_encode(['text' => $galleryCategory->institute->title, 'id' => $galleryCategory->institute_id])}}"
@@ -80,11 +80,11 @@
                                         name="programme_id"
                                         id="programme_id"
                                         data-model="{{base64_encode(\App\Models\Programme::class)}}"
-                                        data-label-fields="{title_en}"
+                                        data-label-fields="{title}"
                                         data-depend-on-optional="institute_id"
                                         data-dependent-fields="#batch_id"
                                         @if($edit && $galleryCategory->programme_id)
-                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->programme->title_en, 'id' => $galleryCategory->programme_id])}}"
+                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->programme->title, 'id' => $galleryCategory->programme_id])}}"
                                         @endif
                                         data-placeholder="{{ __('admin.gallery-album.programme_title') }}"
                                 >
@@ -96,10 +96,10 @@
                                         name="batch_id"
                                         id="batch_id"
                                         data-model="{{base64_encode(\App\Models\Batch::class)}}"
-                                        data-label-fields="{title_en}"
+                                        data-label-fields="{title}"
                                         data-depend-on-optional="institute_id|programme_id"
                                         @if($edit && $galleryCategory->batch_id)
-                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->batch->title_en, 'id' => $galleryCategory->batch_id])}}"
+                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->batch->title, 'id' => $galleryCategory->batch_id])}}"
                                         @endif
                                         data-placeholder="{{ __('admin.gallery-album.batch_title') }}"
                                 >
@@ -218,7 +218,7 @@
                 $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
             },
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -235,8 +235,8 @@
 
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
+                title: {
+                    pattern: "This field is required",
                 },
                 image:{
                     accept:"Please upload valid image",

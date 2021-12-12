@@ -12,13 +12,19 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        <!-- Notifications Dropdown Menu -->
         <li class="nav-item m-auto">
             <div class="btn-group language bg-light" style="border-radius: 10px">
-                <button onclick="document.getElementById('change_language').submit()" class="btn btn-sm btn-{{app()->getLocale() === 'en' ? 'primary': 'default'}} padding8 font-size-12 border-rad-left14">English</button>
-                <button onclick="document.getElementById('change_language').submit()"  class="btn btn-sm btn-{{app()->getLocale() === 'bn' ? 'primary': 'default'}} padding5 font-size-12 border-rad-right14">বাংলা</button>
+                <button onclick="document.getElementById('change_language').submit()"
+                        class="btn btn-sm btn-{{app()->getLocale() === 'en' ? 'primary': 'default'}} padding8 font-size-12 border-rad-left14">
+                    English
+                </button>
+                <button onclick="document.getElementById('change_language').submit()"
+                        class="btn btn-sm btn-{{app()->getLocale() === 'bn' ? 'primary': 'default'}} padding5 font-size-12 border-rad-right14">
+                    বাংলা
+                </button>
             </div>
-            <form method="post" action="{{route('change-language', app()->getLocale() === 'bn' ? 'en': 'bn')}}" id="change_language">
+            <form method="post" action="{{route('change-language', app()->getLocale() === 'bn' ? 'en': 'bn')}}"
+                  id="change_language">
                 @csrf
             </form>
         </li>
@@ -31,23 +37,20 @@
         @else
             <li class="nav-item dropdown">
                 <a class="nav-link text-sm" data-toggle="dropdown" href="#">
-                    <i class="fas fa-user-tie"></i> {{auth()->user()->name_en ?? auth()->user()->name_bn}}
+                    <i class="fas fa-user-tie"></i> {{auth()->user()->name}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-header">
                     <a href="#" id="user-profile-view">
                       <i class="fas fa-user-tie fa-5x"></i><br/>
-                        <h4 class="text-dark">{{auth()->user()->name_en ?? auth()->user()->name_bn}}</h4>
+                        <h4 class="text-dark">{{auth()->user()->name}}</h4>
                         <span class="d-block text-sm">
                         <i class="fas fa-user-tag ml-2"></i>
-                        {{optional(auth()->user()->role)->title_en ?? optional(auth()->user()->role)->title_bn}}
+                        {{optional(auth()->user()->role)->title}}
                         </span>
                     </a>
                 </span>
-{{--                    <div class="dropdown-divider"></div>--}}
-{{--                    <a href="#" class="dropdown-item">--}}
-{{--                        <i class="fas fa-edit mr-2"></i> Edit Profile--}}
-{{--                    </a>--}}
+
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('admin.logout') }}" class="dropdown-item dropdown-footer"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

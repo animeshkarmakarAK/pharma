@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $id
  * @property int batch_id
  * @property int batch_status
- * @property string batch_title_en
+ * @property string batch_title
  * @property string $enroll_status
  * @property string $payment_status
  */

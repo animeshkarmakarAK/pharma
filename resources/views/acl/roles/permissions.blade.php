@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info text-primary">
-                        <h3 class="card-title">Role Permissions <b>({{$role->title_bn ?? $role->title_en}})</b></h3>
+                        <h3 class="card-title">Role Permissions <b>({{$role->title}})</b></h3>
 
                         <div class="card-tools">
                             <a href="{{route('admin.roles.index')}}" class="btn btn-sm btn-outline-primary">

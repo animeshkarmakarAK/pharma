@@ -118,7 +118,7 @@
                                         @foreach($course as $courseSession)
                                             <tr>
                                                 <th style="font-size: 12px">
-                                                    {{  $courseSession->session_name_bn? $courseSession->session_name_bn:'' }}
+                                                    {{  $courseSession->session_name? $courseSession->session_name:'' }}
                                                 </th>
                                                 <th>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('m', strtotime($courseSession->application_start_date))==7 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'') }}</th>
                                                 <th>{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(date('m', strtotime($courseSession->application_start_date))==8 && date('Y', strtotime($courseSession->application_start_date))==date('Y')? date('d', strtotime($courseSession->application_start_date)) :'') }}</th>

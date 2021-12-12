@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header custom-bg-gradient-info text-primary">
-                        <h3 class="card-title">{{$user->name_bn ?? $user->name_en}}</h3>
+                        <h3 class="card-title">{{$user->name}}</h3>
 
                         <div class="card-tools">
                             <a href="{{route('admin.users.index')}}" class="btn btn-sm btn-outline-primary">
@@ -27,7 +27,7 @@
                                                     <option value="">Select Main Role</option>
                                                     @foreach($roles as $role)
                                                         <option
-                                                            value="{{$role->id}}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{$role->title_en}}</option>
+                                                            value="{{$role->id}}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{$role->title}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -41,7 +41,7 @@
                                                     <option value="">Select Extra Roles</option>
                                                     @foreach($roles as $role)
                                                         <option
-                                                            value="{{$role->id}}" {{ in_array($role->id, $userExtraRoles) ? 'selected' : '' }}>{{$role->title_en}}</option>
+                                                            value="{{$role->id}}" {{ in_array($role->id, $userExtraRoles) ? 'selected' : '' }}>{{$role->title}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -60,7 +60,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Main Role: </label>
-                                            <label class="font-weight-light">{{optional($user->role)->title_en}}</label>
+                                            <label class="font-weight-light">{{optional($user->role)->title}}</label>
                                         </div>
                                     </div>
 
@@ -69,7 +69,7 @@
                                             <label for="role_ids">Extra Roles</label>
                                             @foreach($user->roles as $role)
                                                 <br/>
-                                                <label>{{$role->title_en}}</label>
+                                                <label>{{$role->title}}</label>
                                             @endforeach
                                         </div>
                                     </div>

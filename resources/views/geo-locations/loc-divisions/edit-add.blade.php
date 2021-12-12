@@ -25,8 +25,8 @@
                 </div>
 
                 <div class="col-sm-6 col-md-4">
-                    <x-input.text name="title_en" label="Title (En)"
-                                  defaultValue="{{$edit ? $locDivision->title_en : ''}}"></x-input.text>
+                    <x-input.text name="title" label="Title"
+                                  defaultValue="{{$edit ? $locDivision->title : ''}}"></x-input.text>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <x-input.text name="bbs_code" label="BBS Code"
@@ -51,9 +51,6 @@
         editAddForm.validate({
             rules: {
                 title: {
-                    required: true
-                },
-                title_en: {
                     required: true
                 },
                 bbs_code: {

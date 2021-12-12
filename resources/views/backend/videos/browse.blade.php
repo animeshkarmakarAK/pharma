@@ -57,8 +57,8 @@
                     },
                     {
                         title: " {{ __('admin.videos.title') }}",
-                        data: "title_en",
-                        name: "title_en"
+                        data: "title",
+                        name: "title"
                     },
                     {
                         title: " {{ __('admin.videos.institute_title') }}",
@@ -68,8 +68,8 @@
                     },
                     {
                         title: " {{ __('admin.videos.video_category') }}",
-                        data: "video_category_title_en",
-                        name: "video_categories.title_en",
+                        data: "video_category_title",
+                        name: "video_categories.title",
                         visible: false,
                     },
                     {

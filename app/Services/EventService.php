@@ -80,7 +80,7 @@ class EventService
             'events.details',
             'events.institute_id',
             'institutes.title as institute_title',
-            'users.name_en as user_created_by',
+            'users.name as user_created_by',
             'events.created_at as event_created_at',
             'events.updated_at as event_updated_at'
         ]);

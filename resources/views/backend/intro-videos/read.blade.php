@@ -36,7 +36,7 @@
                     <div class="col-md-6 custom-view-box">
                         <p class="label-text">{{ __('admin.intro-video.institute_title') }}</p>
                         <div class="input-box">
-                            {{ $introVideo->institute->title_en }}
+                            {{ $introVideo->institute->title }}
                         </div>
                     </div>
                 @endif

@@ -114,10 +114,10 @@ class YouthManagementController extends Controller
 
         $youthCourseEnrolls = YouthCourseEnroll::select([
             'youth_course_enrolls.id as id',
-            'youths.name_en as youth_name_en',
+            'youths.name as youth_name',
             'youth_batches.batch_id as youth_batch_id',
             'publish_courses.id as publish_course_id',
-            'batches.title_en as batch_title_en',
+            'batches.title as batch_title',
             'batches.batch_status',
         ]);
         $youthCourseEnrolls->join('publish_courses', 'publish_courses.id', '=', 'youth_course_enrolls.publish_course_id');
@@ -135,20 +135,20 @@ class YouthManagementController extends Controller
         $youthBatch = YouthBatch::where(['youth_course_enroll_id' => $youthCourseEnroll->id])->first();
         $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
         $institute = $youthCourseEnroll->publishCourse->institute;
-        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/batch/" . $youthBatch->batch->title_en;
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title) . "/batch/" . $youthBatch->batch->title;
 
         $youthInfo = [
             'youth_id' => $youthCourseEnroll->youth_id,
-            'youth_name' => $youthCourseEnroll->youth->name_en,
-            'youth_father_name' => $familyInfo->member_name_en,
+            'youth_name' => $youthCourseEnroll->youth->name,
+            'youth_father_name' => $familyInfo->member_name,
             'publish_course_id' => $youthCourseEnroll->publish_course_id,
-            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title_en,
+            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title,
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_title' => $institute->title,
             'from_date' => $youthBatch->batch->start_date,
             'to_date' => $youthBatch->batch->end_date,
-            'batch_name' => $youthBatch->batch->title_en,
+            'batch_name' => $youthBatch->batch->title,
             'course_coordinator_signature' => "storage/{$youthBatch->batch->trainingCenter->course_coordinator_signature}",
             'course_director_signature' => "storage/{$youthBatch->batch->trainingCenter->course_director_signature}",
         ];

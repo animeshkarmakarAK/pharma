@@ -43,7 +43,7 @@ class VideoService
 
         $video = Video::create($data);
         $tag_data = Arr::only($data, ['institute_id']);
-        $tag_data['tag_en'] = $data['title_en'];
+        $tag_data['tag'] = $data['title'];
         return $video->tags()->create($tag_data);
     }
 
@@ -57,8 +57,7 @@ class VideoService
         }
 
         $tag_data = Arr::only($data, ['institute_id']);
-        $tag_data['tag_en'] = $data['title_en'];
-        $tag_data['tag_bn'] = $data['title_bn'];
+        $tag_data['tag'] = $data['title'];
         $video->tags()->update($tag_data);
         return $video->update($data);
     }
@@ -66,7 +65,7 @@ class VideoService
     public function validator($request, $id = null): Validator
     {
         $rules = [
-            'title_en' => [
+            'title' => [
                 'required',
                 'string',
                 'max:191',
@@ -127,7 +126,7 @@ class VideoService
 
         $videos = Video::acl()->select([
             'videos.id as id',
-            'videos.title_en',
+            'videos.title',
             'videos.description',
             'videos.uploaded_video_path',
             'videos.video_type',
@@ -137,7 +136,7 @@ class VideoService
             'videos.created_at',
             'videos.updated_at',
             'institutes.title as institute_title',
-            'video_categories.title_en as video_category_title_en',
+            'video_categories.title as video_category_title',
         ]);
 
         $videos->join('institutes', 'videos.institute_id', 'institutes.id');

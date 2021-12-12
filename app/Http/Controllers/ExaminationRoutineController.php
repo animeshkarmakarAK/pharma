@@ -46,8 +46,8 @@ class ExaminationRoutineController extends Controller
 
     public function create(ExaminationRoutine $examinationRoutine ): View
     {
-        $batches = Batch::acl()->active()->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::acl()->active()->pluck('title_en','id');
+        $batches = Batch::acl()->active()->pluck('title','id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title','id');
         $trainers = User::acl()->where(['user_type_id' => 1 ])->get();
         $examinations = Examination::acl()->get();
 
@@ -166,10 +166,10 @@ class ExaminationRoutineController extends Controller
             $examination_name = $examination->code . " - ". substr($examination->exam_details, 0, 100) ;
 
             $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title_en;
+            $batch_name = $batch->title;
 
             $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title_en;
+            $training_center_name = $trainingCenter->title;
 
             $parameters['training_center_id'] = $training_center_id;
             $parameters['training_center_name'] = $training_center_name;
@@ -185,10 +185,10 @@ class ExaminationRoutineController extends Controller
                 ->get();
         }elseif ($batch_id){
             $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title_en;
+            $batch_name = $batch->title;
 
             $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title_en;
+            $training_center_name = $trainingCenter->title;
 
             $parameters['training_center_id'] = $training_center_id;
             $parameters['training_center_name'] = $training_center_name;

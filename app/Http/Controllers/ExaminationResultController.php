@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
+use App\Models\BaseModel;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -93,13 +94,14 @@ class ExaminationResultController extends Controller
     public function edit(ExaminationResult $examinationResult)
     {
 
-        $examinations = Examination::with('examinationType')->where(['row_status' => 1])->get();
-        $youths = Youth::where(['id' => $examinationResult->youth_id])->pluck('name_en','id');
+        $examinations = Examination::with('examinationType')->where(['row_status' => BaseModel::ROW_STATUS_ACTIVE])->get();
+        $youths = Youth::where(['id' => $examinationResult->youth_id])->pluck('name','id');
         return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations','youths'));
     }
 
     /**
      * @param Request $request
+     * @param ExaminationResult $examinationResult
      * @return RedirectResponse
      * @throws ValidationException
      */
@@ -164,7 +166,7 @@ class ExaminationResultController extends Controller
                 'youths.id as id',
                 'youth_course_enrolls.id as youth_registrations.youth_registration_no',
                 'youths.youth_registration_no as youth_registration_no',
-                'youths.name_en as youth_name_en',
+                'youths.name as youth_name',
                 DB::raw('DATE_FORMAT(youth_batches.enrollment_date,"%d %b, %Y %h:%i %p") AS enrollment_date'),
             ]
         );

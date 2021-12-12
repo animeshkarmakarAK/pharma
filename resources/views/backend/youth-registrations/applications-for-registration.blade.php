@@ -408,9 +408,9 @@
                         visible: true,
                     },
                     {
-                        title: "Name (En)",
-                        data: "name_en",
-                        name: "youths.name_en"
+                        title: "Name",
+                        data: "name",
+                        name: "youths.name"
                     },
                     {
                         title: "Application Date",

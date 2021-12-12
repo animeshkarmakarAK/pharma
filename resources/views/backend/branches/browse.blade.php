@@ -59,13 +59,13 @@
                     },
                     {
                         title: "{{__('admin.branch.title')}}",
-                        data: "title_en",
-                        name: "branches.title_en"
+                        data: "title",
+                        name: "branches.title"
                     },
                     {
                         title: "{{__('admin.branch.institute_title')}}",
-                        data: "institute_title_en",
-                        name: "title_en"
+                        data: "institute_title",
+                        name: "title"
                     },
                     {
                         title: "{{__('admin.common.action')}}",

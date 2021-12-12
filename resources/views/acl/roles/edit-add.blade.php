@@ -40,10 +40,10 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="title_en">Title (En) <span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" name="title_en" id="title_en"
-                                           value="{{$edit ? $role->title_en : old('title_en')}}"
-                                           placeholder="Title (En)" required>
+                                    <label for="title">Title <span style="color: red"> * </span></label>
+                                    <input type="text" class="form-control" name="title" id="title"
+                                           value="{{$edit ? $role->title : old('title')}}"
+                                           placeholder="Title" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -100,13 +100,9 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 code: {
                     required: true
@@ -116,11 +112,8 @@
                 }
             },
             messages:{
-                title_en: {
+                title: {
                     pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
                 },
             },
             submitHandler: function (htmlForm) {

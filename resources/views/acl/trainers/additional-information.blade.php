@@ -47,7 +47,7 @@
                                                             style="color: red"> * </span></label>
                                                     <input type="text" class="form-control" id="name"
                                                            name="name"
-                                                           value="{{ $trainer ? $trainer->name_en : old('title_en') }}"
+                                                           value="{{ $trainer ? $trainer->name : old('title') }}"
                                                            placeholder="{{ __('generic.name') }}">
                                                 </div>
                                             </div>

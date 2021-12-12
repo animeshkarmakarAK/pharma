@@ -57,8 +57,8 @@
                     },
                     {
                         title: "{{ __('admin.video_categories.title') }}",
-                        data: "title_en",
-                        name: "video_categories.title_en"
+                        data: "title",
+                        name: "video_categories.title"
                     },
                     {
                         title: "{{ __('admin.video_categories.institute_title') }}",

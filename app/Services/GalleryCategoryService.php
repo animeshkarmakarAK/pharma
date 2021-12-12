@@ -36,7 +36,7 @@ class GalleryCategoryService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title_en' => ['required', 'string', 'max:191'],
+            'title' => ['required', 'string', 'max:191'],
             'institute_id' => [
                 'required',
                 'int',
@@ -123,11 +123,11 @@ class GalleryCategoryService
         /** @var Builder|GalleryCategory $galleryCategories */
         $galleryCategories = GalleryCategory::acl()->select([
             'gallery_categories.id',
-            'gallery_categories.title_en',
+            'gallery_categories.title',
             'gallery_categories.featured',
             'institutes.title as institutes.title',
-            'programmes.title_en as programme_title_en',
-            'batches.title_en as batch_title_en'
+            'programmes.title as programme_title',
+            'batches.title as batch_title'
         ]);
         $galleryCategories->join('institutes', 'gallery_categories.institute_id', 'institutes.id');
         $galleryCategories->leftJoin('programmes', 'gallery_categories.programme_id', 'programmes.id');

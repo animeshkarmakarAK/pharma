@@ -48,7 +48,7 @@ class YouthService
         $youths = Youth::select([
             DB::raw('max(youths.id) AS id'),
             DB::raw('max(youths.name) AS name'),
-            DB::raw('max(institutes.title) AS institute_title_en'),
+            DB::raw('max(institutes.title) AS institute_title'),
             DB::raw('max(institutes.id) AS institute_id'),
         ]);
         $youths->leftJoin('youth_course_enrolls', 'youths.id', '=', 'youth_course_enrolls.youth_id');
@@ -59,13 +59,10 @@ class YouthService
         if ($instituteId) {
             $youths->where(['institutes.id' => $instituteId]);
         }
+        $youthName = $request->youth_name;
 
-        $youthNameEn = $request->youth_name_en;
-        $youthNameBn = $request->youth_name_bn;
-        $youthRegNo = $request->reg_no;
-
-        if ($youthNameEn) {
-            $youths->where('youths.name', 'LIKE', '%' . $youthNameEn . '%');
+        if ($youthName) {
+            $youths->where('youths.name', 'LIKE', '%' . $youthName . '%');
         }
 
 
@@ -98,7 +95,7 @@ class YouthService
                 if (!empty($youth->mobile)) {
                     try {
                         $link = route('frontend.youth-enrolled-courses');
-                        $youthName = strtoupper($youth->name_en);
+                        $youthName = strtoupper($youth->name);
                         $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
                         $smsResponse = sms()->send($youth->mobile, $messageBody);
                         if (!$smsResponse->is_successful()) {
@@ -114,7 +111,7 @@ class YouthService
                     $youthEmailAddress = $youth->email;
                     $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: $link </p>";
                     $mailSubject = "Congratulations! Your application has been accepted";
-                    $youthName = $youth->name_en;
+                    $youthName = $youth->name;
                     try {
                         Mail::to($youthEmailAddress)->send(new \App\Mail\YouthApplicationAcceptMail($mailSubject, $youth->access_key, $mailMsg, $youthName));
                     } catch (\Throwable $exception) {
@@ -173,11 +170,7 @@ class YouthService
                 "required",
                 "unique:youths,access_key"
             ],
-            "name_en" => [
-                "nullable",
-                "string"
-            ],
-            "name_bn" => [
+            "name" => [
                 "nullable",
                 "string"
             ],
@@ -196,7 +189,7 @@ class YouthService
                     if ($locDivision) {
                         return true;
                     } else {
-                        $locDivision = LocDivision::all()->pluck('title_en')->toArray();
+                        $locDivision = LocDivision::all()->pluck('title')->toArray();
                         $fails("The present address division name in row " . $row_number . " will be " . implode(', ', $locDivision));
                     }
                 },
@@ -209,7 +202,7 @@ class YouthService
                     if ($locDistrict) {
                         return true;
                     } else {
-                        $locDistrict = LocDistrict::where('loc_division_id', $data['present_address_division_id'])->pluck('title_en')->toArray();
+                        $locDistrict = LocDistrict::where('loc_division_id', $data['present_address_division_id'])->pluck('title')->toArray();
                         $fails("The present address district name in row " . $row_number . " will be " . implode(', ', $locDistrict ?? []));
                     }
                 },
@@ -222,7 +215,7 @@ class YouthService
                     if ($locUpazila) {
                         return true;
                     } else {
-                        $locUpazila = LocUpazila::where('loc_district_id', $data['present_address_district_id'])->pluck('title_en')->toArray();
+                        $locUpazila = LocUpazila::where('loc_district_id', $data['present_address_district_id'])->pluck('title')->toArray();
                         $fails("The present address upazila name in row " . $row_number . " will be " . implode(', ', $locUpazila ?? []));
                     }
                 },
@@ -239,7 +232,7 @@ class YouthService
                     if ($locDivision) {
                         return true;
                     } else {
-                        $locDivision = LocDivision::all()->pluck('title_en')->toArray();
+                        $locDivision = LocDivision::all()->pluck('title')->toArray();
                         $fails("The permanent address division name in row " . $row_number . " will be " . implode(', ', $locDivision));
                     }
                 },
@@ -252,7 +245,7 @@ class YouthService
                     if ($locDistrict) {
                         return true;
                     } else {
-                        $locDistrict = LocDistrict::where('loc_division_id', $data['permanent_address_division_id'])->pluck('title_en')->toArray();
+                        $locDistrict = LocDistrict::where('loc_division_id', $data['permanent_address_division_id'])->pluck('title')->toArray();
                         $fails("The permanent address district name in row " . $row_number . " will be " . implode(', ', $locDistrict ?? []));
                     }
                 },
@@ -265,7 +258,7 @@ class YouthService
                     if ($locUpazila) {
                         return true;
                     } else {
-                        $locUpazila = LocUpazila::where('loc_district_id', $data['permanent_address_district_id'])->pluck('title_en')->toArray();
+                        $locUpazila = LocUpazila::where('loc_district_id', $data['permanent_address_district_id'])->pluck('title')->toArray();
                         $fails("The permanent address upazila name in row " . $row_number . " will be " . implode(', ', $locUpazila ?? []));
                     }
                 },
@@ -415,11 +408,7 @@ class YouthService
             "member_mobile.regex" => "The :attribute in row " . $row_number . " is not valid format as like 1XXXXXXXXXXX"
         ];
         $rules = [
-            "member_name_en" => [
-                "nullable",
-                "string"
-            ],
-            "member_name_bn" => [
+            "member_name" => [
                 "nullable",
                 "string"
             ],
@@ -513,16 +502,16 @@ class YouthService
     {
         $youth = Youth::select([
             'youths.id as id',
-            'youths.name_en',
+            'youths.name',
             'youths.mobile',
             DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',
             'courses.id as courses.id',
             'institutes.title as institutes.title',
-            'branches.title_en as branches.title_en',
-            'training_centers.title_en as training_centers.title_en',
-            'programmes.title_en as programmes.title_en',
-            'courses.title_en as courses.title_en',
+            'branches.title as branches.title',
+            'training_centers.title as training_centers.title',
+            'programmes.title as programmes.title',
+            'courses.title as courses.title',
             'youth_course_enrolls.id as youth_course_enroll_id',
             'youth_course_enrolls.enroll_status',
             'youth_course_enrolls.payment_status',

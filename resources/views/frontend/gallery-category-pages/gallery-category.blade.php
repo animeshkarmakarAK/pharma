@@ -5,7 +5,7 @@
 @extends($layout)
 
 @section('title')
-    অ্যালবাম - ({{ $galleryCategory->title_bn }})
+    অ্যালবাম - ({{ $galleryCategory->title }})
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                 <div class="col-md-12 p-0">
                     <div class="card mb-0">
                         <div class="card-header p-5">
-                            <h2 class="text-center text-dark font-weight-bold mt-4">{{ $galleryCategory->title_bn }}</h2>
+                            <h2 class="text-center text-dark font-weight-bold mt-4">{{ $galleryCategory->title }}</h2>
                         </div>
                         <div class="card-body">
                             <div class="row p-4">

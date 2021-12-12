@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold text-primary"> {{ __('admin.youth.certificate')  }}
-                            of {{ $youth->name_en }}</h3>
+                            of {{ $youth->name }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -43,7 +43,7 @@
                                     @foreach($youthCourseEnrolls as $youthCourseEnroll)
                                         <tr>
                                             <td>{{ ++$sl }}</td>
-                                            <td>{{ $youthCourseEnroll->publishCourse->course->title_en }}</td>
+                                            <td>{{ $youthCourseEnroll->publishCourse->course->title}}</td>
                                             <td>
                                                 @if($youthCourseEnroll->youth_batch_id!=null && $youthCourseEnroll->batch_status==\App\Models\Batch::BATCH_STATUS_COMPLETE)
                                                     <a href="{{ route('admin.youths.certificate', $youthCourseEnroll->id) }}"

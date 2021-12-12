@@ -82,8 +82,8 @@
                     },
                     {
                         title: "Name",
-                        data: "name_en",
-                        name: "users.name_en"
+                        data: "name",
+                        name: "users.name"
                     },
                     {
                         title: "User Type",
@@ -99,7 +99,7 @@
                     {
                         title: "District",
                         data: "loc_district_name",
-                        name: "loc_districts.title_en",
+                        name: "loc_districts.title",
                         visible: false,
                     },
                     {
@@ -217,26 +217,13 @@
                         profile_pic: {
                             accept: "image/*",
                         },
-                        name_en: {
+                        name: {
                             required: true,
                             pattern: /^[a-zA-Z0-9 ]*$/,
-                        },
-                        name_bn: {
-                            required: true,
-                            pattern: /^[\s'\u0980-\u09ff]+$/,
                         },
                         email: {
                             required: true,
                             pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                            /*remote: {
-                                param: {
-                                    type: "post",
-                                    url: "{{ route('admin.users.check-unique-user-email') }}",
-                                },
-                                depends: function (element) {
-                                    return $(element).val() !== $('#email').attr('data-unique-user-email');
-                                }
-                            },*/
                         },
                         user_type_id: {
                             required: true
@@ -267,11 +254,8 @@
                         profile_pic: {
                             accept: "Please input valid image file",
                         },
-                        name_en: {
-                            pattern: "Please fill this field in English."
-                        },
-                        name_bn: {
-                            pattern: "Please fill this field in Bangla."
+                        name: {
+                            pattern: "Please fill this field"
                         },
                     },
                     submitHandler: function (htmlForm) {

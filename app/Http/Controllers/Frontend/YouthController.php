@@ -122,20 +122,20 @@ class YouthController extends Controller
 
         $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
         $institute = $youthCourseEnroll->publishCourse->institute;
-        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title_en) . "/batch/" . $youthBatch->batch->title_en;
+        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title) . "/batch/" . $youthBatch->batch->title;
 
         $youthInfo = [
             'youth_id' => $youthCourseEnroll->youth_id,
-            'youth_name' => $youthCourseEnroll->youth->name_en,
-            'youth_father_name' => $familyInfo->member_name_en,
+            'youth_name' => $youthCourseEnroll->youth->name,
+            'youth_father_name' => $familyInfo->member_name,
             'publish_course_id' => $youthCourseEnroll->publish_course_id,
-            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title_en,
+            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title,
             'path' => $path,
             "register_no" => $youthCourseEnroll->youth->youth_registration_no,
             'institute_title' => $institute->title,
             'from_date' => $youthBatch->batch->start_date,
             'to_date' => $youthBatch->batch->end_date,
-            'batch_name' => $youthBatch->batch->title_en,
+            'batch_name' => $youthBatch->batch->title,
             'course_coordinator_signature' => "storage/{$youthBatch->batch->trainingCenter->course_coordinator_signature}",
             'course_director_signature' => "storage/{$youthBatch->batch->trainingCenter->course_director_signature}",
         ];
@@ -179,8 +179,7 @@ class YouthController extends Controller
 
             $videos = Video::select([
                 'videos.id as id',
-                'videos.title_en',
-                'videos.title_bn',
+                'videos.title',
                 'videos.description',
                 'videos.youtube_video_id',
                 'videos.video_type',
@@ -194,11 +193,10 @@ class YouthController extends Controller
             $videos->leftJoin('video_categories', 'video_category_id', '=', 'video_categories.id');
 
             if ($request->input('searchQuery')) {
-                $videos->where('videos.title_en', 'LIKE', '%' . $request->input('searchQuery') . '%')
-                    ->orWhere('videos.title_bn', 'LIKE', '%' . $request->input('searchQuery') . '%')
+                $videos->where('videos.title', 'LIKE', '%' . $request->input('searchQuery') . '%')
+                    ->orWhere('videos.title', 'LIKE', '%' . $request->input('searchQuery') . '%')
                     ->orWhere('videos.description', 'LIKE', '%' . $request->input('searchQuery') . '%')
-                    ->orWhere('video_categories.title_en', 'LIKE', '%' . $request->input('searchQuery') . '%')
-                    ->orWhere('video_categories.title_bn', 'LIKE', '%' . $request->input('searchQuery') . '%');
+                    ->orWhere('video_categories.title', 'LIKE', '%' . $request->input('searchQuery') . '%');
             }
 
             if (!empty($request->input('institute_id'))) {
@@ -332,7 +330,7 @@ class YouthController extends Controller
         $userInfo['mobile'] = $YouthCourseEnroll->youth->mobile;
         $userInfo['email'] = $YouthCourseEnroll->youth->email;
         $userInfo['address'] = "Dhaka-1212";
-        $userInfo['name'] = $YouthCourseEnroll->youth->name_en;
+        $userInfo['name'] = $YouthCourseEnroll->youth->name;
 
         $paymentInfo['trID'] = $youthId . rand(100, 999);
         $paymentInfo['amount'] = $YouthCourseEnroll->publishCourse->course->course_fee;
@@ -459,7 +457,7 @@ class YouthController extends Controller
             $mailSubject = "Your payment successfully complete";
             $youthEmailAddress = $request->cust_info['cust_email'];
             $mailMsg = "Congratulation! Your payment successfully completed.";
-            $youthName = $youthCourseEnroll->youth->name_en;
+            $youthName = $youthCourseEnroll->youth->name;
             Mail::to($youthEmailAddress)->send(new \App\Mail\YouthPaymentSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
 
             return 'Payment successful';

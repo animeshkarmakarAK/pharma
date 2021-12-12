@@ -29,8 +29,6 @@ class InstituteService
         $institute = Institute::create($instituteData);
 
         $data = Arr::only($data, ['title', 'contact_person_email', 'contact_person_password']);
-        $data['name_en'] = $data['title'];
-        unset($data['title']);
         $data['email'] = $data['contact_person_email'];
         unset($data['contact_person_email']);
         $data['institute_id'] = $institute->id;
@@ -184,7 +182,7 @@ class InstituteService
 
         $institute->fill($data);
 
-        $data['name_en'] = $data['title'];
+        $data['name'] = $data['title'];
         $data['email'] = $data['contact_person_email'];
         if (!empty($data['logo'])) {
             $data['profile_pic'] = $data['logo'];

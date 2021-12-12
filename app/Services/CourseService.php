@@ -39,7 +39,7 @@ class CourseService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title_en' => [
+            'title' => [
                 'required',
                 'string',
                 'max:191'

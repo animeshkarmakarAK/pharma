@@ -58,9 +58,9 @@
                         name: "title"
                     },
                     {
-                        title: "Title (En)",
-                        data: "title_en",
-                        name: "title_en"
+                        title: "Title",
+                        data: "title",
+                        name: "title"
                     },
                     {
                         title: "BBS Code",

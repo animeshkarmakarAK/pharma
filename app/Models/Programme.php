@@ -13,8 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class Programme
  * @package App\Models
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property int institute_id
  * @property string|null logo
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()

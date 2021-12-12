@@ -21,9 +21,9 @@
                     </div>
 
                     <div class="col-md-6 custom-view-box">
-                        <p class="label-text">{{ __('Title(BN)') }}</p>
+                        <p class="label-text">{{ __('Title') }}</p>
                         <div class="input-box">
-                            {{ $locDivision->title_en ?? ""}}
+                            {{ $locDivision->title ?? ""}}
                         </div>
                     </div>
 

@@ -13,6 +13,6 @@ trait LocUpazilaBelongsToRelation
     {
         /** @var Model $this */
         return $this->belongsTo(LocUpazila::class, 'loc_upazila_id')
-            ->select(['id', 'loc_district_id', 'title_en', 'title']);
+            ->select(['id', 'loc_district_id', 'title']);
     }
 }

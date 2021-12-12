@@ -45,9 +45,9 @@
                                                         <li style="list-style: none;">
                                                             <p>
                                                                 {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$sl) }}
-                                                                ) {{ $publishedCourse->trainingCenter? $publishedCourse->trainingCenter->title_bn.',':''}}
-                                                                {{ $publishedCourse->branch? $publishedCourse->branch->title_bn.',':''}}
-                                                                {{ $publishedCourse->institute? $publishedCourse->institute->title_bn: ''}}
+                                                                ) {{ $publishedCourse->trainingCenter? $publishedCourse->trainingCenter->title.',':''}}
+                                                                {{ $publishedCourse->branch? $publishedCourse->branch->title.',':''}}
+                                                                {{ $publishedCourse->institute? $publishedCourse->institute->title: ''}}
                                                             </p>
                                                             <p class="personmobile">
                                                                 {{ $publishedCourse->institute? $publishedCourse->institute->primary_mobile: ''}} </p>

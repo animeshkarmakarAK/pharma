@@ -22,8 +22,7 @@ class ProgrammeFactory extends Factory
     public function definition(): array
     {
         return [
-            'title_en' => $this->faker->colorName,
-            'title_bn' => $this->faker->colorName,
+            'title' => $this->faker->colorName,
             'description' => $this->faker->sentence,
             'logo' => $this->faker->image(),
             'code' => $this->faker->unique()->postcode,

@@ -25,7 +25,7 @@
                             <div class="col-md-6 custom-view-box">
                                 <p class="label-text">{{__('admin.course.title')}} </p>
                                 <div class="input-box" id="course_title">
-                                    {{optional($publishCourse->course)->title_en}}
+                                    {{optional($publishCourse->course)->title}}
                                 </div>
                             </div>
 

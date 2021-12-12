@@ -31,9 +31,9 @@
                         </div>
                         <div class="d-flex justify-content-center user-info normal-line-height mt-3">
                             <div>
-                                {{ optional($youth)->name_bn }}
+                                {{ optional($youth)->name }}
                             </div>
-                            <p class="text-center ml-2">({{ optional($youth)->name_en}})</p>
+                            <p class="text-center ml-2">({{ optional($youth)->name}})</p>
                         </div>
                     </div>
                 </div>
@@ -156,8 +156,8 @@
                     },
                     {
                         title: "কোর্সের নাম",
-                        data: "course_title_bn",
-                        name: "courses.title_bn"
+                        data: "course_title",
+                        name: "courses.title"
                     },
                     {
                         title: "কোর্স ফি",

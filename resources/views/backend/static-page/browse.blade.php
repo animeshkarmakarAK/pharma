@@ -63,8 +63,8 @@
                     },
                     {
                         title: "{{ __('admin.static_page.title') }}",
-                        data: "title_en",
-                        name: "title_en"
+                        data: "title",
+                        name: "title"
                     },
                     {
                         title: "{{ __('admin.static_page.link') }}",

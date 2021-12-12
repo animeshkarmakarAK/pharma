@@ -17,8 +17,7 @@ use App\Traits\ScopeAclTrait;
  * @package App\Models
  *
  * @property int $id
- * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string image
  * @property bool featured
  * @property int row_status

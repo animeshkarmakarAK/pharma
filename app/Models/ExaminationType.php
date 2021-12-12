@@ -14,7 +14,7 @@ use App\Traits\ScopeAclTrait;
  * Class ExaminationType
  * @package App\Models
  * @property int institute_id
- * @property string|null title_en
+ * @property string|null title
  * @property int row_status
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()

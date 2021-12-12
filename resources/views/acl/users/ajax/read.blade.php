@@ -19,8 +19,8 @@
                             height="100" width="100" class="rounded-circle" alt="Cinque Terre">
                     </div>
                     <div class="d-flex justify-content-center user-info normal-line-height mt-3">
-                        <p class="header text-center">{{ $user->name_bn ?? "" }}</p>
-                        <p class="text-center ml-2">({{ $user->name_en ?? ""}})</p>
+                        <p class="header text-center">{{ $user->name ?? "" }}</p>
+                        <p class="text-center ml-2">({{ $user->name ?? ""}})</p>
                     </div>
                     <p class="designation text-center">{{ $user->userType->title ?? "" }}</p>
                 </div>
@@ -74,7 +74,7 @@
                     <div class="col-md-6 custom-view-box">
                         <p class="label-text">{{ __('Name(EN)') }}</p>
                         <div class="input-box">
-                            {{ $user->name_en ?? "" }}
+                            {{ $user->name ?? "" }}
                         </div>
                     </div>
                     <div class="col-md-6 custom-view-box">

@@ -36,11 +36,11 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{ __('admin.video_categories.title') }}<span
+                                    <label for="title">{{ __('admin.video_categories.title') }}<span
                                             class="required"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $videoCategory->title_en : old('title_en') }}"
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $videoCategory->title : old('title') }}"
                                            placeholder="{{ __('admin.video_categories.title') }}">
                                 </div>
                             </div>

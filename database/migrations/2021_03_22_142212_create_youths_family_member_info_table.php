@@ -16,7 +16,7 @@ class CreateYouthsFamilyMemberInfoTable extends Migration
         Schema::create('youths_family_member_info', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('youth_id')->index('youth_family_members_info_youth_id');
-            $table->string('member_name_en', 191)->nullable();
+            $table->string('member_name', 191)->nullable();
             $table->string('mobile', 20)->nullable();
             $table->string('educational_qualification', 191)->nullable();
             $table->string('relation_with_youth', 191);

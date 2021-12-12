@@ -57,11 +57,11 @@
                                             name="training_center_id"
                                             id="training_center_id"
                                             data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-dependent-fields="#batch_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $routine->trainingCenter->title_en, 'id' =>  $routine->training_center_id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $routine->trainingCenter->title, 'id' =>  $routine->training_center_id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
@@ -82,11 +82,11 @@
                                             name="batch_id"
                                             id="batch_id"
                                             data-model="{{base64_encode(App\Models\Batch::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-depend-on-optional="training_center_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $routine->batch->title_en, 'id' =>  $routine->batch_id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $routine->batch->title, 'id' =>  $routine->batch_id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
@@ -325,7 +325,7 @@
                                 >
                                 <option value="">{{__('admin.daily_routine.select')}}</option>
                                 @foreach($trainers as $trainer)
-                                    <option value="{{$trainer->id}}" <%=edit && (data.user_id == {{$trainer->id}}) ? 'selected': ''%>>{{$trainer->name_en}}</option>
+                                    <option value="{{$trainer->id}}" <%=edit && (data.user_id == {{$trainer->id}}) ? 'selected': ''%>>{{$trainer->name}}</option>
                                 @endforeach
                             </select>
                         </div>

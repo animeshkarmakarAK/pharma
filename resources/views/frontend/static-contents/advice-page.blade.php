@@ -20,7 +20,7 @@
                                         <div class="form-body fix">
                                             <div class="advice-portlet-title fix">
                                                 <div class="text-center">
-                                                    <h3 class="green-heading title-content">{{ $currentInstitute->title_en? $currentInstitute->title_bn:'' }}
+                                                    <h3 class="green-heading title-content">{{ $currentInstitute->title ? $currentInstitute->title:'' }}
                                                         সম্পর্কে যদি আপনার কোনো মতামত থাকে তাহলে নিচের ফর্মটি পূরণ করে
                                                         সংরক্ষণ করুন</h3>
                                                 </div>

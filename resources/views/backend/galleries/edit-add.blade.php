@@ -45,9 +45,9 @@
                                         name="gallery_category_id"
                                         id="gallery_category_id"
                                         data-model="{{base64_encode(App\Models\GalleryCategory::class)}}"
-                                        data-label-fields="{title_en}"
+                                        data-label-fields="{title}"
                                         @if($edit && $gallery->gallery_category_id)
-                                        data-preselected-option="{{json_encode(['text' => $gallery->galleryCategory->title_en, 'id' => $gallery->gallery_category_id])}}"
+                                        data-preselected-option="{{json_encode(['text' => $gallery->galleryCategory->title, 'id' => $gallery->gallery_category_id])}}"
                                         @endif
                                         data-placeholder="{{__('admin.gallery.album')}} "
                                 >

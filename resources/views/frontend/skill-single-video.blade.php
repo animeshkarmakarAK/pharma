@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header p-5">
-                        <h2 class="text-center text-dark font-weight-bold">{{ !empty($youthVideos)? $youthVideos->title_bn:'' }}</h2>
+                        <h2 class="text-center text-dark font-weight-bold">{{ $youthVideos && $youthVideos->title ? $youthVideos->title:'' }}</h2>
                     </div>
                     {{--<div class="card-tools">
                         <div class="m-2">

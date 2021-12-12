@@ -64,9 +64,9 @@
                     },
 
                     {
-                        title: "Title (En)",
-                        data: "title_en",
-                        name: "title_en"
+                        title: "Title",
+                        data: "title",
+                        name: "title"
                     },
                     {
                         title: "BBS Code",
@@ -136,10 +136,6 @@
                 $(".edit-add-form").validate({
                     rules: {
                         title: {
-                            required: true,
-                            pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
-                        },
-                        title_en: {
                             required: true,
                         },
                         bbs_code: {

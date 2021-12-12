@@ -149,7 +149,7 @@ class YouthRegistrationService
             'courses.course_fee as course_fee',
             'youth_batches.batch_id as batch_id',
             'batches.batch_status as batch_status',
-            'batches.title_en as batch_title_en',
+            'batches.title as batch_title',
         ]);
 
         $youthCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
@@ -188,7 +188,7 @@ class YouthRegistrationService
             })
             ->addColumn('batch_status', static function (YouthCourseEnroll $youthCourseEnroll) {
                 return '<span href="#" class="badge ' . ($youthCourseEnroll->batch_id ? ($youthCourseEnroll->batch_status ? ($youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'badge-success' : 'badge-info') : 'badge-secondary') : 'badge-secondary') . '"> '
-                    . ($youthCourseEnroll->batch_id ? ($youthCourseEnroll->batch_status ? ($youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'Complete - ' . $youthCourseEnroll->batch_title_en : 'On Going - ' . $youthCourseEnroll->batch_title_en) : 'Assigned to - ' . $youthCourseEnroll->batch_title_en) : 'Not Assigned') . ' </span>';
+                    . ($youthCourseEnroll->batch_id ? ($youthCourseEnroll->batch_status ? ($youthCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'Complete - ' . $youthCourseEnroll->batch_title : 'On Going - ' . $youthCourseEnroll->batch_title) : 'Assigned to - ' . $youthCourseEnroll->batch_title) : 'Not Assigned') . ' </span>';
             })
             ->rawColumns(['enroll_status', 'payment_status', 'action', 'enroll_last_date', 'batch_status'])
             ->toJson();

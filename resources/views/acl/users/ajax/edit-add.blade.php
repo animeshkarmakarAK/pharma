@@ -49,11 +49,11 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="name_en">Name (English) <span style="color: red"> * </span></label>
-                        <input type="text" class="form-control" id="name_en"
-                               name="name_en"
-                               value="{{$edit ? $user->name_en : old('name_en')}}"
-                               placeholder="Name (English)">
+                        <label for="name">Name <span style="color: red"> * </span></label>
+                        <input type="text" class="form-control" id="name"
+                               name="name"
+                               value="{{$edit ? $user->name : old('name')}}"
+                               placeholder="Name">
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -99,9 +99,9 @@
                                     name="institute_id"
                                     id="institute_id"
                                     data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                    data-label-fields="{title_en}"
+                                    data-label-fields="{title}"
                                     @if($edit && $user->institute)
-                                    data-preselected-option="{{json_encode(['text' =>  $user->institute->title_en, 'id' =>  $user->institute->id])}}"
+                                    data-preselected-option="{{json_encode(['text' =>  $user->institute->title, 'id' =>  $user->institute->id])}}"
                                     @endif
                                     data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
@@ -118,9 +118,9 @@
                                     name="loc_district_id"
                                     id="loc_district_id"
                                     data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
-                                    data-label-fields="{title_en}"
+                                    data-label-fields="{title}"
                                     @if($edit && $user->locDistrict)
-                                    data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title_en, 'id' =>  $user->locDistrict->id])}}"
+                                    data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title, 'id' =>  $user->locDistrict->id])}}"
                                     @endif
                                     data-placeholder="{{ __('generic.select_placeholder') }}"
                             >
@@ -136,9 +136,9 @@
                                     name="loc_division_id"
                                     id="loc_division_id"
                                     data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
-                                    data-label-fields="{title_en}"
+                                    data-label-fields="{title}"
                                     @if($edit && $user->locDivision)
-                                    data-preselected-option="{{json_encode(['text' =>  $user->locDivision->title_en, 'id' =>  $user->locDivision->id])}}"
+                                    data-preselected-option="{{json_encode(['text' =>  $user->locDivision->title, 'id' =>  $user->locDivision->id])}}"
                                     @endif
                                     data-placeholder="{{ __('generic.select_placeholder') }}"
                             >

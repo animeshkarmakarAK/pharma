@@ -27,7 +27,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.videos.title')  }}</p>
                     <div class="input-box">
-                        {{ $video->title_en }}
+                        {{ $video->title }}
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.videos.video_category')  }}</p>
                     <div class="input-box">
-                        {{ optional($video->videoCategory)->title_en }}
+                        {{ optional($video->videoCategory)->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">

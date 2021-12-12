@@ -22,7 +22,7 @@ class StaticPageService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title_en' => ['required', 'string', 'max:191'],
+            'title' => ['required', 'string', 'max:191'],
             'institute_id' => ['bail', 'nullable', 'int', 'exists:institutes,id'],
             'page_id' => [
                 'required',
@@ -58,7 +58,7 @@ class StaticPageService
 
         $staticPage = StaticPage::acl()->select([
             'static_pages.id as id',
-            'static_pages.title_en',
+            'static_pages.title',
             'static_pages.institute_id',
             'static_pages.page_id',
             'static_pages.page_contents',

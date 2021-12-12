@@ -16,7 +16,6 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $title
- * @property string $title_en
  * @property int $loc_division_id
  * @property int $loc_district_id
  * @property string|null $district_bbs_code

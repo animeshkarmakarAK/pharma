@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property int $id
  * @property string $title
- * @property string|null $title_en
  * @property string|null $bbs_code
  * @property int $loc_division_id
  * @property bool|null $is_sadar_district

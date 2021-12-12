@@ -31,9 +31,9 @@
                         </div>
                         <div class="d-flex justify-content-center user-info normal-line-height mt-3">
                             <div>
-                                {{ optional($youth)->name_bn }}
+                                {{ optional($youth)->name }}
                             </div>
-                            <p class="text-center ml-2">({{ optional($youth)->name_en}})</p>
+                            <p class="text-center ml-2">({{ optional($youth)->name }})</p>
                         </div>
                     </div>
                 </div>
@@ -187,19 +187,11 @@
 
                     <div class="card-body row">
                         <div class="col-md-6 custom-view-box">
-                            <p class="label-text">নাম(ইংলিশ)</p>
+                            <p class="label-text">নাম</p>
                             <div class="input-box">
-                                {{ optional($youth)->name_en}}
+                                {{ optional($youth)->name}}
                             </div>
                         </div>
-
-                        <div class="col-md-6 custom-view-box">
-                            <p class="label-text">নাম(বাংলা)</p>
-                            <div class="input-box">
-                                {{ optional($youth)->name_bn}}
-                            </div>
-                        </div>
-                        {{--@dd($youthSelfInfo)--}}
 
                         <div class="col-md-6 custom-view-box">
                             <p class="label-text">লিঙ্গ</p>
@@ -350,7 +342,7 @@
                                             <div class="col-md-6 custom-view-box">
                                                 <p class="label-text">নাম</p>
                                                 <div class="input-box">
-                                                    {{ optional($father)->member_name_en }}
+                                                    {{ optional($father)->member_name }}
                                                 </div>
                                             </div>
                                             <div class="col-md-6 custom-view-box">
@@ -385,7 +377,7 @@
                                             <div class="col-md-6 custom-view-box">
                                                 <p class="label-text">নাম</p>
                                                 <div class="input-box">
-                                                    {{ optional($mother)->member_name_en}}
+                                                    {{ optional($mother)->member_name}}
                                                 </div>
                                             </div>
                                             <div class="col-md-6 custom-view-box">
@@ -425,7 +417,7 @@
                                                 <div class="col-md-6 custom-view-box">
                                                     <p class="label-text">নাম</p>
                                                     <div class="input-box">
-                                                        {{ $guardian->member_name_en ?? "" }}
+                                                        {{ $guardian->member_name ?? "" }}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 custom-view-box">

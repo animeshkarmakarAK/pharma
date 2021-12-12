@@ -20,7 +20,7 @@ class YouthBatchService
                 'youths.id as id',
                 'youth_course_enrolls.id as youth_registrations.youth_registration_no',
                 'youths.youth_registration_no as youth_registration_no',
-                'youths.name_en as youth_name_en',
+                'youths.name as youth_name',
                 DB::raw('DATE_FORMAT(youth_batches.enrollment_date,"%d %b, %Y %h:%i %p") AS enrollment_date'),
             ]
         );

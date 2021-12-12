@@ -17,8 +17,7 @@ class CreateStaticPagesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('institute_id')->nullable();
             $table->string('page_id', 191)->index('static_page_i_page_id');
-            $table->string('title_en', 191);
-            $table->string('title_bn', 191)->nullable();
+            $table->string('title', 191)->nullable();
             $table->text('page_contents');
             $table->unsignedInteger('created_by')->nullable();
             $table->tinyInteger('row_status')->default(1);

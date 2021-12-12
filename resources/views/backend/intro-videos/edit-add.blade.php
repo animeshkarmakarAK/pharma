@@ -117,11 +117,10 @@
                 $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
             },
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-
                 youtube_video_url: {
                     required: true,
                     pattern: /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
@@ -141,8 +140,8 @@
                 },
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
+                title: {
+                    pattern: "This field is required.",
                 },
                 youtube_video_id: {
                     pattern: "invalid youtube video url",

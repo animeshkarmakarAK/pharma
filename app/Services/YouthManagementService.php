@@ -34,7 +34,7 @@ class YouthManagementService
     {
         $youth = Youth::select([
             'youths.id as id',
-            'youths.name_en',
+            'youths.name',
             'youths.mobile',
             DB::raw('DATE_FORMAT(youths.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'youths.updated_at',
@@ -143,12 +143,12 @@ class YouthManagementService
 
     public function getDivisionId($title): int
     {
-        return (LocDivision::where("title_en", $title)->first())->id ?? 0;
+        return (LocDivision::where("title", $title)->first())->id ?? 0;
     }
 
     public function getDistrictId($title, $divisionTitle = null): int
     {
-        $locDistrict = LocDistrict::where("title_en", $title);
+        $locDistrict = LocDistrict::where("title", $title);
         if ($divisionTitle) {
             $locDistrict->where("loc_division_id", $this->getDivisionId($divisionTitle));
         }

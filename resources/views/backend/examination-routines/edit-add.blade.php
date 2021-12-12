@@ -56,11 +56,11 @@
                                             name="training_center_id" required
                                             id="training_center_id"
                                             data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-dependent-fields="#batch_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $examinationRoutine->trainingCenter->title_en, 'id' =>  $examinationRoutine->training_center_id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $examinationRoutine->trainingCenter->title, 'id' =>  $examinationRoutine->training_center_id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
@@ -81,11 +81,11 @@
                                             name="batch_id" required
                                             id="batch_id"
                                             data-model="{{base64_encode(App\Models\Batch::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-depend-on-optional="training_center_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $examinationRoutine->batch->title_en, 'id' =>  $examinationRoutine->batch_id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $examinationRoutine->batch->title, 'id' =>  $examinationRoutine->batch_id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >

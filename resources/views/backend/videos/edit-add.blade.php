@@ -37,9 +37,9 @@
                                 <div class="form-group">
                                     <label for="title_en">{{__('admin.videos.title')  }}<span
                                             class="required"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $video->title_en : old('title_en') }}"
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $video->title : old('title') }}"
                                            placeholder="{{__('admin.videos.title')  }}">
                                 </div>
                             </div>
@@ -75,10 +75,10 @@
                                             name="video_category_id"
                                             id="video_category_id"
                                             data-model="{{base64_encode(App\Models\VideoCategory::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-depend-on="institute_id"
                                             @if($edit && $video->videoCategory)
-                                            data-preselected-option="{{json_encode(['text' =>  $video->videoCategory->title_en, 'id' =>  $video->videoCategory->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $video->videoCategory->title, 'id' =>  $video->videoCategory->id])}}"
                                             @endif
                                             data-placeholder="{{__('admin.videos.video_category')  }}"
                                     >
@@ -240,7 +240,7 @@
                 $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
             },
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -268,8 +268,8 @@
                 },
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
+                title: {
+                    pattern: "This field is required.",
                 },
                 youtube_video_id: {
                     pattern: "invalid youtube video url",

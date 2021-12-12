@@ -86,12 +86,12 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
 
         /** Self Information */
         if (strtolower($row[0]) != self::NULL) {
-            $requiredFields['name_en'] = $row[0];
-            $selfInfo['member_name_en'] = $row[0];
+            $requiredFields['name'] = $row[0];
+            $selfInfo['member_name'] = $row[0];
         }
         if (strtolower($row[1]) != self::NULL) {
-            $requiredFields['name_bn'] = $row[1];
-            $selfInfo['member_name_bn'] = $row[1];
+            $requiredFields['name'] = $row[1];
+            $selfInfo['member_name'] = $row[1];
             $selfInfo['mobile'] = $requiredFields['mobile'];
         }
         if (strtolower($row[15]) != self::NULL) {
@@ -143,8 +143,7 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
         $motherInfo = [];
         $guardianInfo = [];
 
-        $fatherInfo['member_name_en'] = $row[33];
-        $fatherInfo['member_name_bn'] = $row[34];
+        $fatherInfo['member_name'] = $row[33];
         $fatherInfo['mobile'] = $row[35];
         $fatherInfo['nid'] = $row[36];
         if ($row[43] == Youth::GUARDIAN_FATHER_LABEL) {
@@ -157,8 +156,7 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
         $fatherInfo['relation_with_youth'] = 'father';
         $requiredFields['youth_family_info'][] = $fatherInfo;
 
-        $motherInfo['member_name_en'] = $row[38];
-        $motherInfo['member_name_bn'] = $row[39];
+        $motherInfo['member_name'] = $row[38];
         $motherInfo['mobile'] = $row[40];
         $motherInfo['nid'] = $row[41];
         if ($row[43] == Youth::GUARDIAN_MOTHER_LABEL) {
@@ -171,8 +169,7 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
         $requiredFields['youth_family_info'][] = $motherInfo;
 
         if ($row[43] == Youth::GUARDIAN_OTHER_LABEL) {
-            $guardianInfo['member_name_en'] = $row[44];
-            $guardianInfo['member_name_bn'] = $row[45];
+            $guardianInfo['member_name'] = $row[44];
             $guardianInfo['mobile'] = $row[46];
             $guardianInfo['nid'] = $row[47];
             if (strtolower($row[48]) != self::NULL && YouthService::isDate($row[48])) {
@@ -182,7 +179,6 @@ class YouthImport implements WithMapping, WithStartRow, WithChunkReading, WithBa
             $guardianInfo['relation_with_youth'] = $row[49];
             $requiredFields['youth_family_info'][] = $guardianInfo;
         }
-
 
         /** Youth Academic Info Nullable Fields*/
         $jscInfo = [];

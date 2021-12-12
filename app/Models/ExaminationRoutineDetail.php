@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class ExaminationRoutineDetail
  * @package App\Models
- * @property string title_en
+ * @property string title
  * @property int institute_id
  * @property int examination_routine_id
  * @property int examination_id

@@ -24,8 +24,7 @@ class StaticPageSeeder extends Seeder
             0 =>
                 array(
                     'id' => 1,
-                    'title_en' => 'About Us',
-                    'title_bn' => 'আমাদের সম্পর্কে',
+                    'title' => 'About Us',
                     'page_id' => 'aboutus',
                     'institute_id' => '1',
                     'created_by' => '1',

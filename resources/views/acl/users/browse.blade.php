@@ -82,8 +82,8 @@
                     },
                     {
                         title: "Name (En)",
-                        data: "name_en",
-                        name: "users.name_en"
+                        data: "name",
+                        name: "users.name"
                     },
 
                     {
@@ -100,7 +100,7 @@
                     {
                         title: "District",
                         data: "loc_district_name",
-                        name: "loc_districts.title_en",
+                        name: "loc_districts.title",
                         visible: false,
                     },
                     {
@@ -219,13 +219,9 @@
                         profile_pic: {
                             accept: "image/*",
                         },
-                        name_en: {
+                        name: {
                             required: true,
                             pattern: /^[a-zA-Z0-9 ]*$/,
-                        },
-                        name_bn: {
-                            required: true,
-                            pattern: /^[\s'\u0980-\u09ff]+$/,
                         },
                         email: {
                             required: true,
@@ -269,11 +265,8 @@
                         profile_pic: {
                             accept: "Please input valid image file",
                         },
-                        name_en: {
+                        name: {
                             pattern: "Please fill this field in English."
-                        },
-                        name_bn: {
-                            pattern: "Please fill this field in Bangla."
                         },
                     },
                     submitHandler: function (htmlForm) {

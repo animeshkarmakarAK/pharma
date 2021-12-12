@@ -25,7 +25,7 @@ class RoleService
     public function validator(array $postData, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
         $rules = [
-            'title_en' => ['required', 'string', 'max:191'],
+            'title' => ['required', 'string', 'max:191'],
             'code' => ['required', 'string', 'max:191', 'unique:roles,code,' . $id],
             'is_deletable' => 'required',
             'description' => 'string'
@@ -50,7 +50,7 @@ class RoleService
 
         $roles = Role::select([
             'roles.id as id',
-            'roles.title_en',
+            'roles.title',
             'roles.code',
             'roles.description',
             'roles.created_at',

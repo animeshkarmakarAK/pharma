@@ -95,7 +95,7 @@ class LocDivisionController extends BaseController
     public function validator(Request $request): Validator
     {
         return \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'title_en' => 'required|max:191',
+            'title' => 'required|max:191',
             'bbs_code' => 'required|max:2',
             'status' => 'nullable',
             'created_by' => 'nullable',
@@ -110,7 +110,7 @@ class LocDivisionController extends BaseController
         /** @var Builder $locDivisions */
         $locDivisions = LocDivision::select([
             'loc_divisions.id as id',
-            'loc_divisions.title_en',
+            'loc_divisions.title',
             'loc_divisions.bbs_code',
             'loc_divisions.created_at',
             'loc_divisions.updated_at'

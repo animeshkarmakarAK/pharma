@@ -37,7 +37,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.gallery-album.title') }}</p>
                     <div class="input-box">
-                        {{ $galleryCategory->title_en }}
+                        {{ $galleryCategory->title }}
                     </div>
                 </div>
                 @if(!$authUser->isInstituteUser())
@@ -52,14 +52,14 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.gallery-album.programme_title') }}</p>
                     <div class="input-box">
-                        {{ !empty($galleryCategory->programme->title_en) }}
+                        {{ !empty($galleryCategory->programme->title) }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.gallery-album.batch_title') }}</p>
                     <div class="input-box">
-                        {{ !empty($galleryCategory->batch->title_en) }}
+                        {{ !empty($galleryCategory->batch->title) }}
                     </div>
                 </div>
 

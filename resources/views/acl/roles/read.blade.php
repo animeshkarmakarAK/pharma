@@ -32,17 +32,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="custom-view-box">
-                        <p class="label-text">{{ __('Title(EN)') }}</p>
+                        <p class="label-text">{{ __('Title') }}</p>
                         <div class="input-box">
-                            {{ $role->title_en }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="custom-view-box">
-                        <p class="label-text">{{ __('Title(BN)') }}</p>
-                        <div class="input-box">
-                            {{ $role->title_bn }}
+                            {{ $role->title }}
                         </div>
                     </div>
                 </div>

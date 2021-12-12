@@ -69,12 +69,12 @@
 
                     {
                         title: "{{__('admin.routine.training_center')}}",
-                        data: "training_center.title_en",
+                        data: "training_center.title",
                         name: "routines.training_center_id"
                     },
                     {
                         title: "{{__('admin.routine.batch_title')}}",
-                        data: "batch.title_en",
+                        data: "batch.title",
                         name: "routines.batch_id"
                     },
                     {

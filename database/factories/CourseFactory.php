@@ -22,8 +22,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'title_en' => $this->faker->jobTitle,
-            'title_bn' => $this->faker->jobTitle,
+            'title' => $this->faker->jobTitle,
             'description' => $this->faker->sentence,
             'prerequisite' => $this->faker->word,
             'eligibility' => $this->faker->word,

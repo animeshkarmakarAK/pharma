@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  *
  * @property int $id
  * @property string $title
- * @property string $title_en
  * @property string|null $bbs_code
  * @property-read Collection|\App\Models\LocDistrict[] $locDistricts
  * @property-read int|null $loc_districts_count

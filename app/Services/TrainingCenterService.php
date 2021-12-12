@@ -69,7 +69,7 @@ class TrainingCenterService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title_en' => 'required|string|max: 191',
+            'title' => 'required|string|max: 191',
             'institute_id' => 'required|int',
             'branch_id' => 'nullable|int',
             'address' => ['nullable', 'string', 'max:191'],
@@ -88,10 +88,10 @@ class TrainingCenterService
         /** @var Builder|TrainingCenter $trainingCenters */
         $trainingCenters = TrainingCenter::acl()->select([
             'training_centers.id as id',
-            'training_centers.title_en',
+            'training_centers.title',
             'institutes.title as institute_title',
-            'branches.title_en as branch_name',
-            'users.name_en as training_center_created_by',
+            'branches.title as branch_name',
+            'users.name as training_center_created_by',
             'training_centers.created_at',
             'training_centers.updated_at'
         ]);

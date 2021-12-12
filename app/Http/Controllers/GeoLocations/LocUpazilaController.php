@@ -96,7 +96,7 @@ class LocUpazilaController extends BaseController
     public function validator(Request $request): Validator
     {
         return \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'title_en' => 'required|max:191',
+            'title' => 'required|max:191',
             'bbs_code' => 'required|max:2',
             'loc_division_id' => 'required|exists:loc_divisions,id',
             'loc_district_id' => 'required|exists:loc_districts,id',
@@ -114,12 +114,12 @@ class LocUpazilaController extends BaseController
         /** @var Builder $locDivisions */
         $locUpazilas = LocUpazila::select([
             'loc_upazilas.id as id',
-            'loc_upazilas.title_en',
+            'loc_upazilas.title',
             'loc_upazilas.bbs_code',
             'loc_upazilas.created_at',
             'loc_upazilas.updated_at',
-            'loc_divisions.title_en as loc_divisions.title',
-            'loc_districts.title_en as loc_districts.title'
+            'loc_divisions.title as loc_divisions.title',
+            'loc_districts.title as loc_districts.title'
         ]);
 
         /** relations */

@@ -188,7 +188,7 @@
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">SSP Name: ' + item?.title_en + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">SSP Name: ' + item?.title + '</p>';
                     html += '<p class="course-heading-wrap"><span class="font-weight-bold">Office Head:</span> ' + item?.office_head_post + ' ' + item?.office_head_name + '</p>';
                     html += '<h5>Contact Information</h5>';
                     html += '<p class="font-weight-bold course-heading-wrap">Name: ' + item?.contact_person_name + '</p>';
@@ -254,7 +254,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const instituteFetch = searchAPI({
                     model: "{{base64_encode(\App\Models\Institute::class)}}",
-                    columns: 'id|title_en|contact_person_name|contact_person_email|contact_person_mobile|address|office_head_name|office_head_post'
+                    columns: 'id|title|contact_person_name|contact_person_email|contact_person_mobile|address|office_head_name|office_head_post'
                 });
 
                 function instituteSearch(url = baseUrl) {
@@ -263,7 +263,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['title_en'] = {
+                        filters['title'] = {
                             type: 'contain',
                             value: searchQuery
                         };

@@ -24,49 +24,49 @@ class RoleTableSeeder extends Seeder
             0 =>
                 array(
                     'id' => 1,
-                    'title_en' => 'Super Admin',
+                    'title' => 'Super Admin',
                     'code' => 'super_admin',
                     'is_deletable' => '0'
                 ),
             1 =>
                 array(
                     'id' => 2,
-                    'title_en' => 'System Admin',
+                    'title' => 'System Admin',
                     'code' => 'system_admin',
                     'is_deletable' => '0'
                 ),
             2 =>
                 array(
                     'id' => 3,
-                    'title_en' => 'Institute Admin',
+                    'title' => 'Institute Admin',
                     'code' => 'institute_admin',
                     'is_deletable' => '0'
                 ),
             3 =>
                 array(
                     'id' => 4,
-                    'title_en' => 'Organization Admin',
+                    'title' => 'Organization Admin',
                     'code' => 'organization_admin',
                     'is_deletable' => '0'
                 ),
             4 =>
                 array(
                     'id' => 5,
-                    'title_en' => 'DC',
+                    'title' => 'DC',
                     'code' => 'dc',
                     'is_deletable' => '0'
                 ),
             5 =>
                 array(
                     'id' => 6,
-                    'title_en' => 'DivCom',
+                    'title' => 'DivCom',
                     'code' => 'divcom',
                     'is_deletable' => '0'
                 ),
             6 =>
                 array(
                     'id' => 7,
-                    'title_en' => 'Trainer',
+                    'title' => 'Trainer',
                     'code' => 'trainer',
                     'is_deletable' => '0'
                 ),

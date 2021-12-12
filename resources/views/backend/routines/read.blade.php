@@ -37,13 +37,13 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.routine.training_center')}}</p>
                     <div class="input-box">
-                        {{ $routine->trainingCenter->title_en }}
+                        {{ $routine->trainingCenter->title }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.routine.batch_title')}}</p>
                     <div class="input-box">
-                        {{ $routine->batch->title_en }}
+                        {{ $routine->batch->title }}
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                                                     <div class="col-md-6 custom-view-box">
                                                         <p class="label-text"> {{__('admin.daily_routine.trainer')}}</p>
                                                         <div class="input-box">
-                                                            {{ $routineClass->user->name_en}}
+                                                            {{ $routineClass->user->name}}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 custom-view-box">

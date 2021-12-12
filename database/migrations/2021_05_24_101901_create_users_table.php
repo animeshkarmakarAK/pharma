@@ -17,8 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->unsignedTinyInteger('user_type_id')->index('users_fk_user_type_id');
             $table->unsignedSmallInteger('role_id')->nullable()->index('users_fk_role_id');
-            $table->string('name_en', 191)->nullable();
-            $table->string('name_bn', 191)->nullable();
+            $table->string('name', 191)->nullable();
             $table->string('email', 191)->unique();
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedMediumInteger('loc_district_id')->nullable();

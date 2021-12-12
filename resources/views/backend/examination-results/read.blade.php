@@ -54,21 +54,21 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination_result.training_center')}}</p>
                     <div class="input-box">
-                        {{ $examinationResult->trainingCenter->title_en }}
+                        {{ $examinationResult->trainingCenter->title }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination_result.batch_title')}}</p>
                     <div class="input-box">
-                        {{ $examinationResult->batch->title_en }}
+                        {{ $examinationResult->batch->title }}
                     </div>
                 </div>
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination_result.youth')}}</p>
                     <div class="input-box">
-                        {{ $examinationResult->youth->name_en }}
+                        {{ $examinationResult->youth->name }}
                     </div>
                 </div>
 

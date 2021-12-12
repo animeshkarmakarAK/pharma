@@ -31,7 +31,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.branch.title')}} </p>
                     <div class="input-box">
-                        {{ $branch->title_en }}
+                        {{ $branch->title }}
                     </div>
                 </div>
 

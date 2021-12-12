@@ -63,8 +63,8 @@
                     },
                     {
                         title: "{{__('admin.gallery.category')}}",
-                        data: "gallery_category_title_en",
-                        name: "gallery_categories.title_en",
+                        data: "gallery_category_title",
+                        name: "gallery_categories.title",
                     },
                     {
                         title: "{{__('admin.gallery.caption')}}",

@@ -51,7 +51,7 @@
                                                         <option value="">{{__('admin.common.select')}}</option>
                                                         @foreach($trainers as $trainer)
                                                             <option value="{{ $trainer->id}}" {{($trainer->id ==$trainerBatch->user->id) ? 'selected':''}} >
-                                                                {{ $trainer->name_en }}
+                                                                {{ $trainer->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -64,7 +64,7 @@
                                                         <option value="">{{__('admin.common.select')}}</option>
                                                         @foreach($trainers as $trainer)
                                                             <option value="{{ $trainer->id}}">
-                                                                {{ $trainer->name_en }}
+                                                                {{ $trainer->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -213,7 +213,7 @@
                     '<select class="form-control select2" name="user_id[]" id="user_id' +  counter + '" required>'+
                         '<option value="">{{__('admin.common.select')}}</option>'+
                         @foreach($trainers as $trainer)
-                        '<option value="{{ $trainer->id}}"> {{ $trainer->name_en }} </option>'+
+                        '<option value="{{ $trainer->id}}"> {{ $trainer->name }} </option>'+
                         @endforeach
                     '</select>'
                 );

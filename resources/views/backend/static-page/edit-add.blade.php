@@ -97,9 +97,9 @@
                                 <div class="form-group">
                                     <label for="name">{{ __('admin.static_page.content_title') }}<span
                                             style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $staticPage->title_en : old('title_en') }}"
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $staticPage->title : old('title') }}"
                                            placeholder="{{ __('admin.static_page.content_title') }}">
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                 $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
             },
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -234,8 +234,8 @@
                 }
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
+                title: {
+                    pattern: "This field is required.",
                 },
                 page_contents: {
                     required: function () {

@@ -39,7 +39,7 @@
                                                     name="institute_id"
                                                     id="institute_id"
                                                     data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                    data-label-fields="{title_bn}"
+                                                    data-label-fields="{title}"
                                                     data-dependent-fields="#video_id|#video_category_id"
                                                     data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
                                             >
@@ -57,7 +57,7 @@
                                                 name="training_center_id"
                                                 id="training_center_id"
                                                 data-model="{{base64_encode(\App\Models\TrainingCenter::class)}}"
-                                                data-label-fields="{title_bn}"
+                                                data-label-fields="{title}"
                                                 data-depend-on-optional="institute_id"
                                                 data-placeholder="ট্রেনিং সেন্টারে সিলেক্ট করুন"
                                         >

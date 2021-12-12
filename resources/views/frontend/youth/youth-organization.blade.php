@@ -31,9 +31,9 @@
                         </div>
                         <div class="d-flex justify-content-center user-info normal-line-height mt-3">
                             <div>
-                                {{ optional($youth)->name_bn }}
+                                {{ optional($youth)->name }}
                             </div>
-                            <p class="text-center ml-2">({{ optional($youth)->name_en}})</p>
+                            <p class="text-center ml-2">({{ optional($youth)->name}})</p>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                                                     src="{{ !empty($organization)? asset('storage/'. $organization->organization->logo) :'' }}"
                                                     class="" alt="My Industry Logo" width="80px">
                                                 <div>
-                                                    <h5 class="text-bold mt-3">{{ !empty($organization)?$organization->organization->title_en:'' }}</h5>
+                                                    <h5 class="text-bold mt-3">{{ !empty($organization)?$organization->organization->title:'' }}</h5>
                                                     <a href="{{ route('frontend.youth-complain-to-organization-form') }}"
                                                        class="btn btn-primary mt-3">অভিযোগ করুন</a>
                                                 </div>
@@ -125,8 +125,8 @@
                                                     @foreach($youthComplains as $key => $youthComplain)
                                                         <tr title="{{ $youthComplain->complain_message }}">
                                                             <th scope="row">{{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(++$key)  }}</th>
-                                                            <td>{{ $youthComplain->institute->title_bn }}</td>
-                                                            <td>{{ $youthComplain->organization->title_bn }}</td>
+                                                            <td>{{ $youthComplain->institute->title }}</td>
+                                                            <td>{{ $youthComplain->organization->title }}</td>
                                                             <td>{{ $youthComplain->complain_title }}</td>
                                                             <td>{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date('j F, Y h:i A', strtotime($youthComplain->created_at))) }}</td>
                                                         </tr>

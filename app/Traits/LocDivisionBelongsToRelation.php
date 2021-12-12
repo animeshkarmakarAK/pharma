@@ -13,6 +13,6 @@ trait LocDivisionBelongsToRelation
     {
         /** @var Model $this */
         return $this->belongsTo(LocDivision::class, 'loc_division_id')
-            ->select(['id', 'title_en', 'title', 'bbs_code']);
+            ->select(['id', 'title', 'bbs_code']);
     }
 }

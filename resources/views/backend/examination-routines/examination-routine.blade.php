@@ -94,7 +94,7 @@
                                                 name="training_center_id"
                                                 id="training_center_id"
                                                 data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 data-dependent-fields="#batch_id"
                                                 data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                                 @if(@$parameters['training_center_id'])
@@ -119,7 +119,7 @@
                                                 name="batch_id"
                                                 id="batch_id"
                                                 data-model="{{base64_encode(App\Models\Batch::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 data-dependent-fields="#examination_id"
                                                 data-depend-on-optional="training_center_id"
                                                 data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
