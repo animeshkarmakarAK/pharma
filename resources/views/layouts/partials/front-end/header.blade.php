@@ -38,12 +38,13 @@
                        class="btn ">প্রথম
                         পাতা</a>
                 </li>
+                @if(!$currentInstitute)
+                    <li class="nav-item {{ request()->is('institute-list*') ? 'active-menu' : '' }}">
+                        <a href="{{ route('frontend.institute-list') }}" class="btn ">SSP's</a>
+                    </li>
+                @endif
 
-                <li class="nav-item {{ request()->routeIs('institute-list*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('frontend.institute-list') }}" class="btn ">SSP's</a>
-                </li>
-
-                <li class="nav-item {{ request()->routeIs('course-management/courses-search*') ? 'active-menu' : '' }}">
+                <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
                     <a href="{{ route('frontend.course_search', ['instituteSlug' => $currentInstitute->slug ?? '']) }}"
                        class="btn ">কোর্স
                         সমূহ</a>
@@ -163,19 +164,6 @@
                         </form>
                     </li>
                 @endauth
-                {{--<li class="nav-item ">
-                    <a href="#" class="btn ">
-                        <i class="fa fa-user"></i>&nbsp;
-                        ইয়ুথ লগইন
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="#" class="btn ">
-                        <i class="fas fa-sign-in-alt"></i>&nbsp;
-                        রেজিস্ট্রেশন/লগইন
-                    </a>
-                </li>--}}
-
             </ul>
         </div>
     </div>

@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
 
             if ($currentInstituteSlug) {
                 $currentInstitute = Institute::where('slug', $currentInstituteSlug)->first();
+                if (!$currentInstitute) {
+                    abort('404', 'Not found');
+                }
             }
 
             return $currentInstitute;

@@ -4,13 +4,9 @@
 namespace App\Http\Controllers\Frontend;
 
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Event;
-use App\Models\Gallery;
-use App\Models\GalleryCategory;
-use App\Models\PublishCourse;
 
 class EventPageController
 {

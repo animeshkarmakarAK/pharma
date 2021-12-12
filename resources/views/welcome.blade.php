@@ -1269,7 +1269,6 @@
         }
 
 
-
     </style>
 @endpush
 @push('js')
@@ -1317,7 +1316,7 @@
                 'data-parent="#eventArea" class="collapse">' +
                 '<div class="card-body p-5">' +
                 '<p class="font-weight-light m-0">' + this.details +
-                '</p> <a href="{{ route('frontend.single-event','__') }}"'.replace('__', this.id) +
+                '</p> <a href="{{ route('frontend.single-event', ['event' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', this.id) +
                 'class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>' +
                 '</div>' +
                 '</div>' +
@@ -1335,7 +1334,7 @@
 
         function eventsOfSpecificDate(date) {
             $.ajax({
-                url: '{{route('institute-events-date')}}',
+                url: '{{route('frontend.institute-events-date')}}',
                 type: "POST",
                 data: {date: date},
             }).done(function (response) {
@@ -1380,7 +1379,7 @@
                 locale: initialLocaleCode,
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: '{{route('institute-events')}}',
+                        url: '{{route('frontend.institute-events')}}',
                         type: "POST",
                     }).done(function (response) {
                         successCallback(response);
