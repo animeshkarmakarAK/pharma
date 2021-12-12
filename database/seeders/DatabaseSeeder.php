@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
             RowStatusSeeder::class,
             UserTypeSeeder::class,
             InstituteSeeder::class,
-            CourseSeeder::class,
             StaticPageSeeder::class,
             BranchSeeder::class,
             TrainingCenterSeeder::class,
             ProgrammeSeeder::class,
+            CourseSeeder::class,
         ]);
     }
 }

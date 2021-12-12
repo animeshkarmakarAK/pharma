@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Institute;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Branch;
-use App\Models\Institute;
-use App\Models\TrainingCenter;
 
 class CourseSeeder extends Seeder
 {
