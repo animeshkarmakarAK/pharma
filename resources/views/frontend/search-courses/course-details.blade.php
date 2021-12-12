@@ -7,7 +7,7 @@
 @extends($layout)
 
 @section('title')
-    কোর্স সমূহ
+    {{ __('generic.course') }}
 @endsection
 
 @section('content')
