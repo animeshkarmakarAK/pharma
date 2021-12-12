@@ -26,7 +26,7 @@ class HomeController extends BaseController
         $currentInstitute = app('currentInstitute');
 
         if ($currentInstitute) {
-            $currentInstituteCourses = Course::where([
+            $courses = Course::where([
                 'institute_id' => $currentInstitute->id,
             ]);
 
@@ -37,7 +37,6 @@ class HomeController extends BaseController
                 'courses.duration',
                 'courses.cover_image',
             ]);
-            //$runningCourses->whereDate('courses.application_start_date', '<=', now()->format('Y-m-d'))->whereDate('application_end_date', '>=', now()->format('Y-m-d'));
             $runningCourses->where(['courses.institute_id' => $currentInstitute->id]);
             $runningCourses = $runningCourses->get();
 
@@ -61,28 +60,25 @@ class HomeController extends BaseController
                 ->first();
 
             $institute = [
-                'courses' => $currentInstituteCourses->count(),
+                'courses' => $courses->count(),
                 'training_centers' => TrainingCenter::where(['institute_id' => $currentInstitute->id])->count(),
                 'youth_registrations' => YouthRegistration::where(['institute_id' => $currentInstitute->id])->count(),
             ];
-            $currentInstituteCourses = $currentInstituteCourses->limit(8)->get();
+            $courses = $courses->limit(8)->get();
             $maxEnrollmentNumber = [];
-            /*foreach ($currentInstituteCourses as $course) {
-                $maxEnrollmentNumber[] = \App\Models\CourseSession::where('publish_course_id', $course->id)->sum('max_seat_available');
-            }*/
 
-            $currentInstituteEvents = Event::where([
+            $events = Event::where([
                 'institute_id' => $currentInstitute->id,
             ]);
-            $currentInstituteEvents->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
-            $currentInstituteEvents->orderBy('date', 'ASC');
-            $currentInstituteEvents = $currentInstituteEvents->limit(5)->get();
+            $events->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
+            $events->orderBy('date', 'ASC');
+            $events = $events->limit(5)->get();
 
             $introVideo = IntroVideo::where([
                 'institute_id' => $currentInstitute->id,
             ])->orderBy('id', 'DESC')->first();
 
-            return view('home', compact('currentInstituteCourses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'currentInstituteEvents', 'introVideo', 'runningCourses'/*, 'upcomingCourses'*/));
+            return view('home', compact('courses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'events', 'introVideo', 'runningCourses'/*, 'upcomingCourses'*/));
         } else {
             $staticPage = StaticPage::orderBy('id', 'DESC')
                 ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)

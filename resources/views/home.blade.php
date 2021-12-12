@@ -116,7 +116,7 @@
                     </p>
                 </div>
                 <div class="tab-content">
-                    @if($publishCourses->count() > 4)
+                    @if($courses->count() > 4)
                         <div id="all-course" class="tab-pane active">
                             <div id="courseCarousel" class="carousel custom-carousel slide w-100" data-ride="carousel">
                                 <div class="custom-carousel-inner w-100" role="listbox">
@@ -126,7 +126,7 @@
                                                 $ml=0;
 
                                             @endphp
-                                            @foreach($publishCourses as $key => $publishCourse)
+                                            @foreach($courses as $key => $course)
 
                                                 <div
                                                     class="carousel-item custom-carousel-item {{ ++$ml == 1 ? 'active':'' }}">
@@ -135,29 +135,29 @@
                                                             <div class="card-bar-home-course">
                                                                 <div class="pb-3">
                                                                     <img class="slider-img border-top-radius"
-                                                                         src="{{asset('/storage/'.$publishCourse->cover_image)}}"
+                                                                         src="{{asset('/storage/'.$course->cover_image)}}"
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title:'' }}</p>
+                                                                    <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title:'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-clock gray-color mr-2"></i>
                                                                         <span
-                                                                            class="course-p">{{ !empty($publishCourse->duration)?$publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
+                                                                            class="course-p">{{ !empty($course->duration)?$course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                                     </p>
                                                                     <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-user-plus gray-color mr-2"></i>
 
-                                                                        <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'') }} )</span>
+                                                                        <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($course)? $course->max_seat_available:'') }} )</span>
                                                                     </p>
                                                                     <p class="card-p1 float-left mb-1">
                                                                         <span
                                                                             style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
-                                                                        {{ $publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
+                                                                        {{ $course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($course->course_fee).' টাকা' : 'ফ্রি'}}
                                                                     </p>
                                                                     <p class="float-right">
                                                                         <a href="javascript:;"
-                                                                           onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                                           onclick="courseDetailsModalOpen('{{ $course->id }}')"
                                                                            class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                                     </p>
                                                                 </div>
@@ -186,34 +186,34 @@
                         <div id="all-course" class="tab-pane active">
                             <div class="col-md-12 p-0">
                                 <div class="row">
-                                    @foreach($publishCourses as $key => $publishCourse)
+                                    @foreach($courses as $key => $course)
                                         <div class="col-md-3">
                                             <div class="card card-main mb-2">
                                                 <div class="card-bar-home-course">
                                                     <div class="pb-3">
                                                         <img class="slider-img border-top-radius"
-                                                             src="{{asset('/storage/'. $publishCourse->cover_image)}}"
+                                                             src="{{asset('/storage/'. $course->cover_image)}}"
                                                              alt="icon">
                                                     </div>
                                                     <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="font-weight-bold course-heading-wrap">{{ $publishCourse? $publishCourse->title :'' }}</p>
+                                                        <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-clock gray-color mr-2"></i> <span
-                                                                class="course-p">{{ !empty($publishCourse->duration) ? $publishCourse->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
+                                                                class="course-p">{{ !empty($course->duration) ? $course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
                                                         </p>
                                                         <p class="font-weight-light mb-1"><i
                                                                 class="fas fa-user-plus gray-color mr-2"></i>
                                                             <span
-                                                                class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($publishCourse)? $publishCourse->max_seat_available:'' )}} )</span>
+                                                                class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($course)? $course->max_seat_available:'' )}} )</span>
                                                         </p>
                                                         <p class="card-p1 float-left mb-1">
                                                             <span
                                                                 style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
-                                                            {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
+                                                            {{$course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($course->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
 
                                                         <p class="float-right">
-                                                            <a href="{{ route('frontend.course-details', ['course_id' => $publishCourse->id]) }}"
+                                                            <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}"
                                                                class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                         </p>
                                                     </div>

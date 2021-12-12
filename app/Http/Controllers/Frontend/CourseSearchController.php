@@ -36,12 +36,17 @@ class CourseSearchController extends Controller
     }
 
     /**
-     * @param int $courseId
-     * @param string|null $instituteSlug
+     * @param mixed ...$args
      * @return View
      */
-    public function courseDetails(string $instituteSlug = null, int $courseId): View
+    public function courseDetails(...$args): View
     {
+        $courseId = $args[0];
+
+        if (count($args) > 1 || !is_numeric($args[0])) {
+            $courseId = $args[1];
+        }
+
         $course = Course::findOrFail($courseId);
 
         return view(self::VIEW_PATH . 'course-details', ['course' => $course]);
