@@ -212,9 +212,9 @@
                                                                 style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
                                                             {{$publishCourse->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($publishCourse->course_fee).' টাকা' : 'ফ্রি'}}
                                                         </p>
+
                                                         <p class="float-right">
-                                                            <a href="javascript:;"
-                                                               onclick="courseDetailsModalOpen('{{ $publishCourse->id }}')"
+                                                            <a href="{{ route('frontend.course-details', ['course_id' => $publishCourse->id]) }}"
                                                                class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                         </p>
                                                     </div>

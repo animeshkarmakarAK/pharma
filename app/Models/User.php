@@ -135,6 +135,7 @@ class User extends AuthBaseModel
     {
         return $this->hasMany(TrainerAcademicQualification::class, 'trainer_id', 'id');
     }
+
     public function trainerExperiences(): HasMany
     {
         return $this->hasMany(TrainerExperience::class, 'trainer_id', 'id');

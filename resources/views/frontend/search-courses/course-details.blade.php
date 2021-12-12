@@ -7,14 +7,14 @@
 @extends($layout)
 
 @section('title')
-    কোর্স সমূহ
+    {{ __('generic.course') }}
 @endsection
 
 @section('content')
     <div class="container-fluid" id="fixed-scrollbar">
         <div class="row  justify-content-center">
             <div class="col-md-8 col-sm-8">
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info"
                          style="background: url('{{asset('storage/'. optional($course)->cover_image)}}') no-repeat center center;
                              background-size: cover; min-height: 40vh;"
@@ -99,7 +99,7 @@
                             <div class="col-md-6 custom-view-box">
                                 <p class="label-text">{{__('admin.common.status')}}</p>
                                 <div class="input-box" id="active_status">
-                                    {!! $course->row_status !!}
+                                    {!! $course->getCurrentRowStatus(true) !!}
                                 </div>
                             </div>
                             <div class="col-md-6 custom-view-box">
@@ -122,91 +122,91 @@
     </div>
 
 @endsection
-        @push('css')
-            <style>
-                .card-background-white {
-                    background: #faf8fb;
-                }
+@push('css')
+    <style>
+        .card-background-white {
+            background: #faf8fb;
+        }
 
-                .form-control {
-                    border: 1px solid #671688;
-                    color: #671688;
-                }
+        .form-control {
+            border: 1px solid #671688;
+            color: #671688;
+        }
 
-                .form-control:focus {
-                    border-color: #671688;
-                }
+        .form-control:focus {
+            border-color: #671688;
+        }
 
-                .button-bg {
-                    background: #671688;
-                    border-color: #671688;
-                }
+        .button-bg {
+            background: #671688;
+            border-color: #671688;
+        }
 
-                .button-bg:hover {
-                    color: #ffffff;
-                    background-color: #671688 !important;;
-                    border-color: #671688 !important;;
-                }
+        .button-bg:hover {
+            color: #ffffff;
+            background-color: #671688 !important;;
+            border-color: #671688 !important;;
+        }
 
-                .button-bg:active {
-                    color: #ffffff;
-                    background-color: #671688 !important;
-                    border-color: #671688 !important;;
-                }
+        .button-bg:active {
+            color: #ffffff;
+            background-color: #671688 !important;
+            border-color: #671688 !important;;
+        }
 
-                .button-bg:focus {
-                    color: #ffffff;
-                    background-color: #671688 !important;;
-                    border-color: #671688 !important;;
-                }
+        .button-bg:focus {
+            color: #ffffff;
+            background-color: #671688 !important;;
+            border-color: #671688 !important;;
+        }
 
-                .button-bg:visited {
-                    color: #ffffff;
-                    background-color: #671688 !important;;
-                    border-color: #671688 !important;;
-                }
+        .button-bg:visited {
+            color: #ffffff;
+            background-color: #671688 !important;;
+            border-color: #671688 !important;;
+        }
 
-                .card-header-title {
-                    min-height: 48px;
-                }
+        .card-header-title {
+            min-height: 48px;
+        }
 
-                .card-bar-home-course img {
-                    height: 14vw;
-                }
+        .card-bar-home-course img {
+            height: 14vw;
+        }
 
-                .gray-color {
-                    color: #73727f;
-                }
-                .course-heading-wrap {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
-                .course-heading-wrap:hover {
-                    overflow: visible;
-                    white-space: normal;
-                    cursor: pointer;
-                }
-                .course-p {
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: #671688;
-                }
-                .header-bg {
-                    background: #671688;
-                    color:white;
-                }
-                .modal-header .close, .modal-header .mailbox-attachment-close {
-                    padding: 1rem;
-                    margin: -1rem -1rem -1rem auto;
-                    color: white;
-                    outline: none;
-                }
-                .card-p1 {
-                    color: #671688;
-                }
-            </style>
-        @endpush
-        @push('js')
+        .gray-color {
+            color: #73727f;
+        }
+        .course-heading-wrap {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .course-heading-wrap:hover {
+            overflow: visible;
+            white-space: normal;
+            cursor: pointer;
+        }
+        .course-p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #671688;
+        }
+        .header-bg {
+            background: #671688;
+            color:white;
+        }
+        .modal-header .close, .modal-header .mailbox-attachment-close {
+            padding: 1rem;
+            margin: -1rem -1rem -1rem auto;
+            color: white;
+            outline: none;
+        }
+        .card-p1 {
+            color: #671688;
+        }
+    </style>
+@endpush
+@push('js')
 
-    @endpush
+@endpush
