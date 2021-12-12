@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Classes\AuthHelper;
-use App\Helpers\Classes\DatatableHelper;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
-use App\Models\Batch;
 use App\Models\ExaminationType;
 use App\Services\ExaminationTypeService;
 use Illuminate\Contracts\View\View;
@@ -14,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\DataTables;
 
 
 class ExaminationTypeController extends Controller
@@ -33,25 +29,15 @@ class ExaminationTypeController extends Controller
      */
     public function index()
     {
-        /*$examinationTypes = ExaminationType::select(
-            [
-                'examination_types.id as id',
-                'examination_types.title',
-                'examination_types.created_at',
-                'examination_types.updated_at',
-            ]
-        );
-        return DataTables::eloquent($examinationTypes)->toJson();*/
-
         return \view(self::VIEW_PATH . 'browse');
     }
 
     /**
+     * @param ExaminationType $examinationType
      * @return View
      */
-    public function create(): View
+    public function create(ExaminationType  $examinationType): View
     {
-        $examinationType = new ExaminationType();
         return view(self::VIEW_PATH . 'edit-add', compact('examinationType'));
     }
 
@@ -59,10 +45,7 @@ class ExaminationTypeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationTypeService->validator($request)->validate();
-        $authUser = AuthHelper::getAuthUser();
         try {
-            $validatedData['institute_id'] = $authUser->institute_id;
-            $validatedData['created_by'] = $authUser->id;
             $this->examinationTypeService->createExaminationType($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -84,7 +67,6 @@ class ExaminationTypeController extends Controller
      */
     public function show(ExaminationType $examinationType): View
     {
-        //dd($examinationType);
         return view(self::VIEW_PATH . 'read', compact('examinationType'));
     }
 
@@ -99,13 +81,11 @@ class ExaminationTypeController extends Controller
 
     /**
      * @param Request $request
-     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
     public function update(Request $request, ExaminationType $examinationType): RedirectResponse
     {
-        //dd($examinationType);
         $validatedData = $this->examinationTypeService->validator($request)->validate();
 
         try {

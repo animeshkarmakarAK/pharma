@@ -32,7 +32,6 @@ class ExaminationController extends Controller
      */
     public function index()
     {
-        //return $routines = Routine::with('routineClass')->get();
         return \view(self::VIEW_PATH . 'browse');
     }
 
@@ -41,10 +40,9 @@ class ExaminationController extends Controller
      */
     public function create(): View
     {
-        $batches = Batch::acl()->active()->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::active()->acl()->pluck('title_en','id');
-        $examinationTypes = ExaminationType::active()->acl()->pluck('title','id');
-
+        $batches = Batch::acl()->active()->pluck('title','id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title','id');
+        $examinationTypes = ExaminationType::acl()->active()->pluck('title','id');
         return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','examinationTypes'));
     }
 
@@ -52,16 +50,10 @@ class ExaminationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationService->validator($request)->validate();
-        $authUser = AuthHelper::getAuthUser();
-
-        $statement = DB::select("show table status like 'examinations'");
-        $ainid = $statement[0]->Auto_increment;
-
+//        $statement = DB::select("show table status like 'examinations'");
+//        $ainid = $statement[0]->Auto_increment;
 
         try {
-            $validatedData['code'] = $ainid + 1000;
-            $validatedData['institute_id'] = $authUser->institute_id;
-            $validatedData['created_by'] = $authUser->id;
             $this->examinationService->createExamination($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
@@ -92,13 +84,13 @@ class ExaminationController extends Controller
      */
     public function edit(Examination $examination)
     {
-        //return $examination;
-
-       /* $batches = Batch::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $trainingCenters = TrainingCenter::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title_en','id');
-        $examinationTypes = ExaminationType::where(['row_status' => 1, 'institute_id'=>$authUser->institute_id])->pluck('title','id');*/
         $authUser = AuthHelper::getAuthUser();
-        $examinationTypes = ExaminationType::where(['row_status' => 1, 'institute_id' => $authUser->institute_id])->pluck('title','id');
+        if($authUser->isInstituteUser()){
+            $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE, 'institute_id' => $authUser->institute_id])->pluck('title','id');
+        }
+        else{
+            $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE])->pluck('title','id');
+        }
         return view(self::VIEW_PATH . 'edit-add', compact('examination','examinationTypes'));
     }
 

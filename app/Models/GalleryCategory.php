@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\RowStatus;
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;

@@ -2,31 +2,44 @@
 
 namespace App\Models;
 
-use App\Traits\CreatedByUpdatedByRelationTrait;
+use App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\ScopeAclTrait;
 
 /**
  * Class Examination
  * @package App\Models
- * @property string title_en
- * @property string title_bn
- * @property int Batch_id
- * @property string|null address
- * @property string|null google_map_src
- * @method static \Illuminate\Database\Eloquent\Builder|Batch acl()
- * @method static Builder|Batch active()
- * @method static Builder|Batch newModelQuery()
- * @method static Builder|Batch newQuery()
- * @method static Builder|Batch query()
+ * @property string code
+ * @property int institute_id
+ * @property int batch_id
+ * @property int training_center_id
+ * @property int examination_type_id
+ * @property int pass_mark
+ * @property int total_mark
+ * @property int status
+ * @property int row_status
+ * @property int created_by
+ * @property int $updated_by
+ * @property string|null exam_details
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 
 class Examination extends BaseModel
 {
+    use HasFactory, ScopeAclTrait, ScopeRowStatusTrait;
+
+    const EXAMINATION_ROW_STATUS_ACTIVE = 1;
+    const EXAMINATION_ROW_STATUS_INACTIVE = 0;
+    const EXAMINATION_STATUS_NOT_PUBLISH= 0;
+    const EXAMINATION_STATUS_PUBLISH= 1;
+    const EXAMINATION_STATUS_COMPLETE= 2;
+
     public $timestamps = true;
     protected $guarded = ['id'];
 
@@ -43,5 +56,9 @@ class Examination extends BaseModel
     public function trainingCenter(): BelongsTo
     {
         return $this->belongsTo(TrainingCenter::class, 'training_center_id');
+    }
+    public function institute(): BelongsTo
+    {
+        return $this->belongsTo(Institute::class);
     }
 }

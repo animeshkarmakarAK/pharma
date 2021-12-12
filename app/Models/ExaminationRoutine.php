@@ -2,31 +2,34 @@
 
 namespace App\Models;
 
-use App\Traits\CreatedByUpdatedByRelationTrait;
+use App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\ScopeAclTrait;
-use Session;
+use Illuminate\Support\Facades\Session;
 /**
  * Class ExaminationRoutine
  * @package App\Models
- * @property string title_en
- * @property string title_bn
- * @property int Batch_id
- * @property string|null address
- * @property string|null google_map_src
- * @method static \Illuminate\Database\Eloquent\Builder|Batch acl()
- * @method static Builder|Batch active()
- * @method static Builder|Batch newModelQuery()
- * @method static Builder|Batch newQuery()
- * @method static Builder|Batch query()
+ * @property int institute_id
+ * @property int batch_id
+ * @property int training_center_id
+ * @property int row_status
+ * @property int created_by
+ * @property int updated_by
+ * @property Carbon date
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
+ * @method static Builder|Institute active()
+ * @method static Builder|Institute newModelQuery()
+ * @method static Builder|Institute newQuery()
+ * @method static Builder|Institute query()
  */
 
 class ExaminationRoutine extends BaseModel
 {
+    use HasFactory, ScopeAclTrait, ScopeRowStatusTrait;
     public $timestamps = true;
     protected $guarded = ['id'];
 

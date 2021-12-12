@@ -74,12 +74,12 @@
 
                     {
                         title: "{{__('admin.examination.training_center')}}",
-                        data: "training_center.title_en",
+                        data: "training_center.title",
                         name: "examinations.training_center_id"
                     },
                     {
                         title: "{{__('admin.examination.batch_title')}}",
-                        data: "batch.title_en",
+                        data: "batch.title",
                         name: "examinations.batch_id"
                     },
 

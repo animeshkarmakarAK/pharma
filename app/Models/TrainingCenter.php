@@ -32,6 +32,10 @@ class TrainingCenter extends BaseModel
     use HasFactory, CreatedByUpdatedByRelationTrait, ScopeRowStatusTrait, ScopeAclTrait;
     protected $guarded = ['id'];
 
+    const TRAINING_CENTER_STATUS_INACTIVE= 0;
+    const TRAINING_CENTER_STATUS_ACTIVE= 1;
+    const TRAINING_CENTER_STATUS_DELETED= 99;
+
 
     public function institute(): BelongsTo
     {

@@ -34,6 +34,27 @@
                                 @method('put')
                             @endif
 
+                            @if($authUser->isInstituteUser())
+                                <input type="hidden" id="institute_id" name="institute_id"
+                                       value="{{$authUser->institute_id}}">
+                            @else
+                                <div class="form-group col-md-6">
+                                    <label for="institute_id">{{ __('admin.examination.institute_name') }} <span
+                                            style="color: red"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="institute_id"
+                                            id="institute_id"
+                                            data-model="{{base64_encode(\App\Models\Institute::class)}}"
+                                            data-label-fields="{title}"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' => $examination->institute->title_en, 'id' => $examination->institute_id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('admin.examination.institute_name') }}"
+                                    >
+                                    </select>
+                                </div>
+                            @endif
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="total_mark">{{__('admin.examination.total_mark')}} <span
@@ -93,7 +114,7 @@
                                             name="training_center_id"
                                             id="training_center_id"
                                             data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-dependent-fields="#batch_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
@@ -118,11 +139,11 @@
                                             name="batch_id"
                                             id="batch_id"
                                             data-model="{{base64_encode(App\Models\Batch::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on-optional="training_center_id"
+                                            data-label-fields="{title}"
+                                            data-depend-on="training_center_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'batch_status'=>1 ])}}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $examination->batch->title_en, 'id' =>  $examination->batch_id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $examination->batch->title, 'id' =>  $examination->batch_id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >

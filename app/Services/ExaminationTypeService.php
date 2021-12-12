@@ -20,7 +20,6 @@ class ExaminationTypeService
 
     public function updateExaminationType(ExaminationType $examinationType, array $data): ExaminationType
     {
-
         $examinationType->fill($data);
         $examinationType->save();
         return $examinationType;
@@ -41,6 +40,10 @@ class ExaminationTypeService
                 'required',
                 'string',
                 'max:191',
+            ],
+            'institute_id' => [
+                'required',
+                'int'
             ]
         ];
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
@@ -58,7 +61,26 @@ class ExaminationTypeService
                 'examination_types.updated_at',
             ]
         );
-        $examinationTypes->where('examination_types.institute_id', $authUser->institute_id);
+        if($authUser->isInstituteUser()) {
+            $examinationTypes->where('examination_types.institute_id', $authUser->institute_id);
+            return DataTables::eloquent($examinationTypes)
+                ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (ExaminationType $examinationType) use ($authUser) {
+                    $str = '';
+                    if ($authUser->can('view', $examinationType)) {
+                        $str .= '<a href="' . route('admin.examination-types.show', $examinationType->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                    }
+                    if ($authUser->can('update', $examinationType)) {
+                        $str .= '<a href="' . route('admin.examination-types.edit', $examinationType->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . '</a>';
+                    }
+                    if ($authUser->can('delete', $examinationType)) {
+                        $str .= '<a href="#" data-action="' . route('admin.examination-types.destroy', $examinationType->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
+                    }
+
+                    return $str;
+                }))
+                ->rawColumns(['action'])
+                ->toJson();
+        }
         return DataTables::eloquent($examinationTypes)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (ExaminationType $examinationType) use ($authUser) {
                 $str = '';
@@ -76,5 +98,6 @@ class ExaminationTypeService
             }))
             ->rawColumns(['action'])
             ->toJson();
+
     }
 }

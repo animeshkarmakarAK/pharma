@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
-use App\Traits\CreatedByUpdatedByRelationTrait;
+use App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\ScopeAclTrait;
-use App\Models\User;
 /**
  * Class ExaminationResult
  * @package App\Models
- * @property string title_en
- * @property string title_bn
  * @property int institute_id
- * @property string|null address
- * @property string|null google_map_src
+ * @property int user_id
+ * @property int youth_id
+ * @property int examination_id
+ * @property int batch_id
+ * @property int training_center_id
+ * @property int achieved_marks
+ * @property int feedback
+ * @property int created_by
+ * @property int updated_by
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()
  * @method static Builder|Institute newModelQuery()
@@ -27,6 +29,8 @@ use App\Models\User;
 
 class ExaminationResult extends BaseModel
 {
+    use HasFactory, ScopeAclTrait, ScopeRowStatusTrait;
+
     public $timestamps = true;
     protected $guarded = ['id'];
 

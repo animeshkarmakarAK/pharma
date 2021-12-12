@@ -174,6 +174,7 @@ return [
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
         'exam_details' => 'Examination Details',
+        'institute_name' => 'Institute Name',
         'examination_type' => 'Examination Type'
 
     ],
