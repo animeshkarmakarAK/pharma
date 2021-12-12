@@ -19,7 +19,7 @@ class RoutineService
         $authUser = AuthHelper::getAuthUser();
         $routine = Routine::create($data);
 
-        foreach($data['daily_routines'] as $dailyRoutine){
+        foreach ($data['daily_routines'] as $dailyRoutine) {
             $dailyRoutine['institute_id'] = $authUser->institute_id;
             $dailyRoutine['routine_id'] = $routine->id;
             $routine->routineClass()->create($dailyRoutine);
@@ -33,7 +33,7 @@ class RoutineService
         $routine->save();
         $authUser = AuthHelper::getAuthUser();
 
-        foreach($data['daily_routines'] as $dailyRoutine){
+        foreach ($data['daily_routines'] as $dailyRoutine) {
 
             $dailyRoutine['institute_id'] = $authUser->institute_id;
             $dailyRoutine['routine_id'] = $routine->id;
@@ -66,11 +66,14 @@ class RoutineService
     public function validator(Request $request): Validator
     {
         $rules = [
+            'institute_id' => [
+                'required',
+                'int',
+            ],
             'batch_id' => [
                 'required',
                 'int',
             ],
-
             'training_center_id' => [
                 'required',
                 'int',
@@ -81,6 +84,7 @@ class RoutineService
             'daily_routines.*.start_time' => ['required'],
             'daily_routines.*.end_time' => ['required']
         ];
+
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
@@ -88,7 +92,7 @@ class RoutineService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Routine $routines */
-        $routines = Routine::with('Batch','trainingCenter')->select(
+        $routines = Routine::with('Batch', 'trainingCenter')->select(
             [
                 'routines.*'
             ]
@@ -97,7 +101,6 @@ class RoutineService
         $routines->where('routines.institute_id', '=', $authUser->institute_id);
 
         return DataTables::eloquent($routines)
-
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Routine $routine) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $routine)) {
