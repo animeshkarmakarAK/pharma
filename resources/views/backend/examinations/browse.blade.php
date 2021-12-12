@@ -119,11 +119,6 @@
                 $('#delete_form')[0].action = $(this).data('action');
                 $('#delete_modal').modal('show');
             });
-
-            // $(document, 'td').on('click', '.examination_status', function (e) {
-            //     $('#delete_form')[0].action = $(this).data('action');
-            //     $('#delete_modal').modal('show');
-            // });
         });
 
         $(document).ready(function () {

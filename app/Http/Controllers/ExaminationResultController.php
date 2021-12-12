@@ -44,10 +44,14 @@ class ExaminationResultController extends Controller
     public function create(): View
     {
         $examinationResult = new Batch();
-        $examinations = Examination::with('examinationType')->where(['row_status' => 1,'status'=>2])->get();
+        $examinations = Examination::with('examinationType')->where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE, 'status'=> Examination::EXAMINATION_STATUS_COMPLETE])->get();
         return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations'));
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
 
     public function store(Request $request): RedirectResponse
     {

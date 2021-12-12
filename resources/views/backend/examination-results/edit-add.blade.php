@@ -33,12 +33,99 @@
                             @if($edit)
                                 @method('put')
                             @endif
+                            @if($authUser->isInstituteUser())
+                                <input type="hidden" id="institute_id" name="institute_id"
+                                       value="{{$authUser->institute_id}}">
+                            @else
+                                <div class="form-group col-md-6">
+                                    <label for="institute_id">{{ __('admin.examination.institute_title') }} <span
+                                            style="color: red"> * </span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="institute_id"
+                                            id="institute_id"
+                                            data-model="{{base64_encode(\App\Models\Institute::class)}}"
+                                            data-label-fields="{title}"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' => $examination->institute->title, 'id' => $examination->institute_id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('admin.examination.institute_title') }}"
+                                    >
+                                    </select>
+                                </div>
+                            @endif
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="examination_id">
+                                        {{__('admin.examination_result.batch_title')}}
+                                        <span class="required"></span>
+                                    </label>
+
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="batch_id"
+                                            id="batch_id"
+                                            data-model="{{base64_encode(App\Models\Batch::class)}}"
+                                            data-label-fields="{title}"
+                                            data-depend-on="institute_id"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'batch_status'=> \App\Models\Batch::BATCH_STATUS_ON_GOING ])}}"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $examination->batch->title, 'id' =>  $examination->batch_id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="examination_id">
+                                        {{__('admin.examination_result.examination')}}
+                                        <span class="required"></span>
+                                    </label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="examination_id"
+                                            id="examination_id"
+                                            data-model="{{base64_encode(App\Models\Examination::class)}}"
+                                            data-label-fields="{code}"
+                                            data-depend-on="batch_id"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'status'=> \App\Models\Examination::EXAMINATION_STATUS_COMPLETE])}}"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $examination->code, 'id' =>  $examination->id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="youth_id">
+                                        {{__('admin.examination_result.youth')}}
+                                        <span class="required"></span>
+                                    </label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="youth_id"
+                                            id="youth_id"
+                                            data-model="{{base64_encode(App\Models\Examination::class)}}"
+                                            data-label-fields="{name}"
+                                            data-depend-on="examination_id"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'status'=> \App\Models\Examination::EXAMINATION_STATUS_COMPLETE])}}"
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $examination->code, 'id' =>  $examination->id])}}"
+                                            @endif
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="achieved_marks">{{__('admin.examination_result.achieved_marks')}} <span
                                             style="color: red">*</span></label>
-                                    <input type="number" class="form-control" id="achieved_marks" required
+                                    <input type="number" class="form-control" id="achieved_marks"
                                            name="achieved_marks"
                                            value="{{ $edit ? $examinationResult->achieved_marks : old('achieved_marks') }}"
                                            placeholder="{{__('admin.examination_result.achieved_marks')}}">
@@ -57,103 +144,6 @@
                             </div>
 
 
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="examination_id">
-                                        {{__('admin.examination_result.examination')}}
-                                        <span class="required"></span>
-                                    </label>
-
-                                    <select class="form-control select2 examination_id" id="examination_id"
-                                            name="examination_id" required>
-                                        <option value=""
-                                                selected>{{__('admin.common.select')}}</option>
-                                        @foreach($examinations as $key => $examination)
-                                            @if ($edit)
-                                                <option {{ $edit && $examinationResult->examination_id == $examination->id ? 'selected' : ''}}
-                                                        value="{{ $examination->id }}">{{ $examination->code }} -- {{ substr($examination->exam_details, 0, 200) }}</option>
-                                            @else
-                                                <option {{ old('examination_id') == $examination->id ? 'selected' : '' }}
-                                                        value="{{ $examination->id }}">{{ $examination->code }} -- {{ substr($examination->exam_details, 0, 200) }}</option>
-                                            @endif
-
-                                        @endforeach
-                                    </select>
-
-                                </div>
-                            </div>
-
-
-
-                            {{--<div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="training_center_id">
-                                        {{__('admin.examination_result.training_center')}}
-                                        <span class="required"></span>
-                                    </label>
-
-                                    <select class="form-control select2-ajax-wizard"
-                                            name="training_center_id" required
-                                            id="training_center_id"
-                                            data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-dependent-fields="#batch_id"
-                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $examinationResult->trainingCenter->title_en, 'id' =>  $examinationResult->training_center_id])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
-                                    >
-                                    </select>
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="batch_id">
-                                        {{__('admin.examination_result.batch_title')}}
-                                        <span class="required"></span>
-                                    </label>
-
-                                    <select class="form-control select2-ajax-wizard batch_id"
-                                            name="batch_id" required
-                                            id="batch_id"
-                                            data-model="{{base64_encode(App\Models\Batch::class)}}"
-                                            data-label-fields="{title_en}"
-                                            data-depend-on-optional="training_center_id"
-                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'batch_status'=>1 ])}}"
-                                            @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $examinationResult->batch->title_en, 'id' =>  $examinationResult->batch_id])}}"
-                                            @endif
-                                            data-placeholder="{{ __('generic.select_placeholder') }}"
-                                    >
-                                    </select>
-
-                                </div>
-                            </div>--}}
-
-
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="form-group">
-                                    <label for="youth_id">
-                                        {{__('admin.examination_result.youth')}}
-                                        <span class="required"></span>
-                                    </label>
-                                    <select class="form-control select2" id="youth_id" name="youth_id" required>
-                                        <option value="">{{__('admin.common.select')}}</option>
-
-                                        @if($edit)
-                                            @foreach($youths as $key => $youth)
-                                                <option  {{ $examinationResult->youth_id == $key ? 'selected' : ''}}
-                                                         value="{{ $key }}">{{ $youth }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
                                         class="btn btn-success">{{ $edit ? __('admin.common.update') : __('admin.common.add') }}</button>
@@ -193,8 +183,22 @@
             rules: {
                 feedback: {
                     required: true,
-                    //pattern: /^[a-zA-Z0-9 ]*$/,
                 },
+                institute_id: {
+                    required: true,
+                },
+                batch_id: {
+                    required: true,
+                },
+                examination_id: {
+                    required: true,
+                },
+                achieved_marks: {
+                    required: true,
+                },
+                youth_id: {
+                    required: true,
+                }
             },
             messages: {
                 feedback: {
