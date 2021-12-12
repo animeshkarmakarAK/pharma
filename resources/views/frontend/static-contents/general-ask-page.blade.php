@@ -20,35 +20,33 @@
                                     <div class="text-center">
                                         <h3 class="question-answer-heading text-dark p-3">সচারাচর জিজ্ঞাসা</h3>
                                     </div>
-                                    @if(!$data->isEmpty())
-                                        @foreach($data as $key => $qa)
-                                            <div class="panel-group question-answer-container" id="accordion">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h4 class="question-title">
-                                                            <a class="question-heading" data-toggle="collapse"
-                                                               href="#collapseExample{{$key}}" role="button" aria-expanded="false"
-                                                               aria-controls="collapseExample1">
-                                                                {{ $qa['question'] }}
-                                                                </a>
-                                                            {{--<a data-toggle="collapse" class="question-heading" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1" > - {{ $currentInstitute->title_bn? $currentInstitute->title_bn:'' }} ট্রেনিং ম্যানেজমেন্ট </a>--}}
-                                                        </h4>
-                                                    </div>
-                                                    <div id="collapseExample{{$key}}" class="question-answer collapse">
-                                                        <div class="panel-body">
-                                                            <p>{!! $qa['answer'] !!}</p>
-                                                        </div>
+                                    @forelse($faqs as $key => $qa)
+                                        <div class="panel-group question-answer-container" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="question-title">
+                                                        <a class="question-heading" data-toggle="collapse"
+                                                           href="#collapseExample{{$key}}" role="button"
+                                                           aria-expanded="false"
+                                                           aria-controls="collapseExample1">
+                                                            {{ $qa['question'] }}
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseExample{{$key}}" class="question-answer collapse">
+                                                    <div class="panel-body">
+                                                        <p>{!! $qa['answer'] !!}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    @else
+                                        </div>
+                                    @empty
                                         <div class="col-md-12">
                                             <div class="alert text-danger text-center">
                                                 কোন সচারাচর জিজ্ঞাসা নেই
                                             </div>
                                         </div>
-                                    @endif
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -82,7 +80,7 @@
             margin-bottom: 15px;
         }
 
-        .question-answer-container:hover .question-heading{
+        .question-answer-container:hover .question-heading {
             color: #fff;
             transition: .3s;
         }
@@ -105,13 +103,15 @@
             background: #f8f9fa;
             padding: 25px 20px;
         }
-        .faq-area{
+
+        .faq-area {
             border: 1px solid #f9f9f9;
             padding: 20px;
             box-shadow: 0 0 15px #eee;
             min-height: 100%;
         }
-        .faq-area-body{
+
+        .faq-area-body {
             padding: 15px 15px;
             border: 1px solid #e1e1e1 !important;
             border-radius: 8px !important;

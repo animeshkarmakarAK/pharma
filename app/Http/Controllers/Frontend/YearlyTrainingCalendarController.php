@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CourseSession;
 use App\Models\Institute;
-use App\Models\PublishCourse;
+use App\Models\Course;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
@@ -24,39 +24,39 @@ class YearlyTrainingCalendarController extends Controller
     public function allEvent(Request $request)
     {
         $currentInstitute = app('currentInstitute');
-        $courseSessions = PublishCourse::select([
-            'publish_courses.id as publish_course_id',
+        $courseSessions = Course::select([
+            'courses.id as publish_course_id',
             'courses.title_en as title',
             'courses.title_en as description',//this for tooltip
             DB::raw('DATE(course_sessions.application_start_date) as start'),
             DB::raw('DATE_ADD(DATE(course_sessions.application_end_date), INTERVAL 1 Day) as end'),
-            'publish_courses.institute_id',
-            'publish_courses.training_center_id',
+            'courses.institute_id',
+            'courses.training_center_id',
         ]);
-        $courseSessions->join('course_sessions', 'publish_courses.id', '=', 'course_sessions.publish_course_id');
-        $courseSessions->join('courses', 'publish_courses.course_id', '=', 'courses.id');
-        $courseSessions->where(['publish_courses.institute_id' => $currentInstitute->id]);
+        $courseSessions->join('course_sessions', 'courses.id', '=', 'course_sessions.publish_course_id');
+        $courseSessions->join('courses', 'courses.course_id', '=', 'courses.id');
+        $courseSessions->where(['courses.institute_id' => $currentInstitute->id]);
 
 
         if (!empty($request->input('institute_id'))) {
-            $courseSessions->where('publish_courses.institute_id', $request->input('institute_id'));
+            $courseSessions->where('courses.institute_id', $request->input('institute_id'));
         }
 
         if (!empty($request->input('training_center_id'))) {
             $trainingCenterId = '"' . $request->input('training_center_id') . '"';
-            $courseSessions->where('publish_courses.training_center_id', 'LIKE', '%' . $trainingCenterId . '%');
+            $courseSessions->where('courses.training_center_id', 'LIKE', '%' . $trainingCenterId . '%');
             $courseSessions->orWhere(function ($query) use ($currentInstitute) {
-                $query->where(['publish_courses.institute_id' => $currentInstitute->id])
-                    ->where(['publish_courses.training_center_id' => null]);
+                $query->where(['courses.institute_id' => $currentInstitute->id])
+                    ->where(['courses.training_center_id' => null]);
             });
         }
 
         return $courseSessions->get()->toArray();
     }
 
-    public function fiscalYear($instituteSlug): view
+    public function fiscalYear(): view
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        $currentInstitute = app('currentInstitute');
         $year = (date('m') > 6) ? date('Y') + 1 : date('Y');
         $from = date(($year - 1) . '-07-01');
         $to = date($year . '-06-30');
@@ -77,16 +77,16 @@ class YearlyTrainingCalendarController extends Controller
     public function venueList(Request $request, $id): view
     {
         $query = $request->query('search');
-        $publishedCourses = PublishCourse::select(
-            'publish_courses.institute_id',
-            'publish_courses.branch_id',
-            'publish_courses.training_center_id',
-            'publish_courses.course_id',
+        $courses = Course::select(
+            'courses.institute_id',
+            'courses.branch_id',
+            'courses.training_center_id',
+            'courses.course_id',
         )
-            ->join('institutes', 'publish_courses.institute_id', '=', 'institutes.id')
-            ->leftJoin('branches', 'publish_courses.branch_id', '=', 'branches.id')
-            ->leftJoin('training_centers', 'publish_courses.training_center_id', '=', 'training_centers.id')
-            ->where(['publish_courses.course_id' => $id])
+            ->join('institutes', 'courses.institute_id', '=', 'institutes.id')
+            ->leftJoin('branches', 'courses.branch_id', '=', 'branches.id')
+            ->leftJoin('training_centers', 'courses.training_center_id', '=', 'training_centers.id')
+            ->where(['courses.course_id' => $id])
             ->where(function ($result) use ($query) {
                 $result
                     ->where('training_centers.title_en', 'LIKE', '%' . $query . '%')
@@ -97,10 +97,10 @@ class YearlyTrainingCalendarController extends Controller
                     ->orWhere('institutes.address', 'LIKE', '%' . $query . '%')
                     ->orWhere('institutes.primary_mobile', 'LIKE', '%' . $query . '%');
             })
-            ->groupBy(['publish_courses.institute_id', 'publish_courses.branch_id', 'publish_courses.training_center_id', 'publish_courses.course_id'])
+            ->groupBy(['courses.institute_id', 'courses.branch_id', 'courses.training_center_id', 'courses.course_id'])
             ->get();
 
-        return \view(self::VIEW_PATH . 'training-calendar.venue-list', compact('publishedCourses'));
+        return \view(self::VIEW_PATH . 'training-calendar.venue-list', compact('courses'));
     }
 
 }

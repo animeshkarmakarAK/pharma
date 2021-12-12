@@ -9,13 +9,12 @@ use App\Models\Gallery;
 use App\Models\GalleryCategory;
 use App\Models\Programme;
 
-class galleryCategoryPageController
+class GalleryCategoryPageController
 {
     const VIEW_PATH = "frontend.gallery-category-pages.";
 
     public function allGalleryCategoryPage()
     {
-
         $currentInstitute = app('currentInstitute');
         $galleryCategories = GalleryCategory::active()
             ->orderBy('id', 'DESC')
@@ -36,7 +35,7 @@ class galleryCategoryPageController
         $galleries = Gallery::where('gallery_category_id',$galleryCategoryId);
         $galleries = $galleries->where('publish_date','<=',$today);
         $galleries = $galleries->where('archive_date','>=',$today)->get();
-        //$galleries = $galleryCategory->galleries;
+
         return view(self::VIEW_PATH . 'gallery-category', compact('galleryCategory', 'galleries'));
     }
 }

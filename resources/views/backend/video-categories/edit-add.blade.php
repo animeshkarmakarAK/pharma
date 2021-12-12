@@ -50,13 +50,14 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('admin.video_categories.institute_title') }}<span
+                                        <label for="institute_id">{{ __('admin.video_categories.institute_title') }}
+                                            <span
                                                 class="required"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 data-dependent-fields="#video_category_id"
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $videoCategory->institute->title, 'id' =>  $videoCategory->institute_id])}}"
@@ -69,7 +70,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="video_category_id">{{ __('admin.video_categories.parent_category') }}</label>
+                                    <label
+                                        for="video_category_id">{{ __('admin.video_categories.parent_category') }}</label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="parent_id"
                                             id="video_category_id"
@@ -96,7 +98,8 @@
                                                    name="row_status"
                                                    value="{{ \App\Models\Video::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $videoCategory->row_status == \App\Models\VideoCategory::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\VideoCategory::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
-                                            <label for="row_status_active" class="custom-control-label">{{ __('admin.status.active') }}</label>
+                                            <label for="row_status_active"
+                                                   class="custom-control-label">{{ __('admin.status.active') }}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">

@@ -9,9 +9,10 @@ use App\Models\StaticPage;
 
 class StaticContentController extends BaseController
 {
-    public function index(string $pid, string $instituteSlug = '')
+    public function index(string $pid)
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        $currentInstitute = app('currentInstitute');
+
         $staticContent = StaticPage::where('page_id', $pid);
         if ($currentInstitute) {
             $staticContent->where('institute_id', $currentInstitute->id);

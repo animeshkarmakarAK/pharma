@@ -115,7 +115,7 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(App\Models\Institute::class)}}"
-                                                data-label-fields="{name}"
+                                                data-label-fields="{title}"
                                                 @if($edit && $staticPage->institute)
                                                 data-preselected-option="{{json_encode(['text' =>  $staticPage->institute->title, 'id' =>  $staticPage->institute->id])}}"
                                                 @endif

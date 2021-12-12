@@ -195,8 +195,8 @@ $routesWithoutInstituteSlug = function () {
 
     Route::post('venue-list-search', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'venueListSearch'])->name('venue-list-search');
 
-    Route::get('gallery-categories', [\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
-    Route::get('gallery-categories/{galleryCategory}', [\App\Http\Controllers\Frontend\galleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
+    Route::get('gallery-categories', [\App\Http\Controllers\Frontend\GalleryCategoryPageController::class, 'allGalleryCategoryPage'])->name('gallery-categories');
+    Route::get('gallery-categories/{galleryCategory}', [\App\Http\Controllers\Frontend\GalleryCategoryPageController::class, 'singleGalleryCategoryPage'])->name('gallery-category');
 
     Route::get('events/{event}', [\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
     Route::get('sc/{page_id}', [App\Http\Controllers\Frontend\StaticContentController::class, 'index'])

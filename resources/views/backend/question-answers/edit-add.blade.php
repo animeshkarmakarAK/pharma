@@ -46,7 +46,7 @@
                                                 name="institute_id"
                                                 id="institute_id"
                                                 data-model="{{base64_encode(App\Models\Institute::class)}}"
-                                                data-label-fields="{title_en}"
+                                                data-label-fields="{title}"
                                                 data-dependent-fields="#video_category_id"
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $questionAnswer->institute->title, 'id' =>  $questionAnswer->institute->id])}}"

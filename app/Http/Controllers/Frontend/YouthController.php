@@ -147,16 +147,18 @@ class YouthController extends Controller
 
     public function videos($instituteSlug = null): View
     {
-        $currentInstitute = Institute::where('slug', $instituteSlug)->first();
+        $currentInstitute = app('currentInstitute');
 
-        $youthVideos = collect([]);
-        $youthVideoCategories = collect([]);
+        $youthVideoCategories = VideoCategory::query();
+        $youthVideos = Video::query();
+
         if ($currentInstitute) {
-            $youthVideos = Video::where(['institute_id' => $currentInstitute->id])->get();
-            $youthVideoCategories = VideoCategory::where(['institute_id' => $currentInstitute->id])->get();
-        } else {
-            $youthVideos = Video::whereNull('institute_id')->get();
+            $youthVideoCategories->where(['institute_id' => $currentInstitute->id]);
+            $youthVideos->where(['institute_id' => $currentInstitute->id]);
         }
+
+        $youthVideoCategories = $youthVideoCategories->get();
+        $youthVideos = $youthVideos->get();
 
         return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
     }
@@ -219,76 +221,26 @@ class YouthController extends Controller
         }
     }
 
-    public function advicePage($instituteSlug = null): View
+    public function advicePage(): View
     {
-        $currentInstitute = new Institute();
-
-        if ($instituteSlug) {
-            $currentInstitute = Institute::where('slug', $instituteSlug)->first();
-        }
+        $currentInstitute = app('currentInstitute');
 
         return \view(self::VIEW_PATH . 'static-contents.advice-page', compact('currentInstitute'));
     }
 
-    public function generalAskPage($instituteSlug = null): View
+    public function generalAskPage(): View
     {
         /** @var Institute $currentInstitute */
         $currentInstitute = app('currentInstitute');
 
-        $data = collect([]);
+        $faqs = QuestionAnswer::query();
 
-        if (!empty($currentInstitute)) {
-            $data = QuestionAnswer::where('institute_id', $currentInstitute->id)->get();
+        if ($currentInstitute) {
+            $faqs->where('institute_id', $currentInstitute->id);
         }
+        $faqs = $faqs->get();
 
-        $dataOld = [
-            [
-                "question" => "প্রশ্ন ১: কেন্দ্র ভিত্তিক প্রশিক্ষণ ট্রেড সমূহ কি কি?",
-                "answer" => 'উত্তরঃ দয়া করে কোর্সসমূহ পাতায় দেখুন ( <a target="_blank" href="' . route('frontend.course_search') . '">এখানে ক্লিক করুন</a> ) ',
-            ],
-            [
-                "question" => "প্রশ্ন ২: প্রশিক্ষণের বিষয়ে বিস্তারিত জানার জন্য কোথায় যোগাযোগ করব?",
-                "answer" => "উত্তরঃ যোগাযোগ পাতায় দেখুন ( <a target='_blank' href='" . route('frontend.contact-us-page') . "'>এখানে ক্লিক করুন</a> )",
-            ],
-            [
-                "question" => "প্রশ্ন ৩: প্রশিক্ষণ গ্রহণের জন্য ভর্তি ফরম কোথা থেকে এবং কিভাবে পাব?",
-                "answer" => "উত্তরঃ অনলাইন আবেদন পাতা থেকে আপনার পছন্দনীয় কোর্সে ভর্তির আবেদন করুন ( <a target='_blank' href='#'>এখানে ক্লিক করে অনলাইন আবেদন করুন</a>)",
-            ],
-            [
-                "question" => "প্রশ্ন ৪: নিজ বাড়িতে থেকে প্রশিক্ষণ গ্রহণের সুযোগ আছে কিনা?",
-                "answer" => "উত্তরঃ বিটাক এর সকল প্রশিক্ষণ শিল্পকারখানা ভিত্তিক কারিগরি প্রশিক্ষণ। তাই নিজ বাড়িতে বসে করার সুযোগ নেই।",
-            ],
-            [
-                "question" => "প্রশ্ন ৫: অনলাইনে কোন প্রশিক্ষণ কোর্স আছে কিনা",
-                "answer" => "উত্তরঃ অনলাইনে প্রশিক্ষণের আবেদন করা যাবে কিন্তু প্রশিক্ষণ বিটাকের নির্ধারিত কেন্দ্রে এসে নিতে হবে।",
-            ],
-            [
-                "question" => "প্রশ্ন ৬: পড়াশোনা করার পাশাপাশি প্রশিক্ষণ গ্রহণের সুযোগ আছে কিনা?",
-                "answer" => "উত্তরঃ বিটাকের সকল প্রশিক্ষণ সকাল ৯ টা থেকে বিকাল ৫ টার মধ্যেই সম্পন্ন করা হয়। সান্ধ্যকালিন কোন কোর্স নেই বিটাকে।",
-            ],
-            [
-                "question" => "প্রশ্ন ৭: বিদেশ গমনেচ্ছু প্রার্থীদের প্রশিক্ষণ গ্রহণের কোনো সুযোগ আছে কিনা?",
-                "answer" => "উত্তরঃ বিদেশ গমনেচ্ছু প্রার্থী বিটাক এর কোন প্রশিক্ষণ নিজের জন্য উপযোগী মনে করলে সেটা যথাযথ প্রক্রিয়ার মাধ্যমে গ্রহন করতে পারবেন।",
-            ],
-            [
-                "question" => "প্রশ্ন ৮: বিটাক এ একটি ট্রেনিং নেওয়ার পর আরেকটি ট্রেনিং নেওয়ার কোনো সুযোগ আছে কিনা?",
-                "answer" => "উত্তরঃ বিভিন্ন প্রকল্পের অধীন যে সমস্ত প্রশিক্ষণ প্রদান করা হয় সেসমস্ত প্রশিক্ষণ ব্যাতিত অন্যান্য প্রশিক্ষণ একাধিক নিতে পারবেন।",
-            ],
-            [
-                "question" => "প্রশ্ন ৯: প্রশিক্ষণ শেষে চাকরির কোন ব্যবস্থা আছে কিনা থাকলে কোন কোন প্রতিষ্ঠান হতে পারে",
-                "answer" => "উত্তরঃ বিভিন্ন প্রশিক্ষণ কোর্স সম্পন্ন হলে জব ফেয়ার আয়োজন করা হয়ে থাকে। সেখান থেকে বিভিন্ন বেসরকারি প্রতিষ্ঠান প্রশিক্ষনার্থিদের বাছাই করে চাকুরীতে নিয়োগ দিয়ে থাকে।",
-            ],
-            [
-                "question" => "প্রশ্ন ১০: প্রতিবন্ধীদের জন্য কোনো প্রশিক্ষণ কোর্স চালু রয়েছে কিনা?",
-                "answer" => "উত্তরঃ আলাদাভাবে প্রতিবন্ধীদের জন্য কোন প্রশিক্ষণ কোর্স চালু নেই।",
-            ],
-        ];
-
-        if (empty($currentInstitute)) {
-            $data = collect($dataOld);
-        }
-
-        return \view(self::VIEW_PATH . 'static-contents.general-ask-page', compact('data'));
+        return \view(self::VIEW_PATH . 'static-contents.general-ask-page', compact('faqs'));
     }
 
     public function contactUsPage($instituteSlug): View
