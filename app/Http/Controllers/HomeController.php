@@ -11,7 +11,6 @@ use App\Models\Gallery;
 use App\Models\GalleryCategory;
 use App\Models\Institute;
 use App\Models\IntroVideo;
-use App\Models\PublishCourse;
 use App\Models\Slider;
 use App\Models\StaticPage;
 use App\Models\TrainingCenter;

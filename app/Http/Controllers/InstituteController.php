@@ -103,7 +103,6 @@ class InstituteController extends Controller
 
         try {
             $this->instituteService->updateInstitute($institute, $validatedData);
-            Helper::forgetDomainConfig($institute);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([

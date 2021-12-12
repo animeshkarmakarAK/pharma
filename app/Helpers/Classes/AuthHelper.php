@@ -17,6 +17,7 @@ class AuthHelper
         /**
          * If User pass empty string then it will return default auth, if not found default guard then return null value
          */
+
         if (empty($guard)) {
             if (Auth::check()) {
                 return Auth::user();

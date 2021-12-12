@@ -8,6 +8,7 @@ use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 /**
@@ -34,7 +35,8 @@ class Institute extends BaseModel
 
     const DEFAULT_LOGO = 'institute/default.jpg';
 
-    public function setSlugAttribute($value) {
+    public function setSlugAttribute($value)
+    {
 
         if (static::whereSlug($slug = Str::slug($value))->exists()) {
 
@@ -44,7 +46,8 @@ class Institute extends BaseModel
         $this->attributes['slug'] = $slug;
     }
 
-    public function incrementSlug($slug) {
+    public function incrementSlug($slug)
+    {
 
         $original = $slug;
 
@@ -111,20 +114,13 @@ class Institute extends BaseModel
         return $this->hasMany(TrainingCenter::class);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function publishCourses(): HasMany
-    {
-        return $this->hasMany(PublishCourse::class);
-    }
 
     /**
-     * @return HasMany
+     * @return HasOne
      */
-    public function users(): HasMany
+    public function user(): HasOne
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class);
     }
 
 

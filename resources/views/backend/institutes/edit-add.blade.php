@@ -36,10 +36,10 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">{{ __('admin.institute.title') }}<span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="name"
-                                           name="name"
-                                           value="{{ $edit ? $institute->name : old('name') }}"
+                                    <label for="title">{{ __('admin.institute.title') }}<span style="color: red"> * </span></label>
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $institute->title : old('title') }}"
                                            placeholder="{{ __('admin.institute.title') }}">
                                 </div>
                             </div>
@@ -52,32 +52,6 @@
                                            data-code="{{ $edit ? $institute->email : '' }}"
                                            value="{{ $edit ? $institute->email : old('email') }}"
                                            placeholder="{{ __('generic.email') }}">
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="contact_person_password">{{ __('generic.password') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="password" class="form-control"
-                                           id="contact_person_password"
-                                           name="contact_person_password"
-                                           value="{{ old('contact_person_password') }}"
-                                           placeholder="{{ __('generic.password') }}">
-
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="contact_person_password_confirmation">{{ __('generic.retype_password') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="password" class="form-control"
-                                           id="contact_person_password_confirmation"
-                                           name="contact_person_password_confirmation"
-                                           value="{{ old('contact_person_password_confirmation') }}"
-                                           placeholder="{{ __('generic.retype_password') }}">
 
                                 </div>
                             </div>
@@ -169,6 +143,33 @@
                                            placeholder="{{ __('generic.contact_person_email') }}">
                                 </div>
                             </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contact_person_password">{{ __('generic.password') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="password" class="form-control"
+                                           id="contact_person_password"
+                                           name="contact_person_password"
+                                           value="{{ old('contact_person_password') }}"
+                                           placeholder="{{ __('generic.password') }}">
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contact_person_password_confirmation">{{ __('generic.retype_password') }}<span
+                                            style="color: red"> * </span></label>
+                                    <input type="password" class="form-control"
+                                           id="contact_person_password_confirmation"
+                                           name="contact_person_password_confirmation"
+                                           value="{{ old('contact_person_password_confirmation') }}"
+                                           placeholder="{{ __('generic.retype_password') }}">
+
+                                </div>
+                            </div>
+
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -276,13 +277,13 @@
 
         editAddForm.validate({
             rules: {
-                name: {
+                title: {
                     required: true,
                 },
                 email: {
                     required: true,
                     pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                    //remote: "{!! route('youth.check-unique-email') !!}",
+                    remote: "{!! route('admin.users.check-unique-user-email') !!}",
                 },
                 mobile: {
                     required: true,
@@ -316,13 +317,9 @@
                     required: !EDIT,
                     accept: 'image/*',
                     filesize: 500000,
-                    //logoSize: true,
                 },
             },
             messages: {
-                name: {
-                    // pattern: "This field is required in English.",
-                },
                 email: {
                     required: "Please enter an email address",
                     pattern: "Please enter valid email address"

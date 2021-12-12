@@ -5,9 +5,8 @@ namespace App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
-use App\Models\RowStatus;
+use App\Models\Institute;
 use App\Models\User;
-use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +15,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\RequiredIf;
-use App\Models\Institute;
+use Nette\Schema\ValidationException;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -25,49 +24,36 @@ class InstituteService
     public function createSSP(array $data): Institute
     {
         $instituteData = Arr::except($data, ['contact_person_password', 'contact_person_password_confirmation']);
-        $instituteData['slug'] = Str::slug($instituteData['name']);
+        $instituteData['slug'] = Str::slug($instituteData['title']);
 
         $institute = Institute::create($instituteData);
 
-        $data = Arr::only($data, ['title', 'email', 'contact_person_password']);
-        $data['institute_id'] = $institute->id;
+        $data = Arr::only($data, ['title', 'contact_person_email', 'contact_person_password']);
         $data['name_en'] = $data['title'];
-        unset($data['name']);
+        unset($data['title']);
+        $data['email'] = $data['contact_person_email'];
+        unset($data['contact_person_email']);
+        $data['institute_id'] = $institute->id;
         $data['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
-        $data['role_id'] = 3;
         $data['password'] = Hash::make($data['contact_person_password']);
+        unset($data['contact_person_password']);
         $data['row_status'] = User::ROW_STATUS_INACTIVE;
-        if(AuthHelper::getAuthUser()->isSuperUser()){
+
+        $authUser = AuthHelper::getAuthUser();
+        if ($authUser && $authUser->isSuperUser()) {
             $data['row_status'] = User::ROW_STATUS_ACTIVE;
         }
-        unset($data['contact_person_password']);
+
         User::create($data);
+
         return $institute;
     }
 
-    public function createInstitute(array $data): Institute
-    {
-        $password = $data['contact_person_password'];
-        $email = $data['email'];
-
-        $data = Arr::except($data, 'contact_person_password');
-        $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
-
-        if (!empty($data['logo'])) {
-            $filename = FileHandler::storePhoto($data['logo'], 'institute');
-            $data['logo'] = 'institute/' . $filename;
-        } else {
-            $data['logo'] = Institute::DEFAULT_LOGO;
-        }
-
-        return Institute::create($data);
-
-    }
 
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title' => ['nullable', 'string', 'max:191'],
+            'title' => ['required', 'string', 'max:191'],
             'email' => [
                 'required',
                 'string',
@@ -111,7 +97,7 @@ class InstituteService
             'google_map_src' => ['nullable', 'string'],
         ];
 
-        if(!AuthHelper::getAuthUser()){
+        if (!AuthHelper::getAuthUser()) {
             $rules['logo'] = [
                 'nullable',
                 'image',
@@ -138,7 +124,17 @@ class InstituteService
         $institutes = Institute::acl()->select([
             'institutes.id as id',
             'institutes.title',
+            'institutes.email',
+            'institutes.mobile',
+            'institutes.office_head_name',
+            'institutes.office_head_post',
+            'institutes.mobile',
+            'institutes.contact_person_name',
+            'institutes.contact_person_email',
+            'institutes.contact_person_mobile',
+            'institutes.contact_person_post',
             'institutes.address',
+            'institutes.row_status',
             'institutes.created_at',
             'institutes.updated_at'
         ]);
@@ -159,11 +155,14 @@ class InstituteService
 
                 return $str;
             })
-            ->rawColumns(['action'])
+            ->addColumn('row_status', function (Institute $institute) {
+                return $institute->getCurrentRowStatus(true);
+            })
+            ->rawColumns(['action', 'row_status'])
             ->toJson();
     }
 
-    public function updateInstitute(Institute $institute, array $data)
+    public function updateInstitute(Institute $institute, array $data): bool
     {
         $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
 
@@ -183,7 +182,28 @@ class InstituteService
             $data['logo'] = Institute::DEFAULT_LOGO;
         }
 
-        $institute->update($data);
+        $institute->fill($data);
+
+        $data['name_en'] = $data['title'];
+        $data['email'] = $data['contact_person_email'];
+        if (!empty($data['logo'])) {
+            $data['profile_pic'] = $data['logo'];
+        }
+
+        try {
+            $validator = \Illuminate\Support\Facades\Validator::make($data, ['email' => 'required|email|unique:users'], ['email' => "invalid email address"]);
+            if ($validator->fails()) {
+                throw new ValidationException('invalid email address');
+            }
+        } catch (ValidationException $ex) {
+            if ($ex->getCode() == 999) {
+                echo $ex->getMessage();
+            }
+        }
+
+
+        $institute->user->fill($data);
+        return $institute->push();
     }
 
     public function deleteInstitute(Institute $institute): bool
