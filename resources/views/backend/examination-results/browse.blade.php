@@ -84,11 +84,6 @@
 
                     },
                     {
-                        title: "{{__('admin.examination_result.training_center')}}",
-                        data: "training_center.title_en",
-                        name: "examination_results.training_center_id"
-                    },
-                    {
                         title: "{{__('admin.examination_result.batch_title')}}",
                         data: "batch.title_en",
                         name: "examination_results.batch_id"

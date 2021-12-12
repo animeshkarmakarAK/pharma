@@ -158,7 +158,7 @@ return [
 
     'examination' => [
         'examination_status_msg' => 'Are you sure you want to change this examination status?',
-        'examination_complete' => 'Examination Complete',
+        'examination_complete' => 'Examination Completed',
         'examination_publish' => 'Examination Publish',
         'examination_not_publish' => 'Examination Not Publish',
         'examination_status' => 'Examination Status',
@@ -167,7 +167,7 @@ return [
         'action' => 'Action',
         'status' => 'Examination Status',
         'sl' => '#',
-        'code' => 'Code',
+        'code' => ' Examination Code',
         'title' => 'Title',
         'total_mark' => 'Total Mark',
         'pass_mark' => 'Pass Mark',
@@ -175,7 +175,8 @@ return [
         'training_center' => 'Training Center',
         'exam_details' => 'Examination Details',
         'institute_name' => 'Institute Name',
-        'examination_type' => 'Examination Type'
+        'examination_type' => 'Examination Type',
+
 
     ],
     'examination_type' => [

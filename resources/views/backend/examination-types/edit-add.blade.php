@@ -107,6 +107,9 @@
                     required: true,
                     //pattern: /^[a-zA-Z0-9 ]*$/,
                 },
+                institute_id: {
+                    required: true,
+                }
             },
             messages: {
                 title: {

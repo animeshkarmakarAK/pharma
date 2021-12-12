@@ -37,7 +37,7 @@ class BatchService
     public function validator(Request $request, $id = null): Validator
     {
         $rules = [
-            'title_en' => 'required|string|max:191',
+            'title' => 'required|string|max:191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'course_id' => 'required|int|exists:courses,id',
         ];
@@ -52,8 +52,8 @@ class BatchService
         $batches = Batch::select(
             [
                 'batches.id as id',
-                'batches.title_en',
-                'courses.title_en as courses.title_en',
+                'batches.title',
+                'courses.title as courses.title',
                 'batches.row_status',
                 'batches.batch_status',
                 'batches.created_at',

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -50,9 +49,6 @@ class ExaminationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationService->validator($request)->validate();
-//        $statement = DB::select("show table status like 'examinations'");
-//        $ainid = $statement[0]->Auto_increment;
-
         try {
             $this->examinationService->createExamination($validatedData);
         } catch (\Throwable $exception) {
@@ -85,6 +81,7 @@ class ExaminationController extends Controller
     public function edit(Examination $examination)
     {
         $authUser = AuthHelper::getAuthUser();
+
         if($authUser->isInstituteUser()){
             $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE, 'institute_id' => $authUser->institute_id])->pluck('title','id');
         }
@@ -96,7 +93,6 @@ class ExaminationController extends Controller
 
     /**
      * @param Request $request
-     * @param int $id
      * @return RedirectResponse
      * @throws ValidationException
      */
@@ -147,9 +143,10 @@ class ExaminationController extends Controller
     {
         return $this->examinationService->getExaminationLists($request);
     }
-    public function status($id)
+
+
+    public function examinationStatus($id): RedirectResponse
     {
-        //return $id;
         $examination = Examination::find($id);
         if (!$examination){
             return back()->with([
@@ -159,20 +156,46 @@ class ExaminationController extends Controller
         }
 
         $status = $examination->status;
-        if ($status == 0) {
-            $examination->status = 1;
-            $examination->save();
-        } else if($status == 1) {
-            $examination->status = 2;
-            $examination->save();
-        } else {
-            $examination->status = 0;
-            $examination->save();
-        }
 
+        if ($status == Examination::EXAMINATION_STATUS_NOT_PUBLISH) {
+            $examination->status = Examination::EXAMINATION_STATUS_PUBLISH;
+            $examination->save();
+            return back()->with([
+                'message' => __('generic.object_published_successfully', ['object' => 'Examination']),
+                'alert-type' => 'success'
+            ]);
+        }
+        else if($status == Examination::EXAMINATION_STATUS_PUBLISH) {
+            $examination->status = Examination::EXAMINATION_STATUS_COMPLETE;
+            $examination->save();
+            return back()->with([
+                'message' => __('generic.object_completed_successfully', ['object' => 'Examination']),
+                'alert-type' => 'success'
+            ]);
+        }
+        else {
+            $examination->status = Examination::EXAMINATION_STATUS_NOT_PUBLISH;
+            $examination->save();
+
+        }
         return back()->with([
-            'message' => __('generic.object_deleted_successfully', ['object' => 'Examination']),
+            'message' => __('generic.object_not_published_yet', ['object' => 'Examination']),
             'alert-type' => 'success'
         ]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function examinationCodeCheck(Request $request): JsonResponse
+    {
+        $course = Examination::where(['code' => $request->code])->first();
+        if ($course == null) {
+            return response()->json(true);
+        } else {
+            return response()->json('Code already in use!');
+        }
     }
 }
