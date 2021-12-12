@@ -55,6 +55,7 @@
                         {{ $course->applicationFormType->title }}
                     </div>
                 </div>
+
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.course.title') }}</p>
                     <div class="input-box">
