@@ -169,14 +169,15 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label
-                                        for="application_start_date">{{ __('admin.course.application_start_date') }}<span
+                                        for="application_start_date">{{ __('admin.course.application_start_date') }}
+                                        <span
                                             style="color: red"> * </span></label>
                                     <input type="text"
                                            class="flat-date flat-date-custom-bg form-control"
                                            name="application_start_date"
                                            id="application_start_date"
                                            value="{{ $edit ? $course->application_start_date : old('application_start_date') }}"
-                                           >
+                                    >
                                 </div>
                             </div>
 
@@ -253,7 +254,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="training_methodology">{{ __('admin.course.training_methodology') }}</label>
+                                    <label
+                                        for="training_methodology">{{ __('admin.course.training_methodology') }}</label>
                                     <textarea class="form-control" id="training_methodology"
                                               name="training_methodology"
                                               rows="3"
@@ -308,7 +310,8 @@
                                                    name="row_status"
                                                    value="{{ \App\Models\Video::ROW_STATUS_ACTIVE }}"
                                                 {{ ($edit && $course->row_status == \App\Models\Video::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\Video::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
-                                            <label for="row_status_active" class="custom-control-label">{{ __('admin.status.active') }}</label>
+                                            <label for="row_status_active"
+                                                   class="custom-control-label">{{ __('admin.status.active') }}</label>
                                         </div>
 
                                         <div class="custom-control custom-radio">
@@ -323,12 +326,183 @@
                                 </div>
                             @endif
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" id="ethnic-group" checked>
-                                <label class="form-check-label" for="ethnic-group">
-                                    Ethnic group
-                                </label>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[ethnicGroup]['value']" type="checkbox" value="1" id="ethnic-group">
+                                                        <label class="form-check-label" for="ethnic-group">
+                                                            Ethnic group
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[ethnicGroup][optionality]" class="custom-control-input" id="ethnic-group-optionality">
+                                                        <label class="custom-control-label" for="ethnic-group-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[freedomFighter]['value']" type="checkbox" value="1" id="freedom-fighter-status">
+                                                        <label class="form-check-label" for="freedom-fighter-status">
+                                                            Freedom fighter
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[freedomFighter][optionality]" class="custom-control-input" id="freedom-fighter-optionality">
+                                                        <label class="custom-control-label" for="freedom-fighter-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[occupationInfo]['value']" type="checkbox" value="1" id="occupation-info">
+                                                        <label class="form-check-label" for="occupation-info">
+                                                            Occupation info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[occupationInfo][optionality]" class="custom-control-input" id="occupation-info-optionality">
+                                                        <label class="custom-control-label" for="occupation-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[othersInfo]['value']" type="checkbox" value="1" id="others-info">
+                                                        <label class="form-check-label" for="others-info">
+                                                            Others info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[othersInfo][optionality]" class="custom-control-input" id="others-info-optionality">
+                                                        <label class="custom-control-label" for="occupation-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['value']" type="checkbox" value="1" id="academic-info">
+                                                        <label class="form-check-label" for="academic-info">
+                                                            Academic info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="academic-info-optionality">
+                                                        <label class="custom-control-label" for="academic-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['jsc']" type="checkbox" value="1" id="jsc-info">
+                                                        <label class="form-check-label" for="jsc-info">
+                                                            SSC info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="jsc-info-optionality">
+                                                        <label class="custom-control-label" for="jsc-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['ssc']" type="checkbox" value="1" id="ssc-info">
+                                                        <label class="form-check-label" for="ssc-info">
+                                                            HSC info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="ssc-info-optionality">
+                                                        <label class="custom-control-label" for="ssc-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['hsc']" type="checkbox" value="1" id="hsc-info">
+                                                        <label class="form-check-label" for="hsc-info">
+                                                            HSC info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="hsc-info-optionality">
+                                                        <label class="custom-control-label" for="hsc-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['honors']" type="checkbox" value="1" id="honors-info">
+                                                        <label class="form-check-label" for="honors-info">
+                                                            HSC info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="honors-info-optionality">
+                                                        <label class="custom-control-label" for="honors-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group form-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['masters']" type="checkbox" value="1" id="masters-info">
+                                                        <label class="form-check-label" for="masters-info">
+                                                            Masters info
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-switch ml-5" style="display: none">
+                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="masters-info-optionality">
+                                                        <label class="custom-control-label" for="masters-info-optionality">optional</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
+
 
 
                             <div class="col-sm-12 text-right">
@@ -409,7 +583,7 @@
             "Invalid logo size. Size must be 820 x 312",
         );
 
-        $.validator.addMethod('filesize', function(value, element, param) {
+        $.validator.addMethod('filesize', function (value, element, param) {
             return this.optional(element) || (element.files[0].size <= param)
         }, 'File size must be less than {0} bytes');
 
@@ -490,7 +664,7 @@
                     required: true,
                     greaterThan: '#course_start_date'
                 },
-                cover_image : {
+                cover_image: {
                     required: false,
                     accept: 'image/*'
                 }
@@ -538,5 +712,36 @@
                 editAddForm.validate().element("#cover_image");
             });
         })
+
+        function toggleApplicationSettings(checked, target) {
+            checked ? target.show() : target.hide();
+        }
+
+        $(document).ready(function () {
+
+            $('#ethnic-group').on('change', function () {
+                const target = $('#ethnic-group-optionality');
+                toggleApplicationSettings(this.checked, target.parent());
+
+                if (target.attr('checked')) {
+                    console.log(true);
+                }
+            });
+
+            $('#freedom-fighter-status').on('change', function () {
+                const target = $('#freedom-fighter-optionality').parent();
+                toggleApplicationSettings(this.checked, target);
+            });
+
+            $('#occupation-info').on('change', function () {
+                const target = $('#occupation-info-optionality').parent();
+                toggleApplicationSettings(this.checked, target);
+            });
+
+            $('#others-info').on('change', function () {
+                const target = $('#others-info-optionality').parent();
+                toggleApplicationSettings(this.checked, target);
+            });
+        });
     </script>
 @endpush
