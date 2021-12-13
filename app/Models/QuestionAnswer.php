@@ -15,8 +15,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int institute_id
  * @property string question
  * @property string answer
- * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
- * @method static Builder|Institute active()
+ * @method static \Illuminate\Database\Eloquent\Builder|QuestionAnswer acl()
+ * @method static Builder|QuestionAnswer active()
+ * @method static Builder|QuestionAnswer withoutInstitute()
  */
 class QuestionAnswer extends BaseModel
 {
@@ -27,6 +28,11 @@ class QuestionAnswer extends BaseModel
     public function institute(): belongsTo
     {
         return $this->belongsTo(Institute::class);
+    }
+
+    public function scopeWithoutInstitute($query)
+    {
+        return $query->where('institute_id', 0);
     }
 
 }
