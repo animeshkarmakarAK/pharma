@@ -63,9 +63,9 @@
                         visible: true,
                     },
                     {
-                        title: "Title (En)",
-                        data: "title_en",
-                        name: "title_en"
+                        title: "Title",
+                        data: "title",
+                        name: "title"
                     },
                     {
                         title: "BBS Code",
@@ -133,7 +133,7 @@
                             required: true,
                             pattern: "^[\\s-'\u0980-\u09ff]{1,255}$",
                         },
-                        title_en: {
+                        title: {
                             required: true,
                         },
                         bbs_code: {

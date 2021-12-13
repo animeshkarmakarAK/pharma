@@ -130,7 +130,7 @@
                                                         id="loc_division_id"
                                                         data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
                                                         data-dependent-fields="#loc_district_id"
-                                                        data-label-fields="{title_en}"
+                                                        data-label-fields="{title}"
                                                         data-placeholder="নির্বাচন করুন"
                                                 >
                                                 </select>
@@ -145,7 +145,7 @@
                                                         name="loc_district_id"
                                                         id="loc_district_id"
                                                         data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
-                                                        data-label-fields="{title_en}"
+                                                        data-label-fields="{title}"
                                                         data-depend-on-optional="loc_division_id:#loc_division_id"
                                                         data-placeholder="নির্বাচন করুন"
                                                 >
@@ -161,7 +161,7 @@
                                                         name="loc_upazila_id"
                                                         id="loc_upazila_id"
                                                         data-model="{{base64_encode(\App\Models\LocUpazila::class)}}"
-                                                        data-label-fields="{title_en}"
+                                                        data-label-fields="{title}"
                                                         data-depend-on="loc_district_id:#loc_district_id"
                                                         data-placeholder="নির্বাচন করুন"
                                                 >

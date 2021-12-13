@@ -34,7 +34,7 @@
 
                                             <option value="">প্রোগ্রাম নির্বাচন করুন</option>
                                             @foreach($programmes as $programme)
-                                                <option value="{{ $programme->id }}" >{{ $programme->title_bn }}</option>
+                                                <option value="{{ $programme->id }}" >{{ $programme->title }}</option>
                                             @endforeach
 
                                         </select>
@@ -46,7 +46,7 @@
                                         >
                                             <option value="">ব্যাচ নির্বাচন করুন</option>
                                             @foreach($batches as $batch)
-                                                <option value="{{ $batch->id }}" >{{ $batch->title_bn }}</option>
+                                                <option value="{{ $batch->id }}" >{{ $batch->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -129,12 +129,12 @@
             html += '<img class="card-img-top" src="/storage/' + item.image + '" height="200" alt="Card image cap">';
             html += '</a>';
             html += `<div class="card-body album-body">`;
-            html += '<h5 class="card-title  gallery-heading-wrap pb-2">অ্যালবাম: <span class="font-weight-bold">' + item.title_bn + '</span></h5>';
-            if (item.programme_title_bn) {
-                html += '<h6 class="card-text  gallery-heading-wrap ">প্রোগ্রাম: ' + item?.programme_title_bn ?? "" + '</h6>';
+            html += '<h5 class="card-title  gallery-heading-wrap pb-2">অ্যালবাম: <span class="font-weight-bold">' + item.title + '</span></h5>';
+            if (item.programme_title) {
+                html += '<h6 class="card-text  gallery-heading-wrap ">প্রোগ্রাম: ' + item?.programme_title ?? "" + '</h6>';
             }
-            if (item.batch_title_bn) {
-                html += '<p class="card-text">ব্যাচ:' + item.batch_title_bn + '</p>';
+            if (item.batch_title) {
+                html += '<p class="card-text">ব্যাচ:' + item.batch_title + '</p>';
             }
             html += '</div></div></div>';
             return html;
@@ -177,7 +177,7 @@
         let baseUrl = '{{route('web-api.model-resources')}}';
         const galleryAlbumFetch = searchAPI({
             model: "{{base64_encode(\App\Models\GalleryCategory::class)}}",
-            columns: 'title_en|title_bn|image|batch.title_bn|programme.title_bn|institute_id'
+            columns: 'title|title|image|batch.title|programme.title|institute_id'
         });
 
         function albumSearch(url = baseUrl) {

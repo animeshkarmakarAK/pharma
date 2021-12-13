@@ -182,9 +182,6 @@
                 title: {
                     pattern: "This field is required in English."
                 },
-                title_bn: {
-                    pattern: "This field is required in Bangla."
-                },
                 start_date: {
                     greaterThan: function () {
                         if (!EDIT) {

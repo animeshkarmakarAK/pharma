@@ -38,9 +38,9 @@
                                             name="default_role_id"
                                             id="default_role_id"
                                             data-model="{{base64_encode(App\Models\Role::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             @if ($userType->role)
-                                            data-preselected-option="{{json_encode(['text' =>  optional($userType->role)->title_en, 'id' =>  optional($userType->role)->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  optional($userType->role)->title, 'id' =>  optional($userType->role)->id])}}"
                                             @endif
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >

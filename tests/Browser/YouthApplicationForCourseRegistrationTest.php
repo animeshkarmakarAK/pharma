@@ -17,8 +17,7 @@ class YouthApplicationForCourseRegistrationTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/youth-registrations')
-                ->type('name_en', 'PK Chaki')
-                ->type('name_bn', 'চাকি')
+                ->type('name', 'PK Chaki')
                 ->type('mobile', '01757808214')
                 ->select2('select[name=institute_id]', 'BITAC')
                 //->select2('select[name=branch_id]', 'Bashundhara Branch')
@@ -46,10 +45,10 @@ class YouthApplicationForCourseRegistrationTest extends DuskTestCase
                 ->type('address[permanent][permanent_address_house_address][postal_code]', 2222)
                 ->type('address[permanent][permanent_address_house_address][village_name]', '2')
                 ->type('address[permanent][permanent_address_house_address][house_and_road]', '2')
-                ->type('familyMember[father][member_name_en]', 's Chaki')
+                ->type('familyMember[father][member_name]', 's Chaki')
                 ->type('familyMember[father][nid]', '2222222222')
                 ->type('familyMember[father][mobile]', '01700000000')
-                ->type('familyMember[mother][member_name_en]', 's Chaki')
+                ->type('familyMember[mother][member_name]', 's Chaki')
                 ->type('familyMember[mother][nid]', '2222222222')
                 ->type('familyMember[mother][mobile]', '01700000000');
 

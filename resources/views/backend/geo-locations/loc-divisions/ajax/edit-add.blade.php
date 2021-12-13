@@ -25,11 +25,11 @@
                 @endif
 
                 <div class="col-sm-6 col-md-4">
-                    <label for="name_en">Title (En) <span style="color: red"> * </span></label>
-                    <input type="text" class="form-control" name="title_en" value="{{$edit ? $locDivision->title_en : ''}}"/>
+                    <label for="name">Title <span style="color: red"> * </span></label>
+                    <input type="text" class="form-control" name="title" value="{{$edit ? $locDivision->title : ''}}"/>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <label for="name_en">BBS Code <span style="color: red"> * </span></label>
+                    <label for="name">BBS Code <span style="color: red"> * </span></label>
                     <input type="text" class="form-control" name="bbs_code" value="{{$edit ? $locDivision->bbs_code : ''}}"/>
                 </div>
 

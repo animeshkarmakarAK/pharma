@@ -42,8 +42,7 @@ class OrganizationTypeTest extends TestCase
 
         $response = $this->post(route('admin.organization-types.store'), [
             '_token' => csrf_token(),
-            'title_en' => $faker->companySuffix,
-            'title_bn' => $faker->companySuffix,
+            'title' => $faker->companySuffix,
             'is_government' => 1,
         ]);
         $response->assertSessionHasNoErrors();
@@ -61,8 +60,7 @@ class OrganizationTypeTest extends TestCase
 
         $response = $this->put(route('admin.organization-types.update', $organizationType->id), [
             '_token' => csrf_token(),
-            'title_en' => $faker->company,
-            'title_bn' => $faker->company,
+            'title' => $faker->company,
             'is_government' => 1,
             'row_status' => 1
         ]);

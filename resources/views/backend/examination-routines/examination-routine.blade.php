@@ -76,7 +76,7 @@
                                         >
                                             <option value="">{{__('admin.daily_routine.select')}}</option>
                                             @foreach($batches as $batch)
-                                                <option value="{{$batch->id}}" {{(@$parameters['batch_id'] == $batch->id )? 'selected' : ''}}>{{$batch->title_en}}</option>
+                                                <option value="{{$batch->id}}" {{(@$parameters['batch_id'] == $batch->id )? 'selected' : ''}}>{{$batch->title}}</option>
                                             @endforeach
 
                                         </select>
@@ -145,7 +145,7 @@
                                         >
                                             <option value="">{{__('admin.daily_routine.select')}}</option>
                                             @foreach($trainers as $trainer)
-                                                <option value="{{$trainer->id}}" {{(@$parameters['examination_id'] == $trainer->id) ? 'selected' : ''}} >{{$trainer->name_en}}</option>
+                                                <option value="{{$trainer->id}}" {{(@$parameters['examination_id'] == $trainer->id) ? 'selected' : ''}} >{{$trainer->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
