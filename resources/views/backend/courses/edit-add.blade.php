@@ -713,34 +713,42 @@
             });
         })
 
-        function toggleApplicationSettings(checked, target) {
+        function showOptionalSettingSwitch(checked, target) {
             checked ? target.show() : target.hide();
+        }
+
+        function changeOptionalSettingSwitchLabel(checkboxField) {
+            if (checkboxField.checked) {
+                $('#' + checkboxField.id).next().html('required');
+            }else {
+                $('#' + checkboxField.id).next().html('optional');
+            }
         }
 
         $(document).ready(function () {
 
             $('#ethnic-group').on('change', function () {
                 const target = $('#ethnic-group-optionality');
-                toggleApplicationSettings(this.checked, target.parent());
+                showOptionalSettingSwitch(this.checked, target.parent());
+            });
 
-                if (target.attr('checked')) {
-                    console.log(true);
-                }
+            $('#ethnic-group-optionality').on('change', function () {
+                changeOptionalSettingSwitchLabel(this);
             });
 
             $('#freedom-fighter-status').on('change', function () {
                 const target = $('#freedom-fighter-optionality').parent();
-                toggleApplicationSettings(this.checked, target);
+                showOptionalSettingSwitch(this.checked, target);
             });
 
             $('#occupation-info').on('change', function () {
                 const target = $('#occupation-info-optionality').parent();
-                toggleApplicationSettings(this.checked, target);
+                showOptionalSettingSwitch(this.checked, target);
             });
 
             $('#others-info').on('change', function () {
                 const target = $('#others-info-optionality').parent();
-                toggleApplicationSettings(this.checked, target);
+                showOptionalSettingSwitch(this.checked, target);
             });
         });
     </script>
