@@ -79,8 +79,8 @@
                     },
                     {
                         title: "{{ __('admin.intro-video.institute_title') }}",
-                        data: "institute_title",
-                        name: "institutes.title",
+                        data: "institute_title_en",
+                        name: "institutes.title_en",
                         visible: false,
                     },
                     {
