@@ -12,10 +12,12 @@ use App\Models\Slider;
 use App\Models\StaticPage;
 use App\Models\TrainingCenter;
 use App\Models\User;
+use App\Models\YouthCourseEnroll;
 use App\Models\YouthRegistration;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends BaseController
 {
@@ -90,8 +92,21 @@ class HomeController extends BaseController
         $upcomingCourses = $courses;
         $events = $events->limit(5)->get();
         $introVideo = $introVideo->first();
+        $skillServiceProviders = Institute::acl()->select(
+        'institutes.id as institute_id',
+                'institutes.title as institute_title',
+                'institutes.logo as institute_logo',
+                'institutes.address as institute_address',
+                DB::raw('count(youth_course_enrolls.id) as total_student'),
+                DB::raw('count(courses.id) as total_courses')
+            )
+            ->join('courses', 'institutes.id', '=', 'courses.institute_id')
+            ->join('youth_course_enrolls', 'courses.id', '=', 'youth_course_enrolls.course_id')
+            ->where(['youth_course_enrolls.enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT])
+            ->groupBy('youth_course_enrolls.id')
+            ->get();
 
-        return view('landing-page.welcome', compact('courses', 'upcomingCourses', 'galleries', 'sliders', 'staticPage', 'statistics', 'galleryCategories', 'events', 'introVideo', 'runningCourses'));
+        return view('landing-page.welcome', compact('courses', 'upcomingCourses', 'galleries', 'sliders', 'staticPage', 'statistics', 'galleryCategories', 'events', 'introVideo', 'runningCourses','skillServiceProviders'));
     }
 
     public function success(): \Illuminate\Http\RedirectResponse
