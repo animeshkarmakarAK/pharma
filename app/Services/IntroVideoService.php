@@ -3,17 +3,11 @@
 
 namespace App\Services;
 
-
 use App\Helpers\Classes\AuthHelper;
-use App\Helpers\Classes\FileHandler;
-use Illuminate\Support\Facades\Auth;
 use App\Models\IntroVideo;
-use App\Models\Video;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class IntroVideoService
@@ -34,7 +28,6 @@ class IntroVideoService
     public function createIntroVideo(array $data): IntroVideo
     {
         $data['youtube_video_id'] = $this->getYoutubeVideoKey($data['youtube_video_url']);
-        $data['crated_by'] = Auth::user()->id;
 
         return IntroVideo::create($data);
     }
@@ -82,7 +75,7 @@ class IntroVideoService
             'intro_videos.row_status',
             'intro_videos.created_at',
             'intro_videos.updated_at',
-            'institutes.title as institute_title',
+            'institutes.title_en as institute_title_en',
         ]);
 
         $introVideos->leftJoin('institutes', 'intro_videos.institute_id', 'institutes.id');
