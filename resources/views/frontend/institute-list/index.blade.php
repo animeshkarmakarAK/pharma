@@ -152,6 +152,17 @@
                 .card-p1 {
                     color: #671688;
                 }
+                .card {
+                    box-shadow: 0px 5px 5px #e5e5e5 !important;
+                }
+                .course-heading-wrap {
+                    margin-bottom: 5px;
+                    font-size: 15px;
+                }
+                hr {
+                    margin-top: 0.75rem;
+                    margin-bottom: 0.75rem;
+                }
             </style>
         @endpush
         @push('js')
@@ -180,20 +191,23 @@
                     let html = '';
                     html += '<div class="col-md-3">';
                     html += '<div class="card card-main mb-3">';
-                    html += '<div class="card-bar-home-course">';
-                    html += '<div class="pb-3">';
+                    html += '<div class="card-bar-institute-list">';
+                    html += '<div class="">';
                     html += '<img class="slider-img border-top-radius"';
-                    html += item?.cover_image ? 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"' : 'src="http://via.placeholder.com/640x360" width="100%"';
-                    html += 'alt="icon">';
+                    html += item.logo ? 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.logo) + '" width="100%"' : '>';
                     html += '</div>';
-                    html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
-
-                    html += '<p class="font-weight-bold course-heading-wrap">SSP Name: ' + item?.title + '</p>';
-                    html += '<p class="course-heading-wrap"><span class="font-weight-bold">Office Head:</span> ' + item?.office_head_post + ' ' + item?.office_head_name + '</p>';
-                    html += '<h5>Contact Information</h5>';
-                    html += '<p class="font-weight-bold course-heading-wrap">Name: ' + item?.contact_person_name + '</p>';
-                    html += '<p class="font-weight-bold course-heading-wrap">Mobile: ' + item?.contact_person_mobile + '</p>';
-                    html += '<p class="font-weight-bold course-heading-wrap">Address: ' + item?.address ?? " " + '</p>';
+                    html += '<div class="text-left p-4">';
+                    html += '<h5 class="font-weight-bold">Institute Information</h5>';
+                    html += '<hr/>';
+                    html += '<p class=" course-heading-wrap">SSP Name: ' + item?.title + '</p>';
+                    html += '<p class="course-heading-wrap"><span>Office Head: </span> ' + item?.office_head_post + ' ' + item?.office_head_name + '</p>';
+                    html += '<hr/>';
+                    html += '<h5 class="font-weight-bold">Contact Information</h5>';
+                    html += '<hr/>';
+                    html += '<p class=" course-heading-wrap">Name: ' + item?.contact_person_name + '</p>';
+                    html += '<p class=" course-heading-wrap">Mobile: ' + item?.contact_person_mobile + '</p>';
+                    html += '<p class="course-heading-wrap">Address: ' + item?.address ?? " " + '</p>';
+                    html += '<hr/>';
                     html += '<p class="float-right">';
                     html += '<a href="{{ route('frontend.institute-details', '__')}}"'.replace('__', item.id);
                     html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
@@ -254,7 +268,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const instituteFetch = searchAPI({
                     model: "{{base64_encode(\App\Models\Institute::class)}}",
-                    columns: 'id|title|contact_person_name|contact_person_email|contact_person_mobile|address|office_head_name|office_head_post'
+                    columns: 'id|title|contact_person_name|contact_person_email|contact_person_mobile|address|office_head_name|office_head_post|logo'
                 });
 
                 function instituteSearch(url = baseUrl) {
