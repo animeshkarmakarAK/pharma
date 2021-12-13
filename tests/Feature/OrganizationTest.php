@@ -43,8 +43,7 @@ class OrganizationTest extends TestCase
 
         $response = $this->post(route('admin.organizations.store'), [
             '_token' => csrf_token(),
-            'title_en' => $faker->company,
-            'title_bn' => $faker->company,
+            'title' => $faker->company,
             'address' => $faker->address,
             'mobile' => '01757808214',
             'email' => $faker->email,
@@ -73,8 +72,7 @@ class OrganizationTest extends TestCase
 
         $response = $this->put(route('admin.organizations.update', $organization->id), [
             '_token' => csrf_token(),
-            'title_en' => $faker->company,
-            'title_bn' => $faker->company,
+            'title' => $faker->company,
             'address' => $faker->address,
             'mobile' => '01757808214',
             'email' => $faker->email,

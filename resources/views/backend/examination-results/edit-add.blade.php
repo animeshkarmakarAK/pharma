@@ -225,10 +225,9 @@
                     $('#youth_id').append('<option value="'+'">{{__('admin.common.select')}}</option>');
                     $.each(data, function(index,data){
                         console.log(data);
-                        $('#youth_id').append('<option value="' + data.id + '">' + data.youth_name_en + '</option>');
+                        $('#youth_id').append('<option value="' + data.id + '">' + data.youth_name + '</option>');
                     });
                 });
-
             });
 
             // For presetting feedback value

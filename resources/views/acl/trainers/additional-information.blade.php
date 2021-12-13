@@ -1113,16 +1113,6 @@
                 });
             });
 
-            $.validator.addMethod(
-                "sessionNameEn",
-                function (value, element) {
-                    let regexp = /^[a-zA-Z0-9 ]*$/;
-                    let re = new RegExp(regexp);
-                    return this.optional(element) || re.test(value);
-                },
-                "Please fill this field in English."
-            );
-
             $.validator.addMethod("cGreaterThan", $.validator.methods.greaterThan,
                 "Application start date must be greater than today");
             $.validator.addMethod("cApplicationEndDate", $.validator.methods.greaterThan,
@@ -1146,10 +1136,6 @@
 
             $.validator.addClassRules("organization_name", {required: true});
             $.validator.addClassRules("position", {required: true});
-            $.validator.addClassRules("session_name_en", {
-                required: true,
-                sessionNameEn: true,
-            });
             SL++;
         }
 
@@ -1324,7 +1310,7 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="session_name_en">{{ __('generic.organization')}} <span
+                            <label for="organization_name">{{ __('generic.organization')}} <span
                                     style="color: red"> * </span></label>
                             <input type="text"
                                    class="form-control organization_name"

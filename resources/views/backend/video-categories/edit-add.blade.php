@@ -76,10 +76,10 @@
                                             name="parent_id"
                                             id="video_category_id"
                                             data-model="{{base64_encode(App\Models\VideoCategory::class)}}"
-                                            data-label-fields="{title_en}"
+                                            data-label-fields="{title}"
                                             data-depend-on="institute_id"
                                             @if($edit && !empty($videoCategory->parent_id))
-                                            data-preselected-option="{{json_encode(['text' =>  optional(\App\Models\VideoCategory::find($videoCategory->parent_id))->title_en, 'id' =>  $videoCategory->parent_id ]) }}"
+                                            data-preselected-option="{{json_encode(['text' =>  optional(\App\Models\VideoCategory::find($videoCategory->parent_id))->title, 'id' =>  $videoCategory->parent_id ]) }}"
                                             data-filters="{{json_encode(['id' != $videoCategory->id])}}"
                                             @endif
                                             data-placeholder="{{ __('admin.video_categories.parent_category') }}"
@@ -138,7 +138,7 @@
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
-                title_en: {
+                _en: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
@@ -153,8 +153,8 @@
                 },
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
+                title: {
+                    pattern: "This field is required.",
                 }
             },
             submitHandler: function (htmlForm) {

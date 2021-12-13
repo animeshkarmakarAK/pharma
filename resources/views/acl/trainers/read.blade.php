@@ -38,21 +38,10 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">{{ __('Name') . ' (English)' }}<span style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_en"
-                                           name="title_en"
-                                           value="{{ $edit ? $institute->title_en : old('title_en') }}"
-                                           placeholder="{{ __('Name') . ' (English)' }}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">{{ __('Name') . ' (Bangla)' }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="text" class="form-control" id="title_bn"
-                                           name="title_bn"
-                                           value="{{ $edit ? $institute->title_bn : old('title_bn') }}"
-                                           placeholder="{{ __('Name') . ' (Bangla)' }}">
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="{{ $edit ? $institute->title : old('title') }}"
+                                           placeholder="{{ __('Name') }}">
                                 </div>
                             </div>
 
@@ -342,13 +331,9 @@
 
         editAddForm.validate({
             rules: {
-                title_en: {
+                title: {
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
-                },
-                title_bn: {
-                    required: true,
-                    pattern: /^[\s'\u0980-\u09ff]+$/,
                 },
                 email: {
                     required: true,
@@ -396,11 +381,8 @@
                 },
             },
             messages: {
-                title_en: {
-                    pattern: "This field is required in English.",
-                },
-                title_bn: {
-                    pattern: "This field is required in Bangla.",
+                title: {
+                    pattern: "This field is required.",
                 },
                 email: {
                     required: "Please enter an email address",

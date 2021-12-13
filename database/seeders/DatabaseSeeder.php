@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             TrainingCenterSeeder::class,
             ProgrammeSeeder::class,
             CourseSeeder::class,
+            FAQSeeder::class,
         ]);
     }
 }

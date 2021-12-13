@@ -222,7 +222,7 @@
                     $('#course_id').empty();
                     $('#course_id').append(`<option value=""></option>`);
                     response.forEach(element => {
-                        $('#course_id').append(`<option value="${element['id']}">${element['title_en']}</option>`);
+                        $('#course_id').append(`<option value="${element['id']}">${element['title']}</option>`);
                     });
                 }
             });

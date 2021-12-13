@@ -18,6 +18,7 @@ use App\Services\CertificateGenerator;
 use App\Services\YouthRegistrationService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -231,10 +232,13 @@ class YouthController extends Controller
         /** @var Institute $currentInstitute */
         $currentInstitute = app('currentInstitute');
 
+        /** @var QuestionAnswer|Builder $faqs */
         $faqs = QuestionAnswer::query();
 
         if ($currentInstitute) {
             $faqs->where('institute_id', $currentInstitute->id);
+        } else {
+            $faqs->withoutInstitute();
         }
         $faqs = $faqs->get();
 

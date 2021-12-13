@@ -59,7 +59,7 @@
                                                 <option value="">প্রোগ্রামের নাম নির্বাচন করুন</option>
                                                 @foreach($programmes as $programme)
                                                     <option
-                                                        value="{{ $programme->id }}">{{ $programme->title_en }}</option>
+                                                        value="{{ $programme->id }}">{{ $programme->title }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -327,7 +327,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['course.title_en'] = {
+                        filters['course.title'] = {
                             type: 'contain',
                             value: searchQuery
                         };

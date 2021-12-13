@@ -35,7 +35,7 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title_en">{{__('admin.videos.title')  }}<span
+                                    <label for="title">{{__('admin.videos.title')  }}<span
                                             class="required"> * </span></label>
                                     <input type="text" class="form-control" id="title"
                                            name="title"
