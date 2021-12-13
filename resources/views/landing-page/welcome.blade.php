@@ -295,8 +295,8 @@
                                             <div class="bg-white course-date-card">
                                                 <div class="text-primary text-center">
                                                     <p><span
-                                                            class="font-weight-bold">{{ $course->created_at->format('d') }} </span>
-                                                        <br> {{ $course->created_at->format('M') }}</p>
+                                                            class="font-weight-bold">{{ optional($course->created_at)->format('d') }} </span>
+                                                        <br> {{ optional($course->created_at)->format('M') }}</p>
 
                                                 </div>
                                             </div>
