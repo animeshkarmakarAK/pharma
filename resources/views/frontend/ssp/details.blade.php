@@ -19,7 +19,7 @@
                             @if($institute->logo)
                             <div class="col-md-6 pr-5">
                                 <img class="card-img"
-                                     src="{{ $institute->logo}}"
+                                     src="{{asset('/storage/'.$institute->logo)}}"
                                      height="300" alt="Card image cap" title="{{$institute->title}} image">
                             </div>
                             <div class="col-md-6">
