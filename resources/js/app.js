@@ -145,8 +145,6 @@ window.initializeSelect2 = function (selector) {
             console.error('label field is undefined or invalid format. NB: ' + elmNameRefs);
         }
 
-
-
         elm.select2({
             placeholder,
             theme: 'bootstrap4',
@@ -198,9 +196,7 @@ window.initializeSelect2 = function (selector) {
                                 console.log("Invalid selector. NB: " + elmNameRefs);
                             }
 
-                            filters[dependOnColumn] = function () {
-                                return formElem.find(dependOnField).val();
-                            };
+                            filters[dependOnColumn] = formElem.find(dependOnField).val() || '-------';
                         });
                     }
 
@@ -209,11 +205,7 @@ window.initializeSelect2 = function (selector) {
                         parsedDependOnOptional.forEach(function (item) {
                             let parsedItem = item.split(':');
                             let dependOnField, dependOnColumn;
-
                             if (parsedItem.length === 1) {
-                                // if (/^[#.\[]/.test(parsedItem[0])) {
-                                //
-                                // }
                                 dependOnColumn = parsedItem[0];
                                 if (hasId) {
                                     dependOnField = "#" + parsedItem[0];
@@ -230,7 +222,6 @@ window.initializeSelect2 = function (selector) {
                             if (typeof dependOnField === 'undefined' || typeof dependOnColumn === 'undefined') {
                                 console.log("Invalid selector. NB: " + elmNameRefs);
                             }
-
                             let val = formElem.find(dependOnField).val();
                             if (typeof val !== 'undefined' && val?.length) {
                                 filters[dependOnColumn] = val;
@@ -259,7 +250,6 @@ window.initializeSelect2 = function (selector) {
         }
 
         $(this).on('select2:select', function (e) {
-            console.log('depend on:', 'dependOn');
             if (typeof dependentFields !== undefined && dependentFields?.length) {
                 dependentFields.split('|').forEach(function (item) {
                     let elem = formElem.find(item);

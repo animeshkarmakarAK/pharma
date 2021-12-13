@@ -20,95 +20,81 @@
                     <div class="card-background-white px-5 py-4">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <label
-                                            style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
-                                            <i class="fa fa-filter"></i> ফিল্টার&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-
-
-                                    @if(!empty($currentInstitute))
-                                        <input type="hidden" name="institute_id" id="institute_id"
-                                               value="{{ $currentInstitute->id }}">
-                                    @else
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <select class="form-control select2-ajax-wizard"
-                                                        name="institute_id"
-                                                        id="institute_id"
-                                                        data-model="{{base64_encode(\App\Models\Institute::class)}}"
-                                                        data-label-fields="{title}"
-                                                        data-dependent-fields="#video_id|#video_category_id"
-                                                        data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
-                                                >
-                                                    <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
-                                                </select>
+                                <form class="row" id="video-search-and-filter">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label
+                                                    style="color: #757575; line-height: calc(1.5em + .75rem); font-size: 1rem; font-weight: 400;">
+                                                    <i class="fa fa-filter"></i> ফিল্টার&nbsp;&nbsp;
+                                                </label>
                                             </div>
-                                        </div>
-                                    @endif
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control select2-ajax-wizard"
-                                                    name="video_id"
-                                                    id="video_id"
-                                            >
-                                                <option value="">ভিডিও সিলেক্ট করুন</option>
-                                                @foreach($youthVideos as $youthVideo)
-                                                    <option
-                                                        value="{{ $youthVideo->id }}">{{ $youthVideo->title}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                            @if(!empty($currentInstitute))
+                                                <input type="hidden" name="institute_id" id="institute_id"
+                                                       value="{{ $currentInstitute->id }}">
+                                            @else
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <select class="form-control select2-ajax-wizard"
+                                                                id="institute_id"
+                                                                name="institute_id"
+                                                                data-model="{{base64_encode(\App\Models\Institute::class)}}"
+                                                                data-label-fields="{title}"
+                                                                data-dependent-fields="#video_category_id"
+                                                                data-placeholder="ইনস্টিটিউট সিলেক্ট করুন"
+                                                        >
+                                                            <option value="">ইনস্টিটিউট সিলেক্ট করুন</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            @endif
 
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <select class="form-control select2-ajax-wizard"
+                                                            id="video_category_id"
+                                                            name="video_category_id"
+                                                            data-model="{{base64_encode(\App\Models\VideoCategory::class)}}"
+                                                            data-label-fields="{title}"
+                                                            data-depend-on-optional="institute_id"
+                                                            data-placeholder="ভিডিও ক্যাটাগরি"
+                                                    >
+                                                        <option value="">ভিডিও ক্যাটাগরি</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control"
-                                                    name="video_category_id"
-                                                    id="video_category_id"
-                                            >
-                                                <option value="">ভিডিও ক্যাটাগরি</option>
-                                                @foreach($youthVideoCategories as $youthVideoCategory)
-                                                    <option
-                                                        value="{{ $youthVideoCategory->id }}">{{ $youthVideoCategory->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-2">
-                                        <button class="btn btn-success button-bg mb-2"
-                                                id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <div class="input-group">
-                                            <input type="search" name="search" id="search" class="form-control"
-                                                   placeholder="অনুসন্ধান করুন ..." style="border: 1px solid #e5e5e5;">
-                                            <div class="input-group-append">
-                                                <button class="btn button-bg text-white" type="button">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
+                                            <div class="col-md-2">
+                                                <button class="btn btn-success button-bg mb-2"
+                                                        id="skill-video-search-btn">{{ __('অনুসন্ধান') }}</button>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <div class="input-group">
+                                                    <input type="search" name="search" id="search" class="form-control"
+                                                           placeholder="অনুসন্ধান করুন ..."
+                                                           style="border: 1px solid #e5e5e5;">
+                                                    <div class="input-group-append">
+                                                        <button class="btn button-bg text-white" type="button">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="overlay" style="display: none">
+                                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="overlay" style="display: none">
-                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                         <div class="row justify-content-center" id="container-skill-videos"></div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="prev-next-button float-right">
-
                                 </div>
                                 <div class="overlay" style="display: none">
                                     <i class="fas fa-2x fa-sync-alt fa-spin"></i>
@@ -166,7 +152,6 @@
             </style>
         @endpush
         @push('js')
-
             <script>
                 const template = function (item) {
                     let html = `<div class="col-md-3">
@@ -241,8 +226,6 @@
                     let searchQuery = $('#search').val();
                     let institute = $('#institute_id').val();
                     let videoCategory = $('#video_category_id').val();
-                    let video = $('#video_id').val();
-
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
                         filters['title'] = {
@@ -255,9 +238,6 @@
                     }
                     if (videoCategory?.toString()?.length) {
                         filters['video_category_id'] = videoCategory;
-                    }
-                    if (video?.toString()?.length) {
-                        filters['id'] = video;
                     }
 
                     skillVideoFetch(url, filters)?.then(function (response) {
@@ -311,13 +291,8 @@
                     $('#video_id').on('change', function () {
                         videoSearch();
                     });
-
-
                 });
             </script>
-
-            <!-- one Youtube video will playing at a time amung the multiple embeded videos -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             <script>
                 var ytplayerList;
 
@@ -423,5 +398,4 @@
                 var firstScriptTag = document.getElementsByTagName('script')[0];
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             </script>
-
     @endpush
