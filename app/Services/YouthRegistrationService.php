@@ -64,6 +64,7 @@ class YouthRegistrationService
             'loc_district_id' => 'required|int',
             'loc_upazila_id' => 'required|int',
             'physically_disable' => 'nullable',
+            'disable_status' => 'nullable',
             'physical_disabilities' => 'nullable',
             'gender' => 'required|int',
             'password' => [
@@ -108,7 +109,7 @@ class YouthRegistrationService
 
     public function getYouthInfo(Youth $youth): Model
     {
-        return $youth->youthFamilyMemberInfo->where('relation_with_youth', 'self')->first();
+        return $youth;
     }
 
     public function changeYouthCourseEnrollStatusAccept(YouthCourseEnroll $youthCourseEnroll)

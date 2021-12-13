@@ -140,6 +140,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
 Route::group(['as' => 'frontend.'], function () {
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
+    Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
+
+    Route::get('youth-registration/success/{accessKey}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
+    Route::get('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
+    Route::get('youth-password-reset', [App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
+    Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
+    Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
 
     Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
     Route::get('youth-enrolled-courses', [App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
@@ -156,12 +163,6 @@ Route::group(['as' => 'frontend.'], function () {
         'trainee-registrations' => App\Http\Controllers\Frontend\YouthRegistrationController::class,
     ]);
 
-    Route::get('youth-registration/success/{accessKey}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
-    Route::get('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
-    Route::get('youth-password-reset', [App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
-    Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
-    Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
-
     Route::post('youth/recover-access-key-by-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
     Route::post('youth/registration-success-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRegistrationSuccess'])->name('youth.registration-success-mail');
     Route::get('youth/check-unique-email', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthEmailUniqueness'])->name('youth.check-unique-email');
@@ -171,7 +172,6 @@ Route::group(['as' => 'frontend.'], function () {
 
     Route::post('institute-events', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
     Route::post('institute-events-date', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
-    Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
     Route::get('/institute-list', [App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-list');
     Route::get('institute-details/{id}', [App\Http\Controllers\Frontend\InstitutePageController::class, 'details'])->name('institute-details');
 });

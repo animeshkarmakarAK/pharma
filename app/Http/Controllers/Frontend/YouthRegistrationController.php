@@ -34,25 +34,22 @@ class YouthRegistrationController extends Controller
      * applied youth for registration data view
      *
      * @param $youthId
-     * @return View
      */
-    public function show($youthId): View
+    public function show($youthId)
     {
         $youth = Youth::findOrFail($youthId);
-
         $familyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
         $youthAcademicQualifications = $this->youthRegistrationService->getYouthAcademicQualification($youth);
         $youthSelfInfo = $this->youthRegistrationService->getYouthInfo($youth);
 
-        return \view(self::VIEW_PATH . 'read')
-            ->with([
+        return [
                 'father' => $familyMembers['father'],
                 'mother' => $familyMembers['mother'],
                 'guardian' => $familyMembers['guardian'],
                 'academicQualifications' => $youthAcademicQualifications,
                 'youthSelfInfo' => $youthSelfInfo,
                 'youth' => $youth,
-            ]);
+            ];
     }
 
 
@@ -61,7 +58,6 @@ class YouthRegistrationController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->youthRegistrationService->validator($request)->validate();

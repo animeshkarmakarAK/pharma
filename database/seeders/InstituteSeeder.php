@@ -32,7 +32,7 @@ class InstituteSeeder extends Seeder
                     'office_head_post' => 'SWE',
                     'contact_person_name' => 'HR',
                     'contact_person_email' => 'HR@gmail.com',
-                    'contact_person_mobile' => 'HR@gmail.com',
+                    'contact_person_mobile' => '01837473838',
                     'contact_person_post' => 'HR',
                     'row_status' => 1,
                     'slug' => Str::slug('bitac'),

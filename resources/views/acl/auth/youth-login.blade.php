@@ -15,13 +15,13 @@
                 <div class="col-sm-12 pt-5">
                     <a href="{{ route('frontend.main') }}">
                         <img
-                            src="{{ !empty($currentInstitute)? asset("storage/{$currentInstitute->logo}") : asset('assets/company/images/nise-logo.jpeg') }}"
+                            src="{{ !empty($currentInstitute)? asset("storage/{$currentInstitute->logo}") : asset('assets/logo/dpg/logo.svg') }}"
                             height="62px"
                             alt="Institute Logo" data-extra-logo="">
                     </a>
-                    <h2 class="pt-4 pb-4"
-                        style="color: #636f41">{{ $currentInstitute ? $currentInstitute->title : 'প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম' }}
-                    </h2>
+                    <h4 class="pt-4 pb-4"
+                        style="color: #636f41">{{ $currentInstitute ? $currentInstitute->title .' প্রশিক্ষণ/সার্টিফিকেশন সিস্টেম' : 'ডিপিজি প্রশিক্ষণ/সার্টিফিকেশন সিস্টেম' }}
+                    </h4>
                 </div>
                 <div class="col-sm-4 mx-auto">
                     <form class="login-form" action="{{route('frontend.youth.login-submit')}}" method="post">

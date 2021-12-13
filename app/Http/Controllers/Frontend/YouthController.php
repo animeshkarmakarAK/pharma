@@ -223,6 +223,9 @@ class YouthController extends Controller
     public function advicePage(): View
     {
         $currentInstitute = app('currentInstitute');
+        if (!$currentInstitute) {
+            abort(404, 'Not found');
+        }
 
         return \view(self::VIEW_PATH . 'static-contents.advice-page', compact('currentInstitute'));
     }
@@ -249,6 +252,10 @@ class YouthController extends Controller
     {
         /** @var Institute $currentInstitute */
         $currentInstitute = app('currentInstitute');
+        if (!$currentInstitute) {
+            abort(404, 'Not found');
+        }
+
         return \view(self::VIEW_PATH . 'static-contents.contact-us-page', compact('currentInstitute'));
     }
 

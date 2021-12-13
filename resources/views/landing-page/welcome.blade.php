@@ -441,7 +441,6 @@
                                                             <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}"
                                                                class="btn btn-primary btn-sm">বিস্তারিত</a>
                                                         </p>
-
                                                     </div>
                                                 </div>
                                             </div>

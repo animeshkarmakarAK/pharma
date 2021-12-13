@@ -168,6 +168,7 @@ return [
     'religion.buddhist' => 'Buddhist',
     'religion.jain' => 'Jain',
     'religion.other' => 'Other',
+    'other' => 'Other',
     'nationality' => 'Nationality',
     'nid_no' => 'NID Number',
     'birth_certificate' => 'Birth Certificate',

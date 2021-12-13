@@ -20,7 +20,7 @@
                                         <div class="form-body fix">
                                             <div class="advice-portlet-title fix">
                                                 <div class="text-center">
-                                                    <h3 class="green-heading title-content">{{ $currentInstitute->title ? $currentInstitute->title:'' }}
+                                                    <h3 class="green-heading title-content">{{ $currentInstitute && $currentInstitute->title ? $currentInstitute->title:'' }}
                                                         সম্পর্কে যদি আপনার কোনো মতামত থাকে তাহলে নিচের ফর্মটি পূরণ করে
                                                         সংরক্ষণ করুন</h3>
                                                 </div>
@@ -39,7 +39,7 @@
                                                                    class="form-control" type="text" name="name"
                                                                    aria-required="true">
                                                             <input type="hidden" name="institute_id" id="institute_id"
-                                                                   value="{{$currentInstitute->id}}">
+                                                                   value="{{$currentInstitute && $currentInstitute->id}}">
                                                             <input type="hidden" name="form_type"
                                                                    value="{{\App\Models\VisitorFeedback::FORM_TYPE_FEEDBACK}}">
                                                         </div>

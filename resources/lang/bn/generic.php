@@ -167,4 +167,5 @@ return [
     'trending_jobs'=>'কাজের ট্রেন্ডস',
     'map'=>'মানচিত্র',
     'additional_info_button_label' => 'অতিরিক্ত তথ্য',
+    'other' => 'অন্যান্য',
 ];

@@ -198,14 +198,6 @@
                         visible: false
                     },
                     {
-                        title: "Already Assigned To",
-                        data: "already_added_to_organization",
-                        name: "organizations.title",
-                        orderable: true,
-                        searchable: false,
-                        visible: true
-                    },
-                    {
                         title: "Action",
                         data: "action",
                         name: "action",

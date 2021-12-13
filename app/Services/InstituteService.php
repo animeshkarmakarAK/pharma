@@ -15,7 +15,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\RequiredIf;
-use Nette\Schema\ValidationException;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -26,23 +25,25 @@ class InstituteService
         $instituteData = Arr::except($data, ['contact_person_password', 'contact_person_password_confirmation']);
         $instituteData['slug'] = Str::slug($instituteData['title']);
 
+        /** @var Institute $institute */
         $institute = Institute::create($instituteData);
 
+        $userData = [];
         $data = Arr::only($data, ['title', 'contact_person_email', 'contact_person_password']);
-        $data['email'] = $data['contact_person_email'];
-        unset($data['contact_person_email']);
-        $data['institute_id'] = $institute->id;
-        $data['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
-        $data['password'] = Hash::make($data['contact_person_password']);
-        unset($data['contact_person_password']);
-        $data['row_status'] = User::ROW_STATUS_INACTIVE;
+
+        $userData['title'] = $data['title'];
+        $userData['email'] = $data['contact_person_email'];
+        $userData['institute_id'] = $institute->id;
+        $userData['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
+        $userData['password'] = Hash::make($data['contact_person_password']);
+        $userData['row_status'] = User::ROW_STATUS_INACTIVE;
 
         $authUser = AuthHelper::getAuthUser();
         if ($authUser && $authUser->isSuperUser()) {
-            $data['row_status'] = User::ROW_STATUS_ACTIVE;
+            $userData['row_status'] = User::ROW_STATUS_ACTIVE;
         }
 
-        User::create($data);
+        User::create($userData);
 
         return $institute;
     }
@@ -109,9 +110,7 @@ class InstituteService
             'logo.max' => 'Please upload maximum 500kb size of image',
         ];
 
-
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
-
     }
 
     public function getListDataForDatatable(\Illuminate\Http\Request $request): JsonResponse
@@ -171,7 +170,6 @@ class InstituteService
         if (!empty($data['logo'])) {
             $filename = FileHandler::storePhoto($data['logo'], 'institute');
             $data['logo'] = 'institute/' . $filename;
-
         } else {
             unset($data['logo']);
         }

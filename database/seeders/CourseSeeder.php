@@ -19,6 +19,7 @@ class CourseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         DB::table('courses')->truncate();
+
         $institutes = Institute::active()->pluck('id')->toArray();
 
         \DB::table('courses')->insert(array(
