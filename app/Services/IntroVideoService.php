@@ -75,7 +75,7 @@ class IntroVideoService
             'intro_videos.row_status',
             'intro_videos.created_at',
             'intro_videos.updated_at',
-            'institutes.title_en as institute_title_en',
+            'institutes.title as institute_title',
         ]);
 
         $introVideos->leftJoin('institutes', 'intro_videos.institute_id', 'institutes.id');

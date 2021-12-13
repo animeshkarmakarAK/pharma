@@ -75,7 +75,7 @@ class ProgrammeService
             [
                 'programmes.id as id',
                 'programmes.title',
-                'institutes.title as institutes.title',
+                'institutes.title as institute_title',
                 'programmes.code',
                 'programmes.logo',
                 'programmes.row_status',
