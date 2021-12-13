@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <!--Services Heading-->
-                        <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে </h2>
+                        <h2 class="section-heading-h2 pb-3 mb-0 font-weight-bold"> আমাদের সম্পর্কে</h2>
                         <div class="about-us-content">
                             @if(!empty($staticPage))
                                 @if(strlen(strip_tags($staticPage->page_contents)) > 1136)
@@ -507,8 +507,72 @@
 
             </div>
         </section>
-    @endif
+
     <!-- End Event -->
+    @else
+    <!-- Skill Service Provider -->
+    <section class="bg-white pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="section-heading section-heading-home pb-3">দক্ষতা সেবা প্রদানকারী</h2>
+                    <p class="text-center pb-2">
+                        সকল সেবা প্রদানকারী
+                    </p>
+                    <div class="template-space"></div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach($skillServiceProviders as $skillServiceProvider)
+                    <div class="col-md-3">
+                        <div class="card card-main mb-2">
+                            <div class="card-bar-home-course">
+                                <div class="pb-3">
+                                    <img class="slider-img border-top-radius"
+                                         src="{{asset('/storage/'. $skillServiceProvider->logo)}}"
+                                         alt="icon">
+                                </div>
+                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                    <p class="font-weight-bold course-heading-wrap">{{ $skillServiceProvider->title }}</p>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="font-weight-light mb-1"><i
+                                                    class="fas fa-book-open gray-color mr-2"></i> <span
+                                                    class="course-p">{{$skillServiceProvider->total_courses > 0 ? $skillServiceProvider->total_courses .' Courses'  :' কোন কোর্স নেই' }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="font-weight-light mb-1"><i
+                                                    class="fas fa-user-plus gray-color mr-2"></i> <span
+                                                    class="course-p">{{$skillServiceProvider->total_courses > 0 ? $skillServiceProvider->total_student .' Students'  :' কোন কোর্স নেই' }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="font-weight-light mb-1"><i
+                                                    class="fas fa-map-marker-alt gray-color mr-2"></i> <span
+                                                    class="course-p">{{$skillServiceProvider->institute_address ? $skillServiceProvider->institute_address :' কোন ঠিকানা নেই' }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="float-right">
+                                        <a href="{{ route('frontend.institute-details', ['id' => $skillServiceProvider->institute_id]) }}"
+                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            @if($skillServiceProviders->count() > 4)
+                <div class="col-md-12 text-center pt-3 pb-5">
+                    <a href="{{ route('frontend.institute-list') }}" target="_blank" class="more-course-button">আরও
+                        দেখুন <i class="fas fa-arrow-right btn-arrow"></i></a>
+                </div>
+            @endif
+        </div>
+    <!-- End Skill Service Provider -->
+    @endif
 
     <!-- Gallery Start -->
     <section class="gallery">
