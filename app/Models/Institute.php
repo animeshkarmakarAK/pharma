@@ -140,5 +140,4 @@ class Institute extends BaseModel
     {
         return $this->hasMany(Slider::class);
     }
-
 }
