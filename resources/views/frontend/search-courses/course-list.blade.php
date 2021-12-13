@@ -190,13 +190,28 @@
                     outline: none;
                 }
 
-                .card-p1 {
-                    color: #671688;
+                .course-card {
+                    position: relative;
+                }
+
+                .course-date-card {
+                    position: absolute;
+                    height: 50px;
+                    width: 50px;
+                    top: 7px;
+                    right: 15px;
+                    border: 1px solid #fff;
+                    border-radius: 5px;
                 }
             </style>
         @endpush
         @push('js')
             <script>
+
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+
                 let banglaNumber = {
                     0: "০",
                     1: "১",
@@ -216,39 +231,84 @@
                     return str;
                 };
 
-                const template = function (key, item) {
+                function getMonthSmallName(month) {
+                    if (!month) {
+                        return '';
+                    }
+
+                    return monthNames[month].substr(0,3);
+                }
+
+                {{--const template = function (key, item) {--}}
+                {{--    let html = '';--}}
+                {{--    html += '<div class="col-md-3">';--}}
+                {{--    html += '<div class="card card-main mb-3">';--}}
+                {{--    html += '<div class="card-bar-home-course">';--}}
+                {{--    html += '<div class="pb-3">';--}}
+                {{--    html += '<img class="slider-img border-top-radius"';--}}
+                {{--    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"';--}}
+                {{--    html += 'alt="icon">';--}}
+                {{--    html += '</div>';--}}
+                {{--    html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';--}}
+
+                {{--    html += '<p class="font-weight-bold course-heading-wrap">' + item.title + '</p>';--}}
+                {{--    html += '<p class="font-weight-light mb-1"><i';--}}
+                {{--    html += 'class="fas fa-clock gray-color"></i> <span ';--}}
+                {{--    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.duration ? item.duration : ' সময়কাল নির্ধারিত হয়নি') +--}}
+                {{--        '</span>';--}}
+                {{--    html += '</p>';--}}
+                {{--    html += '<p class="font-weight-light mb-0"><i';--}}
+                {{--    html += 'class="fas fa-user-plus gray-color"></i>';--}}
+                {{--    html += '<span ';--}}
+
+                {{--    html += '<p class="card-p1 float-left mb-1">';--}}
+                {{--    html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';--}}
+                {{--    html += '</span> ' + (item.course_fee ? engToBdNum(item.course_fee.toString()) + ' টাকা' : 'ফ্রি') + ' </p>';--}}
+                {{--    html += '<p class="float-right">';--}}
+                {{--    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', item.id);--}}
+                {{--    html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';--}}
+                {{--    html += '</p>';--}}
+                {{--    html += '</div>';--}}
+                {{--    html += '</div>';--}}
+                {{--    html += '</div> ';--}}
+                {{--    html += '</div>';--}}
+
+                {{--    return html;--}}
+                {{--}--}}
+
+
+                const template = function (key, course) {
                     let html = '';
-                    html += '<div class="col-md-3">';
-                    html += '<div class="card card-main mb-3">';
+                    html += '<div class="col-md-3 course-card">';
+                    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__']) }}">'.replace('__', course.id);
+                    html += '<div class="card card-main mb-2">';
                     html += '<div class="card-bar-home-course">';
                     html += '<div class="pb-3">';
                     html += '<img class="slider-img border-top-radius"';
-                    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"';
+                    html += course?.cover_image ? 'src="{{asset('/storage/'. '__')}}"'.replace('__', course?.cover_image) + '" width="100%"' : 'http://via.placeholder.com/640x360';
                     html += 'alt="icon">';
                     html += '</div>';
                     html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';
+                    html += '<p class="font-weight-light"';
+                    html += 'style="color: #9c36c6">' + course.course_fee ?? "Free" + '</p>';
+                    html += '<p class="font-weight-bold course-heading-wrap">' + course.title + '</p>';
 
-                    html += '<p class="font-weight-bold course-heading-wrap">' + item.title + '</p>';
+                    html += ' <p class="font-weight-light mb-1"><i';
+                    html += ' class="fas fa-clock gray-color mr-2"></i>';
+                    html += course?.duration ? '<span class="course-p">' + course.duration + '</span></p>' : 'Duration not fixed';
+
                     html += '<p class="font-weight-light mb-1"><i';
-                    html += 'class="fas fa-clock gray-color"></i> <span ';
-                    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.duration ? item.duration : ' সময়কাল নির্ধারিত হয়নি') +
-                        '</span>';
-                    html += '</p>';
-                    html += '<p class="font-weight-light mb-0"><i';
-                    html += 'class="fas fa-user-plus gray-color"></i>';
-                    html += '<span ';
+                    html += 'class="fa fa-user gray-color mr-2"></i>';
+                    html += '<i class="fa fa-user gray-color mr-2"> </i><span class="course-p">Student(0)</span>';
 
-                    html += '<p class="card-p1 float-left mb-1">';
-                    html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';
-                    html += '</span> ' + (item.course_fee ? engToBdNum(item.course_fee.toString()) + ' টাকা' : 'ফ্রি') + ' </p>';
-                    html += '<p class="float-right">';
-                    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', item.id);
-                    html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';
-                    html += '</p>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div> ';
-                    html += '</div>';
+                    html += '</p></div></div></div></a>';
+
+                    html += '<div class="bg-white course-date-card">';
+                    html += '<div class="text-primary text-center">';
+                    html += '<p><span class="font-weight-bold">' + course?.created_at ? new Date(course?.created_at).getDay() : "" + '</span>';
+                    html += '<br>';
+                    html += getMonthSmallName(new Date(course?.created_at).getMonth());
+                    html += '  </p></div></div></div>';
 
                     return html;
                 }
@@ -301,7 +361,7 @@
                 let baseUrl = '{{route('web-api.model-resources')}}';
                 const courseFetch = searchAPI({
                     model: "{{base64_encode(\App\Models\Course::class)}}",
-                    columns: 'id|title|cover_image|course_fee|duration|institute_id|branch_id|training_center_id|programme_id'
+                    columns: 'id|title|cover_image|course_fee|duration|institute_id|branch_id|training_center_id|programme_id|created_at'
                 });
 
                 function courseSearch(url = baseUrl) {
@@ -360,11 +420,11 @@
                         }
                     });
 
-                    $("#search").on("keyup change", function (e) {
-                        _.debounce(courseSearch, 500);
-                    })
-
                     $('#skill-course-search-btn').on('click', function () {
+                        courseSearch();
+                    });
+
+                    $('#search').on('keyup change', function () {
                         courseSearch();
                     });
 

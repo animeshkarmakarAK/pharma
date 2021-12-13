@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @package App\Models
  * @property int $id
  * @property int batch_id
+ * @property int course_id
  * @property int batch_status
  * @property string batch_title
  * @property string $enroll_status
@@ -36,9 +37,9 @@ class YouthCourseEnroll extends Model
         return $this->belongsTo(Youth::class);
     }
 
-    public function publishCourse(): BelongsTo
+    public function course(): BelongsTo
     {
-        return $this->belongsTo(PublishCourse::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function youthBatch(): HasOne

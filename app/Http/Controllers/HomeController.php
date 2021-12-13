@@ -42,6 +42,7 @@ class HomeController extends BaseController
             'courses.duration',
             'courses.cover_image',
             'courses.row_status',
+            'courses.created_at',
         ]);
         $galleries = Gallery::orderBy('id', 'DESC');
         $galleryCategories = GalleryCategory::active()
