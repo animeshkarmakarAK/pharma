@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeAclTrait;
 use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 class IntroVideo extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait, ScopeAclTrait;
+    use HasFactory, ScopeRowStatusTrait, ScopeAclTrait, CreatedByUpdatedByRelationTrait;
 
     protected $guarded = ['id'];
 

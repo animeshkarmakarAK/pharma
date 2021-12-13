@@ -9,8 +9,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class IntroVideoController extends Controller
 {
@@ -22,34 +24,35 @@ class IntroVideoController extends Controller
         $this->introVideoService = $introVideoService;
         $this->authorizeResource(IntroVideo::class);
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
         $videosCount = IntroVideo::acl()->get()->count();
-        return \view(self::VIEW_PATH .'browse',compact('videosCount'));
+        return \view(self::VIEW_PATH . 'browse', compact('videosCount'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create(): View
     {
         $video = new Video();
-        return \view(self::VIEW_PATH .'edit-add', compact('video'));
+        return \view(self::VIEW_PATH . 'edit-add', compact('video'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -74,12 +77,12 @@ class IntroVideoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Video  $video
-     * @return \Illuminate\Http\Response
+     * @param IntroVideo $introVideo
+     * @return View
      */
     public function show(IntroVideo $introVideo): View
     {
-        return \view(self::VIEW_PATH .'read', compact('introVideo'));
+        return \view(self::VIEW_PATH . 'read', compact('introVideo'));
     }
 
     /**
@@ -90,7 +93,7 @@ class IntroVideoController extends Controller
      */
     public function edit(IntroVideo $introVideo): View
     {
-        return \view(self::VIEW_PATH .'edit-add', compact('introVideo'));
+        return \view(self::VIEW_PATH . 'edit-add', compact('introVideo'));
     }
 
     /**
@@ -99,7 +102,7 @@ class IntroVideoController extends Controller
      * @param Request $request
      * @param IntroVideo $introVideo
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function update(Request $request, IntroVideo $introVideo): RedirectResponse
     {
