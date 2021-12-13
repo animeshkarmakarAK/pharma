@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\GalleryCategory;
+use App\Models\Institute;
 use App\Models\IntroVideo;
 use App\Models\Slider;
 use App\Models\StaticPage;
@@ -24,6 +25,7 @@ class HomeController extends BaseController
      */
     public function index(): View
     {
+        /** @var Institute|null $currentInstitute */
         $currentInstitute = app('currentInstitute');
 
         $courses = Course::query();
