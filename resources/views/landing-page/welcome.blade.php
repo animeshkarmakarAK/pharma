@@ -196,7 +196,7 @@
                                                                          alt="icon">
                                                                 </div>
                                                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+                                                                    <p class="font-weight-bold course-heading-wrap">{{ $course && $course->title? $course->title :'' }}</p>
                                                                     <p class="font-weight-light mb-1"><i
                                                                             class="fas fa-clock gray-color mr-2"></i>
                                                                         <span
@@ -281,12 +281,12 @@
 
                                                         <div class="row">
                                                             <p class="font-weight-bold">Institute: </p><span
-                                                                class="font-weight-light ml-2">{{ $course->institute->title }}</span>
+                                                                class="font-weight-light ml-2">{{ optional($course->institute)->title }}</span>
                                                         </div>
 
                                                         <div class="row">
                                                             <p class="font-weight-bold">Training Center: </p><span
-                                                                class="font-weight-light ml-2">{{ $course->trainingCenter->title }}</span>
+                                                                class="font-weight-light ml-2">{{ optional($course->trainingCenter)->title }}</span>
                                                         </div>
 
                                                         <p class="float-right">
@@ -332,7 +332,8 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <p class="font-weight-light mb-1"><i
-                                                                                    class="fas fa-clock gray-color mr-2"></i> <span
+                                                                                    class="fas fa-clock gray-color mr-2"></i>
+                                                                                <span
                                                                                     class="course-p">{{ !empty($course->duration) ? $course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
 
                                                                             </p>
@@ -349,12 +350,13 @@
 
                                                                     <div class="row">
                                                                         <p class="font-weight-bold">Institute: </p><span
-                                                                            class="font-weight-light ml-2">{{ $course->institute->title }}</span>
+                                                                            class="font-weight-light ml-2">{{ optional($course->institute)->title }}</span>
                                                                     </div>
 
                                                                     <div class="row">
-                                                                        <p class="font-weight-bold">Training Center: </p><span
-                                                                            class="font-weight-light ml-2">{{ $course->trainingCenter->title }}</span>
+                                                                        <p class="font-weight-bold">Training
+                                                                            Center: </p><span
+                                                                            class="font-weight-light ml-2">{{ optional($course->trainingCenter)->title }}</span>
                                                                     </div>
 
                                                                     <p class="float-right">
@@ -427,12 +429,12 @@
 
                                                         <div class="row">
                                                             <p class="font-weight-bold">Institute: </p><span
-                                                                class="font-weight-light ml-2">{{ $course->institute->title }}</span>
+                                                                class="font-weight-light ml-2">{{ optional($course->institute)->title }}</span>
                                                         </div>
 
                                                         <div class="row">
                                                             <p class="font-weight-bold">Training Center: </p><span
-                                                                class="font-weight-light ml-2">{{ $course->trainingCenter->title }}</span>
+                                                                class="font-weight-light ml-2">{{ optional($course->trainingCenter)->title }}</span>
                                                         </div>
 
                                                         <p class="float-right">
@@ -475,36 +477,36 @@
     <!-- Event Start -->
 
     @if(app('currentInstitute'))
-    <section class="yearly-training-calendar bg-white">
-        <div class="container pb-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="section-heading">ইভেন্ট</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container p-5 card">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="accordion-heading"
-                                id="eventDateTime">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
-                            <!-- Accordion -->
-                            <div id="eventArea" class="accordion">
-
-                            </div>
-                            <!-- End -->
-                        </div>
+        <section class="yearly-training-calendar bg-white">
+            <div class="container pb-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="section-heading">ইভেন্ট</h2>
                     </div>
                 </div>
-                <div class="col-md-6 rounded">
-                    <div id='calendar'></div>
-                </div>
             </div>
+            <div class="container p-5 card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="accordion-heading"
+                                    id="eventDateTime">{{ \App\Helpers\Classes\EnglishToBanglaDate::dateFormatEnglishToBangla(date("l, j F Y")) }}</h3>
+                                <!-- Accordion -->
+                                <div id="eventArea" class="accordion">
 
-        </div>
-    </section>
+                                </div>
+                                <!-- End -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 rounded">
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     @endif
     <!-- End Event -->
 
@@ -1445,8 +1447,8 @@
     <script>
         $(document).ready(function () {
 
-            $(function() {
-                $("li").click(function() {
+            $(function () {
+                $("li").click(function () {
                     $("li").removeClass("active");
                     $(this).addClass("active");
                 });
