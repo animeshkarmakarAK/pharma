@@ -160,7 +160,7 @@ class InstituteService
             ->toJson();
     }
 
-    public function updateInstitute(Institute $institute, array $data): bool
+    public function updateInstitute(Institute $institute, array $data): Institute
     {
         $data['google_map_src'] = $this->parseGoogleMapSrc($data['google_map_src']);
 
@@ -181,27 +181,9 @@ class InstituteService
         }
 
         $institute->fill($data);
+        $institute->save();
 
-        $data['name'] = $data['title'];
-        $data['email'] = $data['contact_person_email'];
-        if (!empty($data['logo'])) {
-            $data['profile_pic'] = $data['logo'];
-        }
-
-        try {
-            $validator = \Illuminate\Support\Facades\Validator::make($data, ['email' => 'required|email|unique:users'], ['email' => "invalid email address"]);
-            if ($validator->fails()) {
-                throw new ValidationException('invalid email address');
-            }
-        } catch (ValidationException $ex) {
-            if ($ex->getCode() == 999) {
-                echo $ex->getMessage();
-            }
-        }
-
-
-        $institute->user->fill($data);
-        return $institute->push();
+        return $institute;
     }
 
     public function deleteInstitute(Institute $institute): bool
