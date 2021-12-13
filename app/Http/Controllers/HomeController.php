@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\YouthRegistration;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 
 class HomeController extends BaseController
 {
@@ -25,80 +26,64 @@ class HomeController extends BaseController
     {
         $currentInstitute = app('currentInstitute');
 
+        $courses = Course::query();
+        $runningCourses = Course::select([
+            'courses.id as id',
+            'courses.title',
+            'courses.course_fee',
+            'courses.duration',
+            'courses.cover_image',
+        ]);
+        $galleries = Gallery::orderBy('id', 'DESC');
+        $galleryCategories = GalleryCategory::active()
+            ->orderBy('id', 'DESC');
+        $sliders = Slider::active();
+        $staticPage = StaticPage::orderBy('id', 'DESC')
+            ->where('page_id', StaticPage::PAGE_ID_ABOUT_US);
+        $trainingCenters = TrainingCenter::query();
+        $youthRegistrations = YouthRegistration::query();
+        $events = Event::query();
+        $introVideo = IntroVideo::orderBy('id', 'DESC');
+        /** @var User|Builder $trainers */
+        $trainers = User::where('user_type_id', User::USER_TYPE_TRAINER_USER_CODE);
+
         if ($currentInstitute) {
-            $courses = Course::where([
-                'institute_id' => $currentInstitute->id,
-            ]);
-
-            $runningCourses = Course::select([
-                'courses.id as id',
-                'courses.title',
-                'courses.course_fee',
-                'courses.duration',
-                'courses.cover_image',
-            ]);
+            $courses->where('institute_id', $currentInstitute->id);
             $runningCourses->where(['courses.institute_id' => $currentInstitute->id]);
-            $runningCourses = $runningCourses->get();
-
-            $galleries = Gallery::orderBy('id', 'DESC')->where(['institute_id' => $currentInstitute->id])->limit(8)->get();
-            $galleryCategories = GalleryCategory::active()
-                ->orderBy('id', 'DESC')
-                ->where(['institute_id' => $currentInstitute->id])
-                ->where(['featured' => 1])
-                ->get();
-            $galleryAllCategories = GalleryCategory::where(['institute_id' => $currentInstitute->id])->get();
-
-            $sliders = Slider::active()
-                ->where(['institute_id' => $currentInstitute->id])
-                ->limit(10)
-                ->get();
-
-            $staticPage = StaticPage::orderBy('id', 'DESC')
-                ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)
-                ->where(['institute_id' => $currentInstitute->id])
-                ->limit(1)
-                ->first();
-
-            $institute = [
-                'courses' => $courses->count(),
-                'training_centers' => TrainingCenter::where(['institute_id' => $currentInstitute->id])->count(),
-                'youth_registrations' => YouthRegistration::where(['institute_id' => $currentInstitute->id])->count(),
-            ];
-            $courses = $courses->limit(8)->get();
-            $maxEnrollmentNumber = [];
-
-            $events = Event::where([
-                'institute_id' => $currentInstitute->id,
-            ]);
-            $events->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
-            $events->orderBy('date', 'ASC');
-            $events = $events->limit(5)->get();
-
-            $introVideo = IntroVideo::where([
-                'institute_id' => $currentInstitute->id,
-            ])->orderBy('id', 'DESC')->first();
-
-            return view('home', compact('courses', 'galleries', 'sliders', 'staticPage', 'institute', 'galleryCategories', 'galleryAllCategories', 'maxEnrollmentNumber', 'events', 'introVideo', 'runningCourses'/*, 'upcomingCourses'*/));
-        } else {
-            $staticPage = StaticPage::orderBy('id', 'DESC')
-                ->where('page_id', StaticPage::PAGE_ID_ABOUT_US)
-                ->whereNull('institute_id')
-                ->where('created_by', User::USER_TYPE_SUPER_USER_CODE)
-                ->limit(1)
-                ->first();
-
-            $courses = Course::all();
-
-            $institute = [
-                'courses' => Course::count(),
-                'training_centers' => TrainingCenter::count(),
-                'youth_registrations' => YouthRegistration::count(),
-            ];
-
-            $introVideo = IntroVideo::whereNull('institute_id')->first();
-
-            return view('home', compact('staticPage', 'institute', 'courses', 'introVideo'));
+            $galleries->where(['institute_id' => $currentInstitute->id]);
+            $galleryCategories->where(['institute_id' => $currentInstitute->id]);
+            $sliders->where(['institute_id' => $currentInstitute->id]);
+            $staticPage->where(['institute_id' => $currentInstitute->id]);
+            $trainingCenters->where('institute_id', $currentInstitute->id);
+            $youthRegistrations->where('institute_id', $currentInstitute->id);
+            $events->where('institute_id', $currentInstitute->id);
+            $trainers->where('institute_id', $currentInstitute->id);
         }
+
+        $events->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
+        $events->orderBy('date', 'ASC');
+
+        $statistics = [
+            'total_course' => $courses->count('id'),
+            'total_training_center' => $trainingCenters->count('id'),
+            'total_registered_trainee' => $youthRegistrations->count('id'),
+            'total_trainer' => $trainers->count('id'),
+        ];
+
+        $runningCourses = $runningCourses->get();
+        $galleries = $galleries->limit(8)->get();
+        $galleryCategories = $galleryCategories->where(['featured' => 1])
+            ->get();
+        $sliders = $sliders->limit(10)
+            ->get();
+        $staticPage = $staticPage->limit(1)
+            ->first();
+        $courses = $courses->limit(8)->get();
+        $upcomingCourses = $courses;
+        $events = $events->limit(5)->get();
+        $introVideo = $introVideo->first();
+
+        return view('landing-page.welcome', compact('courses', 'upcomingCourses', 'galleries', 'sliders', 'staticPage', 'statistics', 'galleryCategories', 'events', 'introVideo', 'runningCourses'));
     }
 
     public function success(): \Illuminate\Http\RedirectResponse
