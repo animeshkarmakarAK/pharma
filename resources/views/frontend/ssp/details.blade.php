@@ -16,35 +16,74 @@
                     <h3 class="card-header text-center p-5">{{ $institute->title }}</h3>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            @if($institute->logo)
+                            <div class="col-md-6 pr-5">
                                 <img class="card-img"
-                                     src="{{ $institute->cover_image ?? "http://via.placeholder.com/640x360" }}"
+                                     src="{{ $institute->logo}}"
                                      height="300" alt="Card image cap" title="{{$institute->title}} image">
                             </div>
-
                             <div class="col-md-6">
-                                <div class="row justify-content-center mr-2">
-                                    <p class="card-info col-md-10"><span class="font-weight-bold">Office head: </span>{{ $institute->office_head_name }}</p>
-                                    <p class="card-info col-md-10"><span class="font-weight-bold">Office head post: </span>{{ $institute->office_head_post }}</p>
-                                    <p class="card-info col-md-10"><span class="font-weight-bold">Mobile: </span>{{ $institute->mobile }}</p>
-                                    <p class="card-info col-md-10"><span class="font-weight-bold">E-mail: </span>{{ $institute->email }}</p>
+                                <div class="row mr-2 pb-3">
+                                    <h4 class="font-weight-bold card-title">Institute Information</h4>
+                                    <p class="card-info col-md-10 pl-0 pt-2"><span class="font-weight-bold">Office head: </span>{{ $institute->office_head_name }}</p>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">Office head post: </span>{{ $institute->office_head_post }}</p>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">Mobile: </span>{{ $institute->mobile }}</p>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">E-mail: </span>{{ $institute->email }}</p>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">Address: </span>{{ $institute->address}}</p>
+                                </div>
+                                <div class="row">
+                                    <h4 class="font-weight-bold card-title">Contact Information</h4>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold"> Name: </span>{{ $institute->contact_person_name }}</p>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold"> E-mail: </span>{{ $institute->contact_person_email }}</p>
+                                    <p class="card-info col-md-10 pl-0"><span class="font-weight-bold"> Mobile: </span>{{ $institute->contact_person_mobile }}</p>
                                 </div>
                             </div>
+                            @else
+                                <div class="col-md-6">
+                                    <div class="row ml-5 pb-3">
+                                        <h4 class="font-weight-bold card-title float-none">Institute Information</h4>
+                                        <p class="card-info col-md-10 pl-0 pt-2"><span class="font-weight-bold">Office head: </span>{{ $institute->office_head_name }}</p>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">Office head post: </span>{{ $institute->office_head_post }}</p>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">Mobile: </span>{{ $institute->mobile }}</p>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">E-mail: </span>{{ $institute->email }}</p>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold">Address: </span>{{ $institute->address}}</p>
+                                    </div>
 
-                            <div class="col-md-6 mt-2">
-                                <h4 class="font-weight-bold">Contact Information</h4>
-                                <p class="card-info col-md-10"><span class="font-weight-bold">Contact person name: </span>{{ $institute->contact_person_name }}</p>
-                                <p class="card-info col-md-10"><span class="font-weight-bold">Contact person E-mail: </span>{{ $institute->contact_person_email }}</p>
-                                <p class="card-info col-md-10"><span class="font-weight-bold">Contact person Mobile: </span>{{ $institute->contact_person_mobile }}</p>
-                                <p class="card-info col-md-10"><span class="font-weight-bold">Contact person Mobile: </span>{{ $institute->contact_person_mobile }}</p>
-                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row ml-5 ">
+                                        <h4 class="font-weight-bold card-title float-none">Contact Information</h4>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold"> Name: </span>{{ $institute->contact_person_name }}</p>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold"> E-mail: </span>{{ $institute->contact_person_email }}</p>
+                                        <p class="card-info col-md-10 pl-0"><span class="font-weight-bold"> Mobile: </span>{{ $institute->contact_person_mobile }}</p>
+                                    </div>
+                                </div>
+                            @endif
+
+
                         </div>
                     </div>
 
                     <div class="card-footer text-center">
-                        {{ $institute->address}}
+
                     </div>
                 </div>
             </div>
         </div>
 @endsection
+
+@push('css')
+<style>
+    .card {
+        box-shadow: 0px 5px 5px #e5e5e5 !important;
+    }
+    .card-info {
+        margin-bottom: 0px;
+    }
+    .card-title {
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+@endpush
