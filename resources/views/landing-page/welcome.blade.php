@@ -520,7 +520,7 @@
                             <div class="card-bar-home-course">
                                 <div class="pb-3">
                                     <img class="slider-img border-top-radius"
-                                         src="{{asset('/storage/'. $skillServiceProvider->logo)}}"
+                                         src="{{asset('/storage/'. $skillServiceProvider->institute_logo)}}"
                                          alt="icon">
                                 </div>
                                 <div class="text-left pl-4 pr-4 pt-1 pb-1">
