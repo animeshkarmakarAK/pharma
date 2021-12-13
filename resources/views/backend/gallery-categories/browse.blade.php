@@ -58,24 +58,18 @@
                     },
 
                     {
-                        title: "{{__('admin.gallery-album.title')}}",
+                        title: "{{__('generic.album_name')}}",
                         data: "title",
                         name: "gallery_categories.title",
                     },
                     {
-                        title: "{{__('admin.gallery-album.institute_title')}}",
+                        title: "{{__('generic.institute')}}",
                         data: "institute_title",
                         name: "institutes.title",
                         visible: {{ \App\Helpers\Classes\AuthHelper::getAuthUser()->isSuperUser() ? "true" : "false" }},
                     },
                     {
-                        title: "{{__('admin.gallery-album.programme_title')}}",
-                        data: "programme_title",
-                        name: "programmes.title",
-                        visible: false,
-                    },
-                    {
-                        title: "{{__('admin.gallery-album.batch_title')}}",
+                        title: "{{__('generic.batch')}}",
                         data: "batch_title",
                         name: "batches.title",
                         visible: false,

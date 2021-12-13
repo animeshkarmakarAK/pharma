@@ -49,12 +49,6 @@
                     </div>
                 @endif
 
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.gallery-album.programme_title') }}</p>
-                    <div class="input-box">
-                        {{ !empty($galleryCategory->programme->title) }}
-                    </div>
-                </div>
 
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{ __('admin.gallery-album.batch_title') }}</p>
@@ -64,7 +58,7 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.gallery-album.Featured') }}</p>
+                    <p class="label-text">{{ __('generic.featured') }}</p>
                     <div class="input-box">
                         {!! $galleryCategory->featured == 1 ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>' !!}
                     </div>
