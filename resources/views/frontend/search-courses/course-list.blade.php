@@ -50,21 +50,6 @@
                                         </div>
                                     @endif
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select class="form-control"
-                                                    name="programme_id"
-                                                    id="programme_id"
-                                            >
-                                                <option value="">প্রোগ্রামের নাম নির্বাচন করুন</option>
-                                                @foreach($programmes as $programme)
-                                                    <option
-                                                        value="{{ $programme->id }}">{{ $programme->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
 
                                     <div class="col-md-2">
                                         <button class="btn btn-success button-bg mb-2"
@@ -327,7 +312,7 @@
 
                     const filters = {};
                     if (searchQuery?.toString()?.length) {
-                        filters['course.title'] = {
+                        filters['title'] = {
                             type: 'contain',
                             value: searchQuery
                         };
@@ -376,7 +361,7 @@
                     });
 
                     $("#search").on("keyup change", function (e) {
-                        courseSearch();
+                        _.debounce(courseSearch, 500);
                     })
 
                     $('#skill-course-search-btn').on('click', function () {

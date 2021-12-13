@@ -38,8 +38,6 @@
                                 @method('put')
                             @endif
 
-                            {{--<input type="hidden" name="created_by" value="{{ $authUser? $authUser->id : '' }}">--}}
-
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="content_title">{{ __('admin.gallery-album.title') }}<span
@@ -74,22 +72,6 @@
                             @endif
 
 
-                            <div class="form-group col-md-6">
-                                <label for="programme_id">{{ __('admin.gallery-album.programme_title') }}</label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="programme_id"
-                                        id="programme_id"
-                                        data-model="{{base64_encode(\App\Models\Programme::class)}}"
-                                        data-label-fields="{title}"
-                                        data-depend-on-optional="institute_id"
-                                        data-dependent-fields="#batch_id"
-                                        @if($edit && $galleryCategory->programme_id)
-                                        data-preselected-option="{{json_encode(['text' => $galleryCategory->programme->title, 'id' => $galleryCategory->programme_id])}}"
-                                        @endif
-                                        data-placeholder="{{ __('admin.gallery-album.programme_title') }}"
-                                >
-                                </select>
-                            </div>
                             <div class="form-group col-md-6">
                                 <label for="batch_id">{{ __('admin.gallery-album.batch_title') }}</label>
                                 <select class="form-control select2-ajax-wizard"
@@ -220,7 +202,6 @@
             rules: {
                 title: {
                     required: true,
-                    pattern: /^[a-zA-Z0-9 ]*$/,
                 },
                 institute_id: {
                     required: true,
@@ -228,9 +209,7 @@
                 image: {
                     accept: "image/*",
                     extension: "jpg|bmp|png|jpeg|svg",
-                    // filesize:500000,
                     filesize:1000*2048,
-                    coverImageSize:true,
                 }
 
             },

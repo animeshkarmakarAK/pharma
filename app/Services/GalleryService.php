@@ -40,7 +40,6 @@ class GalleryService
 
     /**
      * @param Request $request
-     * @param null $id
      * @return Validator
      */
     public function validator(Request $request): Validator
@@ -114,8 +113,7 @@ class GalleryService
 
     /**
      * @param Gallery $gallery
-     * @return Gallery
-     * @throws \Exception
+     * @return bool
      */
     public function deleteGallery(Gallery $gallery): bool
     {
@@ -132,7 +130,7 @@ class GalleryService
             'galleries.id as id',
             'galleries.content_title',
             'galleries.content_type',
-            'institutes.title as institutes.title',
+            'institutes.title as institute_title',
             'gallery_categories.title as gallery_category_title',
         ]);
         $galleries->join('gallery_categories', 'galleries.gallery_category_id', 'gallery_categories.id');
