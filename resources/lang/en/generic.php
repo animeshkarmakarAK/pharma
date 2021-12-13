@@ -229,5 +229,7 @@ return [
     'course.edit' => 'Edit course',
     'course.add' => 'Add course',
     'course' => 'Course',
+    'batch' => 'Batch',
+    'album_name' => 'Album name',
 ];
 

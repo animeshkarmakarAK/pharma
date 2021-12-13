@@ -31,10 +31,14 @@ class HomeController extends BaseController
         $courses = Course::query();
         $runningCourses = Course::select([
             'courses.id as id',
+            'courses.institute_id as institute_id',
+            'courses.training_center_id as training_center_id',
+            'courses.branch_id as branch_id',
             'courses.title',
             'courses.course_fee',
             'courses.duration',
             'courses.cover_image',
+            'courses.row_status',
         ]);
         $galleries = Gallery::orderBy('id', 'DESC');
         $galleryCategories = GalleryCategory::active()
@@ -73,6 +77,7 @@ class HomeController extends BaseController
         ];
 
         $runningCourses = $runningCourses->get();
+
         $galleries = $galleries->limit(8)->get();
         $galleryCategories = $galleryCategories->where(['featured' => 1])
             ->get();
@@ -80,6 +85,7 @@ class HomeController extends BaseController
             ->get();
         $staticPage = $staticPage->limit(1)
             ->first();
+
         $courses = $courses->limit(8)->get();
         $upcomingCourses = $courses;
         $events = $events->limit(5)->get();

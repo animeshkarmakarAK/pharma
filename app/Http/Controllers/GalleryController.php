@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use App\Models\Institute;
 use App\Services\GalleryService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -23,12 +25,13 @@ class GalleryController extends Controller
         $this->galleryService = $galleryService;
         $this->authorizeResource(Gallery::class);
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return \view(self::VIEW_PATH . 'browse');
     }
@@ -36,9 +39,9 @@ class GalleryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         $institutes = Institute::acl()->active()->get();
         return \view(self::VIEW_PATH . 'edit-add', compact( 'institutes'));
@@ -48,10 +51,10 @@ class GalleryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $galleryValidatedData = $this->galleryService->validator($request)->validate();
         try {
@@ -72,8 +75,8 @@ class GalleryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  App\Models\Gallery  $gallery
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @param Gallery $gallery
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
     public function show(Gallery $gallery)
     {
@@ -83,8 +86,8 @@ class GalleryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  App\Models\Gallery  $gallery
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @param Gallery $gallery
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
     public function edit(Gallery $gallery)
     {
@@ -97,11 +100,12 @@ class GalleryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  App\Models\Gallery  $gallery
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Gallery $gallery
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Gallery $gallery): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Gallery $gallery): RedirectResponse
     {
         $galleryValidatedData = $this->galleryService->validator($request)->validate();
 
@@ -125,10 +129,10 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  App\Models\Gallery  $gallery
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Gallery $gallery
+     * @return RedirectResponse
      */
-    public function destroy(Gallery $gallery): \Illuminate\Http\RedirectResponse
+    public function destroy(Gallery $gallery): RedirectResponse
     {
         try {
             $this->galleryService->deleteGallery($gallery);
@@ -146,6 +150,10 @@ class GalleryController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getDatatable(Request $request): JsonResponse
     {
         return $this->galleryService->getListDataForDatatable($request);

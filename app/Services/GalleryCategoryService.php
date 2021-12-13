@@ -42,11 +42,6 @@ class GalleryCategoryService
                 'int',
                 'exists:institutes,id'
             ],
-            'programme_id' => [
-                'nullable',
-                'int',
-                'exists:programmes,id'
-            ],
             'batch_id' => [
                 'nullable',
                 'int',
@@ -57,7 +52,6 @@ class GalleryCategoryService
                 'image',
                 'mimes:jpg,bmp,png,jpeg,svg',
                 'max:2048',
-                'dimensions:width=1920,height=1080'
             ],
             'featured' => [
                 'nullable',
@@ -125,12 +119,11 @@ class GalleryCategoryService
             'gallery_categories.id',
             'gallery_categories.title',
             'gallery_categories.featured',
-            'institutes.title as institutes.title',
-            'programmes.title as programme_title',
+            'institutes.title as institute_title',
             'batches.title as batch_title'
         ]);
+
         $galleryCategories->join('institutes', 'gallery_categories.institute_id', 'institutes.id');
-        $galleryCategories->leftJoin('programmes', 'gallery_categories.programme_id', 'programmes.id');
         $galleryCategories->leftJoin('batches', 'gallery_categories.batch_id', 'batches.id');
 
         if ($authUser->isInstituteUser()) {
