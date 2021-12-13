@@ -187,35 +187,46 @@
                                             @foreach($runningCourses as $key => $course)
                                                 <div
                                                     class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
-                                                    <div class="col-md-3">
-                                                        <div class="card card-main mb-2">
-                                                            <div class="card-bar-home-course">
-                                                                <div class="pb-3">
-                                                                    <img class="slider-img border-top-radius"
-                                                                         src="{{asset('/storage/'.$course->cover_image)}}"
-                                                                         alt="icon">
+                                                    <div class="col-md-3 course-card">
+                                                        <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}">
+                                                            <div class="card card-main mb-2">
+                                                                <div class="card-bar-home-course">
+                                                                    <div class="pb-3">
+                                                                        <img class="slider-img border-top-radius"
+                                                                             src="{{$course->cover_image ? asset('/storage/'. $course->cover_image) : 'http://via.placeholder.com/640x360'}}"
+                                                                             alt="icon">
+                                                                    </div>
+                                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                                        <p class="font-weight-light"
+                                                                           style="color: #9c36c6">{{ $course->course_fee ?? 'Free' }}</p>
+                                                                        <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+
+                                                                        <p class="font-weight-light mb-1"><i
+                                                                                class="fas fa-clock gray-color mr-2"></i>
+                                                                            <span
+                                                                                class="course-p">{{ $course->duration ? $course->duration :' সময়কাল নির্ধারিত হয়নি' }}</span>
+
+                                                                        </p>
+
+                                                                        <p class="font-weight-light mb-1"><i
+                                                                                class="fa fa-user gray-color mr-2"></i>
+                                                                            <span
+                                                                                class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
+
+                                                                        </p>
+
+                                                                    </div>
                                                                 </div>
-                                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="font-weight-bold course-heading-wrap">{{ $course && $course->title? $course->title :'' }}</p>
-                                                                    <p class="font-weight-light mb-1"><i
-                                                                            class="fas fa-clock gray-color mr-2"></i>
-                                                                        <span
-                                                                            class="course-p">{{ !empty($course->duration)?$course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
-                                                                    </p>
-                                                                    <p class="font-weight-light mb-1"><i
-                                                                            class="fas fa-user-plus gray-color mr-2"></i>
-                                                                        <span class="course-p">আসন সংখ্যা ( {{ \App\Helpers\Classes\NumberToBanglaWord::engToBn(!empty($course)? $course->max_seat_available:'') }} )</span>
-                                                                    </p>
-                                                                    <p class="card-p1 float-left mb-1">
-                                                                        <span
-                                                                            style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
-                                                                        {{ $course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($course->course_fee).' টাকা' : 'ফ্রি'}}
-                                                                    </p>
-                                                                    <p class="float-right">
-                                                                        <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}"
-                                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                                    </p>
-                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <div class="bg-white course-date-card">
+                                                            <div class="text-primary text-center">
+                                                                <p><span
+                                                                        class="font-weight-bold">{{ optional($course->created_at)->format('d') }} </span>
+                                                                    <br> {{ optional($course->created_at)->format('M') }}
+                                                                </p>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -250,51 +261,43 @@
                             <div class="col-md-12 p-0">
                                 <div class="row">
                                     @foreach($runningCourses as $key => $course)
-                                        <div class="col-md-3">
-                                            <div class="card card-main mb-2">
-                                                <div class="card-bar-home-course">
-                                                    <div class="pb-3">
-                                                        <img class="slider-img border-top-radius"
-                                                             src="{{asset('/storage/'. $course->cover_image)}}"
-                                                             alt="icon">
+                                        <div class="col-md-3 course-card">
+                                            <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}">
+                                                <div class="card card-main mb-2">
+                                                    <div class="card-bar-home-course">
+                                                        <div class="pb-3">
+                                                            <img class="slider-img border-top-radius"
+                                                                 src="{{$course->cover_image ? asset('/storage/'. $course->cover_image) : 'http://via.placeholder.com/640x360'}}"
+                                                                 alt="icon">
+                                                        </div>
+                                                        <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                            <p class="font-weight-light"
+                                                               style="color: #9c36c6">{{ $course->course_fee ?? 'Free' }}</p>
+                                                            <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+
+                                                            <p class="font-weight-light mb-1"><i
+                                                                    class="fas fa-clock gray-color mr-2"></i> <span
+                                                                    class="course-p">{{ $course->duration ? $course->duration :' সময়কাল নির্ধারিত হয়নি' }}</span>
+
+                                                            </p>
+
+                                                            <p class="font-weight-light mb-1"><i
+                                                                    class="fa fa-user gray-color mr-2"></i> <span
+                                                                    class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
+
+                                                            </p>
+
+                                                        </div>
                                                     </div>
-                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+                                                </div>
+                                            </a>
 
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <p class="font-weight-light mb-1"><i
-                                                                        class="fas fa-clock gray-color mr-2"></i> <span
-                                                                        class="course-p">{{ $course->duration ? $course->duration :' সময়কাল নির্ধারিত হয়নি' }}</span>
+                                            <div class="bg-white course-date-card">
+                                                <div class="text-primary text-center">
+                                                    <p><span
+                                                            class="font-weight-bold">{{ $course->created_at->format('d') }} </span>
+                                                        <br> {{ $course->created_at->format('M') }}</p>
 
-                                                                </p>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <p class="card-p1 float-left mb-1">
-                                                            <span
-                                                                style="font-weight: 700;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
-                                                                    {{$course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($course->course_fee).' টাকা' : 'ফ্রি'}}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <p class="font-weight-bold">Institute: </p><span
-                                                                class="font-weight-light ml-2">{{ optional($course->institute)->title }}</span>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <p class="font-weight-bold">Training Center: </p><span
-                                                                class="font-weight-light ml-2">{{ optional($course->trainingCenter)->title }}</span>
-                                                        </div>
-
-                                                        <p class="float-right">
-                                                            <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}"
-                                                               class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                        </p>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -318,53 +321,46 @@
 
                                                 <div
                                                     class="carousel-item custom-carousel-item {{ ++$ml==1?'active':'' }}">
-                                                    <div class="col-md-3">
-                                                        <div class="card card-main mb-2">
-                                                            <div class="card-bar-home-course">
-                                                                <div class="pb-3">
-                                                                    <img class="slider-img border-top-radius"
-                                                                         src="{{asset('/storage/'. $course->cover_image)}}"
-                                                                         alt="icon">
+                                                    <div class="col-md-3 course-card">
+                                                        <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}">
+                                                            <div class="card card-main mb-2">
+                                                                <div class="card-bar-home-course">
+                                                                    <div class="pb-3">
+                                                                        <img class="slider-img border-top-radius"
+                                                                             src="{{$course->cover_image ? asset('/storage/'. $course->cover_image) : 'http://via.placeholder.com/640x360'}}"
+                                                                             alt="icon">
+                                                                    </div>
+                                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                                        <p class="font-weight-light"
+                                                                           style="color: #9c36c6">{{ $course->course_fee ?? 'Free' }}</p>
+                                                                        <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+
+                                                                        <p class="font-weight-light mb-1"><i
+                                                                                class="fas fa-clock gray-color mr-2"></i>
+                                                                            <span
+                                                                                class="course-p">{{ $course->duration ? $course->duration :' সময়কাল নির্ধারিত হয়নি' }}</span>
+
+                                                                        </p>
+
+                                                                        <p class="font-weight-light mb-1"><i
+                                                                                class="fa fa-user gray-color mr-2"></i>
+                                                                            <span
+                                                                                class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
+
+                                                                        </p>
+
+                                                                    </div>
                                                                 </div>
-                                                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                                    <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+                                                            </div>
+                                                        </a>
 
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <p class="font-weight-light mb-1"><i
-                                                                                    class="fas fa-clock gray-color mr-2"></i>
-                                                                                <span
-                                                                                    class="course-p">{{ !empty($course->duration) ? $course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
+                                                        <div class="bg-white course-date-card">
+                                                            <div class="text-primary text-center">
+                                                                <p><span
+                                                                        class="font-weight-bold">{{ optional($course->created_at)->format('d') }} </span>
+                                                                    <br> {{ optional($course->created_at)->format('M') }}
+                                                                </p>
 
-                                                                            </p>
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <p class="card-p1 float-left mb-1">
-                                                            <span
-                                                                style="font-weight: 700;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
-                                                                                {{$course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($course->course_fee).' টাকা' : 'ফ্রি'}}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <p class="font-weight-bold">Institute: </p><span
-                                                                            class="font-weight-light ml-2">{{ optional($course->institute)->title }}</span>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <p class="font-weight-bold">Training
-                                                                            Center: </p><span
-                                                                            class="font-weight-light ml-2">{{ optional($course->trainingCenter)->title }}</span>
-                                                                    </div>
-
-                                                                    <p class="float-right">
-                                                                        <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}"
-                                                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                                    </p>
-
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -398,51 +394,46 @@
                             <div class="col-md-12 p-0">
                                 <div class="row">
                                     @foreach($upcomingCourses as $key => $course)
-                                        <div class="col-md-3">
-                                            <div class="card card-main mb-2">
-                                                <div class="card-bar-home-course">
-                                                    <div class="pb-3">
-                                                        <img class="slider-img border-top-radius"
-                                                             src="{{asset('/storage/'. $course->cover_image)}}"
-                                                             alt="icon">
+                                        <div class="col-md-3 course-card">
+                                            <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}">
+                                                <div class="card card-main mb-2">
+                                                    <div class="card-bar-home-course">
+                                                        <div class="pb-3">
+                                                            <img class="slider-img border-top-radius"
+                                                                 src="{{$course->cover_image ? asset('/storage/'. $course->cover_image) : 'http://via.placeholder.com/640x360'}}"
+                                                                 alt="icon">
+                                                        </div>
+                                                        <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                                            <p class="font-weight-light"
+                                                               style="color: #9c36c6">{{ $course->course_fee ?? 'Free' }}</p>
+                                                            <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+
+                                                            <p class="font-weight-light mb-1"><i
+                                                                    class="fas fa-clock gray-color mr-2"></i>
+                                                                <span
+                                                                    class="course-p">{{ $course->duration ? $course->duration :' সময়কাল নির্ধারিত হয়নি' }}</span>
+
+                                                            </p>
+
+                                                            <p class="font-weight-light mb-1"><i
+                                                                    class="fa fa-user gray-color mr-2"></i>
+                                                                <span
+                                                                    class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
+
+                                                            </p>
+
+                                                        </div>
                                                     </div>
-                                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                                        <p class="font-weight-bold course-heading-wrap">{{ $course? $course->title :'' }}</p>
+                                                </div>
+                                            </a>
 
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <p class="font-weight-light mb-1"><i
-                                                                        class="fas fa-clock gray-color mr-2"></i> <span
-                                                                        class="course-p">{{ !empty($course->duration) ? $course->duration:' সময়কাল নির্ধারিত হয়নি' }}</span>
+                                            <div class="bg-white course-date-card">
+                                                <div class="text-primary text-center">
+                                                    <p><span
+                                                            class="font-weight-bold">{{ optional($course->created_at)->format('d') }} </span>
+                                                        <br> {{ optional($course->created_at)->format('M') }}
+                                                    </p>
 
-                                                                </p>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <p class="card-p1 float-left mb-1">
-                                                            <span
-                                                                style="font-weight: 700;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;</span>
-                                                                    {{$course->course_fee ? \App\Helpers\Classes\NumberToBanglaWord::engToBn($course->course_fee).' টাকা' : 'ফ্রি'}}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <p class="font-weight-bold">Institute: </p><span
-                                                                class="font-weight-light ml-2">{{ optional($course->institute)->title }}</span>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <p class="font-weight-bold">Training Center: </p><span
-                                                                class="font-weight-light ml-2">{{ optional($course->trainingCenter)->title }}</span>
-                                                        </div>
-
-                                                        <p class="float-right">
-                                                            <a href="{{ route('frontend.course-details', ['course_id' => $course->id]) }}"
-                                                               class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                                        </p>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -620,51 +611,33 @@
 
 @push('css')
     <style>
-        .para-heading {
-            color: #671688 !important;
+        .course-card {
+            position: relative;
         }
+
+        .course-date-card {
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 7px;
+            right: 15px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+        }
+
 
         .section-heading-h2 {
             color: #671688;
-        }
-
-        .lists {
-            color: black !important;
         }
 
         .about-section-color {
             background-color: #f6f9f9;
         }
 
-        .course-div {
-            padding-top: 75px;
-        }
-
         .course-section {
             background: #FFFFFF;
         }
 
-        .course-btn {
-            padding: 10px 30px;
-            color: #671688;
-            border-radius: 5px;
-            transition: .4s;
-        }
-
-        .course-btn-dem {
-            background: #671688;
-            color: #fff;
-            border: 1px solid #671688;
-            padding: 10px 30px;
-            border-radius: 5px;
-            transition: .4s;
-        }
-
-        .course-btn:active {
-            background: #671688;
-            color: #fff;
-            border: 1px solid #671688;
-        }
 
         .card-p1 {
             color: #671688;
@@ -676,35 +649,10 @@
         }
 
 
-        .at-glance-section {
-            padding-bottom: 110px;
-        }
-
-        .banner-bar {
-            border-radius: 15px;
-        }
-
-        .banner-bar-color-1 {
-            background-color: #0069bc;
-        }
-
-        .banner-bar-color-2 {
-            background-color: #168866;
-        }
-
-        .banner-bar-color-3 {
-            background-color: #e67e22;
-        }
-
         .banner-bar h3, .banner-bar p {
             color: #ffffff;
         }
 
-        .icons {
-            font-size: 60px;
-            color: #FFFFFF;
-            padding: 10px;
-        }
 
         .banner-bar p {
             font-size: 15px;
@@ -722,9 +670,6 @@
             bottom: 46%;
         }
 
-        .carousel-indicators {
-            top: 100%;
-        }
 
         .carousel-indicators li {
             width: 10px;
@@ -735,21 +680,6 @@
 
         .carousel-control-prev, .carousel-control-next {
             opacity: 1;
-        }
-
-        .card-h1 {
-            font-size: 16px;
-        }
-
-        .card-h1, .card-p {
-            color: #000000 !important;
-        }
-
-
-        .card-icons {
-            color: #671688;
-            font-size: 60px;
-            padding: 10px;
         }
 
         .card-main {
@@ -786,12 +716,7 @@
             color: black;
         }
 
-        .header-bg {
-            background: #671688;
-            color: white;
-        }
-
-        .modal-header .close, .modal-header .mailbox-attachment-close {
+        .modal-header .close, .modal-header {
             padding: 1rem;
             margin: -1rem -1rem -1rem auto;
             color: white;
@@ -868,15 +793,6 @@
         }
 
 
-        .player-icon {
-            position: absolute !important;
-            left: 45%;
-            top: 45%;
-            font-size: 35px;
-            color: #65546B;
-            z-index: 99999;
-        }
-
         /*Top Content Slider*/
 
         .top-content {
@@ -946,12 +862,6 @@
         .about-us-content p {
             line-height: 30px;
             font-size: 20px;
-        }
-
-        .about-use-para-heading {
-            padding-top: 25px;
-            font-size: 1.5rem !important;
-            font-weight: 400 !important;
         }
 
         .sidebar-list li {
@@ -1191,18 +1101,6 @@
             border-radius: 5px;
         }
 
-        .fc-daygrid-day-number {
-            /*font-size: x-large;*/
-        }
-
-        .fc-daygrid-event {
-            cursor: pointer;
-        }
-
-        .fc-daygrid-day-top {
-            justify-content: center;
-        }
-
         .fc .fc-col-header-cell-cushion {
             display: inline-block;
             padding: 2px 4px;
@@ -1236,12 +1134,6 @@
             border-radius: 5px;
         }
 
-        .fc-day-today {
-            background: #671688 !important;
-            border: 1px solid #671688;
-            margin: 3px;
-            border-radius: 5px;
-        }
 
         .fc-day-today a {
             color: #fff !important;
@@ -1269,9 +1161,6 @@
             margin-bottom: 5px;
         }
 
-        .fc-daygrid-day-events {
-            /*display: none !important;*/
-        }
 
         .fc .fc-scroller-liquid-absolute {
             /*overflow: hidden !important;*/
@@ -1283,13 +1172,6 @@
 
         .fc .fc-highlight {
             background: #3788d8;
-        }
-
-        .today-event {
-            background: #ff005d;
-            padding: 3px 10px;
-            border-radius: 5px;
-            color: #fff;
         }
 
         .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {

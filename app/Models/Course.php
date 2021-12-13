@@ -7,6 +7,7 @@ use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\File;
 use App\Traits\ScopeAclTrait;
 
@@ -54,6 +55,11 @@ class Course extends BaseModel
     public function trainingCenter(): BelongsTo
     {
         return $this->belongsTo(TrainingCenter::class);
+    }
+
+    public function enrolledTrainees(): HasMany
+    {
+        return $this->hasMany(YouthCourseEnroll::class);
     }
 
 }
