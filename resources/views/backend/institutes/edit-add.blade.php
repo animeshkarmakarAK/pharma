@@ -36,7 +36,8 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title">{{ __('admin.institute.title') }}<span style="color: red"> * </span></label>
+                                    <label for="title">{{ __('admin.institute.title') }}<span
+                                            style="color: red"> * </span></label>
                                     <input type="text" class="form-control" id="title"
                                            name="title"
                                            value="{{ $edit ? $institute->title : old('title') }}"
@@ -144,31 +145,35 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="contact_person_password">{{ __('generic.password') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="password" class="form-control"
-                                           id="contact_person_password"
-                                           name="contact_person_password"
-                                           value="{{ old('contact_person_password') }}"
-                                           placeholder="{{ __('generic.password') }}">
+                            @unless($edit)
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="contact_person_password">{{ __('generic.password') }}<span
+                                                style="color: red"> * </span></label>
+                                        <input type="password" class="form-control"
+                                               id="contact_person_password"
+                                               name="contact_person_password"
+                                               value="{{ old('contact_person_password') }}"
+                                               placeholder="{{ __('generic.password') }}">
 
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="contact_person_password_confirmation">{{ __('generic.retype_password') }}<span
-                                            style="color: red"> * </span></label>
-                                    <input type="password" class="form-control"
-                                           id="contact_person_password_confirmation"
-                                           name="contact_person_password_confirmation"
-                                           value="{{ old('contact_person_password_confirmation') }}"
-                                           placeholder="{{ __('generic.retype_password') }}">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label
+                                            for="contact_person_password_confirmation">{{ __('generic.retype_password') }}
+                                            <span
+                                                style="color: red"> * </span></label>
+                                        <input type="password" class="form-control"
+                                               id="contact_person_password_confirmation"
+                                               name="contact_person_password_confirmation"
+                                               value="{{ old('contact_person_password_confirmation') }}"
+                                               placeholder="{{ __('generic.retype_password') }}">
 
+                                    </div>
                                 </div>
-                            </div>
+                            @endunless
 
 
                             <div class="col-sm-6">
@@ -190,7 +195,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="logo">{{ __('admin.institute.logo') }} <span style="color: red"> * </span></label>
+                                    <label for="logo">{{ __('admin.institute.logo') }} <span
+                                            style="color: red"> * </span></label>
                                     <div class="input-group">
                                         <div class="logo-upload-section">
                                             <div class="avatar-preview text-center">
@@ -247,7 +253,7 @@
             },
             "Invalid logo size. Size must be 370 x 70",
         );
-        $.validator.addMethod('filesize', function(value, element, param) {
+        $.validator.addMethod('filesize', function (value, element, param) {
             return this.optional(element) || (element.files[0].size <= param)
         }, 'File size must be less than {0} bytes');
 
@@ -312,6 +318,13 @@
                 },
                 contact_person_post: {
                     required: true,
+                },
+                contact_person_password: {
+                    required: true,
+                },
+                contact_person_password_confirmation: {
+                    required: true,
+                    equalTo: "#contact_person_password"
                 },
                 logo: {
                     required: !EDIT,
