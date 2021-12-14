@@ -139,6 +139,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 });
 
 Route::group(['as' => 'frontend.'], function () {
+
+    Route::group([ 'middleware' => ['authTrainee']], function() {
+        Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
+        Route::get('edit-personal-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
+        Route::put('edit-personal-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updatePersonalInfo'])->name('update-personal-info');
+    });
+
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
     Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
 
@@ -148,7 +155,6 @@ Route::group(['as' => 'frontend.'], function () {
     Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
     Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
 
-    Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
     Route::get('youth-enrolled-courses', [App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
     Route::get('youth-certificate-view/{youth_course_enroll}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCertificateView'])->name('youth-certificate-view');
     Route::post('youth-enrolled-courses/datatable', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');

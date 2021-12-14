@@ -8,24 +8,53 @@
     ইয়ুথ প্রোফাইল
 @endsection
 
+@push('css')
+    <style>
+        .profile-info-p {
+            line-height: normal;
+        }
+    </style>
+
+@endpush
+
 @section('content')
     <div class="container-fluid">
-        <div class="row youth-profile" id="youth-profile">
+        <div class="row youth-profile justify-content-center" id="youth-profile">
 
-            <div class="col-md-12 mt-2 personal-info-section">
+            <div class="col-md-10 mt-2 personal-info-section">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            Personal
+                            Personal Information
                         </div>
+
+                        <div class="card-tools">
+                                <a href="{{route('frontend.edit-personal-info')}}"
+                                   class="btn btn-sm btn-primary btn-rounded">
+                                    <i class="fas fa-plus-circle"></i> {{__('admin.common.edit')}}
+                                </a>
+                        </div>
+
                     </div>
                     <div class="card-body">
-
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img class="img-circle" src="{{ $youth->profile_pic ? asset('storage/'. $youth->profile_pic ) : "http://via.placeholder.com/640x360"}}" height="100" width="100" alt="">
+                            </div>
+                            <div class="col-md-8 col-offset-md-1">
+                                <h5>{{ $youth->name }}</h5>
+                                <div class="text-muted">
+                                    <p class="profile-info-p"> {{ __('generic.email') }}: {{ $youth->email }}</p>
+                                    <p class="profile-info-p">{{ __('generic.mobile') }}: {{ $youth->mobile }}</p>
+                                    <p class="profile-info-p">{{ __('generic.address') }}: {{ optional($youth->locUpazila)->title}}/ {{ optional($youth->locDistrict)->title }}/ {{ optional($youth->locDivision)->title }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-12 education-info-section">
+            <div class="col-md-10 education-info-section">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -38,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12 guardian-info-section">
+            <div class="col-md-10 guardian-info-section">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -50,20 +79,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-12 occupation-info-section">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            Occupation
-                        </div>
-                    </div>
-                    <div class="card-body">
-
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 @endsection
