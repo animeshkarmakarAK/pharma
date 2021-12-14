@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Classes\AuthHelper;
-use App\Models\Youth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +33,12 @@ class YouthLoginController
 
     public function login(Request $request)
     {
-        $youth = Youth::where(['access_key' => $request->input('access_key'), 'mobile'=>$request->input('mobile')])->first();
-        if ($youth && $youth->id && Auth::guard('youth')->loginUsingId($youth->id)) {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::guard('youth')->attempt($credentials)) {
             Auth::shouldUse('youth');
             return $request->wantsJson()
                 ? new JsonResponse([], 204)
@@ -44,7 +47,7 @@ class YouthLoginController
         }
 
         return redirect()->back()
-            ->with(['message' => 'আপনি ভুল মোবাইল নাম্বার/এক্সেস-কী প্রদান করেছেন, আবার চেষ্টা করুন', 'alert-type' => 'error']);
+            ->with(['message' => 'email or password is incorrect, আবার চেষ্টা করুন', 'alert-type' => 'error']);
     }
 
     public function logout(): \Illuminate\Http\RedirectResponse

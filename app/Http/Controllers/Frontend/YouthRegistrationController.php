@@ -32,10 +32,10 @@ class YouthRegistrationController extends Controller
 
     /**
      * applied youth for registration data view
-     *
      * @param $youthId
+     * @return array
      */
-    public function show($youthId)
+    public function show($youthId): array
     {
         $youth = Youth::findOrFail($youthId);
         $familyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
