@@ -6,7 +6,6 @@ use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\BaseController;
 use App\Models\Youth;
 use App\Services\YouthProfileService;
-use http\Env\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
@@ -29,8 +28,19 @@ class YouthProfileController extends BaseController
         return \view(self::VIEW_PATH. 'edit-personal-info', with(['trainee' => $authTrainee]));
     }
 
+
+    public function addEditEducation(int $id): View
+    {
+        $youth = Youth::findOrFAil($id);
+        $authTrainee = AuthHelper::getAuthUser('youth');
+        $educationInfo = $youth->youthAcademicQualifications;
+
+        return \view(self::VIEW_PATH. 'add-edit-education', with(['trainee' => $authTrainee, 'academicInfo' => $educationInfo]));
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
+     * @param $id
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -54,4 +64,27 @@ class YouthProfileController extends BaseController
             'alertType' => 'success',
         ]);
     }
+
+    public function storeEducationInfo(\Illuminate\Http\Request $request, $id): RedirectResponse
+    {
+        $validated = $this->youthProfileService->validator($request, $id)->validate();
+
+        try {
+            $this->youthProfileService->updatePersonalInfo($validated, $id);
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alertType' => 'error'
+            ]);
+        }
+
+        return back()->with([
+            'message' => __('personal information updated successfully!'),
+            'alertType' => 'success',
+        ]);
+    }
+
+
 }

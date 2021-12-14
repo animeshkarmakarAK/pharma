@@ -60,6 +60,12 @@
                         <div class="card-title">
                             Education
                         </div>
+                        <div class="card-tools">
+                            <a href="{{route('frontend.add-edit-education', ['id' => $youth->id])}}"
+                               class="btn btn-sm btn-primary btn-rounded">
+                                <i class="fas fa-plus-circle"></i> {{__('admin.common.add')}}
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
 

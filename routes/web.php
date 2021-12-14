@@ -35,7 +35,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'examination-results' => App\Http\Controllers\ExaminationResultController::class,
         'routines' => App\Http\Controllers\RoutineController::class,
         'examination-routines' => App\Http\Controllers\ExaminationRoutineController::class,
-
     ]);
 
     /**********Routine**********/
@@ -144,6 +143,8 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
         Route::get('edit-personal-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
         Route::put('edit-personal-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updatePersonalInfo'])->name('update-personal-info');
+        Route::get('add-edit-education/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'addEditEducation'])->name('add-edit-education');
+        Route::post('trainee-education-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeEducationInfo'])->name('trainee-info.store');
     });
 
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
