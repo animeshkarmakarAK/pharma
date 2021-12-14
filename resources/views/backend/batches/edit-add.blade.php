@@ -48,7 +48,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="course_id">{{__('admin.batch.course')}}  <span
+                                    <label for="course_id">{{__('admin.batch.course')}} <span
                                             style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
                                             name="course_id"
@@ -69,7 +69,8 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="code">{{__('admin.batch.code')}} <span style="color: red">*</span></label>
+                                    <label for="code">{{__('admin.batch.code')}} <span
+                                            style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="code"
                                            name="code"
                                            data-code="{{ $edit ? $batch->code : '' }}"
@@ -109,26 +110,26 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label
-                                        for="course_start_date">{{ __('admin.batch.course_start_date') }} <span
+                                        for="batch_start_date">{{ __('admin.batch.batch_start_date') }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text"
                                            class="flat-date flat-date-custom-bg form-control"
-                                           name="course_start_date"
-                                           id="course_start_date"
-                                           value="{{ $edit ? $course->course_start_date : old('course_start_date') }}"
+                                           name="batch_start_date"
+                                           id="batch_start_date"
+                                           value="{{ $edit ? $course->batch_start_date : old('batch_start_date') }}"
                                     >
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label
-                                        for="course_end_date">{{ __('admin.batch.course_end_date') }} <span
+                                        for="batch_end_date">{{ __('admin.batch.batch_end_date') }} <span
                                             style="color: red"> * </span></label>
                                     <input type="text"
                                            class="flat-date flat-date-custom-bg form-control"
-                                           name="course_end_date"
-                                           id="course_end_date"
-                                           value="{{ $edit ? $course->course_end_date : old('course_end_date') }}"
+                                           name="batch_end_date"
+                                           id="batch_end_date"
+                                           value="{{ $edit ? $course->batch_end_date : old('batch_end_date') }}"
                                     >
                                 </div>
                             </div>
@@ -179,27 +180,17 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
-        $('#application_start_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#application_end_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#course_start_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-        $('#course_end_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
+        [
+            '#application_start_date',
+            '#application_end_date',
+            '#batch_start_date',
+            '#batch_end_date'
+        ].forEach(function (elmID) {
+            $(elmID).change(function () {
+                if ($(this).val() != "") {
+                    $(this).valid();
+                }
+            });
         });
 
         const editAddForm = $('.edit-add-form');
@@ -209,13 +200,7 @@
                     required: true,
                     pattern: /^[a-zA-Z0-9 ]*$/,
                 },
-                institute_id: {
-                    required: true
-                },
-                /*course_id: {
-                    required: true
-                },*/
-                publish_course_id: {
+                course_id: {
                     required: true
                 },
                 training_center_id: {
@@ -247,13 +232,13 @@
                     required: true,
                     greaterThan: '#application_start_date'
                 },
-                course_start_date: {
+                batch_start_date: {
                     required: true,
                     greaterThan: '#application_end_date'
                 },
-                course_end_date: {
+                batch_end_date: {
                     required: true,
-                    greaterThan: '#course_start_date'
+                    greaterThan: '#batch_start_date'
                 },
 
             },
@@ -264,10 +249,10 @@
                 application_end_date: {
                     greaterThan: "This should be greater than Application Start Date"
                 },
-                course_start_date: {
+                batch_start_date: {
                     greaterThan: "This should be greater than Application End Date"
                 },
-                course_end_date: {
+                batch_end_date: {
                     greaterThan: "This should be greater than Course Start Date"
                 }
             },

@@ -32,7 +32,6 @@ return [
         'honors' => 'Honor\'s',
         'masters' => 'Master\'s',
     ],
-
     'status' => [
         'active' => 'Active',
         'inactive' => 'Inactive',
@@ -40,32 +39,6 @@ return [
         'rejected' => 'Rejected',
         'deleted' => 'Deleted',
     ],
-
-
-    'application_form_type' => [
-        'index' => 'Application Form Type',
-        'list' => 'Application Form Types List',
-        'add' => 'Add Application Form Type',
-        'edit' => 'Edit Application Form Type',
-        'update' => 'Update Application Form Type',
-        'title' => 'Title',
-        'name' => 'Name',
-        'institute_title' => 'Institute Title',
-        'education_information_show' => 'Educational Information To Show',
-        'additional_information_show' => 'Additional Information To Show',
-        'other_information_show' => 'Others Information To Show',
-        'jsc_exam' => 'JSC Exam',
-        'ssc_exam' => 'SSC Exam',
-        'hsc_exam' => 'HSC Exam',
-        'honors_exam' => 'Honors Exam',
-        'masters_exam' => 'Masters Exam',
-        'physical_disability' => 'Physical Disability',
-        'occupation_information' => 'Occupation Information',
-        'ethnic_group' => 'Ethnic Group',
-        'freedom_fighter' => 'Freedom Fighter',
-        'guardian' => 'Guardian Information'
-    ],
-
     'batch' => [
         'index' => 'Batch',
         'list' => 'Batches List',
@@ -82,12 +55,10 @@ return [
         'code'=> 'Code',
         'application_start_date' => 'Application Start Date',
         'application_end_date' => 'Application End Date',
-        'course_start_date' => 'Course Start Date',
-        'course_end_date' => 'Course End Date',
+        'batch_start_date' => 'Batch Start Date',
+        'batch_end_date' => 'Batch End Date',
         'max_student_enrollment' => 'Max Student Enrollment',
     ],
-
-
     'branch' =>[
         'index' => 'Branch',
         'list' => 'Branch List',
@@ -123,10 +94,6 @@ return [
         'description' => 'Description',
         'status' => 'Status',
         'course_session_list' => 'Course Session List',
-        'enrollment_start' => 'Enrollment Start',
-        'enrollment_end' => 'Enrollment End',
-        'class_start' => 'Class Start',
-        'total_seat' => 'Total Seat',
         'apply' => 'Apply',
         'branch' => 'Branch',
         'training_center' => 'Training Center',
@@ -148,7 +115,6 @@ return [
         'created_date' => 'Created at',
         'update_date' => 'Updated date',
     ],
-
     'examination' => [
         'code' => ' Examination Code',
         'examination_status_msg' => 'Are you sure you want to change this examination status?',
@@ -169,7 +135,6 @@ return [
         'exam_details' => 'Examination Details',
         'institute_title' => 'Institute Title',
         'examination_type' => 'Examination Type'
-
     ],
     'examination_type' => [
         'sort' => 'Sort',
@@ -178,7 +143,6 @@ return [
         'sl' => '#',
         'title' => 'Title',
     ],
-
     'gallery' =>[
         'index' => 'Gallery',
         'list' => 'Gallery List',
@@ -204,7 +168,6 @@ return [
         'youtube_link' => 'Youtube Link',
         'media' => 'Gallery Media'
     ],
-
     'gallery-album' =>[
         'index' => 'Gallery Album',
         'list' => 'Gallery Album List',
@@ -220,7 +183,6 @@ return [
         'batch_title' => 'Batch Title',
         'cover_image' => 'Upload Cover Image'
     ],
-
     'institute' =>[
         'index' => 'Institute',
         'list' => 'Institute List',
@@ -257,7 +219,6 @@ return [
         'youtube_video_url' => 'Youtube Video URL'
 
     ],
-
     'programme' =>[
         'index' => 'Programmes',
         'list' => 'Programme List',
@@ -293,7 +254,6 @@ return [
         'examination_type' => 'Routine Type'
 
     ],
-
     'slider' =>[
         'index' => 'Slider',
         'list' => 'Slider List',
@@ -312,8 +272,6 @@ return [
         'picture' => 'Picture',
         'upload_slider_image' => 'Upload Slider Image',
     ],
-
-
     'static_page' =>[
         'index' => 'Static Page',
         'list' => 'Static Page List',
@@ -327,9 +285,6 @@ return [
         'link' => 'Static Page Link',
         'detail' => 'Static Page Detail',
     ],
-
-
-
     'training_center' =>[
         'index' => 'Training Center',
         'list' => 'Training Center List',
@@ -348,7 +303,6 @@ return [
         'course_director_signature' => 'Course Director Signature',
         'google_map_src' => 'Google Map Source',
     ],
-
     'video_categories' =>[
         'index' => 'Video Category',
         'list' => 'Video Category List',
@@ -359,7 +313,6 @@ return [
         'institute_title' => 'Institute Title',
         'title' => 'Title',
     ],
-
     'videos' =>[
         'index' => 'Video ',
         'list' => 'Video  List',
@@ -378,7 +331,6 @@ return [
         'youtube' => 'Youtube',
         'video_type' => 'Video Type',
     ],
-
     'visitor_feedback' =>[
         'index' => 'Visitor ',
         'visitor_feedback' => 'Visitor Feedback',
@@ -400,8 +352,6 @@ return [
         'address' => 'Address',
         'comment' => 'Comment',
     ],
-
-
     'examination_result' => [
         'sort' => 'Sort',
         'list' => 'Examination Result',
@@ -417,7 +367,6 @@ return [
         'training_center' => 'Training Center',
 
     ],
-
     'daily_routine' => [
         'day_routine' => 'Daily Routine',
         'weekly_routine' => 'View Weekly Routine',
@@ -427,7 +376,6 @@ return [
         'trainer' => 'Trainer',
         'select' => 'Select'
     ],
-
     'youth_batches' =>[
         'index' => 'Trainee',
         'list' => 'Trainee List',
@@ -443,7 +391,6 @@ return [
         'enrollment_date' => 'Enrollment Date',
         'title' => 'Title',
     ],
-
     'youth' =>[
         'index' => 'Youth',
         'list' => 'Youth List',
@@ -460,9 +407,7 @@ return [
         'select_organization' => 'Select Organization',
 
     ],
-
     'trainer_information' => [
-
     ],
     'examination_routine' => [
         'sort' => 'Sort',
