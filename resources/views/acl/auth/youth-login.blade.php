@@ -28,25 +28,25 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                            <label class="control-label visible-ie8 visible-ie9">Phone or Mobile </label>
+                            <label for="email" class="control-label visible-ie8 visible-ie9">Email</label>
                             <div class="input-icon">
                                 <i class="fa fa-user"></i>
                                 <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
                                        type="text" autocomplete="off"
-                                       name="mobile"
-                                       id="mobile"
-                                       placeholder="আপনার মোবাইল নাম্বার লিখুন">
+                                       name="email"
+                                       id="email"
+                                       placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group">
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                            <label class="control-label visible-ie8 visible-ie9">Access Key</label>
+                            <label for="password" class="control-label visible-ie8 visible-ie9">Password</label>
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
                                 <input class="form-control form-control-solid placeholder-no-fix custom_input_field"
                                        type="password" autocomplete="off"
-                                       name="access_key"
-                                       id="access_key"
+                                       name="password"
+                                       id="password"
                                        placeholder="আপনার পাসওয়ার্ড লিখুন">
                             </div>
                         </div>
