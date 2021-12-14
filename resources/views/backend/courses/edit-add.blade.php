@@ -2,6 +2,25 @@
     $edit = !empty($course->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+
+    $otherOptionsToDisplayInForm = [
+        'ethnicGroup' => ['label' => 'Ethnic group', 'should_present_in_form' => false, 'is_required' => false],
+        'FreedomFighter' => ['label' => 'Freedom fighter', 'should_present_in_form' => false, 'is_required' => false],
+        'OccupationInfo' => ['label' => 'Occupation info', 'should_present_in_form' => false, 'is_required' => false],
+        'SSCInfo' => ['label' => 'SSC info', 'should_present_in_form' => false, 'is_required' => false],
+        'HSCInfo' => ['label' => 'HSC info', 'should_present_in_form' => false, 'is_required' => false],
+        'HonoursInfo' => ['label' => 'Honours info', 'should_present_in_form' => false, 'is_required' => false],
+        'MastersInfo' => ['label' => 'Masters info', 'should_present_in_form' => false, 'is_required' => false],
+    ];
+
+    if ($edit && $course->application_form_settings && count($course->application_form_settings)) {
+        foreach ($otherOptionsToDisplayInForm as $key => $setting) {
+            if (!empty($course->application_form_settings[$key])) {
+                $otherOptionsToDisplayInForm[$key]['should_present_in_form'] = !empty($course->application_form_settings[$key]['should_present_in_form']) && $course->application_form_settings[$key]['should_present_in_form'];
+                $otherOptionsToDisplayInForm[$key]['is_required'] = !empty($course->application_form_settings[$key]['is_required']) && $course->application_form_settings[$key]['is_required'];
+            }
+        }
+    }
 @endphp
 
 @extends('master::layouts.master')
@@ -9,7 +28,6 @@
 @section('title')
     {{ ! $edit ? __('admin.course.edit') : __('admin.course.update') }}
 @endsection
-
 
 @section('content')
     <div class="container-fluid">
@@ -68,7 +86,7 @@
                             @else
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="institute_id">{{ __('admin.course.institute_title') }}<span
+                                        <label for="institute_id">{{ __('admin.course.institute') }}<span
                                                 style="color: red"> * </span></label>
                                         <select class="form-control select2-ajax-wizard"
                                                 name="institute_id"
@@ -79,7 +97,7 @@
                                                 @if($edit)
                                                 data-preselected-option="{{json_encode(['text' =>  $course->institute->title, 'id' =>  $course->institute->id])}}"
                                                 @endif
-                                                data-placeholder="{{ __('admin.course.institute_title') }}"
+                                                data-placeholder="{{ __('admin.course.institute') }}"
                                         >
                                         </select>
                                     </div>
@@ -106,7 +124,7 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="training_center_id">{{__('admin.publish_course.training_center')}}<span
+                                <label for="training_center_id">{{__('admin.course.training_center')}}<span
                                         style="color: red"> * </span></label>
                                 <select class="form-control select2-ajax-wizard"
                                         name="training_center_id"
@@ -165,62 +183,6 @@
                                            placeholder="{{ __('admin.course.duration') }}">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label
-                                        for="application_start_date">{{ __('admin.course.application_start_date') }}
-                                        <span
-                                            style="color: red"> * </span></label>
-                                    <input type="text"
-                                           class="flat-date flat-date-custom-bg form-control"
-                                           name="application_start_date"
-                                           id="application_start_date"
-                                           value="{{ $edit ? $course->application_start_date : old('application_start_date') }}"
-                                    >
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label
-                                        for="application_end_date">{{ __('admin.course.application_end_date') }} <span
-                                            style="color: red"> * </span></label>
-                                    <input type="text"
-                                           class="flat-date flat-date-custom-bg form-control"
-                                           name="application_end_date"
-                                           id="application_end_date"
-                                           value="{{ $edit ? $course->application_end_date : old('application_end_date') }}"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label
-                                        for="course_start_date">{{ __('admin.course.course_start_date') }} <span
-                                            style="color: red"> * </span></label>
-                                    <input type="text"
-                                           class="flat-date flat-date-custom-bg form-control"
-                                           name="course_start_date"
-                                           id="course_start_date"
-                                           value="{{ $edit ? $course->course_start_date : old('course_start_date') }}"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label
-                                        for="course_end_date">{{ __('admin.course.course_end_date') }} <span
-                                            style="color: red"> * </span></label>
-                                    <input type="text"
-                                           class="flat-date flat-date-custom-bg form-control"
-                                           name="course_end_date"
-                                           id="course_end_date"
-                                           value="{{ $edit ? $course->course_end_date : old('course_end_date') }}"
-                                    >
-                                </div>
-                            </div>
-
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -326,184 +288,42 @@
                                 </div>
                             @endif
 
-
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[ethnicGroup]['value']" type="checkbox" value="1" id="ethnic-group">
-                                                        <label class="form-check-label" for="ethnic-group">
-                                                            Ethnic group
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[ethnicGroup][optionality]" class="custom-control-input" id="ethnic-group-optionality">
-                                                        <label class="custom-control-label" for="ethnic-group-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[freedomFighter]['value']" type="checkbox" value="1" id="freedom-fighter-status">
-                                                        <label class="form-check-label" for="freedom-fighter-status">
-                                                            Freedom fighter
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[freedomFighter][optionality]" class="custom-control-input" id="freedom-fighter-optionality">
-                                                        <label class="custom-control-label" for="freedom-fighter-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[occupationInfo]['value']" type="checkbox" value="1" id="occupation-info">
-                                                        <label class="form-check-label" for="occupation-info">
-                                                            Occupation info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[occupationInfo][optionality]" class="custom-control-input" id="occupation-info-optionality">
-                                                        <label class="custom-control-label" for="occupation-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[othersInfo]['value']" type="checkbox" value="1" id="others-info">
-                                                        <label class="form-check-label" for="others-info">
-                                                            Others info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[othersInfo][optionality]" class="custom-control-input" id="others-info-optionality">
-                                                        <label class="custom-control-label" for="occupation-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                    <div class="col-md-12">
+                                        <label for="Other information for course enrollment form.">Other information for
+                                            course enrollment form.</label>
                                     </div>
+                                    @foreach($otherOptionsToDisplayInForm as $option => $details)
+                                        <div class="col-md-6">
+                                            <div class="form-group form-inline">
+                                                <div class="form-check">
+                                                    <input class="form-check-input"
+                                                           name="applicationFormSettings[{{$option}}][should_present_in_form]"
+                                                           type="checkbox"
+                                                           onchange="onChangeOptionalSettings(this)"
+                                                           @if($details['should_present_in_form']) checked @endif
+                                                           id="{{$option}}">
+                                                    <label class="form-check-label" for="{{$option}}">
+                                                        {{$details['label']}}
+                                                    </label>
+                                                </div>
 
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['value']" type="checkbox" value="1" id="academic-info">
-                                                        <label class="form-check-label" for="academic-info">
-                                                            Academic info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="academic-info-optionality">
-                                                        <label class="custom-control-label" for="academic-info-optionality">optional</label>
-                                                    </div>
+                                                <div class="custom-control custom-switch ml-5"
+                                                     @if(!$details['should_present_in_form']) style="display: none" @endif>
+                                                    <input type="checkbox"
+                                                           name="applicationFormSettings[{{$option}}][is_required]"
+                                                           class="custom-control-input"
+                                                           id="{{$option}}-is-required"
+                                                           @if($details['is_required']) checked @endif>
+                                                    <label class="custom-control-label"
+                                                           for="{{$option}}-is-required">Required?</label>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['jsc']" type="checkbox" value="1" id="jsc-info">
-                                                        <label class="form-check-label" for="jsc-info">
-                                                            SSC info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="jsc-info-optionality">
-                                                        <label class="custom-control-label" for="jsc-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['ssc']" type="checkbox" value="1" id="ssc-info">
-                                                        <label class="form-check-label" for="ssc-info">
-                                                            HSC info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="ssc-info-optionality">
-                                                        <label class="custom-control-label" for="ssc-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['hsc']" type="checkbox" value="1" id="hsc-info">
-                                                        <label class="form-check-label" for="hsc-info">
-                                                            HSC info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="hsc-info-optionality">
-                                                        <label class="custom-control-label" for="hsc-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['honors']" type="checkbox" value="1" id="honors-info">
-                                                        <label class="form-check-label" for="honors-info">
-                                                            HSC info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="honors-info-optionality">
-                                                        <label class="custom-control-label" for="honors-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group form-inline">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="applicationFormSettings[academicInfo]['masters']" type="checkbox" value="1" id="masters-info">
-                                                        <label class="form-check-label" for="masters-info">
-                                                            Masters info
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="custom-control custom-switch ml-5" style="display: none">
-                                                        <input type="checkbox" name="applicationFormSettings[academicInfo][optionality]" class="custom-control-input" id="masters-info-optionality">
-                                                        <label class="custom-control-label" for="masters-info-optionality">optional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                         </div>
-                                    </div>
-
-
+                                    @endforeach
                                 </div>
                             </div>
-
-
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
@@ -519,14 +339,6 @@
         </div>
     </div>
 @endsection
-
-@push('css')
-    <style>
-        .flat-date-custom-bg {
-            background-color: #fafdff !important;
-        }
-    </style>
-@endpush
 
 @push('js')
     <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
@@ -547,31 +359,6 @@
                 }, 200);
             }
         });
-
-
-        $('#application_start_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#application_end_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#course_start_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-        $('#course_end_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
 
         $.validator.addMethod(
             "imageSize",
@@ -648,22 +435,6 @@
                 prerequisite: {
                     required: false,
                 },
-                application_start_date: {
-                    required: true
-
-                },
-                application_end_date: {
-                    required: true,
-                    greaterThan: '#application_start_date'
-                },
-                course_start_date: {
-                    required: true,
-                    greaterThan: '#application_end_date'
-                },
-                course_end_date: {
-                    required: true,
-                    greaterThan: '#course_start_date'
-                },
                 cover_image: {
                     required: false,
                     accept: 'image/*'
@@ -680,15 +451,6 @@
                 course_fee: {
                     number: 'Please enter your course fee [Only number]',
                 },
-                application_end_date: {
-                    greaterThan: "This should be greater than Application Start Date"
-                },
-                course_start_date: {
-                    greaterThan: "This should be greater than Application End Date"
-                },
-                course_end_date: {
-                    greaterThan: "This should be greater than Course Start Date"
-                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
@@ -713,43 +475,14 @@
             });
         })
 
-        function showOptionalSettingSwitch(checked, target) {
-            checked ? target.show() : target.hide();
-        }
-
-        function changeOptionalSettingSwitchLabel(checkboxField) {
-            if (checkboxField.checked) {
-                $('#' + checkboxField.id).next().html('required');
-            }else {
-                $('#' + checkboxField.id).next().html('optional');
+        function onChangeOptionalSettings(elm) {
+            let optionElm = $("#" + elm.id + "-is-required");
+            if (elm.checked) {
+                optionElm.parent().show();
+            } else {
+                optionElm.parent().hide();
+                optionElm.prop('checked', false).trigger('change');
             }
         }
-
-        $(document).ready(function () {
-
-            $('#ethnic-group').on('change', function () {
-                const target = $('#ethnic-group-optionality');
-                showOptionalSettingSwitch(this.checked, target.parent());
-            });
-
-            $('#ethnic-group-optionality').on('change', function () {
-                changeOptionalSettingSwitchLabel(this);
-            });
-
-            $('#freedom-fighter-status').on('change', function () {
-                const target = $('#freedom-fighter-optionality').parent();
-                showOptionalSettingSwitch(this.checked, target);
-            });
-
-            $('#occupation-info').on('change', function () {
-                const target = $('#occupation-info-optionality').parent();
-                showOptionalSettingSwitch(this.checked, target);
-            });
-
-            $('#others-info').on('change', function () {
-                const target = $('#others-info-optionality').parent();
-                showOptionalSettingSwitch(this.checked, target);
-            });
-        });
     </script>
 @endpush

@@ -76,15 +76,15 @@ return [
         'course' => 'Course Name',
         'institute_title' => 'Institute Title',
         'course_title' => 'Course Title',
-        'max_student_enrollment' => 'Max Student Enrollment',
-        'start_date' => 'Batch Start Date',
-        'end_date' => 'Batch End Date',
-        'start_time' => 'Batch Start Time',
-        'end_time' => 'Batch End Time',
         'batch_status' => 'Batch Status',
         'publish_course' => 'Publish Course',
         'training_center' => 'Training Center',
-        'code'=> 'Code'
+        'code'=> 'Code',
+        'application_start_date' => 'Application Start Date',
+        'application_end_date' => 'Application End Date',
+        'course_start_date' => 'Course Start Date',
+        'course_end_date' => 'Course End Date',
+        'max_student_enrollment' => 'Max Student Enrollment',
     ],
 
 
@@ -100,7 +100,6 @@ return [
         'google_map_source' => 'Google Map Source',
         'code'=> 'Code'
     ],
-
     'course' =>[
         'index' => 'Course',
         'list' => 'Course List',
@@ -109,7 +108,7 @@ return [
         'update' => 'Update Course',
         'title' => 'Course Title',
         'code'=> 'Code',
-        'institute_title' => 'Institute Title',
+        'institute' => 'Institute',
         'institute_address' => 'Institute Address',
         'course_fee' => 'Course Fee',
         'duration' => 'Duration',
@@ -129,17 +128,11 @@ return [
         'class_start' => 'Class Start',
         'total_seat' => 'Total Seat',
         'apply' => 'Apply',
-        'branch' => 'Branch Name',
+        'branch' => 'Branch',
         'training_center' => 'Training Center',
         'application_form_type' => 'Application Form Type',
-        'application_start_date' => 'Application Start Date',
-        'application_end_date' => 'Application End Date',
-        'course_start_date' => 'Course Start Date',
-        'course_end_date' => 'Course End Date',
-        'max_student_enrollment' => 'Max Student Enrollment',
         'not_found' => 'No session found for this course'
     ],
-
     'event' =>[
         'index' => 'Event',
         'list' => 'Event List',
@@ -277,25 +270,6 @@ return [
         'institute_title' => 'Institute Title',
         'description' => 'Description'
     ],
-
-    'publish_course' =>[
-        'index' => 'Course Config ',
-        'list' => 'Course Config List',
-        'add' => 'Create Config  Course',
-        'edit' => 'Edit Course Config ',
-        'update' => 'Update Course Config',
-        'publish' => 'Publish',
-        'title' => 'Course Title',
-        'training_center' => 'Training Center',
-        'application_form_type' => 'Application Form Type',
-        'application_start_date' => 'Application Start Date',
-        'application_end_date' => 'Application End Date',
-        'course_start_date' => 'Course Start Date',
-        'max_student_enrollment' => 'Max Student Enrollment',
-        'description' => 'Description'
-    ],
-
-
     'question_answer' =>[
         'index' => 'FAQ',
         'list' => 'FAQ List',
@@ -306,9 +280,6 @@ return [
         'institute_title' => 'Institute Title'
 
     ],
-
-
-
     'routine' => [
         'sort' => 'Sort',
         'list' => 'Routine',

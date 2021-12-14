@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
@@ -18,10 +17,13 @@ class CourseService
 {
     public function createCourse(array $data): Course
     {
+        $data['application_form_settings'] = $this->processApplicationFormSettingsInput($data['applicationFormSettings'] ?? []);
+
         $filename = null;
         if (!empty($data['cover_image'])) {
             $filename = FileHandler::storePhoto($data['cover_image'], 'course');
         }
+
         if ($filename) {
             $data['cover_image'] = 'course/' . $filename;
         } else {
@@ -48,7 +50,7 @@ class CourseService
                 'required',
                 'string',
                 'max:191',
-                'unique:courses,code,'.$id
+                'unique:courses,code,' . $id
             ],
             'course_fee' => [
                 'required',
@@ -115,9 +117,8 @@ class CourseService
                 'nullable',
                 'image',
                 'mimes:jpg,bmp,png,jpeg,svg',
-//                'max:500',
-//                'dimensions:width=820,height=312'
-            ]
+            ],
+            'applicationFormSettings.*' => 'array'
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
@@ -134,6 +135,8 @@ class CourseService
     {
         $data = $request->all();
 
+        $data['application_form_settings'] = $this->processApplicationFormSettingsInput($data['applicationFormSettings'] ?? []);
+
         if (!empty($data['cover_image'])) {
             if (!empty($course->cover_image) && $course->cover_image !== Course::DEFAULT_COVER_IMAGE) {
                 FileHandler::deleteFile($course->cover_image);
@@ -147,9 +150,7 @@ class CourseService
             }
         }
         $course->fill($data);
-        if (!$course->save()) {
-            throw new \Exception();
-        }
+        $course->save();
 
         return $course;
     }
@@ -210,7 +211,17 @@ class CourseService
             ->editColumn('row_status', function (Course $course) {
                 return $course->getCurrentRowStatus(true);
             })
-            ->rawColumns(['action','row_status'])
+            ->rawColumns(['action', 'row_status'])
             ->toJson();
+    }
+
+    private function processApplicationFormSettingsInput(array $settings): array
+    {
+        foreach ($settings as $key => $item) {
+            $settings[$key]['should_present_in_form'] = !empty($item['should_present_in_form']) && $item['should_present_in_form'] === 'on';
+            $settings[$key]['is_required'] = !empty($item['is_required']) && $item['is_required'] === 'on';
+        }
+
+        return $settings;
     }
 }

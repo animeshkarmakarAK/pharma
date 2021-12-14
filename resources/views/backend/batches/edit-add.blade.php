@@ -78,6 +78,61 @@
                                 </div>
                             </div>
 
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="application_start_date">{{ __('admin.batch.application_start_date') }}
+                                        <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="application_start_date"
+                                           id="application_start_date"
+                                           value="{{ $edit ? $course->application_start_date : old('application_start_date') }}"
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="application_end_date">{{ __('admin.batch.application_end_date') }} <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="application_end_date"
+                                           id="application_end_date"
+                                           value="{{ $edit ? $course->application_end_date : old('application_end_date') }}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="course_start_date">{{ __('admin.batch.course_start_date') }} <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="course_start_date"
+                                           id="course_start_date"
+                                           value="{{ $edit ? $course->course_start_date : old('course_start_date') }}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label
+                                        for="course_end_date">{{ __('admin.batch.course_end_date') }} <span
+                                            style="color: red"> * </span></label>
+                                    <input type="text"
+                                           class="flat-date flat-date-custom-bg form-control"
+                                           name="course_end_date"
+                                           id="course_end_date"
+                                           value="{{ $edit ? $course->course_end_date : old('course_end_date') }}"
+                                    >
+                                </div>
+                            </div>
+
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
                                         class="btn btn-success">{{ $edit ? __('admin.batch.update') : __('admin.batch.add')}}</button>
@@ -124,6 +179,29 @@
     <script>
         const EDIT = !!'{{$edit}}';
 
+        $('#application_start_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
+        $('#application_end_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
+        $('#course_start_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+        $('#course_end_date').change(function () {
+            if ($(this).val() != "") {
+                $(this).valid();
+            }
+        });
+
         const editAddForm = $('.edit-add-form');
         editAddForm.validate({
             rules: {
@@ -161,20 +239,21 @@
                     number: true,
                     min: 1,
                 },
-                start_date: {
-                    required: true,
-                    greaterThan: "#today"
+                application_start_date: {
+                    required: true
+
                 },
-                end_date: {
+                application_end_date: {
                     required: true,
-                    greaterThan: ".start_date"
+                    greaterThan: '#application_start_date'
                 },
-                start_time: {
+                course_start_date: {
                     required: true,
+                    greaterThan: '#application_end_date'
                 },
-                end_time: {
+                course_end_date: {
                     required: true,
-                    greaterThan: "#start_time"
+                    greaterThan: '#course_start_date'
                 },
 
             },
@@ -182,78 +261,19 @@
                 title: {
                     pattern: "This field is required in English."
                 },
-                start_date: {
-                    greaterThan: function () {
-                        if (!EDIT) {
-                            return 'Start Date will be greater than Today'
-                        }
-                    },
+                application_end_date: {
+                    greaterThan: "This should be greater than Application Start Date"
                 },
-                end_date: {
-                    greaterThan: 'End Date will not be less than Start Date',
+                course_start_date: {
+                    greaterThan: "This should be greater than Application End Date"
                 },
-                end_time: {
-                    greaterThan: 'End Time will be greater than Start Time',
-                },
+                course_end_date: {
+                    greaterThan: "This should be greater than Course Start Date"
+                }
             },
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
                 htmlForm.submit();
-            }
-        });
-
-
-        if (!EDIT) {
-            let today = new Date();
-            today = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + (today.getDate() - 0)).slice(-2);
-            $('#today').val(today);
-            console.log($('#today').val())
-        }
-
-        $('#start_date').on('change', function () {
-            console.log($('.start_date').val());
-        })
-
-
-        $('#start_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#end_date').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#start_time').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-        $('#end_time').change(function () {
-            if ($(this).val() != "") {
-                $(this).valid();
-            }
-        });
-
-        $('#publish_course_id').change(function () {
-            let publishCourseId = $(this).val();
-            $.ajax({
-                type: 'post',
-                url: '{{route('admin.batch-training-centers')}}',
-                data: {'publish_course_id': publishCourseId},
-            }).then(function (res) {
-                $("#training_center_id option").remove();
-                $('#training_center_id').append('<option value="">' + 'Select' + '</option>');
-                $.each(res, function (key, val) {
-                    $('#training_center_id').append('<option value="' + val.id + '">' + val.title + '</option>');
-                });
-            });
-
-            if (!publishCourseId) {
-                $("#training_center_id option").remove();
             }
         });
     </script>

@@ -51,6 +51,30 @@
                     </div>
                 </div>
 
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('admin.course.application_start_date') }}</p>
+                    <div class="input-box flat">
+                        {{ $course->application_start_date }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('admin.course.application_end_date') }}</p>
+                    <div class="input-box">
+                        {{ $course->application_end_date }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('admin.course.course_start_date') }}</p>
+                    <div class="input-box">
+                        {{ $course->course_start_date }}
+                    </div>
+                </div> <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{ __('admin.course.course_end_date') }}</p>
+                    <div class="input-box">
+                        {{ $course->course_end_date }}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

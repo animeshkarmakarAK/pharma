@@ -28,6 +28,7 @@ use App\Traits\ScopeAclTrait;
  * @property string prerequisite
  * @property string eligibility
  * @property File cover_image
+ * @property array application_form_settings
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()
  * @method static Builder|Institute newModelQuery()
@@ -41,6 +42,10 @@ class Course extends BaseModel
     protected $table = 'courses';
     protected $guarded = ['id'];
     const DEFAULT_COVER_IMAGE = 'course/course.jpeg';
+
+    protected $casts = [
+        'application_form_settings' => 'array'
+    ];
 
     public function institute(): BelongsTo
     {
