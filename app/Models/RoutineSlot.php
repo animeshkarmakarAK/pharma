@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 
 /**
- * Class RoutineClass
+ * Class RoutineSlot
  * @package App\Models
  * @property int institute_id
  * @property int routine_id
@@ -26,7 +26,7 @@ use Carbon\Carbon;
  * @method static Builder|Batch query()
  */
 
-class RoutineClass extends BaseModel
+class RoutineSlot extends BaseModel
 {
     public $timestamps = true;
     protected $guarded = ['id'];

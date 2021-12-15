@@ -44,12 +44,8 @@ class Routine extends BaseModel
         return $this->belongsTo(TrainingCenter::class, 'training_center_id');
     }
 
-    public function routineClass(): HasMany
+    public function routineSlots(): HasMany
     {
-        if (@Session::get('user_id')){
-            return $this->hasMany(RoutineClass::class,'routine_id')->where('user_id',Session::get('user_id'));
-        }else{
-            return $this->hasMany(RoutineClass::class,'routine_id');
-        }
+        return $this->hasMany(RoutineSlot::class,'routine_id');
     }
 }

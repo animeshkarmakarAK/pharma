@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourseWiseYouthCertificatesTable extends Migration
+class CreateCertificatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateCourseWiseYouthCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_wise_youth_certificates', function (Blueprint $table) {
+        Schema::create('certificates', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('publish_course_id');
-            $table->unsignedInteger('youth_id');
+            $table->unsignedInteger('course_id');
+            $table->unsignedInteger('batch_id');
+            $table->unsignedInteger('trainer_id');
             $table->string('certificate_path')->nullable();
-            $table->unsignedTinyInteger('row_status')->nullable()->default(1);
+            $table->string('code', 30)->unique();
+            $table->unsignedTinyInteger('publish_status')->default(0)->comment('0 => unpublished, 1=> published');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateCourseWiseYouthCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('youth_organizations');
+        Schema::dropIfExists('certificates');
     }
 }

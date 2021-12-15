@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Routine;
-use App\Models\RoutineClass;
+use App\Models\RoutineSlot;
 use Yajra\DataTables\Facades\DataTables;
 
 class ExaminationRoutineService
