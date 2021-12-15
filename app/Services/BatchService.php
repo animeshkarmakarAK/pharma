@@ -20,8 +20,6 @@ class BatchService
 {
     public function createBatch(array $data): Batch
     {
-        $data['branch_id'] = $this->getBranchId($data['course_id']);
-        $data['training_center_id'] = $this->getTrainingCenterId($data['course_id']);
         return Batch::create($data);
     }
 
@@ -122,18 +120,6 @@ class BatchService
         $branch->fill($data);
         $branch->save();
         return $branch;
-    }
-
-    public function getTrainingCenterId($course_id)
-    {
-        $course = Course::find($course_id);
-        return $course->training_center_id;
-    }
-
-    public function getBranchId($course_id)
-    {
-        $course = Course::find($course_id);
-        return $course->branch_id;
     }
 
 }
