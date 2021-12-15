@@ -58,6 +58,7 @@ return [
         'batch_start_date' => 'Batch Start Date',
         'batch_end_date' => 'Batch End Date',
         'max_student_enrollment' => 'Max Student Enrollment',
+        'branch_title' => 'Branch',
     ],
     'branch' =>[
         'index' => 'Branch',

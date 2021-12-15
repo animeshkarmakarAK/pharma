@@ -44,6 +44,7 @@ class BatchService
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'institute_id' => 'required|int|exists:institutes,id',
             'course_id' => 'required|int|exists:courses,id',
+            'training_center_id' => 'required|int|exists:training_centers,id',
             'application_start_date' => [
                 'required'
             ],

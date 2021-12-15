@@ -57,7 +57,7 @@
                                                 id="institute_id"
                                                 data-model="{{base64_encode(App\Models\Institute::class)}}"
                                                 data-label-fields="{title}"
-                                                data-dependent-fields="#course_id"
+                                                data-dependent-fields="#training_center_id|#branch_id"
                                                 @if($authUser->isInstituteUser())
                                                 data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                                 @endif
@@ -72,6 +72,48 @@
                             @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label for="branch_id">{{__('admin.batch.branch_title')}} </label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="branch_id"
+                                            id="branch_id"
+                                            data-model="{{base64_encode(App\Models\Branch::class)}}"
+                                            data-label-fields="{title}"
+                                            data-depend-on="institute_id:#institute_id"
+                                            @if($authUser->isInstituteUser())
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            @endif
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $batch->branches->title, 'id' =>  $batch->branches->id])}}"
+                                            @endif
+                                            data-placeholder="{{__('Select Training Center')}}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="training_center_id">{{__('admin.batch.training_center')}} <span
+                                            style="color: red">*</span></label>
+                                    <select class="form-control select2-ajax-wizard"
+                                            name="training_center_id"
+                                            id="training_center_id"
+                                            data-model="{{base64_encode(App\Models\TrainingCenter::class)}}"
+                                            data-label-fields="{title}"
+                                            data-depend-on="institute_id:#institute_id"
+                                            data-dependent-fields="#course_id"
+                                            @if($authUser->isInstituteUser())
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            @endif
+                                            @if($edit)
+                                            data-preselected-option="{{json_encode(['text' =>  $batch->TrainingCenter->title, 'id' =>  $batch->trainingCenter->id])}}"
+                                            @endif
+                                            data-placeholder="{{__('Select Training Center')}}"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="course_id">{{__('admin.batch.course')}} <span
                                             style="color: red">*</span></label>
                                     <select class="form-control select2-ajax-wizard"
@@ -79,11 +121,10 @@
                                             id="course_id"
                                             data-model="{{base64_encode(App\Models\Course::class)}}"
                                             data-label-fields="{title}"
-                                            data-depend-on="institute_id:#institute_id"
-                                            data-dependent-fields="#branch_id"
-                                            {{--@if($authUser->isInstituteUser())
+                                            data-depend-on="training_center_id:#training_center_id"
+                                            @if($authUser->isInstituteUser())
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
-                                            @endif--}}
+                                            @endif
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $batch->course->title, 'id' =>  $batch->course->id])}}"
                                             @endif
@@ -92,6 +133,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="code">{{__('admin.batch.code')}} <span
