@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Youth;
-use App\Models\YouthCourseEnroll;
-use App\Services\YouthRegistrationService;
+use App\Models\Trainee;
+use App\Models\TraineeCourseEnroll;
+use App\Services\TraineeRegistrationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class YouthRegistrationController extends Controller
+class TraineeRegistrationController extends Controller
 {
     const VIEW_PATH = 'frontend.trainee-registration.';
-    protected YouthRegistrationService $youthRegistrationService;
+    protected TraineeRegistrationService $traineeRegistrationService;
 
-    public function __construct(YouthRegistrationService $youthRegistrationService)
+    public function __construct(TraineeRegistrationService $traineeRegistrationService)
     {
-        $this->youthRegistrationService = $youthRegistrationService;
+        $this->traineeRegistrationService = $traineeRegistrationService;
     }
 
     /**
@@ -31,24 +31,24 @@ class YouthRegistrationController extends Controller
     }
 
     /**
-     * applied youth for registration data view
-     * @param $youthId
+     * applied trainee for registration data view
+     * @param $traineeId
      * @return array
      */
-    public function show($youthId): array
+    public function show($traineeId): array
     {
-        $youth = Youth::findOrFail($youthId);
-        $familyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
-        $youthAcademicQualifications = $this->youthRegistrationService->getYouthAcademicQualification($youth);
-        $youthSelfInfo = $this->youthRegistrationService->getYouthInfo($youth);
+        $trainee = Trainee::findOrFail($traineeId);
+        $familyMembers = $this->traineeRegistrationService->getTraineeFamilyMemberInfo($trainee);
+        $traineeAcademicQualifications = $this->traineeRegistrationService->getTraineeAcademicQualification($trainee);
+        $traineeSelfInfo = $this->traineeRegistrationService->getTraineeInfo($trainee);
 
         return [
                 'father' => $familyMembers['father'],
                 'mother' => $familyMembers['mother'],
                 'guardian' => $familyMembers['guardian'],
-                'academicQualifications' => $youthAcademicQualifications,
-                'youthSelfInfo' => $youthSelfInfo,
-                'youth' => $youth,
+                'academicQualifications' => $traineeAcademicQualifications,
+                'traineeSelfInfo' => $traineeSelfInfo,
+                'trainee' => $trainee,
             ];
     }
 
@@ -60,10 +60,10 @@ class YouthRegistrationController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validated = $this->youthRegistrationService->validator($request)->validate();
+        $validated = $this->traineeRegistrationService->validator($request)->validate();
 
         try {
-            $this->youthRegistrationService->createRegistration($validated);
+            $this->traineeRegistrationService->createRegistration($validated);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 
@@ -82,18 +82,18 @@ class YouthRegistrationController extends Controller
 
     public function registrationSuccess($accessKey)
     {
-        return \view('frontend/youth-registrations/application-success-message', compact('accessKey'));
+        return \view('frontend/trainee-registrations/application-success-message', compact('accessKey'));
     }
 
 
-    public function acceptYouthCourseEnroll($youthCourseEnrollId)
+    public function acceptTraineeCourseEnroll($traineeCourseEnrollId)
     {
-        $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnrollId);
+        $traineeCourseEnroll = TraineeCourseEnroll::findOrFail($traineeCourseEnrollId);
 
         /**
-         * Check youth application already rejected or not
+         * Check trainee application already rejected or not
          * */
-        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT) {
+        if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_REJECT) {
             return back()->with([
                 'message' => __('Already rejected this application'),
                 'alert-type' => 'warning'
@@ -101,9 +101,9 @@ class YouthRegistrationController extends Controller
         }
 
         /**
-         * Check youth application already accepted or not
+         * Check trainee application already accepted or not
          * */
-        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
+        if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT) {
             return back()->with([
                 'message' => __('Already accepted this application'),
                 'alert-type' => 'warning'
@@ -111,14 +111,14 @@ class YouthRegistrationController extends Controller
         }
 
         try {
-            if (!empty($youthCourseEnroll->youth->mobile)) {
+            if (!empty($traineeCourseEnroll->trainee->mobile)) {
                 try {
-                    $link = route('frontend.youth-enrolled-courses');
-                    $youthName = strtoupper($youthCourseEnroll->youth->name);
-                    $messageBody = "Dear $youthName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
-                    $smsResponse = sms()->send($youthCourseEnroll->youth->mobile, $messageBody);
+                    $link = route('frontend.trainee-enrolled-courses');
+                    $traineeName = strtoupper($traineeCourseEnroll->trainee->name);
+                    $messageBody = "Dear $traineeName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
+                    $smsResponse = sms()->send($traineeCourseEnroll->trainee->mobile, $messageBody);
                     if (!$smsResponse->is_successful()) {
-                        sms()->send($youthCourseEnroll->youth->mobile, $messageBody);
+                        sms()->send($traineeCourseEnroll->trainee->mobile, $messageBody);
                     }
                 } catch (\Throwable $exception) {
                     Log::debug($exception->getMessage());
@@ -126,14 +126,14 @@ class YouthRegistrationController extends Controller
             }
 
             /**
-             * Send mail to youth for conformation
+             * Send mail to trainee for conformation
              * */
-            $youthEmailAddress = $youthCourseEnroll->youth->email;
+            $traineeEmailAddress = $traineeCourseEnroll->trainee->email;
             $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: https://www.test.com.bd</p>";
             $mailSubject = "Congratulations! Your application has been accepted";
-            $youthName = $youthCourseEnroll->youth->name;
+            $traineeName = $traineeCourseEnroll->trainee->name;
             try {
-                Mail::to($youthEmailAddress)->send(new \App\Mail\YouthApplicationAcceptMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
+                Mail::to($traineeEmailAddress)->send(new \App\Mail\TraineeApplicationAcceptMail($mailSubject, $traineeCourseEnroll->trainee->access_key, $mailMsg, $traineeName));
             } catch (\Throwable $exception) {
                 Log::debug($exception->getMessage());
                 return back()->with([
@@ -145,7 +145,7 @@ class YouthRegistrationController extends Controller
             /**
              * Changing Enroll Status
              * */
-            $this->youthRegistrationService->changeYouthCourseEnrollStatusAccept($youthCourseEnroll);
+            $this->traineeRegistrationService->changeTraineeCourseEnrollStatusAccept($traineeCourseEnroll);
 
         } catch (\Throwable $exception) {
             return response()->json([
@@ -156,19 +156,19 @@ class YouthRegistrationController extends Controller
 
 
         return redirect()->back()->with([
-            'message' => __('Youth course enroll accepted & notifying to youth'),
+            'message' => __('Trainee course enroll accepted & notifying to trainee'),
             'alertType' => 'success',
         ]);
     }
 
-    public function rejectYouthCourseEnroll($youthCourseEnrollId)
+    public function rejectTraineeCourseEnroll($traineeCourseEnrollId)
     {
-        $youthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnrollId);
+        $traineeCourseEnroll = TraineeCourseEnroll::findOrFail($traineeCourseEnrollId);
 
         /**
-         * Check youth application already accepted or not
+         * Check trainee application already accepted or not
          * */
-        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
+        if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT) {
             return back()->with([
                 'message' => __('Already accepted this application'),
                 'alert-type' => 'warning'
@@ -176,9 +176,9 @@ class YouthRegistrationController extends Controller
         }
 
         /**
-         * Check youth application already accepted or not
+         * Check trainee application already accepted or not
          * */
-        if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_REJECT) {
+        if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_REJECT) {
             return back()->with([
                 'message' => __('Already rejected this application'),
                 'alert-type' => 'warning'
@@ -188,14 +188,14 @@ class YouthRegistrationController extends Controller
         try {
 
             /**
-             * Send mail to youth for reject conformation
+             * Send mail to trainee for reject conformation
              * */
-            $youthEmailAddress = $youthCourseEnroll->youth->email;
+            $traineeEmailAddress = $traineeCourseEnroll->trainee->email;
             $mailMsg = 'Sorry! Your application has been rejected, Please enroll again by your account access key. <p>Courses link: <a href="' . (route('frontend.course_search')) . '">Courses</a></p>';
             $mailSubject = "Your application has been rejected";
-            $youthName = $youthCourseEnroll->youth->name;
+            $traineeName = $traineeCourseEnroll->trainee->name;
             try {
-                Mail::to($youthEmailAddress)->send(new \App\Mail\YouthApplicationRejectMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
+                Mail::to($traineeEmailAddress)->send(new \App\Mail\TraineeApplicationRejectMail($mailSubject, $traineeCourseEnroll->trainee->access_key, $mailMsg, $traineeName));
             } catch (\Throwable $exception) {
                 Log::debug($exception->getMessage());
                 return back()->with([
@@ -207,7 +207,7 @@ class YouthRegistrationController extends Controller
             /**
              * Changing Enroll Status
              * */
-            $this->youthRegistrationService->changeYouthCourseEnrollStatusReject($youthCourseEnroll);
+            $this->traineeRegistrationService->changeTraineeCourseEnrollStatusReject($traineeCourseEnroll);
 
         } catch (\Throwable $exception) {
             return response()->json([
@@ -218,7 +218,7 @@ class YouthRegistrationController extends Controller
 
 
         return redirect()->back()->with([
-            'message' => __('Youth course enroll rejected & notifying to youth'),
+            'message' => __('Trainee course enroll rejected & notifying to trainee'),
             'alertType' => 'success',
         ]);
 

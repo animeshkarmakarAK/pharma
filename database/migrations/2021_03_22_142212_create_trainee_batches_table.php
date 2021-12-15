@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateYouthBatchesTable extends Migration
+class CreateTraineeBatchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateYouthBatchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('youth_batches', function (Blueprint $table) {
+        Schema::create('trainee_batches', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('batch_id')->index('youth_batches_fk_batch_id');
-            $table->unsignedInteger('youth_course_enroll_id');
+            $table->unsignedInteger('batch_id')->index('trainee_batches_fk_batch_id');
+            $table->unsignedInteger('trainee_course_enroll_id');
             $table->date('enrollment_date');
             $table->unsignedTinyInteger('enrollment_status');
             $table->unsignedInteger('created_by')->nullable();
@@ -32,6 +32,6 @@ class CreateYouthBatchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('youth_batches');
+        Schema::dropIfExists('trainee_batches');
     }
 }

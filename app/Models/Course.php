@@ -64,7 +64,7 @@ class Course extends BaseModel
 
     public function enrolledTrainees(): HasMany
     {
-        return $this->hasMany(YouthCourseEnroll::class);
+        return $this->hasMany(TraineeCourseEnroll::class);
     }
 
 }

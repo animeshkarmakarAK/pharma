@@ -9,13 +9,13 @@ use App\Models\Payment;
 use App\Models\QuestionAnswer;
 use App\Models\Video;
 use App\Models\VideoCategory;
-use App\Models\Youth;
-use App\Models\YouthAcademicQualification;
-use App\Models\YouthBatch;
-use App\Models\YouthCourseEnroll;
-use App\Models\YouthFamilyMemberInfo;
+use App\Models\Trainee;
+use App\Models\TraineeAcademicQualification;
+use App\Models\TraineeBatch;
+use App\Models\TraineeCourseEnroll;
+use App\Models\TraineeFamilyMemberInfo;
 use App\Services\CertificateGenerator;
-use App\Services\YouthRegistrationService;
+use App\Services\TraineeRegistrationService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,14 +27,14 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
-class YouthController extends Controller
+class TraineeController extends Controller
 {
     const VIEW_PATH = "frontend.";
-    protected YouthRegistrationService $youthRegistrationService;
+    protected TraineeRegistrationService $traineeRegistrationService;
 
-    public function __construct(YouthRegistrationService $youthRegistrationService)
+    public function __construct(TraineeRegistrationService $traineeRegistrationService)
     {
-        $this->youthRegistrationService = $youthRegistrationService;
+        $this->traineeRegistrationService = $traineeRegistrationService;
     }
 
     /**
@@ -42,125 +42,125 @@ class YouthController extends Controller
      */
     public function index()
     {
-        $youth = AuthHelper::getAuthUser('youth');
+        $trainee = AuthHelper::getAuthUser('trainee');
 
-        if (!$youth) {
-            return redirect()->route('frontend.youth.login-form')->with([
+        if (!$trainee) {
+            return redirect()->route('frontend.trainee.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
         }
 
-        $youth = Youth::findOrFail($youth->id);
+        $trainee = Trainee::findOrFail($trainee->id);
 
-        $youth->load([
-            'youthRegistration',
+        $trainee->load([
+            'traineeRegistration',
         ]);
-        $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
-        $guardians = $youth->youthFamilyMemberInfo;
+        $academicQualifications = TraineeAcademicQualification::where(['trainee_id' => $trainee->id])->get();
+        $guardians = $trainee->traineeFamilyMemberInfo;
 
-        return \view(self::VIEW_PATH . 'youth.youth-profile')->with(
+        return \view(self::VIEW_PATH . 'trainee.trainee-profile')->with(
             [
-                'youth' => $youth,
+                'trainee' => $trainee,
                 'guardians' => $guardians,
                 'academicQualifications' => $academicQualifications,
             ]);
     }
 
-    public function youthEnrolledCourses()
+    public function traineeEnrolledCourses()
     {
-        $youth = AuthHelper::getAuthUser('youth');
-        if (!$youth) {
-            return redirect()->route('frontend.youth.login-form')->with([
+        $trainee = AuthHelper::getAuthUser('trainee');
+        if (!$trainee) {
+            return redirect()->route('frontend.trainee.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
         }
 
-        $youth = Youth::findOrFail($youth->id);
+        $trainee = Trainee::findOrFail($trainee->id);
 
-        $youth->load([
-            'youthRegistration',
+        $trainee->load([
+            'traineeRegistration',
         ]);
 
-        $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
+        $academicQualifications = TraineeAcademicQualification::where(['trainee_id' => $trainee->id])->get();
 
-        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
+        $traineeSelfInfo = TraineeFamilyMemberInfo::where(['trainee_id' => $trainee->id, 'relation_with_trainee' => 'self'])->first();
 
-        $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
+        $traineeFamilyMembers = $this->traineeRegistrationService->getTraineeFamilyMemberInfo($trainee);
 
-        return \view(self::VIEW_PATH . 'youth.youth-courses')->with(
+        return \view(self::VIEW_PATH . 'trainee.trainee-courses')->with(
             [
-                'youth' => $youth,
-                'father' => $youthFamilyMembers['father'],
-                'mother' => $youthFamilyMembers['mother'],
-                'guardian' => $youthFamilyMembers['guardian'],
-                'haveYouthFamilyMembersInfo' => $youthFamilyMembers['haveYouthFamilyMembersInfo'],
-                'youthSelfInfo' => $youthSelfInfo,
+                'trainee' => $trainee,
+                'father' => $traineeFamilyMembers['father'],
+                'mother' => $traineeFamilyMembers['mother'],
+                'guardian' => $traineeFamilyMembers['guardian'],
+                'haveTraineeFamilyMembersInfo' => $traineeFamilyMembers['haveTraineeFamilyMembersInfo'],
+                'traineeSelfInfo' => $traineeSelfInfo,
                 'academicQualifications' => $academicQualifications,
             ]);
     }
 
-    public function youthCertificateView(YouthCourseEnroll $youthCourseEnroll)
+    public function traineeCertificateView(TraineeCourseEnroll $traineeCourseEnroll)
     {
-        $youth = AuthHelper::getAuthUser('youth');
+        $trainee = AuthHelper::getAuthUser('trainee');
 
-        if (!$youth) {
-            return redirect()->route('frontend.youth.login-form')->with([
+        if (!$trainee) {
+            return redirect()->route('frontend.trainee.login-form')->with([
                     'message' => 'You are not Auth user, Please login',
                     'alert-type' => 'error']
             );
         }
 
-        $youthBatch = YouthBatch::where(['youth_course_enroll_id' => $youthCourseEnroll->id])->first();
+        $traineeBatch = TraineeBatch::where(['trainee_course_enroll_id' => $traineeCourseEnroll->id])->first();
 
-        $familyInfo = YouthFamilyMemberInfo::where("youth_id", $youthCourseEnroll->youth_id)->where('relation_with_youth', "father")->first();
-        $institute = $youthCourseEnroll->publishCourse->institute;
-        $path = "youth-certificates/" . date('Y/F/', strtotime($youthBatch->batch->start_date)) . "course/" . Str::slug($youthCourseEnroll->publishCourse->course->title) . "/batch/" . $youthBatch->batch->title;
+        $familyInfo = TraineeFamilyMemberInfo::where("trainee_id", $traineeCourseEnroll->trainee_id)->where('relation_with_trainee', "father")->first();
+        $institute = $traineeCourseEnroll->publishCourse->institute;
+        $path = "trainee-certificates/" . date('Y/F/', strtotime($traineeBatch->batch->start_date)) . "course/" . Str::slug($traineeCourseEnroll->publishCourse->course->title) . "/batch/" . $traineeBatch->batch->title;
 
-        $youthInfo = [
-            'youth_id' => $youthCourseEnroll->youth_id,
-            'youth_name' => $youthCourseEnroll->youth->name,
-            'youth_father_name' => $familyInfo->member_name,
-            'publish_course_id' => $youthCourseEnroll->publish_course_id,
-            'publish_course_name' => $youthCourseEnroll->publishCourse->course->title,
+        $traineeInfo = [
+            'trainee_id' => $traineeCourseEnroll->trainee_id,
+            'trainee_name' => $traineeCourseEnroll->trainee->name,
+            'trainee_father_name' => $familyInfo->member_name,
+            'publish_course_id' => $traineeCourseEnroll->publish_course_id,
+            'publish_course_name' => $traineeCourseEnroll->publishCourse->course->title,
             'path' => $path,
-            "register_no" => $youthCourseEnroll->youth->youth_registration_no,
+            "register_no" => $traineeCourseEnroll->trainee->trainee_registration_no,
             'institute_title' => $institute->title,
-            'from_date' => $youthBatch->batch->start_date,
-            'to_date' => $youthBatch->batch->end_date,
-            'batch_name' => $youthBatch->batch->title,
-            'course_coordinator_signature' => "storage/{$youthBatch->batch->trainingCenter->course_coordinator_signature}",
-            'course_director_signature' => "storage/{$youthBatch->batch->trainingCenter->course_director_signature}",
+            'from_date' => $traineeBatch->batch->start_date,
+            'to_date' => $traineeBatch->batch->end_date,
+            'batch_name' => $traineeBatch->batch->title,
+            'course_coordinator_signature' => "storage/{$traineeBatch->batch->trainingCenter->course_coordinator_signature}",
+            'course_director_signature' => "storage/{$traineeBatch->batch->trainingCenter->course_director_signature}",
         ];
 
-        $template = 'frontend.youth/certificate/certificate-one';
+        $template = 'frontend.trainee/certificate/certificate-one';
         $pdf = app(CertificateGenerator::class);
-        return redirect(asset("storage/" . $pdf->generateCertificate($template, $youthInfo)));
+        return redirect(asset("storage/" . $pdf->generateCertificate($template, $traineeInfo)));
     }
 
     public function videos(): View
     {
         $currentInstitute = app('currentInstitute');
 
-        $youthVideoCategories = VideoCategory::query();
-        $youthVideos = Video::query();
+        $traineeVideoCategories = VideoCategory::query();
+        $traineeVideos = Video::query();
 
         if ($currentInstitute) {
-            $youthVideoCategories->where(['institute_id' => $currentInstitute->id]);
-            $youthVideos->where(['institute_id' => $currentInstitute->id]);
+            $traineeVideoCategories->where(['institute_id' => $currentInstitute->id]);
+            $traineeVideos->where(['institute_id' => $currentInstitute->id]);
         }
 
-        $youthVideoCategories = $youthVideoCategories->get();
-        $youthVideos = $youthVideos->get();
+        $traineeVideoCategories = $traineeVideoCategories->get();
+        $traineeVideos = $traineeVideos->get();
 
-        return \view(self::VIEW_PATH . 'skill-videos', compact('youthVideos', 'youthVideoCategories'));
+        return \view(self::VIEW_PATH . 'skill-videos', compact('traineeVideos', 'traineeVideoCategories'));
     }
 
     public function singleVideo($videoId): View
     {
-        $youthVideos = Video::findOrFail($videoId);
-        return \view(self::VIEW_PATH . 'skill-single-video', compact('youthVideos'));
+        $traineeVideos = Video::findOrFail($videoId);
+        return \view(self::VIEW_PATH . 'skill-single-video', compact('traineeVideos'));
     }
 
     /**
@@ -254,20 +254,20 @@ class YouthController extends Controller
 
     public function sendMailToRecoverAccessKey(Request $request): RedirectResponse
     {
-        $youth = Youth::where('email', $request->input('email'))->first();
+        $trainee = Trainee::where('email', $request->input('email'))->first();
 
-        if (empty($youth)) {
+        if (empty($trainee)) {
             return back()->with([
                 'message' => __('ইমেইল এড্রেস পাওয়া যায়নি!'),
                 'alert-type' => 'error'
             ])->withInput();
         }
 
-        $youthEmailAddress = $youth->email;
+        $traineeEmailAddress = $trainee->email;
         $mailMsg = "Access Key Recovery Mail";
-        $mailSubject = "Youth - Account Recover Access Key";
+        $mailSubject = "Trainee - Account Recover Access Key";
         try {
-            Mail::to($youthEmailAddress)->send(new \App\Mail\YouthRegistrationSuccessMail($mailSubject, $youth->access_key, $mailMsg));
+            Mail::to($traineeEmailAddress)->send(new \App\Mail\TraineeRegistrationSuccessMail($mailSubject, $trainee->access_key, $mailMsg));
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
             return back()->with([
@@ -283,62 +283,62 @@ class YouthController extends Controller
     }
 
 
-    public function checkYouthEmailUniqueness(Request $request): JsonResponse
+    public function checkTraineeEmailUniqueness(Request $request): JsonResponse
     {
-        $youth = Youth::where('email', $request->email)->first();
-        if ($youth == null) {
+        $trainee = Trainee::where('email', $request->email)->first();
+        if ($trainee == null) {
             return response()->json(true);
         }
         return response()->json("এই ই-মেইল টি ইতিমধ্যে ব্যবহৃত হয়েছে!");
     }
 
-    public function checkYouthUniqueNID(Request $request): JsonResponse
+    public function checkTraineeUniqueNID(Request $request): JsonResponse
     {
-        $youthNidNo = YouthFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_youth' => 'self'])->first();
+        $traineeNidNo = TraineeFamilyMemberInfo::where(['nid' => $request->nid, 'relation_with_trainee' => 'self'])->first();
 
-        if ($youthNidNo == null) {
+        if ($traineeNidNo == null) {
             return response()->json(true);
         }
         return response()->json("এই এন.আই.ডি দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
-    public function checkYouthUniqueBirthCertificateNo(Request $request): JsonResponse
+    public function checkTraineeUniqueBirthCertificateNo(Request $request): JsonResponse
     {
-        $youthBirthNo = YouthFamilyMemberInfo::where(['birth_certificate_no' => $request->birth_certificate_no, 'relation_with_youth' => 'self'])->first();
-        if ($youthBirthNo == null) {
+        $traineeBirthNo = TraineeFamilyMemberInfo::where(['birth_certificate_no' => $request->birth_certificate_no, 'relation_with_trainee' => 'self'])->first();
+        if ($traineeBirthNo == null) {
             return response()->json(true);
         }
         return response()->json("এই জন্ম সনদ দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
-    public function checkYouthUniquePassportId(Request $request): JsonResponse
+    public function checkTraineeUniquePassportId(Request $request): JsonResponse
     {
-        $youthPassportNo = YouthFamilyMemberInfo::where(['passport_number' => $request->passport_number, 'relation_with_youth' => 'self'])->first();
-        if ($youthPassportNo == null) {
+        $traineePassportNo = TraineeFamilyMemberInfo::where(['passport_number' => $request->passport_number, 'relation_with_trainee' => 'self'])->first();
+        if ($traineePassportNo == null) {
             return response()->json(true);
         }
         return response()->json("এই পাসপোর্ট দ্বারা ইতিমধ্যে রেজিস্ট্রেশন করা হয়েছে!");
     }
 
-    public function youthCourseGetDatatable(Request $request): JsonResponse
+    public function traineeCourseGetDatatable(Request $request): JsonResponse
     {
-        return $this->youthRegistrationService->getListDataForDatatable($request);
+        return $this->traineeRegistrationService->getListDataForDatatable($request);
     }
 
-    public function youthCourseEnrollPayNow($youthCourseEnroll)
+    public function traineeCourseEnrollPayNow($traineeCourseEnroll)
     {
-        $YouthCourseEnroll = YouthCourseEnroll::findOrFail($youthCourseEnroll);
-        $youthId = $YouthCourseEnroll->youth_id;
-        $userInfo['id'] = $YouthCourseEnroll->id;
-        $userInfo['youth_id'] = $YouthCourseEnroll->youth_id;
-        $userInfo['mobile'] = $YouthCourseEnroll->youth->mobile;
-        $userInfo['email'] = $YouthCourseEnroll->youth->email;
+        $TraineeCourseEnroll = TraineeCourseEnroll::findOrFail($traineeCourseEnroll);
+        $traineeId = $TraineeCourseEnroll->trainee_id;
+        $userInfo['id'] = $TraineeCourseEnroll->id;
+        $userInfo['trainee_id'] = $TraineeCourseEnroll->trainee_id;
+        $userInfo['mobile'] = $TraineeCourseEnroll->trainee->mobile;
+        $userInfo['email'] = $TraineeCourseEnroll->trainee->email;
         $userInfo['address'] = "Dhaka-1212";
-        $userInfo['name'] = $YouthCourseEnroll->youth->name;
+        $userInfo['name'] = $TraineeCourseEnroll->trainee->name;
 
-        $paymentInfo['trID'] = $youthId . rand(100, 999);
-        $paymentInfo['amount'] = $YouthCourseEnroll->publishCourse->course->course_fee;
-        $paymentInfo['orderID'] = $YouthCourseEnroll->id;
+        $paymentInfo['trID'] = $traineeId . rand(100, 999);
+        $paymentInfo['amount'] = $TraineeCourseEnroll->publishCourse->course->course_fee;
+        $paymentInfo['orderID'] = $TraineeCourseEnroll->id;
 
         $activeDebug = true;
 
@@ -401,7 +401,7 @@ class YouthController extends Controller
         $url = 'https://sandbox.ekpay.gov.bd/ekpaypg/v1/merchant-api';
 
         if ($activeDebug) {
-            Log::debug("Youth Name: " . $userInfo['name'] . ' , Youth Enroll ID: ' . $paymentInfo['orderID']);
+            Log::debug("Trainee Name: " . $userInfo['name'] . ' , Trainee Enroll ID: ' . $paymentInfo['orderID']);
             Log::debug($data);
         }
         try {
@@ -449,25 +449,25 @@ class YouthController extends Controller
 
 
         if ($request->msg_code == 1020) {
-            $youthCourseEnroll = YouthCourseEnroll::findOrFail($request->cust_info['cust_id']);
+            $traineeCourseEnroll = TraineeCourseEnroll::findOrFail($request->cust_info['cust_id']);
 
 
-            $newData['payment_status'] = YouthCourseEnroll::PAYMENT_STATUS_PAID;
+            $newData['payment_status'] = TraineeCourseEnroll::PAYMENT_STATUS_PAID;
 
-            if ($youthCourseEnroll->enroll_status == YouthCourseEnroll::ENROLL_STATUS_ACCEPT) {
-                $youthCourseEnroll->update($newData);
+            if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT) {
+                $traineeCourseEnroll->update($newData);
             }
 
             $mailSubject = "Your payment successfully complete";
-            $youthEmailAddress = $request->cust_info['cust_email'];
+            $traineeEmailAddress = $request->cust_info['cust_email'];
             $mailMsg = "Congratulation! Your payment successfully completed.";
-            $youthName = $youthCourseEnroll->youth->name;
-            Mail::to($youthEmailAddress)->send(new \App\Mail\YouthPaymentSuccessMail($mailSubject, $youthCourseEnroll->youth->access_key, $mailMsg, $youthName));
+            $traineeName = $traineeCourseEnroll->trainee->name;
+            Mail::to($traineeEmailAddress)->send(new \App\Mail\TraineePaymentSuccessMail($mailSubject, $traineeCourseEnroll->trainee->access_key, $mailMsg, $traineeName));
 
             return 'Payment successful';
         }
 
-        $data['youth_course_enroll_id'] = $request->cust_info['cust_id'];
+        $data['trainee_course_enroll_id'] = $request->cust_info['cust_id'];
         $data['transaction_id'] = $request->trnx_info['trnx_id'];
         $data['amount'] = $request->trnx_info['trnx_amt'];
         $data['log'] = $request;
@@ -482,12 +482,12 @@ class YouthController extends Controller
 
     public function certificate(): View
     {
-        return \view(self::VIEW_PATH . 'youth/certificate/certificate');
+        return \view(self::VIEW_PATH . 'trainee/certificate/certificate');
     }
 
     public function certificateDownload()
     {
-        $youthInfo = [
+        $traineeInfo = [
             'name' => 'Miladul Islam',
             'father_name' => "Father's Name",
             "register_no" => time(),
@@ -496,14 +496,14 @@ class YouthController extends Controller
             'to_date' => "10/10/2021",
         ];
 
-        $template = self::VIEW_PATH . 'youth/certificate/certificate-two';
+        $template = self::VIEW_PATH . 'trainee/certificate/certificate-two';
         $pdf = app(CertificateGenerator::class);
-        return $pdf->generateCertificate($template, $youthInfo);
+        return $pdf->generateCertificate($template, $traineeInfo);
     }
 
     public function certificateTwo()
     {
-        return \view(self::VIEW_PATH . 'youth/certificate/certificate-two');
+        return \view(self::VIEW_PATH . 'trainee/certificate/certificate-two');
     }
 }
 

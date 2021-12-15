@@ -80,8 +80,8 @@ class BatchService
                 if ($authUser->can('view', $batch)) {
                     $str .= '<a href="' . route('admin.batches.show', $batch->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }
-                if ($authUser->can('viewBachYouth', $batch)) {
-                    $str .= '<a href="' . route('admin.batches.youths', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('Trainee List') . '</a>';
+                if ($authUser->can('viewBachTrainee', $batch)) {
+                    $str .= '<a href="' . route('admin.batches.trainees', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('Trainee List') . '</a>';
                 }
                 if ($authUser->can('trainerMapping', $batch)) {
                     $str .= '<a href="' . route('admin.batches.trainer-mapping', $batch->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-users"></i> ' . __('Trainer Mapping') . '</a>';

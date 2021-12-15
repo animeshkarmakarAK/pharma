@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('admin.youth.list')  }}
+    {{ __('admin.trainee.list')  }}
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">  {{ __('admin.youth.list')  }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">  {{ __('admin.trainee.list')  }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -23,7 +23,7 @@
                                 <button id="add-to-organization-area" style="visibility: hidden; " type="button"
                                         class="mb-3 btn btn-sm btn-rounded btn-primary float-right"
                                         data-toggle="modal" data-target="#addToOrganizationModal">
-                                    <i class="fas fa-plus-circle d-inline-block"></i>   {{ __('admin.youth.add_to_organization')  }}
+                                    <i class="fas fa-plus-circle d-inline-block"></i>   {{ __('admin.trainee.add_to_organization')  }}
                                 </button>
                             </div>
 
@@ -32,11 +32,11 @@
                                     <div class="row mb-3">
                                         <div class="col-md-1 mb-2">
                                             <label class="filter-label text-primary">
-                                                <i class="fas fa-sort-amount-down-alt"></i>   {{ __('admin.youth.filter')  }} </label>
+                                                <i class="fas fa-sort-amount-down-alt"></i>   {{ __('admin.trainee.filter')  }} </label>
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields"
-                                                   id="youth_name"
+                                                   id="trainee_name"
                                                    placeholder="Name">
                                         </div>
                                         <div class="col-md-2 mb-2">
@@ -45,7 +45,7 @@
                                         </div>
 
                                         <div class="col-md-2 mb-2">
-                                            <button class="btn btn-primary" id="reset-btn">  {{ __('admin.youth.reset')  }}</button>
+                                            <button class="btn btn-primary" id="reset-btn">  {{ __('admin.trainee.reset')  }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -149,7 +149,7 @@
                 $('#course_id').parent().addClass(' offset-md-1');
             }
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.youths.datatable') }}',
+                url: '{{ route('admin.trainees.datatable') }}',
                 order: [[1, "ASC"]],
                 serialNumberColumn: 1,
                 select: {
@@ -210,13 +210,13 @@
 
             params.ajax.data = d => {
                 d.organization_id = $('#organization_id').val();
-                d.youth_name = $('#youth_name').val();
+                d.trainee_name = $('#trainee_name').val();
                 d.reg_no = $('#reg_no').val();
             };
 
             $('#reset-btn').on('click', function () {
                 $('#organization_id').val(null).trigger('change');
-                $('#youth_name').val(null).trigger('change');
+                $('#trainee_name').val(null).trigger('change');
                 $('#reg_no').val(null).trigger('change');
             })
 
@@ -263,11 +263,11 @@
 
 
             $("#add-to-organization-area").click(function () {
-                addToOrganizationForm.find('.youth_ids').remove();
+                addToOrganizationForm.find('.trainee_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
                     console.log(row)
-                    addToOrganizationForm.append('<input name="youth_ids[]" class="youth_ids" value="' + row.id + '" type="hidden"/>');
+                    addToOrganizationForm.append('<input name="trainee_ids[]" class="trainee_ids" value="' + row.id + '" type="hidden"/>');
                 });
             });
 

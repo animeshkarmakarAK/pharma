@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class Youth
+ * Class Trainee
  * @package App\Models
  * @property string name
  * @property string $mobile
@@ -38,9 +38,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string|null student_signature_pic
  * @property string|null student_pic
  * @property string password
- * @property YouthFamilyMemberInfo youthFamilyMemberInfo
+ * @property TraineeFamilyMemberInfo traineeFamilyMemberInfo
  */
-class Youth extends AuthBaseModel
+class Trainee extends AuthBaseModel
 {
     use AuthenticatableUser;
 
@@ -48,8 +48,8 @@ class Youth extends AuthBaseModel
 
     protected $guarded = ['id'];
 
-    const PROFILE_PIC_FOLDER_NAME = 'youth';
-    const DEFAULT_PROFILE_PIC = 'youths/default.jpg';
+    const PROFILE_PIC_FOLDER_NAME = 'trainee';
+    const DEFAULT_PROFILE_PIC = 'trainees/default.jpg';
 
     /**
      * @return string
@@ -58,7 +58,7 @@ class Youth extends AuthBaseModel
     {
         while (true) {
             $value = Helper::randomPassword(10, true);
-            if (!Youth::where('access_key', $value)->count()) {
+            if (!Trainee::where('access_key', $value)->count()) {
                 break;
             }
         }
@@ -66,13 +66,13 @@ class Youth extends AuthBaseModel
         return $value;
     }
 
-    public function setYouthRegistrationNumber(): string
+    public function setTraineeRegistrationNumber(): string
     {
-        if (empty($this->youth_registration_no)) {
-            $this->youth_registration_no = Helper::randomPassword(10, true);
+        if (empty($this->trainee_registration_no)) {
+            $this->trainee_registration_no = Helper::randomPassword(10, true);
         }
 
-        return $this->youth_registration_no;
+        return $this->trainee_registration_no;
     }
 
 
@@ -99,9 +99,9 @@ class Youth extends AuthBaseModel
     public const GUARDIAN_OTHER_LABEL = "OTHER";
 
     public const GUARDIAN_STATUS = [
-        "FATHER" => YouthFamilyMemberInfo::GUARDIAN_FATHER,
-        "MOTHER" => YouthFamilyMemberInfo::GUARDIAN_MOTHER,
-        "OTHER" => YouthFamilyMemberInfo::GUARDIAN_OTHER,
+        "FATHER" => TraineeFamilyMemberInfo::GUARDIAN_FATHER,
+        "MOTHER" => TraineeFamilyMemberInfo::GUARDIAN_MOTHER,
+        "OTHER" => TraineeFamilyMemberInfo::GUARDIAN_OTHER,
     ];
 
     /** Gender Information */
@@ -328,25 +328,25 @@ class Youth extends AuthBaseModel
     /**
      * @return HasMany
      */
-    public function youthFamilyMemberInfo(): HasMany
+    public function traineeFamilyMemberInfo(): HasMany
     {
-        return $this->hasMany(YouthFamilyMemberInfo::class);
+        return $this->hasMany(TraineeFamilyMemberInfo::class);
     }
 
     /**
      * @return HasMany
      */
-    public function youthAcademicQualifications(): HasMany
+    public function traineeAcademicQualifications(): HasMany
     {
-        return $this->hasMany(YouthAcademicQualification::class);
+        return $this->hasMany(TraineeAcademicQualification::class);
     }
 
     /**
      * @return HasOne
      */
-    public function youthRegistration(): HasOne
+    public function traineeRegistration(): HasOne
     {
-        return $this->hasOne(YouthRegistration::class);
+        return $this->hasOne(TraineeRegistration::class);
     }
 
     public function presentAddressDistrict(): BelongsTo
@@ -379,14 +379,14 @@ class Youth extends AuthBaseModel
         return $this->belongsTo(LocUpazila::class, 'permanent_address_upazila_id', 'id');
     }
 
-    public function youthCourseEnroll(): HasOne
+    public function traineeCourseEnroll(): HasOne
     {
-        return $this->hasOne(YouthCourseEnroll::class);
+        return $this->hasOne(TraineeCourseEnroll::class);
     }
 
-    public function youthOrganizations(): BelongsToMany
+    public function traineeOrganizations(): BelongsToMany
     {
-        return $this->belongsToMany(Organization::class, "youth_organizations");
+        return $this->belongsToMany(Organization::class, "trainee_organizations");
     }
 
 
@@ -400,7 +400,7 @@ class Youth extends AuthBaseModel
     public const CURRENT_EMPLOYMENT_STATUS_YES = 1;
     public const CURRENT_EMPLOYMENT_STATUS_NO = 2;
 
-    public static function getYouthCurrentEmploymentStatusOptions(): array
+    public static function getTraineeCurrentEmploymentStatusOptions(): array
     {
         return [
             self::CURRENT_EMPLOYMENT_STATUS_YES => __('Yes'),
@@ -409,10 +409,10 @@ class Youth extends AuthBaseModel
     }
 
 
-    public function getYouthCurrentEmploymentStatus(): string
+    public function getTraineeCurrentEmploymentStatus(): string
     {
         $employmentStatus = 'Not specified';
-        $employmentStatusArray = self::getYouthCurrentEmploymentStatusOptions();
+        $employmentStatusArray = self::getTraineeCurrentEmploymentStatusOptions();
         if (empty($employmentStatusArray[$this->current_employment_status])) return $employmentStatus;
 
         return $employmentStatusArray[$this->current_employment_status];
@@ -433,6 +433,6 @@ class Youth extends AuthBaseModel
 
     public function regNumberExists($regNumber)
     {
-        return Youth::where(['youth_registration_no' => $regNumber])->exists();
+        return Trainee::where(['trainee_registration_no' => $regNumber])->exists();
     }
 }

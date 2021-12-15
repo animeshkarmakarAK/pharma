@@ -14,9 +14,9 @@ class AddForeignKeysToExaminationResultTable extends Migration
     public function up()
     {
         Schema::table('examination_results', function (Blueprint $table) {
-            $table->foreign('youth_id', 'examination_results_fk_youth_id')
+            $table->foreign('trainee_id', 'examination_results_fk_trainee_id')
                 ->references('id')
-                ->on('youths')
+                ->on('trainees')
                 ->onUpdate('CASCADE')
                 ->onDelete('RESTRICT');
             $table->foreign('examination_id', 'examination_results_fk_examination_id')
@@ -36,7 +36,7 @@ class AddForeignKeysToExaminationResultTable extends Migration
     {
         Schema::table('examination_results', function (Blueprint $table) {
             $table->dropForeign('examination_results_fk_user_id');
-            $table->dropForeign('examination_results_fk_youth_id');
+            $table->dropForeign('examination_results_fk_trainee_id');
             $table->dropForeign('examination_results_fk_examination_id');
         });
     }

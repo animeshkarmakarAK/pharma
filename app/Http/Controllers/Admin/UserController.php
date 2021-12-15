@@ -224,8 +224,8 @@ class UserController extends BaseController
 
     public function checkUserEmailUniqueness(Request $request): JsonResponse
     {
-        $youth = User::where('email', $request->email)->first();
-        if ($youth == null) {
+        $trainee = User::where('email', $request->email)->first();
+        if ($trainee == null) {
             return response()->json(true);
         }
         return response()->json("This email address already in use");

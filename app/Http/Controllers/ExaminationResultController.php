@@ -10,8 +10,8 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Batch;
 use App\Models\Examination;
 use App\Models\ExaminationResult;
-use App\Models\Youth;
-use App\Models\YouthBatch;
+use App\Models\Trainee;
+use App\Models\TraineeBatch;
 use App\Services\ExaminationResultService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -99,8 +99,8 @@ class ExaminationResultController extends Controller
     {
 
         $examinations = Examination::with('examinationType')->where(['row_status' => BaseModel::ROW_STATUS_ACTIVE])->get();
-        $youths = Youth::where(['id' => $examinationResult->youth_id])->pluck('name','id');
-        return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations','youths'));
+        $trainees = Trainee::where(['id' => $examinationResult->trainee_id])->pluck('name','id');
+        return view(self::VIEW_PATH . 'edit-add', compact('examinationResult','examinations','trainees'));
     }
 
     /**
@@ -161,25 +161,25 @@ class ExaminationResultController extends Controller
         return $this->examinationResultService->getExaminationResultLists($request);
     }
 
-    public function getYouths($examinationIid)
+    public function getTrainees($examinationIid)
     {
         $examination = Examination::where(['id'=>$examinationIid])->first();
         $batchId = $examination->batch_id;
-        $youthBatches = YouthBatch::select(
+        $traineeBatches = TraineeBatch::select(
             [
-                'youths.id as id',
-                'youth_course_enrolls.id as youth_registrations.youth_registration_no',
-                'youths.youth_registration_no as youth_registration_no',
-                'youths.name as youth_name',
-                DB::raw('DATE_FORMAT(youth_batches.enrollment_date,"%d %b, %Y %h:%i %p") AS enrollment_date'),
+                'trainees.id as id',
+                'trainee_course_enrolls.id as trainee_registrations.trainee_registration_no',
+                'trainees.trainee_registration_no as trainee_registration_no',
+                'trainees.name as trainee_name',
+                DB::raw('DATE_FORMAT(trainee_batches.enrollment_date,"%d %b, %Y %h:%i %p") AS enrollment_date'),
             ]
         );
-        $youthBatches->join('batches', 'youth_batches.batch_id', '=', 'batches.id');
-        $youthBatches->leftJoin('youth_course_enrolls', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id');
-        $youthBatches->join('youths', 'youth_course_enrolls.youth_id', '=', 'youths.id');
-        $youthBatches->where('batches.id', $batchId);
+        $traineeBatches->join('batches', 'trainee_batches.batch_id', '=', 'batches.id');
+        $traineeBatches->leftJoin('trainee_course_enrolls', 'trainee_batches.trainee_course_enroll_id', '=', 'trainee_course_enrolls.id');
+        $traineeBatches->join('trainees', 'trainee_course_enrolls.trainee_id', '=', 'trainees.id');
+        $traineeBatches->where('batches.id', $batchId);
 
-        $data = $youthBatches->get();
+        $data = $traineeBatches->get();
 
         return $data->toArray();
 

@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('admin.youth.list')  }}
+    {{ __('admin.trainee.list')  }}
 @endsection
 
 @push('css')
@@ -72,7 +72,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary">{{ __('admin.youth.enroll_trainee')  }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary">{{ __('admin.trainee.enroll_trainee')  }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -81,7 +81,7 @@
                                 <button id="add-to-batch-area" style="visibility: hidden" type="button"
                                         class="mb-3 btn btn-sm btn-rounded btn-primary"
                                         data-toggle="modal" data-target="#addToBatchModal">
-                                    <i class="fas fa-plus-circle"></i> {{ __('admin.youth_batches.add')  }}
+                                    <i class="fas fa-plus-circle"></i> {{ __('admin.trainee_batches.add')  }}
                                 </button>
                             </div>
 
@@ -90,11 +90,11 @@
                                     <div class="row mb-3">
                                         <div class="col-md-1 mb-2">
                                             <label class="filter-label text-primary">
-                                                <i class="fas fa-sort-amount-down-alt"></i>{{ __('admin.youth.filter')  }} </label>
+                                                <i class="fas fa-sort-amount-down-alt"></i>{{ __('admin.trainee.filter')  }} </label>
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <input type="text" class="form-control search-text-fields"
-                                                   id="youth_name"
+                                                   id="trainee_name"
                                                    placeholder="Name">
                                         </div>
 
@@ -105,7 +105,7 @@
 
 
                                         <div class="col-md-2 mb-2">
-                                            <button class="btn btn-primary" id="reset-btn">{{ __('admin.youth.reset')  }}</button>
+                                            <button class="btn btn-primary" id="reset-btn">{{ __('admin.trainee.reset')  }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -130,7 +130,7 @@
             <div class="modal-content">
                 @if($batches->count())
                     <form id="add-to-batch-form" method="post"
-                          action="{{route('admin.youth.add-to-batch')}}">
+                          action="{{route('admin.trainee.add-to-batch')}}">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Select Batch</h5>
@@ -199,7 +199,7 @@
             <div class="modal-content">
                 @if($batches->count())
                     <form id="add-to-single-batch-form" method="post"
-                          action="{{route('admin.youth.add-to-batch')}}">
+                          action="{{route('admin.trainee.add-to-batch')}}">
                         {{ method_field("PUT") }}
                         {{ csrf_field() }}
                         <div class="modal-header">
@@ -277,7 +277,7 @@
                 $('.date_filter').parent().removeClass('col-md-3').addClass('col-md-2');
             }
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.youth.acceptlist.datatable') }}',
+                url: '{{ route('admin.trainee.acceptlist.datatable') }}',
                 order: [[4, "DESC"]],
                 serialNumberColumn: 1,
                 select: {
@@ -319,18 +319,18 @@
                     {
                         title: "Name",
                         data: "name",
-                        name: "youths.name"
+                        name: "trainees.name"
                     },
 
                     {
                         title: "Application Date",
                         data: "application_date",
-                        name: "youths.created_at"
+                        name: "trainees.created_at"
                     },
                     {
                         title: "Reg. No.",
-                        data: "youth_registration_no",
-                        name: "youths.youth_registration_no"
+                        data: "trainee_registration_no",
+                        name: "trainees.trainee_registration_no"
                     },
                     {
                         title: "Institute Title",
@@ -368,7 +368,7 @@
                     {
                         title: "Payment Status",
                         data: "payment_status",
-                        name: "youth_course_enrolls.payment_status",
+                        name: "trainee_course_enrolls.payment_status",
                         searchable: false,
                     },
                     {
@@ -445,20 +445,20 @@
 
 
             $("#add-to-batch-area").click(function () {
-                addToBatchForm.find('.youth_enroll_ids').remove();
+                addToBatchForm.find('.trainee_enroll_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
                     console.log(row);
-                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
+                    addToBatchForm.append('<input name="trainee_enroll_ids[]" class="trainee_enroll_ids" value="' + row.trainee_course_enroll_id + '" type="hidden"/>');
                 });
             });
 
             $('#accept-now-button').click(function (){
-                addToBatchForm.find('.youth_enroll_ids').remove();
+                addToBatchForm.find('.trainee_enroll_ids').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
                     console.log(row)
-                    addToBatchForm.append('<input name="youth_enroll_ids[]" class="youth_enroll_ids" value="' + row.youth_course_enroll_id + '" type="hidden"/>');
+                    addToBatchForm.append('<input name="trainee_enroll_ids[]" class="trainee_enroll_ids" value="' + row.trainee_course_enroll_id + '" type="hidden"/>');
                 });
             });
             let addToBatchForm = $("#add-to-batch-form");

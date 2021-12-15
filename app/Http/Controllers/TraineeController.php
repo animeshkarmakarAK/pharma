@@ -7,24 +7,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Institute;
-use App\Models\Youth;
-use App\Services\YouthService;
-use App\Services\YouthManagementService;
+use App\Models\Trainee;
+use App\Services\TraineeService;
+use App\Services\TraineeManagementService;
 
-class YouthController extends Controller
+class TraineeController extends Controller
 {
-    const VIEW_PATH = 'backend.youths.';
-    protected YouthService $youthService;
+    const VIEW_PATH = 'backend.trainees.';
+    protected TraineeService $traineeService;
 
-    public function __construct(YouthService $youthService)
+    public function __construct(TraineeService $traineeService)
     {
-        $this->youthService = $youthService;
+        $this->traineeService = $traineeService;
     }
 
-    public function youthAcceptList() {
+    public function traineeAcceptList() {
         $institutes = Institute::acl()->active()->get();
         $batches = \App\Models\Batch::acl()->where(['batch_status'=>null])->get();
-        return \view(self::VIEW_PATH . 'youth-accept-list', compact('institutes', 'batches'));
+        return \view(self::VIEW_PATH . 'trainee-accept-list', compact('institutes', 'batches'));
     }
 
     /**
@@ -33,15 +33,15 @@ class YouthController extends Controller
      */
     public function getAcceptDatatable(Request $request): JsonResponse
     {
-        return $this->youthService->getListForAcceptListDatatable($request);
+        return $this->traineeService->getListForAcceptListDatatable($request);
     }
 
-    public function youthAcceptNowAll(Request $request): \Illuminate\Http\RedirectResponse
+    public function traineeAcceptNowAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         DB::beginTransaction();
         try {
-            $validatedData = $this->youthService->validateAcceptNowAll($request)->validate();
-            $this->youthService->addToTraineeAcceptedList($validatedData['youth_ids']);
+            $validatedData = $this->traineeService->validateAcceptNowAll($request)->validate();
+            $this->traineeService->addToTraineeAcceptedList($validatedData['trainee_ids']);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -55,19 +55,19 @@ class YouthController extends Controller
         }
 
         return back()->with([
-            'message' => __('Youth has been accepted'),
+            'message' => __('Trainee has been accepted'),
             'alert-type' => 'success'
         ]);
     }
 
-    public function youthRejectNowAll(Request $request): \Illuminate\Http\RedirectResponse
+    public function traineeRejectNowAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $mobiles = $request->mobile;
 
         DB::beginTransaction();
         try {
-            $validatedData = $this->youthService->validateRejectNowAll($request)->validate();
-            $this->youthService->rejectTraineeAll($validatedData['youth_ids']);
+            $validatedData = $this->traineeService->validateRejectNowAll($request)->validate();
+            $this->traineeService->rejectTraineeAll($validatedData['trainee_ids']);
             DB::commit();
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -81,7 +81,7 @@ class YouthController extends Controller
         }
 
         return back()->with([
-            'message' => __('Youth has been rejected'),
+            'message' => __('Trainee has been rejected'),
             'alert-type' => 'success'
         ]);
     }

@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'youth' => [
+        'trainee' => [
             'driver' => 'session',
-            'provider' => 'youths',
+            'provider' => 'trainees',
         ],
         'api' => [
             'driver' => 'token',
@@ -77,9 +77,9 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-        'youths' => [
+        'trainees' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Youth::class,
+            'model' => App\Models\Trainee::class,
         ],
     ],
 
@@ -105,9 +105,9 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'youths' => [
-            'provider' => 'youths',
-            'table' => 'youth_password_resets',
+        'trainees' => [
+            'provider' => 'trainees',
+            'table' => 'trainee_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],

@@ -40,9 +40,9 @@ class ExaminationResult extends BaseModel
     }
 
 
-    public function youth(): BelongsTo
+    public function trainee(): BelongsTo
     {
-        return $this->belongsTo(Youth::class, 'youth_id');
+        return $this->belongsTo(Trainee::class, 'trainee_id');
     }
     public function examination(): BelongsTo
     {

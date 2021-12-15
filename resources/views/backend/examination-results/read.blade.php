@@ -66,9 +66,9 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('admin.examination_result.youth')}}</p>
+                    <p class="label-text">{{__('admin.examination_result.trainee')}}</p>
                     <div class="input-box">
-                        {{ $examinationResult->youth->name }}
+                        {{ $examinationResult->trainee->name }}
                     </div>
                 </div>
 

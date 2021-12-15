@@ -45,7 +45,7 @@ class ExaminationResultService
                 'string',
                 'max:191',
             ],
-            'youth_id' => [
+            'trainee_id' => [
                 'required','int'
             ],
             'examination_id' => [
@@ -59,7 +59,7 @@ class ExaminationResultService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|ExaminationResult $examinationResults */
-        $examinationResults = ExaminationResult::with('user','youth','examination','batch','trainingCenter')->select(
+        $examinationResults = ExaminationResult::with('user','trainee','examination','batch','trainingCenter')->select(
             [
                 'examination_results.*'
             ]

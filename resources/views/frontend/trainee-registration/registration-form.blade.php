@@ -56,16 +56,16 @@
                                                 <div class="custom-control custom-radio mr-3">
                                                     <input class="custom-control-input" type="radio" id="gender_male"
                                                            name="gender"
-                                                           value="{{ \App\Models\YouthFamilyMemberInfo::GENDER_MALE }}"
-                                                        {{old('gender') == \App\Models\YouthFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
+                                                           value="{{ \App\Models\TraineeFamilyMemberInfo::GENDER_MALE }}"
+                                                        {{old('gender') == \App\Models\TraineeFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
                                                     <label for="gender_male"
                                                            class="custom-control-label">{{ __('generic.gender.male') }}</label>
                                                 </div>
                                                 <div class="custom-control custom-radio mr-3">
                                                     <input class="custom-control-input" type="radio" id="gender_female"
                                                            name="gender"
-                                                           value="{{ \App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
-                                                        {{ old('gender') == \App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
+                                                           value="{{ \App\Models\TraineeFamilyMemberInfo::GENDER_FEMALE }}"
+                                                        {{ old('gender') == \App\Models\TraineeFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
                                                     <label for="gender_female"
                                                            class="custom-control-label">{{__('generic.gender.female')}}</label>
                                                 </div>
@@ -73,8 +73,8 @@
                                                     <input class="custom-control-input" type="radio"
                                                            id="gender_transgender"
                                                            name="gender"
-                                                           value="{{ \App\Models\YouthFamilyMemberInfo::GENDER_OTHER }}"
-                                                        {{old('gender') == \App\Models\YouthFamilyMemberInfo::GENDER_OTHER ? 'checked' : ''}}>
+                                                           value="{{ \App\Models\TraineeFamilyMemberInfo::GENDER_OTHER }}"
+                                                        {{old('gender') == \App\Models\TraineeFamilyMemberInfo::GENDER_OTHER ? 'checked' : ''}}>
                                                     <label for="gender_transgender"
                                                            class="custom-control-label">{{ __('generic.other') }}</label>
                                                 </div>
@@ -91,8 +91,8 @@
                                                     <input class="custom-control-input" type="radio"
                                                            id="physically_disable_yes"
                                                            name="disable_status"
-                                                           value="{{ \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
-                                                        {{old('disable_status') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : ''}}>
+                                                           value="{{ \App\Models\TraineeFamilyMemberInfo::PHYSICALLY_DISABLE_YES }}"
+                                                        {{old('disable_status') == \App\Models\TraineeFamilyMemberInfo::PHYSICALLY_DISABLE_YES ? 'checked' : ''}}>
                                                     <label for="physically_disable_yes"
                                                            class="custom-control-label">{{ __('generic.yes') }}</label>
                                                 </div>
@@ -100,8 +100,8 @@
                                                     <input class="custom-control-input" type="radio"
                                                            id="physically_disable_no"
                                                            name="disable_status"
-                                                           value="{{ \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT }}"
-                                                        {{ old('disable_status') == \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_NOT ? 'checked' : ''}}>
+                                                           value="{{ \App\Models\TraineeFamilyMemberInfo::PHYSICALLY_DISABLE_NOT }}"
+                                                        {{ old('disable_status') == \App\Models\TraineeFamilyMemberInfo::PHYSICALLY_DISABLE_NOT ? 'checked' : ''}}>
                                                     <label for="physically_disable_no"
                                                            class="custom-control-label">{{__('generic.no')}}</label>
                                                 </div>
@@ -114,7 +114,7 @@
                                             </label>
                                             <select name="physical_disabilities[]" id="physical_disabilities"
                                                     class="form-control select2" multiple>
-                                                @foreach(\App\Models\YouthFamilyMemberInfo::getPhysicalDisabilityOptions() as $key => $value)
+                                                @foreach(\App\Models\TraineeFamilyMemberInfo::getPhysicalDisabilityOptions() as $key => $value)
                                                     <option
                                                         value="{{ $key }}" {{ $key == old('physical_disabilities[]') ? 'selected': '' }}>{{ $value }}</option>
                                                 @endforeach
@@ -255,7 +255,7 @@
         });
 
         $('[name = "physically_disable"]').on('change', function () {
-            if (this.value == {!! \App\Models\YouthFamilyMemberInfo::PHYSICALLY_DISABLE_YES !!}) {
+            if (this.value == {!! \App\Models\TraineeFamilyMemberInfo::PHYSICALLY_DISABLE_YES !!}) {
                 $('#physical_disabilities').parent().show();
             } else {
                 $('#physical_disabilities').parent().hide();

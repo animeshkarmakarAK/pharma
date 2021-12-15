@@ -5,7 +5,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{ __('admin.youth.list')  }}
+    {{ __('admin.trainee.list')  }}
 @endsection
 
 @section('content')
@@ -14,8 +14,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary"> {{ __('admin.youth.certificate')  }}
-                            of {{ $youth->name }}</h3>
+                        <h3 class="card-title font-weight-bold text-primary"> {{ __('admin.trainee.certificate')  }}
+                            of {{ $trainee->name }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -32,7 +32,7 @@
                                     <thead>
                                     <tr>
                                         <td width="10%">SL</td>
-                                        <td> {{ __('admin.youth_batches.course_title')  }}</td>
+                                        <td> {{ __('admin.trainee_batches.course_title')  }}</td>
                                         <td width="20%"> {{ __('admin.common.action')  }}</td>
                                     </tr>
                                     </thead>
@@ -40,17 +40,17 @@
                                     @php
                                         $sl = 0;
                                     @endphp
-                                    @foreach($youthCourseEnrolls as $youthCourseEnroll)
+                                    @foreach($traineeCourseEnrolls as $traineeCourseEnroll)
                                         <tr>
                                             <td>{{ ++$sl }}</td>
-                                            <td>{{ $youthCourseEnroll->publishCourse->course->title}}</td>
+                                            <td>{{ $traineeCourseEnroll->publishCourse->course->title}}</td>
                                             <td>
-                                                @if($youthCourseEnroll->youth_batch_id!=null && $youthCourseEnroll->batch_status==\App\Models\Batch::BATCH_STATUS_COMPLETE)
-                                                    <a href="{{ route('admin.youths.certificate', $youthCourseEnroll->id) }}"
+                                                @if($traineeCourseEnroll->trainee_batch_id!=null && $traineeCourseEnroll->batch_status==\App\Models\Batch::BATCH_STATUS_COMPLETE)
+                                                    <a href="{{ route('admin.trainees.certificate', $traineeCourseEnroll->id) }}"
                                                        target="_blank"
                                                        class="btn btn-sm btn-info">
                                                         <i class="fas fa-download"></i>
-                                                        {{ __('admin.youth.view_cetificate')  }}
+                                                        {{ __('admin.trainee.view_cetificate')  }}
                                                     </a>
                                                 @endif
                                             </td>

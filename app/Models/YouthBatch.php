@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @package App\Models
  * @property carbon enrollment_date
  * @property int batch_id
- * @property int youth_registration_id
- * @property int youth_id
+ * @property int trainee_registration_id
+ * @property int trainee_id
  * @property int enrollment_status
  * @property int created_by
- * @property int youth_enroll_id
+ * @property int trainee_enroll_id
  */
 
-class YouthBatch extends BaseModel
+class TraineeBatch extends BaseModel
 {
     const ENROLLMENT_STATUS_PENDING = 0;
     const ENROLLMENT_STATUS_ENROLLED = 1;
@@ -30,8 +30,8 @@ class YouthBatch extends BaseModel
         return $this->belongsTo(Batch::class);
     }
 
-    public function youthCourseEnroll(): BelongsTo
+    public function traineeCourseEnroll(): BelongsTo
     {
-        return $this->belongsTo(YouthCourseEnroll::class);
+        return $this->belongsTo(TraineeCourseEnroll::class);
     }
 }

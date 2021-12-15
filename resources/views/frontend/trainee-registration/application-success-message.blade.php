@@ -17,7 +17,7 @@
                             <em>পরবর্তী প্রক্রিয়া জন্য আপনার অ্যাক্সেস কী সংরক্ষণ করুন.</em>
                         </p>
                         <p class="card-text">এই অ্যাক্সেস কী ব্যবহার করে আপনি আপনার প্রোফাইলে অ্যাক্সেস করতে পারেন. <a
-                                href="{{route('frontend.youth.login-form')}}">ক্লিক করুন</a>
+                                href="{{route('frontend.trainee.login-form')}}">ক্লিক করুন</a>
                         </p>
                     </div>
                 </div>

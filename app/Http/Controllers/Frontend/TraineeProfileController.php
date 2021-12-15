@@ -4,29 +4,28 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\BaseController;
-use App\Models\Youth;
-use App\Models\YouthFamilyMemberInfo;
-use App\Services\YouthProfileService;
+use App\Models\Trainee;
+use App\Models\TraineeFamilyMemberInfo;
+use App\Services\TraineeProfileService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
-class YouthProfileController extends BaseController
+class TraineeProfileController extends BaseController
 {
-    const VIEW_PATH = "frontend.youth-profile.";
+    const VIEW_PATH = "frontend.trainee-profile.";
 
-    protected YouthProfileService $youthProfileService;
+    protected TraineeProfileService $traineeProfileService;
 
-    public function __construct(YouthProfileService $youthProfileService)
+    public function __construct(TraineeProfileService $traineeProfileService)
     {
-        $this->youthProfileService = $youthProfileService;
+        $this->traineeProfileService = $traineeProfileService;
     }
 
     public function editPersonalInfo(): View
     {
-        $authTrainee = AuthHelper::getAuthUser('youth');
+        $authTrainee = AuthHelper::getAuthUser('trainee');
 
         return \view(self::VIEW_PATH . 'edit-personal-info', with(['trainee' => $authTrainee]));
     }
@@ -40,10 +39,10 @@ class YouthProfileController extends BaseController
      */
     public function updatePersonalInfo(\Illuminate\Http\Request $request, $id): RedirectResponse
     {
-        $validated = $this->youthProfileService->validator($request, $id)->validate();
+        $validated = $this->traineeProfileService->validator($request, $id)->validate();
 
         try {
-            $this->youthProfileService->updatePersonalInfo($validated, $id);
+            $this->traineeProfileService->updatePersonalInfo($validated, $id);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 
@@ -62,19 +61,19 @@ class YouthProfileController extends BaseController
 
     public function addEditEducation(int $id): View
     {
-        $youth = Youth::findOrFAil($id);
-        $authTrainee = AuthHelper::getAuthUser('youth');
-        $academicQualifications = $youth->youthAcademicQualifications->keyBy('examination');
+        $trainee = Trainee::findOrFAil($id);
+        $authTrainee = AuthHelper::getAuthUser('trainee');
+        $academicQualifications = $trainee->traineeAcademicQualifications->keyBy('examination');
 
         return \view(self::VIEW_PATH . 'add-edit-education', with(['trainee' => $authTrainee, 'academicQualifications' => $academicQualifications]));
     }
 
     public function storeEducationInfo(\Illuminate\Http\Request $request): JsonResponse
     {
-        $validated = $this->youthProfileService->educationInfoValidator($request);
+        $validated = $this->traineeProfileService->educationInfoValidator($request);
 
         try {
-            $this->youthProfileService->storeAcademicInfo($validated);
+            $this->traineeProfileService->storeAcademicInfo($validated);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 
@@ -92,10 +91,10 @@ class YouthProfileController extends BaseController
 
     public function editGuardianInfo(int $id = null): View
     {
-        $guardian = new YouthFamilyMemberInfo();
+        $guardian = new TraineeFamilyMemberInfo();
 
         if ($id) {
-            $guardian = YouthFamilyMemberInfo::find($id);
+            $guardian = TraineeFamilyMemberInfo::find($id);
         }
 
         return \view(self::VIEW_PATH . 'add-guardian-information', compact('guardian'));
@@ -104,10 +103,10 @@ class YouthProfileController extends BaseController
 
     public function storeGuardianInfo(\Illuminate\Http\Request $request): RedirectResponse
     {
-        $validated = $this->youthProfileService->guardianInfoValidator($request)->validate();
+        $validated = $this->traineeProfileService->guardianInfoValidator($request)->validate();
 
         try {
-            $this->youthProfileService->storeGuardian($validated);
+            $this->traineeProfileService->storeGuardian($validated);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 
@@ -125,10 +124,10 @@ class YouthProfileController extends BaseController
 
     public function updateGuardianInfo(\Illuminate\Http\Request $request, int $id): RedirectResponse
     {
-        $validated = $this->youthProfileService->guardianInfoValidator($request)->validate();
+        $validated = $this->traineeProfileService->guardianInfoValidator($request)->validate();
 
         try {
-            $this->youthProfileService->updateGuardian($validated, $id);
+            $this->traineeProfileService->updateGuardian($validated, $id);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 

@@ -10,8 +10,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('/check-unique-user-email', [App\Http\Controllers\Admin\UserController::class, 'checkUserEmailUniqueness'])->name('users.check-unique-user-email');
 });
 
-Route::post('ipn-handler', [App\Http\Controllers\Frontend\YouthController::class, 'ipnHandler'])->name('api-ipn-handler');
-Route::post('youth-bulk-import', [App\Http\Controllers\YouthManagementController::class, 'importYouth'])->name('api-youth-bulk-import');
+Route::post('ipn-handler', [App\Http\Controllers\Frontend\TraineeController::class, 'ipnHandler'])->name('api-ipn-handler');
+Route::post('trainee-bulk-import', [App\Http\Controllers\TraineeManagementController::class, 'importTrainee'])->name('api-trainee-bulk-import');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     Route::resources([
@@ -51,10 +51,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     /***************************/
     Route::get('examination-result-batch/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResult'])->name('examination-result.batch');
-    Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
-    Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
-    Route::put('youth-accept-all', [App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
-    Route::put('youth-reject-all', [App\Http\Controllers\YouthController::class, 'youthRejectNowAll'])->name('youth-reject-now-all');
+    Route::put('trainee-course-enroll-accept/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'acceptTraineeCourseEnroll'])->name('trainee-course-enroll-accept');
+    Route::put('trainee-course-enroll-reject/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'rejectTraineeCourseEnroll'])->name('trainee-course-enroll-reject');
+    Route::put('trainee-accept-all', [App\Http\Controllers\TraineeController::class, 'traineeAcceptNowAll'])->name('trainee-accept-now-all');
+    Route::put('trainee-reject-all', [App\Http\Controllers\TraineeController::class, 'traineeRejectNowAll'])->name('trainee-reject-now-all');
 
     Route::post('static-page/image-upload', [App\Http\Controllers\StaticPageController::class, 'imageUpload'])->name('staticPage.imageUpload');
     Route::post('institutes/datatable', [App\Http\Controllers\InstituteController::class, 'getDatatable'])->name('institutes.datatable');
@@ -73,17 +73,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('intro-videos/datatable', [App\Http\Controllers\IntroVideoController::class, 'getDatatable'])->name('intro-videos.datatable');
     Route::post('question-answers/datatable', [App\Http\Controllers\QuestionAnswerController::class, 'getDatatable'])->name('question-answers.datatable');
 
-    Route::get('batches/{id}/youths', [App\Http\Controllers\YouthBatchController::class, 'index'])->name('batches.youths');
+    Route::get('batches/{id}/trainees', [App\Http\Controllers\TraineeBatchController::class, 'index'])->name('batches.trainees');
     Route::get('batches/{id}/trainer-mapping', [App\Http\Controllers\BatchController::class, 'trainerMapping'])->name('batches.trainer-mapping');
     Route::post('batches/trainer-mapping-update', [App\Http\Controllers\BatchController::class, 'trainerMappingUpdate'])->name('batches.trainer-mapping-update');
-    Route::post('batches/{id}/youths-import', [App\Http\Controllers\YouthBatchController::class, 'importYouth'])->name('batches.youths-import');
+    Route::post('batches/{id}/trainees-import', [App\Http\Controllers\TraineeBatchController::class, 'importTrainee'])->name('batches.trainees-import');
 
-    Route::post('batches/{id}/youths/datatable', [App\Http\Controllers\YouthBatchController::class, 'getDatatable'])->name('batches.youths.datatable');
+    Route::post('batches/{id}/trainees/datatable', [App\Http\Controllers\TraineeBatchController::class, 'getDatatable'])->name('batches.trainees.datatable');
 
-    Route::get('youth-registrations', [App\Http\Controllers\YouthRegistrationManagementController::class, 'index'])
-        ->name('youth.registrations.index');
-    Route::post('youth-registrations/datatable', [App\Http\Controllers\YouthRegistrationManagementController::class, 'getDatatable'])
-        ->name('youth.registrations.datatable');
+    Route::get('trainee-registrations', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'index'])
+        ->name('trainee.registrations.index');
+    Route::post('trainee-registrations/datatable', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'getDatatable'])
+        ->name('trainee.registrations.datatable');
 
     Route::resource('batches', App\Http\Controllers\BatchController::class);
 
@@ -103,41 +103,41 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('visitor-feedback/datatable', [App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'getDatatable'])->name('visitor-feedback.datatable');
     Route::post('featured-galleries', [\App\Http\Controllers\GalleryCategoryController::class, 'updateFeaturedGalleries'])->name('gallery-album.change-featured');
 
-    Route::get('youths', [App\Http\Controllers\YouthManagementController::class, 'index'])
-        ->name('youths.index');
-    Route::post('youths/datatable', [App\Http\Controllers\YouthManagementController::class, 'getDatatable'])
-        ->name('youths.datatable');
-    Route::post('youths/add-to-organization', [App\Http\Controllers\YouthManagementController::class, 'addYouthToOrganization'])
-        ->name('youths.add-to-organization');
+    Route::get('trainees', [App\Http\Controllers\TraineeManagementController::class, 'index'])
+        ->name('trainees.index');
+    Route::post('trainees/datatable', [App\Http\Controllers\TraineeManagementController::class, 'getDatatable'])
+        ->name('trainees.datatable');
+    Route::post('trainees/add-to-organization', [App\Http\Controllers\TraineeManagementController::class, 'addTraineeToOrganization'])
+        ->name('trainees.add-to-organization');
 
-    Route::post('youths/youth-assigned-organizations', [App\Http\Controllers\YouthManagementController::class, 'getYouthAssignedOrganizations'])
-        ->name('youths.youth-assigned-organization');
-
-
-    Route::get('youth-accept-list', [App\Http\Controllers\YouthController::class, 'youthAcceptList'])
-        ->name('youth.accept-list');
-    Route::post('youth-accept-list/datatable', [App\Http\Controllers\YouthController::class, 'getAcceptDatatable'])
-        ->name('youth.acceptlist.datatable');
-
-    Route::post('youth-accept-list/add-to-batch', [App\Http\Controllers\YouthRegistrationManagementController::class, 'addYouthToBatch'])
-        ->name('youth.add-to-batch');
-
-    Route::put('youth-accept-list/{youth}', [App\Http\Controllers\YouthRegistrationManagementController::class, 'addSingleYouthToBatch'])
-        ->name('youth.add-single-youth-to-batch');
+    Route::post('trainees/trainee-assigned-organizations', [App\Http\Controllers\TraineeManagementController::class, 'getTraineeAssignedOrganizations'])
+        ->name('trainees.trainee-assigned-organization');
 
 
-    Route::get('youths/certificate/course/{youth_course_enroll}', [App\Http\Controllers\YouthManagementController::class, 'youthCertificateCourseWise'])
-        ->name('youths.certificate');
+    Route::get('trainee-accept-list', [App\Http\Controllers\TraineeController::class, 'traineeAcceptList'])
+        ->name('trainee.accept-list');
+    Route::post('trainee-accept-list/datatable', [App\Http\Controllers\TraineeController::class, 'getAcceptDatatable'])
+        ->name('trainee.acceptlist.datatable');
 
-    Route::get('youths/certificate/{youth}', [App\Http\Controllers\YouthManagementController::class, 'youthCertificateList'])
-        ->name('youths.certificate.course');
+    Route::post('trainee-accept-list/add-to-batch', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'addTraineeToBatch'])
+        ->name('trainee.add-to-batch');
+
+    Route::put('trainee-accept-list/{trainee}', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'addSingleTraineeToBatch'])
+        ->name('trainee.add-single-trainee-to-batch');
+
+
+    Route::get('trainees/certificate/course/{trainee_course_enroll}', [App\Http\Controllers\TraineeManagementController::class, 'traineeCertificateCourseWise'])
+        ->name('trainees.certificate');
+
+    Route::get('trainees/certificate/{trainee}', [App\Http\Controllers\TraineeManagementController::class, 'traineeCertificateList'])
+        ->name('trainees.certificate.course');
 
     Route::post('examination-types/datatable', [App\Http\Controllers\ExaminationTypeController::class, 'getDatatable'])->name('examination-types.datatable');
     Route::post('examinations/datatable', [App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examinations.datatable');
     Route::get('examinations/status/{id?}', [App\Http\Controllers\ExaminationController::class, 'examinationStatus'])->name('examinations.status');
     Route::post('examinations/code_check', [App\Http\Controllers\ExaminationController::class, 'examinationCodeCheck'])->name('examinations.examinationCodeCheck');
     Route::post('examination-results/datatable', [App\Http\Controllers\ExaminationResultController::class, 'getDatatable'])->name('examination-results.datatable');
-    Route::get('examination-results/get-youths/{examination_id?}', [App\Http\Controllers\ExaminationResultController::class, 'getYouths'])->name('examination-results.get-youths');
+    Route::get('examination-results/get-trainees/{examination_id?}', [App\Http\Controllers\ExaminationResultController::class, 'getTrainees'])->name('examination-results.get-trainees');
     Route::post('routines/datatable', [App\Http\Controllers\RoutineController::class, 'getDatatable'])->name('routines.datatable');
     Route::post('examination-routines/datatable', [App\Http\Controllers\ExaminationRoutineController::class, 'getDatatable'])->name('examination-routines.datatable');
 });
@@ -145,45 +145,45 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 Route::group(['as' => 'frontend.'], function () {
 
     Route::group([ 'middleware' => ['authTrainee']], function() {
-        Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
-        Route::get('edit-personal-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
-        Route::get('add-guardian-info/{id?}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editGuardianInfo'])->name('add-guardian-info');
-        Route::put('edit-personal-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updatePersonalInfo'])->name('update-personal-info');
-        Route::get('add-edit-education/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'addEditEducation'])->name('add-edit-education');
-        Route::post('store-education-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeEducationInfo'])->name('trainee-education-info.store');
-        Route::post('store-guardian-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeGuardianInfo'])->name('guardian-info.store');
-        Route::put('update-guardian-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updateGuardianInfo'])->name('guardian-info.update');
+        Route::get('trainee-profile', [App\Http\Controllers\Frontend\TraineeController::class, 'index'])->name('trainee');
+        Route::get('edit-personal-info', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
+        Route::get('add-guardian-info/{id?}', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'editGuardianInfo'])->name('add-guardian-info');
+        Route::put('edit-personal-info/{id}', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'updatePersonalInfo'])->name('update-personal-info');
+        Route::get('add-edit-education/{id}', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'addEditEducation'])->name('add-edit-education');
+        Route::post('store-education-info', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'storeEducationInfo'])->name('trainee-education-info.store');
+        Route::post('store-guardian-info', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'storeGuardianInfo'])->name('guardian-info.store');
+        Route::put('update-guardian-info/{id}', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'updateGuardianInfo'])->name('guardian-info.update');
     });
 
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
     Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
 
-    Route::get('youth-registration/success/{accessKey}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'registrationSuccess'])->name('youth-registration.success');
-    Route::get('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'loginForm'])->name('youth.login-form');
-    Route::get('youth-password-reset', [App\Http\Controllers\Frontend\YouthLoginController::class, 'passwordResetForm'])->name('youth.password-reset');
-    Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
-    Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
+    Route::get('trainee-registration/success/{accessKey}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'registrationSuccess'])->name('trainee-registration.success');
+    Route::get('trainee-login', [App\Http\Controllers\Frontend\TraineeLoginController::class, 'loginForm'])->name('trainee.login-form');
+    Route::get('trainee-password-reset', [App\Http\Controllers\Frontend\TraineeLoginController::class, 'passwordResetForm'])->name('trainee.password-reset');
+    Route::post('trainee-login', [App\Http\Controllers\Frontend\TraineeLoginController::class, 'login'])->name('trainee.login-submit');
+    Route::post('trainee-logout', [App\Http\Controllers\Frontend\TraineeLoginController::class, 'logout'])->name('trainee.logout-submit');
 
-    Route::get('youth-enrolled-courses', [App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
-    Route::get('youth-certificate-view/{youth_course_enroll}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCertificateView'])->name('youth-certificate-view');
-    Route::post('youth-enrolled-courses/datatable', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');
-    Route::post('youth-profile/youth-course-enroll-pay-now/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseEnrollPayNow'])->name('youth-course-enroll-pay-now');
-    Route::get('youth-current-organization', [App\Http\Controllers\Frontend\YouthController::class, 'youthCurrentOrganization'])->name('youth-current-organization');
+    Route::get('trainee-enrolled-courses', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeEnrolledCourses'])->name('trainee-enrolled-courses');
+    Route::get('trainee-certificate-view/{trainee_course_enroll}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCertificateView'])->name('trainee-certificate-view');
+    Route::post('trainee-enrolled-courses/datatable', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseGetDatatable'])->name('trainee-courses-datatable');
+    Route::post('trainee-profile/trainee-course-enroll-pay-now/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseEnrollPayNow'])->name('trainee-course-enroll-pay-now');
+    Route::get('trainee-current-organization', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCurrentOrganization'])->name('trainee-current-organization');
 
-    Route::get('youth-certificate', [App\Http\Controllers\Frontend\YouthController::class, 'certificate'])->name('certificate');
-    Route::get('youth-certificate/download', [App\Http\Controllers\Frontend\YouthController::class, 'certificateDownload'])->name('certificate.download');
-    Route::get('youth-certificate-two', [App\Http\Controllers\Frontend\YouthController::class, 'certificateTwo'])->name('certificate-two');
+    Route::get('trainee-certificate', [App\Http\Controllers\Frontend\TraineeController::class, 'certificate'])->name('certificate');
+    Route::get('trainee-certificate/download', [App\Http\Controllers\Frontend\TraineeController::class, 'certificateDownload'])->name('certificate.download');
+    Route::get('trainee-certificate-two', [App\Http\Controllers\Frontend\TraineeController::class, 'certificateTwo'])->name('certificate-two');
 
     Route::resources([
-        'trainee-registrations' => App\Http\Controllers\Frontend\YouthRegistrationController::class,
+        'trainee-registrations' => App\Http\Controllers\Frontend\TraineeRegistrationController::class,
     ]);
 
-    Route::post('youth/recover-access-key-by-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRecoverAccessKey'])->name('youth.recover-access-key');
-    Route::post('youth/registration-success-email', [\App\Http\Controllers\Frontend\YouthController::class, 'sendMailToRegistrationSuccess'])->name('youth.registration-success-mail');
-    Route::get('youth/check-unique-email', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthEmailUniqueness'])->name('youth.check-unique-email');
-    Route::get('youth/check-unique-nid', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueNID'])->name('youth.check-unique-nid');
-    Route::get('youth/check-unique-birth_certificate_no', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniqueBirthCertificateNo'])->name('youth.check-unique-birth_certificate_no');
-    Route::get('youth/check-unique-passport-no', [\App\Http\Controllers\Frontend\YouthController::class, 'checkYouthUniquePassportId'])->name('youth.check-unique-passport-no');
+    Route::post('trainee/recover-access-key-by-email', [\App\Http\Controllers\Frontend\TraineeController::class, 'sendMailToRecoverAccessKey'])->name('trainee.recover-access-key');
+    Route::post('trainee/registration-success-email', [\App\Http\Controllers\Frontend\TraineeController::class, 'sendMailToRegistrationSuccess'])->name('trainee.registration-success-mail');
+    Route::get('trainee/check-unique-email', [\App\Http\Controllers\Frontend\TraineeController::class, 'checkTraineeEmailUniqueness'])->name('trainee.check-unique-email');
+    Route::get('trainee/check-unique-nid', [\App\Http\Controllers\Frontend\TraineeController::class, 'checkTraineeUniqueNID'])->name('trainee.check-unique-nid');
+    Route::get('trainee/check-unique-birth_certificate_no', [\App\Http\Controllers\Frontend\TraineeController::class, 'checkTraineeUniqueBirthCertificateNo'])->name('trainee.check-unique-birth_certificate_no');
+    Route::get('trainee/check-unique-passport-no', [\App\Http\Controllers\Frontend\TraineeController::class, 'checkTraineeUniquePassportId'])->name('trainee.check-unique-passport-no');
 
     Route::post('institute-events', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEvent'])->name('institute-events');
     Route::post('institute-events-date', [App\Http\Controllers\Frontend\EventPageController::class, 'instituteEventDate'])->name('institute-events-date');
@@ -196,11 +196,11 @@ $routesWithoutInstituteSlug = function () {
     Route::get('courses-search', [App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
 
-    Route::get('skill-videos', [App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('skill_videos');
-    Route::get('skill-videos/{video_id}', [App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('skill-single-video');
-    Route::get('advice-page', [App\Http\Controllers\Frontend\YouthController::class, 'advicePage'])->name('advice-page');
-    Route::get('general-ask-page', [App\Http\Controllers\Frontend\YouthController::class, 'generalAskPage'])->name('general-ask-page');
-    Route::get('contact-us-page', [App\Http\Controllers\Frontend\YouthController::class, 'contactUsPage'])->name('contact-us-page');
+    Route::get('skill-videos', [App\Http\Controllers\Frontend\TraineeController::class, 'videos'])->name('skill_videos');
+    Route::get('skill-videos/{video_id}', [App\Http\Controllers\Frontend\TraineeController::class, 'singleVideo'])->name('skill-single-video');
+    Route::get('advice-page', [App\Http\Controllers\Frontend\TraineeController::class, 'advicePage'])->name('advice-page');
+    Route::get('general-ask-page', [App\Http\Controllers\Frontend\TraineeController::class, 'generalAskPage'])->name('general-ask-page');
+    Route::get('contact-us-page', [App\Http\Controllers\Frontend\TraineeController::class, 'contactUsPage'])->name('contact-us-page');
     Route::post('visitor-feedback-store', [App\Http\Controllers\Frontend\VisitorFeedbackController::class, 'store'])->name('visitor-feedback.store');
     Route::get('yearly-training-calendar', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'index'])->name('yearly-training-calendar.index');
     Route::post('yearly-training-calendar-ajax', [App\Http\Controllers\Frontend\YearlyTrainingCalendarController::class, 'allEvent'])->name('yearly-training-calendar.all-event');
