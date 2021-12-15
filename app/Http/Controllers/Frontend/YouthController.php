@@ -57,19 +57,12 @@ class YouthController extends Controller
             'youthRegistration',
         ]);
         $academicQualifications = YouthAcademicQualification::where(['youth_id' => $youth->id])->get();
-
-        $youthSelfInfo = YouthFamilyMemberInfo::where(['youth_id' => $youth->id, 'relation_with_youth' => 'self'])->first();
-
-        $youthFamilyMembers = $this->youthRegistrationService->getYouthFamilyMemberInfo($youth);
+        $guardians = $youth->youthFamilyMemberInfo;
 
         return \view(self::VIEW_PATH . 'youth.youth-profile')->with(
             [
                 'youth' => $youth,
-                'father' => $youthFamilyMembers['father'],
-                'mother' => $youthFamilyMembers['mother'],
-                'guardian' => $youthFamilyMembers['guardian'],
-                'haveYouthFamilyMembersInfo' => $youthFamilyMembers['haveYouthFamilyMembersInfo'],
-                'youthSelfInfo' => $youthSelfInfo,
+                'guardians' => $guardians,
                 'academicQualifications' => $academicQualifications,
             ]);
     }

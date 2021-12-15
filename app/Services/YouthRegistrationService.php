@@ -5,7 +5,6 @@ namespace App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
-use App\Helpers\Classes\Helper;
 use App\Models\Batch;
 use App\Models\Youth;
 use App\Models\YouthCourseEnroll;
@@ -15,11 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\RequiredIf;
-use Illuminate\Validation\ValidationException;
 use Yajra\DataTables\Facades\DataTables;
 
 class YouthRegistrationService

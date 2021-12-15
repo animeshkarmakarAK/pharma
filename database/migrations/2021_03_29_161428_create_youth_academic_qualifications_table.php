@@ -16,7 +16,7 @@ class CreateYouthAcademicQualificationsTable extends Migration
         Schema::create('youth_academic_qualifications', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('youth_id');
-            $table->string('examination', 30);
+            $table->string('examination', 191);
             $table->string('examination_name', 30);
             $table->unsignedTinyInteger('board')->nullable();
             $table->string('institute', 191)->nullable();
