@@ -45,7 +45,31 @@
                                     <input type="hidden" id="today">
                                 </div>
                             </div>
-
+                            @if($authUser->isInstituteUser())
+                                <input type="hidden" id="institute_id" name="institute_id" value="{{$authUser->institute_id}}"/>
+                            @else
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="institute_id">{{__('admin.batch.institute_title')}} <span
+                                                style="color: red">*</span></label>
+                                        <select class="form-control select2-ajax-wizard"
+                                                name="institute_id"
+                                                id="institute_id"
+                                                data-model="{{base64_encode(App\Models\Institute::class)}}"
+                                                data-label-fields="{title}"
+                                                data-dependent-fields="#course_id"
+                                                @if($authUser->isInstituteUser())
+                                                data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                                @endif
+                                                @if($edit)
+                                                data-preselected-option="{{json_encode(['text' => $batch->course->institute->title, 'id' =>  $batch->institute->id])}}"
+                                                @endif
+                                                data-placeholder="{{__('Select Institute')}}"
+                                        >
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="course_id">{{__('admin.batch.course')}} <span
@@ -54,19 +78,20 @@
                                             name="course_id"
                                             id="course_id"
                                             data-model="{{base64_encode(App\Models\Course::class)}}"
-                                            data-label-fields="{institute.title} - {title}"
-                                            @if($authUser->isInstituteUser())
+                                            data-label-fields="{title}"
+                                            data-depend-on="institute_id:#institute_id"
+                                            data-dependent-fields="#branch_id"
+                                            {{--@if($authUser->isInstituteUser())
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
-                                            @endif
+                                            @endif--}}
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' => $batch->course->institute->title.' - '.  $batch->course->title, 'id' =>  $batch->course->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  $batch->course->title, 'id' =>  $batch->course->id])}}"
                                             @endif
                                             data-placeholder="{{__('Select Course')}}"
                                     >
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="code">{{__('admin.batch.code')}} <span

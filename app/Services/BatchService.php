@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Models\Course;
 use Illuminate\Validation\Rules\RequiredIf;
 use App\Models\Batch;
 use Illuminate\Contracts\Validation\Validator;
@@ -19,6 +20,8 @@ class BatchService
 {
     public function createBatch(array $data): Batch
     {
+        $data['branch_id'] = $this->getBranchId($data['course_id']);
+        $data['training_center_id'] = $this->getTrainingCenterId($data['course_id']);
         return Batch::create($data);
     }
 
@@ -39,6 +42,7 @@ class BatchService
         $rules = [
             'title' => 'required|string|max:191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
+            'institute_id' => 'required|int|exists:institutes,id',
             'course_id' => 'required|int|exists:courses,id',
             'application_start_date' => [
                 'required'
@@ -117,6 +121,18 @@ class BatchService
         $branch->fill($data);
         $branch->save();
         return $branch;
+    }
+
+    public function getTrainingCenterId($course_id)
+    {
+        $course = Course::find($course_id);
+        return $course->training_center_id;
+    }
+
+    public function getBranchId($course_id)
+    {
+        $course = Course::find($course_id);
+        return $course->branch_id;
     }
 
 }
