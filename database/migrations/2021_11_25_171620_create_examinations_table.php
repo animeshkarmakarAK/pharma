@@ -19,6 +19,7 @@ class CreateExaminationsTable extends Migration
             $table->unsignedInteger('batch_id')->index('examinations_fk_batch_id');
             $table->unsignedInteger('training_center_id')->index('examinations_fk_training_center_id');
             $table->unsignedInteger('examination_type_id')->index('examinations_fk_examination_type_id');
+            $table->unsignedInteger('user_id')->comment('trainer id')->index('examination_results_fk_user_id');
             $table->string('code',32)->nullable();
             $table->unsignedInteger('pass_mark');
             $table->unsignedInteger('total_mark');

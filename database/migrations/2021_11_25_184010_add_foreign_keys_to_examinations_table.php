@@ -14,6 +14,11 @@ class AddForeignKeysToExaminationsTable extends Migration
     public function up()
     {
         Schema::table('examinations', function (Blueprint $table) {
+            $table->foreign('institute_id', 'examinations_fk_institute_id')
+                ->references('id')
+                ->on('institutes')
+                ->onUpdate('CASCADE')
+                ->onDelete('RESTRICT');
             $table->foreign('batch_id', 'examinations_fk_batch_id')
                 ->references('id')
                 ->on('batches')
@@ -27,6 +32,11 @@ class AddForeignKeysToExaminationsTable extends Migration
             $table->foreign('examination_type_id', 'examinations_fk_examination_type_id')
                 ->references('id')
                 ->on('examination_types')
+                ->onUpdate('CASCADE')
+                ->onDelete('RESTRICT');
+            $table->foreign('user_id', 'examination_results_fk_user_id')
+                ->references('id')
+                ->on('users')
                 ->onUpdate('CASCADE')
                 ->onDelete('RESTRICT');
         });
