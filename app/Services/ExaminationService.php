@@ -116,6 +116,9 @@ class ExaminationService
                 if ($authUser->can('delete', $examination)) {
                     $str .= '<a href="#" data-action="' . route('admin.examinations.destroy', $examination->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
+                if ($authUser->can('delete', $examination) && ($examination->status == Examination::EXAMINATION_STATUS_COMPLETE)) {
+                    $str .= '<a href="' . route('examination-result.batch', $examination->batch_id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-award"></i> ' . __('admin.examination_result.result') . '</a>';
+                }
 
                 return $str;
             }))

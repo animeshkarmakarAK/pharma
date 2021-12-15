@@ -365,6 +365,7 @@ return [
         'examination' => 'Examination',
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
+        'result' => 'Result'
 
     ],
     'daily_routine' => [

@@ -62,4 +62,8 @@ class Examination extends BaseModel
     {
         return $this->belongsTo(Institute::class);
     }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

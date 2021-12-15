@@ -215,10 +215,7 @@ class ExaminationRoutineController extends Controller
         $examination_id = $request->get('examination_id');
         $batch_id = $request->get('batch_id');
         $training_center_id = $request->get('training_center_id');
-
         Session::put(['examination_id'=>$examination_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
         return redirect(route('admin.examination-routine'));
-
-
     }
 }
