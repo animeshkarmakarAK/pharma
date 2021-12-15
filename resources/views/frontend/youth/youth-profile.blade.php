@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            Personal Information
+                            <h4 class="font-weight-bolder">Personal Information</h4>
                         </div>
 
                         <div class="card-tools">
@@ -63,7 +63,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            Education
+                            <h4 class="font-weight-bolder">Education</h4>
                         </div>
                         <div class="card-tools">
                             <a href="{{route('frontend.add-edit-education', ['id' => $youth->id])}}"
@@ -112,7 +112,7 @@
 
                                         <div class="col-md-12">
                                             <span class="font-weight-bold">Result: </span>
-                                            {{ $academicQualification->grade == null ? $academicQualification->getExaminationResult() :$academicQualification->grade . ($academicQualification->getExaminationResult()? '/'.$academicQualification->getExaminationResult():'') }}
+                                            {{ $academicQualification->grade == null ? $academicQualification->getExaminationResult() : 'GPA '.$academicQualification->grade . ($academicQualification->getExaminationResult() ? '/'.$academicQualification->getExaminationResult():'') }}
                                         </div>
 
                                         <div class="col-md-12">
@@ -161,7 +161,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            Guardian
+                            <h4 class="font-weight-bolder">Guardian</h4>
                         </div>
                         <div class="card-tools">
                             <a href="{{route('frontend.add-guardian-info')}}"

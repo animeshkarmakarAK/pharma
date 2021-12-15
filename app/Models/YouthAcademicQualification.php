@@ -231,8 +231,8 @@ class YouthAcademicQualification extends BaseModel
             [
                 self::EXAMINATION_RESULT_FIRST_DIVISION => __('First Division'),
                 self::EXAMINATION_RESULT_SECOND_DIVISION => __('Second Division'),
-                self::EXAMINATION_RESULT_GPA_OUT_OF_FOUR => __('GPA out of 4'),
-                self::EXAMINATION_RESULT_GPA_OUT_OF_FIVE => __('GPA out of 5'),
+                self::EXAMINATION_RESULT_GPA_OUT_OF_FOUR => __('out of 4.00'),
+                self::EXAMINATION_RESULT_GPA_OUT_OF_FIVE => __('out of 5.00'),
                 self::EXAMINATION_RESULT_PASSED => __('Passed'),
                 self::EXAMINATION_RESULT_PASSED_MBBS_BDS => __('Passed M.B.B.S/B.D.S'),
             ];
