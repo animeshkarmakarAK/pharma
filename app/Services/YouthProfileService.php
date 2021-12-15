@@ -6,6 +6,8 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\FileHandler;
 use App\Models\Youth;
+use App\Models\YouthAcademicQualification;
+use App\Models\YouthFamilyMemberInfo;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +21,7 @@ class YouthProfileService
             'name' => 'required|string|max:191',
             'mobile' => 'required|string|max:20',
             'date_of_birth' => 'required|date',
-            'email' => 'required|string|max:191|email|unique:youths,email,'.$id,
+            'email' => 'required|string|max:191|email|unique:youths,email,' . $id,
             'loc_division_id' => 'required|int',
             'loc_district_id' => 'required|int',
             'loc_upazila_id' => 'required|int',
@@ -50,6 +52,20 @@ class YouthProfileService
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
+    public function guardianInfoValidator(Request $request, $id = null): Validator
+    {
+        $rules = [
+            'name' => 'required|string|max:191',
+            'mobile' => 'required|string|max:20',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|int',
+            'relation_with_youth' => 'required|string|max:191',
+            'occupation' => 'nullable|string|max:191',
+        ];
+
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
 
     /**
      * @param array $data
@@ -67,11 +83,52 @@ class YouthProfileService
 
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
-        }else {
+        } else {
             unset($data['password']);
         }
 
         $youth->fill($data);
         return $youth->update();
+    }
+
+
+    public function educationInfoValidator(Request $request): array
+    {
+        return $request->validate([
+            'academicQualification' => 'nullable'
+        ]);
+    }
+
+    public function storeAcademicInfo(array $data): bool
+    {
+        $youth = Youth::find(AuthHelper::getAuthUser('youth')->id);
+
+        foreach ($data['academicQualification'] as $key => $academicQualification) {
+            if (empty($academicQualification['examination_name'])) continue;
+
+            $existAcademicQualification = YouthAcademicQualification::where('youth_id', $youth->id)
+                ->where('examination', $academicQualification['examination'])
+                ->first();
+
+            if ($existAcademicQualification) {
+                $existAcademicQualification->update($academicQualification);
+            } else {
+                $youth->youthAcademicQualifications()->create($academicQualification);
+            }
+        }
+
+        return true;
+    }
+
+    public function storeGuardian(array $data): YouthFamilyMemberInfo
+    {
+        $data['youth_id'] = AuthHelper::getAuthUser('youth')->id;
+        return YouthFamilyMemberInfo::create($data);
+    }
+
+    public function updateGuardian(array $data, int $id): bool
+    {
+        $guardian = YouthFamilyMemberInfo::find($id);
+        return $guardian->update($data);
     }
 }

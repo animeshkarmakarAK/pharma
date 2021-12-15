@@ -29,24 +29,29 @@
                         </div>
 
                         <div class="card-tools">
-                                <a href="{{route('frontend.edit-personal-info')}}"
-                                   class="btn btn-sm btn-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> {{__('admin.common.edit')}}
-                                </a>
+                            <a href="{{route('frontend.edit-personal-info')}}"
+                               class="btn btn-sm btn-primary btn-rounded">
+                                <i class="fas fa-plus-circle"></i> {{__('admin.common.edit')}}
+                            </a>
                         </div>
 
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-2">
-                                <img class="img-circle" src="{{ $youth->profile_pic ? asset('storage/'. $youth->profile_pic ) : "http://via.placeholder.com/640x360"}}" height="100" width="100" alt="">
+                                <img class="img-circle"
+                                     src="{{ $youth->profile_pic ? asset('storage/'. $youth->profile_pic ) : "http://via.placeholder.com/640x360"}}"
+                                     height="100" width="100" alt="">
                             </div>
                             <div class="col-md-8 col-offset-md-1">
                                 <h5>{{ $youth->name }}</h5>
                                 <div class="text-muted">
                                     <p class="profile-info-p"> {{ __('generic.email') }}: {{ $youth->email }}</p>
                                     <p class="profile-info-p">{{ __('generic.mobile') }}: {{ $youth->mobile }}</p>
-                                    <p class="profile-info-p">{{ __('generic.address') }}: {{ optional($youth->locUpazila)->title}}/ {{ optional($youth->locDistrict)->title }}/ {{ optional($youth->locDivision)->title }}</p>
+                                    <p class="profile-info-p">{{ __('generic.address') }}
+                                        : {{ optional($youth->locUpazila)->title}}
+                                        / {{ optional($youth->locDistrict)->title }}
+                                        / {{ optional($youth->locDivision)->title }}</p>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +73,86 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @foreach($academicQualifications as $academicQualification)
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @if($academicQualification->examination >= 3 && $academicQualification->examination <= 4)
+                                        <i class="fas fa-graduation-cap" style="font-size: xxx-large"></i>
+                                    @else
+                                        <i class="fas fa-book-reader" style="font-size: xxx-large"></i>
+                                    @endif
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row my-3">
+                                        <div class="col-md-12">
+                                            @switch($academicQualification->examination)
+                                                @case(\App\Models\YouthAcademicQualification::EXAMINATION_JSC)
+                                                <h5
+                                                    class="font-weight-bolder">  {{ $academicQualification->getExamination() .'/'. $academicQualification->getJSCExaminationName() }}</h5>
+                                                @break
+                                                @case(\App\Models\YouthAcademicQualification::EXAMINATION_SSC)
+                                                <h5 class="font-weight-bolder">
+                                                    {{ $academicQualification->getExamination() .'/'. $academicQualification->getSSCExaminationName() }}
+                                                </h5>
+                                                @break
+                                                @case(\App\Models\YouthAcademicQualification::EXAMINATION_HSC)
+                                                <h5 class="font-weight-bolder">
+                                                    {{ $academicQualification->getExamination() .'/'. $academicQualification->getHSCExaminationName() }}</h5>
+                                                @break
+                                                @case(\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION)
+                                                <h5 class="font-weight-bolder">
+                                                    {{ $academicQualification->getExamination() .'/'. $academicQualification->getGraduationExaminationName() }}</h5>
+                                                @break
+                                                @case(\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS)
+                                                <h5 class="font-weight-bolder">
+                                                    {{ $academicQualification->getExamination() .'/'. $academicQualification->getMastersExaminationName() }}</h5>
+                                                @break
+                                            @endswitch
+                                        </div>
 
+                                        <div class="col-md-12">
+                                            <span class="font-weight-bold">Result: </span>
+                                            {{ $academicQualification->grade == null ? $academicQualification->getExaminationResult() :$academicQualification->grade . ($academicQualification->getExaminationResult()? '/'.$academicQualification->getExaminationResult():'') }}
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3">
+
+                                                    @if($academicQualification->examination == \App\Models\YouthAcademicQualification::EXAMINATION_JSC || $academicQualification->examination == \App\Models\YouthAcademicQualification::EXAMINATION_SSC || $academicQualification->examination == \App\Models\YouthAcademicQualification::EXAMINATION_HSC)
+                                                        <span
+                                                            class="font-weight-bold">Board: </span>{{ $academicQualification->getExaminationTakingBoard() }}
+                                                    @else
+                                                        <span
+                                                            class="font-weight-bold">Institute: </span>{{ $academicQualification->getCurrentUniversity() }}
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <span class="font-weight-bold">Passing Year: </span>
+                                                    {{ $academicQualification->passing_year }}
+                                                </div>
+
+                                                <div class="col-md-3">
+
+                                                    @if($academicQualification->getExaminationGroup())
+                                                        <span
+                                                            class="font-weight-bold">Group: </span>{{$academicQualification->getExaminationGroup()}}
+                                                    @elseif($academicQualification->subject)
+                                                        <span
+                                                            class="font-weight-bold">Subject: </span>{{$academicQualification->subject ?? 'N/A'}}
+                                                    @else
+                                                    @endif
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -79,9 +163,51 @@
                         <div class="card-title">
                             Guardian
                         </div>
+                        <div class="card-tools">
+                            <a href="{{route('frontend.add-guardian-info')}}"
+                               class="btn btn-sm btn-primary btn-rounded">
+                                <i class="fas fa-plus-circle"></i> {{__('admin.common.add')}}
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
+                        @foreach($guardians as $guardian)
+                            <div class="row my-2">
+                                <div class="col-md-2">
+                                    <i class="fa fa-user" style="font-size: xxx-large"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span
+                                                class="font-weight-bold">{{ __('generic.name') }}:</span> {{ $guardian->name }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span
+                                                class="font-weight-bold">{{ __('generic.mobile') }}:</span> {{ $guardian->mobile }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span
+                                                class="font-weight-bold">{{ __('generic.gender') }}:</span> {{ $guardian->getUserGender() }}
+                                            <span
+                                                class="ml-2 font-weight-bold">{{ __('generic.relation') }}:</span> {{ $guardian->relation_with_youth }}
+                                        </div>
 
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="card-tools float-right">
+                                        <a href="{{route('frontend.add-guardian-info', ['id' => $guardian->id])}}"
+                                           class="btn btn-sm btn-primary btn-rounded">
+                                            <i class="fas fa-plus-circle"></i> {{__('admin.common.edit')}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

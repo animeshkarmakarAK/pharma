@@ -142,9 +142,12 @@ Route::group(['as' => 'frontend.'], function () {
     Route::group([ 'middleware' => ['authTrainee']], function() {
         Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
         Route::get('edit-personal-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
+        Route::get('add-guardian-info/{id?}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editGuardianInfo'])->name('add-guardian-info');
         Route::put('edit-personal-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updatePersonalInfo'])->name('update-personal-info');
         Route::get('add-edit-education/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'addEditEducation'])->name('add-edit-education');
-        Route::post('trainee-education-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeEducationInfo'])->name('trainee-info.store');
+        Route::post('store-education-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeEducationInfo'])->name('trainee-education-info.store');
+        Route::post('store-guardian-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeGuardianInfo'])->name('guardian-info.store');
+        Route::put('update-guardian-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updateGuardianInfo'])->name('guardian-info.update');
     });
 
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
