@@ -41,7 +41,7 @@ class UserController extends BaseController
     {
         $user = new User();
 
-        return \view('master::acl.users.ajax.edit-add', compact('user'));
+        return \view('master::acl.users.edit-add', compact('user'));
     }
 
 
@@ -50,7 +50,7 @@ class UserController extends BaseController
      * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->userService->validator($request)->validate();
 
@@ -61,10 +61,17 @@ class UserController extends BaseController
         } catch (\Throwable $exception) {
             DB::rollback();
             Log::debug($exception->getMessage());
-            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+            //return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
-
-        return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'User']), 'alert-type' => 'success']);
+        return redirect()->route('admin.users.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'User']),
+            'alert-type' => 'success'
+        ]);
+        //return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
 
     /**
@@ -74,7 +81,9 @@ class UserController extends BaseController
      */
     public function show(User $user, Request $request): View
     {
-        return \view('master::acl.users.ajax.read', compact('user'));
+        return \view(self::VIEW_PATH . 'read', compact('user'));
+
+       // return \view('master::acl.users.ajax.read', compact('user'));
     }
 
     /**
@@ -83,10 +92,12 @@ class UserController extends BaseController
      */
     public function edit(User $user): View
     {
-        return \view('master::acl.users.ajax.edit-add', compact('user'));
+        return \view(self::VIEW_PATH . 'edit-add', compact('user'));
+
+        //return \view('master::acl.users.ajax.edit-add', compact('user'));
     }
 
-    public function update(User $user, Request $request): JsonResponse
+    public function update(User $user, Request $request): RedirectResponse
     {
         $validatedData = $this->userService->validator($request, $user->id)->validate();
 
@@ -98,10 +109,17 @@ class UserController extends BaseController
             DB::rollBack();
             Log::debug($exception->getMessage());
             Log::debug($exception->getTraceAsString());
-            return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-type' => 'error'
+            ]);
+            //return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
+        return redirect()->route('admin.users.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'User']),
+            'alert-type' => 'success'
+        ]);
 
-        return response()->json(['message' => __('generic.object_updated_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
 
     /**
