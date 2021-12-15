@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'users' => [
+        'index' => 'User',
+        'list' => 'Users List',
+        'add' => 'Add User',
+        'edit' => 'Edit User',
+        'update' => 'Update User',
+    ],
     'common' => [
         'back' => 'Back To List',
         'save' => 'Save',
