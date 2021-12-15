@@ -1,7 +1,7 @@
 @extends('master::layouts.front-end')
 
 @section('title')
-    {{ 'Trainer Information' }}
+    {{ 'Trainee education' }}
 @endsection
 
 @section('content')
