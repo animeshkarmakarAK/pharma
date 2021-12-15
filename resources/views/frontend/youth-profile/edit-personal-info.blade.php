@@ -21,7 +21,14 @@
                 <div class="card mt-4">
                     <div class="card-header">
                         <div class="card-title">Edit Personal Information</div>
+                        <div class="card-tools">
+                            <a href="{{route('frontend.youth')}}"
+                               class="btn btn-sm btn-outline-primary btn-rounded">
+                                <i class="fas fa-backward"></i> {{ __('generic.back_to_list') }}
+                            </a>
+                        </div>
                     </div>
+
                     <div class="card-body">
                         <form action="{{ route('frontend.update-personal-info', ['id' => $trainee->id]) }}"
                               method="post"
