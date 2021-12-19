@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class YouthRegistrationSuccessMail extends Mailable
+class TraineePaymentSuccessMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,14 +16,17 @@ class YouthRegistrationSuccessMail extends Mailable
      * @return void
      */
     public string $msg;
-    public string $access_key;
+    public string $accessKey;
+    public string $youthName;
 
-    public function __construct($subject, $access_key, $msg)
+    public function __construct($subject, $accessKey, $msg, $youthName)
     {
-        $this->access_key = $access_key;
+        $this->accessKey = $accessKey;
         $this->msg = $msg;
         $this->subject = $subject;
+        $this->youthName = $youthName;
     }
+
 
 
     /**
@@ -31,10 +34,10 @@ class YouthRegistrationSuccessMail extends Mailable
      *
      * @return $this
      */
-    public function build(): YouthRegistrationSuccessMail
+    public function build(): TraineePaymentSuccessMail
     {
         return $this->from(env('MAIL_FROM_ADDRESS', 'noreply@skills.gov.bd'))
             ->subject($this->subject)
-            ->view('frontend.email.youth-registration-success');
+            ->view('frontend.email.youth-payment-success');
     }
 }

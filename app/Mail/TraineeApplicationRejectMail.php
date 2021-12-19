@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class YouthPaymentSuccessMail extends Mailable
+class TraineeApplicationRejectMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,16 +28,15 @@ class YouthPaymentSuccessMail extends Mailable
     }
 
 
-
     /**
      * Build the message.
      *
      * @return $this
      */
-    public function build(): YouthPaymentSuccessMail
+    public function build(): TraineeApplicationRejectMail
     {
         return $this->from(env('MAIL_FROM_ADDRESS', 'noreply@skills.gov.bd'))
             ->subject($this->subject)
-            ->view('frontend.email.youth-payment-success');
+            ->view('frontend.email.youth-course-enroll-reject');
     }
 }
