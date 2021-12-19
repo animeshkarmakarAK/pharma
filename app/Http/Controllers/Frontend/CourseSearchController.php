@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Institute;
 use App\Models\Programme;
@@ -50,6 +51,23 @@ class CourseSearchController extends Controller
         $course = Course::findOrFail($courseId);
 
         return view(self::VIEW_PATH . 'course-details', ['course' => $course]);
+    }
+    /**
+     * @param mixed ...$args
+     * @return View
+     */
+    public function courseApply(...$args): View
+    {
+        $courseId = $args[0];
+
+        if (count($args) > 1 || !is_numeric($args[0])) {
+            $courseId = $args[1];
+        }
+
+        $course = Course::findOrFail($courseId);
+        $batches = Batch::findorFail($course->institute_id)->get();
+
+        return view(self::VIEW_PATH . 'course-apply', compact('course','batches'));
     }
 
 }

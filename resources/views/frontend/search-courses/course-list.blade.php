@@ -297,11 +297,16 @@
                     html += ' class="fas fa-clock gray-color mr-2"></i>';
                     html += course?.duration ? '<span class="course-p">' + course.duration + '</span></p>' : 'Duration not fixed';
 
-                    html += '<p class="font-weight-light mb-1"><i';
+                    html += '<div class="row">';
+                    html += '<p class=" col-md-6 font-weight-light mb-1"><i';
                     html += 'class="fa fa-user gray-color mr-2"></i>';
                     html += '<i class="fa fa-user gray-color mr-2"> </i><span class="course-p">Student(0)</span>';
+                    html += '</a>';
+                    html += '<p class="col-md-6 font-weight-light mb-1">';
+                    html += '<a href="{{ route('frontend.course-apply',['course_id' => '__' ])  }}" style="padding:2px 10px;" class="btn btn-success float-right"> আবেদন</a>'.replace('__', course.id);
+                    html += '</div>';
 
-                    html += '</p></div></div></div></a>';
+                    html += '</p></div></div></div>';
 
                     html += '<div class="bg-white course-date-card">';
                     html += '<div class="text-primary text-center">';

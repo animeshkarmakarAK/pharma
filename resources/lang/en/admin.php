@@ -99,7 +99,8 @@ return [
         'branch' => 'Branch',
         'training_center' => 'Training Center',
         'application_form_type' => 'Application Form Type',
-        'not_found' => 'No session found for this course'
+        'not_found' => 'No session found for this course',
+        'batch_list' => 'Batch List',
     ],
     'event' =>[
         'index' => 'Event',

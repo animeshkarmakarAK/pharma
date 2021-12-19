@@ -180,6 +180,7 @@ $routesWithoutInstituteSlug = function () {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('main');
     Route::get('courses-search', [App\Http\Controllers\Frontend\CourseSearchController::class, 'findCourse'])->name('course_search');
     Route::get('course-details/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseDetails'])->name('course-details');
+    Route::get('course-apply/{course_id}', [App\Http\Controllers\Frontend\CourseSearchController::class, 'courseApply'])->name('course-apply');
 
     Route::get('skill-videos', [App\Http\Controllers\Frontend\YouthController::class, 'videos'])->name('skill_videos');
     Route::get('skill-videos/{video_id}', [App\Http\Controllers\Frontend\YouthController::class, 'singleVideo'])->name('skill-single-video');
