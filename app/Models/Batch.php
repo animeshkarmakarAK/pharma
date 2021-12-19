@@ -44,6 +44,7 @@ class Batch extends Model
 
     protected $guarded = ['id'];
 
+
     public function course(): BelongsTo
     {
         return $this->BelongsTo(Course::class);

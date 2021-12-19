@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\ScopeAclTrait;
+use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -16,10 +18,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string batch_title
  * @property string $enroll_status
  * @property string $payment_status
+ * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  */
-
 class TraineeCourseEnroll extends Model
 {
+    use ScopeRowStatusTrait, ScopeAclTrait;
     protected $guarded = ['id'];
 
     const ENROLL_STATUS_PROCESSING = 0;
@@ -29,7 +32,6 @@ class TraineeCourseEnroll extends Model
 
     const PAYMENT_STATUS_PAID = 1;
     const PAYMENT_STATUS_UNPAID = 0;
-
 
 
     public function trainee(): BelongsTo
