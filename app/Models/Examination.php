@@ -7,6 +7,7 @@ use App\Traits\ScopeRowStatusTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Examination
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int created_by
  * @property int $updated_by
  * @property string|null exam_details
+ * @property mixed ExaminationResult $examinationResult
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  * @method static Builder|Institute active()
  * @method static Builder|Institute newModelQuery()
@@ -66,4 +68,10 @@ class Examination extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function examinationResult(): HasMany
+    {
+        return $this->hasMany(ExaminationResult::class,'examination_id');
+    }
+
+
 }

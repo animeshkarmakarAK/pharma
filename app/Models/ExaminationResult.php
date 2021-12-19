@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class ExaminationResult
  * @package App\Models
- * @property int institute_id
- * @property int user_id
+ * @property int youth_id
  * @property int examination_id
+ * @property int achieved_marks
+ * @property int feedback
  * @property int created_by
  * @property int updated_by
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
@@ -58,4 +59,5 @@ class ExaminationResult extends BaseModel
     {
         return $this->belongsTo(Batch::class, 'batch_id');
     }
+
 }

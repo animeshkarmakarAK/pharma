@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use App\Models\Examination;
 use App\Models\ExaminationResult;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,9 +19,16 @@ class ExaminationResultService
         return ExaminationResult::create($data);
     }
 
+    public function createBatchResult(array $data): \Illuminate\Http\RedirectResponse
+    {
+       foreach ($data as $results) {
+           ExaminationResult::insert($results);
+       }
+        return back() ;
+    }
+
     public function updateExaminationResult(ExaminationResult $examinationResult, array $data): ExaminationResult
     {
-
         $examinationResult->fill($data);
         $examinationResult->save();
         return $examinationResult;
@@ -95,5 +103,26 @@ class ExaminationResultService
         }
 
         return $googleMapSrc;
+    }
+
+    public function resultValidator(Request $request): Validator
+    {
+        $rules = [
+            'result.*.examination_id' => [
+                'required','int'
+            ],
+            'result.*.youth_id' => [
+                'required','int'
+            ],
+            'result.*.achieved_marks' => [
+                'required'
+            ],
+            'result.*.feedback' => [
+                'required',
+                'string',
+                'max:191',
+            ]
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 }
