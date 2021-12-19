@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Models\Course;
 use Illuminate\Validation\Rules\RequiredIf;
 use App\Models\Batch;
 use Illuminate\Contracts\Validation\Validator;
@@ -39,7 +40,9 @@ class BatchService
         $rules = [
             'title' => 'required|string|max:191',
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
+            'institute_id' => 'required|int|exists:institutes,id',
             'course_id' => 'required|int|exists:courses,id',
+            'training_center_id' => 'required|int|exists:training_centers,id',
             'application_start_date' => [
                 'required'
             ],

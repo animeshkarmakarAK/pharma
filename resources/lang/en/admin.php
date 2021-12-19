@@ -65,6 +65,7 @@ return [
         'batch_start_date' => 'Batch Start Date',
         'batch_end_date' => 'Batch End Date',
         'max_student_enrollment' => 'Max Student Enrollment',
+        'branch_title' => 'Branch',
     ],
     'branch' =>[
         'index' => 'Branch',
@@ -105,7 +106,8 @@ return [
         'branch' => 'Branch',
         'training_center' => 'Training Center',
         'application_form_type' => 'Application Form Type',
-        'not_found' => 'No session found for this course'
+        'not_found' => 'No session found for this course',
+        'batch_list' => 'Batch List',
     ],
     'event' =>[
         'index' => 'Event',
