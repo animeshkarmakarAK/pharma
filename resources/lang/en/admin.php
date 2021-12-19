@@ -365,8 +365,9 @@ return [
         'examination' => 'Examination',
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
-        'result' => 'Result'
-
+        'result' => 'Result',
+        'total_marks' => 'Total Marks',
+        'trainee' => 'Trainee'
     ],
     'daily_routine' => [
         'day_routine' => 'Daily Routine',

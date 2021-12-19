@@ -38,6 +38,7 @@
                                 <input type="hidden" id="institute_id" name="institute_id"
                                        value="{{$authUser->institute_id}}">
                             @else
+
                                 <div class="form-group col-md-6">
                                     <label for="institute_id">{{ __('admin.examination.institute_title') }} <span
                                             style="color: red"> * </span></label>
@@ -54,7 +55,8 @@
                                     </select>
                                 </div>
                             @endif
-
+                            <input type="hidden" id="user_id" name="user_id"
+                                   value="{{$authUser->id}}">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="pass_mark">{{__('admin.examination.code')}} <span
@@ -151,7 +153,7 @@
                                             data-model="{{base64_encode(App\Models\Batch::class)}}"
                                             data-label-fields="{title}"
                                             data-depend-on="training_center_id"
-                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'batch_status'=>1 ])}}"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'batch_status'=>\App\Models\Batch::BATCH_STATUS_ON_GOING ])}}"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $examination->batch->title, 'id' =>  $examination->batch_id])}}"
                                             @endif

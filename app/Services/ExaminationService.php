@@ -40,12 +40,10 @@ class ExaminationService
                 'required',
                 'int',
             ],
-
             'training_center_id' => [
                 'required',
                 'int',
             ],
-
             'examination_type_id' => [
                 'required',
                 'int',
@@ -54,7 +52,10 @@ class ExaminationService
                 'required',
                 'int',
             ],
-
+            'user_id' => [
+                'required',
+                'int',
+            ],
             'total_mark' => ['required'],
             'pass_mark' => ['required'],
             'exam_details' => ['required'],
@@ -117,7 +118,7 @@ class ExaminationService
                     $str .= '<a href="#" data-action="' . route('admin.examinations.destroy', $examination->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
                 if ($authUser->can('delete', $examination) && ($examination->status == Examination::EXAMINATION_STATUS_COMPLETE)) {
-                    $str .= '<a href="' . route('examination-result.batch', $examination->batch_id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-award"></i> ' . __('admin.examination_result.result') . '</a>';
+                    $str .= '<a href="' . route('admin.examination-result.batch', $examination->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-award"></i> ' . __('admin.examination_result.result') . '</a>';
                 }
 
                 return $str;

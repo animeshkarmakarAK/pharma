@@ -54,7 +54,7 @@ class UserTypeSeeder extends Seeder
                     'code' => '4',
                     'row_status' => 1,
                     'default_role_id' => '4'
-                ),
+                )
         ));
 
 

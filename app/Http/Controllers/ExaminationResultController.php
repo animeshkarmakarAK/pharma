@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Classes\AuthHelper;
 use App\Models\BaseModel;
 use App\Models\User;
+use App\Models\YouthCourseEnroll;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Models\Batch;
@@ -184,5 +185,83 @@ class ExaminationResultController extends Controller
         return $data->toArray();
 
 
+    }
+
+    /**
+     * @return View
+     */
+    public function batchResult($examinationId): View
+    {
+        $examination = Examination::find($examinationId);
+        $examinationResult = ExaminationResult::where(['examination_id' => $examinationId])->get();
+        if($examinationResult){
+            $trainees = YouthBatch::select(
+                [
+                    'youths.id as id',
+                    'youths.name as name',
+                    'examinations.id as examination_id',
+                    'examinations.total_mark as total_mark',
+                    'examination_results.achieved_marks as achieved_marks',
+                    'examination_results.feedback as feedback',
+                ]
+            )
+                ->join('batches', 'youth_batches.batch_id', '=', 'batches.id')
+                ->leftJoin('youth_course_enrolls', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id')
+                ->join('youths', 'youth_course_enrolls.youth_id', '=', 'youths.id')
+                ->leftjoin('examinations', 'batches.id', '=', 'examinations.batch_id')
+                ->leftjoin('examination_results', 'examinations.id', '=', 'examination_results.examination_id')
+                ->where([
+                    'batches.id' => $examination->batch_id,
+                    'youth_course_enrolls.enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT
+                ])
+                ->get();
+            dd($trainees);
+            return \view(self::VIEW_PATH . 'batch-result',compact('trainees','examinationResult'));
+
+        }
+        $trainees = YouthBatch::select(
+            [
+                'youths.id as id',
+                'youths.name as name',
+                'examinations.id as examination_id',
+                'examinations.total_mark as total_mark',
+            ]
+        )
+        ->join('batches', 'youth_batches.batch_id', '=', 'batches.id')
+        ->leftJoin('youth_course_enrolls', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id')
+        ->join('youths', 'youth_course_enrolls.youth_id', '=', 'youths.id')
+        ->leftjoin('examinations', 'batches.id', '=', 'examinations.batch_id')
+        ->where([
+            'batches.id' => $examination->batch_id,
+            'youth_course_enrolls.enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT
+        ])
+        ->get();
+        return \view(self::VIEW_PATH . 'batch-result',compact('trainees'));
+    }
+
+    /**
+     * @param ExaminationResult $examination
+     * @param Request $request
+     * @return RedirectResponse
+     */
+
+    public function batchResultstore(Request $request): RedirectResponse
+    {
+        $validatedData = $this->examinationResultService->resultValidator($request)->validate();
+
+        try {
+            $this->examinationResultService->createBatchResult($validatedData);
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-result' => 'error'
+            ]);
+        }
+
+        return redirect()->route('admin.examinations.index')->with([
+            'message' => __('generic.object_created_successfully', ['object' => 'Examination Result']),
+            'alert-result' => 'success'
+        ]);
     }
 }
