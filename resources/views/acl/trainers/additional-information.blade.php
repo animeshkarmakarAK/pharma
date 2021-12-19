@@ -80,7 +80,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="gender">{{__('generic.gender') }}:</label>
                                                 <div
-                                                    class="d-md-flex form-control {{ !empty($youthSelfInfo)? ($youthSelfInfo->gender?'read-only-input-field':''):'' }}"
+                                                    class="d-md-flex form-control {{ !empty($traineeSelfInfo)? ($traineeSelfInfo->gender?'read-only-input-field':''):'' }}"
                                                     style="display: inline-table;">
                                                     <div class="custom-control custom-radio mr-3">
                                                         <input class="custom-control-input" type="radio"
@@ -1075,12 +1075,12 @@
         $(document).ready(function () {
             $("#profile_pic").change(async function () {
                 await readURL(this); //preview image
-                youthRegistrationForm.validate().element("#profile_pic");
+                traineeRegistrationForm.validate().element("#profile_pic");
             });
 
             $("#signature_pic").change(async function () {
                 await readURL(this);
-                youthRegistrationForm.validate().element("#signature_pic");
+                traineeRegistrationForm.validate().element("#signature_pic");
             });
         })
 

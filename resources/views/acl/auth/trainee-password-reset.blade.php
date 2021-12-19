@@ -22,7 +22,7 @@
                         প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম</h2>
                 </div>
                 <div class="col-sm-4 mx-auto">
-                    <form class="login-form" action="{{ route('frontend.youth.recover-access-key') }}" method="post">
+                    <form class="login-form" action="{{ route('frontend.trainee.recover-access-key') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -39,7 +39,7 @@
                         <button type="submit" class="btn btn-primary btn-block submit_btn">পাসওয়ার্ড পুনরুদ্ধার করুন
                         </button>
                         <div class="col-12 mt-2">
-                            <a href="{{route('frontend.youth.login-form')}}">লগইন করুন</a>
+                            <a href="{{route('frontend.trainee.login-form')}}">লগইন করুন</a>
                         </div>
                         <div class="row pl-3">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">

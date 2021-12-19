@@ -42,7 +42,7 @@ class TraineeManagementService
             'branches.title as branches.title',
             'training_centers.title as training_centers.title',
             'programmes.title as programmes.title',
-                'courses.title as courses.title',
+            'courses.title as courses.title',
             'trainee_course_enrolls.id as trainee_course_enroll_id',
             'trainee_course_enrolls.enroll_status',
             'trainee_course_enrolls.payment_status',
