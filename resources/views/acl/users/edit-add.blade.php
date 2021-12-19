@@ -238,7 +238,6 @@
             $(document).on('change', "#user_type_id", function () {
                 let userType = parseInt($(this).val());
 
-                console.log(userType)
 
                 switch (userType) {
                     case {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}:
@@ -277,8 +276,8 @@
                 readURL(this);
             });
 
-            function registerValidator(edit) {
-                $(".edit-add-form").validate({
+
+            $(".edit-add-form").validate({
                     rules: {
                         profile_pic: {
                             accept: "image/*",
@@ -305,12 +304,11 @@
                         },
                         institute_id: {
                             required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!};
-                            }
-                        },
-                        loc_district_id: {
-                            required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!};
+                                if($('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
+                                    $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
+                                    $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}){
+                                    return true;
+                                }else return false;
                             }
                         },
                         old_password: {
@@ -319,7 +317,7 @@
                             },
                         },
                         password: {
-                            required: !edit,
+                            required: !EDIT,
                         },
                         password_confirmation: {
                             equalTo: '#password',
@@ -356,13 +354,13 @@
                             })
                             .fail(window.ajaxFailedResponseHandler)
                             .always(function () {
-                                datatable.draw();
+                                //datatable.draw();
                                 $('.overlay').hide();
                             });
                         return false;
                     }
                 });
-            }
+
 
         });
 

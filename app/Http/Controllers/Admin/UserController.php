@@ -54,24 +54,21 @@ class UserController extends BaseController
     {
         $validatedData = $this->userService->validator($request)->validate();
 
-        DB::beginTransaction();
         try {
             $this->userService->createUser($validatedData);
-            DB::commit();
         } catch (\Throwable $exception) {
-            DB::rollback();
             Log::debug($exception->getMessage());
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
-            //return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
+
+
         return redirect()->route('admin.users.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'User']),
             'alert-type' => 'success'
         ]);
-        //return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
 
     /**
