@@ -151,12 +151,12 @@
                         <input type="hidden" name="institute_id" id="institute_id" value="{{$authUser->institute_id}}">
                     @elseif($authUser->isDCUser())
                         <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_DC_USER_CODE}}">
+                               value="{{\App\Models\UserType::USER_TYPE_BRANCH_USER_CODE}}">
                         <input type="hidden" name="loc_district_id" id="loc_district_id"
                                value="{{$authUser->loc_district_id}}">
                     @elseif($authUser->isDivcomUser())
                         <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE}}">
+                               value="{{\App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE}}">
                         <input type="hidden" name="loc_division_id" id="loc_division_id"
                                value="{{$authUser->loc_division_id}}">
                     @endif
@@ -238,21 +238,23 @@
             $(document).on('change', "#user_type_id", function () {
                 let userType = parseInt($(this).val());
 
+                console.log(userType)
+
                 switch (userType) {
-                    case {!! \App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE !!}:
-                        enableShowFormFields($('#loc_division_id'));
-                        disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_district_id'));
+                    case {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}:
+                        enableShowFormFields($('#institute_id'));
+                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
-                    case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
-                        enableShowFormFields($('#loc_district_id'));
-                        disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_division_id'));
+                    case {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}:
+                        enableShowFormFields($('#institute_id'));
+                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
                         enableShowFormFields($('#institute_id'));
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     case {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}:
-                        isInstituteUser ? disabledHideFormFields($('#institute_id')) : enableShowFormFields($('#institute_id'));
+                        enableShowFormFields($('#institute_id'));
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                         break;
                     default:
@@ -308,7 +310,7 @@
                         },
                         loc_district_id: {
                             required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!};
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!};
                             }
                         },
                         old_password: {

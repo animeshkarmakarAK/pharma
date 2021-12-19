@@ -38,8 +38,9 @@ class UserService
 
     protected function setAndClearData(array $data): array
     {
-        if ($data['user_type_id'] == UserType::USER_TYPE_DC_USER_CODE) {
-            $data['institute_id'] = null;
+        if ($data['user_type_id'] == UserType::USER_TYPE_BRANCH_USER_CODE) {
+            $data['loc_district_id'] = null;
+            $data['institute_id'] = auth()->user()->institute_id;
             $data['loc_division_id'] = null;
         } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
             $data['loc_district_id'] = null;
@@ -48,9 +49,10 @@ class UserService
             $data['loc_district_id'] = null;
             $data['institute_id'] = auth()->user()->institute_id;
             $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_DIVCOM_USER_CODE) {
+        } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINING_CENTER_USER_CODE) {
             $data['loc_district_id'] = null;
-            $data['institute_id'] = null;
+            $data['institute_id'] = auth()->user()->institute_id;
+            $data['loc_division_id'] = null;
         } else {
             $data['loc_district_id'] = null;
             $data['institute_id'] = null;
@@ -84,12 +86,12 @@ class UserService
                 'exists:institutes,id'
             ],
             'loc_district_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_DC_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_BRANCH_USER_CODE,
                 'int',
                 'exists:loc_districts,id'
             ],
             'loc_division_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_DIVCOM_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
                 'int',
                 'exists:loc_divisions,id'
             ],

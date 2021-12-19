@@ -41,7 +41,7 @@ class UserController extends BaseController
     {
         $user = new User();
 
-        return \view('master::acl.users.edit-add', compact('user'));
+        return \view(self::VIEW_PATH . 'edit-add', compact('user'));
     }
 
 
