@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class YouthAcademicQualification
+ * Class TraineeAcademicQualification
  * @package App\Models
  * @property int examination
  * @property int examination_name
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null subject
  * @property int|null course_duration
  */
-class YouthAcademicQualification extends BaseModel
+class TraineeAcademicQualification extends BaseModel
 {
     use HasFactory, CreatedByUpdatedByRelationTrait;
 
@@ -350,8 +350,8 @@ class YouthAcademicQualification extends BaseModel
         return $arr[$this->institute];
     }
 
-    public function youth(): BelongsTo
+    public function trainee(): BelongsTo
     {
-        return $this->BelongsTo(Youth::class);
+        return $this->BelongsTo(Trainee::class);
     }
 }
