@@ -78,4 +78,9 @@ class Course extends BaseModel
         return $this->hasMany(TraineeCourseEnroll::class);
     }
 
+    public function batches(): HasMany
+    {
+        return $this->hasMany(Batch::class);
+    }
+
 }

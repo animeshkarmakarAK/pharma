@@ -77,7 +77,7 @@ class TraineeRegistrationService
 
     public function getTraineeAcademicQualification(Trainee $trainee): Collection
     {
-        return $trainee->traineeAcademicQualifications;
+        return $trainee->academicQualifications;
     }
 
     public function getTraineeFamilyMemberInfo(Trainee $trainee): array
@@ -139,7 +139,7 @@ class TraineeRegistrationService
         $traineeCourseEnrolls = TraineeCourseEnroll::select([
             'trainee_course_enrolls.id as id',
             'trainee_course_enrolls.trainee_id',
-            'trainee_course_enrolls.publish_course_id',
+            'trainee_course_enrolls.course_id',
             'trainee_course_enrolls.enroll_status',
             'trainee_course_enrolls.payment_status',
             'trainee_course_enrolls.created_at as enroll_date',
@@ -150,7 +150,7 @@ class TraineeRegistrationService
             'batches.title as batch_title',
         ]);
 
-        $traineeCourseEnrolls->join('courses', 'courses.id', '=', 'publish_courses.course_id');
+        $traineeCourseEnrolls->join('courses', 'courses.id', '=', 'trainee_course_enrolls.course_id');
         $traineeCourseEnrolls->leftJoin('trainee_batches', 'trainee_batches.trainee_course_enroll_id', '=', 'trainee_course_enrolls.id');
         $traineeCourseEnrolls->leftJoin('batches', 'trainee_batches.batch_id', '=', 'batches.id');
         $traineeCourseEnrolls->join('trainees', 'trainees.id', '=', 'trainee_course_enrolls.trainee_id');

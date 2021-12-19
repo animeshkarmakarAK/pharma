@@ -63,7 +63,7 @@ class TraineeProfileController extends BaseController
     {
         $trainee = Trainee::findOrFAil($id);
         $authTrainee = AuthHelper::getAuthUser('trainee');
-        $academicQualifications = $trainee->traineeAcademicQualifications->keyBy('examination');
+        $academicQualifications = $trainee->academicQualifications->keyBy('examination');
 
         return \view(self::VIEW_PATH . 'add-edit-education', with(['trainee' => $authTrainee, 'academicQualifications' => $academicQualifications]));
     }

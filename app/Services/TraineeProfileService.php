@@ -113,7 +113,7 @@ class TraineeProfileService
             if ($existAcademicQualification) {
                 $existAcademicQualification->update($academicQualification);
             } else {
-                $trainee->traineeAcademicQualifications()->create($academicQualification);
+                $trainee->academicQualifications()->create($academicQualification);
             }
         }
 

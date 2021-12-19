@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
 use App\Models\Course;
@@ -40,34 +41,28 @@ class CourseSearchController extends Controller
      * @param mixed ...$args
      * @return View
      */
-    public function courseDetails(...$args): View
+    public function courseDetails(int $courseId): View
     {
-        $courseId = $args[0];
-
-        if (count($args) > 1 || !is_numeric($args[0])) {
-            $courseId = $args[1];
-        }
-
         $course = Course::findOrFail($courseId);
 
         return view(self::VIEW_PATH . 'course-details', ['course' => $course]);
     }
+
     /**
-     * @param mixed ...$args
+     * @param int $courseId
      * @return View
      */
-    public function courseApply(...$args): View
+    public function courseApply(int $courseId): View
     {
-        $courseId = $args[0];
-
-        if (count($args) > 1 || !is_numeric($args[0])) {
-            $courseId = $args[1];
-        }
-
+        $authTrainee = AuthHelper::getAuthUser('trainee');
         $course = Course::findOrFail($courseId);
-        $batches = Batch::findorFail($course->institute_id)->get();
+        $batches = $course->batches;
+        $academicQualifications = $authTrainee->academicQualifications->keyBy('examination');
 
-        return view(self::VIEW_PATH . 'course-apply', compact('course','batches'));
+        return view(self::VIEW_PATH . 'course-apply', with([
+            'trainee' => $authTrainee,
+            'course' => $course,
+            'batches' => $batches,
+            'academicQualifications' => $academicQualifications]));
     }
-
 }
