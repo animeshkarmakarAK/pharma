@@ -206,7 +206,7 @@
         "color": "#000000",
         "parent_id": 39,
         "order": 1,
-        "route": "admin.youth.registrations.index",
+        "route": "admin.trainee.registrations.index",
         "parameters": null
     },
     {
@@ -389,7 +389,6 @@
         "route": null,
         "parameters": null
     },
-
     {
         "id": 86,
         "menu_id": 3,
@@ -465,7 +464,6 @@
         "route": "admin.dashboard",
         "parameters": null
     },
-
     {
         "id": 93,
         "menu_id": 3,
@@ -499,16 +497,16 @@
     {
         "id": 97,
         "menu_id": 3,
-        "title": "Youth List",
+        "title": "Trainee List",
         "title_lang_key": "menu.youths",
-        "permission_key": "view_any_youth",
+        "permission_key": "view_any_trainee",
         "url": "",
         "target": "_self",
         "icon_class": "fa fa-users",
         "color": "#000000",
         "parent_id": 39,
         "order": 3,
-        "route": "admin.youths.index",
+        "route": "admin.trainees.index",
         "parameters": null
     },
     {
@@ -583,7 +581,7 @@
         "color": "#000000",
         "parent_id": 39,
         "order": 2,
-        "route": "admin.youth.accept-list",
+        "route": "admin.trainee.accept-list",
         "parameters": null
     },
     {
