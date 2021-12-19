@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
-use App\Models\CourseWiseYouthCertificate;
+use App\Models\Certificate;
 
 
 class CertificateGenerator
@@ -21,9 +21,8 @@ class CertificateGenerator
                 'publish_course_id' => $youthInfo['publish_course_id'],
                 'youth_id' => $youthInfo['youth_id'],
                 'certificate_path' => $path,
-
             ];
-            CourseWiseYouthCertificate::create($courseWiseCertificateData);
+            Certificate::create($courseWiseCertificateData);
         }
         return $path;
     }

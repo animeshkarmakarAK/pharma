@@ -15,7 +15,7 @@ class CreateQuestionAnswersTable extends Migration
     {
         Schema::create('question_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('institute_id')->index('question_answers_fk_institute_id');
+            $table->unsignedInteger('institute_id')->default(0)->index('question_answers_fk_institute_id')->comment('0 => root faq');
             $table->text('question');
             $table->text('answer');
             $table->unsignedTinyInteger('row_status')->default(1);

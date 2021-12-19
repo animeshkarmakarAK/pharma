@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Classes\AuthHelper;
 use App\Models\Batch;
 use App\Models\Routine;
-use App\Models\RoutineClass;
+use App\Models\RoutineSlot;
 use App\Models\TrainingCenter;
 use App\Models\User;
 use App\Services\RoutineService;
@@ -80,7 +80,7 @@ class RoutineController extends Controller
      */
     public function show(Routine $routine): View
     {
-        $routineClasses = RoutineClass::where(['routine_id' => $routine->id])->get();
+        $routineClasses = RoutineSlot::where(['routine_id' => $routine->id])->get();
         return view(self::VIEW_PATH . 'read', compact('routine', 'routineClasses'));
     }
 

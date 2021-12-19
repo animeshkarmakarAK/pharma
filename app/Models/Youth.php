@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Helpers\Classes\Helper;
 use App\Traits\AuthenticatableUser;
+use App\Traits\LocDistrictBelongsToRelation;
+use App\Traits\LocDivisionBelongsToRelation;
+use App\Traits\LocUpazilaBelongsToRelation;
 use App\Traits\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,14 +44,12 @@ class Youth extends AuthBaseModel
 {
     use AuthenticatableUser;
 
-    use HasFactory, ScopeRowStatusTrait;
+    use HasFactory, ScopeRowStatusTrait, LocDivisionBelongsToRelation, LocDistrictBelongsToRelation, LocUpazilaBelongsToRelation;
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'present_address_house_address' => 'array',
-        'permanent_address_house_address' => 'array',
-    ];
+    const PROFILE_PIC_FOLDER_NAME = 'youth';
+    const DEFAULT_PROFILE_PIC = 'youths/default.jpg';
 
     /**
      * @return string

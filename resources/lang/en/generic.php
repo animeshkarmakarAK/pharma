@@ -232,5 +232,7 @@ return [
     'course' => 'Course',
     'batch' => 'Batch',
     'album_name' => 'Album name',
+    'relation' => 'Relation',
+    'occupation' => 'Occupation',
 ];
 

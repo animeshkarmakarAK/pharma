@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Models\Routine;
-use App\Models\RoutineClass;
+use App\Models\RoutineSlot;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -39,11 +39,11 @@ class RoutineService
             $dailyRoutine['routine_id'] = $routine->id;
 
             if (empty($dailyRoutine['id'])) {
-                $routine->routineClass()->create($dailyRoutine);
+                $routine->routineSlots()->create($dailyRoutine);
                 continue;
             }
 
-            $routineClass = RoutineClass::findOrFail($dailyRoutine['id']);
+            $routineClass = RoutineSlot::findOrFail($dailyRoutine['id']);
             if (!empty($dailyRoutine['delete']) && $dailyRoutine['delete'] == 1) {
                 $routineClass->delete();
             } else {

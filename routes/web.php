@@ -35,18 +35,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'examination-results' => App\Http\Controllers\ExaminationResultController::class,
         'routines' => App\Http\Controllers\RoutineController::class,
         'examination-routines' => App\Http\Controllers\ExaminationRoutineController::class,
-
     ]);
 
     /**********Routine**********/
+
     Route::get('weekly-routine', [App\Http\Controllers\RoutineController::class, 'weeklyRoutine'])->name('weekly-routine');
     Route::post('weekly-routine/filter', [App\Http\Controllers\RoutineController::class, 'weeklyRoutineFilter'])->name('weekly-routine.filter');
+
     /***************************/
 
     /**********ExaminationRoutine**********/
+
     Route::get('examination-routine', [App\Http\Controllers\ExaminationRoutineController::class, 'examinationRoutine'])->name('examination-routine');
     Route::post('examination-routine/filter', [App\Http\Controllers\ExaminationRoutineController::class, 'examinationRoutineFilter'])->name('examination-routine.filter');
+
     /***************************/
+    Route::get('examination-result-batch/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResult'])->name('examination-result.batch');
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
     Route::put('youth-accept-all', [App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');
@@ -139,6 +143,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 });
 
 Route::group(['as' => 'frontend.'], function () {
+
+    Route::group([ 'middleware' => ['authTrainee']], function() {
+        Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
+        Route::get('edit-personal-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
+        Route::get('add-guardian-info/{id?}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'editGuardianInfo'])->name('add-guardian-info');
+        Route::put('edit-personal-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updatePersonalInfo'])->name('update-personal-info');
+        Route::get('add-edit-education/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'addEditEducation'])->name('add-edit-education');
+        Route::post('store-education-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeEducationInfo'])->name('trainee-education-info.store');
+        Route::post('store-guardian-info', [App\Http\Controllers\Frontend\YouthProfileController::class, 'storeGuardianInfo'])->name('guardian-info.store');
+        Route::put('update-guardian-info/{id}', [App\Http\Controllers\Frontend\YouthProfileController::class, 'updateGuardianInfo'])->name('guardian-info.update');
+    });
+
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
     Route::post('ssp-registration', [\App\Http\Controllers\InstituteController::class, 'SSPRegistration'])->name('ssp-registration');
 
@@ -148,7 +164,6 @@ Route::group(['as' => 'frontend.'], function () {
     Route::post('youth-login', [App\Http\Controllers\Frontend\YouthLoginController::class, 'login'])->name('youth.login-submit');
     Route::post('youth-logout', [App\Http\Controllers\Frontend\YouthLoginController::class, 'logout'])->name('youth.logout-submit');
 
-    Route::get('youth-profile', [App\Http\Controllers\Frontend\YouthController::class, 'index'])->name('youth');
     Route::get('youth-enrolled-courses', [App\Http\Controllers\Frontend\YouthController::class, 'youthEnrolledCourses'])->name('youth-enrolled-courses');
     Route::get('youth-certificate-view/{youth_course_enroll}', [App\Http\Controllers\Frontend\YouthController::class, 'youthCertificateView'])->name('youth-certificate-view');
     Route::post('youth-enrolled-courses/datatable', [App\Http\Controllers\Frontend\YouthController::class, 'youthCourseGetDatatable'])->name('youth-courses-datatable');

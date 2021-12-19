@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToRoutineClassesTable extends Migration
+class AddForeignKeysToRoutineSlotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToRoutineClassesTable extends Migration
      */
     public function up()
     {
-        Schema::table('routine_classes', function (Blueprint $table) {
-            $table->foreign('routine_id', 'routine_classes_fk_routine_id')
+        Schema::table('routine_slots', function (Blueprint $table) {
+            $table->foreign('routine_id', 'routine_slots_fk_routine_id')
                 ->references('id')
                 ->on('routines')
                 ->onUpdate('CASCADE')
@@ -29,8 +29,8 @@ class AddForeignKeysToRoutineClassesTable extends Migration
      */
     public function down()
     {
-        Schema::table('routine_classes', function (Blueprint $table) {
-            $table->dropForeign('routine_classes_fk_routine_id');
+        Schema::table('routine_slots', function (Blueprint $table) {
+            $table->dropForeign('routine_slots_fk_routine_id');
         });
     }
 }
