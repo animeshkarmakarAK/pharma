@@ -32,31 +32,19 @@ class UserService
         $userType = UserType::findOrFail($data['user_type_id']);
         $data['role_id'] = $userType->default_role_id;
         $data = $this->setAndClearData($data);
+        //dd($data);
 
         return User::create($data);
     }
 
     protected function setAndClearData(array $data): array
     {
-        if ($data['user_type_id'] == UserType::USER_TYPE_BRANCH_USER_CODE) {
-            $data['loc_district_id'] = null;
+        $data['loc_district_id'] = null;
+        $data['loc_division_id'] = null;
+        if (auth()->user()->user_type_id == UserType::USER_TYPE_INSTITUTE_USER_CODE){
             $data['institute_id'] = auth()->user()->institute_id;
-            $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
-            $data['loc_district_id'] = null;
-            $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINER_USER_CODE) {
-            $data['loc_district_id'] = null;
-            $data['institute_id'] = auth()->user()->institute_id;
-            $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINING_CENTER_USER_CODE) {
-            $data['loc_district_id'] = null;
-            $data['institute_id'] = auth()->user()->institute_id;
-            $data['loc_division_id'] = null;
-        } else {
-            $data['loc_district_id'] = null;
+        }elseif (empty($data['institute_id'] )){
             $data['institute_id'] = null;
-            $data['loc_division_id'] = null;
         }
 
         return $data;

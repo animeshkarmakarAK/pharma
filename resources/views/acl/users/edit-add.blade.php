@@ -77,12 +77,6 @@
                                         id="user_type_id"
                                         data-model="{{base64_encode(App\Models\UserType::class)}}"
                                         data-label-fields="{title}"
-                                        @if($authUser->isInstituteUser())
-                                        data-filters="{{json_encode(['id' => \App\Models\User::USER_TYPE_TRAINER_USER_CODE])}}"
-                                        @endif
-                                        @if($authUser->isSuperUser())
-                                        data-filters="{{json_encode(['id' => [\App\Models\User::USER_TYPE_TRAINER_USER_CODE, 'type' => 'not-equal']])}}"
-                                        @endif
                                         @if($edit)
                                         data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                         @endif
@@ -91,7 +85,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6" style="display: none;">
+                        <div class="col-sm-6" style="display: @if($edit && $user->institute) block @else none @endif;">
                             <div class="form-group">
                                 <label for="institute_id">{{ __('Institute') }} <span
                                         style="color: red"> * </span></label>
@@ -149,16 +143,6 @@
                         <input type="hidden" name="user_type_id" id="user_type_id"
                                value="{{\App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE}}">
                         <input type="hidden" name="institute_id" id="institute_id" value="{{$authUser->institute_id}}">
-                    @elseif($authUser->isDCUser())
-                        <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_BRANCH_USER_CODE}}">
-                        <input type="hidden" name="loc_district_id" id="loc_district_id"
-                               value="{{$authUser->loc_district_id}}">
-                    @elseif($authUser->isDivcomUser())
-                        <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE}}">
-                        <input type="hidden" name="loc_division_id" id="loc_division_id"
-                               value="{{$authUser->loc_division_id}}">
                     @endif
 
                     @if($edit && $authUser->id == $user->id && $authUser->can('changePassword', $user))
@@ -331,35 +315,11 @@
                             pattern: "Please fill this field in English."
                         },
                     },
-                    submitHandler: function (htmlForm) {
-                        $('.overlay').show();
-                        let formData = new FormData(htmlForm);
-                        let jForm = $(htmlForm);
-                        $.ajax({
-                            url: jForm.prop('action'),
-                            method: jForm.prop('method'),
-                            data: formData,
-                            enctype: 'multipart/form-data',
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                        })
-                            .done(function (responseData) {
-                                console.log(responseData)
-                                if (responseData.message == 'Something wrong. Please try again') {
-                                    toastr.error(responseData.message);
-                                } else {
-                                    toastr.success(responseData.message);
-                                }
-                            })
-                            .fail(window.ajaxFailedResponseHandler)
-                            .always(function () {
-                                //datatable.draw();
-                                $('.overlay').hide();
-                            });
-                        return false;
-                    }
-                });
+                submitHandler: function (htmlForm) {
+                    $('.overlay').show();
+                    htmlForm.submit();
+                }
+            });
 
 
         });
