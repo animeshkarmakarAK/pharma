@@ -82,10 +82,12 @@ class UserService
             ],
             'institute_id' => [
                 'requiredIf:user_type_id,' . UserType::USER_TYPE_INSTITUTE_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_BRANCH_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
                 'int',
                 'exists:institutes,id'
             ],
-            'loc_district_id' => [
+        /*    'loc_district_id' => [
                 'requiredIf:user_type_id,' . UserType::USER_TYPE_BRANCH_USER_CODE,
                 'int',
                 'exists:loc_districts,id'
@@ -94,7 +96,7 @@ class UserService
                 'requiredIf:user_type_id,' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
                 'int',
                 'exists:loc_divisions,id'
-            ],
+            ],*/
             'password' => [
                 'bail',
                 new RequiredIf($id == null),
