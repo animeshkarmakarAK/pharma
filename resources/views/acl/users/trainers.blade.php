@@ -169,11 +169,11 @@
                 let userType = parseInt($(this).val());
 
                 switch (userType) {
-                    case {!! \App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE !!}:
+                    case {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}:
                         enableShowFormFields($('#loc_division_id'));
                         disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_district_id'));
                         break;
-                    case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
+                    case {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}:
                         enableShowFormFields($('#loc_district_id'));
                         disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_division_id'));
                         break;
@@ -235,7 +235,7 @@
                         },
                         loc_district_id: {
                             required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!};
+                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!};
                             }
                         },
                         old_password: {

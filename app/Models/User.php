@@ -48,6 +48,8 @@ class User extends AuthBaseModel
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
     const USER_TYPE_TRAINER_USER_CODE = '4';
+    const USER_TYPE_BRANCH_USER_CODE = '5';
+    const USER_TYPE_TRAINING_CENTER_USER_CODE = '6';
 
     const DEFAULT_PROFILE_PIC = 'users/default.jpg';
     const PROFILE_PIC_FOLDER_NAME = 'users';
@@ -110,6 +112,16 @@ class User extends AuthBaseModel
     public function isInstituteUser(): bool
     {
         return $this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE;
+    }
+    public function haveInstitute(): bool
+    {
+            if($this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE ||
+                $this->userType->code === self::USER_TYPE_TRAINER_USER_CODE ||
+                $this->userType->code === self::USER_TYPE_BRANCH_USER_CODE ||
+                $this->userType->code === self::USER_TYPE_TRAINING_CENTER_USER_CODE){
+                return true;
+            }
+            return false;
     }
 
     public function isTrainer(): bool

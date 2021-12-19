@@ -28,9 +28,9 @@ class UserType extends BaseModel
     const USER_TYPE_SUPER_USER_CODE = '1';
     const USER_TYPE_SYSTEM_USER_CODE = '2';
     const USER_TYPE_INSTITUTE_USER_CODE = '3';
-    const USER_TYPE_DC_USER_CODE = '5';
-    const USER_TYPE_DIVCOM_USER_CODE = '6';
-    const USER_TYPE_TRAINER_USER_CODE = '7';
+    const USER_TYPE_TRAINER_USER_CODE = '4';
+    const USER_TYPE_BRANCH_USER_CODE = '5';
+    const USER_TYPE_TRAINING_CENTER_USER_CODE = '6';
 
     public function role(): BelongsTo
     {

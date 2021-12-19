@@ -17,8 +17,12 @@ class CreateUserTypesTable extends Migration
             $table->tinyIncrements('id');
             $table->string('title', 191);
             $table->string('code', 191);
+            $table->smallInteger('parent_id')->nullable();
             $table->unsignedSmallInteger('default_role_id')->nullable();
             $table->unsignedTinyInteger('row_status');
+
+            $table->foreign('parent_id')->references('id')->on('user_types')->onDelete('cascade');
+
         });
     }
 
