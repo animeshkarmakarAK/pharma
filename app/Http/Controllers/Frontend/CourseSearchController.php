@@ -55,13 +55,13 @@ class CourseSearchController extends Controller
     {
         $authTrainee = AuthHelper::getAuthUser('trainee');
         $course = Course::findOrFail($courseId);
-        $batches = $course->batches;
+        $runningBatches = $course->runningBatches();
         $academicQualifications = $authTrainee->academicQualifications->keyBy('examination');
 
         return view(self::VIEW_PATH . 'course-apply', with([
             'trainee' => $authTrainee,
             'course' => $course,
-            'batches' => $batches,
+            'batches' => $runningBatches,
             'academicQualifications' => $academicQualifications]));
     }
 }

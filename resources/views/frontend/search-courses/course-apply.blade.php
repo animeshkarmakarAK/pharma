@@ -142,7 +142,7 @@
                                 <p class="font-italic">(Fill required field's to complete application)</p>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6" id="ethnic-group-section">
                                         <label for="ethnic_group">{{ __('generic.ethnic_group') }}<span
                                                 class="required">*</span> :</label>
                                         <div
@@ -168,7 +168,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="freedom-fighter-status-section">
                                         <div class="form-group">
                                             <label for="freedom_fighter_status">{{__('generic.freedom_fighter_status')}}
                                                 <span
@@ -970,7 +970,36 @@
 @endpush
 @push('js')
     <script>
+
+        function setFormFields(settings) {
+            console.log(settings);
+
+            if (settings?.FreedomFighter?.should_present_in_form) {
+                $('#freedom-fighter-status-section').show();
+            }else {
+                $('#freedom-fighter-status-section').hide();
+            }
+
+            if (settings?.ethnicGroup?.should_present_in_form) {
+                $('#ethnic-group-section').show();
+            }else {
+                $('#ethnic-group-section').hide();
+            }
+
+            settings?.JSCInfo?.should_present_in_form ? $('.jsc_collapse').parent().parent().show() : $('.jsc_collapse').parent().parent().hide()
+            settings?.SSCInfo?.should_present_in_form ? $('.ssc_collapse').parent().parent().show() : $('.ssc_collapse').parent().parent().hide();
+            settings?.HSCInfo?.should_present_in_form ? $('.hsc_collapse').parent().parent().show() : $('.hsc_collapse').parent().parent().hide();
+            settings?.HonoursInfo?.should_present_in_form ? $('.graduation_collapse').parent().parent().show() : $('.graduation_collapse').parent().parent().hide();
+            settings?.MastersInfo?.should_present_in_form ? $('.masters_collapse').parent().parent().show() : $('.masters_collapse').parent().parent().hide();
+        }
+
+
         $(document).ready(function () {
+
+            const COURSE = {!! $course !!};
+            const APPLICATION_FORM_SETTINGS =  COURSE?.application_form_settings;
+            setFormFields(APPLICATION_FORM_SETTINGS);
+
 
             $('.batch-list').on('click', function () {
                 if ($(this).is(':checked')) {

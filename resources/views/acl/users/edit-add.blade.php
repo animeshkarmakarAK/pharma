@@ -270,28 +270,6 @@
                     userType == {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}){
                     enableShowFormFields($('#institute_id'));
                 }
-
-               /* switch (userType) {
-                    case {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}:
-                        enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
-                    case {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}:
-                        enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
-                    case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
-                        enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
-                    case {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}:
-                        enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
-                    default:
-                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
-                }*/
-
             })
 
             $(document).on('change', "#institute_id", function () {
@@ -383,8 +361,6 @@
                     htmlForm.submit();
                 }
             });
-
-
         });
 
     </script>

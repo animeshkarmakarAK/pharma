@@ -49,7 +49,7 @@ class Course extends BaseModel
         'application_form_settings' => 'array'
     ];
 
-    public function haveRunningBatches(): Collection
+    public function runningBatches(): Collection
     {
         $instance = $this->hasMany(Batch::class)
             ->whereDate('application_start_date', '<=',  Carbon::now())

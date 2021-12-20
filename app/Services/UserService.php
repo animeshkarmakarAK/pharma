@@ -75,16 +75,7 @@ class UserService
                 'int',
                 'exists:institutes,id'
             ],
-        /*    'loc_district_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_BRANCH_USER_CODE,
-                'int',
-                'exists:loc_districts,id'
-            ],
-            'loc_division_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
-                'int',
-                'exists:loc_divisions,id'
-            ],*/
+
             'password' => [
                 'bail',
                 new RequiredIf($id == null),

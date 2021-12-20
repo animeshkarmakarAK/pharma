@@ -47,7 +47,7 @@ class UserController extends BaseController
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
@@ -79,19 +79,16 @@ class UserController extends BaseController
     public function show(User $user, Request $request): View
     {
         return \view(self::VIEW_PATH . 'read', compact('user'));
-
-       // return \view('master::acl.users.ajax.read', compact('user'));
     }
 
     /**
      * @param User $user
-     * @return string
+     * @return View
      */
     public function edit(User $user): View
     {
         return \view(self::VIEW_PATH . 'edit-add', compact('user'));
 
-        //return \view('master::acl.users.ajax.edit-add', compact('user'));
     }
 
     public function update(User $user, Request $request): RedirectResponse
@@ -110,8 +107,8 @@ class UserController extends BaseController
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
-            //return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
+
         return redirect()->route('admin.users.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'User']),
             'alert-type' => 'success'
@@ -245,7 +242,6 @@ class UserController extends BaseController
             ->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)
             ->get();
 
-       // dd($trainerList);
 
         return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
     }
