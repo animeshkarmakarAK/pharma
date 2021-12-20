@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Classes\AuthHelper;
 use App\Models\BaseModel;
 use App\Models\User;
-use App\Models\YouthCourseEnroll;
+use App\Models\TraineeCourseEnroll;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Models\Batch;
@@ -179,7 +179,6 @@ class ExaminationResultController extends Controller
         $traineeBatches->leftJoin('trainee_course_enrolls', 'trainee_batches.trainee_course_enroll_id', '=', 'trainee_course_enrolls.id');
         $traineeBatches->join('trainees', 'trainee_course_enrolls.trainee_id', '=', 'trainees.id');
         $traineeBatches->where('batches.id', $batchId);
-
         $data = $traineeBatches->get();
 
         return $data->toArray();
@@ -193,50 +192,94 @@ class ExaminationResultController extends Controller
     public function batchResult($examinationId): View
     {
         $examination = Examination::find($examinationId);
-        $examinationResult = ExaminationResult::where(['examination_id' => $examinationId])->get();
-        if($examinationResult){
-            $trainees = YouthBatch::select(
-                [
-                    'youths.id as id',
-                    'youths.name as name',
-                    'examinations.id as examination_id',
-                    'examinations.total_mark as total_mark',
-                    'examination_results.achieved_marks as achieved_marks',
-                    'examination_results.feedback as feedback',
-                ]
-            )
-                ->join('batches', 'youth_batches.batch_id', '=', 'batches.id')
-                ->leftJoin('youth_course_enrolls', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id')
-                ->join('youths', 'youth_course_enrolls.youth_id', '=', 'youths.id')
-                ->leftjoin('examinations', 'batches.id', '=', 'examinations.batch_id')
-                ->leftjoin('examination_results', 'examinations.id', '=', 'examination_results.examination_id')
-                ->where([
-                    'batches.id' => $examination->batch_id,
-                    'youth_course_enrolls.enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT
-                ])
-                ->get();
-            dd($trainees);
-            return \view(self::VIEW_PATH . 'batch-result',compact('trainees','examinationResult'));
+        $trainees = ExaminationResult::select([
+            'trainees.name as name',
+            'examinations.id as examination_id',
+            'examination_results.achieved_marks as achieved_marks',
+            'examination_results.feedback as feedback',
+            'examinations.total_mark as total_marks'
+        ])
+        ->leftjoin('examinations','examination_results.examination_id','examinations.id')
+        ->leftjoin('trainees','examination_results.trainee_id','=','trainees.id')
+        ->get();
+        return \view(self::VIEW_PATH . 'batch-result',compact('trainees','examination'));
+    }
 
-        }
-        $trainees = YouthBatch::select(
+    /**
+     * @return View
+     */
+    public function batchResultadd($examinationId): View
+    {
+        $examination = Examination::find($examinationId);
+        $trainees = TraineeBatch::select(
             [
-                'youths.id as id',
-                'youths.name as name',
+                'trainees.id as id',
+                'trainees.name as name',
                 'examinations.id as examination_id',
-                'examinations.total_mark as total_mark',
+                'examinations.total_mark as total_marks',
             ]
         )
-        ->join('batches', 'youth_batches.batch_id', '=', 'batches.id')
-        ->leftJoin('youth_course_enrolls', 'youth_batches.youth_course_enroll_id', '=', 'youth_course_enrolls.id')
-        ->join('youths', 'youth_course_enrolls.youth_id', '=', 'youths.id')
+        ->join('batches', 'trainee_batches.batch_id', '=', 'batches.id')
+        ->leftJoin('trainee_course_enrolls', 'trainee_batches.trainee_course_enroll_id', '=', 'trainee_course_enrolls.id')
+        ->join('trainees', 'trainee_course_enrolls.trainee_id', '=', 'trainees.id')
         ->leftjoin('examinations', 'batches.id', '=', 'examinations.batch_id')
         ->where([
             'batches.id' => $examination->batch_id,
-            'youth_course_enrolls.enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT
+            'trainee_course_enrolls.enroll_status' => TraineeCourseEnroll::ENROLL_STATUS_ACCEPT
         ])
         ->get();
-        return \view(self::VIEW_PATH . 'batch-result',compact('trainees'));
+        return \view(self::VIEW_PATH . 'batch-result-edit-add',compact('trainees', 'examination'));
+    }
+
+    /**
+     * @param Request $request
+     * @param ExaminationResult $examinationResult
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+
+    function batchResultUpdate(Request $request): RedirectResponse
+    {
+        $validatedData = $this->examinationResultService->updateResultValidator($request)->validate();
+        $this->examinationResultService->updateBatchResult($validatedData);
+        try {
+
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            return back()->with([
+                'message' => __('generic.something_wrong_try_again'),
+                'alert-result' => 'error'
+            ]);
+        }
+
+        return redirect()->route('admin.examinations.index')->with([
+            'message' => __('generic.object_updated_successfully', ['object' => 'Examination Result']),
+            'alert-result' => 'success'
+        ]);
+    }
+
+    /**
+     * @param ExaminationResult $examinationResult
+     * @return View
+     */
+    public function batchResultEdit(ExaminationResult $examinationResult, $examinationID){
+
+        $examinationResult = ExaminationResult::where(['examination_id' => $examinationID])->first();
+            $trainees = ExaminationResult::select([
+                'trainees.id as id',
+                'trainees.name as name',
+                'examination_results.id as examination_result_id',
+                'examination_results.examination_id as examination_id',
+                'examination_results.achieved_marks as achieved_marks',
+                'examination_results.feedback as feedback',
+                'examinations.total_mark as total_marks',
+
+            ])
+            ->leftjoin('examinations','examination_results.examination_id','examinations.id')
+            ->leftjoin('trainees','examination_results.trainee_id','=','trainees.id')
+            ->get();
+//            dd($examinationResult);
+        return \view(self::VIEW_PATH . 'batch-result-edit-add',compact('trainees','examinationResult'));
     }
 
     /**
@@ -248,7 +291,6 @@ class ExaminationResultController extends Controller
     public function batchResultstore(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationResultService->resultValidator($request)->validate();
-
         try {
             $this->examinationResultService->createBatchResult($validatedData);
         } catch (\Throwable $exception) {

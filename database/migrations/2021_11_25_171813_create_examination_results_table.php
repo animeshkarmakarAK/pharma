@@ -19,8 +19,6 @@ class CreateExaminationResultsTable extends Migration
             $table->unsignedInteger('trainee_id')->index('examination_results_fk_trainee_id');
             $table->unsignedInteger('achieved_marks');
             $table->string('feedback')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

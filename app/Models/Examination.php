@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int status
  * @property int row_status
  * @property int created_by
- * @property int $updated_by
+ * @property int updated_by
  * @property string|null exam_details
  * @property mixed ExaminationResult $examinationResult
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
@@ -68,10 +68,10 @@ class Examination extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function examinationResult(): HasMany
-    {
-        return $this->hasMany(ExaminationResult::class,'examination_id');
-    }
+//    public function examinationResult(): HasMany
+//    {
+//        return $this->hasMany(ExaminationResult::class,'examination_id');
+//    }
 
 
 }

@@ -51,11 +51,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     /***************************/
     Route::get('examination-result-batch/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResult'])->name('examination-result.batch');
+    Route::get('examination-result-batch-add/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResultadd'])->name('examination-result.batch-add');
+    Route::get('examination-result-batch-edit/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResultEdit'])->name('examination-result.batch.edit');
+    Route::put('examination-result-batch-update', [App\Http\Controllers\ExaminationResultController::class, 'batchResultUpdate'])->name('examination-result.batch.update');
+    Route::post('examination-result-batch', [App\Http\Controllers\ExaminationResultController::class, 'batchResultStore'])->name('examination-result.batch.store');
     Route::put('trainee-course-enroll-accept/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'acceptTraineeCourseEnroll'])->name('trainee-course-enroll-accept');
     Route::put('trainee-course-enroll-reject/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'rejectTraineeCourseEnroll'])->name('trainee-course-enroll-reject');
     Route::put('trainee-accept-all', [App\Http\Controllers\TraineeController::class, 'traineeAcceptNowAll'])->name('trainee-accept-now-all');
     Route::put('trainee-reject-all', [App\Http\Controllers\TraineeController::class, 'traineeRejectNowAll'])->name('trainee-reject-now-all');
-    Route::post('examination-result-batch', [App\Http\Controllers\ExaminationResultController::class, 'batchResultStore'])->name('examination-result.batch.store');
+
     Route::put('youth-course-enroll-accept/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'acceptYouthCourseEnroll'])->name('youth-course-enroll-accept');
     Route::put('youth-course-enroll-reject/{youth_course_enroll_id}', [App\Http\Controllers\Frontend\YouthRegistrationController::class, 'rejectYouthCourseEnroll'])->name('youth-course-enroll-reject');
     Route::put('youth-accept-all', [App\Http\Controllers\YouthController::class, 'youthAcceptNowAll'])->name('youth-accept-now-all');

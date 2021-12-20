@@ -90,8 +90,23 @@ class ExaminationPolicy extends BasePolicy
         return $user->hasPermission('force_delete_examination');
     }
 
+    /**
+     * @param User  $user
+     * @return mixed
+     */
+
     public function status(User $user)
     {
         return $user->hasPermission('status_examination');
+    }
+
+    /**
+     * @param User  $user
+     * @return mixed
+     */
+
+    public function result(User $user)
+    {
+        return $user->hasPermission('result_examination');
     }
 }

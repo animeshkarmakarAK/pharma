@@ -40,7 +40,6 @@ class ExaminationResult extends BaseModel
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
     public function trainee(): BelongsTo
     {
         return $this->belongsTo(Trainee::class, 'trainee_id');
