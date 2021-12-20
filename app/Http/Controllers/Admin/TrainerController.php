@@ -35,6 +35,7 @@ class TrainerController extends BaseController
             ->where('user_type_id', User::USER_TYPE_INSTITUTE_USER_CODE)
             ->first();
 
+
         $academicQualifications = $trainer->trainerAcademicQualifications()->get()->keyBy('examination');
 
         return \view(self::VIEW_PATH . 'additional-information', ['trainer' => $trainer, 'trainerInstitute' => $trainerInstitute, 'academicQualifications' => $academicQualifications]);
