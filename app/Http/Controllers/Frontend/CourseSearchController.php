@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Institute;
 use App\Models\Programme;
