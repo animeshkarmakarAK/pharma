@@ -19,6 +19,7 @@ class CreateTraineeCourseEnrollsTable extends Migration
             $table->unsignedInteger('course_id')->nullable()->index('trainee_course_enrolls_fk_course_id');
             $table->unsignedTinyInteger('enroll_status')->nullable()->default(0)->comment('0 => Processing  1 => Accept 2 => Reject');
             $table->unsignedTinyInteger('payment_status')->nullable()->default(0)->comment('0 => Unpaid  1 => Paid');
+            $table->json('batch_preferences')->nullable();
             $table->unsignedTinyInteger('row_status')->nullable()->default(1);
             $table->timestamps();
         });

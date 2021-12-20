@@ -8,22 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
 /**
- * Class Trainee
+ * Class TraineeCourseEnroll
  * @package App\Models
  * @property int $id
- * @property int batch_id
+ * @property int trainee_id
  * @property int course_id
- * @property int batch_status
- * @property string batch_title
  * @property string $enroll_status
  * @property string $payment_status
+ * @property array $batch_preferences
  * @method static \Illuminate\Database\Eloquent\Builder|Institute acl()
  */
 class TraineeCourseEnroll extends Model
 {
     use ScopeRowStatusTrait, ScopeAclTrait;
+
     protected $guarded = ['id'];
+
+
+    protected $casts = [
+        'batch_preferences' => 'array'
+    ];
 
     const ENROLL_STATUS_PROCESSING = 0;
     const ENROLL_STATUS_ACCEPT = 1;

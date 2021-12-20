@@ -5,12 +5,13 @@
 
     $otherOptionsToDisplayInForm = [
         'ethnicGroup' => ['label' => 'Ethnic group', 'should_present_in_form' => false, 'is_required' => false],
-        'FreedomFighter' => ['label' => 'Freedom fighter', 'should_present_in_form' => false, 'is_required' => false],
+        'address' => ['label' => 'Address', 'should_present_in_form' => false, 'is_required' => false],
         'OccupationInfo' => ['label' => 'Occupation info', 'should_present_in_form' => false, 'is_required' => false],
         'SSCInfo' => ['label' => 'SSC info', 'should_present_in_form' => false, 'is_required' => false],
         'HSCInfo' => ['label' => 'HSC info', 'should_present_in_form' => false, 'is_required' => false],
         'HonoursInfo' => ['label' => 'Honours info', 'should_present_in_form' => false, 'is_required' => false],
         'MastersInfo' => ['label' => 'Masters info', 'should_present_in_form' => false, 'is_required' => false],
+        'guardianInfo' => ['label' => 'Guardian info', 'should_present_in_form' => false, 'is_required' => false],
     ];
 
     if ($edit && $course->application_form_settings && count($course->application_form_settings)) {
@@ -43,7 +44,6 @@
                                 <i class="fas fa-backward"></i>{{__('admin.common.back')}}
                             </a>
                         </div>
-
                     </div>
 
                     <div class="card-body">
