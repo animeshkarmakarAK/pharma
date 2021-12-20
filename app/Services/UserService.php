@@ -218,10 +218,10 @@ class UserService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (User $user) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $user)) {
-                    $str .= '<a href="#" data-url="' . route('admin.users.show', $user->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                    $str .= '<a href="' . route('admin.users.show', $user->id) . '" class="btn btn-outline-info btn-sm "> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
                 }
                 if ($authUser->can('update', $user) && $authUser->can('updateTrainer', $user)) {
-                    $str .= '<a href="#" data-url="' . route('admin.users.edit', $user->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                    $str .= '<a href="' . route('admin.users.edit', $user->id) . '" class="btn btn-outline-warning btn-sm "> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $user)) {
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';

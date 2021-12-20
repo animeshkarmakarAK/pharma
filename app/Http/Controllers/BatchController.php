@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class BatchController extends Controller
@@ -255,23 +256,20 @@ class BatchController extends Controller
     {
         $trainerBatchs =  TrainerBatch::with('batch','user')
             ->where(['batch_id'=>$id])
-            ->whereHas('user', function ($query) {
-                $query->where('user_type_id', 7);
-            })
             ->get();
 
         $trainers = User::where('user_type_id', User::USER_TYPE_TRAINER_USER_CODE)->get();
         $batch_id = $id;
+
+        //dd($trainerBatchs);
         return view(self::VIEW_PATH . 'trainer-mapping', compact('trainers','trainerBatchs','batch_id'));
     }
 
     public function trainerMappingUpdate(Request $request)
     {
         $batch_id = $request->get('batch_id');
-        $updates = $request->get('update');
-        $deletes = $request->get('delete');
 
-        foreach ($deletes as $key=>$user_id){
+        foreach ( $request->get('delete') as $key=>$user_id){
             if ($key > 0){
                 $count = Examination::where(['batch_id'=>$batch_id, 'created_by'=>$user_id])->count();
                 if ($count == 0 ){
@@ -280,14 +278,10 @@ class BatchController extends Controller
             }
         }
 
-        $users = User::all();
-
-        foreach ($users as $key=>$user_id){
-            if ($key > 0){
-                $count = TrainerBatch::where(['batch_id'=>$batch_id, 'user_id'=>$user_id])->count();
-                if ($count == 0){
-                    TrainerBatch::create(['batch_id'=>$batch_id, 'user_id'=>$user_id, 'created_at'=>$authUser->id]);
-                }
+        foreach ($request->get('user_id') as $key=>$user_id){
+            $trainer_batch_id =  TrainerBatch::where([['batch_id','=',$batch_id],['user_id','=',$user_id,]])->first();
+            if ($user_id > 0 && empty($trainer_batch_id)){
+                TrainerBatch::create(['batch_id'=>$batch_id, 'user_id'=>$user_id, 'created_at'=>Auth::user()->id]);
             }
         }
 

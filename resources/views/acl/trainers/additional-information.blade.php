@@ -87,8 +87,8 @@
                                                                id="gender_male"
                                                                {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->gender == 1?' checked' : '' }}
                                                                name="gender"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::GENDER_MALE }}"
-                                                            {{old('gender') == \App\Models\YouthFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::GENDER_MALE }}"
+                                                            {{old('gender') == \App\Models\TraineeFamilyMemberInfo::GENDER_MALE ? 'checked' : ''}}>
                                                         <label for="gender_male"
                                                                class="custom-control-label">{{__('generic.gender.male') }}</label>
                                                     </div>
@@ -97,8 +97,8 @@
                                                                id="gender_female"
                                                                {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->gender == 2?' checked' : '' }}
                                                                name="gender"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::GENDER_FEMALE }}"
-                                                            {{ old('gender') == \App\Models\YouthFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::GENDER_FEMALE }}"
+                                                            {{ old('gender') == \App\Models\TraineeFamilyMemberInfo::GENDER_FEMALE ? 'checked' : ''}}>
                                                         <label for="gender_female"
                                                                class="custom-control-label">{{__('generic.gender.female') }}</label>
                                                     </div>
@@ -107,8 +107,8 @@
                                                                id="gender_transgender"
                                                                {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->gender == 4?' checked' : '' }}
                                                                name="gender"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER }}"
-                                                            {{old('gender') == \App\Models\YouthFamilyMemberInfo::GENDER_TRANSGENDER ? 'checked' : ''}}>
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::GENDER_TRANSGENDER }}"
+                                                            {{old('gender') == \App\Models\TraineeFamilyMemberInfo::GENDER_TRANSGENDER ? 'checked' : ''}}>
                                                         <label for="gender_transgender"
                                                                class="custom-control-label">{{__('generic.gender.hermaphrodite') }}</label>
                                                     </div>
@@ -131,9 +131,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="marital_status_married"
                                                                name="marital_status"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED }}"
-                                                            {{ old('marital_status') == \App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->marital_status == \App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_MARRIED?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::MARITAL_STATUS_MARRIED }}"
+                                                            {{ old('marital_status') == \App\Models\TraineeFamilyMemberInfo::MARITAL_STATUS_MARRIED ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->marital_status == \App\Models\TraineeFamilyMemberInfo::MARITAL_STATUS_MARRIED?' checked' : '' }}
                                                         >
                                                         <label for="marital_status_married"
                                                                class="custom-control-label">{{__('generic.marital_status.married') }}</label>
@@ -142,9 +142,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="marital_status_single"
                                                                name="marital_status"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo:: MARITAL_STATUS_SINGLE}}"
-                                                            {{ old('marital_status') == \App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_SINGLE ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->marital_status == \App\Models\YouthFamilyMemberInfo::MARITAL_STATUS_SINGLE?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo:: MARITAL_STATUS_SINGLE}}"
+                                                            {{ old('marital_status') == \App\Models\TraineeFamilyMemberInfo::MARITAL_STATUS_SINGLE ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->marital_status == \App\Models\TraineeFamilyMemberInfo::MARITAL_STATUS_SINGLE?' checked' : '' }}
                                                         >
                                                         <label for="marital_status_single"
                                                                class="custom-control-label">{{__('generic.marital_status.unmarried') }}</label>
@@ -159,9 +159,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="religion_islam"
                                                                name="religion"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM }}"
-                                                            {{ old('religion') == \App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\YouthFamilyMemberInfo::RELIGION_ISLAM ?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::RELIGION_ISLAM }}"
+                                                            {{ old('religion') == \App\Models\TraineeFamilyMemberInfo::RELIGION_ISLAM ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\TraineeFamilyMemberInfo::RELIGION_ISLAM ?' checked' : '' }}
                                                         >
                                                         <label for="religion_islam"
                                                                class="custom-control-label">{{ __('generic.religion.islam') }}</label>
@@ -170,9 +170,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="religion_hindu"
                                                                name="religion"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::RELIGION_HINDU }}"
-                                                            {{ old('religion') == \App\Models\YouthFamilyMemberInfo::RELIGION_HINDU ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\YouthFamilyMemberInfo::RELIGION_HINDU ?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::RELIGION_HINDU }}"
+                                                            {{ old('religion') == \App\Models\TraineeFamilyMemberInfo::RELIGION_HINDU ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\TraineeFamilyMemberInfo::RELIGION_HINDU ?' checked' : '' }}
                                                         >
 
                                                         <label for="religion_hindu"
@@ -182,9 +182,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="religion_christian"
                                                                name="religion"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN }}"
-                                                            {{ old('religion') == \App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\YouthFamilyMemberInfo::RELIGION_CHRISTIAN ?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::RELIGION_CHRISTIAN }}"
+                                                            {{ old('religion') == \App\Models\TraineeFamilyMemberInfo::RELIGION_CHRISTIAN ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\TraineeFamilyMemberInfo::RELIGION_CHRISTIAN ?' checked' : '' }}
                                                         >
                                                         <label for="religion_christian"
                                                                class="custom-control-label">{{ __('generic.religion.christian') }}</label>
@@ -194,9 +194,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="religion_buddhist"
                                                                name="religion"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST }}"
-                                                            {{ old('religion') == \App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\YouthFamilyMemberInfo::RELIGION_BUDDHIST ?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::RELIGION_BUDDHIST }}"
+                                                            {{ old('religion') == \App\Models\TraineeFamilyMemberInfo::RELIGION_BUDDHIST ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\TraineeFamilyMemberInfo::RELIGION_BUDDHIST ?' checked' : '' }}
                                                         >
                                                         <label for="religion_buddhist"
                                                                class="custom-control-label">{{ __('generic.religion.buddhist') }}</label>
@@ -206,9 +206,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="religion_jain"
                                                                name="religion"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::RELIGION_JAIN }}"
-                                                            {{ old('religion') == \App\Models\YouthFamilyMemberInfo::RELIGION_JAIN ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\YouthFamilyMemberInfo::RELIGION_JAIN ?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::RELIGION_JAIN }}"
+                                                            {{ old('religion') == \App\Models\TraineeFamilyMemberInfo::RELIGION_JAIN ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\TraineeFamilyMemberInfo::RELIGION_JAIN ?' checked' : '' }}
                                                         >
                                                         <label for="religion_jain"
                                                                class="custom-control-label">{{ __('generic.religion.jain') }}</label>
@@ -218,9 +218,9 @@
                                                         <input class="custom-control-input" type="radio"
                                                                id="religion_other"
                                                                name="religion"
-                                                               value="{{ \App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS }}"
-                                                            {{ old('religion') == \App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS ? 'checked' : '' }}
-                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\YouthFamilyMemberInfo::RELIGION_OTHERS ?' checked' : '' }}
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::RELIGION_OTHERS }}"
+                                                            {{ old('religion') == \App\Models\TraineeFamilyMemberInfo::RELIGION_OTHERS ? 'checked' : '' }}
+                                                            {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->religion == \App\Models\TraineeFamilyMemberInfo::RELIGION_OTHERS ?' checked' : '' }}
                                                         >
                                                         <label for="religion_other"
                                                                class="custom-control-label">{{ __('generic.religion.other') }}</label>
@@ -356,7 +356,7 @@
                                                 <div class="card-body jsc_collapse hide">
 
                                                     <input type="hidden" name="academicQualification[jsc][examination]"
-                                                           value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_JSC }}">
+                                                           value="{{ \App\Models\TraineeAcademicQualification::EXAMINATION_JSC }}">
 
                                                     <div class="form-row form-group">
                                                         <label for="jsc_examination_name"
@@ -367,9 +367,9 @@
                                                                     id="jsc_examination_name"
                                                                     class="select2 form-control">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getJSCExaminationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getJSCExaminationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.jsc.examination_name') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.jsc.examination_name') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -386,10 +386,10 @@
                                                             <select name="academicQualification[jsc][board]"
                                                                     id="jsc_board"
                                                                     class="select2">
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationBoardOptions() as $key => $value)
                                                                     <option value=""></option>
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->board == $key ? 'selected' : ''}} {{ old('academicQualification.jsc.board') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]->board == $key ? 'selected' : ''}} {{ old('academicQualification.jsc.board') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -405,7 +405,7 @@
                                                             <input type="text"
                                                                    name="academicQualification[jsc][roll_no]"
                                                                    id="jsc_roll" class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->roll_no :  old('academicQualification.jsc.roll_no') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]->roll_no :  old('academicQualification.jsc.roll_no') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -417,7 +417,7 @@
                                                             <input type="text" id="jsc_reg_no"
                                                                    name="academicQualification[jsc][reg_no]"
                                                                    class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->reg_no :  old('academicQualification.jsc.reg_no') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]->reg_no :  old('academicQualification.jsc.reg_no') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -433,7 +433,7 @@
                                                                    name="academicQualification[jsc][grade]"
                                                                    id="jsc_gpa" class="form-control"
                                                                    width="10" placeholder="{{ __('generic.result')}}"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->grade :  old('academicQualification.jsc.grade') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]->grade :  old('academicQualification.jsc.grade') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -447,7 +447,7 @@
                                                                 <option value=""></option>
                                                                 @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
                                                                     <option
-                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_JSC]->passing_year == $i ? 'selected' : ''}} >{{ $i }}</option>
+                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_JSC]->passing_year == $i ? 'selected' : ''}} >{{ $i }}</option>
                                                                 @endfor
                                                             </select>
                                                         </div>
@@ -467,7 +467,7 @@
                                                 <div class="card-body ssc_collapse {{--collapse--}} hide">
 
                                                     <input type="hidden" name="academicQualification[ssc][examination]"
-                                                           value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_SSC }}">
+                                                           value="{{ \App\Models\TraineeAcademicQualification::EXAMINATION_SSC }}">
 
                                                     <div class="form-row form-group">
                                                         <label for="ssc_examination_name"
@@ -478,9 +478,9 @@
                                                                     id="ssc_examination_name"
                                                                     class="select2 form-control">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getSSCExaminationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getSSCExaminationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.examination_name') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.examination_name') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -498,9 +498,9 @@
                                                                     class="select2">
                                                                 <option value=""></option>
 
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationBoardOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->board == $key ? 'selected' : ''}} {{ old('academicQualification.jsc.board') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->board == $key ? 'selected' : ''}} {{ old('academicQualification.jsc.board') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -516,7 +516,7 @@
                                                             <input type="text"
                                                                    name="academicQualification[ssc][roll_no]"
                                                                    id="ssc_roll" class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->roll_no :  old('academicQualification.ssc.roll_no') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->roll_no :  old('academicQualification.ssc.roll_no') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -528,7 +528,7 @@
                                                             <input type="text" id="ssc_reg_no"
                                                                    name="academicQualification[ssc][reg_no]"
                                                                    class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->reg_no :  old('academicQualification.ssc.reg_no') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->reg_no :  old('academicQualification.ssc.reg_no') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -541,12 +541,12 @@
                                                                     id="ssc_result"
                                                                     class="select2">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
-                                                                    @if($key == \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_PASSED_MBBS_BDS)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationResultOptions() as $key => $value)
+                                                                    @if($key == \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_PASSED_MBBS_BDS)
                                                                         @continue;
                                                                     @endif
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->result == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.result') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->result == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.result') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -557,7 +557,7 @@
                                                                    name="academicQualification[ssc][grade]"
                                                                    id="ssc_gpa" class="form-control"
                                                                    width="10" placeholder="জি.পি.এ"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->grade :  old('academicQualification.ssc.grade') }}"
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->grade :  old('academicQualification.ssc.grade') }}"
                                                                    hidden>
                                                         </div>
                                                         <div class="col-md-4"></div>
@@ -571,9 +571,9 @@
                                                                     class="select2"
                                                                     id="ssc_group">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationGroupOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationGroupOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->group == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.group') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->group == $key ? 'selected' : ''}} {{ old('academicQualification.ssc.group') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -591,7 +591,7 @@
                                                                 <option value=""></option>
                                                                 @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
                                                                     <option
-                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_SSC]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.ssc.passing_year') == $i ? 'selected' : '' }}>
+                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_SSC]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.ssc.passing_year') == $i ? 'selected' : '' }}>
                                                                         {{ $i }}
                                                                     </option>
                                                                 @endfor
@@ -614,7 +614,7 @@
                                                 </div>
                                                 <div class="card-body hsc_collapse hide">
                                                     <input type="hidden" name="academicQualification[hsc][examination]"
-                                                           value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_HSC }}">
+                                                           value="{{ \App\Models\TraineeAcademicQualification::EXAMINATION_HSC }}">
                                                     <div class="form-row form-group">
                                                         <label for="hsc_examination_name"
                                                                class="col-md-4 col-form-label">{{ __('generic.examination')}}
@@ -624,9 +624,9 @@
                                                             <select name="academicQualification[hsc][examination_name]"
                                                                     id="hsc_examination_name" class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getHSCExaminationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getHSCExaminationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.examination_name') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.examination_name') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -644,9 +644,9 @@
                                                                     id="hsc_board"
                                                                     class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationBoardOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationBoardOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->board == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.board') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->board == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.board') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -662,7 +662,7 @@
                                                             <input type="text"
                                                                    name="academicQualification[hsc][roll_no]"
                                                                    id="hsc_roll" class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->roll_no :  old('academicQualification.hsc.roll_no') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->roll_no :  old('academicQualification.hsc.roll_no') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -673,7 +673,7 @@
                                                         <div class="col-md-8">
                                                             <input type="text" name="academicQualification[hsc][reg_no]"
                                                                    id="hsc_reg_no" class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->reg_no :  old('academicQualification.hsc.reg_no') }}"
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->reg_no :  old('academicQualification.hsc.reg_no') }}"
 
                                                             >
                                                         </div>
@@ -689,12 +689,12 @@
                                                                     id="hsc_result"
                                                                     class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
-                                                                    @if($key == \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_PASSED_MBBS_BDS)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationResultOptions() as $key => $value)
+                                                                    @if($key == \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_PASSED_MBBS_BDS)
                                                                         @continue;
                                                                     @endif
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->result == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.result') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->result == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.result') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -705,7 +705,7 @@
                                                                    name="academicQualification[hsc][grade]"
                                                                    id="hsc_gpa" class="form-control"
                                                                    width="10" placeholder="জি.পি.এ"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->grade :  old('academicQualification.hsc.grade') }}"
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->grade :  old('academicQualification.hsc.grade') }}"
                                                                    hidden>
                                                         </div>
                                                         <div class="col-md-4"></div>
@@ -720,9 +720,9 @@
                                                                     id="hsc_group"
                                                                     class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationGroupOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationGroupOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->group == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.group') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->group == $key ? 'selected' : ''}} {{ old('academicQualification.hsc.group') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -740,7 +740,7 @@
                                                                 <option value=""></option>
                                                                 @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
                                                                     <option
-                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_HSC]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.hsc.passing_year') == $i ? 'selected' : '' }}>
+                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_HSC]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.hsc.passing_year') == $i ? 'selected' : '' }}>
                                                                         {{ $i }}
                                                                     </option>
                                                                 @endfor
@@ -761,7 +761,7 @@
                                                 <div class="card-body graduation_collapse hide">
                                                     <input type="hidden"
                                                            name="academicQualification[graduation][examination]"
-                                                           value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION }}">
+                                                           value="{{ \App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION }}">
 
                                                     <div class="form-row form-group">
                                                         <label for="graduation_examination_name"
@@ -772,9 +772,9 @@
                                                                 name="academicQualification[graduation][examination_name]"
                                                                 id="graduation_examination_name" class="select2">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getGraduationExaminationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getGraduationExaminationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.examination_name') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.examination_name') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -791,7 +791,7 @@
                                                             <input type="text"
                                                                    name="academicQualification[graduation][subject]"
                                                                    id="graduation_subject" class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->subject :  old('academicQualification.graduation.subject') }}">
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->subject :  old('academicQualification.graduation.subject') }}">
                                                         </div>
                                                         <div class="col-md-4"></div>
                                                     </div>
@@ -805,9 +805,9 @@
                                                                     id="graduation_institute"
                                                                     class="select2">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getUniversities() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getUniversities() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->institute == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.institute') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->institute == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.institute') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -826,9 +826,9 @@
                                                                     id="graduation_result"
                                                                     class="select2">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationResultOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->result == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.result') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->result == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.result') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -840,7 +840,7 @@
                                                                    id="graduation_cgpa"
                                                                    class="form-control" width="10"
                                                                    placeholder="সি.জি.পি.এ"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->grade :  old('academicQualification.graduation.grade') }}"
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->grade :  old('academicQualification.graduation.grade') }}"
                                                                    hidden>
                                                         </div>
                                                         <div class="col-md-4"></div>
@@ -857,7 +857,7 @@
                                                                 <option></option>
                                                                 @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
                                                                     <option
-                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.graduation.passing_year') == $i ? 'selected' : '' }}>
+                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.graduation.passing_year') == $i ? 'selected' : '' }}>
                                                                         {{ $i }}
                                                                     </option>
                                                                 @endfor
@@ -875,9 +875,9 @@
                                                                 name="academicQualification[graduation][course_duration]"
                                                                 id="graduation_course_duration" class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationCourseDurationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationCourseDurationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_GRADUATION]->course_duration == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.course_duration') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->course_duration == $key ? 'selected' : ''}} {{ old('academicQualification.graduation.course_duration') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -897,7 +897,7 @@
                                                 <div class="card-body masters_collapse {{--collapse--}} hide">
                                                     <input type="hidden"
                                                            name="academicQualification[masters][examination]"
-                                                           value="{{ \App\Models\YouthAcademicQualification::EXAMINATION_MASTERS }}">
+                                                           value="{{ \App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS }}">
                                                     <div class="form-row form-group">
                                                         <label for="masters_examination_name"
                                                                class="col-md-4 col-form-label">{{ __('generic.examination')}}</label>
@@ -906,9 +906,9 @@
                                                                 name="academicQualification[masters][examination_name]"
                                                                 id="masters_examination_name" class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getMastersExaminationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getMastersExaminationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.masters.examination_name') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->examination_name == $key ? 'selected' : ''}} {{ old('academicQualification.masters.examination_name') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -926,7 +926,7 @@
                                                                    name="academicQualification[masters][subject]"
                                                                    id="masters_subject"
                                                                    class="form-control"
-                                                                   value="{{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]) ? $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]->subject :  old('academicQualification.graduation.subject') }}"
+                                                                   value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->subject :  old('academicQualification.graduation.subject') }}"
                                                             >
                                                         </div>
                                                         <div class="col-md-4"></div>
@@ -940,9 +940,9 @@
                                                             <select name="academicQualification[masters][institute]"
                                                                     id="masters_institute" class="select2">
                                                                 <option value=""></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getUniversities() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getUniversities() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]->institute == $key ? 'selected' : ''}} {{ old('academicQualification.masters.institute') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->institute == $key ? 'selected' : ''}} {{ old('academicQualification.masters.institute') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -960,9 +960,9 @@
                                                                     id="masters_result"
                                                                     class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationResultOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationResultOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]->result == $key ? 'selected' : ''}} {{ old('academicQualification.masters.result') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->result == $key ? 'selected' : ''}} {{ old('academicQualification.masters.result') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -990,7 +990,7 @@
                                                                 <option></option>
                                                                 @for($i = now()->format('Y') - 50; $i <= now()->format('Y'); $i++)
                                                                     <option
-                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.masters.passing_year') == $i ? 'selected' : '' }}>
+                                                                        value="{{ $i }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->passing_year == $i ? 'selected' : ''}} {{ old('academicQualification.masters.passing_year') == $i ? 'selected' : '' }}>
                                                                         {{ $i }}
                                                                     </option>
                                                                 @endfor
@@ -1009,9 +1009,9 @@
                                                                 name="academicQualification[masters][course_duration]"
                                                                 id="masters_course_duration" class="select2">
                                                                 <option></option>
-                                                                @foreach(\App\Models\YouthAcademicQualification::getExaminationCourseDurationOptions() as $key => $value)
+                                                                @foreach(\App\Models\TraineeAcademicQualification::getExaminationCourseDurationOptions() as $key => $value)
                                                                     <option
-                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\YouthAcademicQualification::EXAMINATION_MASTERS]->course_duration == $key ? 'selected' : ''}} {{ old('academicQualification.masters.course_duration') == $key ? 'selected' : '' }}>
+                                                                        value="{{ $key }}" {{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) && $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->course_duration == $key ? 'selected' : ''}} {{ old('academicQualification.masters.course_duration') == $key ? 'selected' : '' }}>
                                                                         {{ $value }}
                                                                     </option>
                                                                 @endforeach
@@ -1213,8 +1213,8 @@
         });
 
         $("#ssc_result").on('change', function () {
-            if ($(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
-                || $(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+            if ($(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                 $('#ssc_gpa').removeAttr('hidden');
                 $('#ssc_result_div').removeAttr('class');
                 $('#ssc_result_div').addClass('col-md-6');
@@ -1229,8 +1229,8 @@
         });
 
         $("#hsc_result").on('change', function () {
-            if ($(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
-                || $(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+            if ($(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                 $('#hsc_gpa').removeAttr('hidden');
                 $('#hsc_result_div').removeAttr('class');
                 $('#hsc_result_div').addClass('col-md-6');
@@ -1244,8 +1244,8 @@
         });
 
         $("#graduation_result").on('change', function () {
-            if ($(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
-                || $(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+            if ($(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                 $('#graduation_cgpa').removeAttr('hidden');
 
                 $('#graduation_result_div').removeAttr('class');
@@ -1261,8 +1261,8 @@
         });
 
         $("#masters_result").on('change', function () {
-            if ($(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
-                || $(this).val() == {!! \App\Models\YouthAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+            if ($(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! \App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
                 $('#masters_cgpa').removeAttr('hidden');
 
                 $('#masters_result_div').removeAttr('class');

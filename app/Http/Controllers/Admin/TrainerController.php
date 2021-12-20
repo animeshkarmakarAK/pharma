@@ -32,8 +32,10 @@ class TrainerController extends BaseController
     {
         $trainer = User::findOrFail($userId);
         $trainerInstitute = User::where('institute_id', $trainer->institute_id)
-            ->where('user_type_id', User::USER_TYPE_INSTITUTE_USER_CODE)
+            ->where('user_type_id', User::USER_TYPE_TRAINER_USER_CODE)
             ->first();
+
+        //dd($trainerInstitute);
 
         $academicQualifications = $trainer->trainerAcademicQualifications()->get()->keyBy('examination');
 
