@@ -50,70 +50,13 @@
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' => $examination->institute->title, 'id' => $examination->institute_id])}}"
                                             @endif
-                                            data-placeholder="{{ __('admin.examination.institute_title') }}"
+                                            data-placeholder="{{  __('generic.select_placeholder')  }}"
                                     >
                                     </select>
                                 </div>
                             @endif
                             <input type="hidden" id="user_id" name="user_id"
                                    value="{{$authUser->id}}">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="pass_mark">{{__('admin.examination.code')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="number" class="form-control" id="code"
-                                           name="code"
-                                           value="{{ $edit ? $examination->pass_mark : old('code') }}"
-                                           placeholder="{{__('admin.examination.code')}}">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="total_mark">{{__('admin.examination.total_mark')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="number" class="form-control" id="total_mark"
-                                           name="total_mark"
-                                           value="{{ $edit ? $examination->total_mark : old('total_mark') }}"
-                                           placeholder="{{__('admin.examination.total_mark')}}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="pass_mark">{{__('admin.examination.pass_mark')}} <span
-                                            style="color: red">*</span></label>
-                                    <input type="number" class="form-control" id="pass_mark"
-                                           name="pass_mark"
-                                           value="{{ $edit ? $examination->pass_mark : old('pass_mark') }}"
-                                           placeholder="{{__('admin.examination.pass_mark')}}">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="examination_type_id">
-                                        {{__('admin.examination.examination_type')}}
-                                        <span style="color: red">*</span></label>
-                                    </label>
-
-                                    <select class="form-control select2" id="examination_type_id"
-                                            name="examination_type_id" required>
-                                        <option value=""
-                                                selected>{{__('admin.common.select')}}</option>
-                                        @foreach($examinationTypes as $keyId => $examinationType)
-                                            @if ($edit)
-                                                <option {{ $edit && $examination->examination_type_id == $keyId ? 'selected' : ''}}
-                                                        value="{{ $keyId }}">{{ $examinationType }}</option>
-                                            @else
-                                                <option {{ old('examination_type_id') == $keyId ? 'selected' : '' }}
-                                                        value="{{ $keyId }}">{{ $examinationType }}</option>
-                                            @endif
-
-                                        @endforeach
-                                    </select>
-
-                                </div>
-                            </div>
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -138,8 +81,6 @@
 
                                 </div>
                             </div>
-
-
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="batch_id">
@@ -161,6 +102,64 @@
                                     >
                                     </select>
 
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="examination_type_id">
+                                        {{__('admin.examination.examination_type')}}
+                                        <span style="color: red">*</span></label>
+                                    </label>
+
+                                    <select class="form-control select2" id="examination_type_id"
+                                            name="examination_type_id"
+                                            data-placeholder="{{ __('generic.select_placeholder') }}"
+                                            required>
+                                        <option value=""
+                                                selected>{{ __('generic.select_placeholder') }}</option>
+                                        @foreach($examinationTypes as $keyId => $examinationType)
+                                            @if ($edit)
+                                                <option {{ $edit && $examination->examination_type_id == $keyId ? 'selected' : ''}}
+                                                        value="{{ $keyId }}">{{ $examinationType }}</option>
+                                            @else
+                                                <option {{ old('examination_type_id') == $keyId ? 'selected' : '' }}
+                                                        value="{{ $keyId }}">{{ $examinationType }}</option>
+                                            @endif
+
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="pass_mark">{{__('admin.examination.code')}} <span
+                                            style="color: red">*</span></label>
+                                    <input type="number" class="form-control" id="code"
+                                           name="code"
+                                           value="{{ $edit ? $examination->code : old('code') }}"
+                                           placeholder="{{__('admin.examination.code')}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="total_mark">{{__('admin.examination.total_mark')}} <span
+                                            style="color: red">*</span></label>
+                                    <input type="number" class="form-control" id="total_mark"
+                                           name="total_mark"
+                                           value="{{ $edit ? $examination->total_mark : old('total_mark') }}"
+                                           placeholder="{{__('admin.examination.total_mark')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="pass_mark">{{__('admin.examination.pass_mark')}} <span
+                                            style="color: red">*</span></label>
+                                    <input type="number" class="form-control" id="pass_mark"
+                                           name="pass_mark"
+                                           value="{{ $edit ? $examination->pass_mark : old('pass_mark') }}"
+                                           placeholder="{{__('admin.examination.pass_mark')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">

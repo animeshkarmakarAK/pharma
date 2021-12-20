@@ -1,5 +1,5 @@
 @php
-    $edit = !empty($examinationResult->examination_id);
+    $edit = !empty($examinationResult);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
@@ -17,26 +17,28 @@
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">{{__('admin.examination_result.list')}}</h3>
-
                         <div class="card-tools">
                             @can('create', \App\Models\ExaminationResult::class)
-                                <a href="{{route('admin.examination-results.create')}}"
-                                   class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> {{__('admin.common.add')}}
-                                </a>
+                                @if($trainees->isEmpty())
+                                    <a href="{{route('admin.examination-result.batch-add',$examination->id)}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> {{__('admin.common.add')}}
+                                    </a>
+                                @else
+                                    <a href="{{route('admin.examination-result.batch.edit', $examination->id)}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> {{__('admin.common.edit')}}
+                                    </a>
+                                @endif
+                                    <a href="{{route('admin.examinations.index')}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> {{__('admin.common.back')}}
+                                    </a>
                             @endcan
-
                         </div>
-
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="{{route('admin.examination-result.batch.store')}}"
-                            method="POST" class="row batch-result-form">
-                            @csrf
-                            @if($edit)
-                                @method('put')
-                            @endif
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -63,7 +65,7 @@
                                                         hidden
                                             >
                                             <input type="text" class="form-control custom-input-box"
-                                                   name="result[{{$key}}][youth_id]"
+                                                   name="result[{{$key}}][trainee_id]"
                                                    value="{{$trainee->id}}"
                                                    hidden
                                             >
@@ -78,32 +80,27 @@
                                                 <input type="number" class="form-control custom-input-box"
                                                        id="total_marks"
                                                        name="result[{{$key}}][total_marks]"
-                                                       value="{{$trainee->total_mark}}"
+                                                       value="{{$trainee->total_marks}}"
                                                        disabled>
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control custom-input-box"
                                                        id="achieved_marks"
                                                        name="result[{{$key}}][achieved_marks]"
-                                                       value="{{$edit ? $examinationResult->achieved_marks : old('achieved_marks')}}"
-                                                required>
+                                                       value="{{$trainee->achieved_marks}}"
+                                                disabled>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control custom-input-box"
                                                        id="feedback"
                                                        name="result[{{$key}}][feedback]"
-                                                       value="{{$edit ? $examinationResult->feedback : old('feedback')}}"
-                                                required>
+                                                       value="{{$trainee->feedback}}"
+                                               disabled>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="col-sm-12 text-right">
-                                <button type="submit"
-                                        class="btn btn-success">Add</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

@@ -30,7 +30,9 @@ class ExaminationService
      */
     public function deleteExamination(Examination $examination): bool
     {
-        return $examination->delete();
+        return $examination->update([
+            'row_status' => Examination::EXAMINATION_ROW_STATUS_INACTIVE
+        ]);
     }
 
     public function validator(Request $request): Validator
@@ -74,6 +76,7 @@ class ExaminationService
                 'examinations.*'
             ]
         );
+        $examinations->where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE]);
 
         if($authUser->isInstituteUser()){
             $examinations->where('examinations.institute_id', '=', $authUser->institute_id);
@@ -100,7 +103,7 @@ class ExaminationService
                 }elseif($examination->status == Examination::EXAMINATION_STATUS_COMPLETE){
 
                     if ($authUser->can('status', $examination)) {
-                        return $str = '<span data-action="completed" class="badge badge-success badge-lg examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_complete') . '</span>';
+                        return $str = '<span data-action="completed" class="badge badge-success examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_complete') . '</span>';
                     }else{
                         return $str = '<a href="#" data-action="" class="btn btn-outline-success btn-sm examination_status"> <i class="fas fa-thermometer-three-quarters"></i> ' . __('admin.examination.examination_complete') . '</a>';
                     }
@@ -117,7 +120,7 @@ class ExaminationService
                 if ($authUser->can('delete', $examination)) {
                     $str .= '<a href="#" data-action="' . route('admin.examinations.destroy', $examination->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';
                 }
-                if ($authUser->can('delete', $examination) && ($examination->status == Examination::EXAMINATION_STATUS_COMPLETE)) {
+                if ($authUser->can('result', $examination) && ($examination->status == Examination::EXAMINATION_STATUS_COMPLETE)) {
                     $str .= '<a href="' . route('admin.examination-result.batch', $examination->id) . '" class="btn btn-outline-success btn-sm"> <i class="fas fa-award"></i> ' . __('admin.examination_result.result') . '</a>';
                 }
 
