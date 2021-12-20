@@ -245,6 +245,8 @@ class UserController extends BaseController
             ->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)
             ->get();
 
+       // dd($trainerList);
+
         return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
     }
 

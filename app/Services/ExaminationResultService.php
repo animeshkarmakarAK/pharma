@@ -4,10 +4,13 @@ namespace App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
+use App\Models\Examination;
 use App\Models\ExaminationResult;
+use FontLib\TrueType\Collection;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,13 +21,36 @@ class ExaminationResultService
         return ExaminationResult::create($data);
     }
 
+    public function createBatchResult(array $data): RedirectResponse
+    {
+       foreach ($data as $results) {
+           ExaminationResult::insert($results);
+       }
+        return back() ;
+    }
+
     public function updateExaminationResult(ExaminationResult $examinationResult, array $data): ExaminationResult
     {
-
         $examinationResult->fill($data);
         $examinationResult->save();
         return $examinationResult;
+
     }
+
+    public function updateBatchResult(array $data): RedirectResponse
+    {
+        $results = collect($data);
+        foreach ($results['result'] as $result){
+            ExaminationResult::where('id',$result['examination_result_id'])
+              ->update([
+                  'achieved_marks' => $result['achieved_marks'],
+                  'feedback' => $result['feedback']
+              ]);
+        }
+
+        return back();
+    }
+
 
     /**
      * @throws \Exception
@@ -96,4 +122,50 @@ class ExaminationResultService
 
         return $googleMapSrc;
     }
+
+    public function resultValidator(Request $request): Validator
+    {
+        $rules = [
+            'result.*.examination_id' => [
+                'required','int'
+            ],
+            'result.*.trainee_id' => [
+                'required','int'
+            ],
+            'result.*.achieved_marks' => [
+                'required'
+            ],
+            'result.*.feedback' => [
+                'required',
+                'string',
+                'max:191',
+            ]
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
+    public function updateResultValidator(Request $request): Validator
+    {
+        $rules = [
+            'result.*.examination_result_id' => [
+                'required','int'
+            ],
+            'result.*.examination_id' => [
+                'required','int'
+            ],
+            'result.*.trainee_id' => [
+                'required','int'
+            ],
+            'result.*.achieved_marks' => [
+                'required'
+            ],
+            'result.*.feedback' => [
+                'required',
+                'string',
+                'max:191',
+            ]
+        ];
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
 }

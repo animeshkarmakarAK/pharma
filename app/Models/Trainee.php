@@ -336,7 +336,7 @@ class Trainee extends AuthBaseModel
     /**
      * @return HasMany
      */
-    public function traineeAcademicQualifications(): HasMany
+    public function academicQualifications(): HasMany
     {
         return $this->hasMany(TraineeAcademicQualification::class);
     }
@@ -416,23 +416,5 @@ class Trainee extends AuthBaseModel
         if (empty($employmentStatusArray[$this->current_employment_status])) return $employmentStatus;
 
         return $employmentStatusArray[$this->current_employment_status];
-    }
-
-
-    /**
-     * Unique Reg No Generate function
-     */
-    public function genRegNo(): int
-    {
-        $regNumber = mt_rand(1000000000, 9999999999);
-        if ($this->regNumberExists($regNumber)) {
-            return $this->genRegNo();
-        }
-        return $regNumber;
-    }
-
-    public function regNumberExists($regNumber)
-    {
-        return Trainee::where(['trainee_registration_no' => $regNumber])->exists();
     }
 }

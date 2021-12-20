@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Traits\CreatedByUpdatedByRelationTrait;
 use App\Traits\ScopeRowStatusTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -47,6 +49,15 @@ class Course extends BaseModel
         'application_form_settings' => 'array'
     ];
 
+    public function haveRunningBatches(): Collection
+    {
+        $instance = $this->hasMany(Batch::class)
+            ->whereDate('application_start_date', '<=',  Carbon::now())
+            ->whereDate('application_end_date', '>=', Carbon::now());
+
+        return $instance->get();
+    }
+
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
@@ -65,6 +76,11 @@ class Course extends BaseModel
     public function enrolledTrainees(): HasMany
     {
         return $this->hasMany(TraineeCourseEnroll::class);
+    }
+
+    public function batches(): HasMany
+    {
+        return $this->hasMany(Batch::class);
     }
 
 }

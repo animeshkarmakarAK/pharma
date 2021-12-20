@@ -130,18 +130,6 @@
 
                                             <div class="col-md-3 mb-2">
                                                 <select class="form-control select2-ajax-wizard"
-                                                        name="programme_id"
-                                                        id="programme_id"
-                                                        data-model="{{base64_encode(App\Models\Programme::class)}}"
-                                                        data-label-fields="{title}"
-                                                        data-depend-on-optional="institute_id"
-                                                        data-placeholder="Programme"
-                                                >
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-3 mb-2">
-                                                <select class="form-control select2-ajax-wizard"
                                                         name="course_id"
                                                         id="course_id"
                                                         data-model="{{base64_encode(App\Models\Course::class)}}"
@@ -380,7 +368,6 @@
                         "targets": 0,
                         "orderable": false,
                         "createdCell": function(td, cellData, rowData, row, col) {
-                            console.log(rowData)
                             if (rowData.paid_or_unpaid == 1 && rowData.enroll_status_check ==1) {
                                 // $(td).removeClass('select-checkbox').prop('disabled', true).closest('tr').addClass('no-select');
                             }else {
@@ -418,11 +405,6 @@
                         name: "trainees.created_at"
                     },
                     {
-                        title: "Reg. No.",
-                        data: "trainee_registration_no",
-                        name: "trainees.trainee_registration_no"
-                    },
-                    {
                         title: "Institute Title",
                         data: "institute_title",
                         name: "institutes.title",
@@ -443,13 +425,6 @@
                         visible: false
                     },
                     {
-                        title: "Programme",
-                        data: "programmes.title",
-                        name: "programmes.title",
-                        defaultContent: '',
-                        visible: false
-                    },
-                    {
                         title: "Course Name",
                         data: "courses.title",
                         name: "courses.title",
@@ -459,12 +434,6 @@
                         title: "Enroll Status",
                         data: "enroll_status",
                         name: "trainee_course_enrolls.enroll_status",
-                        searchable: false,
-                    },
-                    {
-                        title: "Payment Status",
-                        data: "payment_status",
-                        name: "trainee_course_enrolls.payment_status",
                         searchable: false,
                     },
                     {
@@ -482,7 +451,6 @@
                 d.institute_id = $('#institute_id').val();
                 d.branch_id = $('#branch_id').val();
                 d.training_center_id = $('#training_center_id').val();
-                d.programme_id = $('#programme_id').val();
                 d.course_id = $('#course_id').val();
                 d.application_date = $('#date-filter').val();
             };

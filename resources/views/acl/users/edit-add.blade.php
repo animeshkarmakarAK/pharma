@@ -103,6 +103,42 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-6" style="display: @if($edit && $user->branch) block @else none @endif;">
+                            <div class="form-group">
+                                <label for="branch_id">{{ __('Branch') }} <span
+                                        style="color: red"> * </span></label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="branch_id"
+                                        id="branch_id"
+                                        data-model="{{base64_encode(\App\Models\Branch::class)}}"
+                                        data-label-fields="{title}"
+                                        @if($edit && $user->branch)
+                                        data-preselected-option="{{json_encode(['text' =>  $user->branch->title, 'id' =>  $user->branch->id])}}"
+                                        @endif
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="display: @if($edit && $user->branch) block @else none @endif;">
+                            <div class="form-group">
+                                <label for="training_center_id">{{ __('TrainingCenter') }} <span
+                                        style="color: red"> * </span></label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="training_center_id"
+                                        id="training_center_id"
+                                        data-model="{{base64_encode(\App\Models\TrainingCenter::class)}}"
+                                        data-label-fields="{title}"
+                                        data-depend-on="institute_id"
+                                        @if($edit && $user->trainingCenter)
+                                        data-preselected-option="{{json_encode(['text' =>  $user->trainingCenter->title, 'id' =>  $user->trainingCenter->id])}}"
+                                        @endif
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                >
+                                </select>
+                            </div>
+                        </div>
+
 
                         <div class="col-sm-6" style="display: none;">
                             <div class="form-group">
@@ -111,6 +147,7 @@
                                 <select class="form-control select2-ajax-wizard"
                                         name="loc_district_id"
                                         id="loc_district_id"
+                                        data-depend-on="institute_id"
                                         data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                         data-label-fields="{title}"
                                         @if($edit && $user->locDistrict)
@@ -219,11 +256,22 @@
                 });
             }
 
+            function fieldHidden (){
+              $('#institute_id').val('')
+                disabledHideFormFields($('#branch_id'), $('#training_center_id'), $('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
+            }
+
             $(document).on('change', "#user_type_id", function () {
                 let userType = parseInt($(this).val());
+                fieldHidden()
+                if( userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!} ||
+                    userType ==  {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
+                    userType ==  {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
+                    userType == {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}){
+                    enableShowFormFields($('#institute_id'));
+                }
 
-
-                switch (userType) {
+               /* switch (userType) {
                     case {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}:
                         enableShowFormFields($('#institute_id'));
                         disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
@@ -242,6 +290,21 @@
                         break;
                     default:
                         disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
+                }*/
+
+            })
+
+            $(document).on('change', "#institute_id", function () {
+                let institute = parseInt($(this).val());
+                let userType = parseInt($('#user_type_id').val());
+
+
+                if(userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}){
+                    enableShowFormFields($('#training_center_id'));
+                    disabledHideFormFields($('#branch_id'),$('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
+                }else if(userType == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}){
+                    enableShowFormFields($('#branch_id'));
+                    disabledHideFormFields($('#training_center_id'),$('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                 }
 
             })

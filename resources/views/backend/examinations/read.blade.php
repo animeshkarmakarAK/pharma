@@ -27,25 +27,6 @@
             </div>
 
             <div class="row card-body">
-
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('admin.examination.total_mark')}}</p>
-                    <div class="input-box">
-                        {{ $examination->total_mark }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('admin.examination.pass_mark')}}</p>
-                    <div class="input-box">
-                        {{ $examination->pass_mark }}
-                    </div>
-                </div>
-                <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{__('admin.examination.examination_type')}}</p>
-                    <div class="input-box">
-                        {{ $examination->examinationType->title }}
-                    </div>
-                </div>
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination.training_center')}}</p>
                     <div class="input-box">
@@ -58,6 +39,31 @@
                         {{ $examination->batch->title }}
                     </div>
                 </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('admin.examination.examination_type')}}</p>
+                    <div class="input-box">
+                        {{ $examination->examinationType->title }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('admin.examination.code')}}</p>
+                    <div class="input-box">
+                        {{ $examination->code }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('admin.examination.total_mark')}}</p>
+                    <div class="input-box">
+                        {{ $examination->total_mark }}
+                    </div>
+                </div>
+                <div class="col-md-6 custom-view-box">
+                    <p class="label-text">{{__('admin.examination.pass_mark')}}</p>
+                    <div class="input-box">
+                        {{ $examination->pass_mark }}
+                    </div>
+                </div>
+
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.examination.exam_details')}}</p>
                     <div class="input-box">

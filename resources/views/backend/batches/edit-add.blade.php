@@ -83,7 +83,7 @@
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @endif
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  $batch->branches->title, 'id' =>  $batch->branches->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  optional($batch->branches)->title, 'id' =>  optional($batch->branches)->id])}}"
                                             @endif
                                             data-placeholder="{{__('Select Training Center')}}"
                                     >
@@ -156,7 +156,7 @@
                                            class="flat-date flat-date-custom-bg form-control"
                                            name="application_start_date"
                                            id="application_start_date"
-                                           value="{{ $edit ? $course->application_start_date : old('application_start_date') }}"
+                                           value="{{ $edit ? $batch->application_start_date : old('application_start_date') }}"
                                     >
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                            class="flat-date flat-date-custom-bg form-control"
                                            name="application_end_date"
                                            id="application_end_date"
-                                           value="{{ $edit ? $course->application_end_date : old('application_end_date') }}"
+                                           value="{{ $edit ? $batch->application_end_date : old('application_end_date') }}"
                                     >
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                                            class="flat-date flat-date-custom-bg form-control"
                                            name="batch_start_date"
                                            id="batch_start_date"
-                                           value="{{ $edit ? $course->batch_start_date : old('batch_start_date') }}"
+                                           value="{{ $edit ? $batch->batch_start_date : old('batch_start_date') }}"
                                     >
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                                            class="flat-date flat-date-custom-bg form-control"
                                            name="batch_end_date"
                                            id="batch_end_date"
-                                           value="{{ $edit ? $course->batch_end_date : old('batch_end_date') }}"
+                                           value="{{ $edit ? $batch->batch_end_date : old('batch_end_date') }}"
                                     >
                                 </div>
                             </div>

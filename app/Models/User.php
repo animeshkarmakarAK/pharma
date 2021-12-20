@@ -140,6 +140,15 @@ class User extends AuthBaseModel
         return $this->belongsTo(Institute::class);
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+    public function trainingCenter(): BelongsTo
+    {
+        return $this->belongsTo(TrainingCenter::class);
+    }
+
     /**
      * @return HasMany
      */

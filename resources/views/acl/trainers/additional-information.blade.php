@@ -17,7 +17,7 @@
                         <h3 class="card-title font-weight-bold text-primary">{{ 'Trainer Information'}}</h3>
                         <div class="card-tools">
                             @can('viewAny', App\Models\User::class)
-                                <a href="{{route('admin.users.trainers', $trainerInstitute->id)}}"
+                                <a href="{{route('admin.users.trainers', $trainer->institute->id)}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-backward"></i> {{ __('generic.back_to_list') }}
                                 </a>
@@ -230,17 +230,17 @@
 
                                             <div class="form-group col-md-6">
                                                 <label for="nationality">{{ __('generic.nationality')}}</label>
-                                                    <select class="select2" name="nationality" id="nationality">
-                                                        <option value=""></option>
-                                                        <option
-                                                            value="bd" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}
-                                                        >বাংলাদেশী
-                                                        </option>
-                                                        <option
-                                                            value="others" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}>
-                                                            অন্যান্য
-                                                        </option>
-                                                    </select>
+                                                <select class="select2" name="nationality" id="nationality">
+                                                    <option value=""></option>
+                                                    <option
+                                                        value="bd" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}
+                                                    >বাংলাদেশী
+                                                    </option>
+                                                    <option
+                                                        value="others" {{ !empty($trainer->trainerPersonalInformation) && $trainer->trainerPersonalInformation->nationality == 'bd' ? ' checked' : '' }}>
+                                                        অন্যান্য
+                                                    </option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -361,7 +361,7 @@
                                                     <div class="form-row form-group">
                                                         <label for="jsc_examination_name"
                                                                class="col-md-4 col-form-label">{{ __('generic.examination')}}
-                                                          </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][examination_name]"
                                                                     id="jsc_examination_name"
@@ -381,7 +381,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="jsc_board"
                                                                class="col-md-4 col-form-label">{{ __('generic.board')}}
-                                                            </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[jsc][board]"
                                                                     id="jsc_board"
@@ -427,7 +427,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="jsc_result"
                                                                class="col-md-4 col-form-label">{{ __('generic.result')}}
-                                                            </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <input type="number"
                                                                    name="academicQualification[jsc][grade]"
@@ -472,7 +472,7 @@
                                                     <div class="form-row form-group">
                                                         <label for="ssc_examination_name"
                                                                class="col-md-4 col-form-label">{{ __('generic.examination')}}
-                                                       </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[ssc][examination_name]"
                                                                     id="ssc_examination_name"
@@ -618,7 +618,7 @@
                                                     <div class="form-row form-group">
                                                         <label for="hsc_examination_name"
                                                                class="col-md-4 col-form-label">{{ __('generic.examination')}}
-                                                          </label>
+                                                        </label>
 
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][examination_name]"
@@ -638,7 +638,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_board"
                                                                class="col-md-4 col-form-label">{{ __('generic.board')}}
-                                                          </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][board]"
                                                                     id="hsc_board"
@@ -714,7 +714,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="hsc_group"
                                                                class="col-md-4 col-form-label">{{ __('generic.division')}}
-                                                          </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <select name="academicQualification[hsc][group]"
                                                                     id="hsc_group"
@@ -766,7 +766,7 @@
                                                     <div class="form-row form-group">
                                                         <label for="graduation_examination_name"
                                                                class="col-md-4 col-form-label">{{ __('generic.examination')}}
-                                                            </label>
+                                                        </label>
                                                         <div class="col-md-8">
                                                             <select
                                                                 name="academicQualification[graduation][examination_name]"
@@ -820,7 +820,7 @@
                                                     <div class="form-row form-group mt-2">
                                                         <label for="graduation_result"
                                                                class="col-md-4 col-form-label">{{ __('generic.result')}}
-                                                         </label>
+                                                        </label>
                                                         <div class="col-md-8" id="graduation_result_div">
                                                             <select name="academicQualification[graduation][result]"
                                                                     id="graduation_result"

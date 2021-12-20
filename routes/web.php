@@ -51,6 +51,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     /***************************/
     Route::get('examination-result-batch/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResult'])->name('examination-result.batch');
+    Route::get('examination-result-batch-add/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResultadd'])->name('examination-result.batch-add');
+    Route::get('examination-result-batch-edit/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResultEdit'])->name('examination-result.batch.edit');
+    Route::put('examination-result-batch-update', [App\Http\Controllers\ExaminationResultController::class, 'batchResultUpdate'])->name('examination-result.batch.update');
+    Route::post('examination-result-batch', [App\Http\Controllers\ExaminationResultController::class, 'batchResultStore'])->name('examination-result.batch.store');
     Route::put('trainee-course-enroll-accept/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'acceptTraineeCourseEnroll'])->name('trainee-course-enroll-accept');
     Route::put('trainee-course-enroll-reject/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeRegistrationController::class, 'rejectTraineeCourseEnroll'])->name('trainee-course-enroll-reject');
     Route::put('trainee-accept-all', [App\Http\Controllers\TraineeController::class, 'traineeAcceptNowAll'])->name('trainee-accept-now-all');
@@ -153,6 +157,12 @@ Route::group(['as' => 'frontend.'], function () {
         Route::post('store-education-info', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'storeEducationInfo'])->name('trainee-education-info.store');
         Route::post('store-guardian-info', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'storeGuardianInfo'])->name('guardian-info.store');
         Route::put('update-guardian-info/{id}', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'updateGuardianInfo'])->name('guardian-info.update');
+
+        Route::get('trainee-enrolled-courses', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeEnrolledCourses'])->name('trainee-enrolled-courses');
+        Route::get('trainee-certificate-view/{trainee_course_enroll}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCertificateView'])->name('trainee-certificate-view');
+        Route::post('trainee-enrolled-courses/datatable', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseGetDatatable'])->name('trainee-courses-datatable');
+        Route::post('trainee-profile/trainee-course-enroll-pay-now/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseEnrollPayNow'])->name('trainee-course-enroll-pay-now');
+        Route::get('trainee-current-organization', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCurrentOrganization'])->name('trainee-current-organization');
     });
 
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
@@ -164,11 +174,6 @@ Route::group(['as' => 'frontend.'], function () {
     Route::post('trainee-login', [App\Http\Controllers\Frontend\TraineeLoginController::class, 'login'])->name('trainee.login-submit');
     Route::post('trainee-logout', [App\Http\Controllers\Frontend\TraineeLoginController::class, 'logout'])->name('trainee.logout-submit');
 
-    Route::get('trainee-enrolled-courses', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeEnrolledCourses'])->name('trainee-enrolled-courses');
-    Route::get('trainee-certificate-view/{trainee_course_enroll}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCertificateView'])->name('trainee-certificate-view');
-    Route::post('trainee-enrolled-courses/datatable', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseGetDatatable'])->name('trainee-courses-datatable');
-    Route::post('trainee-profile/trainee-course-enroll-pay-now/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseEnrollPayNow'])->name('trainee-course-enroll-pay-now');
-    Route::get('trainee-current-organization', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCurrentOrganization'])->name('trainee-current-organization');
 
     Route::get('trainee-certificate', [App\Http\Controllers\Frontend\TraineeController::class, 'certificate'])->name('certificate');
     Route::get('trainee-certificate/download', [App\Http\Controllers\Frontend\TraineeController::class, 'certificateDownload'])->name('certificate.download');

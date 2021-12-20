@@ -18,7 +18,6 @@ class RoutineService
     {
         $authUser = AuthHelper::getAuthUser();
         $routine = Routine::create($data);
-
         foreach ($data['daily_routines'] as $dailyRoutine) {
             $dailyRoutine['institute_id'] = $authUser->institute_id;
             $dailyRoutine['routine_id'] = $routine->id;

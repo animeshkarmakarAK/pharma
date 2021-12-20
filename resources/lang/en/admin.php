@@ -127,9 +127,9 @@ return [
     'examination' => [
         'code' => ' Examination Code',
         'examination_status_msg' => 'Are you sure you want to change this examination status?',
-        'examination_complete' => 'Examination Complete',
-        'examination_publish' => 'Examination Publish',
-        'examination_not_publish' => 'Examination Not Publish',
+        'examination_complete' => 'Completed',
+        'examination_publish' => 'Published',
+        'examination_not_publish' => 'Not Publish',
         'examination_status' => 'Examination Status',
         'sort' => 'Sort',
         'list' => 'Examination',
@@ -374,8 +374,9 @@ return [
         'examination' => 'Examination',
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
-        'result' => 'Result'
-
+        'result' => 'Result',
+        'total_marks' => 'Total Marks',
+        'trainee' => 'Trainee'
     ],
     'daily_routine' => [
         'day_routine' => 'Daily Routine',
