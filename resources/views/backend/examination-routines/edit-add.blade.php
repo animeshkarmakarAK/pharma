@@ -251,14 +251,27 @@
                 "Please fill this field in English."
             );
 
+            $.validator.addMethod(
+                'greaterThan',
+                function(value,element,params){
+                    var val = new Date('1/1/2000'+' '+value);
+                    var par = new Date('1/1/2000'+' '+$(params).val());
+                    if(!/Invalid|NaN/.test(new Date(val))){
+                        return new Date(val) > new Date(par);
+                    }
+                    return isNaN(val) && isNaN(par) || (Number(val) > Number(par))
+
+
+                }, 'End time should be grater than the Start time.'
+            );
+
             for (let i = 0; i <= SL; i++) {
                 $.validator.addClassRules("start_time" + i, {
                     required: true,
-
                 });
                 $.validator.addClassRules("end_time" + i, {
                     required: true,
-
+                    greaterThan: '.start_time'+i,
                 });
             }
 

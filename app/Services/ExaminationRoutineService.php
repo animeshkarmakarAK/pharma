@@ -22,7 +22,7 @@ class ExaminationRoutineService
         $examinationRoutine = ExaminationRoutine::create($data);
 
         foreach($data['daily_routines'] as $dailyRoutine){
-            $dailyRoutine['institute_id'] = $authUser->institute_id;
+            $dailyRoutine['institute_id'] = $examinationRoutine->institute_id;
             $dailyRoutine['examination_routine_id'] = $examinationRoutine->id;
             //$dailyRoutine['examination_id'] = $dailyRoutine->examination_id;
             $examinationRoutine->examinationRoutineDetail()->create($dailyRoutine);

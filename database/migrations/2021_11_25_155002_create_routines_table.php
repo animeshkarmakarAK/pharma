@@ -18,7 +18,7 @@ class CreateRoutinesTable extends Migration
             $table->unsignedInteger('institute_id')->index('routines_fk_institute_id');
             $table->unsignedInteger('batch_id')->index('routines_fk_batch_id');
             $table->unsignedInteger('training_center_id')->index('routines_fk_training_center_id');
-            $table->string('day', 124)->nullable();
+            $table->date('date');
             $table->tinyInteger('row_status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

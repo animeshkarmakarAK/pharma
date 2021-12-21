@@ -260,7 +260,8 @@ return [
         'batch' => 'Batch',
         'training_center' => 'Training Center',
         'routine_details' => 'Routine Details',
-        'examination_type' => 'Routine Type'
+        'examination_type' => 'Routine Type',
+        'date' => 'Date',
 
     ],
     'slider' =>[

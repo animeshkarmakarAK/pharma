@@ -61,6 +61,7 @@ class RoutineController extends Controller
         try {
             $this->routineService->createRoutine($validatedData);
         } catch (\Throwable $exception) {
+            dd($exception->getMessage());
             Log::debug($exception->getMessage());
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
@@ -180,9 +181,9 @@ class RoutineController extends Controller
             $parameters['batch_name'] = $batch_name;
             $parameters['user_id'] = $user_id;
             $parameters['user_name'] = $user_name;
-            $routines = Routine::with('routineClass')
+            $routines = Routine::with('routineSlots')
                 ->where(['institute_id' => $authUser->institute_id, 'batch_id' => $batch_id])
-                ->whereHas('routineClass', function ($query) use ($user_id) {
+                ->whereHas('routineSlots', function ($query) use ($user_id) {
                     $query->where('user_id', $user_id);
                 })
                 ->get();
