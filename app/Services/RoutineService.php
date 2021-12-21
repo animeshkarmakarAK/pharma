@@ -16,12 +16,12 @@ class RoutineService
 {
     public function createRoutine(array $data): Routine
     {
-        $authUser = AuthHelper::getAuthUser();
+
         $routine = Routine::create($data);
         foreach ($data['daily_routines'] as $dailyRoutine) {
-            $dailyRoutine['institute_id'] = $authUser->institute_id;
+            $dailyRoutine['institute_id'] = $data['institute_id'];
             $dailyRoutine['routine_id'] = $routine->id;
-            $routine->routineClass()->create($dailyRoutine);
+            $routine->routineSlots()->create($dailyRoutine);
         }
         return $routine;
     }
@@ -77,7 +77,7 @@ class RoutineService
                 'required',
                 'int',
             ],
-            'day' => ['required'],
+            'date' => ['required'],
             'daily_routines.*.user_id' => ['required'],
             'daily_routines.*.class' => ['required', 'string', 'max:30'],
             'daily_routines.*.start_time' => ['required'],

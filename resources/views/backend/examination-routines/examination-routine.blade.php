@@ -35,10 +35,6 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form
-                            action="{{route('admin.examination-routine.filter') }}"
-                            method="POST" class="row1 edit-add-form">
-                            @csrf
                             <div class="row">
                                 <div class="col-md-12">
                                     @if(count($errors))
@@ -133,24 +129,6 @@
                                     </div>
                                 </div>
 
-                                {{--<div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="trainer_id">
-                                            {{__('admin.daily_routine.trainer')}}
-                                            <span class="required"></span>
-                                        </label>
-
-                                        <select class="form-control select20"
-                                                name="examination_id" id="examination_id"
-                                        >
-                                            <option value="">{{__('admin.daily_routine.select')}}</option>
-                                            @foreach($trainers as $trainer)
-                                                <option value="{{$trainer->id}}" {{(@$parameters['examination_id'] == $trainer->id) ? 'selected' : ''}} >{{$trainer->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>--}}
-
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="examination_id">
@@ -174,11 +152,6 @@
 
                                     </div>
                                 </div>
-
-
-
-
-
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="trainer_id" style="visibility: hidden">
@@ -186,15 +159,31 @@
                                             <span class="required"></span>
                                         </label>
 
-                                        <button type="submit"
-                                                class="btn btn-default form-control">{{ __('admin.common.search') }}</button>
+                                        <button type="button"
+                                                class="btn btn-default form-control" id="examination-routine-search">{{ __('admin.common.search') }}</button>
                                     </div>
                                 </div>
 
 
                             </div>
-                        </form>
-                        @if(count($examinationRoutines) > 0)
+                        <div class="col">
+                            <div class="overlay" style="display: none">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
+                        </div>
+                        <div class="datatable-container">
+                            <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">{{__('admin.examination_routine.date')}}</th>
+                                    <th class="text-center">{{__('admin.examination_routine.examination')}}</th>
+                                </tr>
+                                </thead>
+                                <tbody id="examination-routine">
+                                </tbody>
+                            </table>
+                        </div>
+                        {{--@if(count($examinationRoutines) > 0)
                             <div class="datatable-container">
                                 <p class="text-center text-success border-bottom border-top">
                                     Report result on
@@ -251,7 +240,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        @endif
+                        @endif--}}
                     </div>
                 </div>
             </div>
@@ -296,6 +285,11 @@
         $(function () {
             $('.select20').select2();
         })
+
+        const template = function (item) {
+            let html ='<tr><td>'+item.id+'</td><td>'+item.training_center_id+'</td></tr>';
+            return html;
+        };
         const searchForm = $('.edit-add-form');
         searchForm.validate({
             rules: {
@@ -310,6 +304,93 @@
                     htmlForm.submit();
                 }
             }
+        });
+
+        const searchAPI = function ({model, columns}) {
+            return function (url, filters = {}) {
+                return $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        resource: {
+                            model: model,
+                            columns: columns,
+                            paginate: true,
+                            page: 1,
+                            per_page: 16,
+                            filters,
+                        }
+                    }
+                }).done(function (response) {
+                    return response;
+                });
+            };
+        };
+
+        let baseUrl = '{{route('web-api.model-resources')}}';
+        const skillVideoFetch = searchAPI({
+            model: "{{base64_encode(\App\Models\ExaminationRoutine::class)}}",
+            columns: 'institute_id|batch_id|training_center_id|date|training_center.title'
+        });
+
+        function examRoutineSearch(url = baseUrl) {
+            $('.overlay').show();
+            let training_center = $('#training_center_id').val();
+            let batch = $('#batch_id').val();
+            let examination = $('#examination_id').val();
+            //let videoCategory = $('#video_category_id').val();
+            const filters = {};
+            if (training_center?.toString()?.length) {
+                filters['training_center_id'] = training_center;
+            }
+            if (batch_id?.toString()?.length) {
+                filters['batch_id'] = batch;
+            }
+            if (examination?.toString()?.length) {
+                filters['examination_id'] = examination;
+            }
+            skillVideoFetch(url, filters)?.then(function (response) {
+                console.log('response',response);
+                $('.overlay').hide();
+                window.scrollTo(0, 0);
+                let html = '';
+                if (response?.data?.data.length <= 0) {
+                    html += '<div class="text-center mt-5" "></i><div class="text-center text-danger h3">No data found!</div>';
+                }
+                $.each(response.data?.data, function (i, item) {
+                    html += template(item);
+
+                });
+                $('#examination-routine').html(html);
+/*
+                let link_html = '<nav> <ul class="pagination">';
+                let links = response?.data?.links;
+                if (links.length > 3) {
+                    $.each(links, function (i, link) {
+                        link_html += paginatorLinks(link);
+                    });
+                }
+                link_html += '</ul></nav>';
+                $('.prev-next-button').html(link_html);*/
+            });
+        }
+
+        $(document).ready(function(){
+            examRoutineSearch();
+            $('#training_center_id').on('keyup change',function (){
+                examRoutineSearch();
+            });
+            $('#batch_id').on('keyup change',function (){
+                examRoutineSearch();
+            });
+            $('#examination_id').on('keyup change',function (){
+                examRoutineSearch();
+            });
+            $('#examination-routine-search').on('click',function (){
+                examRoutineSearch();
+            });
+
         });
     </script>
 

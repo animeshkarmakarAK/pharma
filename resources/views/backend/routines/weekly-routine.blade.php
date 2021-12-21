@@ -35,10 +35,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form
-                            action="{{route('admin.weekly-routine.filter') }}"
-                            method="POST" class="row1 edit-add-form">
-                            @csrf
+
                         <div class="row">
                             <div class="col-md-12">
                                 @if(count($errors))
@@ -183,15 +180,31 @@
                                         <span class="required"></span>
                                     </label>
 
-                                    <button type="submit"
-                                            class="btn btn-default form-control">{{ __('admin.common.search') }}</button>
+                                    <button type="button"
+                                            class="btn btn-default form-control" id="routine-search">{{ __('admin.common.search') }}</button>
                                 </div>
                             </div>
 
 
                         </div>
-                        </form>
-                        @if(count($routines) > 0)
+                        <div class="col">
+                            <div class="overlay" style="display: none">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
+                        </div>
+                        <div class="datatable-container">
+                            <table id="dataTable" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">{{__('admin.routine.day')}}</th>
+                                    <th class="text-center">{{__('admin.daily_routine.class')}}</th>
+                                </tr>
+                                </thead>
+                                <tbody id="routine">
+                                </tbody>
+                                </table>
+                        </div>
+{{--                        @if(count($routines) > 0)
                             <div class="datatable-container">
                                 <p class="text-center text-success border-bottom border-top">
                                     Report result on
@@ -246,7 +259,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        @endif
+                        @endif--}}
                     </div>
                 </div>
             </div>
@@ -291,6 +304,12 @@
         $(function () {
             $('.select20').select2();
         })
+
+        const template = function (item) {
+
+            let html ='<tr><td>'+item.id+'</td><td>'+item.training_center_id+'</td></tr>';
+            return html;
+        };
         const searchForm = $('.edit-add-form');
         searchForm.validate({
             rules: {
@@ -300,11 +319,98 @@
                 training_center_id: {
                     required: true,
                 },
-            submitHandler: function (htmlForm) {
-                $('.overlay').show();
+                submitHandler: function (htmlForm) {
+                    $('.overlay').show();
                     htmlForm.submit();
                 }
             }
+        });
+
+        const searchAPI = function ({model, columns}) {
+            return function (url, filters = {}) {
+                return $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        _token: '{{csrf_token()}}',
+                        resource: {
+                            model: model,
+                            columns: columns,
+                            paginate: true,
+                            page: 1,
+                            per_page: 16,
+                            filters,
+                        }
+                    }
+                }).done(function (response) {
+                    return response;
+                });
+            };
+        };
+
+        let baseUrl = '{{route('web-api.model-resources')}}';
+        const skillVideoFetch = searchAPI({
+            model: "{{base64_encode(\App\Models\Routine::class)}}",
+            columns: 'id|institute_id|batch_id|training_center_id|date|training_center.title'
+        });
+
+        function routineSearch(url = baseUrl) {
+            $('.overlay').show();
+            let training_center = $('#training_center_id').val();
+            let batch = $('#batch_id').val();
+           // let examination = $('#examination_id').val();
+            //let videoCategory = $('#video_category_id').val();
+            const filters = {};
+            if (training_center?.toString()?.length) {
+                filters['training_center_id'] = training_center;
+            }
+            if (batch_id?.toString()?.length) {
+                filters['batch_id'] = batch;
+            }
+           /* if (examination?.toString()?.length) {
+                filters['examination_id'] = examination;
+            }*/
+            skillVideoFetch(url, filters)?.then(function (response) {
+                console.log(response);
+                $('.overlay').hide();
+                window.scrollTo(0, 0);
+                let html = '';
+                if (response?.data?.data.length <= 0) {
+                    html += '<div class="text-center mt-5" "></i><div class="text-center text-danger h3">No data found!</div>';
+                }
+                $.each(response.data?.data, function (i, item) {
+                    html += template(item);
+
+                });
+                $('#routine').html(html);
+                /*
+                                let link_html = '<nav> <ul class="pagination">';
+                                let links = response?.data?.links;
+                                if (links.length > 3) {
+                                    $.each(links, function (i, link) {
+                                        link_html += paginatorLinks(link);
+                                    });
+                                }
+                                link_html += '</ul></nav>';
+                                $('.prev-next-button').html(link_html);*/
+            });
+        }
+
+        $(document).ready(function(){
+            routineSearch();
+            $('#training_center_id').on('keyup change',function (){
+                routineSearch();
+            });
+            $('#batch_id').on('keyup change',function (){
+                routineSearch();
+            });
+           /* $('#examination_id').on('keyup change',function (){
+                routineSearch();
+            });*/
+            $('#routine-search').on('click',function (){
+                routineSearch();
+            });
+
         });
     </script>
 

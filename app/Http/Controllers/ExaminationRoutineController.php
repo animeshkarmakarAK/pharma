@@ -58,9 +58,10 @@ class ExaminationRoutineController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->examinationRoutineService->validator($request)->validate();
-        $authUser = User::acl()->get();
+        $trainingCenter =  TrainingCenter::where('id',$validatedData['training_center_id'])->first();
+        $authUser = AuthHelper::getAuthUser();
         try {
-            $validatedData['institute_id'] = $authUser->institute_id;
+            $validatedData['institute_id'] = $trainingCenter->institute_id;
             $validatedData['created_by'] = $authUser->id;
 
             $this->examinationRoutineService->createExaminationRoutine($validatedData);

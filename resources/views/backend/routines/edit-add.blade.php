@@ -57,12 +57,12 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title">{{__('admin.routine.day')}} <span
+                                    <label for="title">{{__('admin.routine.date')}} <span
                                             style="color: red">*</span></label>
-                                    <input type="text" class="form-control" id="day"
-                                           name="day"
-                                           value="{{ $edit ? $routine->day : old('day') }}"
-                                           placeholder="{{__('admin.routine.day')}}">
+                                    <input type="text" class="flat-date flat-date-custom-bg form-control" id="date"
+                                           name="date"
+                                           value="{{ $edit ? $routine->date : old('date') }}"
+                                           placeholder="{{__('admin.routine.date')}}">
                                 </div>
                             </div>
 
@@ -103,7 +103,7 @@
                                             id="batch_id"
                                             data-model="{{base64_encode(App\Models\Batch::class)}}"
                                             data-label-fields="{title}"
-                                            data-depend-on-optional="training_center_id"
+                                            data-depend-on="training_center_id"
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @if($edit)
                                             data-preselected-option="{{json_encode(['text' =>  $routine->batch->title, 'id' =>  $routine->batch_id])}}"
@@ -133,16 +133,16 @@
                                 </div>
                             </div>
 
-                            <div class=col-sm-12 text-right
-                            ">
-                            <button type="submit"
-                                    class="btn btn-success float-right">{{ $edit ? __('admin.common.update') : __('admin.common.add') }}</button>
+                            <div class="col-sm-12 text-right">
+                                <button type="submit"
+                                        class="btn btn-success float-right">{{ $edit ? __('admin.common.update') : __('admin.common.add') }}</button>
                             </div>
-                    </form>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     @include('utils.delete-confirm-modal')
 
@@ -170,12 +170,14 @@
             left: 6px;
             bottom: -9px;
         }
+
         .select2-container--default .select2-selection--single {
             background-color: #fafdff;
             border: 2px solid #ddf1ff;
             border-radius: 4px;
         }
-        .select2-container .select2-selection--single{
+
+        .select2-container .select2-selection--single {
             height: 36px;
             margin-top: 2px;
         }
@@ -207,7 +209,7 @@
                     required: true,
                 },
 
-                day: {
+                date: {
                     required: true,
                 },
 
@@ -258,16 +260,29 @@
                 },
                 "Please fill this field in English."
             );
+            $.validator.addMethod(
+                'greaterThan',
+                function (value, element, params) {
+                    var val = new Date('1/1/2000' + ' ' + value);
+                    var par = new Date('1/1/2000' + ' ' + $(params).val());
+                    if (!/Invalid|NaN/.test(new Date(val))) {
+                        return new Date(val) > new Date(par);
+                    }
+                    return isNaN(val) && isNaN(par) || (Number(val) > Number(par))
 
-            // for (let i = 0; i <= SL; i++) {
-            //     $.validator.addClassRules("start_time" + i, {
-            //         required: true,
-            //     });
-            //     $.validator.addClassRules("end_time" + i, {
-            //         required: true,
-            //         greaterThan: ''
-            //     });
-            // }
+
+                }, 'End time should be grater than the Start time.'
+            );
+
+            for (let i = 0; i <= SL; i++) {
+                $.validator.addClassRules("start_time" + i, {
+                    required: true,
+                });
+                $.validator.addClassRules("end_time" + i, {
+                    required: true,
+                    greaterThan: '.start_time' + i,
+                });
+            }
 
             $.validator.addClassRules("class", {
                 required: true,
@@ -292,9 +307,9 @@
 
         $(document).ready(function () {
             @if($edit && $routine->routineClass->count())
-                @foreach($routine->routineClass as $routine)
-                    addRow(@json($routine));
-                @endforeach
+            @foreach($routine->routineClass as $routine)
+            addRow(@json($routine));
+            @endforeach
             @else
             addRow();
             @endif
@@ -342,10 +357,11 @@
                             <select class="form-control select20 user_id"
                                     name="daily_routines[<%=sl%>][user_id]"
                                     id="daily_routines[<%=sl%>][user_id]"
-                                >
+                            >
                                 <option value="">{{__('admin.daily_routine.select')}}</option>
                                 @foreach($trainers as $trainer)
-                                    <option value="{{$trainer->id}}" <%=edit && (data.user_id == {{$trainer->id}}) ? 'selected': ''%>>{{$trainer->name}}</option>
+                                    <option value="{{$trainer->id}}" <%=edit && (data.user_id == {{$trainer->id}}) ?
+                                    'selected': ''%>>{{$trainer->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -360,7 +376,7 @@
                                    name="daily_routines[<%=sl%>][class]"
                                    placeholder="{{__('admin.daily_routine.class')}}"
                                    value="<%=edit ? data.class : ''%>"
-                                  >
+                            >
                         </div>
                     </div>
 

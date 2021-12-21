@@ -40,7 +40,7 @@ class ExaminationRoutine extends BaseModel
     }
     public function trainingCenter(): BelongsTo
     {
-        return $this->belongsTo(TrainingCenter::class, 'training_center_id');
+        return $this->belongsTo(TrainingCenter::class);
     }
 
     public function examinationRoutineDetail(): HasMany
