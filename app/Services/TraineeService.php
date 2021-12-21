@@ -560,7 +560,6 @@ class TraineeService
                     $str .= '<a href="#" data-action="' . route('admin.trainee.add-single-trainee-to-batch', $trainee->id) . '"' . ' class="btn btn-outline-success btn-sm accept-to-batch"><i class="fas fa-plus-circle"></i> ' . __('Add to Batch') . ' </a>';
                 }
 
-
                 return $str;
             }))
             ->editColumn('registration_date', function (Trainee $trainee) {

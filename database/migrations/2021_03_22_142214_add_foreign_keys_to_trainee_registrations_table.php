@@ -15,9 +15,14 @@ class AddForeignKeysToTraineeRegistrationsTable extends Migration
     {
         Schema::table('trainee_registrations', function (Blueprint $table) {
             $table->foreign('course_id', 'trainee_registrations_fk_course_id')->references('id')->on('courses')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('trainee_id', 'trainee_registrations_fk_trainee_id')->references('id')->on('trainees')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('trainee_id', 'trainee_registrations_fk_trainee_id')
+                ->references('id')
+                ->on('trainees')
+                ->onUpdate('CASCADE')
+                ->onDelete('RESTRICT');
         });
     }
+
 
     /**
      * Reverse the migrations.

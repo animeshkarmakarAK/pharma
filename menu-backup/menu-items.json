@@ -55,7 +55,7 @@
         "icon_class": "fa-address-book",
         "color": "#000000",
         "parent_id": 42,
-        "order": 2,
+        "order": 1,
         "route": "admin.courses.index",
         "parameters": null
     },
