@@ -387,7 +387,7 @@ return [
         'trainer' => 'Trainer',
         'select' => 'Select'
     ],
-    'youth_batches' =>[
+    'trainee_batches' =>[
         'index' => 'Trainee',
         'list' => 'Trainee List',
         'add' => 'Create Trainee',
