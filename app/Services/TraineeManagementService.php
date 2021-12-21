@@ -33,12 +33,13 @@ class TraineeManagementService
     public function getListDataForDatatable($request): JsonResponse
     {
         $trainee = TraineeCourseEnroll::acl()->select([
+            'batch_preferences as preferred_batches',
             'trainees.id as id',
             'trainees.name',
             'trainees.mobile',
             DB::raw('DATE_FORMAT(trainees.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
-            'institutes.title',
-            'courses.title',
+            'institutes.title as institute_title',
+            'courses.title as course_title',
         ]);
 
         $trainee->join('trainees', 'trainees.id', '=', 'trainee_course_enrolls.trainee_id');
@@ -72,34 +73,47 @@ class TraineeManagementService
 
 
         return DataTables::eloquent($trainee)
-            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Trainee $trainee) {
+            ->editColumn('batch_preferences', function (TraineeCourseEnroll $traineeCourseEnroll) {
+
+                if ($traineeCourseEnroll->preferred_batches != null) {
+                    dd( explode(',', $traineeCourseEnroll->preferred_batches));
+
+                    $arr = array_map(function($item) {
+                        return $item - 48;
+                    }, explode(',', $traineeCourseEnroll->preferred_batches));
+                    return Batch::whereIn('id', $arr)->pluck('title');
+                } else {
+                    return '';
+                }
+            })
+            ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
                 $str = '';
-                $str .= '<a href="' . route('frontend.trainee-registrations.show', $trainee->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
-                if ($trainee->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING) {
-                    $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-accept', $trainee->trainee_course_enroll_id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
-                    $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-reject', $trainee->trainee_course_enroll_id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
+                $str .= '<a href="' . route('frontend.trainee-registrations.show', $traineeCourseEnroll->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+                if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING) {
+                    $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-accept', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
+                    $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-reject', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
                 }
                 return $str;
             }))
-            ->addColumn('enroll_status', DatatableHelper::getActionButtonBlock(static function (Trainee $trainee) {
+            ->addColumn('enroll_status', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
 
                 $str = '';
-                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($trainee->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING ? "warning enroll-processing" : ($trainee->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT ? "success enroll-accept" : "danger enroll-reject")) . '">' . ($trainee->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING ? "Processing" : ($trainee->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT ? "Accepted" : "Rejected")) . ' </span>';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING ? "warning enroll-processing" : ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT ? "success enroll-accept" : "danger enroll-reject")) . '">' . ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING ? "Processing" : ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT ? "Accepted" : "Rejected")) . ' </span>';
                 return $str;
             }))
-            ->addColumn('payment_status', DatatableHelper::getActionButtonBlock(static function (Trainee $trainee) {
+            ->addColumn('payment_status', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
                 $str = '';
-                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($trainee->payment_status ? "success payment-paid" : "danger payment-unpaid") . '">' . ($trainee->payment_status ? "Paid" : "Unpaid") . ' </span>';
+                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($traineeCourseEnroll->payment_status ? "success payment-paid" : "danger payment-unpaid") . '">' . ($traineeCourseEnroll->payment_status ? "Paid" : "Unpaid") . ' </span>';
                 return $str;
             }))
-            ->editColumn('registration_date', function (Trainee $trainee) {
-                return date('d M Y', strtotime($trainee->registration_date));
+            ->editColumn('registration_date', function (TraineeCourseEnroll $traineeCourseEnroll) {
+                return date('d M Y', strtotime($traineeCourseEnroll->created_at));
             })
-            ->addColumn('paid_or_unpaid', static function (Trainee $trainee) {
-                return $trainee->payment_status;
+            ->addColumn('paid_or_unpaid', static function (TraineeCourseEnroll $traineeCourseEnroll) {
+                return $traineeCourseEnroll->payment_status;
             })
-            ->addColumn('enroll_status_check', static function (Trainee $trainee) {
-                return $trainee->enroll_status;
+            ->addColumn('enroll_status_check', static function (TraineeCourseEnroll $traineeCourseEnroll) {
+                return $traineeCourseEnroll->enroll_status;
             })
             ->rawColumns(['action', 'enroll_status', 'payment_status', 'paid_or_unpaid', 'enroll_status_check'])
             ->toJson();
