@@ -411,6 +411,12 @@
                         visible: false
                     },
                     {
+                        title: "Preferred Batches",
+                        data: "preferred_batches",
+                        name: "batch_preferences",
+                        visible: true,
+                    },
+                    {
                         title: "Branch Name",
                         data: "branches.title",
                         name: "branches.title",
@@ -426,7 +432,7 @@
                     },
                     {
                         title: "Course Name",
-                        data: "courses.title",
+                        data: "course_title",
                         name: "courses.title",
                         defaultContent: '',
                     },
