@@ -82,9 +82,9 @@ class TraineeRegistrationService
 
     public function getTraineeFamilyMemberInfo(Trainee $trainee): array
     {
-        $father = $trainee->traineeFamilyMemberInfo->where('relation_with_trainee', 'father')->first();
-        $mother = $trainee->traineeFamilyMemberInfo->where('relation_with_trainee', 'mother')->first();
-        $guardian = $trainee->traineeFamilyMemberInfo->where('is_guardian', TraineeFamilyMemberInfo::GUARDIAN_OTHER)->first();
+        $father = $trainee->familyMemberInfo->where('relation_with_trainee', TraineeFamilyMemberInfo::GUARDIAN_MOTHER)->first();
+        $mother = $trainee->familyMemberInfo->where('relation_with_trainee', TraineeFamilyMemberInfo::GUARDIAN_MOTHER)->first();
+        $guardian = $trainee->familyMemberInfo->where('is_guardian', TraineeFamilyMemberInfo::GUARDIAN_OTHER)->first();
 
         if (!empty($father) && empty($guardian) && $father->is_guardian == TraineeFamilyMemberInfo::GUARDIAN_FATHER) {
             $guardian = $father;
@@ -191,5 +191,4 @@ class TraineeRegistrationService
             ->rawColumns(['enroll_status', 'payment_status', 'action', 'enroll_last_date', 'batch_status'])
             ->toJson();
     }
-
 }
