@@ -387,7 +387,7 @@ return [
         'trainer' => 'Trainer',
         'select' => 'Select'
     ],
-    'youth_batches' =>[
+    'trainee_batches' =>[
         'index' => 'Trainee',
         'list' => 'Trainee List',
         'add' => 'Create Trainee',
@@ -403,6 +403,22 @@ return [
         'title' => 'Title',
     ],
     'youth' =>[
+        'index' => 'Trainee',
+        'list' => 'Trainee List',
+        'add' => 'Create Trainee',
+        'edit' => 'Edit Trainee',
+        'update' => 'Update Trainee',
+        'institute_title' => 'Institute Title',
+        'filter' => 'Filter',
+        'reset' => 'Reset',
+        'enroll_trainee' => 'Enroll Trainee',
+        'certificate' => 'Certificates',
+        'view_certificate' => 'View Certificate',
+        'add_to_organization' => 'Add to Organization',
+        'select_organization' => 'Select Organization',
+
+    ],
+    'trainee' =>[
         'index' => 'Trainee',
         'list' => 'Trainee List',
         'add' => 'Create Trainee',

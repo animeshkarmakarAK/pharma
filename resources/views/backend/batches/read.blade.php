@@ -40,7 +40,7 @@
                 <div class="col-md-6 custom-view-box">
                     <p class="label-text">{{__('admin.batch.course')}}</p>
                     <div class="input-box">
-                        {{ $batch->course->institute->title .' - ' .$batch->course->title }}
+                        {{ $batch->institute->title .' - ' .$batch->title }}
                     </div>
                 </div>
 
@@ -52,26 +52,26 @@
                 </div>
 
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.course.application_start_date') }}</p>
+                    <p class="label-text">{{ __('admin.batch.application_start_date') }}</p>
                     <div class="input-box flat">
-                        {{ $course->application_start_date }}
+                        {{ $batch->application_start_date }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.course.application_end_date') }}</p>
+                    <p class="label-text">{{ __('admin.batch.application_end_date') }}</p>
                     <div class="input-box">
-                        {{ $course->application_end_date }}
+                        {{ $batch->application_end_date }}
                     </div>
                 </div>
                 <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.course.course_start_date') }}</p>
+                    <p class="label-text">{{ __('admin.batch.batch_start_date') }}</p>
                     <div class="input-box">
-                        {{ $course->course_start_date }}
+                        {{ $batch->batch_start_date }}
                     </div>
                 </div> <div class="col-md-6 custom-view-box">
-                    <p class="label-text">{{ __('admin.course.course_end_date') }}</p>
+                    <p class="label-text">{{ __('admin.batch.batch_end_date') }}</p>
                     <div class="input-box">
-                        {{ $course->course_end_date }}
+                        {{ $batch->batch_end_date }}
                     </div>
                 </div>
 

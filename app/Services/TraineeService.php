@@ -500,7 +500,7 @@ class TraineeService
 
     public function getListForAcceptListDatatable($request): JsonResponse
     {
-        $trainee = Trainee::select([
+        $trainee = TraineeCourseEnroll::select([
             'trainees.id as id',
             'trainees.name',
             'trainees.mobile',
@@ -510,7 +510,6 @@ class TraineeService
             'institutes.title as institutes.title',
             'branches.title as branches.title',
             'training_centers.title as training_centers.title',
-            'programmes.title as programmes.title',
             'courses.title as courses.title',
             'trainee_course_enrolls.id as trainee_course_enroll_id',
             'trainee_course_enrolls.enroll_status',
@@ -518,23 +517,21 @@ class TraineeService
             'trainee_batches.id as trainee_batch_id',
             'trainee_batches.trainee_course_enroll_id as trainee_batch_trainee_course_enroll_id',
         ]);
-        $trainee->join('trainee_course_enrolls', 'trainees.id', '=', 'trainee_course_enrolls.trainee_id');
+        $trainee->join('trainees', 'trainees.id', '=', 'trainee_course_enrolls.trainee_id');
         $trainee->join('courses', 'courses.id', '=', 'trainee_course_enrolls.course_id');
-        $trainee->join('institutes', 'institutes.id', '=', 'publish_courses.institute_id');
-        $trainee->leftJoin('branches', 'branches.id', '=', 'publish_courses.branch_id');
+        $trainee->join('institutes', 'institutes.id', '=', 'courses.institute_id');
+        $trainee->leftJoin('branches', 'branches.id', '=', 'courses.branch_id');
         $trainee->leftJoin('training_centers', 'training_centers.id', '=', 'courses.training_center_id');
-        $trainee->leftJoin('programmes', 'programmes.id', '=', 'courses.programme_id');
-        $trainee->leftJoin('courses', 'courses.id', '=', 'courses.course_id');
         $trainee->leftJoin('trainee_batches', 'trainee_batches.trainee_course_enroll_id', '=', 'trainee_course_enrolls.id');
         $trainee->where('trainee_batches.trainee_course_enroll_id', null);
         $trainee->where('trainee_course_enrolls.enroll_status', '=', TraineeCourseEnroll::ENROLL_STATUS_ACCEPT);
+
 
 
         $instituteId = $request->input('institute_id');
         $branchId = $request->input('branch_id');
         $trainingCenterId = $request->input('training_center_id');
         $courseId = $request->input('course_id');
-        $programmeId = $request->input('programme_id');
         $applicationDate = $request->input('application_date');
 
 
@@ -550,13 +547,10 @@ class TraineeService
         if ($courseId) {
             $trainee->where('courses.course_id', $courseId);
         }
-        if ($programmeId) {
-            $trainee->where('courses.programme_id', $programmeId);
-        }
+
         if ($applicationDate) {
             $trainee->whereDate('trainees.created_at', Carbon::parse($applicationDate)->format('Y-m-d'));
         }
-
 
         return DataTables::eloquent($trainee)
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (Trainee $trainee) {
@@ -565,7 +559,6 @@ class TraineeService
                 if ($trainee->payment_status == TraineeCourseEnroll::PAYMENT_STATUS_PAID) {
                     $str .= '<a href="#" data-action="' . route('admin.trainee.add-single-trainee-to-batch', $trainee->id) . '"' . ' class="btn btn-outline-success btn-sm accept-to-batch"><i class="fas fa-plus-circle"></i> ' . __('Add to Batch') . ' </a>';
                 }
-
 
                 return $str;
             }))

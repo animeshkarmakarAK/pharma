@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('batches/{id}/trainees-import', [App\Http\Controllers\TraineeBatchController::class, 'importTrainee'])->name('batches.trainees-import');
 
     Route::post('batches/{id}/trainees/datatable', [App\Http\Controllers\TraineeBatchController::class, 'getDatatable'])->name('batches.trainees.datatable');
+    //Route::get('batches/{id}/certificates', [App\Http\Controllers\TraineeCertificateController::class, 'index'])->name('batches.certificates');
 
     Route::get('trainee-registrations', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'index'])
         ->name('trainee.registrations.index');

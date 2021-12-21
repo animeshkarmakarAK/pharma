@@ -353,13 +353,6 @@
                         visible: false
                     },
                     {
-                        title: "Programme",
-                        data: "programmes.title",
-                        name: "programmes.title",
-                        defaultContent: '',
-                        visible: false
-                    },
-                    {
                         title: "Course Name",
                         data: "courses.title",
                         name: "courses.title",

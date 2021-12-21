@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class TraineeBatchService
+class TraineeCertificateService
 {
     public function getTraineeBatchLists(Request $request, int $batchId): JsonResponse
     {
