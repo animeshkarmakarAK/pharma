@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Institute;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,8 +38,12 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
+        if(App::environment('production')) {
+            $url->forceScheme('https');
+        }
+
         $this->loadViewsFrom(resource_path('views'), 'master');
     }
 
