@@ -83,4 +83,9 @@ class TraineeCourseEnrollmentService
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
 
+    public function getTraineeFamilyMemberInfo(Trainee $trainee)
+    {
+        return $trainee->familyMemberInfo;
+    }
+
 }

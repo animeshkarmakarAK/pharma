@@ -145,10 +145,6 @@
                                href="{{ route('frontend.trainee-enrolled-courses') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
                             </a>
-                            <a class="dropdown-item"
-                               href="{{ route('frontend.trainee-current-organization') }}">
-                                <i class="fas fa-clipboard-list"></i> &nbsp; আমার কর্মস্থল
-                            </a>
                         </div>
                     </li>
 

@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @foreach($academicQualifications as $academicQualification)
+                        @forelse($academicQualifications as $academicQualification)
                             <div class="row">
                                 <div class="col-md-2">
                                     @if($academicQualification->examination >= 3 && $academicQualification->examination <= 4)
@@ -152,7 +152,9 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <p>Not found</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -171,7 +173,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @foreach($guardians as $guardian)
+                        @forelse($guardians as $guardian)
                             <div class="row my-2">
                                 <div class="col-md-2">
                                     <i class="fa fa-user" style="font-size: xxx-large"></i>
@@ -207,7 +209,9 @@
                                 </div>
 
                             </div>
-                        @endforeach
+                        @empty
+                            <p>Not found</p>
+                        @endforelse
                     </div>
                 </div>
             </div>

@@ -92,10 +92,7 @@ class TraineeController extends Controller
         return \view(self::VIEW_PATH . 'trainee.trainee-courses')->with(
             [
                 'trainee' => $trainee,
-                'father' => $traineeFamilyMembers['father'],
-                'mother' => $traineeFamilyMembers['mother'],
-                'guardian' => $traineeFamilyMembers['guardian'],
-                'haveTraineeFamilyMembersInfo' => $traineeFamilyMembers['haveTraineeFamilyMembersInfo'],
+                'haveTraineeFamilyMembersInfo' => !empty($traineeFamilyMembers['haveTraineeFamilyMembersInfo']) ? $traineeFamilyMembers['haveTraineeFamilyMembersInfo'] : [],
                 'traineeSelfInfo' => $traineeSelfInfo,
                 'academicQualifications' => $academicQualifications,
             ]);
