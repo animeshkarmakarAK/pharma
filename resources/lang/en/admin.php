@@ -435,6 +435,14 @@ return [
         'select_organization' => 'Select Organization',
 
     ],
+    'certificate' =>[
+        'batch_title' => 'Batch Title',
+        'course_title' => 'Course Title',
+        'authorized_by' => 'Authorized by',
+        'issue_date' => 'Certificate Issued Date',
+        'signature' => 'Signature',
+        'certificate_template' => 'Certificate Template',
+    ],
     'trainer_information' => [
     ],
     'examination_routine' => [

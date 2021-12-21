@@ -6,17 +6,21 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold text-primary"><b>{{$batch->title}}</b> - {{ __('admin.trainee_batches.index')  }}
+                        <h3 class="card-title font-weight-bold text-primary"><b>'title'</b> - {{ __('admin.trainee_batches.index')  }}
                         </h3>
+
                         <div class="card-tools">
-                            <a href="{{route('admin.batches.index')}}"
-                               class="btn btn-sm btn-rounded btn-outline-primary">
-                                <i class="fas fa-backward"></i> {{__('admin.common.back')}}
-                            </a>
+                            @can('create', \App\Models\User::class)
+                                <a href="{{route('admin.batch.certificates.create',['id'=>$batchCertificate->id])}}"
+                                   class="btn btn-sm btn-outline-primary btn-rounded">
+                                    <i class="fas fa-plus-circle"></i> {{__('generic.add_new')}}
+                                </a>
+                            @endcan
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+{{--
                         @if($batch->batch_status == \App\Models\Batch::BATCH_STATUS_COMPLETE)
                             <form class="row bulk-import-trainee" id="import-trainee-form" method="post"
                                   enctype="multipart/form-data">
@@ -51,6 +55,7 @@
                                 <ul id="validation-error-list"></ul>
                             </div>
                         @endif
+--}}
 
 
                         <div class="datatable-container">
@@ -75,7 +80,7 @@
         let datatable = null;
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.batches.trainees.datatable', $batch->id) }}',
+                url: '{{ route('admin.batches.trainees.datatable', $batchCertificate->id) }}',
                 order: [[2, "asc"]],
                 columns: [
                     {
@@ -137,7 +142,7 @@
                 event.preventDefault();
                 let formData = new FormData($(this)[0]);
                 $.ajax({
-                    url: "{{route('admin.batches.trainees-import',$batch->id)}}",
+                    url: "{{route('admin.batches.trainees-import',$batchCertificate->id)}}",
                     type: "POST",
                     data: formData,
                     async: false,
