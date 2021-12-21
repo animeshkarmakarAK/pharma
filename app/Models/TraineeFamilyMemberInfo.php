@@ -38,6 +38,36 @@ class TraineeFamilyMemberInfo extends BaseModel
     protected $table = "trainees_family_member_info";
     protected $guarded = ['id'];
 
+    /**
+     * Guardian options
+     */
+    public const GUARDIAN_FATHER = 1;
+    public const GUARDIAN_MOTHER = 2;
+    public const GUARDIAN_OTHER = 3;
+
+    public static function getGuardianOptions(): array
+    {
+        return [
+            self::GUARDIAN_FATHER => 'Father',
+            self::GUARDIAN_MOTHER => 'Mother',
+            self::GUARDIAN_OTHER => 'Other',
+        ];
+    }
+
+    public function getGuardian(): string
+    {
+        $guardian = '';
+
+        $guardianOptionArray = self::getGuardianOptions();
+
+        if (!empty($guardianOptionArray[$this->relation_with_trainee])) {
+            return $guardianOptionArray[$this->relation_with_trainee];
+        }
+
+        return $guardian;
+    }
+
+
     public function currentMaritalStatus(): string
     {
         $maritalStatus = '';
@@ -45,6 +75,7 @@ class TraineeFamilyMemberInfo extends BaseModel
         $maritalStatusArray = self::getMaritalOptions();
 
         if (empty($maritalStatusArray[$this->marital_status])) return $maritalStatus;
+
 
         $maritalStatus = $maritalStatusArray[$this->marital_status];
 
@@ -60,7 +91,6 @@ class TraineeFamilyMemberInfo extends BaseModel
         if (empty($religionArray[$this->religion])) return $userReligion;
 
         return $religionArray[$this->religion];
-
     }
 
 
@@ -73,7 +103,6 @@ class TraineeFamilyMemberInfo extends BaseModel
         if (empty($SexArray[$this->gender])) return $userGender;
 
         return $SexArray[$this->gender];
-
     }
 
     public function getTraineeFreedomFighterStatus(): string
@@ -141,15 +170,6 @@ class TraineeFamilyMemberInfo extends BaseModel
 
 
     /**
-     * Guardian options
-     */
-
-    public const GUARDIAN_FATHER = 1;
-    public const GUARDIAN_MOTHER = 2;
-    public const GUARDIAN_OTHER = 3;
-
-
-    /**
      * get sex options
      * @return array
      */
@@ -181,7 +201,6 @@ class TraineeFamilyMemberInfo extends BaseModel
             self::RELIGION_OTHERS => __('Others'),
         ];
     }
-
 
 
     /**

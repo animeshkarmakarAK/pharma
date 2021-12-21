@@ -234,5 +234,6 @@ return [
     'album_name' => 'Album name',
     'relation' => 'Relation',
     'occupation' => 'Occupation',
+    'enroll' => 'Enroll',
 ];
 

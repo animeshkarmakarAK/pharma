@@ -20,7 +20,8 @@
                              background-size: cover; min-height: 40vh;"
                     >
                     </div>
-                    <form action="#" method="post" class="course-enrollment-form">
+                    <form action="{{ route('frontend.course-enroll') }}" method="POST" class="courseEnrollmentForm">
+                        @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 custom-view-box">
@@ -858,7 +859,7 @@
                                                         </div>
                                                         <input type="hidden"
                                                                name="familyMember[father][relation_with_youth]"
-                                                               value="Father">
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::GUARDIAN_FATHER }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -913,16 +914,116 @@
                                                         </div>
                                                         <input type="hidden"
                                                                name="familyMember[mother][relation_with_youth]"
-                                                               value="Mother">
+                                                               value="{{ \App\Models\TraineeFamilyMemberInfo::GUARDIAN_MOTHER }}">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                </div>
-                                <div class="col-md-12 custom-view-box mt2 " style="text-align: center">
-                                    <a href="#" class="btn btn-primary " style="padding: 2px 10px;">Apply</a>
+                                        <div class="form-group">
+                                            <label for="guardian"
+                                                   class="font-weight-bold">অভিভাবক:<span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           value="{{ App\Models\TraineeFamilyMemberInfo::GUARDIAN_FATHER }}"
+                                                           id="guardian-father"
+                                                           name="guardian" {{ old('guardian') == App\Models\TraineeFamilyMemberInfo::GUARDIAN_FATHER ? 'checked' : ''}}>
+                                                    <label for="guardian-father"
+                                                           class="custom-control-label">পিতা</label>
+                                                </div>
+
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           value="{{ App\Models\TraineeFamilyMemberInfo::GUARDIAN_MOTHER }}"
+                                                           id="guardian-mother"
+                                                           name="guardian" {{ old('guardian') == App\Models\TraineeFamilyMemberInfo::GUARDIAN_MOTHER ? 'checked' : ''}}>
+                                                    <label for="guardian-mother"
+                                                           class="custom-control-label">মাতা</label>
+                                                </div>
+
+                                                <div class="custom-control custom-radio mr-3">
+                                                    <input class="custom-control-input" type="radio"
+                                                           value="{{ App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER }}"
+                                                           id="guardian-other"
+                                                           name="guardian" {{ old('guardian') == App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER ? 'checked' : ''}}>
+                                                    <label for="guardian-other"
+                                                           class="custom-control-label">অন্যান্য</label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="card guardian-another" style="display: none">
+                                                <div class="row card-body">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="guardian_name">Name<span
+                                                                    class="required">*</span>:</label>
+                                                            <input type="text"
+                                                                   name="familyMember[guardian][member_name_en]"
+                                                                   value="{{old('familyMember.guardian.member_name_en')}}"
+                                                                   id="guardian_name"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="guardian_date_of_birth">Date of birth<span
+                                                                    class="required">*</span>:</label>
+                                                            <input type="text"
+                                                                   name="familyMember[guardian][date_of_birth]"
+                                                                   value="{{ old('familyMember.guardian.date_of_birth') }}"
+                                                                   id="guardian_date_of_birth"
+                                                                   class="flat-date form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="guardian_nid">NID Number:</label>
+                                                            <input type="text"
+                                                                   name="familyMember[guardian][nid]"
+                                                                   value="{{ old('familyMember.guardian.nid]') }}"
+                                                                   id="guardian_nid"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="guardian_mobile">Mobile</label>
+                                                            <input type="text"
+                                                                   name="familyMember[guardian][mobile]"
+                                                                   id="guardian_mobile"
+                                                                   value="{{ old('familyMember.guardian.mobile') }}"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="guardian_relation_with_youth">Relation<span
+                                                                    class="required">*</span>:</label>
+                                                            <input type="text"
+                                                                   name="familyMember[guardian][relation_with_youth]"
+                                                                   id="guardian_relation_with_youth"
+                                                                   value="{{ old('familyMember.guardian.relation_with_youth') }}"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        <div class="row justify-content-center">
+                                            <input type="submit" class="btn btn-primary" value="{{ __("generic.enroll") }}">
+                                        </div>
+                                    </div>
+                                    <div class="overlay" style="display: none">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1025,7 +1126,312 @@
     </style>
 @endpush
 @push('js')
+    <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
     <script>
+
+        const COURSE = {!! $course !!};
+        const APPLICATION_FORM_SETTINGS = COURSE?.application_form_settings;
+        const isRequiredGuardianInfo = APPLICATION_FORM_SETTINGS?.guardianInfo?.is_required;
+        const isRequiredJSCInfo = !!APPLICATION_FORM_SETTINGS?.JSCInfo?.is_required;
+        const isRequiredSSCInfo = !!APPLICATION_FORM_SETTINGS?.SSCInfo?.is_required;
+        const isRequiredHSCInfo = !!APPLICATION_FORM_SETTINGS?.HSCInfo?.is_required;
+        const isRequiredHonsInfo = !!APPLICATION_FORM_SETTINGS?.HonoursInfo?.is_required;
+        const isRequiredMastersInfo = !!APPLICATION_FORM_SETTINGS?.MastersInfo?.is_required;
+        const isRequiredAddress = !!APPLICATION_FORM_SETTINGS?.address?.is_required;
+        const isRequiredEthnicGroup = !!APPLICATION_FORM_SETTINGS?.ethnicGroup?.is_required;
+
+        const courseEnrollmentForm = $(".courseEnrollmentForm");
+        console.log('form', courseEnrollmentForm);
+
+        const validator = courseEnrollmentForm.validate({
+            errorElement: "em",
+            onkeyup: false,
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                element.parents(".form-group").addClass("has-feedback");
+
+                if (element.parents(".form-group").length) {
+                    error.insertAfter(element.parents(".form-group").first().children().last());
+                } else if (element.hasClass('select2') || element.hasClass('select2-ajax-custom') || element.hasClass('select2-ajax')) {
+                    error.insertAfter(element.parents(".form-group").first().find('.select2-container'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                $(element).closest('.help-block').remove();
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+            },
+
+            rules: {
+                "academicQualification[jsc][examination_name]": {
+                    required: isRequiredJSCInfo,
+                },
+                "academicQualification[jsc][board]": {
+                    required: isRequiredJSCInfo,
+                },
+                "academicQualification[jsc][roll_no]": {
+                    required: isRequiredJSCInfo,
+                    pattern: "^[1-9]\\d*$",
+                },
+
+                "academicQualification[jsc][reg_no]": {
+                    required: isRequiredJSCInfo,
+                    pattern: "^[1-9]\\d*$",
+                },
+                "academicQualification[jsc][result]": {
+                    required: isRequiredJSCInfo,
+                },
+                "academicQualification[jsc][group]": {
+                    required: isRequiredJSCInfo,
+                },
+                "academicQualification[jsc][passing_year]": {
+                    required: isRequiredJSCInfo,
+                },
+                "academicQualification[jsc][grade]": {
+                    required: isRequiredJSCInfo,
+                    min: 1,
+                    max: 5
+                },
+
+                "academicQualification[ssc][examination_name]": {
+                    required: isRequiredSSCInfo,
+                },
+                "academicQualification[ssc][board]": {
+                    required: isRequiredSSCInfo,
+                },
+                "academicQualification[ssc][roll_no]": {
+                    required: isRequiredSSCInfo,
+                    pattern: "^[1-9]\\d*$",
+                },
+
+                "academicQualification[ssc][reg_no]": {
+                    required: isRequiredSSCInfo,
+                    pattern: "^[1-9]\\d*$",
+                },
+                "academicQualification[ssc][result]": {
+                    required: isRequiredSSCInfo,
+                },
+                "academicQualification[ssc][group]": {
+                    required: isRequiredSSCInfo,
+                },
+                "academicQualification[ssc][passing_year]": {
+                    required: isRequiredSSCInfo,
+                },
+                "academicQualification[ssc][grade]": {
+                    required: isRequiredSSCInfo,
+                    min: 1,
+                    max: function () {
+                        if ($('#ssc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return 4
+                        }
+                        if ($('#ssc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return 5;
+                        }
+                    },
+                },
+
+                "academicQualification[hsc][examination_name]": {
+                    required: isRequiredHSCInfo,
+                },
+                "academicQualification[hsc][board]": {
+                    required: isRequiredHSCInfo,
+                },
+
+                "academicQualification[hsc][roll_no]": {
+                    required: isRequiredHSCInfo,
+                    pattern: "^[1-9]\\d*$",
+                },
+                "academicQualification[hsc][reg_no]": {
+                    required: isRequiredHSCInfo,
+                    pattern: "^[1-9]\\d*$",
+                },
+                "academicQualification[hsc][group]": {
+                    required: isRequiredHSCInfo,
+                },
+                "academicQualification[hsc][passing_year]": {
+                    required: isRequiredHSCInfo,
+                },
+                "academicQualification[hsc][result]": {
+                    required: isRequiredHSCInfo,
+                },
+                "academicQualification[hsc][grade]": {
+                    required: isRequiredHSCInfo,
+                    min: 1,
+                    max: function () {
+                        if ($('#hsc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return 4
+                        }
+                        if ($('#hsc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return 5;
+                        }
+                    },
+                },
+                "academicQualification[graduation][examination_name]": {
+                    required: isRequiredHonsInfo,
+                },
+
+                "academicQualification[graduation][institute]": {
+                    required: isRequiredHonsInfo,
+                },
+
+                "academicQualification[graduation][subject]": {
+                    required: isRequiredHonsInfo,
+                },
+
+                "academicQualification[graduation][result]": {
+                    required: isRequiredHonsInfo,
+                },
+
+
+                "academicQualification[graduation][grade]": {
+                    required: isRequiredHonsInfo,
+                    min: 1,
+                    max: function () {
+                        if ($('#graduation_result').val() == {!!App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return 4
+                        }
+                        if ($('#graduation_result').val() == {!!App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return 5;
+                        }
+                    },
+                },
+                "academicQualification[graduation][passing_year]": {
+                    required: isRequiredHonsInfo,
+                },
+                "academicQualification[graduation][course_duration]": {
+                    required: isRequiredHonsInfo,
+                },
+
+                "academicQualification[masters][examination_name]": {
+                    required: isRequiredMastersInfo,
+                },
+                "academicQualification[masters][institute]": {
+                    required: isRequiredMastersInfo,
+                },
+                "academicQualification[masters][subject]": {
+                    required: isRequiredMastersInfo,
+                },
+                "academicQualification[masters][result]": {
+                    required: isRequiredMastersInfo,
+                },
+                "academicQualification[masters][grade]": {
+                    required: isRequiredMastersInfo,
+                    min: 1,
+                    max: function () {
+                        if ($('#masters_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
+                            return 4
+                        }
+                        if ($('#masters_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                            return 5;
+                        }
+                    },
+                },
+                "academicQualification[masters][passing_year]": {
+                    required: isRequiredMastersInfo,
+                },
+                "academicQualification[masters][course_duration]": {
+                    required: isRequiredMastersInfo,
+                },
+
+                ethnic_group: {
+                    required: isRequiredEthnicGroup,
+                },
+                "familyMember[father][member_name_en]": {
+                    required: true,
+                },
+                "familyMember[father][nid]": {
+                    required: isRequiredGuardianInfo,
+                },
+                "familyMember[father][mobile]": {
+                    required: isRequiredGuardianInfo,
+                },
+                "familyMember[father][date_of_birth]": {
+                    required: isRequiredGuardianInfo,
+                },
+                "familyMember[mother][member_name_en]": {
+                    required: isRequiredGuardianInfo,
+                },
+                "familyMember[mother][nid]": {
+                    required: isRequiredGuardianInfo,
+                },
+                "familyMember[mother][mobile]": {
+                    required: isRequiredGuardianInfo,
+                },
+                "familyMember[mother][date_of_birth]": {
+                    required: isRequiredGuardianInfo,
+                },
+                guardian: {
+                    required: function () {
+                        return $(".guardian-information").css('display') == 'block';
+                    }
+                },
+                "familyMember[guardian][member_name_en]": {
+                    required: function () {
+                        return $("input[name = 'guardian']:checked").val() == {!! App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!};
+                    },
+                },
+                "familyMember[guardian][date_of_birth]": {
+                    required: function () {
+                        return $("input[name = 'guardian']:checked").val() == {!! App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!};
+                    }
+                },
+                "familyMember[guardian][mobile]": {
+                    required: true,
+                },
+                "familyMember[guardian][relation_with_youth]": {
+                    required: function () {
+                        return $("input[name = 'guardian']:checked").val() == {!! App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!};
+                    }
+                },
+                "familyMember[guardian][nid]": {
+                    required: false,
+                },
+
+                current_employment_status: {
+                    required: function () {
+                        return $('.occupation-information').css('display') == 'block';
+                    },
+                },
+                year_of_experience: {
+                    number: true,
+                },
+            },
+
+            submitHandler: function (htmlForm) {
+                $('.overlay').show();
+
+                // Get some values from elements on the page:
+                const form = $(htmlForm);
+                const formData = new FormData(htmlForm);
+                const url = form.attr("action");
+
+                // Send the data using post
+                $.ajax({
+                    url: url,
+                    data: formData,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        $('.overlay').hide();
+                        let alertType = response.alertType;
+                        let alertMessage = response.message;
+                        let alerter = toastr[alertType];
+                        alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+
+                        if (response.accessKey) {
+                            window.location.href = response.redirectTo;
+                        }
+                    },
+                });
+
+                return false;
+            }
+        });
 
         function setFormFields(settings) {
             console.log('settings:', settings);
@@ -1053,9 +1459,6 @@
 
 
         $(document).ready(function () {
-
-            const COURSE = {!! $course !!};
-            const APPLICATION_FORM_SETTINGS = COURSE?.application_form_settings;
             setFormFields(APPLICATION_FORM_SETTINGS);
 
 
@@ -1070,6 +1473,82 @@
             if ($(".selected-batch-list").children().length == 0) {
                 //$(".selected-batch-list").append('<li class="list-group-item" style="background: #bd2130;color: #ffffff;" ><span >No batch selected</span></li>');
             }
+
+            $("input[name = 'guardian']").on('change', function () {
+
+                if ($(this).val() == {!! App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!}) {
+                    $('.guardian-another').show(500);
+                } else {
+                    $('.guardian-another').hide(500);
+                }
+            });
         });
+
+
+        $("#ssc_result").on('change', function () {
+            if ($(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#ssc_gpa').removeAttr('hidden');
+                $('#ssc_result_div').removeAttr('class');
+                $('#ssc_result_div').addClass('col-md-6');
+                $('#ssc_gpa_div').addClass('col-md-2');
+
+            } else {
+                $('#ssc_gpa').attr('hidden', true);
+                $('#ssc_result_div').removeAttr('class');
+                $('#ssc_result_div').addClass('col-md-8');
+                $('#ssc_gpa_div').removeAttr('class');
+            }
+        });
+
+        $("#hsc_result").on('change', function () {
+            if ($(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#hsc_gpa').removeAttr('hidden');
+                $('#hsc_result_div').removeAttr('class');
+                $('#hsc_result_div').addClass('col-md-6');
+                $('#hsc_gpa_div').addClass('col-md-2');
+            } else {
+                $('#hsc_gpa').attr('hidden', true);
+                $('#hsc_result_div').removeAttr('class');
+                $('#hsc_result_div').addClass('col-md-8');
+                $('#hsc_gpa_div').removeAttr('class');
+            }
+        });
+
+        $("#graduation_result").on('change', function () {
+            if ($(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#graduation_cgpa').removeAttr('hidden');
+
+                $('#graduation_result_div').removeAttr('class');
+                $('#graduation_result_div').addClass('col-md-6');
+                $('#graduation_cgpa_div').addClass('col-md-2');
+            } else {
+                $('#graduation_cgpa').attr('hidden', true);
+
+                $('#graduation_result_div').removeAttr('class');
+                $('#graduation_result_div').addClass('col-md-8');
+                $('#graduation_cgpa_div').removeAttr('class');
+            }
+        });
+
+        $("#masters_result").on('change', function () {
+            if ($(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
+                || $(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                $('#masters_cgpa').removeAttr('hidden');
+
+                $('#masters_result_div').removeAttr('class');
+                $('#masters_result_div').addClass('col-md-6');
+                $('#masters_cgpa_div').addClass('col-md-2');
+            } else {
+                $('#masters_cgpa').attr('hidden', true);
+
+                $('#masters_result_div').removeAttr('class');
+                $('#masters_result_div').addClass('col-md-8');
+                $('#masters_cgpa_div').removeAttr('class');
+            }
+        });
+
     </script>
 @endpush

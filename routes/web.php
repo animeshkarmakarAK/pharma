@@ -163,6 +163,7 @@ Route::group(['as' => 'frontend.'], function () {
         Route::post('trainee-enrolled-courses/datatable', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseGetDatatable'])->name('trainee-courses-datatable');
         Route::post('trainee-profile/trainee-course-enroll-pay-now/{trainee_course_enroll_id}', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCourseEnrollPayNow'])->name('trainee-course-enroll-pay-now');
         Route::get('trainee-current-organization', [App\Http\Controllers\Frontend\TraineeController::class, 'traineeCurrentOrganization'])->name('trainee-current-organization');
+        Route::post('course-enroll', [App\Http\Controllers\Frontend\TraineeCourseEnrollmentController::class, 'courseEnroll'])->name('course-enroll');
     });
 
     Route::get('ssp-registration', [\App\Http\Controllers\HomeController::class, 'sspRegistrationForm'])->name('ssp-registration');
