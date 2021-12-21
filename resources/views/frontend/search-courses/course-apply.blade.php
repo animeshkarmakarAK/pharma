@@ -30,6 +30,9 @@
                                             <p class="label-text">{{__('admin.course.batch_list')}}<span
                                                     class="text-italic">(Select orderly fashion to set preference)</span>
                                             </p>
+
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
+
                                             <ul class="list-group">
                                                 @foreach($batches as $batch)
                                                     <li class="list-group-item"><input class="batch-list"
@@ -858,7 +861,7 @@
                                                             </div>
                                                         </div>
                                                         <input type="hidden"
-                                                               name="familyMember[father][relation_with_youth]"
+                                                               name="familyMember[father][relation_with_trainee]"
                                                                value="{{ \App\Models\TraineeFamilyMemberInfo::GUARDIAN_FATHER }}">
                                                     </div>
                                                 </div>
@@ -913,7 +916,7 @@
                                                             </div>
                                                         </div>
                                                         <input type="hidden"
-                                                               name="familyMember[mother][relation_with_youth]"
+                                                               name="familyMember[mother][relation_with_trainee]"
                                                                value="{{ \App\Models\TraineeFamilyMemberInfo::GUARDIAN_MOTHER }}">
                                                     </div>
                                                 </div>
@@ -1001,24 +1004,24 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="guardian_relation_with_youth">Relation<span
+                                                            <label for="guardian_relation_with_trainee">Relation<span
                                                                     class="required">*</span>:</label>
                                                             <input type="text"
-                                                                   name="familyMember[guardian][relation_with_youth]"
-                                                                   id="guardian_relation_with_youth"
-                                                                   value="{{ old('familyMember.guardian.relation_with_youth') }}"
+                                                                   name="familyMember[guardian][relation_with_trainee]"
+                                                                   id="guardian_relation_with_trainee"
+                                                                   value="{{ old('familyMember.guardian.relation_with_trainee') }}"
                                                                    class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
 
                                     </div>
                                     <div class="col-md-12 mt-2">
                                         <div class="row justify-content-center">
-                                            <input type="submit" class="btn btn-primary" value="{{ __("generic.enroll") }}">
+                                            <input type="submit" class="btn btn-primary"
+                                                   value="{{ __("generic.enroll") }}">
                                         </div>
                                     </div>
                                     <div class="overlay" style="display: none">
@@ -1141,7 +1144,6 @@
         const isRequiredEthnicGroup = !!APPLICATION_FORM_SETTINGS?.ethnicGroup?.is_required;
 
         const courseEnrollmentForm = $(".courseEnrollmentForm");
-        console.log('form', courseEnrollmentForm);
 
         const validator = courseEnrollmentForm.validate({
             errorElement: "em",
@@ -1380,9 +1382,9 @@
                     }
                 },
                 "familyMember[guardian][mobile]": {
-                    required: true,
+                    required: false,
                 },
-                "familyMember[guardian][relation_with_youth]": {
+                "familyMember[guardian][relation_with_trainee]": {
                     required: function () {
                         return $("input[name = 'guardian']:checked").val() == {!! App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!};
                     }
@@ -1400,6 +1402,7 @@
                     number: true,
                 },
             },
+            messages: {},
 
             submitHandler: function (htmlForm) {
                 $('.overlay').show();
@@ -1417,15 +1420,12 @@
                     processData: false,
                     contentType: false,
                     success: function (response) {
+                        console.log('response', response);
                         $('.overlay').hide();
                         let alertType = response.alertType;
                         let alertMessage = response.message;
                         let alerter = toastr[alertType];
                         alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
-
-                        if (response.accessKey) {
-                            window.location.href = response.redirectTo;
-                        }
                     },
                 });
 
@@ -1462,17 +1462,24 @@
             setFormFields(APPLICATION_FORM_SETTINGS);
 
 
+            let count = 1;
+
             $('.batch-list').on('click', function () {
                 if ($(this).is(':checked')) {
-                    $('.selected-batch-list').append('<li id="batch-list-item-' + $(this).attr("data-id") + '" class="list-group-item"><input name="batches[]"' +
-                        ' type="hidden" value="' + $(this).attr("data-id") + '"/><label for="Batch title">' + $(".selected-batch-list").children().length + '. ' + $(this).val() + '</lable></li>');
-                } else if (!($(this).is(':checked'))) {
+                    $('.selected-batch-list').append('<li id="batch-list-item-' + $(this).attr("data-id") + '" class="list-group-item"><span class="count"><strong>' + count + '. </strong></span><input name="batches[]"' +
+                        ' type="hidden" value="' + $(this).attr("data-id") + '"/><label for="Batch title">' + $(this).val() + '</lable></li>');
+                    count++;
+                } else {
                     $("#batch-list-item-" + $(this).attr("data-id")).remove();
+                    count--;
+
+                    $('.selected-batch-list li').each(function () {
+                        $(this).find('span').remove();
+                        $(this).prepend("<span class='count'><strong>" + ($(this).index() + 1) + ". </strong></span>");
+                    });
                 }
             });
-            if ($(".selected-batch-list").children().length == 0) {
-                //$(".selected-batch-list").append('<li class="list-group-item" style="background: #bd2130;color: #ffffff;" ><span >No batch selected</span></li>');
-            }
+
 
             $("input[name = 'guardian']").on('change', function () {
 

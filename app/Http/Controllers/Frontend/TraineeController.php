@@ -15,7 +15,7 @@ use App\Models\TraineeBatch;
 use App\Models\TraineeCourseEnroll;
 use App\Models\TraineeFamilyMemberInfo;
 use App\Services\CertificateGenerator;
-use App\Services\TraineeRegistrationService;
+use App\Services\TraineeCourseEnrollmentService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,9 +30,9 @@ use Illuminate\Support\Str;
 class TraineeController extends Controller
 {
     const VIEW_PATH = "frontend.";
-    protected TraineeRegistrationService $traineeRegistrationService;
+    protected TraineeCourseEnrollmentService $traineeRegistrationService;
 
-    public function __construct(TraineeRegistrationService $traineeRegistrationService)
+    public function __construct(TraineeCourseEnrollmentService $traineeRegistrationService)
     {
         $this->traineeRegistrationService = $traineeRegistrationService;
     }

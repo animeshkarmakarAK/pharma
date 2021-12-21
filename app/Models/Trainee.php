@@ -328,7 +328,7 @@ class Trainee extends AuthBaseModel
     /**
      * @return HasMany
      */
-    public function traineeFamilyMemberInfo(): HasMany
+    public function familyMemberInfo(): HasMany
     {
         return $this->hasMany(TraineeFamilyMemberInfo::class);
     }
@@ -382,11 +382,6 @@ class Trainee extends AuthBaseModel
     public function traineeCourseEnroll(): HasOne
     {
         return $this->hasOne(TraineeCourseEnroll::class);
-    }
-
-    public function traineeOrganizations(): BelongsToMany
-    {
-        return $this->belongsToMany(Organization::class, "trainee_organizations");
     }
 
 
