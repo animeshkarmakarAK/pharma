@@ -32,11 +32,11 @@ return [
     'application_management' => 'Application management',
     'applied_trainee' => 'Applied Trainee',
     'youth_accept_list' => 'Trainee Accepted List',
-    'youths' => 'Youth List',
+    'youths' => 'Trainee List',
 
     //feedback_managment
     'feedback_management'=>'Feedback Management',
-    'youth_complains'=>'Youth Feedback',
+    'youth_complains'=>'Trainee Feedback',
     'organization_complains'=>'Industry Feedback',
 
     //content management

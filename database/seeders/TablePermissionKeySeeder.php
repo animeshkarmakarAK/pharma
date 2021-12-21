@@ -66,7 +66,7 @@ class TablePermissionKeySeeder extends Seeder
             ],
             [
                 'table_name' => 'batches',
-                'key' => 'view_batch_youth',
+                'key' => 'view_batch_trainee',
             ],
             [
                 'table_name' => 'data_entry',

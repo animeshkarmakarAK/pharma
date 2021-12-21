@@ -6,7 +6,7 @@
 <body>
 <div class="p-0 m-0">
     <p class="p-0 m-0">
-        Dear Miss/Mr. {{ $youthName }}, <br>
+        Dear Miss/Mr. {{ $traineeName }}, <br>
         &nbsp;<br>
         {!! $msg !!}</p>
     <p>

@@ -12,8 +12,8 @@ use App\Models\Slider;
 use App\Models\StaticPage;
 use App\Models\TrainingCenter;
 use App\Models\User;
-use App\Models\YouthCourseEnroll;
-use App\Models\YouthRegistration;
+use App\Models\TraineeCourseEnroll;
+use App\Models\TraineeRegistration;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,7 +51,7 @@ class HomeController extends BaseController
         $staticPage = StaticPage::orderBy('id', 'DESC')
             ->where('page_id', StaticPage::PAGE_ID_ABOUT_US);
         $trainingCenters = TrainingCenter::query();
-        $youthRegistrations = YouthRegistration::query();
+        $traineeRegistrations = TraineeRegistration::query();
         $events = Event::query();
         $introVideo = IntroVideo::orderBy('id', 'DESC');
         /** @var User|Builder $trainers */
@@ -65,7 +65,7 @@ class HomeController extends BaseController
             $sliders->where(['institute_id' => $currentInstitute->id]);
             $staticPage->where(['institute_id' => $currentInstitute->id]);
             $trainingCenters->where('institute_id', $currentInstitute->id);
-            $youthRegistrations->where('institute_id', $currentInstitute->id);
+            $traineeRegistrations->where('institute_id', $currentInstitute->id);
             $events->where('institute_id', $currentInstitute->id);
             $trainers->where('institute_id', $currentInstitute->id);
         }
@@ -76,7 +76,7 @@ class HomeController extends BaseController
         $statistics = [
             'total_course' => $courses->count('id'),
             'total_training_center' => $trainingCenters->count('id'),
-            'total_registered_trainee' => $youthRegistrations->count('id'),
+            'total_registered_trainee' => $traineeRegistrations->count('id'),
             'total_trainer' => $trainers->count('id'),
         ];
 
@@ -100,13 +100,13 @@ class HomeController extends BaseController
             'institutes.title as institute_title',
             'institutes.logo as institute_logo',
             'institutes.address as institute_address',
-            DB::raw('count(youth_course_enrolls.id) as total_student'),
+            DB::raw('count(trainee_course_enrolls.id) as total_student'),
             DB::raw('count(courses.id) as total_courses')
         )
             ->leftJoin('courses', 'institutes.id', '=', 'courses.institute_id')
-            ->leftJoin('youth_course_enrolls', function (JoinClause $query) {
-                $query->on('courses.id', '=', 'youth_course_enrolls.course_id');
-                $query->where(['youth_course_enrolls.enroll_status' => YouthCourseEnroll::ENROLL_STATUS_ACCEPT]);
+            ->leftJoin('trainee_course_enrolls', function (JoinClause $query) {
+                $query->on('courses.id', '=', 'trainee_course_enrolls.course_id');
+                $query->where(['trainee_course_enrolls.enroll_status' => TraineeCourseEnroll::ENROLL_STATUS_ACCEPT]);
             })
             ->groupBy('institutes.id')
             ->get();
@@ -116,19 +116,19 @@ class HomeController extends BaseController
 
     public function success(): \Illuminate\Http\RedirectResponse
     {
-        return redirect()->route('frontend.youth-enrolled-courses')
+        return redirect()->route('frontend.trainee-enrolled-courses')
             ->with(['message' => 'আপনার পেমেন্ট সফলভাবে পরিশোধ করা হয়েছে, দয়া করে অপেক্ষা করুন', 'alert-type' => 'success']);
     }
 
     public function fail(): \Illuminate\Http\RedirectResponse
     {
-        return redirect()->route('frontend.youth-enrolled-courses')
+        return redirect()->route('frontend.trainee-enrolled-courses')
             ->with(['message' => 'পেমেন্ট ব্যর্থ হয়েছে, অনুগ্রহ করে পরে আবার চেষ্টা করুন', 'alert-type' => 'warning']);
     }
 
     public function cancel(): \Illuminate\Http\RedirectResponse
     {
-        return redirect()->route('frontend.youth-enrolled-courses')
+        return redirect()->route('frontend.trainee-enrolled-courses')
             ->with(['message' => 'পেমেন্ট বাতিল হয়েছে, দয়া করে আবার চেষ্টা করুন', 'alert-type' => 'error']);
     }
 

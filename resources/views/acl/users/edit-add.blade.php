@@ -77,12 +77,6 @@
                                         id="user_type_id"
                                         data-model="{{base64_encode(App\Models\UserType::class)}}"
                                         data-label-fields="{title}"
-                                        @if($authUser->isInstituteUser())
-                                        data-filters="{{json_encode(['id' => \App\Models\User::USER_TYPE_TRAINER_USER_CODE])}}"
-                                        @endif
-                                        @if($authUser->isSuperUser())
-                                        data-filters="{{json_encode(['id' => [\App\Models\User::USER_TYPE_TRAINER_USER_CODE, 'type' => 'not-equal']])}}"
-                                        @endif
                                         @if($edit)
                                         data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
                                         @endif
@@ -91,7 +85,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6" style="display: none;">
+                        <div class="col-sm-6" style="display: @if($edit && $user->institute) block @else none @endif;">
                             <div class="form-group">
                                 <label for="institute_id">{{ __('Institute') }} <span
                                         style="color: red"> * </span></label>
@@ -109,6 +103,42 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-6" style="display: @if($edit && $user->branch) block @else none @endif;">
+                            <div class="form-group">
+                                <label for="branch_id">{{ __('Branch') }} <span
+                                        style="color: red"> * </span></label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="branch_id"
+                                        id="branch_id"
+                                        data-model="{{base64_encode(\App\Models\Branch::class)}}"
+                                        data-label-fields="{title}"
+                                        @if($edit && $user->branch)
+                                        data-preselected-option="{{json_encode(['text' =>  $user->branch->title, 'id' =>  $user->branch->id])}}"
+                                        @endif
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="display: @if($edit && $user->branch) block @else none @endif;">
+                            <div class="form-group">
+                                <label for="training_center_id">{{ __('TrainingCenter') }} <span
+                                        style="color: red"> * </span></label>
+                                <select class="form-control select2-ajax-wizard"
+                                        name="training_center_id"
+                                        id="training_center_id"
+                                        data-model="{{base64_encode(\App\Models\TrainingCenter::class)}}"
+                                        data-label-fields="{title}"
+                                        data-depend-on="institute_id"
+                                        @if($edit && $user->trainingCenter)
+                                        data-preselected-option="{{json_encode(['text' =>  $user->trainingCenter->title, 'id' =>  $user->trainingCenter->id])}}"
+                                        @endif
+                                        data-placeholder="{{ __('generic.select_placeholder') }}"
+                                >
+                                </select>
+                            </div>
+                        </div>
+
 
                         <div class="col-sm-6" style="display: none;">
                             <div class="form-group">
@@ -117,6 +147,7 @@
                                 <select class="form-control select2-ajax-wizard"
                                         name="loc_district_id"
                                         id="loc_district_id"
+                                        data-depend-on="institute_id"
                                         data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
                                         data-label-fields="{title}"
                                         @if($edit && $user->locDistrict)
@@ -149,16 +180,6 @@
                         <input type="hidden" name="user_type_id" id="user_type_id"
                                value="{{\App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE}}">
                         <input type="hidden" name="institute_id" id="institute_id" value="{{$authUser->institute_id}}">
-                    @elseif($authUser->isDCUser())
-                        <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_DC_USER_CODE}}">
-                        <input type="hidden" name="loc_district_id" id="loc_district_id"
-                               value="{{$authUser->loc_district_id}}">
-                    @elseif($authUser->isDivcomUser())
-                        <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE}}">
-                        <input type="hidden" name="loc_division_id" id="loc_division_id"
-                               value="{{$authUser->loc_division_id}}">
                     @endif
 
                     @if($edit && $authUser->id == $user->id && $authUser->can('changePassword', $user))
@@ -235,28 +256,33 @@
                 });
             }
 
+            function fieldHidden (){
+              $('#institute_id').val('')
+                disabledHideFormFields($('#branch_id'), $('#training_center_id'), $('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
+            }
+
             $(document).on('change', "#user_type_id", function () {
                 let userType = parseInt($(this).val());
+                fieldHidden()
+                if( userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!} ||
+                    userType ==  {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
+                    userType ==  {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
+                    userType == {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}){
+                    enableShowFormFields($('#institute_id'));
+                }
+            })
 
-                switch (userType) {
-                    case {!! \App\Models\UserType::USER_TYPE_DIVCOM_USER_CODE !!}:
-                        enableShowFormFields($('#loc_division_id'));
-                        disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_district_id'));
-                        break;
-                    case {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!}:
-                        enableShowFormFields($('#loc_district_id'));
-                        disabledHideFormFields($('#institute_id'), $('#organization_id'), $('#loc_division_id'));
-                        break;
-                    case {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}:
-                        enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
-                    case {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}:
-                        isInstituteUser ? disabledHideFormFields($('#institute_id')) : enableShowFormFields($('#institute_id'));
-                        disabledHideFormFields($('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                        break;
-                    default:
-                        disabledHideFormFields($('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
+            $(document).on('change', "#institute_id", function () {
+                let institute = parseInt($(this).val());
+                let userType = parseInt($('#user_type_id').val());
+
+
+                if(userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}){
+                    enableShowFormFields($('#training_center_id'));
+                    disabledHideFormFields($('#branch_id'),$('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
+                }else if(userType == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}){
+                    enableShowFormFields($('#branch_id'));
+                    disabledHideFormFields($('#training_center_id'),$('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
                 }
 
             })
@@ -275,8 +301,8 @@
                 readURL(this);
             });
 
-            function registerValidator(edit) {
-                $(".edit-add-form").validate({
+
+            $(".edit-add-form").validate({
                     rules: {
                         profile_pic: {
                             accept: "image/*",
@@ -303,12 +329,11 @@
                         },
                         institute_id: {
                             required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!};
-                            }
-                        },
-                        loc_district_id: {
-                            required: function () {
-                                return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_DC_USER_CODE !!};
+                                if($('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
+                                    $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
+                                    $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}){
+                                    return true;
+                                }else return false;
                             }
                         },
                         old_password: {
@@ -317,7 +342,7 @@
                             },
                         },
                         password: {
-                            required: !edit,
+                            required: !EDIT,
                         },
                         password_confirmation: {
                             equalTo: '#password',
@@ -331,37 +356,11 @@
                             pattern: "Please fill this field in English."
                         },
                     },
-                    submitHandler: function (htmlForm) {
-                        $('.overlay').show();
-                        let formData = new FormData(htmlForm);
-                        let jForm = $(htmlForm);
-                        $.ajax({
-                            url: jForm.prop('action'),
-                            method: jForm.prop('method'),
-                            data: formData,
-                            enctype: 'multipart/form-data',
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                        })
-                            .done(function (responseData) {
-                                console.log(responseData)
-                                if (responseData.message == 'Something wrong. Please try again') {
-                                    toastr.error(responseData.message);
-                                } else {
-                                    toastr.success(responseData.message);
-                                }
-                            })
-                            .fail(window.ajaxFailedResponseHandler)
-                            .always(function () {
-                                datatable.draw();
-                                $('.overlay').hide();
-                            });
-                        return false;
-                    }
-                });
-            }
-
+                submitHandler: function (htmlForm) {
+                    $('.overlay').show();
+                    htmlForm.submit();
+                }
+            });
         });
 
     </script>

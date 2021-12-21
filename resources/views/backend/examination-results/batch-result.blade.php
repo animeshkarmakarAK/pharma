@@ -1,3 +1,9 @@
+@php
+    $edit = !empty($examinationResult);
+    /** @var \App\Models\User $authUser */
+    $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
+@endphp
+
 @extends('master::layouts.master')
 
 @section('title')
@@ -11,69 +17,90 @@
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
                         <h3 class="card-title font-weight-bold">{{__('admin.examination_result.list')}}</h3>
-
                         <div class="card-tools">
                             @can('create', \App\Models\ExaminationResult::class)
-                                <a href="{{route('admin.examination-results.create')}}"
-                                   class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-plus-circle"></i> {{__('admin.common.add')}}
-                                </a>
+                                @if($trainees->isEmpty())
+                                    <a href="{{route('admin.examination-result.batch-add',$examination->id)}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> {{__('admin.common.add')}}
+                                    </a>
+                                @else
+                                    <a href="{{route('admin.examination-result.batch.edit', $examination->id)}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> {{__('admin.common.edit')}}
+                                    </a>
+                                @endif
+                                    <a href="{{route('admin.examinations.index')}}"
+                                       class="btn btn-sm btn-outline-primary btn-rounded">
+                                        <i class="fas fa-plus-circle"></i> {{__('admin.common.back')}}
+                                    </a>
                             @endcan
-
                         </div>
-
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form
-                            action=""
-                            method="POST" class="row edit-add-form">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>#Sl</th>
-                                        <th>Name</th>
-                                        <th>Total Marks</th>
-                                        <th>Achieved Marks</th>
-                                        <th>Feedback</th>
+                                        <th>{{__('admin.examination_result.sl')}}</th>
+                                        <th>{{__('admin.examination_result.trainee')}} <span
+                                                style="color: red">*</span></th>
+                                        <th>{{__('admin.examination_result.total_marks')}} <span
+                                                style="color: red">*</span></th>
+                                        <th>{{__('admin.examination_result.achieved_marks')}} <span
+                                                style="color: red">*</span></th>
+                                        <th>{{__('admin.examination_result.feedback')}} <span
+                                                style="color: red">*</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th>
-
-                                    </th>
-                                    <td>
-                                        <input type="number" class="form-control custom-input-box"
-                                               id="total_new_recruits"
-                                               name="monthly_reports[0][total_new_recruits]"
-                                               value="0">
-
-
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control custom-input-box"
-                                               id="total_vacancy"
-                                               name="monthly_reports[0][total_vacancy]"
-                                               value="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control custom-input-box"
-                                               id="total_occupied_position"
-                                               name="monthly_reports[0][total_occupied_position]"
-
-                                               value="0">
-                                    </td>
-                                </tr>
+                                    @foreach($trainees as $key => $trainee)
+                                        <tr>
+                                            <th>
+                                                {{$key+1}}
+                                            </th>
+                                            <input type="text" class="form-control custom-input-box"
+                                                        name="result[{{$key}}][examination_id]"
+                                                        value="{{$trainee->examination_id}}"
+                                                        hidden
+                                            >
+                                            <input type="text" class="form-control custom-input-box"
+                                                   name="result[{{$key}}][trainee_id]"
+                                                   value="{{$trainee->id}}"
+                                                   hidden
+                                            >
+                                            <td>
+                                                <input type="text" class="form-control custom-input-box"
+                                                       id="trainee"
+                                                       name="result[{{$key}}][trainee]"
+                                                       value="{{$trainee->name}}"
+                                                       disabled>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="total_marks"
+                                                       name="result[{{$key}}][total_marks]"
+                                                       value="{{$trainee->total_marks}}"
+                                                       disabled>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control custom-input-box"
+                                                       id="achieved_marks"
+                                                       name="result[{{$key}}][achieved_marks]"
+                                                       value="{{$trainee->achieved_marks}}"
+                                                disabled>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control custom-input-box"
+                                                       id="feedback"
+                                                       name="result[{{$key}}][feedback]"
+                                                       value="{{$trainee->feedback}}"
+                                               disabled>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
-
-
-                            <div class="col-sm-12 text-right">
-                                <button type="submit"
-                                        class="btn btn-success">Add</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -87,67 +114,29 @@
 @endpush
 
 @push('js')
-    <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
+    <x-generic-validation-error-toastr></x-generic-validation-error-toastr>
     <script>
-        $(function () {
-            let params = serverSideDatatableFactory({
-                url: '{{route('admin.examination-results.datatable')}}',
-                order: [[2, "desc"]],
-                columns: [
-                    {
-                        title: '{{__('admin.examination_result.sl')}}',
-                        data: null,
-                        defaultContent: "SL#",
-                        searchable: false,
-                        orderable: false,
-                        visible: true,
-                    },
-                    {
-                        title: "{{__('admin.examination_result.achieved_marks')}}",
-                        data: "achieved_marks",
-                        name: "examination_results.achieved_marks"
-                    },
+        {{--const EDIT = !!'{{$edit}}';--}}
 
-                    {
-                        title: "{{__('admin.examination_result.feedback')}}",
-                        data: "feedback",
-                        name: "examination_results.feedback"
-                    },
+        const batchResultForm = $('.batch-result-form');
+        batchResultForm.validate();
+        var result = $('input[name^="result"]');
 
-                    {
-                        title: "{{__('admin.examination_result.examination')}}",
-                        data: "examination.exam_details",
-                        //data: "examination.examination_type.title",
-                        name: "examination_results.examination_id",
-                        //orderable: false, searchable: false,
-                    },
-
-                    {
-                        title: "{{__('admin.examination_result.training_center')}}",
-                        data: "training_center.title",
-                        name: "examination_results.training_center_id",
-
-                    },
-                    {
-                        title: "{{__('admin.examination_result.batch_title')}}",
-                        data: "batch.title",
-                        name: "examination_results.batch_id"
-                    },
-                    {
-                        title: "{{__('admin.examination_result.action')}}",
-                        data: "action",
-                        orderable: false,
-                        searchable: false,
-                        visible: true
-                    }
-                ]
+        result.filter('input[name$="[achieved_marks]"]').each(function() {
+            $(this).rules("add", {
+                required: true,
+                messages: {
+                    required: "Achieved Marks is Mandatory"
+                }
             });
-            const datatable = $('#dataTable').DataTable(params);
-            bindDatatableSearchOnPresEnterOnly(datatable);
+        });
 
-            $(document, 'td').on('click', '.delete', function (e) {
-                $('#delete_form')[0].action = $(this).data('action');
-                $('#delete_modal').modal('show');
+        result.filter('input[name$="[feedback]"]').each(function() {
+            $(this).rules("add", {
+                required: true,
+                messages: {
+                    required: "FeedBack is Mandatory"
+                }
             });
         });
     </script>

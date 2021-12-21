@@ -9,7 +9,7 @@ use App\Models\Institute;
 class InstitutePageController extends Controller
 {
     /**
-     * items of youth course search page in frontend
+     * items of trainee course search page in frontend
      *
      * @return View
      */

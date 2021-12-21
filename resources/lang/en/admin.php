@@ -65,6 +65,7 @@ return [
         'batch_start_date' => 'Batch Start Date',
         'batch_end_date' => 'Batch End Date',
         'max_student_enrollment' => 'Max Student Enrollment',
+        'branch_title' => 'Branch',
     ],
     'branch' =>[
         'index' => 'Branch',
@@ -105,7 +106,8 @@ return [
         'branch' => 'Branch',
         'training_center' => 'Training Center',
         'application_form_type' => 'Application Form Type',
-        'not_found' => 'No session found for this course'
+        'not_found' => 'No session found for this course',
+        'batch_list' => 'Batch List',
     ],
     'event' =>[
         'index' => 'Event',
@@ -125,9 +127,9 @@ return [
     'examination' => [
         'code' => ' Examination Code',
         'examination_status_msg' => 'Are you sure you want to change this examination status?',
-        'examination_complete' => 'Examination Complete',
-        'examination_publish' => 'Examination Publish',
-        'examination_not_publish' => 'Examination Not Publish',
+        'examination_complete' => 'Completed',
+        'examination_publish' => 'Published',
+        'examination_not_publish' => 'Not Publish',
         'examination_status' => 'Examination Status',
         'sort' => 'Sort',
         'list' => 'Examination',
@@ -367,13 +369,14 @@ return [
         'achieved_marks' => 'Achieved Marks',
         'feedback' => 'Feedback',
         'institute' => 'Institute',
-        'youth' => 'Youth',
+        'youth' => 'Trainee',
         'user' => 'Trainer',
         'examination' => 'Examination',
         'batch_title' => 'Batch Title',
         'training_center' => 'Training Center',
-        'result' => 'Result'
-
+        'result' => 'Result',
+        'total_marks' => 'Total Marks',
+        'trainee' => 'Trainee'
     ],
     'daily_routine' => [
         'day_routine' => 'Daily Routine',
@@ -400,11 +403,11 @@ return [
         'title' => 'Title',
     ],
     'youth' =>[
-        'index' => 'Youth',
-        'list' => 'Youth List',
-        'add' => 'Create Youth',
-        'edit' => 'Edit Youth',
-        'update' => 'Update Youth',
+        'index' => 'Trainee',
+        'list' => 'Trainee List',
+        'add' => 'Create Trainee',
+        'edit' => 'Edit Trainee',
+        'update' => 'Update Trainee',
         'institute_title' => 'Institute Title',
         'filter' => 'Filter',
         'reset' => 'Reset',

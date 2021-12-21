@@ -101,13 +101,13 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label for="youth_id">
-                                        {{__('admin.examination_result.youth')}}
+                                    <label for="trainee_id">
+                                        {{__('admin.examination_result.trainee')}}
                                         <span class="required"></span>
                                     </label>
                                     <select class="form-control select2-ajax-wizard"
-                                            name="youth_id"
-                                            id="youth_id"
+                                            name="trainee_id"
+                                            id="trainee_id"
                                             data-model="{{base64_encode(App\Models\Examination::class)}}"
                                             data-label-fields="{name}"
                                             data-depend-on="examination_id"
@@ -196,7 +196,7 @@
                 achieved_marks: {
                     required: true,
                 },
-                youth_id: {
+                trainee_id: {
                     required: true,
                 }
             },
@@ -218,14 +218,14 @@
                 if (!batch_id) {
                     batch_id = 0;
                 }
-                var route = "{{route('admin.examination-results.get-youths')}}/"+batch_id;
+                var route = "{{route('admin.examination-results.get-trainees')}}/"+batch_id;
                 $.get(route, function(data) {
                     console.log(data);
-                    $('#youth_id').empty();
-                    $('#youth_id').append('<option value="'+'">{{__('admin.common.select')}}</option>');
+                    $('#trainee_id').empty();
+                    $('#trainee_id').append('<option value="'+'">{{__('admin.common.select')}}</option>');
                     $.each(data, function(index,data){
                         console.log(data);
-                        $('#youth_id').append('<option value="' + data.id + '">' + data.youth_name + '</option>');
+                        $('#trainee_id').append('<option value="' + data.id + '">' + data.trainee_name + '</option>');
                     });
                 });
             });
@@ -241,13 +241,13 @@
                 if (!examination_id) {
                     examination_id = 0;
                 }
-                var route = "{{route('admin.examination-results.get-youths')}}/"+examination_id;
+                var route = "{{route('admin.examination-results.get-trainees')}}/"+examination_id;
                 $.get(route, function(data) {
                     console.log(data);
-                    $('#youth_id').empty();
-                    $('#youth_id').append('<option value="'+'">{{__('admin.common.select')}}</option>');
+                    $('#trainee_id').empty();
+                    $('#trainee_id').append('<option value="'+'">{{__('admin.common.select')}}</option>');
                     $.each(data, function(index,data){
-                        $('#youth_id').append('<option value="' + data.id + '">' + data.youth_name + '</option>');
+                        $('#trainee_id').append('<option value="' + data.id + '">' + data.trainee_name + '</option>');
                     });
                 });
 

@@ -338,7 +338,7 @@
                 email: {
                     required: true,
                     pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                    //remote: "{!! route('frontend.youth.check-unique-email') !!}",
+                    //remote: "{!! route('frontend.trainee.check-unique-email') !!}",
                 },
                 code: {
                     required: true,

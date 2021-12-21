@@ -21,7 +21,7 @@ abstract class BaseModel extends Model
     public const ROW_STATUS_ACTIVE = '1';
     public const ROW_STATUS_INACTIVE = '0';
     public const ROW_STATUS_DELETED = '99';
-    const MOBILE_REGEX = "/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/";
+    const MOBILE_REGEX =  "regex:/^01[0-9]{9}$/";
 
 
     /**

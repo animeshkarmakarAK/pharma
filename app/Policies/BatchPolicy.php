@@ -94,8 +94,8 @@ class BatchPolicy extends BasePolicy
         return $user->hasPermission('force_delete_batch');
     }
 
-    public function viewBachYouth(User $user, Batch $batch): bool
+    public function viewBachTrainee(User $user, Batch $batch): bool
     {
-        return $user->hasPermission('view_batch_youth');
+        return $user->hasPermission('view_batch_trainee');
     }
 }

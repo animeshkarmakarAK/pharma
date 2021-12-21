@@ -18,7 +18,7 @@
                 <div class="p-3 text-center rounded mb-2 text-white"
                      style="background: rgb(123,142,207);
                             background: linear-gradient(55deg, rgba(123,142,207,1) 24%, rgba(94,127,241,1) 71%);">
-                    <h1><b>{{ $stickerCount['total_youth']? $stickerCount['total_youth']:'0' }}</b></h1>
+                    <h1><b>{{ $stickerCount['total_trainee']? $stickerCount['total_trainee']:'0' }}</b></h1>
                     <p>মোট এনরোল</p>
                 </div>
             </div>

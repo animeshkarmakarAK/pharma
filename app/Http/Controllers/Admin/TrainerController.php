@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Models\YouthAcademicQualification;
+use App\Models\TraineeAcademicQualification;
 
 class TrainerController extends BaseController
 {
@@ -34,6 +34,7 @@ class TrainerController extends BaseController
         $trainerInstitute = User::where('institute_id', $trainer->institute_id)
             ->where('user_type_id', User::USER_TYPE_INSTITUTE_USER_CODE)
             ->first();
+
 
         $academicQualifications = $trainer->trainerAcademicQualifications()->get()->keyBy('examination');
 

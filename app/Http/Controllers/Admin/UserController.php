@@ -41,37 +41,34 @@ class UserController extends BaseController
     {
         $user = new User();
 
-        return \view('master::acl.users.edit-add', compact('user'));
+        return \view(self::VIEW_PATH . 'edit-add', compact('user'));
     }
 
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->userService->validator($request)->validate();
 
-        DB::beginTransaction();
         try {
             $this->userService->createUser($validatedData);
-            DB::commit();
         } catch (\Throwable $exception) {
-            DB::rollback();
             Log::debug($exception->getMessage());
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
-            //return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
+
+
         return redirect()->route('admin.users.index')->with([
             'message' => __('generic.object_created_successfully', ['object' => 'User']),
             'alert-type' => 'success'
         ]);
-        //return response()->json(['message' => __('generic.object_created_successfully', ['object' => 'User']), 'alert-type' => 'success']);
     }
 
     /**
@@ -82,19 +79,16 @@ class UserController extends BaseController
     public function show(User $user, Request $request): View
     {
         return \view(self::VIEW_PATH . 'read', compact('user'));
-
-       // return \view('master::acl.users.ajax.read', compact('user'));
     }
 
     /**
      * @param User $user
-     * @return string
+     * @return View
      */
     public function edit(User $user): View
     {
         return \view(self::VIEW_PATH . 'edit-add', compact('user'));
 
-        //return \view('master::acl.users.ajax.edit-add', compact('user'));
     }
 
     public function update(User $user, Request $request): RedirectResponse
@@ -113,8 +107,8 @@ class UserController extends BaseController
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
             ]);
-            //return response()->json(['message' => __('generic.something_wrong_try_again'), 'alert-type' => 'error']);
         }
+
         return redirect()->route('admin.users.index')->with([
             'message' => __('generic.object_updated_successfully', ['object' => 'User']),
             'alert-type' => 'success'
@@ -224,8 +218,8 @@ class UserController extends BaseController
 
     public function checkUserEmailUniqueness(Request $request): JsonResponse
     {
-        $youth = User::where('email', $request->email)->first();
-        if ($youth == null) {
+        $trainee = User::where('email', $request->email)->first();
+        if ($trainee == null) {
             return response()->json(true);
         }
         return response()->json("This email address already in use");
@@ -247,6 +241,7 @@ class UserController extends BaseController
         $trainerList = User::where('institute_id', $user->institute_id)
             ->where('user_type_id', user::USER_TYPE_TRAINER_USER_CODE)
             ->get();
+
 
         return \view(self::VIEW_PATH . 'trainers', compact('trainerList'));
     }

@@ -80,7 +80,7 @@
 
             <!-- Right menu items -->
             <ul class="nav navbar-nav navbar-right">
-                @if(!auth()->guard('web')->check() && !auth()->guard('youth')->check())
+                @if(!auth()->guard('web')->check() && !auth()->guard('trainee')->check())
                     <li class="nav-item">
                         <a class="btn"
                            href="{{ route('frontend.trainee-registrations.index') }}"
@@ -100,17 +100,17 @@
 
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('frontend.youth.login-form') }}"
+                           href="{{ route('frontend.trainee.login-form') }}"
                            id="bd-versions" aria-haspopup="true">
                             <i class="fa fa-file"> </i>&nbsp; ফি জমা
                         </a>
                     </li>
                 @endif
 
-                @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('youth')->check())
+                @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('trainee')->check())
                     <li class="nav-item">
                         <a class="btn"
-                           href="{{ route('frontend.youth.login-form') }}"
+                           href="{{ route('frontend.trainee.login-form') }}"
                            id="bd-versions">
                             <i class="far fa-user"></i>&nbsp; প্রশিক্ষণার্থী লগইন
                         </a>
@@ -130,7 +130,7 @@
                             <i class="fas fa-clipboard-list"></i>&nbsp; ড্যাশবোর্ড
                         </a>
                     </li>
-                @elseauth('youth')
+                @elseauth('trainee')
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle btn" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -138,15 +138,15 @@
                         </a>
                         <div class="dropdown-menu menu-bg-color" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                               href="{{ route('frontend.youth') }}">
+                               href="{{ route('frontend.trainee') }}">
                                 <i class="fas fa-clipboard-list"></i>&nbsp; আমার প্রোফাইল
                             </a>
                             <a class="dropdown-item"
-                               href="{{ route('frontend.youth-enrolled-courses') }}">
+                               href="{{ route('frontend.trainee-enrolled-courses') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
                             </a>
                             <a class="dropdown-item"
-                               href="{{ route('frontend.youth-current-organization') }}">
+                               href="{{ route('frontend.trainee-current-organization') }}">
                                 <i class="fas fa-clipboard-list"></i> &nbsp; আমার কর্মস্থল
                             </a>
                         </div>
@@ -154,12 +154,12 @@
 
                     <li class="nav-item">
                         <a class="btn" href="#"
-                           onclick="document.getElementById('youth-logout').submit()"
+                           onclick="document.getElementById('trainee-logout').submit()"
                            id="bd-versions">
                             <i class="fas fa-lock-open"></i>&nbsp; লগআউট
                         </a>
-                        <form id="youth-logout" style="display: none" method="post"
-                              action="{{route('frontend.youth.logout-submit')}}">
+                        <form id="trainee-logout" style="display: none" method="post"
+                              action="{{route('frontend.trainee.logout-submit')}}">
                             @csrf
                         </form>
                     </li>

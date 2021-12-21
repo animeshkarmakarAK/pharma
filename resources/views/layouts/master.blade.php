@@ -45,7 +45,7 @@
         }
         .nav-big-icon-sidebar .nav-treeview{
             background: #328cd8;
-            padding: 14px 0px 10px 0px;
+            padding: 14px 0 10px 0;
         }
 
         .nav-big-icon-sidebar .nav-treeview:before{

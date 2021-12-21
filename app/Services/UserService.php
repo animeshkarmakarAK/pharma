@@ -32,29 +32,19 @@ class UserService
         $userType = UserType::findOrFail($data['user_type_id']);
         $data['role_id'] = $userType->default_role_id;
         $data = $this->setAndClearData($data);
+        //dd($data);
 
         return User::create($data);
     }
 
     protected function setAndClearData(array $data): array
     {
-        if ($data['user_type_id'] == UserType::USER_TYPE_DC_USER_CODE) {
-            $data['institute_id'] = null;
-            $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
-            $data['loc_district_id'] = null;
-            $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_TRAINER_USER_CODE) {
-            $data['loc_district_id'] = null;
+        $data['loc_district_id'] = null;
+        $data['loc_division_id'] = null;
+        if (auth()->user()->user_type_id == UserType::USER_TYPE_INSTITUTE_USER_CODE){
             $data['institute_id'] = auth()->user()->institute_id;
-            $data['loc_division_id'] = null;
-        } elseif ($data['user_type_id'] == UserType::USER_TYPE_DIVCOM_USER_CODE) {
-            $data['loc_district_id'] = null;
+        }elseif (empty($data['institute_id'] )){
             $data['institute_id'] = null;
-        } else {
-            $data['loc_district_id'] = null;
-            $data['institute_id'] = null;
-            $data['loc_division_id'] = null;
         }
 
         return $data;
@@ -80,19 +70,12 @@ class UserService
             ],
             'institute_id' => [
                 'requiredIf:user_type_id,' . UserType::USER_TYPE_INSTITUTE_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_BRANCH_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
                 'int',
                 'exists:institutes,id'
             ],
-            'loc_district_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_DC_USER_CODE,
-                'int',
-                'exists:loc_districts,id'
-            ],
-            'loc_division_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_DIVCOM_USER_CODE,
-                'int',
-                'exists:loc_divisions,id'
-            ],
+
             'password' => [
                 'bail',
                 new RequiredIf($id == null),
@@ -226,10 +209,10 @@ class UserService
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (User $user) use ($authUser) {
                 $str = '';
                 if ($authUser->can('view', $user)) {
-                    $str .= '<a href="#" data-url="' . route('admin.users.show', $user->id) . '" class="btn btn-outline-info btn-sm dt-view"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . '</a>';
+                    $str .= '<a href="' . route('admin.users.show', $user->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
                 }
-                if ($authUser->can('update', $user) && $authUser->can('updateTrainer', $user)) {
-                    $str .= '<a href="#" data-url="' . route('admin.users.edit', $user->id) . '" class="btn btn-outline-warning btn-sm dt-edit"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
+                if ($authUser->can('update', $user)) {
+                    $str .= '<a href="' . route('admin.users.edit', $user->id) . '" class="btn btn-outline-warning btn-sm"> <i class="fas fa-edit"></i> ' . __('generic.edit_button_label') . ' </a>';
                 }
                 if ($authUser->can('delete', $user)) {
                     $str .= '<a href="#" data-action="' . route('admin.users.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete"> <i class="fas fa-trash"></i> ' . __('generic.delete_button_label') . '</a>';

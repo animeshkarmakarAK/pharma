@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\Classes\AuthHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Institute;
@@ -11,7 +12,7 @@ use Illuminate\Contracts\View\View;
 class CourseSearchController extends Controller
 {
     /**
-     * items of youth course search page in frontend
+     * items of trainee course search page in frontend
      *
      * @return View
      */
@@ -39,17 +40,28 @@ class CourseSearchController extends Controller
      * @param mixed ...$args
      * @return View
      */
-    public function courseDetails(...$args): View
+    public function courseDetails(int $courseId): View
     {
-        $courseId = $args[0];
-
-        if (count($args) > 1 || !is_numeric($args[0])) {
-            $courseId = $args[1];
-        }
-
         $course = Course::findOrFail($courseId);
 
         return view(self::VIEW_PATH . 'course-details', ['course' => $course]);
     }
 
+    /**
+     * @param int $courseId
+     * @return View
+     */
+    public function courseApply(int $courseId): View
+    {
+        $authTrainee = AuthHelper::getAuthUser('trainee');
+        $course = Course::findOrFail($courseId);
+        $runningBatches = $course->runningBatches();
+        $academicQualifications = $authTrainee->academicQualifications->keyBy('examination');
+
+        return view(self::VIEW_PATH . 'course-apply', with([
+            'trainee' => $authTrainee,
+            'course' => $course,
+            'batches' => $runningBatches,
+            'academicQualifications' => $academicQualifications]));
+    }
 }

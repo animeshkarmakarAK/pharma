@@ -2,6 +2,7 @@
     /** @var \App\Models\Institute $currentInstitute */
     $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
+    $authTrainee = \App\Helpers\Classes\AuthHelper::getAuthUser('trainee');
 
 @endphp
 
@@ -12,6 +13,8 @@
 @endsection
 
 @section('content')
+    <x-modal id="trainee-course-enroll-warning-modal" type="warning" xl></x-modal>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -101,8 +104,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
+        @include('utils.trainee-loggedin-confirm-modal');
+
         @endsection
         @push('css')
             <style>
@@ -236,46 +241,22 @@
                         return '';
                     }
 
-                    return monthNames[month].substr(0,3);
+                    return monthNames[month].substr(0, 3);
                 }
 
-                {{--const template = function (key, item) {--}}
-                {{--    let html = '';--}}
-                {{--    html += '<div class="col-md-3">';--}}
-                {{--    html += '<div class="card card-main mb-3">';--}}
-                {{--    html += '<div class="card-bar-home-course">';--}}
-                {{--    html += '<div class="pb-3">';--}}
-                {{--    html += '<img class="slider-img border-top-radius"';--}}
-                {{--    html += 'src="{{asset('/storage/'. '__')}}"'.replace('__', item.cover_image) + '" width="100%"';--}}
-                {{--    html += 'alt="icon">';--}}
-                {{--    html += '</div>';--}}
-                {{--    html += '<div class="text-left pl-4 pr-4 pt-1 pb-1">';--}}
+                function checkAuth(courseId) {
+                    const isTraineeAuthenticated = !!'{{$authTrainee}}';
 
-                {{--    html += '<p class="font-weight-bold course-heading-wrap">' + item.title + '</p>';--}}
-                {{--    html += '<p class="font-weight-light mb-1"><i';--}}
-                {{--    html += 'class="fas fa-clock gray-color"></i> <span ';--}}
-                {{--    html += 'class="course-p"><i class="fas fa-clock gray-color mr-2"></i>' + (item.duration ? item.duration : ' সময়কাল নির্ধারিত হয়নি') +--}}
-                {{--        '</span>';--}}
-                {{--    html += '</p>';--}}
-                {{--    html += '<p class="font-weight-light mb-0"><i';--}}
-                {{--    html += 'class="fas fa-user-plus gray-color"></i>';--}}
-                {{--    html += '<span ';--}}
+                    if (isTraineeAuthenticated) {
+                        window.location = "{!! route('frontend.course-apply', ['course_id' => '__']) !!}".replace('__', courseId);
+                    } else {
+                        $('#loggedIn_confirm__modal').modal('show');
 
-                {{--    html += '<p class="card-p1 float-left mb-1">';--}}
-                {{--    html += '<span style="font-weight: 900;color: #73727f;font-size: 23px; margin-right: 8px; width: 20px; display: inline-block;">&#2547;';--}}
-                {{--    html += '</span> ' + (item.course_fee ? engToBdNum(item.course_fee.toString()) + ' টাকা' : 'ফ্রি') + ' </p>';--}}
-                {{--    html += '<p class="float-right">';--}}
-                {{--    html += '<a href="{{ route('frontend.course-details', ['course_id' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', item.id);--}}
-                {{--    html += 'class="btn btn-primary btn-sm">বিস্তারিত</a>';--}}
-                {{--    html += '</p>';--}}
-                {{--    html += '</div>';--}}
-                {{--    html += '</div>';--}}
-                {{--    html += '</div> ';--}}
-                {{--    html += '</div>';--}}
-
-                {{--    return html;--}}
-                {{--}--}}
-
+                        setTimeout(function () {
+                            $('#loggedIn_confirm__modal').modal('hide');
+                        }, 1000);
+                    }
+                }
 
                 const template = function (key, course) {
                     let html = '';
@@ -297,11 +278,16 @@
                     html += ' class="fas fa-clock gray-color mr-2"></i>';
                     html += course?.duration ? '<span class="course-p">' + course.duration + '</span></p>' : 'Duration not fixed';
 
-                    html += '<p class="font-weight-light mb-1"><i';
+                    html += '<div class="row">';
+                    html += '<p class=" col-md-6 font-weight-light mb-1"><i';
                     html += 'class="fa fa-user gray-color mr-2"></i>';
                     html += '<i class="fa fa-user gray-color mr-2"> </i><span class="course-p">Student(0)</span>';
+                    html += '</a>';
+                    html += '<p class="col-md-6 font-weight-light mb-1">';
+                    html += '<a href="#" onclick="checkAuth(__)" style="padding:2px 10px;" class="btn btn-success float-right"> আবেদন</a>'.replaceAll('__', course.id);
+                    html += '</div>';
 
-                    html += '</p></div></div></div></a>';
+                    html += '</p></div></div></div>';
 
                     html += '<div class="bg-white course-date-card">';
                     html += '<div class="text-primary text-center">';
