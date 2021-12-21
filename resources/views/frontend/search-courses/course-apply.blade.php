@@ -1224,7 +1224,9 @@
                     required: isRequiredSSCInfo,
                 },
                 "academicQualification[ssc][grade]": {
-                    required: isRequiredSSCInfo,
+                    required: function () {
+                        return $('#ssc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!} || $('#ssc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!};
+                    },
                     min: 1,
                     max: function () {
                         if ($('#ssc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -1261,7 +1263,9 @@
                     required: isRequiredHSCInfo,
                 },
                 "academicQualification[hsc][grade]": {
-                    required: isRequiredHSCInfo,
+                    required: function () {
+                        return $('#hsc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!} || $('#hsc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!};
+                    },
                     min: 1,
                     max: function () {
                         if ($('#hsc_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -1290,7 +1294,9 @@
 
 
                 "academicQualification[graduation][grade]": {
-                    required: isRequiredHonsInfo,
+                    required: function () {
+                        return $('#graduation_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!} || $('#graduation_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!};
+                    },
                     min: 1,
                     max: function () {
                         if ($('#graduation_result').val() == {!!App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -1321,7 +1327,9 @@
                     required: isRequiredMastersInfo,
                 },
                 "academicQualification[masters][grade]": {
-                    required: isRequiredMastersInfo,
+                    required: function () {
+                        return $('#masters_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!} || $('#masters_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!};
+                    },
                     min: 1,
                     max: function () {
                         if ($('#masters_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}) {
@@ -1343,7 +1351,7 @@
                     required: isRequiredEthnicGroup,
                 },
                 "familyMember[father][member_name_en]": {
-                    required: true,
+                    required: isRequiredGuardianInfo,
                 },
                 "familyMember[father][nid]": {
                     required: isRequiredGuardianInfo,
@@ -1556,6 +1564,5 @@
                 $('#masters_cgpa_div').removeAttr('class');
             }
         });
-
     </script>
 @endpush

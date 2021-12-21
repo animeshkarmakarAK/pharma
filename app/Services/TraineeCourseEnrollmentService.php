@@ -60,7 +60,11 @@ class TraineeCourseEnrollmentService
         }
 
         $data = Arr::only($data, ['batches', 'course_id']);
-        $data['batch_preferences'] = $data['batches'];
+
+        if (!empty($data['batches'])) {
+            $data['batch_preferences'] = $data['batches'];
+            unset($data['batches']);
+        }
 
         return $trainee->traineeCourseEnroll()->create($data);
     }
@@ -73,6 +77,7 @@ class TraineeCourseEnrollmentService
             'ethnic_group' => 'nullable',
             'address' => 'nullable',
             'batches' => 'nullable',
+            'course_id' => 'required|int'
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
