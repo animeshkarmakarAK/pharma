@@ -148,7 +148,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 });
 
 Route::group(['as' => 'frontend.'], function () {
-
     Route::group([ 'middleware' => ['authTrainee']], function() {
         Route::get('trainee-profile', [App\Http\Controllers\Frontend\TraineeController::class, 'index'])->name('trainee');
         Route::get('edit-personal-info', [App\Http\Controllers\Frontend\TraineeProfileController::class, 'editPersonalInfo'])->name('edit-personal-info');
