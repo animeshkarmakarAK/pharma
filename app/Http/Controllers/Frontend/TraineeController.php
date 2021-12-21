@@ -57,7 +57,7 @@ class TraineeController extends Controller
             'traineeRegistration',
         ]);
         $academicQualifications = TraineeAcademicQualification::where(['trainee_id' => $trainee->id])->get();
-        $guardians = $trainee->traineeFamilyMemberInfo;
+        $guardians = $trainee->familyMemberInfo;
 
         return \view(self::VIEW_PATH . 'trainee.trainee-profile')->with(
             [
