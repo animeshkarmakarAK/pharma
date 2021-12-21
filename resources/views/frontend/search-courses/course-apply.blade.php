@@ -1468,8 +1468,6 @@
 
         $(document).ready(function () {
             setFormFields(APPLICATION_FORM_SETTINGS);
-
-
             let count = 1;
 
             $('.batch-list').on('click', function () {
