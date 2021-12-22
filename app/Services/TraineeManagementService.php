@@ -33,7 +33,7 @@ class TraineeManagementService
     public function getListDataForDatatable($request): JsonResponse
     {
         $trainee = TraineeCourseEnroll::acl()->select([
-            'batch_preferences as preferred_batches',
+            /*'batch_preferences as preferred_batches',*/
             'trainees.id as id',
             'trainees.name',
             'trainees.mobile',
@@ -73,7 +73,7 @@ class TraineeManagementService
 
 
         return DataTables::eloquent($trainee)
-            ->editColumn('batch_preferences', function (TraineeCourseEnroll $traineeCourseEnroll) {
+            /*->editColumn('batch_preferences', function (TraineeCourseEnroll $traineeCourseEnroll) {
 
                 if ($traineeCourseEnroll->preferred_batches != null) {
                     dd( explode(',', $traineeCourseEnroll->preferred_batches));
@@ -85,7 +85,7 @@ class TraineeManagementService
                 } else {
                     return '';
                 }
-            })
+            })*/
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
                 $str = '';
                 $str .= '<a href="' . route('frontend.trainee-registrations.show', $traineeCourseEnroll->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
@@ -117,6 +117,13 @@ class TraineeManagementService
             })
             ->rawColumns(['action', 'enroll_status', 'payment_status', 'paid_or_unpaid', 'enroll_status_check'])
             ->toJson();
+    }
+
+    public function getPreferdBatch($id){
+        $preferedBatch =TraineeCourseEnroll::find($id);
+        $batchList = Batch::where([['course_id', $preferedBatch->course_id],['batch_status',1]])->get();
+
+        return response()->json(['message' => 'success', 'data'=>['preferedBatch'=>$preferedBatch, 'batchList' => $batchList]]);
     }
 
     public function addTraineeToBatch(Batch $batch, array $traineeCourseEnrolls): bool

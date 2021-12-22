@@ -89,6 +89,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::get('trainee-registrations', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'index'])
         ->name('trainee.registrations.index');
+    Route::get('trainee-preferred_batch/{id}', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'preferredBatch'])
+        ->name('trainee.preferred.batch');
+    Route::put('trainee-course-batch-select/{trainee_course_enroll_id}',
+        [App\Http\Controllers\TraineeRegistrationManagementController::class, 'acceptTraineeCourseEnroll'])
+        ->name('trainee-course-batch-select');
     Route::post('trainee-registrations/datatable', [App\Http\Controllers\TraineeRegistrationManagementController::class, 'getDatatable'])
         ->name('trainee.registrations.datatable');
 

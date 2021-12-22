@@ -238,22 +238,33 @@
             <div class="modal-content">
                 <div class="modal-header custom-bg-gradient-info">
                     <h4 class="modal-title">
-                        <i class="fas fa-hand-paper"></i> {{ __('Do you want to accept it?') }}
+                        <i class="fas fa-hand-paper"></i> {{ __('Select a Batch') }}
                     </h4>
                     <button type="button" class="close" data-dismiss="modal"
                             aria-label="{{ __('voyager::generic.close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Prefered Batch</label>
+                            <div id="prefared_batch"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>selected Batch</label>
+                            <div id="available_batch"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right"
+                    <button type="button" class="btn btn-default pull-right" onclick="rejectApplication()"
                             data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <form action="#" id="accept-application-form" method="POST">
-                        {{ method_field("PUT") }}
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-danger pull-right delete-confirm"
-                               value="{{ __('Confirm') }}">
-                    </form>
+
+                    <button type="button" class="btn btn-danger pull-right delete-confirm" onclick="acceptApplication()"
+                            data-dismiss="modal">{{ __('Confirm') }}</button>
+
                 </div>
             </div>
         </div>
@@ -301,6 +312,39 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Default checkbox
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Default radio
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Default checkbox
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Default radio
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-right"
                             data-dismiss="modal">{{ __('Cancel') }}</button>
@@ -410,12 +454,12 @@
                         name: "institutes.title",
                         visible: false
                     },
-                    {
+                   /* {
                         title: "Preferred Batches",
                         data: "preferred_batches",
                         name: "batch_preferences",
                         visible: true,
-                    },
+                    },*/
                     {
                         title: "Branch Name",
                         data: "branches.title",
@@ -463,10 +507,82 @@
 
             let datatable = $('#dataTable').DataTable(params);
 
+
+            function htmlGenerate(data){
+                html =` <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="selected_batch"  value="option1" >
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Default
+                                    </label>
+                                </div>
+                                <label class="form-check-label" >
+                                    Default checkbox
+                                </label>`
+
+                let preferedBatch = ''
+                let availableBatch = ''
+                data['batchList'].forEach(function(item){
+                    availableBatch += `<div class="form-check">
+                                    <input class="form-check-input" type="radio" name="selected_batch"  value=" `+item['id']+`" >
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        `+item['title']+`
+                                    </label>
+                                </div>`
+                });
+                let preferedBatchList =  data['batchList'].filter(function (item){
+                    return data['preferedBatch']['batch_preferences'].includes(item.id+'');
+                })
+
+                preferedBatchList.forEach(function(item){
+                    preferedBatch += ` <label class="form-check-label" >
+                                     `+item['title']+`
+                                </label><br>`
+                });
+
+                $('#available_batch').html(availableBatch)
+                $('#prefared_batch').html(preferedBatch)
+
+
+
+            }
+
+
+            function featchTraineeBatch (id){
+
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('admin.trainee.preferred.batch', '__') }}".replace('__', id),
+                    contentType: false,
+                    processData: false,
+
+                    success: function (response) {
+
+                        htmlGenerate(response['data'])
+                        //success('{{asset('storage/')}}' + response.location);
+                    },
+                    error: function (error) {
+                        if (error.status === 403) {
+                            failure('HTTP Error: ' + error.status, {remove: true});
+                            return;
+                        }
+                        if (error.status < 200 || error.status >= 300) {
+                            failure('HTTP Error: ' + error.status);
+                            return;
+                        }
+                    },
+                    complete: function () {
+                        return;
+                    }
+                });
+
+            }
+
             $(document, 'td').on('click', '.accept-application', function (e) {
-                $('#accept-application-form')[0].action = $(this).data('action');
-                console.log($('#accept-application-form')[0].action );
+                console.log('action',$(this).data('action'))
+                //$('#accept-application-form')[0].action = $(this).data('action');
+                //console.log($('#accept-application-form')[0].action );
                 $('#accept-application-modal').modal('show');
+                featchTraineeBatch(1)
             });
 
             $(document, 'td').on('click', '.reject-application', function (e) {
