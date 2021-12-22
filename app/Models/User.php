@@ -113,6 +113,7 @@ class User extends AuthBaseModel
     {
         return $this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE;
     }
+
     public function haveInstitute(): bool
     {
             if($this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE ||

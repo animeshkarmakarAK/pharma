@@ -49,7 +49,6 @@
             position: relative;
             padding: 0 0 12px 0;
         }
-
         #user_type_id-error {
             position: absolute;
             left: 6px;
@@ -60,9 +59,7 @@
 
 @push('js')
     <script type="text/javascript" src="{{asset('/js/datatable-bundle.js')}}"></script>
-
     <script>
-
         $(function () {
             let params = serverSideDatatableFactory({
                 url: '{{ route('admin.users.datatable') }}',
@@ -81,7 +78,6 @@
                         data: "name",
                         name: "users.name"
                     },
-
                     {
                         title: "User Type",
                         data: "user_type_title",
@@ -91,12 +87,6 @@
                         title: "Institute",
                         data: "institute_title",
                         name: "institutes.title",
-                        visible: false,
-                    },
-                    {
-                        title: "District",
-                        data: "loc_district_name",
-                        name: "loc_districts.title",
                         visible: false,
                     },
                     {
@@ -117,8 +107,6 @@
                 console.log($('#delete_form')[0].action)
                 $('#delete_modal').modal('show');
             });
-
         });
-
     </script>
 @endpush

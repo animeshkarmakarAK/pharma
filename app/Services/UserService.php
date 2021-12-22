@@ -31,23 +31,9 @@ class UserService
 
         $userType = UserType::findOrFail($data['user_type_id']);
         $data['role_id'] = $userType->default_role_id;
-        $data = $this->setAndClearData($data);
-        //dd($data);
+        $data = $this->setACLData($data);
 
         return User::create($data);
-    }
-
-    protected function setAndClearData(array $data): array
-    {
-        $data['loc_district_id'] = null;
-        $data['loc_division_id'] = null;
-        if (auth()->user()->user_type_id == UserType::USER_TYPE_INSTITUTE_USER_CODE){
-            $data['institute_id'] = auth()->user()->institute_id;
-        }elseif (empty($data['institute_id'] )){
-            $data['institute_id'] = null;
-        }
-
-        return $data;
     }
 
     public function validator(Request $request, $id = null): Validator
@@ -69,20 +55,18 @@ class UserService
                 'exists:user_types,code'
             ],
             'institute_id' => [
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_INSTITUTE_USER_CODE,
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_BRANCH_USER_CODE,
-                'requiredIf:user_type_id,' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
+                'requiredIf:user_type_id,' . UserType::USER_TYPE_INSTITUTE_USER_CODE . ',' . UserType::USER_TYPE_BRANCH_USER_CODE . ',' . UserType::USER_TYPE_TRAINING_CENTER_USER_CODE,
                 'int',
                 'exists:institutes,id'
             ],
-
             'password' => [
                 'bail',
-                new RequiredIf($id == null),
+                new RequiredIf(!$id),
                 'confirmed'
             ],
             'profile_pic' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000'
         ];
+
         if (AuthHelper::getAuthUser()->id == $id && !empty($request->input('password'))) {
             $rules['old_password'] = [
                 'bail',
@@ -99,6 +83,7 @@ class UserService
 
     public function updateUser(User $user, array $data): User
     {
+        /** @var User $authUser */
         $authUser = AuthHelper::getAuthUser();
 
         if (!empty($data['profile_pic'])) {
@@ -116,9 +101,13 @@ class UserService
         }
 
         $userType = UserType::findOrFail($data['user_type_id']);
-        $data['role_id'] = $userType->default_role_id;
 
-        $data = $this->setAndClearData($data);
+        if (!$user->role_id || $user->user_type_id != $data['user_type_id']) {
+            $data['role_id'] = $userType->default_role_id;
+        }
+
+        $data = $this->setACLData($data);
+
         $user->update($data);
         return $user;
     }
@@ -134,7 +123,6 @@ class UserService
             'users.name',
             'users.user_type_id',
             'institutes.title as institute_title',
-            'loc_districts.title as loc_district_name',
             'user_types.title as user_type_title',
             'users.email',
             'users.created_at',
@@ -142,17 +130,22 @@ class UserService
         ]);
         $users->join('user_types', 'users.user_type_id', '=', 'user_types.id');
         $users->leftJoin('institutes', 'users.institute_id', '=', 'institutes.id');
-        $users->leftJoin('loc_districts', 'users.loc_district_id', '=', 'loc_districts.id');
 
         if ($authUser->isTrainer()) {
             $users->where('users.id', '=', $authUser->id);
-        } else {
-            $users->where('users.user_type_id', '!=', User::USER_TYPE_TRAINER_USER_CODE);
         }
 
         if ($authUser->isInstituteUser()) {
             $users->where('users.institute_id', $authUser->institute_id)
-                ->where('users.user_type_id', $authUser->user_type_id);
+                ->whereIn(
+                    'users.user_type_id',
+                    [
+                        User::USER_TYPE_INSTITUTE_USER_CODE,
+                        User::USER_TYPE_BRANCH_USER_CODE,
+                        User::USER_TYPE_TRAINING_CENTER_USER_CODE,
+                        User::USER_TYPE_TRAINER_USER_CODE
+                    ]
+                );
         }
 
         return DataTables::eloquent($users)
@@ -267,5 +260,17 @@ class UserService
         $user->save();
 
         return $user;
+    }
+
+    protected function setACLData(array $data): array
+    {
+        /** @var User $authUser */
+        $authUser = AuthHelper::getAuthUser();
+
+        if ($authUser->user_type_id == UserType::USER_TYPE_INSTITUTE_USER_CODE) {
+            $data['institute_id'] = $authUser->institute_id;
+        }
+
+        return $data;
     }
 }
