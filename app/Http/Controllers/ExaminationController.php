@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Classes\AuthHelper;
+use App\Models\Batch;
+use App\Models\Examination;
+use App\Models\ExaminationType;
+use App\Models\TrainingCenter;
+use App\Services\ExaminationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use App\Models\Batch;
-use App\Models\Examination;
-use App\Models\ExaminationType;
-use App\Models\TrainingCenter;
-use App\Services\ExaminationService;
 
 class ExaminationController extends Controller
 {
@@ -39,10 +39,11 @@ class ExaminationController extends Controller
      */
     public function create(): View
     {
-        $batches = Batch::acl()->active()->pluck('title','id');
-        $trainingCenters = TrainingCenter::acl()->active()->pluck('title','id');
-        $examinationTypes = ExaminationType::acl()->active()->pluck('title','id');
-        return view(self::VIEW_PATH . 'edit-add', compact('batches','trainingCenters','examinationTypes'));
+        $batches = Batch::acl()->active()->pluck('title', 'id');
+        $trainingCenters = TrainingCenter::acl()->active()->pluck('title', 'id');
+        $examinationTypes = ExaminationType::acl()->active()->pluck('title', 'id');
+
+        return view(self::VIEW_PATH . 'edit-add', compact('batches', 'trainingCenters', 'examinationTypes'));
     }
 
 
@@ -80,19 +81,14 @@ class ExaminationController extends Controller
      */
     public function edit(Examination $examination)
     {
-        $authUser = AuthHelper::getAuthUser();
+        $examinationTypes = ExaminationType::acl()->active()->pluck('title', 'id');
 
-        if($authUser->isInstituteUser()){
-            $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE, 'institute_id' => $authUser->institute_id])->pluck('title','id');
-        }
-        else{
-            $examinationTypes = ExaminationType::where(['row_status' => Examination::EXAMINATION_ROW_STATUS_ACTIVE])->pluck('title','id');
-        }
-        return view(self::VIEW_PATH . 'edit-add', compact('examination','examinationTypes'));
+        return view(self::VIEW_PATH . 'edit-add', compact('examination', 'examinationTypes'));
     }
 
     /**
      * @param Request $request
+     * @param Examination $examination
      * @return RedirectResponse
      * @throws ValidationException
      */
@@ -148,7 +144,7 @@ class ExaminationController extends Controller
     public function examinationStatus($id): RedirectResponse
     {
         $examination = Examination::find($id);
-        if (!$examination){
+        if (!$examination) {
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
@@ -164,16 +160,14 @@ class ExaminationController extends Controller
                 'message' => __('generic.object_published_successfully', ['object' => 'Examination']),
                 'alert-type' => 'success'
             ]);
-        }
-        else if($status == Examination::EXAMINATION_STATUS_PUBLISH) {
+        } else if ($status == Examination::EXAMINATION_STATUS_PUBLISH) {
             $examination->status = Examination::EXAMINATION_STATUS_COMPLETE;
             $examination->save();
             return back()->with([
                 'message' => __('generic.object_completed_successfully', ['object' => 'Examination']),
                 'alert-type' => 'success'
             ]);
-        }
-        else {
+        } else {
             $examination->status = Examination::EXAMINATION_STATUS_NOT_PUBLISH;
             $examination->save();
 

@@ -140,7 +140,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::post('examination-types/datatable', [App\Http\Controllers\ExaminationTypeController::class, 'getDatatable'])->name('examination-types.datatable');
     Route::post('examinations/datatable', [App\Http\Controllers\ExaminationController::class, 'getDatatable'])->name('examinations.datatable');
-    Route::get('examinations/status/{id?}', [App\Http\Controllers\ExaminationController::class, 'examinationStatus'])->name('examinations.status');
+    Route::get('examinations/{id}/status', [App\Http\Controllers\ExaminationController::class, 'examinationStatus'])->name('examinations.status');
     Route::post('examinations/code_check', [App\Http\Controllers\ExaminationController::class, 'examinationCodeCheck'])->name('examinations.examinationCodeCheck');
     Route::post('examination-results/datatable', [App\Http\Controllers\ExaminationResultController::class, 'getDatatable'])->name('examination-results.datatable');
     Route::get('examination-results/get-trainees/{examination_id?}', [App\Http\Controllers\ExaminationResultController::class, 'getTrainees'])->name('examination-results.get-trainees');
