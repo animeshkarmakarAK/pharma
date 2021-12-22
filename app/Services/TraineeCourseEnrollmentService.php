@@ -44,7 +44,7 @@ class TraineeCourseEnrollmentService
         //guardian info
 
         foreach ($data['familyMember'] as $key => $guardian) {
-            if (!$guardian['relation_with_trainee']) {
+            if (!$guardian['relation_with_trainee'] || !$guardian['name']) {
                 continue;
             }
 

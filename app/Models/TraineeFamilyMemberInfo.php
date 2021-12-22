@@ -62,9 +62,11 @@ class TraineeFamilyMemberInfo extends BaseModel
 
         if (!empty($guardianOptionArray[$this->relation_with_trainee])) {
             return $guardianOptionArray[$this->relation_with_trainee];
+        } elseif ($this->relation_with_trainee) {
+            return $this->relation_with_trainee;
+        } else {
+            return $guardian;
         }
-
-        return $guardian;
     }
 
 

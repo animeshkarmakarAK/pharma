@@ -232,7 +232,7 @@
 
                 setTimeout(function () {
                     $('#loggedIn_confirm__modal').modal('hide');
-                }, 3000);
+                }, 5000);
             }
         }
     </script>

@@ -92,6 +92,9 @@
                         </div>
                     </div>
                 </div>
+
+                @include('utils.trainee-loggedin-confirm-modal');
+
             </div>
 
             <div class="modal modal-danger fade" tabindex="-1" id="course_details_modal" role="dialog">
@@ -106,9 +109,9 @@
             </div>
         </div>
 
-        @include('utils.trainee-loggedin-confirm-modal');
 
         @endsection
+
         @push('css')
             <style>
                 .card-background-white {
@@ -252,9 +255,9 @@
                     } else {
                         $('#loggedIn_confirm__modal').modal('show');
 
-                        setTimeout(function () {
-                            $('#loggedIn_confirm__modal').modal('hide');
-                        }, 1000);
+                        // setTimeout(function () {
+                        //     $('#loggedIn_confirm__modal').modal('hide');
+                        // }, 5000);
                     }
                 }
 

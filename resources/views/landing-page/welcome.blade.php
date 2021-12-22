@@ -153,6 +153,9 @@
     <!-- Courses Start -->
     <section class="container-fluid slider-area course-section">
         <div class="container my-4">
+
+            @include('utils.trainee-loggedin-confirm-modal');
+
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <h2 class="section-heading section-heading-home pb-3">কোর্স সমূহ</h2>
@@ -485,9 +488,6 @@
                 </div>
             </div>
         </div>
-
-        @include('utils.trainee-loggedin-confirm-modal');
-
     </section>
     <!-- End Courses -->
 
@@ -1299,7 +1299,7 @@
 
                             setTimeout(function () {
                                 $('#loggedIn_confirm__modal').modal('hide');
-                            }, 3000);
+                            }, 5000);
                         }
                     }
 

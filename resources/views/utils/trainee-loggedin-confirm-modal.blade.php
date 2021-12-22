@@ -8,8 +8,9 @@
                 </button>
             </div>
             <div class="modal-body" id="delete_model_body">
-               You have to login first to apply a course.
+                You have to login first to apply a course.
             </div>
         </div>
     </div>
 </div>
+
