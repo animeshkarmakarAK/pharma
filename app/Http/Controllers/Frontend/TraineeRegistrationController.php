@@ -37,6 +37,7 @@ class TraineeRegistrationController extends Controller
      */
     public function show($traineeId): array
     {
+
         $trainee = Trainee::findOrFail($traineeId);
         $familyMembers = $this->traineeRegistrationService->getTraineeFamilyMemberInfo($trainee);
         $traineeAcademicQualifications = $this->traineeRegistrationService->getTraineeAcademicQualification($trainee);
