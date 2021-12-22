@@ -1448,15 +1448,32 @@
                     type: 'POST',
                     processData: false,
                     contentType: false,
-                    success: function (response) {
-                        console.log('response', response);
-                        $('.overlay').hide();
-                        let alertType = response.alertType;
-                        let alertMessage = response.message;
-                        let alerter = toastr[alertType];
-                        alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
-                    },
-                });
+                    errors: function(response) {
+                        console.log('errors', response);
+                    }
+                }).then((response) => {
+                    console.log('response', response);
+                    let alertType = response.alertType;
+                    let alertMessage = response.message;
+                    let alerter = toastr[alertType];
+                    alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+                }).catch((error) => {
+                    if (typeof error.responseJSON.errors !== 'undefined') {
+                        $.each(error.responseJSON.errors, function (key, value) {
+                            if (Array.isArray(value)) {
+                                toastr.error(value[0]);
+                            } else {
+                                toastr.error(value);
+                            }
+                        });
+                    } else if (typeof error.responseJSON.message !== 'undefined') {
+                        toastr.error(error.responseJSON.message);
+                    } else {
+                        toastr.error(error.responseJSON);
+                    }
+                }).always(() => {
+                    $('.overlay').hide();
+                })
 
                 return false;
             }
@@ -1467,7 +1484,6 @@
         })
 
         function setFormFields(settings) {
-            console.log('settings:', settings);
 
             if (settings?.FreedomFighter?.should_present_in_form) {
                 $('#freedom-fighter-status-section').show();
