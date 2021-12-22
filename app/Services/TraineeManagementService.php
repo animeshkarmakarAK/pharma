@@ -40,12 +40,13 @@ class TraineeManagementService
             DB::raw('DATE_FORMAT(trainees.created_at,"%d %b, %Y %h:%i %p") AS application_date'),
             'institutes.title as institute_title',
             'courses.title as course_title',
+            'enroll_status',
         ]);
 
         $trainee->join('trainees', 'trainees.id', '=', 'trainee_course_enrolls.trainee_id');
         $trainee->join('courses', 'courses.id', '=', 'trainee_course_enrolls.course_id');
         $trainee->join('institutes', 'institutes.id', '=', 'courses.institute_id');
-        $trainee->where('enroll_status', TraineeCourseEnroll::ENROLL_STATUS_PROCESSING);
+        //$trainee->where('enroll_status', TraineeCourseEnroll::ENROLL_STATUS_PROCESSING);
 
         $instituteId = $request->input('institute_id');
         $branchId = $request->input('branch_id');
@@ -88,17 +89,24 @@ class TraineeManagementService
             })*/
             ->addColumn('action', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
                 $str = '';
-                $str .= '<a href="' . route('frontend.trainee-registrations.show', $traineeCourseEnroll->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
-                if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING) {
+                //$str .= '<a href="' . route('frontend.trainee-registrations.show', $traineeCourseEnroll->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
+
                     $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-accept', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
-                    $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-reject', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
-                }
+                    // $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-reject', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
+
                 return $str;
             }))
             ->addColumn('enroll_status', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
 
                 $str = '';
-                $str .= '<span style="width:70px" ' . '" class="badge badge-' . ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING ? "warning enroll-processing" : ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT ? "success enroll-accept" : "danger enroll-reject")) . '">' . ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING ? "Processing" : ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT ? "Accepted" : "Rejected")) . ' </span>';
+                if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_PROCESSING) {
+                    $str .= '<span class="badge badge-warning">Processing</span>';
+                } else if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT) {
+                    $str .= '<span class="badge badge-success">Accept</span>';
+                } else if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_REJECT) {
+                    $str .= '<span class="badge badge-danger">Reject</span>';
+                }
+
                 return $str;
             }))
             ->addColumn('payment_status', DatatableHelper::getActionButtonBlock(static function (TraineeCourseEnroll $traineeCourseEnroll) {
@@ -119,11 +127,12 @@ class TraineeManagementService
             ->toJson();
     }
 
-    public function getPreferdBatch($id){
-        $preferedBatch =TraineeCourseEnroll::find($id);
-        $batchList = Batch::where([['course_id', $preferedBatch->course_id],['batch_status',1]])->get();
+    public function getPreferdBatch($id)
+    {
+        $preferedBatch = TraineeCourseEnroll::find($id);
+        $batchList = Batch::where([['course_id', $preferedBatch->course_id], ['batch_status', 1]])->get();
 
-        return response()->json(['message' => 'success', 'data'=>['preferedBatch'=>$preferedBatch, 'batchList' => $batchList]]);
+        return response()->json(['message' => 'success', 'data' => ['preferedBatch' => $preferedBatch, 'batchList' => $batchList]]);
     }
 
     public function addTraineeToBatch(Batch $batch, array $traineeCourseEnrolls): bool

@@ -40,10 +40,37 @@ class TraineeRegistrationManagementController extends Controller
     {
         return $this->traineeManagementService->getListDataForDatatable($request);
     }
-    public function preferredBatch($id){
+    public function preferredBatch($id): JsonResponse
+    {
 
        return $this->traineeManagementService->getPreferdBatch($id);
     }
+
+    public function confirmBatch(Request $request): JsonResponse
+    {
+        try {
+            if($request->status==1){
+                TraineeCourseEnroll::where('id',$request->id)
+                    ->update(['enroll_status'=>1,'batch_id'=>$request->batch_id]);
+            }else{
+                TraineeCourseEnroll::where('id',$request->id)
+                    ->update(['enroll_status'=>2,'batch_id'=>null]);
+            }
+
+        } catch (\Throwable $exception) {
+            Log::debug($exception->getMessage());
+            dd($exception->getMessage());
+            return back()->with([
+                'message' => __('Something is wrong, Please try again'),
+                'alert-type' => 'error'
+            ]);
+        }
+
+        return response()->json(['message' => 'success']);
+
+    }
+
+
     public function acceptTraineeCourseEnroll($traineeCourseEnrollId)
     {
         $traineeCourseEnroll = TraineeCourseEnroll::findOrFail($traineeCourseEnrollId);

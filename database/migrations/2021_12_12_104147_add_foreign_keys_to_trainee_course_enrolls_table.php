@@ -25,6 +25,11 @@ class AddForeignKeysToTraineeCourseEnrollsTable extends Migration
                 ->on('courses')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+            $table->foreign('batch_id', 'trainee_batch_enrolls_fk_batch_id')
+                ->references('id')
+                ->on('courses')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 
@@ -38,6 +43,7 @@ class AddForeignKeysToTraineeCourseEnrollsTable extends Migration
         Schema::table('trainee_course_enrolls', function (Blueprint $table) {
             $table->dropForeign('trainee_course_enrolls_fk_trainee_id');
             $table->dropForeign('trainee_course_enrolls_fk_course_id');
+            $table->dropForeign('trainee_batch_enrolls_fk_batch_id');
         });
     }
 }

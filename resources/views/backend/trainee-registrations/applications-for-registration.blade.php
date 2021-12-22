@@ -259,10 +259,10 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right" onclick="rejectApplication()"
-                            data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-default pull-right btn-danger bg-danger text-white" id="reject_button"
+                            data-dismiss="modal">{{ __('Reject') }}</button>
 
-                    <button type="button" class="btn btn-danger pull-right delete-confirm" onclick="acceptApplication()"
+                    <button type="button" class="btn btn-primary pull-right " id="confirm_button"
                             data-dismiss="modal">{{ __('Confirm') }}</button>
 
                 </div>
@@ -509,6 +509,7 @@
 
 
             function htmlGenerate(data){
+
                 html =` <div class="form-check">
                                     <input class="form-check-input" type="radio" name="selected_batch"  value="option1" >
                                     <label class="form-check-label" for="exampleRadios1">
@@ -520,11 +521,12 @@
                                 </label>`
 
                 let preferedBatch = ''
-                let availableBatch = ''
+                let availableBatch = '<input type="hidden" value="'+data["preferedBatch"]["id"]+'" id="enrollId">'
                 data['batchList'].forEach(function(item){
+                    let checked= item['id']==data['preferedBatch']['batch_id']?'checked':'';
                     availableBatch += `<div class="form-check">
-                                    <input class="form-check-input" type="radio" name="selected_batch"  value=" `+item['id']+`" >
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <input class="form-check-input" type="radio" name="selected_batch"  value=" `+item['id']+`" `+checked+`>
+                                    <label class="form-check-label">
                                         `+item['title']+`
                                     </label>
                                 </div>`
@@ -542,9 +544,49 @@
                 $('#available_batch').html(availableBatch)
                 $('#prefared_batch').html(preferedBatch)
 
-
-
             }
+
+            function batchAssign(type){
+                id= $('#enrollId').val()
+                batch_id=$('input[name="selected_batch"]:checked').val();
+                console.log(id, batch_id)
+                $.ajax({
+                    type: 'post',
+                    url: "{{ route('admin.trainee.batch.select') }}",
+                    data: {
+                        'id':id,
+                        'batch_id':batch_id,
+                        'status':type
+                    },
+                    success: function (response) {
+                        htmlGenerate(response['data'])
+                    },
+                    error: function (error) {
+                        if (error.status === 403) {
+                            failure('HTTP Error: ' + error.status, {remove: true});
+                            return;
+                        }
+                        if (error.status < 200 || error.status >= 300) {
+                            failure('HTTP Error: ' + error.status);
+                            return;
+                        }
+                    },
+                    complete: function () {
+
+                        return;
+                    }
+                });
+                window.location.reload()
+            }
+
+            $('#confirm_button').click(function (){
+                batchAssign(1)
+            })
+            $('#reject_button').click(function (){
+                batchAssign(0)
+            })
+
+
 
 
             function featchTraineeBatch (id){
