@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Institute;
 use App\Models\Programme;
+use App\Models\Trainee;
 use Illuminate\Contracts\View\View;
 
 class CourseSearchController extends Controller
@@ -53,7 +54,9 @@ class CourseSearchController extends Controller
      */
     public function courseApply(int $courseId): View
     {
+        /** @var Trainee $authTrainee */
         $authTrainee = AuthHelper::getAuthUser('trainee');
+
         $course = Course::findOrFail($courseId);
         $runningBatches = $course->runningBatches();
         $academicQualifications = $authTrainee->academicQualifications->keyBy('examination');
@@ -61,7 +64,7 @@ class CourseSearchController extends Controller
         return view(self::VIEW_PATH . 'course-apply', with([
             'trainee' => $authTrainee,
             'course' => $course,
-            'batches' => $runningBatches,
+            'runningBatches' => $runningBatches,
             'academicQualifications' => $academicQualifications]));
     }
 }
