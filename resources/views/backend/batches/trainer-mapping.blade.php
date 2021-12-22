@@ -46,7 +46,7 @@
                                                 <div id="AddPhoneDiv{{ ++$sl_div }}">
                                                     <input type="hidden" class="update" name="update[]" value="{{$trainerBatch->user->id}}">
 
-                                                    <label for="user_id">{{ __('Training Center1') }}  <span style="color: red">*</span></label>
+                                                    <label for="user_id">{{ __('admin.batch.trainer') }}  <span style="color: red">*</span></label>
                                                     <select class="form-control select2 userid" name="user_id[]" id="user_id{{ ++$user_id }}" required>
                                                         <option value="">{{__('admin.common.select')}}</option>
                                                         @foreach($trainers as $trainer)
@@ -59,7 +59,7 @@
                                             @endforeach
                                         @else
                                             <div id="AddPhoneDiv{{ ++$sl_div }}">
-                                                <label for="user_id">{{ __('Training Center') }}  <span style="color: red">*</span></label>
+                                                <label for="user_id">{{ __('admin.batch.trainer') }}  <span style="color: red">*</span></label>
                                                     <select class="form-control select2 userid" name="user_id[]" id="user_id{{ ++$user_id }}" required>
                                                         <option value="">{{__('admin.common.select')}}</option>
                                                         @foreach($trainers as $trainer)
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="float-right  btn-group">
                                         <a class="btn btn-sm btn-outline-primary btn-rounded" id='addPhone'>
-                                            <i class="fa fa-plus-circle"></i> Add More Phone
+                                            <i class="fa fa-plus-circle"></i> Add More
                                         </a>
 
                                         <a class="btn btn-sm btn-outline-primary btn-rounded" id='removePhone'>
@@ -209,7 +209,7 @@
                 }
                 var newAddPhone = $(document.createElement('div'))
                     .attr("id", 'AddPhoneDiv' + counter);
-                newAddPhone.after().html('<br /> <label for="user_id">{{ __('Training Center') }}  <span style="color: red">*</span></label>' +
+                newAddPhone.after().html('<br /> <label for="user_id">{{ __('admin.batch.trainer') }}  <span style="color: red">*</span></label>' +
                     '<select class="form-control select2" name="user_id[]" id="user_id' +  counter + '" required>'+
                         '<option value="">{{__('admin.common.select')}}</option>'+
                         @foreach($trainers as $trainer)

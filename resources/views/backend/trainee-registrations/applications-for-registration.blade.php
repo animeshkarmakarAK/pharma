@@ -410,12 +410,12 @@
                         name: "institutes.title",
                         visible: false
                     },
-                    {
+                    /*{
                         title: "Preferred Batches",
                         data: "preferred_batches",
                         name: "batch_preferences",
                         visible: true,
-                    },
+                    },*/
                     {
                         title: "Branch Name",
                         data: "branches.title",
