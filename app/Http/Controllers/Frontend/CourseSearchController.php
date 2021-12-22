@@ -33,7 +33,6 @@ class CourseSearchController extends Controller
 
         $programmes = $programmes->get();
 
-
         return view(self::VIEW_PATH . 'course-list', compact('programmes', 'maxEnrollmentNumber'));
     }
 
@@ -58,7 +57,7 @@ class CourseSearchController extends Controller
         $authTrainee = AuthHelper::getAuthUser('trainee');
 
         $course = Course::findOrFail($courseId);
-        $runningBatches = $course->runningBatches();
+        $runningBatches = $course->runningBatches;
         $academicQualifications = $authTrainee->academicQualifications->keyBy('examination');
 
         return view(self::VIEW_PATH . 'course-apply', with([

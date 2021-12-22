@@ -49,13 +49,11 @@ class Course extends BaseModel
         'application_form_settings' => 'array'
     ];
 
-    public function runningBatches(): Collection
+    public function runningBatches(): HasMany
     {
-        $instance = $this->hasMany(Batch::class)
+        return $this->hasMany(Batch::class)
             ->whereDate('application_start_date', '<=',  Carbon::now())
             ->whereDate('application_end_date', '>=', Carbon::now());
-
-        return $instance->get();
     }
 
     public function institute(): BelongsTo

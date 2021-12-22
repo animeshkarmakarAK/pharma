@@ -1,6 +1,9 @@
 @php
     $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
+
+    $authTrainee = \App\Helpers\Classes\AuthHelper::getAuthUser('trainee');
+
 @endphp
 @extends($layout)
 
@@ -150,6 +153,9 @@
     <!-- Courses Start -->
     <section class="container-fluid slider-area course-section">
         <div class="container my-4">
+
+            @include('utils.trainee-loggedin-confirm-modal');
+
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <h2 class="section-heading section-heading-home pb-3">কোর্স সমূহ</h2>
@@ -214,7 +220,11 @@
                                                                                 class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
 
                                                                         </p>
-
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <a href="#"
+                                                                           onclick="checkAuthTrainee({{ $course->id }})"
+                                                                           class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -288,6 +298,12 @@
                                                             </p>
 
                                                         </div>
+
+                                                        <div class="col-md-12">
+                                                            <a href="#"
+                                                               onclick="checkAuthTrainee({{ $course->id }})"
+                                                               class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -348,7 +364,12 @@
                                                                                 class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
 
                                                                         </p>
+                                                                    </div>
 
+                                                                    <div class="col-md-12">
+                                                                        <a href="#"
+                                                                           onclick="checkAuthTrainee({{ $course->id }})"
+                                                                           class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -421,7 +442,12 @@
                                                                     class="course-p">Student({{ $course->enrolledTrainees ? $course->enrolledTrainees->count() : 0 }})</span>
 
                                                             </p>
+                                                        </div>
 
+                                                        <div class="col-md-12">
+                                                            <a href="#"
+                                                               onclick="checkAuthTrainee({{ $course->id }})"
+                                                               class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -432,7 +458,7 @@
                                                     <p><span
                                                             class="font-weight-bold">{{ optional($course->created_at)->format('d') }} </span>
                                                         <br> {{ optional($course->created_at)->format('M') }}
-                                                        </p>
+                                                    </p>
 
                                                 </div>
                                             </div>
@@ -499,933 +525,950 @@
             </div>
         </section>
 
-    <!-- End Event -->
+        <!-- End Event -->
     @else
-    <!-- Skill Service Provider -->
-    <section class="bg-white pb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="section-heading section-heading-home pb-3">দক্ষতা সেবা প্রদানকারী</h2>
-                    <p class="text-center pb-2">
-                        সকল সেবা প্রদানকারী
-                    </p>
-                    <div class="template-space"></div>
+        <!-- Skill Service Provider -->
+        <section class="bg-white pb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="section-heading section-heading-home pb-3">দক্ষতা সেবা প্রদানকারী</h2>
+                        <p class="text-center pb-2">
+                            সকল সেবা প্রদানকারী
+                        </p>
+                        <div class="template-space"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                @foreach($skillServiceProviders as $skillServiceProvider)
-                    <div class="col-md-3">
-                        <div class="card card-main mb-2">
-                            <div class="card-bar-home-course">
-                                <div class="pb-3">
-                                    <img class="slider-img border-top-radius"
-                                         src="{{asset('/storage/'. $skillServiceProvider->institute_logo)}}"
-                                         alt="icon">
-                                </div>
-                                <div class="text-left pl-4 pr-4 pt-1 pb-1">
-                                    <p class="font-weight-bold course-heading-wrap">{{ $skillServiceProvider->title }}</p>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p class="font-weight-light mb-1"><i
-                                                    class="fas fa-book-open gray-color mr-2"></i> <span
-                                                    class="course-p">{{$skillServiceProvider->total_courses > 0 ? $skillServiceProvider->total_courses .' Courses'  :' কোন কোর্স নেই' }}</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <p class="font-weight-light mb-1"><i
-                                                    class="fas fa-user-plus gray-color mr-2"></i> <span
-                                                    class="course-p">{{$skillServiceProvider->total_courses > 0 ? $skillServiceProvider->total_student .' Students'  :' কোন কোর্স নেই' }}</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <p class="font-weight-light mb-1"><i
-                                                    class="fas fa-map-marker-alt gray-color mr-2"></i> <span
-                                                    class="course-p">{{$skillServiceProvider->institute_address ? $skillServiceProvider->institute_address :' কোন ঠিকানা নেই' }}</span>
-                                            </p>
-                                        </div>
+                <div class="row">
+                    @foreach($skillServiceProviders as $skillServiceProvider)
+                        <div class="col-md-3">
+                            <div class="card card-main mb-2">
+                                <div class="card-bar-home-course">
+                                    <div class="pb-3">
+                                        <img class="slider-img border-top-radius"
+                                             src="{{asset('/storage/'. $skillServiceProvider->institute_logo)}}"
+                                             alt="icon">
                                     </div>
-                                    <p class="float-right">
-                                        <a href="{{ route('frontend.institute-details', ['id' => $skillServiceProvider->institute_id]) }}"
-                                           class="btn btn-primary btn-sm">বিস্তারিত</a>
-                                    </p>
+                                    <div class="text-left pl-4 pr-4 pt-1 pb-1">
+                                        <p class="font-weight-bold course-heading-wrap">{{ $skillServiceProvider->title }}</p>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="font-weight-light mb-1"><i
+                                                        class="fas fa-book-open gray-color mr-2"></i> <span
+                                                        class="course-p">{{$skillServiceProvider->total_courses > 0 ? $skillServiceProvider->total_courses .' Courses'  :' কোন কোর্স নেই' }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p class="font-weight-light mb-1"><i
+                                                        class="fas fa-user-plus gray-color mr-2"></i> <span
+                                                        class="course-p">{{$skillServiceProvider->total_courses > 0 ? $skillServiceProvider->total_student .' Students'  :' কোন কোর্স নেই' }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p class="font-weight-light mb-1"><i
+                                                        class="fas fa-map-marker-alt gray-color mr-2"></i> <span
+                                                        class="course-p">{{$skillServiceProvider->institute_address ? $skillServiceProvider->institute_address :' কোন ঠিকানা নেই' }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p class="float-right">
+                                            <a href="{{ route('frontend.institute-details', ['id' => $skillServiceProvider->institute_id]) }}"
+                                               class="btn btn-primary btn-sm">বিস্তারিত</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-            @if($skillServiceProviders->count() > 4)
-                <div class="col-md-12 text-center pt-3 pb-5">
-                    <a href="{{ route('frontend.institute-list') }}" target="_blank" class="more-course-button">আরও
-                        দেখুন <i class="fas fa-arrow-right btn-arrow"></i></a>
+                    @endforeach
                 </div>
-            @endif
-        </div>
-    <!-- End Skill Service Provider -->
-    @endif
-
-    <!-- Gallery Start -->
-    <section class="gallery">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <h3 class="gallery-section-heading section-heading-home section-heading pb-4">গ্যালারি</h3>
-                </div>
-                @if($galleryCategories->count() > 3)
-                    <div class="col-md-12">
-                        <div class="row">
-                            @foreach($galleryCategories as $galleryCategory)
-                                <div class="col-md-3">
-                                    <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img slider-radius"
-                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) > 20 ?'...':'' }}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
+                @if($skillServiceProviders->count() > 4)
+                    <div class="col-md-12 text-center pt-3 pb-5">
+                        <a href="{{ route('frontend.institute-list') }}" target="_blank" class="more-course-button">আরও
+                            দেখুন <i class="fas fa-arrow-right btn-arrow"></i></a>
                     </div>
-                @elseif($galleryCategories->count() > 2)
-                    <div class="col-md-12">
-                        <div class="row">
-                            @foreach($galleryCategories as $galleryCategory)
-                                <div class="col-md-4">
-                                    <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img slider-radius"
-                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @elseif($galleryCategories->count() > 1)
-                    <div class="col-md-12">
-                        <div class="row w-100 justify-content-center text-center">
-                            @foreach($galleryCategories as $galleryCategory)
-
-                                <div class="col-md-4 ">
-                                    <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img slider-radius"
-                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @elseif($galleryCategories->count() > 0)
-                    <div class="col-md-12">
-                        <div class="row w-100 justify-content-center text-center">
-                            @foreach($galleryCategories as $galleryCategory)
-                                <div class="col-md-4">
-                                    <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img slider-radius"
-                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @elseif($galleryCategories->isEmpty())
-                    <div class="col-md-12">
-                        <div class="alert text-danger text-center">
-                            কোন গ্যালারি পাওয়া যাইনি!
-                        </div>
-                    </div>
-                @else
-                    <div class="col-md-12">
-                        <div class="row">
-                            @foreach($galleryCategories as $galleryCategory)
-                                <div class="col-md-3">
-                                    <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
-                                        <div class="card card-main mb-2 shadow-none bg-transparent">
-                                            <img class="slider-img slider-radius"
-                                                 src="{{asset('/storage/'. $galleryCategory->image)}}">
-                                            <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                        @endif
-                    </div>
-                    @if((isset($galleryAllCategories) && $galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
-                        <div class="col-md-12 text-center pb-5">
-                            <a href="{{ route('frontend.gallery-categories') }}" target="_blank"
-                               class="more-course-button mt-3">আরও দেখুন <i
-                                    class="fas fa-arrow-right btn-arrow"></i></a>
-                        </div>
-                    @endif
+                @endif
             </div>
-        </div>
-    </section>
-    <!-- End Gallery -->
-@endsection
-
-@push('css')
-    <style>
-        .course-card {
-            position: relative;
-        }
-
-        .course-date-card {
-            position: absolute;
-            height: 50px;
-            width: 50px;
-            top: 7px;
-            right: 15px;
-            border: 1px solid #fff;
-            border-radius: 5px;
-        }
-
-
-        .section-heading-h2 {
-            color: #671688;
-        }
-
-        .about-section-color {
-            background-color: #f6f9f9;
-        }
-
-        .course-section {
-            background: #FFFFFF;
-        }
-
-
-        .card-p1 {
-            color: #671688;
-        }
-
-        .cr-img {
-            border: 0;
-            border-radius: 15px;
-        }
-
-
-        .banner-bar h3, .banner-bar p {
-            color: #ffffff;
-        }
-
-
-        .banner-bar p {
-            font-size: 15px;
-        }
-
-        .left-btn-arrow {
-            position: absolute;
-            left: -2%;
-            bottom: 46%;
-        }
-
-        .right-btn-arrow {
-            position: absolute;
-            right: -2%;
-            bottom: 46%;
-        }
-
-
-        .carousel-indicators li {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #c4c4c4;
-        }
-
-        .carousel-control-prev, .carousel-control-next {
-            opacity: 1;
-        }
-
-        .card-main {
-            border-radius: 5px;
-        }
-
-        .card-bar {
-            padding: 10px 15px;
-            text-align: center;
-            margin: 0 10px;
-            transition: .4s;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        .more-course-button {
-            background: #fff;
-            color: #671688;
-            padding: 10px 25px;
-            display: inline-block;
-            margin: 30px 0 0 0;
-            transition: .4s;
-            border: 1px solid #671688;
-            border-radius: 20px;
-        }
-
-        .btn-arrow {
-            font-size: 1rem;
-            padding-left: 1rem;
-            margin-right: -10px;
-        }
-
-        .btn-floating {
-            color: black;
-        }
-
-        .modal-header .close, .modal-header {
-            padding: 1rem;
-            margin: -1rem -1rem -1rem auto;
-            color: white;
-            outline: none;
-        }
-
-    </style>
-    <style>
-        /*sliders css*/
-        .slider-img {
-            width: 100%;
-            height: 11vw;
-            object-fit: cover;
-        }
-
-        .slider-radius {
-            border-radius: 0.5rem !important;
-        }
-
-        .slider-left-content h1 {
-            color: #000000;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .slider-left-content p {
-            margin-bottom: 45px;
-            color: #6C6B76;
-        }
-
-        .slider-left-content a {
-            background: #671688;
-            padding: 15px 25px;
-            color: #fff;
-            border: 1px solid #671688;
-            border-radius: 5px;
-            letter-spacing: 2px;
-            transition: .4s;
-        }
-
-        .slider-left-content a:hover {
-            background: #4c4c4c;
-            border: 1px solid #4c4c4c;
-            transition: .4s;
-        }
-
-
-        .slider-right-content img {
-            float: right;
-            height: 135px !important;
-            width: 100% !important;
-            margin-top: 150px;
-        }
-
-        .slider-previous-icon, .slider-next-icon {
-            border: 1px solid white;
-            padding: 15px;
-            border-radius: 50%;
-        }
-
-        .slider-previous-icon i, .slider-next-icon i {
-            display: block;
-            width: 15px;
-            color: white;
-            font-size: 15px;
-        }
-
-        .slider-title {
-            font-family: Hind Siliguri;
-            font-style: normal;
-            font-size: 25px;
-            line-height: 40px;
-        }
-
-
-        /*Top Content Slider*/
-
-        .top-content {
-            width: 100%;
-            padding: 0;
-        }
-
-        .top-content .carousel-control-prev {
-            border-bottom: 0;
-        }
-
-        .top-content .carousel-control-next {
-            border-bottom: 0;
-        }
-
-        .top-content .carousel-caption {
-            padding-top: 0;
-            padding-bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .top-content .carousel-caption h1 {
-            padding-top: 60px;
-            color: #fff;
-        }
-
-        .top-content .carousel-caption h3 {
-            color: #fff;
-            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
-            padding: 10px;
-            margin-bottom: 0;
-        }
-
-        .top-content .carousel-caption .carousel-caption-description {
-            color: #fff;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .top-content .carousel-indicators li {
-            width: 16px;
-            height: 16px;
-            margin-left: 5px;
-            margin-right: 5px;
-            border-radius: 50%;
-        }
-
-        .top-content .carousel-item {
-            height: 90vh;
-        }
-
-        .carousel-caption {
-            bottom: 0;
-        }
-
-        .carousel-control-prev, .carousel-control-next {
-            width: 21%;
-        }
-
-        /*About Us*/
-
-        .about-us-section {
-            background: #FFFFFF;
-            padding-top: 4rem;
-        }
-
-        .about-us-content p {
-            line-height: 30px;
-            font-size: 20px;
-        }
-
-        .sidebar-list li {
-            list-style: none;
-            font-size: 14px;
-            line-height: 30px;
-        }
-
-        .custom-carousel-inner .carousel-item.active,
-        .custom-carousel-inner .carousel-item-next,
-        .custom-carousel-inner .carousel-item-prev {
-            display: flex;
-        }
-
-        .custom-carousel-inner .carousel-item-right.active,
-        .custom-carousel-inner .carousel-item-next {
-            transform: translateX(25%);
-        }
-
-        .custom-carousel-inner .carousel-item-left.active,
-        .custom-carousel-inner .carousel-item-prev {
-            transform: translateX(-25%);
-        }
-
-        .custom-carousel-inner .carousel-item-right,
-        .custom-carousel-inner .carousel-item-left {
-            transform: translateX(0);
-
-        }
-
-        /* At a Glance */
-
-        .section-heading-home {
-            color: #671688;
-            font-weight: bold;
-        }
-
-        .instant-view-box-home {
-            margin-right: 20px;
-            padding: 0;
-            box-shadow: 0px 5px 5px #d7d7d7;
-            transition: 0.3s;
-        }
-
-        .instant-view-box-home:hover {
-            box-shadow: 0px 0px 5px #d7d7d7;
-        }
-
-        .instant-view-box-home i {
-            font-size: 35px;
-        }
-
-        .instant-view-box-home h1 {
-            font-size: 30px;
-        }
-
-        .instant-view-box-home p {
-            color: #39759f;
-            padding: 0px 10px;
-        }
-
-        /* Courses */
-
-        .card-bar-home-course {
-            padding: 0;
-            margin: 0;
-        }
-
-        .gray-color {
-            color: #73727f;
-        }
-
-        .course-p {
-            font-size: 14px;
-            font-weight: 400;
-            color: #671688;
-        }
-
-        .border-top-radius {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-
-        .course-heading-wrap {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .course-heading-wrap:hover {
-            overflow: visible;
-        }
-
-        .course-heading-wrap:hover {
-            overflow: visible;
-            white-space: normal;
-            cursor: pointer;
-        }
-
-        .courseTabButton {
-            padding: 10px 30px;
-            color: #671688;
-            border-radius: 5px;
-        }
-
-        .courseTabButton:hover, .courseTabButton:active, .courseTabButton:focus {
-            background: #671688;
-            padding: 10px 30px;
-            color: #fff;
-            border-radius: 5px;
-            border: 1px solid #671688;
-        }
-
-        #all-course {
-            width: 100%;
-        }
-
-        .tab-content {
-            width: 100%;
-        }
-
-        .nav-tabs {
-            border-bottom: 0;
-        }
-
-        .nav-tabs .nav-item .active {
-            background: #671688;
-            padding: 10px 30px;
-            color: #fff;
-            border-radius: 5px;
-            border: 1px solid #671688;
-        }
-
-
-        /* Gallery */
-        .gallery {
-            background: #FFFFFF;
-        }
-
-        .gallery-section-heading:before {
-            left: 50.5%;
-        }
-
-        .gallery-post-heading {
-            font-size: 1rem;
-            padding: 15px;
-            color: black;
-            font-weight: 400;
-        }
-
-        /* Event */
-        .accordion-heading {
-            background: #671688;
-            color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 20px;
-            text-align: center;
-        }
-
-        .collapsible-link {
-            width: 100%;
-            position: relative;
-            text-align: left;
-        }
-
-        .collapsible-link::before {
-            content: '\f107';
-            position: absolute;
-            top: 50%;
-            right: 0.8rem;
-            transform: translateY(-50%);
-            display: block;
-            font-family: 'Font Awesome 5 Free';
-            font-size: 1.1rem;
-        }
-
-        .collapsible-link[aria-expanded='true']::before {
-            content: '\f106';
-        }
-
-        .accordion-date {
-            font-size: 12px;
-            padding-left: 5px;
-            color: darkgray;
-        }
-
-        .custom-carousel-inner {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .m-left-right-10 {
-            margin-left: 7.5px;
-            margin-right: 7.5px;
-        }
-
-        /* Responsive Design */
-
-        @media screen and (max-width: 767px) {
-            .about-us-media {
-                margin-top: 0px !important;
-            }
-
-            .slider-img {
-                height: 200px;
-            }
-
-            .about-us-section {
-                text-align: justify;
-            }
-
-            .top-content .carousel-item {
-                height: 60vh;
-            }
-
-
-            .slider-previous-icon, .slider-next-icon {
-                padding: 10px;
-            }
-        }
-
-        @media screen and (min-width: 987px ) {
-            .m-left-right-10 {
-                margin-left: 10%;
-                margin-right: 10%;
-            }
-        }
-
-
-    </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css" type="text/css">
-    <style>
-        #calendar {
-            background-color: #fff;
-            border-radius: 5px;
-        }
-
-        .fc .fc-col-header-cell-cushion {
-            display: inline-block;
-            padding: 2px 4px;
-            color: #2c3e50;
-        }
-
-        .fc-theme-standard td, .fc-theme-standard th {
-            border: none !important;
-            cursor: pointer;
-        }
-
-        .fc-theme-standard .fc-scrollgrid {
-            border: none !important;
-        }
-
-        .fc .fc-daygrid-day-number {
-            position: relative;
-            z-index: 4;
-            padding: 4px;
-            color: #000;
-        }
-
-        .fc .fc-day-other .fc-daygrid-day-top {
-            opacity: 1 !important;
-        }
-
-        .fc .fc-day-past:not(.fc-day-other) .fc-scrollgrid-sync-inner, .fc-day-future:not(.fc-day-other) .fc-scrollgrid-sync-inner {
-            background: #c7c7c7;
-            border: 1px solid #c7c7c7;
-            margin: 3px;
-            border-radius: 5px;
-        }
-
-
-        .fc-day-today a {
-            color: #fff !important;
-        }
-
-        .fc .fc-button-primary {
-            color: #000 !important;
-            background: none !important;
-            border: none !important;
-        }
-
-        .fc .fc-toolbar {
-            justify-content: center !important;
-        }
-
-        .fc .fc-button:focus {
-            outline: none;
-            box-shadow: none !important;
-        }
-
-        .fc .fc-daygrid-day-top {
-            display: flex;
-            flex-direction: row-reverse;
-            padding: 10px;
-            margin-bottom: 5px;
-        }
-
-
-        .fc .fc-scroller-liquid-absolute {
-            /*overflow: hidden !important;*/
-        }
-
-        .fc .fc-scroller {
-            overflow: hidden !important;
-        }
-
-        .fc .fc-highlight {
-            background: #3788d8;
-        }
-
-        .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
-            position: absolute;
-            min-height: 1em !important;
-            left: 0;
-            bottom: 0;
-            width: 25px;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .carousel-item {
-            transition-duration: 3s;
-        }
-
-
-    </style>
-@endpush
-@push('js')
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
-    <script>
-        function todayEvent() {
-            let today = new Date();
-            today = new Intl.DateTimeFormat('bn-BD').format(today);
-            return today;
-        }
-
-        function eventDate(date) {
-            let eventDate = new Date(date);
-            eventDate = new Intl.DateTimeFormat('bn-BD').format(eventDate);
-            return eventDate;
-        }
-
-        function eventTime(date) {
-            let time = new Date(date);
-            time = time.toLocaleTimeString(['bn-BD'], {hour: '2-digit', minute: '2-digit'});
-            return time;
-        }
-
-        function eventsTemplate(key) {
-            let eventClass = '';
-            if (todayEvent() == eventDate(this.date)) {
-                eventClass = 'today-event';
-            } else {
-                eventClass = '';
-            }
-            return '<div class="card shadow-none mb-0">' +
-                '<div id="heading' + key + '" class="card-header bg-white shadow-sm border-0">' +
-                '<h2 class="mb-0">' +
-                '<button type="button" data-toggle="collapse" data-target="#collapse' + key + '"' +
-                'aria-expanded="true" aria-controls="collapseOne"' +
-                'class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">' +
-                this.caption +
-                '<p class="mb-0 mt-1">' +
-                '<i class="far fa-calendar-minus gray-color"></i>' +
-                '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) + '    ' + eventTime(this.date) + '</span>' +
-                '</p> </button> </h2>' +
-                '</div>' +
-                '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
-                'data-parent="#eventArea" class="collapse">' +
-                '<div class="card-body p-5">' +
-                '<p class="font-weight-light m-0">' + this.details +
-                '</p> <a href="{{ route('frontend.single-event', ['event' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', this.id) +
-                'class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>' +
-                '</div>' +
-                '</div>' +
-                '</div>';
-        }
-
-        let events = '';
-        @if(isset($currentInstituteEvents))
-            @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
-            events += eventsTemplate.call(@json($currentInstituteEvent), '{{$key}}');
-        @endforeach
+            <!-- End Skill Service Provider -->
         @endif
 
-        $("#eventArea").html(events);
+        <!-- Gallery Start -->
+            <section class="gallery">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <h3 class="gallery-section-heading section-heading-home section-heading pb-4">গ্যালারি</h3>
+                        </div>
+                        @if($galleryCategories->count() > 3)
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @foreach($galleryCategories as $galleryCategory)
+                                        <div class="col-md-3">
+                                            <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
+                                                <div class="card card-main mb-2 shadow-none bg-transparent">
+                                                    <img class="slider-img slider-radius"
+                                                         src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                                    <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) > 20 ?'...':'' }}</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif($galleryCategories->count() > 2)
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @foreach($galleryCategories as $galleryCategory)
+                                        <div class="col-md-4">
+                                            <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
+                                                <div class="card card-main mb-2 shadow-none bg-transparent">
+                                                    <img class="slider-img slider-radius"
+                                                         src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                                    <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif($galleryCategories->count() > 1)
+                            <div class="col-md-12">
+                                <div class="row w-100 justify-content-center text-center">
+                                    @foreach($galleryCategories as $galleryCategory)
 
-        function eventsOfSpecificDate(date) {
-            $.ajax({
-                url: '{{route('frontend.institute-events-date')}}',
-                type: "POST",
-                data: {date: date},
-            }).done(function (response) {
-                $("#eventArea").hide().empty();
-                let events = '';
-                $.each(response, function (key, value) {
-                    events += eventsTemplate.call(value, key)
-                })
-                $("#eventArea").delay(100).fadeIn(800).html(events);
-            }).fail(function (xhr) {
-                failureCallback([]);
-            });
-        }
+                                        <div class="col-md-4 ">
+                                            <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
+                                                <div class="card card-main mb-2 shadow-none bg-transparent">
+                                                    <img class="slider-img slider-radius"
+                                                         src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                                    <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif($galleryCategories->count() > 0)
+                            <div class="col-md-12">
+                                <div class="row w-100 justify-content-center text-center">
+                                    @foreach($galleryCategories as $galleryCategory)
+                                        <div class="col-md-4">
+                                            <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
+                                                <div class="card card-main mb-2 shadow-none bg-transparent">
+                                                    <img class="slider-img slider-radius"
+                                                         src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                                    <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif($galleryCategories->isEmpty())
+                            <div class="col-md-12">
+                                <div class="alert text-danger text-center">
+                                    কোন গ্যালারি পাওয়া যাইনি!
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @foreach($galleryCategories as $galleryCategory)
+                                        <div class="col-md-3">
+                                            <a href="{{ route('frontend.gallery-category', ['galleryCategory' => $galleryCategory->id]) }}">
+                                                <div class="card card-main mb-2 shadow-none bg-transparent">
+                                                    <img class="slider-img slider-radius"
+                                                         src="{{asset('/storage/'. $galleryCategory->image)}}">
+                                                    <h3 class="gallery-post-heading">{{ mb_strimwidth($galleryCategory->title, 0, 20) }} {{ strlen($galleryCategory->title) >20 ?'...':'' }}</h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @endif
+                            </div>
+                            @if((isset($galleryAllCategories) && $galleryAllCategories->count() > 3) && ($galleryCategories->count() > 0))
+                                <div class="col-md-12 text-center pb-5">
+                                    <a href="{{ route('frontend.gallery-categories') }}" target="_blank"
+                                       class="more-course-button mt-3">আরও দেখুন <i
+                                            class="fas fa-arrow-right btn-arrow"></i></a>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+            </section>
+            <!-- End Gallery -->
 
-        $(function () {
-            let calendarEl = document.getElementById('calendar');
-            let initialDate = '{{date('Y-m-d')}}';
-            let initialLocaleCode = 'bn';
+            @endsection
 
-            let calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                initialDate,
-                height: 500,
-                aspectRatio: 1,
-                displayEventTime: false,
-                selectable: true,
-                customButtons: {
-                    myCustomButton: {
-                        text: 'বছর',
-                        click: function () {
-                            window.location = '{{ route('frontend.fiscal-year') }}';
+            @push('css')
+                <style>
+                    .course-card {
+                        position: relative;
+                    }
+
+                    .course-date-card {
+                        position: absolute;
+                        height: 50px;
+                        width: 50px;
+                        top: 7px;
+                        right: 15px;
+                        border: 1px solid #fff;
+                        border-radius: 5px;
+                    }
+
+
+                    .section-heading-h2 {
+                        color: #671688;
+                    }
+
+                    .about-section-color {
+                        background-color: #f6f9f9;
+                    }
+
+                    .course-section {
+                        background: #FFFFFF;
+                    }
+
+
+                    .card-p1 {
+                        color: #671688;
+                    }
+
+                    .cr-img {
+                        border: 0;
+                        border-radius: 15px;
+                    }
+
+
+                    .banner-bar h3, .banner-bar p {
+                        color: #ffffff;
+                    }
+
+
+                    .banner-bar p {
+                        font-size: 15px;
+                    }
+
+                    .left-btn-arrow {
+                        position: absolute;
+                        left: -2%;
+                        bottom: 46%;
+                    }
+
+                    .right-btn-arrow {
+                        position: absolute;
+                        right: -2%;
+                        bottom: 46%;
+                    }
+
+
+                    .carousel-indicators li {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background-color: #c4c4c4;
+                    }
+
+                    .carousel-control-prev, .carousel-control-next {
+                        opacity: 1;
+                    }
+
+                    .card-main {
+                        border-radius: 5px;
+                    }
+
+                    .card-bar {
+                        padding: 10px 15px;
+                        text-align: center;
+                        margin: 0 10px;
+                        transition: .4s;
+                        cursor: pointer;
+                        border-radius: 50%;
+                    }
+
+                    .more-course-button {
+                        background: #fff;
+                        color: #671688;
+                        padding: 10px 25px;
+                        display: inline-block;
+                        margin: 30px 0 0 0;
+                        transition: .4s;
+                        border: 1px solid #671688;
+                        border-radius: 20px;
+                    }
+
+                    .btn-arrow {
+                        font-size: 1rem;
+                        padding-left: 1rem;
+                        margin-right: -10px;
+                    }
+
+                    .btn-floating {
+                        color: black;
+                    }
+
+                    .modal-header .close, .modal-header {
+                        padding: 1rem;
+                        margin: -1rem -1rem -1rem auto;
+                        color: white;
+                        outline: none;
+                    }
+
+                </style>
+                <style>
+                    /*sliders css*/
+                    .slider-img {
+                        width: 100%;
+                        height: 11vw;
+                        object-fit: cover;
+                    }
+
+                    .slider-radius {
+                        border-radius: 0.5rem !important;
+                    }
+
+                    .slider-left-content h1 {
+                        color: #000000;
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
+
+                    .slider-left-content p {
+                        margin-bottom: 45px;
+                        color: #6C6B76;
+                    }
+
+                    .slider-left-content a {
+                        background: #671688;
+                        padding: 15px 25px;
+                        color: #fff;
+                        border: 1px solid #671688;
+                        border-radius: 5px;
+                        letter-spacing: 2px;
+                        transition: .4s;
+                    }
+
+                    .slider-left-content a:hover {
+                        background: #4c4c4c;
+                        border: 1px solid #4c4c4c;
+                        transition: .4s;
+                    }
+
+
+                    .slider-right-content img {
+                        float: right;
+                        height: 135px !important;
+                        width: 100% !important;
+                        margin-top: 150px;
+                    }
+
+                    .slider-previous-icon, .slider-next-icon {
+                        border: 1px solid white;
+                        padding: 15px;
+                        border-radius: 50%;
+                    }
+
+                    .slider-previous-icon i, .slider-next-icon i {
+                        display: block;
+                        width: 15px;
+                        color: white;
+                        font-size: 15px;
+                    }
+
+                    .slider-title {
+                        font-family: Hind Siliguri;
+                        font-style: normal;
+                        font-size: 25px;
+                        line-height: 40px;
+                    }
+
+
+                    /*Top Content Slider*/
+
+                    .top-content {
+                        width: 100%;
+                        padding: 0;
+                    }
+
+                    .top-content .carousel-control-prev {
+                        border-bottom: 0;
+                    }
+
+                    .top-content .carousel-control-next {
+                        border-bottom: 0;
+                    }
+
+                    .top-content .carousel-caption {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
+
+                    .top-content .carousel-caption h1 {
+                        padding-top: 60px;
+                        color: #fff;
+                    }
+
+                    .top-content .carousel-caption h3 {
+                        color: #fff;
+                        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+                        padding: 10px;
+                        margin-bottom: 0;
+                    }
+
+                    .top-content .carousel-caption .carousel-caption-description {
+                        color: #fff;
+                        color: rgba(255, 255, 255, 0.8);
+                    }
+
+                    .top-content .carousel-indicators li {
+                        width: 16px;
+                        height: 16px;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                        border-radius: 50%;
+                    }
+
+                    .top-content .carousel-item {
+                        height: 90vh;
+                    }
+
+                    .carousel-caption {
+                        bottom: 0;
+                    }
+
+                    .carousel-control-prev, .carousel-control-next {
+                        width: 21%;
+                    }
+
+                    /*About Us*/
+
+                    .about-us-section {
+                        background: #FFFFFF;
+                        padding-top: 4rem;
+                    }
+
+                    .about-us-content p {
+                        line-height: 30px;
+                        font-size: 20px;
+                    }
+
+                    .sidebar-list li {
+                        list-style: none;
+                        font-size: 14px;
+                        line-height: 30px;
+                    }
+
+                    .custom-carousel-inner .carousel-item.active,
+                    .custom-carousel-inner .carousel-item-next,
+                    .custom-carousel-inner .carousel-item-prev {
+                        display: flex;
+                    }
+
+                    .custom-carousel-inner .carousel-item-right.active,
+                    .custom-carousel-inner .carousel-item-next {
+                        transform: translateX(25%);
+                    }
+
+                    .custom-carousel-inner .carousel-item-left.active,
+                    .custom-carousel-inner .carousel-item-prev {
+                        transform: translateX(-25%);
+                    }
+
+                    .custom-carousel-inner .carousel-item-right,
+                    .custom-carousel-inner .carousel-item-left {
+                        transform: translateX(0);
+
+                    }
+
+                    /* At a Glance */
+
+                    .section-heading-home {
+                        color: #671688;
+                        font-weight: bold;
+                    }
+
+                    .instant-view-box-home {
+                        margin-right: 20px;
+                        padding: 0;
+                        box-shadow: 0px 5px 5px #d7d7d7;
+                        transition: 0.3s;
+                    }
+
+                    .instant-view-box-home:hover {
+                        box-shadow: 0px 0px 5px #d7d7d7;
+                    }
+
+                    .instant-view-box-home i {
+                        font-size: 35px;
+                    }
+
+                    .instant-view-box-home h1 {
+                        font-size: 30px;
+                    }
+
+                    .instant-view-box-home p {
+                        color: #39759f;
+                        padding: 0px 10px;
+                    }
+
+                    /* Courses */
+
+                    .card-bar-home-course {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    .gray-color {
+                        color: #73727f;
+                    }
+
+                    .course-p {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: #671688;
+                    }
+
+                    .border-top-radius {
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 5px;
+                    }
+
+                    .course-heading-wrap {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+
+                    .course-heading-wrap:hover {
+                        overflow: visible;
+                    }
+
+                    .course-heading-wrap:hover {
+                        overflow: visible;
+                        white-space: normal;
+                        cursor: pointer;
+                    }
+
+                    .courseTabButton {
+                        padding: 10px 30px;
+                        color: #671688;
+                        border-radius: 5px;
+                    }
+
+                    .courseTabButton:hover, .courseTabButton:active, .courseTabButton:focus {
+                        background: #671688;
+                        padding: 10px 30px;
+                        color: #fff;
+                        border-radius: 5px;
+                        border: 1px solid #671688;
+                    }
+
+                    #all-course {
+                        width: 100%;
+                    }
+
+                    .tab-content {
+                        width: 100%;
+                    }
+
+                    .nav-tabs {
+                        border-bottom: 0;
+                    }
+
+                    .nav-tabs .nav-item .active {
+                        background: #671688;
+                        padding: 10px 30px;
+                        color: #fff;
+                        border-radius: 5px;
+                        border: 1px solid #671688;
+                    }
+
+
+                    /* Gallery */
+                    .gallery {
+                        background: #FFFFFF;
+                    }
+
+                    .gallery-section-heading:before {
+                        left: 50.5%;
+                    }
+
+                    .gallery-post-heading {
+                        font-size: 1rem;
+                        padding: 15px;
+                        color: black;
+                        font-weight: 400;
+                    }
+
+                    /* Event */
+                    .accordion-heading {
+                        background: #671688;
+                        color: #ffffff;
+                        padding: 20px;
+                        border-radius: 10px;
+                        font-size: 20px;
+                        text-align: center;
+                    }
+
+                    .collapsible-link {
+                        width: 100%;
+                        position: relative;
+                        text-align: left;
+                    }
+
+                    .collapsible-link::before {
+                        content: '\f107';
+                        position: absolute;
+                        top: 50%;
+                        right: 0.8rem;
+                        transform: translateY(-50%);
+                        display: block;
+                        font-family: 'Font Awesome 5 Free';
+                        font-size: 1.1rem;
+                    }
+
+                    .collapsible-link[aria-expanded='true']::before {
+                        content: '\f106';
+                    }
+
+                    .accordion-date {
+                        font-size: 12px;
+                        padding-left: 5px;
+                        color: darkgray;
+                    }
+
+                    .custom-carousel-inner {
+                        position: relative;
+                        width: 100%;
+                        overflow: hidden;
+                    }
+
+                    .m-left-right-10 {
+                        margin-left: 7.5px;
+                        margin-right: 7.5px;
+                    }
+
+                    /* Responsive Design */
+
+                    @media screen and (max-width: 767px) {
+                        .about-us-media {
+                            margin-top: 0px !important;
+                        }
+
+                        .slider-img {
+                            height: 200px;
+                        }
+
+                        .about-us-section {
+                            text-align: justify;
+                        }
+
+                        .top-content .carousel-item {
+                            height: 60vh;
+                        }
+
+
+                        .slider-previous-icon, .slider-next-icon {
+                            padding: 10px;
                         }
                     }
-                },
-                headerToolbar: {
-                    //left: 'prev,next today',
-                    left: 'prev',
-                    center: 'title',
-                    //right: 'timeGridDay,timeGridWeek,dayGridMonth,myCustomButton'
-                    right: 'next'
-                },
-                locale: initialLocaleCode,
-                events: function (fetchInfo, successCallback, failureCallback) {
-                    $.ajax({
-                        url: '{{route('frontend.institute-events')}}',
-                        type: "POST",
-                    }).done(function (response) {
-                        successCallback(response);
-                    }).fail(function (xhr) {
-                        failureCallback([]);
-                    });
-                },
-                dateClick: function (info) {
-                    console.log(info);
-                    let eventDateTime = new Date(info.dateStr);
-                    eventDateTime = new Intl.DateTimeFormat('bn-BD', {
-                        weekday: 'long',
-                        day: '2-digit',
-                        month: 'long',
-                        year: 'numeric',
-                    }).format(eventDateTime)
-                    $('#eventDateTime').html(eventDateTime);
-                    const start = info.dateStr;
-                    eventsOfSpecificDate(start);
-                },
-            });
-            calendar.render();
 
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-
-            $(function () {
-                $("li").click(function () {
-                    $("li").removeClass("active");
-                    $(this).addClass("active");
-                });
-            });
-
-            $('#topCarousel').carousel({
-                interval: 8000
-            })
-            $('#recipeCarousel').carousel({
-                interval: 2000
-            })
-            $('#courseCarousel').carousel({
-                interval: 2000
-            })
-            $('.custom-carousel  .custom-carousel-item').each(function () {
-                var next = $(this).next();
-                if (!next.length) {
-                    next = $(this).siblings(':first');
-                }
-                next.children(':first-child').clone().appendTo($(this));
-
-                for (var i = 0; i < 2; i++) {
-                    next = next.next();
-                    if (!next.length) {
-                        next = $(this).siblings(':first');
+                    @media screen and (min-width: 987px ) {
+                        .m-left-right-10 {
+                            margin-left: 10%;
+                            margin-right: 10%;
+                        }
                     }
 
-                    next.children(':first-child').clone().appendTo($(this));
-                }
-            });
 
-        });
-    </script>
-@endpush
+                </style>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css"
+                      type="text/css">
+                <style>
+                    #calendar {
+                        background-color: #fff;
+                        border-radius: 5px;
+                    }
+
+                    .fc .fc-col-header-cell-cushion {
+                        display: inline-block;
+                        padding: 2px 4px;
+                        color: #2c3e50;
+                    }
+
+                    .fc-theme-standard td, .fc-theme-standard th {
+                        border: none !important;
+                        cursor: pointer;
+                    }
+
+                    .fc-theme-standard .fc-scrollgrid {
+                        border: none !important;
+                    }
+
+                    .fc .fc-daygrid-day-number {
+                        position: relative;
+                        z-index: 4;
+                        padding: 4px;
+                        color: #000;
+                    }
+
+                    .fc .fc-day-other .fc-daygrid-day-top {
+                        opacity: 1 !important;
+                    }
+
+                    .fc .fc-day-past:not(.fc-day-other) .fc-scrollgrid-sync-inner, .fc-day-future:not(.fc-day-other) .fc-scrollgrid-sync-inner {
+                        background: #c7c7c7;
+                        border: 1px solid #c7c7c7;
+                        margin: 3px;
+                        border-radius: 5px;
+                    }
+
+
+                    .fc-day-today a {
+                        color: #fff !important;
+                    }
+
+                    .fc .fc-button-primary {
+                        color: #000 !important;
+                        background: none !important;
+                        border: none !important;
+                    }
+
+                    .fc .fc-toolbar {
+                        justify-content: center !important;
+                    }
+
+                    .fc .fc-button:focus {
+                        outline: none;
+                        box-shadow: none !important;
+                    }
+
+                    .fc .fc-daygrid-day-top {
+                        display: flex;
+                        flex-direction: row-reverse;
+                        padding: 10px;
+                        margin-bottom: 5px;
+                    }
+
+
+                    .fc .fc-scroller-liquid-absolute {
+                        /*overflow: hidden !important;*/
+                    }
+
+                    .fc .fc-scroller {
+                        overflow: hidden !important;
+                    }
+
+                    .fc .fc-highlight {
+                        background: #3788d8;
+                    }
+
+                    .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+                        position: absolute;
+                        min-height: 1em !important;
+                        left: 0;
+                        bottom: 0;
+                        width: 25px;
+                        text-align: center;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    .carousel-item {
+                        transition-duration: 3s;
+                    }
+
+
+                </style>
+            @endpush
+            @push('js')
+                <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
+                <script>
+
+                    function checkAuthTrainee(courseId) {
+                        const isTraineeAuthenticated = !!'{{$authTrainee}}';
+
+                        if (isTraineeAuthenticated) {
+                            window.location = "{!! route('frontend.course-apply', ['course_id' => '__']) !!}".replace('__', courseId);
+                        } else {
+                            $('#loggedIn_confirm__modal').modal('show');
+
+                            setTimeout(function () {
+                                $('#loggedIn_confirm__modal').modal('hide');
+                            }, 5000);
+                        }
+                    }
+
+                    function todayEvent() {
+                        let today = new Date();
+                        today = new Intl.DateTimeFormat('bn-BD').format(today);
+                        return today;
+                    }
+
+                    function eventDate(date) {
+                        let eventDate = new Date(date);
+                        eventDate = new Intl.DateTimeFormat('bn-BD').format(eventDate);
+                        return eventDate;
+                    }
+
+                    function eventTime(date) {
+                        let time = new Date(date);
+                        time = time.toLocaleTimeString(['bn-BD'], {hour: '2-digit', minute: '2-digit'});
+                        return time;
+                    }
+
+                    function eventsTemplate(key) {
+                        let eventClass = '';
+                        if (todayEvent() == eventDate(this.date)) {
+                            eventClass = 'today-event';
+                        } else {
+                            eventClass = '';
+                        }
+                        return '<div class="card shadow-none mb-0">' +
+                            '<div id="heading' + key + '" class="card-header bg-white shadow-sm border-0">' +
+                            '<h2 class="mb-0">' +
+                            '<button type="button" data-toggle="collapse" data-target="#collapse' + key + '"' +
+                            'aria-expanded="true" aria-controls="collapseOne"' +
+                            'class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">' +
+                            this.caption +
+                            '<p class="mb-0 mt-1">' +
+                            '<i class="far fa-calendar-minus gray-color"></i>' +
+                            '<span class="accordion-date ' + eventClass + ' ml-1">' + eventDate(this.date) + '    ' + eventTime(this.date) + '</span>' +
+                            '</p> </button> </h2>' +
+                            '</div>' +
+                            '<div id="collapse' + key + '" aria-labelledby="heading' + key + '"' +
+                            'data-parent="#eventArea" class="collapse">' +
+                            '<div class="card-body p-5">' +
+                            '<p class="font-weight-light m-0">' + this.details +
+                            '</p> <a href="{{ route('frontend.single-event', ['event' => '__', 'instituteSlug' => $currentInstitute->slug ?? '']) }}"'.replace('__', this.id) +
+                            'class="btn btn-sm btn-info mt-3">বিস্তিরিত দেখুন</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                    }
+
+                    let events = '';
+                    @if(isset($currentInstituteEvents))
+                        @foreach($currentInstituteEvents as $key => $currentInstituteEvent)
+                        events += eventsTemplate.call(@json($currentInstituteEvent), '{{$key}}');
+                    @endforeach
+                    @endif
+
+                    $("#eventArea").html(events);
+
+                    function eventsOfSpecificDate(date) {
+                        $.ajax({
+                            url: '{{route('frontend.institute-events-date')}}',
+                            type: "POST",
+                            data: {date: date},
+                        }).done(function (response) {
+                            $("#eventArea").hide().empty();
+                            let events = '';
+                            $.each(response, function (key, value) {
+                                events += eventsTemplate.call(value, key)
+                            })
+                            $("#eventArea").delay(100).fadeIn(800).html(events);
+                        }).fail(function (xhr) {
+                            failureCallback([]);
+                        });
+                    }
+
+                    $(function () {
+                        let calendarEl = document.getElementById('calendar');
+                        let initialDate = '{{date('Y-m-d')}}';
+                        let initialLocaleCode = 'bn';
+
+                        let calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridMonth',
+                            initialDate,
+                            height: 500,
+                            aspectRatio: 1,
+                            displayEventTime: false,
+                            selectable: true,
+                            customButtons: {
+                                myCustomButton: {
+                                    text: 'বছর',
+                                    click: function () {
+                                        window.location = '{{ route('frontend.fiscal-year') }}';
+                                    }
+                                }
+                            },
+                            headerToolbar: {
+                                //left: 'prev,next today',
+                                left: 'prev',
+                                center: 'title',
+                                //right: 'timeGridDay,timeGridWeek,dayGridMonth,myCustomButton'
+                                right: 'next'
+                            },
+                            locale: initialLocaleCode,
+                            events: function (fetchInfo, successCallback, failureCallback) {
+                                $.ajax({
+                                    url: '{{route('frontend.institute-events')}}',
+                                    type: "POST",
+                                }).done(function (response) {
+                                    successCallback(response);
+                                }).fail(function (xhr) {
+                                    failureCallback([]);
+                                });
+                            },
+                            dateClick: function (info) {
+                                console.log(info);
+                                let eventDateTime = new Date(info.dateStr);
+                                eventDateTime = new Intl.DateTimeFormat('bn-BD', {
+                                    weekday: 'long',
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                }).format(eventDateTime)
+                                $('#eventDateTime').html(eventDateTime);
+                                const start = info.dateStr;
+                                eventsOfSpecificDate(start);
+                            },
+                        });
+                        calendar.render();
+
+                    });
+                </script>
+                <script>
+                    $(document).ready(function () {
+
+                        $(function () {
+                            $("li").click(function () {
+                                $("li").removeClass("active");
+                                $(this).addClass("active");
+                            });
+                        });
+
+                        $('#topCarousel').carousel({
+                            interval: 8000
+                        })
+                        $('#recipeCarousel').carousel({
+                            interval: 2000
+                        })
+                        $('#courseCarousel').carousel({
+                            interval: 2000
+                        })
+                        $('.custom-carousel  .custom-carousel-item').each(function () {
+                            let next = $(this).next();
+                            if (!next.length) {
+                                next = $(this).siblings(':first');
+                            }
+                            next.children(':first-child').clone().appendTo($(this));
+
+                            for (let i = 0; i < 2; i++) {
+                                next = next.next();
+                                if (!next.length) {
+                                    next = $(this).siblings(':first');
+                                }
+
+                                next.children(':first-child').clone().appendTo($(this));
+                            }
+                        });
+
+                    });
+                </script>
+        @endpush

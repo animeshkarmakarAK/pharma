@@ -1,6 +1,7 @@
 @php
     $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
+    $authTrainee = \App\Helpers\Classes\AuthHelper::getAuthUser('trainee');
 
 @endphp
 
@@ -96,14 +97,9 @@
                                     {{optional($course)->eligibility}}
                                 </div>
                             </div>
+
                             <div class="col-md-6 custom-view-box">
-                                <p class="label-text">{{__('admin.common.status')}}</p>
-                                <div class="input-box" id="active_status">
-                                    {!! $course->getCurrentRowStatus(true) !!}
-                                </div>
-                            </div>
-                            <div class="col-md-6 custom-view-box">
-                                <p class="label-text">{{__('admin.course.institute_title')}} </p>
+                                <p class="label-text">{{__('admin.course.institute')}} </p>
                                 <div class="input-box" id="institute_name_field">
                                     {{optional($course->institute)->title}}
                                 </div>
@@ -114,6 +110,16 @@
                                     {{optional($course->institute)->address}}
                                 </div>
                             </div>
+
+                            @if($course->runningBatches->isNotEmpty())
+                                <div class="col-md-12 custom-view-box">
+                                    <div class="col-md-12">
+                                        <a href="#"
+                                           onclick="checkAuthTrainee({{ $course->id }})"
+                                           class="btn btn-success btn-lg float-right mb-2">{{ __('generic.apply') }}</a>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -121,6 +127,7 @@
         </div>
     </div>
 
+    @include('utils.trainee-loggedin-confirm-modal');
 @endsection
 @push('css')
     <style>
@@ -177,36 +184,56 @@
         .gray-color {
             color: #73727f;
         }
+
         .course-heading-wrap {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
         }
+
         .course-heading-wrap:hover {
             overflow: visible;
             white-space: normal;
             cursor: pointer;
         }
+
         .course-p {
             font-size: 14px;
             font-weight: 400;
             color: #671688;
         }
+
         .header-bg {
             background: #671688;
-            color:white;
+            color: white;
         }
+
         .modal-header .close, .modal-header .mailbox-attachment-close {
             padding: 1rem;
             margin: -1rem -1rem -1rem auto;
             color: white;
             outline: none;
         }
+
         .card-p1 {
             color: #671688;
         }
     </style>
 @endpush
 @push('js')
+    <script>
+        function checkAuthTrainee(courseId) {
+            const isTraineeAuthenticated = !!'{{$authTrainee}}';
 
+            if (isTraineeAuthenticated) {
+                window.location = "{!! route('frontend.course-apply', ['course_id' => '__']) !!}".replace('__', courseId);
+            } else {
+                $('#loggedIn_confirm__modal').modal('show');
+
+                setTimeout(function () {
+                    $('#loggedIn_confirm__modal').modal('hide');
+                }, 5000);
+            }
+        }
+    </script>
 @endpush

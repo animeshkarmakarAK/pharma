@@ -72,8 +72,7 @@
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6" id="ethnic-group-section">
-                                                <label for="ethnic_group">{{ __('generic.ethnic_group') }}<span
-                                                        class="required">*</span> :</label>
+                                                <label for="ethnic_group">{{ __('generic.ethnic_group') }}></label>
                                                 <div
                                                     class="d-md-flex form-control"
                                                     style="display: inline-table;">
@@ -625,10 +624,10 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
-                                                                    <div class="" id="graduation_cgpa_div">
+                                                                    <div class="" id="graduation_gpa_div">
                                                                         <input type="number"
                                                                                name="academicQualification[graduation][grade]"
-                                                                               id="graduation_cgpa"
+                                                                               id="graduation_gpa"
                                                                                class="form-control" width="10"
                                                                                placeholder="সি.জি.পি.এ"
                                                                                value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_GRADUATION]->grade :  old('academicQualification.graduation.grade') }}"
@@ -766,10 +765,10 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
-                                                                    <div class="" id="masters_cgpa_div">
+                                                                    <div class="" id="masters_gpa_div">
                                                                         <input type="number"
                                                                                name="academicQualification[masters][grade]"
-                                                                               id="masters_cgpa"
+                                                                               id="masters_gpa"
                                                                                class="form-control" width="10"
                                                                                placeholder="সি.জি.পি.এ"
                                                                                value="{{ old('academicQualification.masters.grade') }}"
@@ -840,8 +839,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="father_name">Name:<span
-                                                                            class="required">*</span></label>
+                                                                    <label for="father_name">Name:</label>
                                                                     <input type="text"
                                                                            name="familyMember[father][member_name_en]"
                                                                            id="father_name"
@@ -853,8 +851,8 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="fathers_date_of_birth">Date of
-                                                                        birth:<span
-                                                                            class="required">*</span></label>
+
+                                                                            birth:</label>
                                                                     <input type="text"
                                                                            name="familyMember[father][date_of_birth]"
                                                                            id="fathers_date_of_birth"
@@ -900,8 +898,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="mother_name">Name:<span
-                                                                            class="required">*</span></label>
+                                                                    <label for="mother_name">Name:</label>
                                                                     <input type="text"
                                                                            name="familyMember[mother][member_name_en]"
                                                                            value="{{ old('familyMember.mother.member_name_en') }}"
@@ -912,8 +909,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="mothers_date_of_birth">Date of
-                                                                        birth:<span
-                                                                            class="required">*</span></label>
+                                                                        birth:</label>
                                                                     <input type="text"
                                                                            name="familyMember[mother][date_of_birth]"
                                                                            id="mothers_date_of_birth"
@@ -950,8 +946,7 @@
 
                                             <div class="form-group">
                                                 <label for="guardian"
-                                                       class="font-weight-bold">অভিভাবক:<span
-                                                        class="required">*</span>
+                                                       class="font-weight-bold">Guardian:
                                                 </label>
                                                 <div class="input-group">
                                                     <div class="custom-control custom-radio mr-3">
@@ -960,7 +955,7 @@
                                                                id="guardian-father"
                                                                name="guardian" {{ old('guardian') == App\Models\TraineeFamilyMemberInfo::GUARDIAN_FATHER ? 'checked' : ''}}>
                                                         <label for="guardian-father"
-                                                               class="custom-control-label">পিতা</label>
+                                                               class="custom-control-label">Father</label>
                                                     </div>
 
                                                     <div class="custom-control custom-radio mr-3">
@@ -969,7 +964,7 @@
                                                                id="guardian-mother"
                                                                name="guardian" {{ old('guardian') == App\Models\TraineeFamilyMemberInfo::GUARDIAN_MOTHER ? 'checked' : ''}}>
                                                         <label for="guardian-mother"
-                                                               class="custom-control-label">মাতা</label>
+                                                               class="custom-control-label">Mother</label>
                                                     </div>
 
                                                     <div class="custom-control custom-radio mr-3">
@@ -978,7 +973,7 @@
                                                                id="guardian-other"
                                                                name="guardian" {{ old('guardian') == App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER ? 'checked' : ''}}>
                                                         <label for="guardian-other"
-                                                               class="custom-control-label">অন্যান্য</label>
+                                                               class="custom-control-label">Other</label>
                                                     </div>
 
                                                 </div>
@@ -987,8 +982,7 @@
                                                     <div class="row card-body">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="guardian_name">Name<span
-                                                                        class="required">*</span>:</label>
+                                                                <label for="guardian_name">Name:</label>
                                                                 <input type="text"
                                                                        name="familyMember[guardian][member_name_en]"
                                                                        value="{{old('familyMember.guardian.member_name_en')}}"
@@ -998,8 +992,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="guardian_date_of_birth">Date of birth<span
-                                                                        class="required">*</span>:</label>
+                                                                <label for="guardian_date_of_birth">Date of birth:</label>
                                                                 <input type="text"
                                                                        name="familyMember[guardian][date_of_birth]"
                                                                        value="{{ old('familyMember.guardian.date_of_birth') }}"
@@ -1030,8 +1023,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label
-                                                                    for="guardian_relation_with_trainee">Relation<span
-                                                                        class="required">*</span>:</label>
+                                                                    for="guardian_relation_with_trainee">Relation:</label>
                                                                 <input type="text"
                                                                        name="familyMember[guardian][relation_with_trainee]"
                                                                        id="guardian_relation_with_trainee"
@@ -1469,6 +1461,10 @@
             }
         });
 
+        courseEnrollmentForm.on('submit', function () {
+            console.log("errors: ", validator.errors());
+        })
+
         function setFormFields(settings) {
             console.log('settings:', settings);
 
@@ -1491,8 +1487,24 @@
             settings?.MastersInfo?.should_present_in_form ? $('.masters_collapse').parent().parent().show() : $('.masters_collapse').parent().parent().hide();
             settings?.address?.should_present_in_form ? $('.address-section').show() : $('.address-section').hide();
             settings?.guardianInfo?.should_present_in_form ? $('.guardian-info-section').show() : $('.guardian-info-section').hide();
+
+            if (settings.SSCInfo && isSelectGrade('ssc')) {
+                $('#ssc_gpa').show();
+            }
+
+            if (settings.HSCInfo && isSelectGrade('hsc')) {
+                $('#hsc_gpa').show();
+            }
         }
 
+
+        function isSelectGrade(examName) {
+            if ($('#' + examName + '_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!} || $('#' + examName + '_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
+                 return true;
+            }else {
+                return false;
+            }
+        }
 
         $(document).ready(function () {
             setFormFields(APPLICATION_FORM_SETTINGS);
@@ -1560,34 +1572,34 @@
         $("#graduation_result").on('change', function () {
             if ($(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
                 || $(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
-                $('#graduation_cgpa').removeAttr('hidden');
+                $('#graduation_gpa').removeAttr('hidden');
 
                 $('#graduation_result_div').removeAttr('class');
                 $('#graduation_result_div').addClass('col-md-6');
-                $('#graduation_cgpa_div').addClass('col-md-2');
+                $('#graduation_gpa_div').addClass('col-md-2');
             } else {
-                $('#graduation_cgpa').attr('hidden', true);
+                $('#graduation_gpa').attr('hidden', true);
 
                 $('#graduation_result_div').removeAttr('class');
                 $('#graduation_result_div').addClass('col-md-8');
-                $('#graduation_cgpa_div').removeAttr('class');
+                $('#graduation_gpa_div').removeAttr('class');
             }
         });
 
         $("#masters_result").on('change', function () {
             if ($(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!}
                 || $(this).val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
-                $('#masters_cgpa').removeAttr('hidden');
+                $('#masters_gpa').removeAttr('hidden');
 
                 $('#masters_result_div').removeAttr('class');
                 $('#masters_result_div').addClass('col-md-6');
-                $('#masters_cgpa_div').addClass('col-md-2');
+                $('#masters_gpa_div').addClass('col-md-2');
             } else {
-                $('#masters_cgpa').attr('hidden', true);
+                $('#masters_gpa').attr('hidden', true);
 
                 $('#masters_result_div').removeAttr('class');
                 $('#masters_result_div').addClass('col-md-8');
-                $('#masters_cgpa_div').removeAttr('class');
+                $('#masters_gpa_div').removeAttr('class');
             }
         });
     </script>
