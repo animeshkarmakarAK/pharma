@@ -38,18 +38,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     ]);
 
     /**********Routine**********/
-
     Route::get('weekly-routine', [App\Http\Controllers\RoutineController::class, 'weeklyRoutine'])->name('weekly-routine');
     Route::post('weekly-routine/filter', [App\Http\Controllers\RoutineController::class, 'weeklyRoutineFilter'])->name('weekly-routine.filter');
 
-    /***************************/
-
     /**********ExaminationRoutine**********/
-
     Route::get('examination-routine', [App\Http\Controllers\ExaminationRoutineController::class, 'examinationRoutine'])->name('examination-routine');
     Route::post('examination-routine/filter', [App\Http\Controllers\ExaminationRoutineController::class, 'examinationRoutineFilter'])->name('examination-routine.filter');
-
-    /***************************/
     Route::get('examination-result-batch/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResult'])->name('examination-result.batch');
     Route::get('examination-result-batch-add/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResultadd'])->name('examination-result.batch-add');
     Route::get('examination-result-batch-edit/{id}', [App\Http\Controllers\ExaminationResultController::class, 'batchResultEdit'])->name('examination-result.batch.edit');
