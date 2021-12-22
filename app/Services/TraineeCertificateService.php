@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\Classes\DatatableHelper;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\TraineeBatch;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +13,46 @@ use Yajra\DataTables\Facades\DataTables;
 
 class TraineeCertificateService
 {
+
+    /**
+     * @param Request $request
+     * @param null $id
+     * @return Validator
+     */
+    public function validator(Request $request, $id = null): Validator
+    {
+        $rules = [
+            'authorized_by' => [
+                'required',
+                'string',
+                'max:191'
+            ],
+            'issued_date' => [
+                'required'
+            ],
+            'batch_id' => [
+                'required',
+                'int'
+            ],
+            'tamplate' => [
+                'required'
+            ],
+
+        ];
+
+     /*   $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            dd($validator);
+        }else{
+            dd('all is okay');
+        }*/
+
+
+
+
+        return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
+    }
+
     public function getTraineeBatchLists(Request $request, int $batchId): JsonResponse
     {
         /** @var Builder $traineeBatches */

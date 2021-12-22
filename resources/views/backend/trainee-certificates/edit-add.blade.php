@@ -1,5 +1,5 @@
 @php
-    $edit = !empty($batch->id);
+    $edit = !empty($batchCertificate->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
 @endphp
@@ -22,115 +22,85 @@
 
                     <div class="card-body">
                         <form class="row edit-add-form" method="post"
-                              action="{{ $edit ? route('admin.batches.update', [$batch->id]) : route('admin.batches.store')}}">
+                              action="{{ $edit ? route('admin.batch.certificates.store', [$batchCertificate->id]) : route('admin.batch.certificates.store')}}">
                             @csrf
-                            @if($edit)
+                            {{--@if($edit)
                                 @method('put')
-                            @endif
+                            @endif--}}
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="title">{{ __('admin.batches.title')}}</label>
+                                    <input type="hidden" name="batch_id" id="batch_id" value="{{$batchCertificate->id}}">
+                                    <label for="title">{{ __('admin.certificate.course_title')}}</label>
                                     <input type="text" class="form-control" id="title"
                                            name="title"
-                                           value="{{ $edit ? $batch->title: old('title') }}">
-                                </div>
-                            </div>
-
-                            @if($authUser->isInstituteUser())
-                                <input type="hidden" id="institute_id" name="institute_id" value="{{$authUser->institute_id}}">
-                            @else
-                                <div class="form-group col-md-6">
-                                    <label for="institute_id">{{ __('admin.batches.institute_title')}}</label>
-                                    <select class="form-control custom-input-box select2" name="institute_id"
-                                            id="institute_id" required>
-                                        <option value="" selected>{{ __('admin.batches.please_select')}}</option>
-                                        @foreach($institutes as $institute)
-                                            <option
-                                                value="{{ $institute->id}}" {{ $edit && $batch->institute_id == $institute->id ? 'selected':''}}>{{ $institute->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
-
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="course_id">{{ __('admin.batches.course_title')}}</label>
-
-                                        <select name="course_id" id="course_id" class="form-control select2">
-                                            @if($edit && !empty($batch->course->id))
-                                                @foreach($courses as $course)
-                                                    <option value="{{ $course->id }}" {{ $course->id == $batch->course->id ? 'selected':''}}>{{ $course->title }}</option>
-                                                @endforeach
-                                            @else
-                                                <select name="course_id" id="course_id" class="form-control select2">
-                                                </select>
-                                            @endif
-                                        </select>
-
+                                           value="Course Title" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="code">{{ __('admin.batches.code')}}</label>
-                                    <input type="number" class="form-control" id="code"
-                                           name="code"
-                                           value="{{ $edit ? $batch->code : old('code') }}"
-                                           placeholder="{{ __('admin.batches.code')}}">
+                                    <label for="title">{{ __('admin.certificate.batch_title')}}</label>
+                                    <input type="text" class="form-control" id="title"
+                                           name="title"
+                                           value="Batch Title" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="max_student_enrollment">{{ __('admin.batches.max_student_enrollment')}}</label>
-                                    <input type="number" class="form-control" id="max_student_enrollment"
-                                           name="max_student_enrollment"
-                                           value="{{ $edit ? $batch->max_student_enrollment : old('max_student_enrollment') }}"
-                                           placeholder="{{ __('admin.batches.max_student_enrollment')}}">
+                                    <label for="authorized_by">{{ __('admin.certificate.authorized_by')}}</label>
+                                    <input type="text" class="form-control" id="authorized_by"
+                                           name="authorized_by"
+                                           value="">
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="start_date">{{ __('admin.batches.start_date')}}</label>
-                                    <input type="text" class="flat-date flat-date-custom-bg" id="start_date"
-                                           name="start_date"
-                                           value="{{ $edit ? $batch->start_date : old('start_date') }}"
+                                    <label for="issued_date">{{ __('admin.certificate.issue_date')}}</label>
+                                    <input type="text" class="flat-date flat-date-custom-bg" id="issued_date"
+                                           name="issued_date"
+                                           value="{{old('issued_date') }}"
                                     >
                                 </div>
                             </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="end_date">{{ __('admin.batches.end_date')}}</label>
-                                    <input type="date" class="flat-date flat-date-custom-bg" id="end_date"
-                                           name="end_date"
-                                           value="{{ $edit ? $batch->end_date : old('end_date') }}"
-                                    >
+                                    <label for="logo">{{ __('admin.certificate.signature') }} <span
+                                            style="color: red"> * </span></label>
+                                    <div class="input-group">
+                                        <div class="logo-upload-section">
+                                            <div class="avatar-preview text-center">
+                                                <label for="signature">
+                                                    <img class="figure-img"
+                                                         src={{ $edit && !empty($institute->signature) ? asset('storage/'. $institute->signature) :  "https://via.placeholder.com/350x350?text=Institute+Logo"}}
+                                                             width="200" height="100"
+                                                         alt="Institute logo"/>
+                                                    <span class="p-1 bg-gray"
+                                                          style="position: relative; right: 0; bottom: 50%; border: 2px solid #afafaf; border-radius: 50%;margin-left: -31px; overflow: hidden">
+                                                        <i class="fa fa-pencil-alt text-white"></i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <input type="file" name="signature" style="display: none"
+                                                   id="signature">
+                                        </div>
+                                    </div>
+                                    <p class="font-italic text-secondary m-0 p-0">
+                                        (Image max 500kb, file type
+                                        must be jpeg,jpg,png or gif)</p>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="start_time">{{ __('admin.batches.start_time')}}</label>
-                                    <input type="time" class="flat-time flat-time-custom-bg" id="start_time"
-                                           name="start_time"
-                                           value="{{ $edit ? $batch->start_time : old('start_time') }}"
-                                    >
+                                    <label for="title">{{ __('admin.certificate.certificate_template')}}</label>
+                                    <input type="text" class="form-control" id="tamplate"
+                                           name="tamplate"
+                                           value="Batch Title">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="end_time">{{ __('admin.batches.end_time')}}</label>
-                                    <input type="time" class="flat-time flat-time-custom-bg" id="end_time"
-                                           name="end_time"
-                                           value="{{ $edit ? $batch->end_time : old('end_time') }}">
-                                </div>
-                            </div>
-
 
                             <div class="col-sm-12 text-right">
                                 <button type="submit"
@@ -228,7 +198,22 @@
             });
         });
 
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $(input).parent().find('.avatar-preview img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
 
+        $(document).ready(function () {
+            $('#signature').change(async function () {
+                await readURL(this); //preview image
+                editAddForm.validate().element("#signature");
+            });
+        })
     </script>
 @endpush
 
