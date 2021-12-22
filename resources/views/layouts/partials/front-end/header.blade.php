@@ -85,7 +85,7 @@
                         <a class="btn"
                            href="{{ route('frontend.trainee-registrations.index') }}"
                            id="bd-versions" aria-haspopup="true">
-                            <i class="fa fa-file"> </i>&nbsp;Trainee Registration
+                            <i class="fa fa-file"> </i>&nbsp;প্রশিক্ষণার্থী নিবন্ধন
                         </a>
                     </li>
 
@@ -93,18 +93,16 @@
                         <a class="btn"
                            href="{{ route('frontend.ssp-registration') }}"
                            id="bd-versions" aria-haspopup="true">
-                            <i class="fa fa-file"> </i>&nbsp;SSP Registration
+                            <i class="fa fa-file"> </i>&nbsp;এসএসপি নিবন্ধন
                         </a>
                     </li>
-
-
-                    <li class="nav-item">
-                        <a class="btn"
-                           href="{{ route('frontend.trainee.login-form') }}"
-                           id="bd-versions" aria-haspopup="true">
-                            <i class="fa fa-file"> </i>&nbsp; ফি জমা
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="btn"--}}
+{{--                           href="{{ route('frontend.trainee.login-form') }}"--}}
+{{--                           id="bd-versions" aria-haspopup="true">--}}
+{{--                            <i class="fa fa-file"> </i>&nbsp; ফি জমা--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 @endif
 
                 @if(!\Illuminate\Support\Facades\Auth::guard('web')->check() && !\Illuminate\Support\Facades\Auth::guard('trainee')->check())

@@ -140,6 +140,7 @@ return [
     'back_to_list' => 'Back to list',
     'row_status' => 'Status',
     'Ethnic_group_ask'=>'Is Ethnic Group Ask',
+    'ethnic_group'=>'Ethnic Group',
     'lang'=>'Language Successfully Changed',
     'youths_button_label'=>'youths',
     'total_course'=>'Total Course',
