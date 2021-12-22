@@ -771,7 +771,8 @@
                                                                                id="masters_gpa"
                                                                                class="form-control" width="10"
                                                                                placeholder="সি.জি.পি.এ"
-                                                                               value="{{ old('academicQualification.masters.grade') }}"
+                                                                               value="{{ isset($academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]) ? $academicQualifications[\App\Models\TraineeAcademicQualification::EXAMINATION_MASTERS]->grade :  old('academicQualification.masters.grade') }}"
+
                                                                                hidden>
                                                                     </div>
                                                                     <div class="col-md-4"></div>
@@ -1447,15 +1448,32 @@
                     type: 'POST',
                     processData: false,
                     contentType: false,
-                    success: function (response) {
-                        console.log('response', response);
-                        $('.overlay').hide();
-                        let alertType = response.alertType;
-                        let alertMessage = response.message;
-                        let alerter = toastr[alertType];
-                        alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
-                    },
-                });
+                    errors: function(response) {
+                        console.log('errors', response);
+                    }
+                }).then((response) => {
+                    console.log('response', response);
+                    let alertType = response.alertType;
+                    let alertMessage = response.message;
+                    let alerter = toastr[alertType];
+                    alerter ? alerter(alertMessage) : toastr.error("toastr alert-type " + alertType + " is unknown");
+                }).catch((error) => {
+                    if (typeof error.responseJSON.errors !== 'undefined') {
+                        $.each(error.responseJSON.errors, function (key, value) {
+                            if (Array.isArray(value)) {
+                                toastr.error(value[0]);
+                            } else {
+                                toastr.error(value);
+                            }
+                        });
+                    } else if (typeof error.responseJSON.message !== 'undefined') {
+                        toastr.error(error.responseJSON.message);
+                    } else {
+                        toastr.error(error.responseJSON);
+                    }
+                }).always(() => {
+                    $('.overlay').hide();
+                })
 
                 return false;
             }
@@ -1466,7 +1484,6 @@
         })
 
         function setFormFields(settings) {
-            console.log('settings:', settings);
 
             if (settings?.FreedomFighter?.should_present_in_form) {
                 $('#freedom-fighter-status-section').show();
@@ -1488,22 +1505,37 @@
             settings?.address?.should_present_in_form ? $('.address-section').show() : $('.address-section').hide();
             settings?.guardianInfo?.should_present_in_form ? $('.guardian-info-section').show() : $('.guardian-info-section').hide();
 
-            if (settings.SSCInfo && isSelectGrade('ssc')) {
-                $('#ssc_gpa').show();
+
+            if (settings.SSCInfo) {
+                showGPAInputField('ssc');
             }
 
-            if (settings.HSCInfo && isSelectGrade('hsc')) {
-                $('#hsc_gpa').show();
+            if (settings.HSCInfo) {
+                showGPAInputField('hsc');
+            }
+
+            if (settings.HonoursInfo) {
+                showGPAInputField('graduation');
+            }
+
+            if (settings.MastersInfo) {
+                showGPAInputField('masters');
             }
         }
 
 
-        function isSelectGrade(examName) {
+        function showGPAInputField(examName) {
             if ($('#' + examName + '_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FOUR !!} || $('#' + examName + '_result').val() == {!! App\Models\TraineeAcademicQualification::EXAMINATION_RESULT_GPA_OUT_OF_FIVE !!}) {
-                 return true;
+                $('#' + examName + '_gpa').removeAttr('hidden');
+                $('#' + examName + '_result_div').removeAttr('class').addClass('col-md-6');
+                $('#' + examName + '_gpa_div').addClass('col-md-2');
             }else {
-                return false;
+                $('#' + examName + '_gpa').attr('hidden', true);
+                $('#' + examName + '_result_div').removeAttr('class').addClass('col-md-8');
+                $('#' + examName + '_gpa_div').removeAttr('class');
             }
+
+            return false;
         }
 
         $(document).ready(function () {

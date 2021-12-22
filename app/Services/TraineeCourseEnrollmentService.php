@@ -44,7 +44,7 @@ class TraineeCourseEnrollmentService
         //guardian info
 
         foreach ($data['familyMember'] as $key => $guardian) {
-            if (!$guardian['relation_with_trainee'] || !$guardian['name']) {
+            if (empty($guardian['relation_with_trainee']) || empty($guardian['member_name_en'])) {
                 continue;
             }
 
@@ -73,6 +73,13 @@ class TraineeCourseEnrollmentService
     {
         $rules = [
             'academicQualification.*' => 'nullable',
+            'academicQualification.*.examination_name' => 'nullable|string|max:191',
+            'academicQualification.*.examination' => 'nullable|string|max:191',
+            'academicQualification.*.institute' => 'nullable|string|max:191',
+            'academicQualification.*.roll_no' => 'nullable|string|max:20',
+            'academicQualification.*.reg_no' => 'nullable|string|max:20',
+            'academicQualification.*.grade' => 'nullable|string|between:0, 9.99',
+            'academicQualification.*.subject' => 'nullable|string|max:191',
             'familyMember.*' => 'nullable',
             'ethnic_group' => 'nullable',
             'address' => 'nullable',
