@@ -33,24 +33,19 @@ class TraineeRegistrationController extends Controller
     /**
      * applied trainee for registration data view
      * @param $traineeId
-     * @return array
+     * @return View
      */
-    public function show($traineeId): array
+    public function show($traineeId): View
     {
+
 
         $trainee = Trainee::findOrFail($traineeId);
         $familyMembers = $this->traineeRegistrationService->getTraineeFamilyMemberInfo($trainee);
         $traineeAcademicQualifications = $this->traineeRegistrationService->getTraineeAcademicQualification($trainee);
         $traineeSelfInfo = $this->traineeRegistrationService->getTraineeInfo($trainee);
 
-        return [
-                'father' => $familyMembers['father'],
-                'mother' => $familyMembers['mother'],
-                'guardian' => $familyMembers['guardian'],
-                'academicQualifications' => $traineeAcademicQualifications,
-                'traineeSelfInfo' => $traineeSelfInfo,
-                'trainee' => $trainee,
-            ];
+
+        return \view('backend.trainees.cv-view', compact('trainee','familyMembers','traineeAcademicQualifications','traineeSelfInfo'));
     }
 
 
