@@ -6,7 +6,6 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Models\Trainee;
 use App\Models\TraineeAcademicQualification;
-use App\Models\TraineeCourseEnroll;
 use App\Models\TraineeFamilyMemberInfo;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
@@ -21,7 +20,7 @@ class TraineeCourseEnrollmentService
         $trainee = Trainee::find($authTrainee->id);
         $trainee->fill(array($authTrainee));
 
-        if ($data['ethnic_group'] || $data['address']) {
+        if (!empty($data['ethnic_group']) || !empty($data['address'])) {
             $trainee->ethnic_group = $data['ethnic_group'];
             $trainee->address = $data['address'];
             $authTrainee->update();
