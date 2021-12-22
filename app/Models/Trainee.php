@@ -51,6 +51,7 @@ class Trainee extends AuthBaseModel
     const PROFILE_PIC_FOLDER_NAME = 'trainee';
     const DEFAULT_PROFILE_PIC = 'trainees/default.jpg';
 
+
     /**
      * @return string
      */
@@ -75,6 +76,14 @@ class Trainee extends AuthBaseModel
         return $this->trainee_registration_no;
     }
 
+    /**
+     * Hijra
+     */
+    public const GENDER_HERMAPHRODITE = 4;
+    /**
+     * Who transform gender
+     */
+    public const GENDER_TRANSGENDER = 5;
 
     /** Status Code */
     public const TRUE_LABEL = "TRUE";
@@ -103,6 +112,7 @@ class Trainee extends AuthBaseModel
         "MOTHER" => TraineeFamilyMemberInfo::GUARDIAN_MOTHER,
         "OTHER" => TraineeFamilyMemberInfo::GUARDIAN_OTHER,
     ];
+
 
     /** Gender Information */
     public const GENDER_MALE = 1;
@@ -323,6 +333,32 @@ class Trainee extends AuthBaseModel
             "EXAMINATION_RESULT_PASSED" => self::EXAMINATION_RESULT_PASSED,
             "EXAMINATION_RESULT_PASSED_MBBS_BDS" => self::EXAMINATION_RESULT_PASSED_MBBS_BDS,
         ];
+
+
+    /**
+     * get sex options
+     * @return array
+     */
+    public static function getSexOptions(): array
+    {
+        return [
+            self::GENDER_MALE => __('Male'),
+            self::GENDER_FEMALE => __('Female'),
+            self::GENDER_HERMAPHRODITE => __('Hermaphrodite'),
+            self::GENDER_TRANSGENDER => __('Transgender'),
+        ];
+    }
+
+    public function getUserGender(): string
+    {
+        $userGender = '';
+
+        $SexArray = self::getSexOptions();
+
+        if (empty($SexArray[$this->gender])) return $userGender;
+
+        return $SexArray[$this->gender];
+    }
 
 
     /**
