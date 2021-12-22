@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class TraineeRegistrationManagementController extends Controller
 {
@@ -39,6 +40,86 @@ class TraineeRegistrationManagementController extends Controller
     {
         return $this->traineeManagementService->getListDataForDatatable($request);
     }
+    public function preferredBatch($id){
+
+       return $this->traineeManagementService->getPreferdBatch($id);
+    }
+    public function acceptTraineeCourseEnroll($traineeCourseEnrollId)
+    {
+        $traineeCourseEnroll = TraineeCourseEnroll::findOrFail($traineeCourseEnrollId);
+
+        /**
+         * Check trainee application already rejected or not
+         * */
+
+        if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_REJECT) {
+            return back()->with([
+                'message' => __('Already rejected this application'),
+                'alert-type' => 'warning'
+            ]);
+        }
+
+        /**
+         * Check trainee application already accepted or not
+         * */
+        if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT) {
+            return back()->with([
+                'message' => __('Already accepted this application'),
+                'alert-type' => 'warning'
+            ]);
+        }
+
+        try {
+            if (!empty($traineeCourseEnroll->trainee->mobile)) {
+                try {
+                    $link = route('frontend.trainee-enrolled-courses');
+                    $traineeName = strtoupper($traineeCourseEnroll->trainee->name);
+                    $messageBody = "Dear $traineeName, Your course enrolment is accepted. Please payment within 72 hours. visit " . $link . " for payment";
+                    $smsResponse = sms()->send($traineeCourseEnroll->trainee->mobile, $messageBody);
+                    if (!$smsResponse->is_successful()) {
+                        sms()->send($traineeCourseEnroll->trainee->mobile, $messageBody);
+                    }
+                } catch (\Throwable $exception) {
+                    Log::debug($exception->getMessage());
+                }
+            }
+
+            /**
+             * Send mail to trainee for conformation
+             * */
+            $traineeEmailAddress = $traineeCourseEnroll->trainee->email;
+            $mailMsg = "Congratulations! Your application has been accepted, Please pay now within 72 hours.<p>Payment Link: https://www.test.com.bd</p>";
+            $mailSubject = "Congratulations! Your application has been accepted";
+            $traineeName = $traineeCourseEnroll->trainee->name;
+            try {
+                Mail::to($traineeEmailAddress)->send(new \App\Mail\TraineeApplicationAcceptMail($mailSubject, $traineeCourseEnroll->trainee->access_key, $mailMsg, $traineeName));
+            } catch (\Throwable $exception) {
+                Log::debug($exception->getMessage());
+                return back()->with([
+                    'message' => __('Something is wrong, Please try again'),
+                    'alert-type' => 'error'
+                ])->withInput();
+            }
+
+            /**
+             * Changing Enroll Status
+             * */
+            $this->traineeRegistrationService->changeTraineeCourseEnrollStatusAccept($traineeCourseEnroll);
+
+        } catch (\Throwable $exception) {
+            return response()->json([
+                'message' => __('generic.something_wrong_try_again'),
+                'alertType' => 'error'
+            ]);
+        }
+
+
+        return redirect()->back()->with([
+            'message' => __('Trainee course enroll accepted & notifying to trainee'),
+            'alertType' => 'success',
+        ]);
+    }
+
 
     public function addTraineeToBatch(Request $request): \Illuminate\Http\RedirectResponse
     {
