@@ -235,5 +235,6 @@ return [
     'relation' => 'Relation',
     'occupation' => 'Occupation',
     'enroll' => 'Enroll',
+    'apply' => 'Apply'
 ];
 

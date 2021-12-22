@@ -148,6 +148,7 @@ class TraineeRegistrationService
             'trainee_batches.batch_id as batch_id',
             'batches.batch_status as batch_status',
             'batches.title as batch_title',
+            'courses.title as course_title',
         ]);
 
         $traineeCourseEnrolls->join('courses', 'courses.id', '=', 'trainee_course_enrolls.course_id');
@@ -177,13 +178,13 @@ class TraineeRegistrationService
                 }
                 return $str;
             })
-            ->addColumn('enroll_last_date', static function (TraineeCourseEnroll $traineeCourseEnroll) {
-                $str = '';
-                if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT and !$traineeCourseEnroll->payment_status) {
-                    $str .= '<span href="#" class="badge badge-secondary"> ' . date('d M, Y h:i:s A', strtotime($traineeCourseEnroll->enroll_updated_date . ' + 3 days')) . ' </span>';
-                }
-                return $str;
-            })
+//            ->addColumn('enroll_last_date', static function (TraineeCourseEnroll $traineeCourseEnroll) {
+//                $str = '';
+//                if ($traineeCourseEnroll->enroll_status == TraineeCourseEnroll::ENROLL_STATUS_ACCEPT and !$traineeCourseEnroll->payment_status) {
+//                    $str .= '<span href="#" class="badge badge-secondary"> ' . date('d M, Y h:i:s A', strtotime($traineeCourseEnroll->enroll_updated_date . ' + 3 days')) . ' </span>';
+//                }
+//                return $str;
+//            })
             ->addColumn('batch_status', static function (TraineeCourseEnroll $traineeCourseEnroll) {
                 return '<span href="#" class="badge ' . ($traineeCourseEnroll->batch_id ? ($traineeCourseEnroll->batch_status ? ($traineeCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'badge-success' : 'badge-info') : 'badge-secondary') : 'badge-secondary') . '"> '
                     . ($traineeCourseEnroll->batch_id ? ($traineeCourseEnroll->batch_status ? ($traineeCourseEnroll->batch_status == Batch::BATCH_STATUS_COMPLETE ? 'Complete - ' . $traineeCourseEnroll->batch_title : 'On Going - ' . $traineeCourseEnroll->batch_title) : 'Assigned to - ' . $traineeCourseEnroll->batch_title) : 'Not Assigned') . ' </span>';

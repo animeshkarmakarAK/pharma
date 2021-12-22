@@ -16,12 +16,6 @@
                     <div
                         class="card-header custom-bg-gradient-info">
                         <div class="card-title float-left font-weight-bold text-primary">বিস্তারিত</div>
-                        <div class="trainee-access-key float-right d-inline-flex">
-                            <p class="label-text font-weight-bold">এক্সেস-কী &nbsp;:&nbsp; </p>
-                            <div class="font-weight-bold">
-                                {{ "  ".$trainee->access_key ?? 'N/A' }}
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
                         <div class="user-image text-center">
@@ -157,12 +151,15 @@
                     {
                         title: "কোর্সের নাম",
                         data: "course_title",
-                        name: "courses.title"
+                        name: "courses.title",
                     },
                     {
                         title: "কোর্স ফি",
                         data: "course_fee",
-                        name: "courses.course_fee"
+                        name: "courses.course_fee",
+                        fnRender: function (obj) {
+                            return obj + 'tk';
+                        }
                     },
                     {
                         title: "এনরোল স্টেটাস",
@@ -179,11 +176,11 @@
                         data: "batch_status",
                         //name: "trainee_course_enrolls.payment_status"
                     },
-                    {
-                        title: "ফি প্রদানের শেষ সময়",
-                        data: "enroll_last_date",
-                        //name: "trainee_course_enrolls.payment_status"
-                    },
+                    // {
+                    //     title: "ফি প্রদানের শেষ সময়",
+                    //     data: "enroll_last_date",
+                    //     //name: "trainee_course_enrolls.payment_status"
+                    // },
                     {
                         title: "পদক্ষেপ",
                         data: "action",
