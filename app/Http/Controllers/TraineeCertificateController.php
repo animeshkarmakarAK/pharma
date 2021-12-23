@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use App\Models\BatchCertificate;
+use App\Models\Certificate;
 use App\Models\Trainee;
 use App\Models\TraineeAcademicQualification;
 use App\Models\TraineeBatch;
@@ -18,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class TraineeCertificateController extends Controller
@@ -41,10 +43,9 @@ class TraineeCertificateController extends Controller
         $this->traineeCertificateService = $traineeCertificateService;
     }
 
-    public function index(int $id)
+    public function index() :View
     {
-        $batchCertificate = Batch::findOrFail($id);
-        return \view(self::VIEW_PATH . 'browse', compact('batchCertificate'));
+        return \view(self::VIEW_PATH . 'browse');
     }
 
     public function create(int $id)
@@ -54,34 +55,48 @@ class TraineeCertificateController extends Controller
         //dd($batchCertificate->batch());
         return \view(self::VIEW_PATH . 'edit-add', compact('batchCertificate','id'));
     }
-    public function store(Request $request)
+
+
+
+    public function getBatchDatatable(Request $request): JsonResponse
     {
-        //dd($request->all());
+        return $this->traineeCertificateService->getTraineeBatchLists($request);
 
-        $traineeCertificateValidatedData = $this->traineeCertificateService->validator($request)->validate();
-        dd( $traineeCertificateValidatedData );
-       /* try {
-           // $this->courseService->createCourse($courseValidatedData);
-        } catch (\Throwable $exception) {
-            Log::debug($exception->getMessage());
-            return back()->with([
-                'message' => __('generic.something_wrong_try_again'),
-                'alert-type' => 'error'
-            ])->withInput();
-        }
-
-        return redirect()->route('admin.courses.index')->with([
-            'message' => __('generic.object_created_successfully', ['object' => 'Course']),
-            'alert-type' => 'success'
-        ]);*/
-       // return \view(self::VIEW_PATH . 'edit-add', compact('batchCertificate'));
     }
 
+    public function certificateEdit($id) :View
+    {
 
+        $batchCertificate = BatchCertificate::where('batch_id',$id)->first();
+        $batch = Batch::find($id)->with('course')->first();
+
+        return \view(self::VIEW_PATH . 'edit-add-certificate', compact('batch','batchCertificate','id'));
+
+    }
+
+    public function store(Request $request)
+    {
+        $traineeCertificateValidatedData = $this->traineeCertificateService->validator($request)->validate();
+         try {
+             $this->traineeCertificateService->createBatchCertificate($traineeCertificateValidatedData);
+         } catch (\Throwable $exception) {
+             Log::debug($exception->getMessage());
+             return back()->with([
+                 'message' => __('generic.something_wrong_try_again'),
+                 'alert-type' => 'error'
+             ])->withInput();
+         }
+
+         return redirect()->route('admin.batches.certificates')->with([
+             'message' => __('generic.object_created_successfully', ['object' => 'BatchCertificate']),
+             'alert-type' => 'success'
+         ]);
+    }
 
     public function getDatatable(Request $request, int $id): JsonResponse
     {
-        return $this->traineeBatchService->getTraineeBatchLists($request, $id);
+        return $this->traineeCertificateService->getTraineeBatchLists($request, $id);
+
     }
 
 

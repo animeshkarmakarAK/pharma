@@ -9,14 +9,14 @@
                         <h3 class="card-title font-weight-bold text-primary"><b>'title'</b> - {{ __('admin.trainee_batches.index')  }}
                         </h3>
 
-                       {{-- <div class="card-tools">
+                        <div class="card-tools">
                             @can('create', \App\Models\User::class)
                                 <a href="{{route('admin.batch.certificates.create',['id'=>$batch->id])}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
                                     <i class="fas fa-plus-circle"></i> {{__('generic.add_new')}}
                                 </a>
                             @endcan
-                        </div>--}}
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -80,7 +80,7 @@
         let datatable = null;
         $(function () {
             let params = serverSideDatatableFactory({
-                url: '{{ route('admin.batches.certificates.datatable') }}',
+                url: '{{ route('admin.batches.certificates.datatable', $batch->id) }}',
                 order: [[2, "asc"]],
                 columns: [
                     {
@@ -97,29 +97,15 @@
                         name: "trainees.trainee_registration_no",
                     },*/
                     {
-                        title: "{{ __('admin.certificate.batch_title')  }}",
-                        data: "batch_title",
-                        name: "batches.title"
+                        title: "{{ __('admin.trainee_batches.name')  }}",
+                        data: "trainee_name",
+                        name: "trainees.name"
                     },
-                    {
-                        title: "{{ __('admin.certificate.course_title')  }}",
-                        data: "course_title",
-                        name: "courses.title"
-                    },
-
-                    {
-                        title: "{{ __('admin.certificate.trainee_amount')  }}",
-                        data: "trainee",
-                        name: "trainee"
-                    },
-                    {
-                        title: "{{ __('admin.certificate.is_certificate')  }}",
-                        data: "is_certificate",
-                        name: "is_certificate",
-                        orderable: false,
-                        searchable: false,
-                        visible: true
-                    },
+                    /*{
+                        title: "{{ __('admin.trainee_batches.enrollment_date')  }}",
+                        data: "enrollment_date",
+                        name: "trainee_batches.enrollment_date",
+                    },*/
 
                     {
                         title: "{{ __('admin.common.action')  }}",
@@ -151,7 +137,33 @@
                 }
             }
         });
+        $(document).ready(function () {
+            $("#import-trainee-form").on("submit", function (event) {
+                event.preventDefault();
+                let formData = new FormData($(this)[0]);
+                $.ajax({
+                    url: "{{route('admin.batches.trainees-import',$batch->id)}}",
+                    type: "POST",
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res.code === 422) {
+                            let li = "";
+                            $.each(res.errors, function (i, error) {
+                                li += "<li class='text-danger'>" + error + "</li>";
+                            });
+                            $("#validation-error-list").html(li);
+                            $("#validation-error-div").css("display", "block");
+                        } else if (res.code === 200) {
+                            window.location.reload();
+                        }
+                    }
 
-
+                })
+            })
+        })
     </script>
 @endpush

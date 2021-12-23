@@ -438,6 +438,8 @@ return [
     'certificate' =>[
         'batch_title' => 'Batch Title',
         'course_title' => 'Course Title',
+        'trainee_amount' => 'Tainee Numbers',
+        'is_certificate' => 'Certificate',
         'authorized_by' => 'Authorized by',
         'issue_date' => 'Certificate Issued Date',
         'signature' => 'Signature',
