@@ -42,7 +42,6 @@ class TraineeRegistrationManagementController extends Controller
     }
     public function preferredBatch($id): JsonResponse
     {
-
        return $this->traineeManagementService->getPreferdBatch($id);
     }
 

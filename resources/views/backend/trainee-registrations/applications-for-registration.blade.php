@@ -510,6 +510,8 @@
 
             function htmlGenerate(data){
 
+                $('#available_batch').html('')
+                $('#prefared_batch').html('')
                 html =` <div class="form-check">
                                     <input class="form-check-input" type="radio" name="selected_batch"  value="option1" >
                                     <label class="form-check-label" for="exampleRadios1">
@@ -522,6 +524,7 @@
 
                 let preferedBatch = ''
                 let availableBatch = '<input type="hidden" value="'+data["preferedBatch"]["id"]+'" id="enrollId">'
+
                 data['batchList'].forEach(function(item){
                     let checked= item['id']==data['preferedBatch']['batch_id']?'checked':'';
                     availableBatch += `<div class="form-check">
@@ -531,16 +534,17 @@
                                     </label>
                                 </div>`
                 });
-                let preferedBatchList =  data['batchList'].filter(function (item){
+
+                let preferedBatchList =  data['preferedBatch']['batch_preferences']?
+                    data['batchList'].filter(function (item){
                     return data['preferedBatch']['batch_preferences'].includes(item.id+'');
-                })
+                    }):[];
 
                 preferedBatchList.forEach(function(item){
                     preferedBatch += ` <label class="form-check-label" >
                                      `+item['title']+`
                                 </label><br>`
                 });
-
                 $('#available_batch').html(availableBatch)
                 $('#prefared_batch').html(preferedBatch)
 
@@ -549,7 +553,6 @@
             function batchAssign(type){
                 id= $('#enrollId').val()
                 batch_id=$('input[name="selected_batch"]:checked').val();
-                console.log(id, batch_id)
                 $.ajax({
                     type: 'post',
                     url: "{{ route('admin.trainee.batch.select') }}",
@@ -620,11 +623,8 @@
             }
 
             $(document, 'td').on('click', '.accept-application', function (e) {
-                console.log('action',$(this).data('action'))
-                //$('#accept-application-form')[0].action = $(this).data('action');
-                //console.log($('#accept-application-form')[0].action );
                 $('#accept-application-modal').modal('show');
-                featchTraineeBatch(1)
+                featchTraineeBatch($(this).attr('id'))
             });
 
             $(document, 'td').on('click', '.reject-application', function (e) {
@@ -689,7 +689,6 @@
                 acceptNowForm.find('.mobile').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    console.log(row)
                     acceptNowForm.append('<input name="trainee_ids[]" class="trainee_ids" value="' + row.id + '" type="hidden"/>');
                     acceptNowForm.append('<input name="mobile[]" class="mobile" value="' + row.mobile + '" type="hidden"/>');
                 });
@@ -699,7 +698,6 @@
                 rejectNowForm.find('.mobile').remove();
                 let selectedRows = Array.from(datatable.rows({selected: true}).data());
                 (selectedRows || []).forEach(function (row) {
-                    console.log(row)
                     rejectNowForm.append('<input name="trainee_ids[]" class="trainee_ids" value="' + row.id + '" type="hidden"/>');
                     rejectNowForm.append('<input name="mobile[]" class="mobile" value="' + row.mobile + '" type="hidden"/>');
                 });
