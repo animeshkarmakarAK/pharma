@@ -10,6 +10,10 @@ use App\Models\Programme;
 use App\Models\Trainee;
 use Illuminate\Contracts\View\View;
 
+/**
+ * Class CourseSearchController
+ * @package App\Http\Controllers\Frontend
+ */
 class CourseSearchController extends Controller
 {
     /**
@@ -37,7 +41,7 @@ class CourseSearchController extends Controller
     }
 
     /**
-     * @param mixed ...$args
+     * @param int $courseId
      * @return View
      */
     public function courseDetails(int $courseId): View

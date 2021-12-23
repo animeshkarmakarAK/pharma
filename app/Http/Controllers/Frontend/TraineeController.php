@@ -70,6 +70,7 @@ class TraineeController extends Controller
 
     public function traineeEnrolledCourses()
     {
+
         $trainee = AuthHelper::getAuthUser('trainee');
         if (!$trainee) {
             return redirect()->route('frontend.trainee.login-form')->with([
