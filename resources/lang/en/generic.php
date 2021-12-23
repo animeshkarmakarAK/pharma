@@ -240,6 +240,8 @@ return [
     'relation' => 'Relation',
     'occupation' => 'Occupation',
     'enroll' => 'Enroll',
-    'apply' => 'Apply'
+    'apply' => 'Apply',
+    'relation_already_added' => 'Relation already added',
+    'relation_name' => 'Relation Name',
 ];
 

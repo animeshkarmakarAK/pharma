@@ -2,6 +2,7 @@
     $currentInstitute = app('currentInstitute');
     $layout = 'master::layouts.front-end';
     $edit = !!$guardian->id;
+
 @endphp
 @extends($layout)
 
@@ -101,10 +102,27 @@
                                 <div class="form-group col-md-6">
                                     <label for="relation_with_trainee">{{ __('generic.relation') }}<span
                                             class="required">*</span> :</label>
-                                    <input type="text" class="form-control" name="relation_with_trainee"
-                                           id="relation_with_trainee"
+                                    <select name="relation_with_trainee"
+                                            id="relation_with_trainee"
+                                            class="select2">
+                                        @foreach(\App\Models\TraineeFamilyMemberInfo::getGuardianOptions() as $key => $value)
+                                            <option value=""></option>
+                                            <option
+                                                value="{{ $key }}" {{$guardian->relation_with_trainee == $key ? 'selected' : ''}} {{ old('relation_with_trainee') == $key ? 'selected' : '' }}>
+                                                {{ $value }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label for="relation">{{ __('generic.relation_name') }}<span
+                                            class="required">*</span> :</label>
+                                    <input type="text" class="form-control" name="relation"
+                                           id="relation"
                                            placeholder="{{ __('generic.relation') }}"
-                                           value="{{ $guardian->relation_with_trainee  }}">
+                                           value="{{ $guardian->relation ?? old('relation')  }}">
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -137,7 +155,6 @@
             rules: {
                 name: {
                     required: true,
-                    maxLength: 30,
                 },
                 mobile: {
                     required: true,
@@ -153,8 +170,31 @@
                 },
                 occupation: {
                     required: false,
+                },
+                relation: {
+                    required: function () {
+                        return $('#relation').css('display') == 'block';
+                    },
                 }
             }
+        });
+
+        $(document).ready(function () {
+            const guardian = @json($guardian);
+
+            if (guardian.relation_with_trainee == {!! \App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!}) {
+                $('#relation').parent().show();
+            }else {
+                $('#relation').parent().hide();
+            }
+
+            $('#relation_with_trainee').on('change', function () {
+                if ($(this).val() == {!! \App\Models\TraineeFamilyMemberInfo::GUARDIAN_OTHER !!}) {
+                    $('#relation').parent().show();
+                } else {
+                    $('#relation').parent().hide();
+                }
+            })
         });
 
     </script>

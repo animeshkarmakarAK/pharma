@@ -216,6 +216,12 @@
         @push('js')
             <script>
 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
                 const monthNames = ["January", "February", "March", "April", "May", "June",
                     "July", "August", "September", "October", "November", "December"
                 ];
@@ -255,13 +261,22 @@
                     } else {
                         $('#loggedIn_confirm__modal').modal('show');
 
-                        // setTimeout(function () {
-                        //     $('#loggedIn_confirm__modal').modal('hide');
-                        // }, 5000);
+                        setTimeout(function () {
+                            $('#loggedIn_confirm__modal').modal('hide');
+                        }, 5000);
                     }
                 }
 
-                const template = function (key, course) {
+                async function isAnyRunningBatch(data) {
+
+                    return await $.ajax({
+                        type: "POST",
+                        url: '{{ route('frontend.course-running-batches') }}',
+                        data: {data},
+                    });
+                }
+
+                const template =  function (key, course, isRunningBatch) {
                     let html = '';
                     html += '<div class="col-md-3 course-card">';
                     html += '<a href="{{ route('frontend.course-details', ['course_id' => '__']) }}">'.replace('__', course.id);
@@ -287,7 +302,11 @@
                     html += '<i class="fa fa-user gray-color mr-2"> </i><span class="course-p">Student(0)</span>';
                     html += '</a>';
                     html += '<p class="col-md-6 font-weight-light mb-1">';
-                    html += '<a href="#" onclick="checkAuth(__)" style="padding:2px 10px;" class="btn btn-success float-right"> আবেদন</a>'.replaceAll('__', course.id);
+
+                    if (isRunningBatch) {
+                        html += '<a href="#" onclick="checkAuth(__)" style="padding:2px 10px;" class="btn btn-success float-right"> আবেদন</a>'.replaceAll('__', course.id);
+                    }
+
                     html += '</div>';
 
                     html += '</p></div></div></div>';
@@ -373,7 +392,9 @@
                         filters['programme_id'] = programme;
                     }
 
-                    courseFetch(url, filters)?.then(function (response) {
+                    courseFetch(url, filters)?.then(async function (response) {
+                        let data = response?.data?.data;
+
                         $('.overlay').hide();
                         window.scrollTo(0, 0);
                         let html = '';
@@ -381,8 +402,11 @@
                             html += '<div class="text-center mt-5" "><i class="fa fa-sad-tear fa-2x text-warning mb-3"></i><div class="text-center text-danger h3">কোন কোর্স খুঁজে পাওয়া যায়নি!</div>';
                         }
 
+                        const coursesRunningBatch = await isAnyRunningBatch(data);
+
                         $.each(response.data?.data, function (i, item) {
-                            html += template(item.id, item);
+                            const isRunningBatch = coursesRunningBatch[i];
+                            html += template(item.id, item, isRunningBatch);
                         });
 
                         $('#container-publish-courses').html(html);

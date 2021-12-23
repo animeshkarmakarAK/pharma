@@ -225,6 +225,8 @@ $routesWithoutInstituteSlug = function () {
     Route::get('events/{event}', [\App\Http\Controllers\Frontend\EventPageController::class, 'singleEventPage'])->name('single-event');
     Route::get('sc/{page_id}', [App\Http\Controllers\Frontend\StaticContentController::class, 'index'])
         ->name('static-content.show');
+
+    Route::post('course-running-batches', [\App\Http\Controllers\CourseController::class,'checkRunningBatch'])->name('course-running-batches');
 };
 
 Route::group(['as' => 'frontend.'], $routesWithoutInstituteSlug);

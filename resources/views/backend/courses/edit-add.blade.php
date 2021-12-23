@@ -403,7 +403,6 @@
                 },
                 duration: {
                     required: false,
-                    maxlength: 30,
                 },
                 target_group: {
                     required: false,

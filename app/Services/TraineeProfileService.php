@@ -52,15 +52,21 @@ class TraineeProfileService
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
     }
-    public function guardianInfoValidator(Request $request, $id = null): Validator
+
+    /**
+     * @param Request $request
+     * @return Validator
+     */
+    public function guardianInfoValidator(Request $request): Validator
     {
         $rules = [
             'name' => 'required|string|max:191',
             'mobile' => 'required|string|max:20',
             'date_of_birth' => 'required|date',
             'gender' => 'required|int',
-            'relation_with_trainee' => 'required|string|max:191',
+            'relation_with_trainee' => 'required|int',
             'occupation' => 'nullable|string|max:191',
+            'relation' => 'nullable|string|max:191',
         ];
 
         return \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
@@ -103,7 +109,7 @@ class TraineeProfileService
     {
         $trainee = Trainee::find(AuthHelper::getAuthUser('trainee')->id);
 
-        foreach ($data['academicQualification'] as $key => $academicQualification) {
+        foreach ($data['academicQualification'] as  $academicQualification) {
             if (empty($academicQualification['examination_name'])) continue;
 
             $existAcademicQualification = TraineeAcademicQualification::where('trainee_id', $trainee->id)
@@ -123,6 +129,7 @@ class TraineeProfileService
     public function storeGuardian(array $data): TraineeFamilyMemberInfo
     {
         $data['trainee_id'] = AuthHelper::getAuthUser('trainee')->id;
+
         return TraineeFamilyMemberInfo::create($data);
     }
 

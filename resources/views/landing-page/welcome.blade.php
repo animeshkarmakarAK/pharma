@@ -221,11 +221,14 @@
 
                                                                         </p>
                                                                     </div>
-                                                                    <div class="col-md-12">
-                                                                        <a href="#"
-                                                                           onclick="checkAuthTrainee({{ $course->id }})"
-                                                                           class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
-                                                                    </div>
+                                                                    
+                                                                    @unless($course->runningBatches->count() <= 0)
+                                                                        <div class="col-md-12">
+                                                                            <a href="#"
+                                                                               onclick="checkAuthTrainee({{ $course->id }})"
+                                                                               class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
+                                                                        </div>
+                                                                    @endunless
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -299,11 +302,13 @@
 
                                                         </div>
 
-                                                        <div class="col-md-12">
-                                                            <a href="#"
-                                                               onclick="checkAuthTrainee({{ $course->id }})"
-                                                               class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
-                                                        </div>
+                                                        @unless($course->runningBatches->count() <= 0)
+                                                            <div class="col-md-12">
+                                                                <a href="#"
+                                                                   onclick="checkAuthTrainee({{ $course->id }})"
+                                                                   class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
+                                                            </div>
+                                                        @endunless
                                                     </div>
                                                 </div>
                                             </a>
@@ -366,11 +371,13 @@
                                                                         </p>
                                                                     </div>
 
-                                                                    <div class="col-md-12">
-                                                                        <a href="#"
-                                                                           onclick="checkAuthTrainee({{ $course->id }})"
-                                                                           class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
-                                                                    </div>
+                                                                    @unless($course->runningBatches->count() <= 0)
+                                                                        <div class="col-md-12">
+                                                                            <a href="#"
+                                                                               onclick="checkAuthTrainee({{ $course->id }})"
+                                                                               class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
+                                                                        </div>
+                                                                    @endunless
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -444,11 +451,14 @@
                                                             </p>
                                                         </div>
 
-                                                        <div class="col-md-12">
-                                                            <a href="#"
-                                                               onclick="checkAuthTrainee({{ $course->id }})"
-                                                               class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
-                                                        </div>
+                                                        @unless($course->runningBatches->count() <= 0)
+                                                            <div class="col-md-12">
+                                                                <a href="#"
+                                                                   onclick="checkAuthTrainee({{ $course->id }})"
+                                                                   class="btn btn-success btn-sm float-right mb-2">{{ __('generic.apply') }}</a>
+                                                            </div>
+                                                        @endunless
+
                                                     </div>
                                                 </div>
                                             </a>
@@ -807,7 +817,7 @@
                         color: black;
                     }
 
-                    .modal-header .close, .modal-header {
+                    .modal-header .close, .modal-header .mailbox-attachment-close {
                         padding: 1rem;
                         margin: -1rem -1rem -1rem auto;
                         color: white;

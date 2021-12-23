@@ -107,7 +107,7 @@
                                         </div>
 
 
-                                        <div class="row">
+                                        <div class="row academic-info-section">
                                             <div class="col-md-12">
                                                 <h5 class="font-weight-bold">Academic Information</h5>
                                             </div>
@@ -853,7 +853,7 @@
                                                                 <div class="form-group">
                                                                     <label for="fathers_date_of_birth">Date of
 
-                                                                            birth:</label>
+                                                                        birth:</label>
                                                                     <input type="text"
                                                                            name="familyMember[father][date_of_birth]"
                                                                            id="fathers_date_of_birth"
@@ -993,7 +993,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="guardian_date_of_birth">Date of birth:</label>
+                                                                <label for="guardian_date_of_birth">Date of
+                                                                    birth:</label>
                                                                 <input type="text"
                                                                        name="familyMember[guardian][date_of_birth]"
                                                                        value="{{ old('familyMember.guardian.date_of_birth') }}"
@@ -1448,7 +1449,7 @@
                     type: 'POST',
                     processData: false,
                     contentType: false,
-                    errors: function(response) {
+                    errors: function (response) {
                         console.log('errors', response);
                     }
                 }).then((response) => {
@@ -1479,10 +1480,6 @@
             }
         });
 
-        courseEnrollmentForm.on('submit', function () {
-            console.log("errors: ", validator.errors());
-        })
-
         function setFormFields(settings) {
 
             if (settings?.FreedomFighter?.should_present_in_form) {
@@ -1506,20 +1503,25 @@
             settings?.guardianInfo?.should_present_in_form ? $('.guardian-info-section').show() : $('.guardian-info-section').hide();
 
 
-            if (settings.SSCInfo) {
+            if (settings?.SSCInfo) {
                 showGPAInputField('ssc');
             }
 
-            if (settings.HSCInfo) {
+            if (settings?.HSCInfo) {
                 showGPAInputField('hsc');
             }
 
-            if (settings.HonoursInfo) {
+            if (settings?.HonoursInfo) {
                 showGPAInputField('graduation');
             }
 
-            if (settings.MastersInfo) {
+            if (settings?.MastersInfo) {
                 showGPAInputField('masters');
+            }
+
+            // if no setting's found for academic information then hide the academic information header
+            if (!settings?.SSCInfo?.should_present_in_form || !settings.HSCInfo?.should_present_in_form || !settings?.HonoursInfo?.should_present_in_form || !settings?.MastersInfo?.should_present_in_form) {
+                $('.academic-info-section').hide();
             }
         }
 
@@ -1529,7 +1531,7 @@
                 $('#' + examName + '_gpa').removeAttr('hidden');
                 $('#' + examName + '_result_div').removeAttr('class').addClass('col-md-6');
                 $('#' + examName + '_gpa_div').addClass('col-md-2');
-            }else {
+            } else {
                 $('#' + examName + '_gpa').attr('hidden', true);
                 $('#' + examName + '_result_div').removeAttr('class').addClass('col-md-8');
                 $('#' + examName + '_gpa_div').removeAttr('class');

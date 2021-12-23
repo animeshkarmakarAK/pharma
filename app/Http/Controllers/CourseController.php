@@ -164,5 +164,22 @@ class CourseController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function checkRunningBatch (Request $request): array
+    {
+        $courses  = $request->all()['data'];
+
+        $response = [];
+        foreach ($courses as $key => $course) {
+            $isRunningBatch = Course::find($course['id'])->runningBatches->count() > 0;
+            $response[$key] = $isRunningBatch;
+        }
+
+        return $response;
+    }
+
 
 }
