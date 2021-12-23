@@ -72,7 +72,7 @@
                 @if($currentInstitute && $currentInstitute->slug)
                     <li class="nav-item {{ request()->is('course-management/contact-us-page*') ? 'active-menu' : '' }}">
                         <a href="{{ route('frontend.contact-us-page', $currentInstitute->slug) }}"
-                           class="btn">যোগাযোগ</a>
+                           class="btn">{{__('generic.contact')}}</a>
                     </li>
                 @endif
 

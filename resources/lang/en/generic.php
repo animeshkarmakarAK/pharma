@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'contact' => 'Contact',
+    'contact_us' => 'Contact us',
+    'feedback' => 'Feedback',
+
     'action' => 'Action',
     'actions' => 'Actions',
     'add_button_label' => 'Add',

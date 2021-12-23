@@ -4,7 +4,7 @@
 @extends($layout)
 
 @section('title')
-    পরামর্শ
+    {{__('generic.feedback')}}
 @endsection
 
 @section('content')
@@ -65,7 +65,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="address" class="col-sm-2 control-label">ঠিকানা</label>
+                                                        <label for="address"
+                                                               class="col-sm-2 control-label">ঠিকানা</label>
                                                         <div class="col-sm-10">
                                                         <textarea class="form-control" name="address" rows="2"
                                                                   id="address"></textarea>
@@ -143,7 +144,8 @@
         .advice-download-area {
             border-left: 1px solid #e1e1e1;
         }
-        .advice-form{
+
+        .advice-form {
             border: 1px solid #f9f9f9;
             padding: 20px;
             box-shadow: 0 0 15px #eee;
@@ -214,11 +216,11 @@
                     pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
                 },
                 address: {
-                    addressWithoutSpecialChar:true,
+                    addressWithoutSpecialChar: true,
                 },
                 comment: {
                     required: true,
-                    textEnBnWithoutSpecialChar:true,
+                    textEnBnWithoutSpecialChar: true,
                 }
             },
             messages: {

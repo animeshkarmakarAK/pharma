@@ -31,7 +31,7 @@
             <!--footer widget Two-->
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class="footer-widget-address">
-                    <h3 class="mb-3">যোগাযোগ</h3>
+                    <h3 class="mb-3">{{__('generic.contact')}}</h3>
                     <p>
                         <i class="fa fa-home" aria-hidden="true"></i>
                         {{  $currentInstitute && !empty($currentInstitute->address) ? $currentInstitute->address : 'Dhaka-1212' }}
@@ -81,10 +81,10 @@
                                 href="{{route('frontend.static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $currentInstitute->slug ?? ''])}}">আমাদের
                                 সম্পর্কে</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{ route('frontend.advice-page', ['instituteSlug' => $currentInstitute->slug ?? '']) }}">পরামর্শ</a>
+                                href="{{ route('frontend.advice-page', ['instituteSlug' => $currentInstitute->slug ?? '']) }}">{{__('generic.feedback')}}</a>
                         </li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('frontend.contact-us-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">যোগাযোগ</a>
+                                href="{{route('frontend.contact-us-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">{{__('generic.contact')}}</a>
                         </li>
                         <li><i class="fa  fa-angle-right"></i> <a
                                 href="{{route('frontend.general-ask-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">প্রশ্নোত্তর</a>

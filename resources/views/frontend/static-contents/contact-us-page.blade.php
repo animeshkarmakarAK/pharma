@@ -4,7 +4,7 @@
 @extends($layout)
 
 @section('title')
-    যোগাযোগ
+    {{__('generic.contact')}}
 @endsection
 
 @section('content')
@@ -21,7 +21,7 @@
                                             <div class="contact-us-portlet-title fix">
                                                 <div class="text-center">
                                                     <h3 class="green-heading titleconte">
-                                                        আমাদের সাথে যোগাযোগ করুন </h3>
+                                                        {{__('generic.contact_us')}} </h3>
                                                 </div>
                                                 <hr>
                                             </div>
