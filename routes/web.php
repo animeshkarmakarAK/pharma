@@ -77,7 +77,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('batches/{id}/trainees-import', [App\Http\Controllers\TraineeBatchController::class, 'importTrainee'])->name('batches.trainees-import');
 
     Route::post('batches/{id}/trainees/datatable', [App\Http\Controllers\TraineeBatchController::class, 'getDatatable'])->name('batches.trainees.datatable');
-    Route::get('batches/{id}/certificates', [App\Http\Controllers\TraineeCertificateController::class, 'index'])->name('batches.certificates');
+    Route::post('batches/certificates/datatable', [App\Http\Controllers\TraineeCertificateController::class, 'getBatchDatatable'])->name('batches.certificates.datatable');
+    Route::get('batches/certificates/edit/{id}', [App\Http\Controllers\TraineeCertificateController::class, 'certificateEdit'])->name('batches.certificates.edit');
+    Route::get('batches/certificates/index', [App\Http\Controllers\TraineeCertificateController::class, 'index'])->name('batches.certificates');
     Route::get('batches/{id}/certificates/create', [App\Http\Controllers\TraineeCertificateController::class, 'create'])->name('batch.certificates.create');
     Route::post('batches/{id}/certificates/store', [App\Http\Controllers\TraineeCertificateController::class, 'store'])->name('batch.certificates.store');
 

@@ -15,11 +15,12 @@ class TraineeBatchService
     public function getTraineeBatchLists(Request $request, int $batchId): JsonResponse
     {
         /** @var Builder $traineeBatches */
+
         $traineeBatches = TraineeBatch::select(
             [
                 'trainees.id as id',
                 'trainee_course_enrolls.id as trainee_registrations.trainee_registration_no',
-                'trainees.trainee_registration_no as trainee_registration_no',
+/*                'trainees.trainee_registration_no as trainee_registration_no',*/
                 'trainees.name as trainee_name',
                 DB::raw('DATE_FORMAT(trainee_batches.enrollment_date,"%d %b, %Y %h:%i %p") AS enrollment_date'),
             ]
