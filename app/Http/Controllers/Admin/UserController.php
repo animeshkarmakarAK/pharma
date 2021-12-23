@@ -7,6 +7,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserType;
 use App\Services\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -40,8 +41,9 @@ class UserController extends BaseController
     public function create(): View
     {
         $user = new User();
+        $userTypes = UserType::authUserWiseType()->get();
 
-        return \view(self::VIEW_PATH . 'edit-add', compact('user'));
+        return \view(self::VIEW_PATH . 'edit-add', compact('user', 'userTypes'));
     }
 
 
@@ -87,7 +89,9 @@ class UserController extends BaseController
      */
     public function edit(User $user): View
     {
-        return \view(self::VIEW_PATH . 'edit-add', compact('user'));
+        $userTypes = UserType::authUserWiseType()->get();
+
+        return \view(self::VIEW_PATH . 'edit-add', compact('user', 'userTypes'));
 
     }
 

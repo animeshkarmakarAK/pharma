@@ -2,8 +2,6 @@
     $edit = !empty($user->id);
     /** @var \App\Models\User $authUser */
     $authUser = \App\Helpers\Classes\AuthHelper::getAuthUser();
-
-
 @endphp
 
 @extends('master::layouts.master')
@@ -67,25 +65,31 @@
                         </div>
                     </div>
 
-                    @if($authUser->isSuperUser() ||  $authUser->isSystemUser() || $authUser->isInstituteUser())
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="user_type_id">{{ __('User Type') }} <span
-                                        style="color: red"> * </span></label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="user_type_id"
-                                        id="user_type_id"
-                                        data-model="{{base64_encode(App\Models\UserType::class)}}"
-                                        data-label-fields="{title}"
-                                        @if($edit)
-                                        data-preselected-option="{{json_encode(['text' =>  $user->userType->title, 'id' =>  $user->userType->code])}}"
-                                        @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
-                                </select>
-                            </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="user_type_id">{{ __('User Type') }} <span
+                                    style="color: red"> * </span></label>
+                            <select class="form-control select2"
+                                    name="user_type_id"
+                                    id="user_type_id"
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
+                            >
+                                <option value="" selected disabled>{{ __('generic.select_placeholder') }}</option>
+                                @foreach($userTypes as $userType)
+                                    <option value="{{$userType->code}}"
+                                            @if($edit && $user->userType->code == $userType->code) selected @endif>
+                                        {{$userType->title}}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-sm-6" style="display: @if($edit && $user->institute) block @else none @endif;">
+                    </div>
+
+                    @if($authUser->isInstituteUser())
+                        <input type="hidden" name="institute_id" id="institute_id" value="{{$authUser->institute_id}}">
+                    @else
+                        <div class="col-sm-6 institute-id-block"
+                             style="display: @if($edit && $user->institute) block @else none @endif;">
                             <div class="form-group">
                                 <label for="institute_id">{{ __('Institute') }} <span
                                         style="color: red"> * </span></label>
@@ -102,85 +106,46 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="col-sm-6" style="display: @if($edit && $user->branch) block @else none @endif;">
-                            <div class="form-group">
-                                <label for="branch_id">{{ __('Branch') }} <span
-                                        style="color: red"> * </span></label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="branch_id"
-                                        id="branch_id"
-                                        data-model="{{base64_encode(\App\Models\Branch::class)}}"
-                                        data-label-fields="{title}"
-                                        @if($edit && $user->branch)
-                                        data-preselected-option="{{json_encode(['text' =>  $user->branch->title, 'id' =>  $user->branch->id])}}"
-                                        @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6" style="display: @if($edit && $user->branch) block @else none @endif;">
-                            <div class="form-group">
-                                <label for="training_center_id">{{ __('TrainingCenter') }} <span
-                                        style="color: red"> * </span></label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="training_center_id"
-                                        id="training_center_id"
-                                        data-model="{{base64_encode(\App\Models\TrainingCenter::class)}}"
-                                        data-label-fields="{title}"
-                                        data-depend-on="institute_id"
-                                        @if($edit && $user->trainingCenter)
-                                        data-preselected-option="{{json_encode(['text' =>  $user->trainingCenter->title, 'id' =>  $user->trainingCenter->id])}}"
-                                        @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6" style="display: none;">
-                            <div class="form-group">
-                                <label for="loc_district_id">{{ __('District') }} <span
-                                        style="color: red"> * </span></label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="loc_district_id"
-                                        id="loc_district_id"
-                                        data-depend-on="institute_id"
-                                        data-model="{{base64_encode(\App\Models\LocDistrict::class)}}"
-                                        data-label-fields="{title}"
-                                        @if($edit && $user->locDistrict)
-                                        data-preselected-option="{{json_encode(['text' =>  $user->locDistrict->title, 'id' =>  $user->locDistrict->id])}}"
-                                        @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6" style="display: none;">
-                            <div class="form-group">
-                                <label for="loc_division_id">{{ __('Division') }} <span
-                                        style="color: red"> * </span></label>
-                                <select class="form-control select2-ajax-wizard"
-                                        name="loc_division_id"
-                                        id="loc_division_id"
-                                        data-model="{{base64_encode(\App\Models\LocDivision::class)}}"
-                                        data-label-fields="{title}"
-                                        @if($edit && $user->locDivision)
-                                        data-preselected-option="{{json_encode(['text' =>  $user->locDivision->title, 'id' =>  $user->locDivision->id])}}"
-                                        @endif
-                                        data-placeholder="{{ __('generic.select_placeholder') }}"
-                                >
-                                </select>
-                            </div>
-                        </div>
-                    @elseif($authUser->isInstituteUser())
-                        <input type="hidden" name="user_type_id" id="user_type_id"
-                               value="{{\App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE}}">
-                        <input type="hidden" name="institute_id" id="institute_id" value="{{$authUser->institute_id}}">
                     @endif
+
+                    <div class="col-sm-6 branch-id-block"
+                         style="display: @if($edit && $user->branch) block @else none @endif;">
+                        <div class="form-group">
+                            <label for="branch_id">{{ __('Branch') }} <span
+                                    style="color: red"> * </span></label>
+                            <select class="form-control select2-ajax-wizard"
+                                    name="branch_id"
+                                    id="branch_id"
+                                    data-model="{{base64_encode(\App\Models\Branch::class)}}"
+                                    data-depend-on="institute_id"
+                                    data-label-fields="{title}"
+                                    @if($edit && $user->branch)
+                                    data-preselected-option="{{json_encode(['text' =>  $user->branch->title, 'id' =>  $user->branch->id])}}"
+                                    @endif
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
+                            >
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 training-center-id-block"
+                         style="display: @if($edit && $user->branch) block @else none @endif;">
+                        <div class="form-group">
+                            <label for="training_center_id">{{ __('TrainingCenter') }} <span
+                                    style="color: red"> * </span></label>
+                            <select class="form-control select2-ajax-wizard"
+                                    name="training_center_id"
+                                    id="training_center_id"
+                                    data-model="{{base64_encode(\App\Models\TrainingCenter::class)}}"
+                                    data-label-fields="{title}"
+                                    data-depend-on="institute_id"
+                                    @if($edit && $user->trainingCenter)
+                                    data-preselected-option="{{json_encode(['text' =>  $user->trainingCenter->title, 'id' =>  $user->trainingCenter->id])}}"
+                                    @endif
+                                    data-placeholder="{{ __('generic.select_placeholder') }}"
+                            >
+                            </select>
+                        </div>
+                    </div>
 
                     @if($edit && $authUser->id == $user->id && $authUser->can('changePassword', $user))
                         <div class="col-sm-6">
@@ -266,51 +231,42 @@
         const isInstituteUser = {!! $authUser->isInstituteUser() !!}
 
         $(function () {
-
-            function disabledHideFormFields(...fields) {
-                fields.forEach(function (field) {
-                    field.prop('disabled', true);
-                    field.parent().parent().hide();
-                });
-            }
-
-            function enableShowFormFields(...fields) {
-                fields.forEach(function (field) {
-                    field.prop('disabled', false);
-                    field.parent().parent().show();
-                });
-            }
-
-            function fieldHidden (){
-              $('#institute_id').val('')
-                disabledHideFormFields($('#branch_id'), $('#training_center_id'), $('#institute_id'), $('#loc_district_id'), $('#organization_id'), $('#loc_division_id'));
-            }
-
-            $(document).on('change', "#user_type_id", function () {
-                let userType = parseInt($(this).val());
-                fieldHidden()
-                if( userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!} ||
-                    userType ==  {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
-                    userType ==  {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
-                    userType == {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}){
-                    enableShowFormFields($('#institute_id'));
-                }
-            })
-
-            $(document).on('change', "#institute_id", function () {
-                let institute = parseInt($(this).val());
+            $(document).on('change', "#user_type_id, #institute_id, #branch_id", function () {
                 let userType = parseInt($('#user_type_id').val());
 
+                if (userType == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!}) {
+                    $('.institute-id-block').show();
 
-                if(userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}){
-                    enableShowFormFields($('#training_center_id'));
-                    disabledHideFormFields($('#branch_id'),$('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
-                }else if(userType == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}){
-                    enableShowFormFields($('#branch_id'));
-                    disabledHideFormFields($('#training_center_id'),$('#organization_id'), $('#loc_district_id'), $('#loc_division_id'));
+                    $('.branch-id-block').hide();
+                    $('.training-center-id-block').hide();
+
+                    $('#training_center_id').val('');
+                    $('#branch_id').val('');
+                } else if (userType == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!}) {
+                    $('.institute-id-block').show();
+                    $('.branch-id-block').show();
+
+                    $('.training-center-id-block').hide();
+
+                    $('#training_center_id').val('');
+                } else if (userType == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}) {
+                    $('.institute-id-block').show();
+                    $('.branch-id-block').show();
+                    $('.training-center-id-block').show();
+                } else if (userType == {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!}) {
+                    $('.institute-id-block').show();
+                    $('#training_center_id').val('');
+                    $('#branch_id').val('');
+                } else {
+                    $('.institute-id-block').hide();
+                    $('.branch-id-block').hide();
+                    $('.training-center-id-block').hide();
+
+                    $('#institute_id').val('');
+                    $('#training_center_id').val('');
+                    $('#branch_id').val('');
                 }
-
-            })
+            });
 
             function readURL(input) {
                 if (input.files && input.files[0]) {
@@ -328,59 +284,69 @@
 
 
             $(".edit-add-form").validate({
-                    rules: {
-                        profile_pic: {
-                            accept: "image/*",
-                        },
-                        name: {
-                            required: true,
-                            pattern: /^[a-zA-Z0-9 ]*$/,
-                        },
-                        email: {
-                            required: true,
-                            pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                            /*remote: {
-                                param: {
-                                    type: "post",
-                                    url: "{{ route('admin.users.check-unique-user-email') }}",
+                rules: {
+                    profile_pic: {
+                        accept: "image/*",
+                    },
+                    name: {
+                        required: true,
+                        pattern: /^[a-zA-Z0-9 ]*$/,
+                    },
+                    email: {
+                        required: true,
+                        pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+                        /*remote: {
+                            param: {
+                                type: "post",
+                                url: "{{ route('admin.users.check-unique-user-email') }}",
                                 },
                                 depends: function (element) {
                                     return $(element).val() !== $('#email').attr('data-unique-user-email');
                                 }
                             },*/
-                        },
-                        user_type_id: {
-                            required: true
-                        },
-                        institute_id: {
-                            required: function () {
-                                if($('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
-                                    $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
-                                    $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!}){
-                                    return true;
-                                }else return false;
-                            }
-                        },
-                        old_password: {
-                            required: function () {
-                                return !!$('#password').val().length;
-                            },
-                        },
-                        password: {
-                            required: !EDIT,
-                        },
-                        password_confirmation: {
-                            equalTo: '#password',
+                    },
+                    user_type_id: {
+                        required: true
+                    },
+                    institute_id: {
+                        required: function () {
+                            return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_INSTITUTE_USER_CODE !!} ||
+                                $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
+                                $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINER_USER_CODE !!} ||
+                                $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!};
+                        }
+                    },
+                    branch_id: {
+                        required: function () {
+                            return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
+                                $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!};
+                        }
+                    },
+                    training_center_id: {
+                        required: function () {
+                            return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!};
+                        }
+                    },
+                    old_password: {
+                        required: function () {
+                            return !!$('#password').val().length;
                         },
                     },
-                    messages: {
-                        profile_pic: {
-                            accept: "Please input valid image file",
-                        },
-                        name: {
-                            pattern: "Please fill this field in English."
-                        },
+                    password: {
+                        required: !EDIT,
                     },
+                    password_confirmation: {
+                        equalTo: '#password',
+                    },
+                },
+                messages: {
+                    profile_pic: {
+                        accept: "Please input valid image file",
+                    },
+                    name: {
+                        pattern: "Please fill this field in English."
+                    },
+                },
                 submitHandler: function (htmlForm) {
                     $('.overlay').show();
                     htmlForm.submit();
