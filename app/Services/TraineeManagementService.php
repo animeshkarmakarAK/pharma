@@ -34,6 +34,7 @@ class TraineeManagementService
     {
         $trainee = TraineeCourseEnroll::acl()->select([
             /*'batch_preferences as preferred_batches',*/
+            'trainee_course_enrolls.id as trainee_course_enroll_id',
             'trainees.id as id',
             'trainees.name',
             'trainees.mobile',
@@ -46,6 +47,7 @@ class TraineeManagementService
         $trainee->join('trainees', 'trainees.id', '=', 'trainee_course_enrolls.trainee_id');
         $trainee->join('courses', 'courses.id', '=', 'trainee_course_enrolls.course_id');
         $trainee->join('institutes', 'institutes.id', '=', 'courses.institute_id');
+        //$trainee->join('batches', 'batches.id', '=', 'trainee_course_enrolls.batch_id');
         //$trainee->where('enroll_status', TraineeCourseEnroll::ENROLL_STATUS_PROCESSING);
 
         $instituteId = $request->input('institute_id');
@@ -91,7 +93,7 @@ class TraineeManagementService
                 $str = '';
                 //$str .= '<a href="' . route('frontend.trainee-registrations.show', $traineeCourseEnroll->id) . '" class="btn btn-outline-info btn-sm"> <i class="fas fa-eye"></i> ' . __('generic.read_button_label') . ' </a>';
 
-                    $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-accept', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
+                    $str .= '<a href="#" id="'.$traineeCourseEnroll->trainee_course_enroll_id.'" data-action="' . route('admin.trainee-course-enroll-accept', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-success btn-sm accept-application"> <i class="fas fa-check-circle"></i> ' . __('Accept Now') . ' </a>';
                     // $str .= '<a href="#" data-action="' . route('admin.trainee-course-enroll-reject', $traineeCourseEnroll->id) . '"' . ' class="btn btn-outline-danger btn-sm reject-application"> <i class="fas fa-times-circle"></i> ' . __('Reject') . ' </a>';
 
                 return $str;
