@@ -109,7 +109,7 @@
                     @endif
 
                     <div class="col-sm-6 branch-id-block"
-                         style="display: @if($edit && $user->branch) block @else none @endif;">
+                         style="display: @if($edit && ($user->isBranchUser() || $user->isTrainingCenterUser())) block @else none @endif;">
                         <div class="form-group">
                             <label for="branch_id">{{ __('Branch') }} <span
                                     style="color: red"> * </span></label>
@@ -127,8 +127,9 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="col-sm-6 training-center-id-block"
-                         style="display: @if($edit && $user->branch) block @else none @endif;">
+                         style="display: @if($edit && ($user->isTrainingCenterUser())) block @else none @endif;">
                         <div class="form-group">
                             <label for="training_center_id">{{ __('TrainingCenter') }} <span
                                     style="color: red"> * </span></label>
@@ -138,6 +139,7 @@
                                     data-model="{{base64_encode(\App\Models\TrainingCenter::class)}}"
                                     data-label-fields="{title}"
                                     data-depend-on="institute_id"
+                                    data-depend-on-optional="branch_id"
                                     @if($edit && $user->trainingCenter)
                                     data-preselected-option="{{json_encode(['text' =>  $user->trainingCenter->title, 'id' =>  $user->trainingCenter->id])}}"
                                     @endif
@@ -282,7 +284,6 @@
                 readURL(this);
             });
 
-
             $(".edit-add-form").validate({
                 rules: {
                     profile_pic: {
@@ -295,15 +296,6 @@
                     email: {
                         required: true,
                         pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-                        /*remote: {
-                            param: {
-                                type: "post",
-                                url: "{{ route('admin.users.check-unique-user-email') }}",
-                                },
-                                depends: function (element) {
-                                    return $(element).val() !== $('#email').attr('data-unique-user-email');
-                                }
-                            },*/
                     },
                     user_type_id: {
                         required: true
@@ -318,8 +310,7 @@
                     },
                     branch_id: {
                         required: function () {
-                            return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!} ||
-                                $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_TRAINING_CENTER_USER_CODE !!};
+                            return $('#user_type_id').val() == {!! \App\Models\UserType::USER_TYPE_BRANCH_USER_CODE !!};
                         }
                     },
                     training_center_id: {

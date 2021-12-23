@@ -90,12 +90,6 @@ class User extends AuthBaseModel
 
     /**
      * ---------------------------------------
-     *  User Relationship end                *
-     * ---------------------------------------
-     */
-
-    /**
-     * ---------------------------------------
      *  This related method start            *
      * ---------------------------------------
      */
@@ -114,15 +108,25 @@ class User extends AuthBaseModel
         return $this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE;
     }
 
+    public function isBranchUser(): bool
+    {
+        return $this->userType->code === self::USER_TYPE_BRANCH_USER_CODE;
+    }
+
+    public function isTrainingCenterUser(): bool
+    {
+        return $this->userType->code === self::USER_TYPE_TRAINING_CENTER_USER_CODE;
+    }
+
     public function haveInstitute(): bool
     {
-            if($this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE ||
-                $this->userType->code === self::USER_TYPE_TRAINER_USER_CODE ||
-                $this->userType->code === self::USER_TYPE_BRANCH_USER_CODE ||
-                $this->userType->code === self::USER_TYPE_TRAINING_CENTER_USER_CODE){
-                return true;
-            }
-            return false;
+        if ($this->userType->code === self::USER_TYPE_INSTITUTE_USER_CODE ||
+            $this->userType->code === self::USER_TYPE_TRAINER_USER_CODE ||
+            $this->userType->code === self::USER_TYPE_BRANCH_USER_CODE ||
+            $this->userType->code === self::USER_TYPE_TRAINING_CENTER_USER_CODE) {
+            return true;
+        }
+        return false;
     }
 
     public function isTrainer(): bool
@@ -145,6 +149,7 @@ class User extends AuthBaseModel
     {
         return $this->belongsTo(Branch::class);
     }
+
     public function trainingCenter(): BelongsTo
     {
         return $this->belongsTo(TrainingCenter::class);

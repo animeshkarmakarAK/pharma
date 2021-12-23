@@ -92,7 +92,6 @@ class UserController extends BaseController
         $userTypes = UserType::authUserWiseType()->get();
 
         return \view(self::VIEW_PATH . 'edit-add', compact('user', 'userTypes'));
-
     }
 
     public function update(User $user, Request $request): RedirectResponse
