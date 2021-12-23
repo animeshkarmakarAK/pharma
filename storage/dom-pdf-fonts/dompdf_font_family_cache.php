@@ -1,4 +1,5 @@
-<?php return array (
+<?php return function ($fontDir, $rootDir) {
+return array (
   'sans-serif' => array(
     'normal' => $rootDir . '/lib/fonts/Helvetica',
     'bold' => $rootDir . '/lib/fonts/Helvetica-Bold',
@@ -86,4 +87,8 @@
   'examplefont' => array(
     'normal' => $fontDir . '/examplefont_normal_e130475192741687eb16a0e7ddfc2bb0',
   ),
-) ?>
+  'waterfall' => array(
+    'normal' => $fontDir . '/waterfall_normal_d639aeae077ae2f07c61a903cd664011',
+  ),
+);
+}; ?>
