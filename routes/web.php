@@ -200,6 +200,7 @@ Route::group(['as' => 'frontend.'], function () {
     Route::get('/institute-list', [App\Http\Controllers\Frontend\InstitutePageController::class, 'index'])->name('institute-list');
     Route::get('institute-details/{id}', [App\Http\Controllers\Frontend\InstitutePageController::class, 'details'])->name('institute-details');
 });
+    Route::get('certificate',[App\Http\Controllers\CertificateSampleController::class,'generatePDF']);
 
 $routesWithoutInstituteSlug = function () {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('main');
