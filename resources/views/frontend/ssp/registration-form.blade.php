@@ -129,7 +129,6 @@
                 rules: {
                     name: {
                         required: true,
-                        maxLength: 30,
                     },
                     email: {
                         required: true,

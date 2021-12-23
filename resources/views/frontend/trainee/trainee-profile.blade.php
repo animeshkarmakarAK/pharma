@@ -192,7 +192,7 @@
                                             <span
                                                 class="font-weight-bold">{{ __('generic.gender') }}:</span> {{ $guardian->getUserGender() }}
                                             <span
-                                                class="ml-2 font-weight-bold">{{ __('generic.relation') }}:</span> {{ $guardian->getGuardian() }}
+                                                class="ml-2 font-weight-bold">{{ __('generic.relation') }}:</span> {{ $guardian->getGuardian()}}
                                         </div>
 
                                     </div>

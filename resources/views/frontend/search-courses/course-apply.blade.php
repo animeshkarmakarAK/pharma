@@ -1503,19 +1503,19 @@
             settings?.guardianInfo?.should_present_in_form ? $('.guardian-info-section').show() : $('.guardian-info-section').hide();
 
 
-            if (settings.SSCInfo) {
+            if (settings?.SSCInfo) {
                 showGPAInputField('ssc');
             }
 
-            if (settings.HSCInfo) {
+            if (settings?.HSCInfo) {
                 showGPAInputField('hsc');
             }
 
-            if (settings.HonoursInfo) {
+            if (settings?.HonoursInfo) {
                 showGPAInputField('graduation');
             }
 
-            if (settings.MastersInfo) {
+            if (settings?.MastersInfo) {
                 showGPAInputField('masters');
             }
 

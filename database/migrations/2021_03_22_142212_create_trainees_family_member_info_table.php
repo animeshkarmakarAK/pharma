@@ -18,7 +18,8 @@ class CreateTraineesFamilyMemberInfoTable extends Migration
             $table->unsignedInteger('trainee_id')->index('trainees_family_members_info_trainee_id');
             $table->string('name', 191)->nullable();
             $table->string('mobile', 20)->nullable();
-            $table->string('relation_with_trainee', 191);
+            $table->unsignedTinyInteger('relation_with_trainee');
+            $table->string('relation', 191)->nullable();
             $table->tinyInteger('gender')->nullable();
             $table->string('occupation', 191)->nullable();
             $table->date('date_of_birth')->nullable();

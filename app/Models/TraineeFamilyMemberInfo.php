@@ -16,19 +16,10 @@ use Illuminate\Support\Carbon;
  * @property string|null mobile
  * @property string|null educational_qualification
  * @property string|null relation_with_trainee
- * @property int|null is_guardian
- * @property int|null personal_monthly_income
+ * @property string|null relation
  * @property int|null gender
- * @property int|null marital_status
- * @property string|null main_occupation
- * @property string|null other_occupations
- * @property string|null physical_ability
- * @property int|null disable_status
+ * @property string|null occupation
  * @property string|null nid
- * @property string|null birth_certificate_no
- * @property string|null passport_number
- * @property int|null religion
- * @property string|null nationality
  * @property Carbon|null date_of_birth
  */
 class TraineeFamilyMemberInfo extends BaseModel
@@ -62,6 +53,8 @@ class TraineeFamilyMemberInfo extends BaseModel
 
         if (!empty($guardianOptionArray[$this->relation_with_trainee])) {
             return $guardianOptionArray[$this->relation_with_trainee];
+        } elseif ($this->relation_with_trainee == self::GUARDIAN_OTHER) {
+            return $this->relation;
         } elseif ($this->relation_with_trainee) {
             return $this->relation_with_trainee;
         } else {

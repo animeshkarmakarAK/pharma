@@ -10,7 +10,10 @@ use App\Services\TraineeProfileService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class TraineeProfileController extends BaseController
 {
@@ -23,6 +26,9 @@ class TraineeProfileController extends BaseController
         $this->traineeProfileService = $traineeProfileService;
     }
 
+    /**
+     * @return View
+     */
     public function editPersonalInfo(): View
     {
         $authTrainee = AuthHelper::getAuthUser('trainee');
@@ -32,12 +38,12 @@ class TraineeProfileController extends BaseController
 
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      * @return RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function updatePersonalInfo(\Illuminate\Http\Request $request, $id): RedirectResponse
+    public function updatePersonalInfo(Request $request, $id): RedirectResponse
     {
         $validated = $this->traineeProfileService->validator($request, $id)->validate();
 
@@ -59,6 +65,10 @@ class TraineeProfileController extends BaseController
     }
 
 
+    /**
+     * @param int $id
+     * @return View
+     */
     public function addEditEducation(int $id): View
     {
         $trainee = Trainee::findOrFAil($id);
@@ -68,7 +78,11 @@ class TraineeProfileController extends BaseController
         return \view(self::VIEW_PATH . 'add-edit-education', with(['trainee' => $authTrainee, 'academicQualifications' => $academicQualifications]));
     }
 
-    public function storeEducationInfo(\Illuminate\Http\Request $request): JsonResponse
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeEducationInfo(Request $request): JsonResponse
     {
         $validated = $this->traineeProfileService->educationInfoValidator($request);
 
@@ -89,24 +103,57 @@ class TraineeProfileController extends BaseController
         ]);
     }
 
+    /**
+     * @param int|null $id
+     * @return View
+     */
     public function editGuardianInfo(int $id = null): View
     {
         $guardian = new TraineeFamilyMemberInfo();
 
         if ($id) {
-            $guardian = TraineeFamilyMemberInfo::find($id);
+            $guardian = TraineeFamilyMemberInfo::findOrFail($id);
         }
 
         return \view(self::VIEW_PATH . 'add-guardian-information', compact('guardian'));
     }
 
-
-    public function storeGuardianInfo(\Illuminate\Http\Request $request): RedirectResponse
+    /**
+     * @param $relationWithTrainee
+     * @return bool
+     */
+    private function relationAlreadyAdded($relationWithTrainee): bool
     {
-        $validated = $this->traineeProfileService->guardianInfoValidator($request)->validate();
+        /** @var Trainee $authTrainee */
+        $authTrainee = AuthHelper::getAuthUser('trainee');
+        $guardian = TraineeFamilyMemberInfo::where('trainee_id', $authTrainee->id)
+            ->where('relation_with_trainee', $relationWithTrainee)
+            ->first();
+
+        if ($guardian) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function storeGuardianInfo(Request $request): RedirectResponse
+    {
+        $validatedData = $this->traineeProfileService->guardianInfoValidator($request)->validate();
+
+        if ($this->relationAlreadyAdded($validatedData['relation_with_trainee'])) {
+            return back()->with([
+                'message' => __('generic.relation_already_added'),
+                'alertType' => 'warning'
+            ]);
+        }
 
         try {
-            $this->traineeProfileService->storeGuardian($validated);
+            $this->traineeProfileService->storeGuardian($validatedData);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 
@@ -122,12 +169,18 @@ class TraineeProfileController extends BaseController
         ]);
     }
 
-    public function updateGuardianInfo(\Illuminate\Http\Request $request, int $id): RedirectResponse
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function updateGuardianInfo(Request $request, int $id): RedirectResponse
     {
-        $validated = $this->traineeProfileService->guardianInfoValidator($request)->validate();
+        $validatedData = $this->traineeProfileService->guardianInfoValidator($request)->validate();
 
         try {
-            $this->traineeProfileService->updateGuardian($validated, $id);
+            $this->traineeProfileService->updateGuardian($validatedData, $id);
         } catch (\Throwable $exception) {
             Log::debug($exception->getMessage());
 
@@ -142,7 +195,6 @@ class TraineeProfileController extends BaseController
             'alertType' => 'success',
         ]);
     }
-
 
 
 }
