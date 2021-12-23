@@ -19,9 +19,9 @@ class RoutinePolicy extends BasePolicy
         return $user->hasPermission('view_any_routine');
     }
 
-    public function viewWeeklyRoutine(User $user): bool
+    public function viewDailyRoutine(User $user): bool
     {
-        return $user->hasPermission('view_weekly_routine');
+        return $user->hasPermission('view_daily_routine');
     }
 
     /**

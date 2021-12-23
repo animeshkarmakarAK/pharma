@@ -45,10 +45,6 @@ class ExaminationRoutine extends BaseModel
 
     public function examinationRoutineDetail(): HasMany
     {
-        if (@Session::get('examination_id')){
-            return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id')->where('examination_id',Session::get('examination_id'));
-        }else{
-            return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id');
-        }
+        return $this->hasMany(ExaminationRoutineDetail::class,'examination_routine_id');
     }
 }

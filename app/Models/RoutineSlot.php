@@ -40,5 +40,4 @@ class RoutineSlot extends BaseModel
     {
         return $this->belongsTo(User::class);
     }
-
 }

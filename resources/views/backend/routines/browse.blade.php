@@ -13,10 +13,10 @@
                         <h3 class="card-title font-weight-bold">{{__('admin.routine.list')}}</h3>
 
                         <div class="card-tools">
-                            @can('viewWeeklyRoutine', \App\Models\Routine::class)
-                                <a href="{{route('admin.weekly-routine')}}"
+                            @can('viewDailyRoutine', \App\Models\Routine::class)
+                                <a href="{{route('admin.daily-routine')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-eye"></i> {{__('admin.daily_routine.weekly_routine')}}
+                                    <i class="fas fa-eye"></i> {{__('admin.daily_routine.view_daily_routine')}}
                                 </a>
                             @endcan
 
@@ -78,9 +78,9 @@
                         name: "routines.batch_id"
                     },
                     {
-                        title: "{{__('admin.routine.day')}}",
-                        data: "day",
-                        name: "routines.day"
+                        title: "{{__('admin.routine.date')}}",
+                        data: "date",
+                        name: "routines.date"
                     },
                     {
                         title: "{{__('admin.routine.action')}}",

@@ -153,70 +153,8 @@ class ExaminationRoutineController extends Controller
     {
         return $this->examinationRoutineService->getExaminationRoutineLists($request);
     }
-    public function examinationRoutine(Routine $routine)
+    public function examinationRoutine()
     {
-        @$examination_id = Session::get('examination_id');
-        @$batch_id = Session::get('batch_id');
-        @$training_center_id= Session::get('training_center_id');
-        $authUser = User::acl()->get();
-        $parameters = [];
-        $examinationRoutines = [];
-        if ($batch_id && $examination_id){
-
-            $examination = Examination::acl()->where(['id' => $examination_id])->first();
-            $examination_name = $examination->code . " - ". substr($examination->exam_details, 0, 100) ;
-
-            $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title;
-
-            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title;
-
-            $parameters['training_center_id'] = $training_center_id;
-            $parameters['training_center_name'] = $training_center_name;
-            $parameters['batch_id'] = $batch_id;
-            $parameters['batch_name'] = $batch_name;
-            $parameters['examination_id'] = $examination_id;
-            $parameters['examination_name'] = $examination_name;
-            $examinationRoutines = ExaminationRoutine::with('examinationRoutineDetail')
-                ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
-                ->whereHas('examinationRoutineDetail', function ($query) use ($examination_id) {
-                    $query->where('examination_id','=', $examination_id);
-                })
-                ->get();
-        }elseif ($batch_id){
-            $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title;
-
-            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title;
-
-            $parameters['training_center_id'] = $training_center_id;
-            $parameters['training_center_name'] = $training_center_name;
-            $parameters['batch_id'] = $batch_id;
-            $parameters['batch_name'] = $batch_name;
-            $examinationRoutines = ExaminationRoutine::with('examinationRoutineDetail')
-                ->where(['institute_id'=>$authUser->institute_id, 'batch_id'=>$batch_id])
-                ->get();
-        }
-        return view(self::VIEW_PATH . 'examination-routine',compact('examinationRoutines','parameters'));
-    }
-
-
-
-    public function examinationRoutineFilter(Request $request)
-    {
-
-        $this->validate($request, [
-            'training_center_id' => 'required',
-            'batch_id' => 'required'
-
-        ]);
-        @Session::forget(['examination_id','batch_id','training_center_id']);
-        $examination_id = $request->get('examination_id');
-        $batch_id = $request->get('batch_id');
-        $training_center_id = $request->get('training_center_id');
-        Session::put(['examination_id'=>$examination_id,'batch_id'=>$batch_id,'training_center_id'=>$training_center_id]);
-        return redirect(route('admin.examination-routine'));
+        return view(self::VIEW_PATH . 'examination-routine');
     }
 }

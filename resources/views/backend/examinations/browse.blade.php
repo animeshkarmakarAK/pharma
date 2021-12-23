@@ -61,42 +61,59 @@
                     {
                         title: "{{__('admin.examination.code')}}",
                         data: "code",
-                        name: "examinations.code"
+                        name: "examinations.code",
+                        searchable: false,
+                        orderable: false,
+                        visible: true,
                     },
-
-
                     {
                         title: "{{__('admin.examination.examination_type')}}",
                         data: "examination_type.title",
-                        name: "examinations.examination_type_id"
+                        name: "examinations.examination_type_id",
+                        searchable: false,
+                        orderable: false,
+                        visible: true,
                     },
-
-
                     {
                         title: "{{__('admin.examination.training_center')}}",
                         data: "training_center.title",
-                        name: "examinations.training_center_id"
+                        name: "examinations.training_center_id",
+                        searchable: false,
+                        orderable: false,
+                        visible: true,
                     },
                     {
                         title: "{{__('admin.examination.batch_title')}}",
                         data: "batch.title",
-                        name: "examinations.batch_id"
+                        name: "examinations.batch_id",
+                        searchable: false,
+                        orderable: false,
+                        visible: true,
                     },
 
                     {
                         title: "{{__('admin.examination.exam_details')}}",
                         data: "exam_details",
-                        name: "examinations.exam_details"
+                        name: "examinations.exam_details",
+                        searchable: false,
+                        orderable: false,
+                        visible: false,
                     },
                     {
                         title: "{{__('admin.examination.pass_mark')}}",
                         data: "pass_mark",
-                        name: "examinations.pass_mark"
+                        name: "examinations.pass_mark",
+                        searchable: false,
+                        orderable: false,
+                        visible: false,
                     },
                     {
                         title: "{{__('admin.examination.total_mark')}}",
                         data: "total_mark",
-                        name: "examinations.total_mark"
+                        name: "examinations.total_mark",
+                        searchable: false,
+                        orderable: false,
+                        visible: false,
                     },
                     {
                         title: "{{__('admin.examination.status')}}",

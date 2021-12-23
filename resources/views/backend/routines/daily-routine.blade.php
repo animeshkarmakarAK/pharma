@@ -7,7 +7,7 @@
 @extends('master::layouts.master')
 
 @section('title')
-    {{__('admin.examination_routine.list')}}
+    {{ __('admin.daily_routine.view_daily_routine') }}
 @endsection
 
 @section('content')
@@ -16,9 +16,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-primary custom-bg-gradient-info">
-                        <h3 class="card-title font-weight-bold">{{__('admin.examination_routine.view_examination_routine')}}</h3>
+                        <h3 class="card-title font-weight-bold">{{__('admin.daily_routine.view_daily_routine')}}</h3>
                         <div class="card-tools">
-                            <a href="{{route('admin.examination-routines.index')}}"
+                            <a href="{{route('admin.routines.index')}}"
                                class="btn btn-sm btn-outline-primary btn-rounded">
                                 <i class="fas fa-backward"></i> {{__('admin.common.back')}}
                             </a>
@@ -72,16 +72,16 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="user_id">
-                                        {{__('admin.examination_routine.examination')}}
+                                        {{__('admin.daily_routine.trainer')}}
                                         <span class="required"></span>
                                     </label>
 
                                     <select class="form-control select2-ajax-wizard"
-                                            name="examination_id"
-                                            id="examination_id"
-                                            data-model="{{base64_encode(App\Models\Examination::class)}}"
-                                            data-label-fields="{code}"
-                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
+                                            name="user_id"
+                                            id="user_id"
+                                            data-model="{{base64_encode(App\Models\User::class)}}"
+                                            data-label-fields="{name}"
+                                            data-filters="{{json_encode(['institute_id' => $authUser->institute_id, 'user_type_id'=>\App\Models\UserType::USER_TYPE_TRAINER_USER_CODE])}}"
                                             data-placeholder="{{ __('generic.select_placeholder') }}"
                                     >
                                     </select>
@@ -104,12 +104,12 @@
                         <div class="datatable-container">
                             <table id="dataTable" class="table table-bordered table-striped dataTable">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">{{__('admin.routine.date')}}</th>
-                                    <th class="text-center">{{__('admin.examination.code')}}</th>
-                                    <th class="text-center">{{__('admin.examination_routine.start_time')}}</th>
-                                    <th class="text-center">{{__('admin.examination_routine.end_time')}}</th>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">{{__('admin.routine.date')}}</th>
+                                        <th class="text-center">{{__('admin.daily_routine.class')}}</th>
+                                        <th class="text-center">{{__('admin.daily_routine.start_time')}}</th>
+                                        <th class="text-center">{{__('admin.daily_routine.end_time')}}</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="routine">
                                 </tbody>
@@ -166,7 +166,7 @@
 
         const template = function (item) {
             console.log(item);
-            let html ='<tr><td>'+item.examinationRoutine_date+'</td><td>'+item.examination_code+'</td><td>'+item.start_time+'</td><td>'+item.end_time+'</td></tr>';
+            let html ='<tr><td>'+item.routine_date+'</td><td>'+item.class+'</td><td>'+item.start_time+'</td><td>'+item.end_time+'</td></tr>';
             return html;
         };
         const searchForm = $('.edit-add-form');
@@ -209,24 +209,24 @@
 
         let baseUrl = '{{route('web-api.model-resources')}}';
         const skillVideoFetch = searchAPI({
-            model: "{{base64_encode(\App\Models\ExaminationRoutineDetail::class)}}",
-            columns: 'id|institute_id|start_time|end_time|examination.code|examinationRoutine.batch_id|examinationRoutine.training_center_id|examinationRoutine.date|examination_id'
+            model: "{{base64_encode(\App\Models\RoutineSlot::class)}}",
+            columns: 'id|institute_id|routine.batch_id|routine.training_center_id|routine.date|user_id|class|start_time|end_time'
         });
 
         function routineSearch(url = baseUrl) {
             $('.overlay').show();
             let training_center = $('#training_center_id').val();
             let batch = $('#batch_id').val();
-            let examination_id = $('#examination_id').val();
+            let user_id = $('#user_id').val();
             const filters = {};
             if (training_center?.toString()?.length) {
-                filters['examinationRoutine.training_center_id'] = training_center;
+                filters['routine.training_center_id'] = training_center;
             }
-            if (batch?.toString()?.length) {
-                filters['examinationRoutine.batch_id'] = batch;
+            if (batch_id?.toString()?.length) {
+                filters['routine.batch_id'] = batch;
             }
-            if (examination_id?.toString()?.length) {
-                filters['examination_id'] = examination_id;
+            if (user_id?.toString()?.length) {
+                filters['user_id'] = user_id;
             }
             skillVideoFetch(url, filters)?.then(function (response) {
                 $('.overlay').hide();
@@ -252,7 +252,7 @@
                 routineSearch();
             });
 
-            $('#examination_id').on('keyup change',function (){
+            $('#user_id').on('keyup change',function (){
                 routineSearch();
             });
 
