@@ -247,33 +247,34 @@
                                         <tr>
                                             <td colspan="8"></td>
                                         </tr>
-                                        {{--
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td colspan="7" class="custom-bg-gradient-info text-bold lead">Additional Information</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Guradian:</td>
-                                            <td>{{!empty($guardian) ? $guardian->member_name_en : 'N/A' }}</td>
-                                        </tr>
+                                        @if(!empty($familyMembers['guardian']))
+                                            <tr>
+                                                <td class="border-0"></td>
+                                                <td colspan="7" class="custom-bg-gradient-info text-bold lead">Additional Information</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-0"></td>
+                                                <td class="text-bold">Guradian:</td>
+                                                <td>{{!empty($familyMembers['guardian']) ? $familyMembers['guardian']->name : 'N/A' }}</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Relation with Youth:</td>
-                                            <td>{{ !empty($guardian) ? $guardian->relation_with_trainee : "N/A" }}</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="border-0"></td>
+                                                <td class="text-bold">Relation with Youth:</td>
+                                                <td>{{!empty($familyMembers['guardian']) ? $familyMembers['guardian']->relation_with_trainee : "N/A" }}</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Guradian Mobile Number:</td>
-                                            <td>{{ !empty($guardian) ? $guardian->mobile : 'N/A'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Guradian NID:</td>
-                                            <td>{{ !empty($guardian) ? $guardian->nid : 'N/A'}}</td>
-                                        </tr>
+                                            <tr>
+                                                <td class="border-0"></td>
+                                                <td class="text-bold">Guradian Mobile Number:</td>
+                                                <td>{{!empty($familyMembers['guardian']) ? $familyMembers['guardian']->mobile : 'N/A'}}</td>
+                                            </tr>
+                                            {{--<tr>
+                                                <td class="border-0"></td>
+                                                <td class="text-bold">Guradian NID:</td>
+                                                <td>{{!empty($familyMembers['guardian']) ? $familyMembers['guardian']->nid : 'N/A'}}</td>
+                                            </tr>--}}
+                                        @endif
                                         <tr>
                                             <td colspan="8"></td>
                                         </tr>
@@ -286,49 +287,22 @@
                                         <tr>
                                             <td colspan="8"></td>
                                         </tr>
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td colspan="7" class="custom-bg-gradient-info text-bold lead">Work Information</td>
-                                        </tr>
 
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Main occupation:</td>
-                                            <td colspan="6">{{ $traineeSelfInfo->main_occupation ?? 'Not specified' }}</td>
-                                        </tr>
+                                {{--
+                                   <tr>
+                                       <td class="border-0"></td>
+                                       <td class="text-bold">Youth signature</td>
+                                   </tr>
 
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Other occupation:</td>
-                                            <td colspan="6">{{ $traineeSelfInfo->other_occupations ?? 'Not specified' }}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Personal Monthly Income:</td>
-                                            <td colspan="6">{{ $traineeSelfInfo->personal_monthly_income ?? 'Not specified' }}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="border-0"></td>
-                                            <td class="text-bold">Currently Employed:</td>
-                                            <td colspan="6">{{ $trainee->getYouthCurrentEmploymentStatus() ?? 'N/A' }}</td>
-                                        </tr>
-
-                                    </table>
-                                </tr>
                                 <tr>
-                                    <td class="border-0"></td>
-                                    <td class="text-bold">Youth signature</td>
-                                </tr>
-                                --}}
-                                {{--<tr>
                                     <td class="border-0"></td>
                                     <td>
                                         <img
                                             src="{{ asset('storage/'. $trainee->signature_pic)}}"
                                             height="50" width="200" alt="trainee signature"></td>
                                 </tr>--}}
+
+                                    </table>>
             </table>
         </div>
     </div>
