@@ -17,7 +17,7 @@
                             @can('viewExaminationRoutine', \App\Models\ExaminationRoutine::class)
                                 <a href="{{route('admin.examination-routine')}}"
                                    class="btn btn-sm btn-outline-primary btn-rounded">
-                                    <i class="fas fa-eye"></i> {{__('admin.examination_routine.weekly_routine')}}
+                                    <i class="fas fa-eye"></i> {{__('admin.examination_routine.view_examination_routine')}}
                                 </a>
                             @endcan
 

@@ -141,9 +141,9 @@ class ExaminationController extends Controller
     }
 
 
-    public function examinationStatus($id): RedirectResponse
+    public function examinationStatus(Request $request): RedirectResponse
     {
-        $examination = Examination::find($id);
+        $examination = Examination::find($request->id);
         if (!$examination) {
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),

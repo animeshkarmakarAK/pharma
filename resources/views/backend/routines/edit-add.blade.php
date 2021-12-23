@@ -47,7 +47,7 @@
                                             data-model="{{base64_encode(\App\Models\Institute::class)}}"
                                             data-label-fields="{title}"
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' => $examinationType->institute->title, 'id' => $examinationType->institute_id])}}"
+                                            data-preselected-option="{{json_encode(['text' => $routine->institute->title, 'id' => $routine->institute_id])}}"
                                             @endif
                                             data-placeholder="{{ __('admin.examination.institute_title') }}"
                                     >
@@ -250,7 +250,7 @@
             //console.table('Daily Routine template:', dailyRoutine);
             let dailyRoutineContentElm = $(".daily-routine-contents");
             dailyRoutineContentElm.append(dailyRoutine({sl: SL, data: data, edit: EDIT}))
-
+            console.log(data);
             $.validator.addMethod(
                 "dailyRoutine",
                 function (value, element) {
@@ -269,7 +269,6 @@
                         return new Date(val) > new Date(par);
                     }
                     return isNaN(val) && isNaN(par) || (Number(val) > Number(par))
-
 
                 }, 'End time should be grater than the Start time.'
             );
@@ -306,8 +305,8 @@
         }
 
         $(document).ready(function () {
-            @if($edit && $routine->routineClass->count())
-            @foreach($routine->routineClass as $routine)
+            @if($edit && $routine->routineSlots->count())
+            @foreach($routine->routineSlots as $routine)
             addRow(@json($routine));
             @endforeach
             @else
@@ -319,6 +318,8 @@
                 $('.select20').select2();
             });
         });
+
+
 
     </script>
 

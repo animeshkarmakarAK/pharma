@@ -111,7 +111,7 @@
                             <div class="col-sm-12 daily-routines mt-5">
                                 <div class="card">
                                     <div class="card-header custom-bg-gradient-info">
-                                        <h3 class="card-title text-primary font-weight-bold">{{__('admin.daily_routine.day_routine')}}</h3>
+                                        <h3 class="card-title text-primary font-weight-bold">{{__('admin.examination_routine.list')}}</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">

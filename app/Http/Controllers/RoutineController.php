@@ -8,6 +8,7 @@ use App\Models\Routine;
 use App\Models\RoutineSlot;
 use App\Models\TrainingCenter;
 use App\Models\User;
+use App\Models\UserType;
 use App\Services\RoutineService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -43,7 +44,7 @@ class RoutineController extends Controller
     {
         $batches = Batch::acl()->active()->pluck('title', 'id');
         $trainingCenters = TrainingCenter::acl()->active()->pluck('title', 'id');
-        $trainers = User::acl()->where(['user_type_id' => 1])->get();
+        $trainers = User::acl()->where(['user_type_id' => UserType::USER_TYPE_TRAINER_USER_CODE])->get();
 
         return view(self::VIEW_PATH . 'edit-add', compact('batches', 'trainingCenters', 'trainers'));
     }
@@ -61,7 +62,6 @@ class RoutineController extends Controller
         try {
             $this->routineService->createRoutine($validatedData);
         } catch (\Throwable $exception) {
-            dd($exception->getMessage());
             Log::debug($exception->getMessage());
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
@@ -91,8 +91,8 @@ class RoutineController extends Controller
      */
     public function edit(Routine $routine): View
     {
-        $routineData = Routine::where(['id' => $routine->id])->with('routineClass')->get();
-        $trainers = User::acl()->where(['user_type_id' => 1])->get();
+        $routineData = Routine::where(['id' => $routine->id])->with('routineSlots')->get();
+        $trainers = User::acl()->where(['user_type_id' => UserType::USER_TYPE_TRAINER_USER_CODE])->get();
         return view(self::VIEW_PATH . 'edit-add', compact('routine', 'trainers', 'routineData'));
     }
 
@@ -152,73 +152,11 @@ class RoutineController extends Controller
 
 
     /**
-     * @param Routine $routine
      * @return View
      */
-    public function weeklyRoutine(Routine $routine): View
+    public function dailyRoutine(): View
     {
-        @$user_id = Session::get('user_id');
-        @$batch_id = Session::get('batch_id');
-        @$training_center_id = Session::get('training_center_id');
-        $authUser = AuthHelper::getAuthUser();
-        $parameters = [];
-        $routines = [];
-        if ($batch_id && $user_id) {
-
-            $user = User::where(['id' => $user_id])->first();
-            $user_name = $user->name;
-
-            /** @var Batch $batch */
-            $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title;
-
-            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title;
-
-            $parameters['training_center_id'] = $training_center_id;
-            $parameters['training_center_name'] = $training_center_name;
-            $parameters['batch_id'] = $batch_id;
-            $parameters['batch_name'] = $batch_name;
-            $parameters['user_id'] = $user_id;
-            $parameters['user_name'] = $user_name;
-            $routines = Routine::with('routineSlots')
-                ->where(['institute_id' => $authUser->institute_id, 'batch_id' => $batch_id])
-                ->whereHas('routineSlots', function ($query) use ($user_id) {
-                    $query->where('user_id', $user_id);
-                })
-                ->get();
-
-        } elseif ($batch_id) {
-            $batch = Batch::where(['id' => $batch_id])->first();
-            $batch_name = $batch->title;
-
-            $trainingCenter = TrainingCenter::where(['id' => $training_center_id])->first();
-            $training_center_name = $trainingCenter->title;
-
-            $parameters['training_center_id'] = $training_center_id;
-            $parameters['training_center_name'] = $training_center_name;
-            $parameters['batch_id'] = $batch_id;
-            $parameters['batch_name'] = $batch_name;
-            $routines = Routine::with('routineClass')
-                ->where(['institute_id' => $authUser->institute_id, 'batch_id' => $batch_id])
-                ->get();
-        }
-
-        return view(self::VIEW_PATH . 'weekly-routine', compact('routines', 'parameters'));
+        return view(self::VIEW_PATH . 'daily-routine');
     }
 
-
-    public function weeklyRoutineFilter(Request $request)
-    {
-        $this->validate($request, [
-            'training_center_id' => 'required',
-            'batch_id' => 'required'
-        ]);
-        @Session::forget(['user_id', 'batch_id', 'training_center_id']);
-        $user_id = $request->get('user_id');
-        $batch_id = $request->get('batch_id');
-        $training_center_id = $request->get('training_center_id');
-        Session::put(['user_id' => $user_id, 'batch_id' => $batch_id, 'training_center_id' => $training_center_id]);
-        return redirect(route('admin.weekly-routine'));
-    }
 }

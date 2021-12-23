@@ -34,7 +34,10 @@ class Routine extends BaseModel
     public $timestamps = true;
     protected $guarded = ['id'];
 
-
+    public function institute(): BelongsTo
+    {
+        return $this->belongsTo(Institute::class, 'institute_id');
+    }
     public function batch(): BelongsTo
     {
         return $this->belongsTo(Batch::class, 'batch_id');
