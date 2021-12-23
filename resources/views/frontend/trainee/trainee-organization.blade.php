@@ -5,7 +5,7 @@
 @extends($layout)
 
 @section('title')
-    আমার কোর্স সমূহ
+{{__('generic.my_courses')}}
 @endsection
 
 @section('content')

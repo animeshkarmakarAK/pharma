@@ -1,5 +1,5 @@
 @extends('master::layouts.front-end')
-@section('title', 'এক্সেস-কী পুনরুদ্ধার')
+@section('title', __('generic.access_key_recovery'))
 
 
 @section('header', '')
@@ -18,8 +18,8 @@
                             alt="Institute Logo" data-extra-logo="">
                     </a>
                     <h2 class="pt-4 pb-4"
-                        style="color: #636f41">{{$currentInstitute ? $currentInstitute->title : 'নাইস-৩' }}
-                        প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম</h2>
+                        style="color: #636f41">{{$currentInstitute ? $currentInstitute->title : __('generic.nise3') }}
+                        {{__('generic.training_management_system')}}</h2>
                 </div>
                 <div class="col-sm-4 mx-auto">
                     <form class="login-form" action="{{ route('frontend.trainee.recover-access-key') }}" method="post">
@@ -33,20 +33,20 @@
                                        type="text" autocomplete="off"
                                        name="email"
                                        id="email"
-                                       placeholder="আপনার ইমেইল লিখুন">
+                                       placeholder="{{__('generic.enter_email')}}">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block submit_btn">পাসওয়ার্ড পুনরুদ্ধার করুন
+                        <button type="submit" class="btn btn-primary btn-block submit_btn">{{__('generic.recover_password')}}
                         </button>
                         <div class="col-12 mt-2">
-                            <a href="{{route('frontend.trainee.login-form')}}">লগইন করুন</a>
+                            <a href="{{route('frontend.trainee.login-form')}}">{{__('generic.login')}}</a>
                         </div>
                         <div class="row pl-3">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
-                                <h4> হেল্প ডেস্ক</h4>
+                                <h4>{{__('generic.help_desk')}}</h4>
                                 <p><i class="fa fa-phone"></i>
-                                    <a href="tel:{{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}">
-                                        {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}
+                                    <a href="tel:{{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+88-02-8870680'}}">
+                                        {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+88-02-8870680'}}
                                     </a>
                                 </p>
                                 <p><i class="fa fa-envelope"></i>
@@ -56,7 +56,7 @@
                                 </p>
                             </div>
                             <div class="col-md-6 col-sm-5 support pt-4">
-                                <h4>কারিগরি সহায়তায়</h4>
+                                <h4>{{__('generic.technical_assistance')}}</hh4>
                                 <p>
                                     <a class="tech_support" href="http://www.softbdltd.com" target="_blank">
                                         <img src="https://softbdltd.com/images/logo.png" height="35px" width="135px">
@@ -64,8 +64,7 @@
                                 </p>
                             </div>
                             <div class="col-md-12">
-                                <h4 class="text-center pt-3"><a href="#" target="_blank" style="color: #693391;">ব্যবহারকারী
-                                        নির্দেশিকা</a></h4>
+                                <h4 class="text-center pt-3"><a href="#" target="_blank" style="color: #693391;">{{__('generic.user_guide')}}</a></h4>
                             </div>
                         </div>
                     </form>
@@ -191,8 +190,8 @@
                 },
                 messages: {
                     email: {
-                        required: "এখানে আপনার ই-মেইল এড্রেস লিখুন",
-                        pattern: "এখানে আপনার সঠিক ই-মেইল এড্রেস লিখুন",
+                        required: "{{__('generic.enter_email')}}",
+                        pattern: "{{__('generic.enter_email')}}",
                     },
                 },
                 submitHandler: function (htmlForm) {

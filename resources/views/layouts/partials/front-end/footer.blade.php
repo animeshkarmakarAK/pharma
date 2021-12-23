@@ -22,7 +22,7 @@
                     <span>
                             <a href="{{route('frontend.static-content.show',[ 'page_id' => 'aboutus', 'instituteSlug' => $currentInstitute->slug ?? ''])}}"
                                class="read-more"> <i
-                                    class="fas fa-angle-double-right"></i> বিস্তারিত</a>
+                                    class="fas fa-angle-double-right"></i> {{__('generic.details')}}</a>
                         </span>
                 </div>
             </div>
@@ -69,17 +69,16 @@
             <!--footer widget Three-->
             <div class="col-md-4 col-sm-6 footer-item">
                 <div class=" footer-widget-quick-links">
-                    <h3 class="mb-3">গুরুত্বপূর্ণ লিঙ্ক</h3>
+                    <h3 class="mb-3">{{__('generic.important_link')}}</h3>
                     <ul>
                         <li>
                             <i class="fa  fa-angle-right"></i>
-                            <a href="#">অনলাইন কোর্স</a>
+                            <a href="#">{{__('generic.online_course')}}</a>
                         </li>
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">সংবাদ </a></li>
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">ঘটনাবলী</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">{{__('generic.news')}} </a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">{{__('generic.events')}}</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('frontend.static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $currentInstitute->slug ?? ''])}}">আমাদের
-                                সম্পর্কে</a></li>
+                                href="{{route('frontend.static-content.show', ['page_id' => 'aboutus', 'instituteSlug' => $currentInstitute->slug ?? ''])}}">{{__('generic.aboutus')}}</a></li>
                         <li><i class="fa  fa-angle-right"></i> <a
                                 href="{{ route('frontend.advice-page', ['instituteSlug' => $currentInstitute->slug ?? '']) }}">{{__('generic.feedback')}}</a>
                         </li>
@@ -87,14 +86,14 @@
                                 href="{{route('frontend.contact-us-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">{{__('generic.contact')}}</a>
                         </li>
                         <li><i class="fa  fa-angle-right"></i> <a
-                                href="{{route('frontend.general-ask-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">প্রশ্নোত্তর</a>
+                                href="{{route('frontend.general-ask-page', ['instituteSlug' => $currentInstitute->slug ?? ''])}}">{{__('generic.faq')}}</a>
                         </li>
                         @guest
-                            <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">লগইন</a></li>
-                            <li><i class="fa  fa-angle-right"></i> <a href="#">সাইন আপ</a></li>
+                            <li><i class="fa  fa-angle-right"></i> <a href="{{route('admin.login-form')}}">{{__('generic.login')}}</a>stronga></li>
+                            <li><i class="fa  fa-angle-right"></i> <a href="#">{{__('generic.sign_up')}}</a></li>
                         @endguest
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">শর্তাবলী</a></li>
-                        <li><i class="fa  fa-angle-right"></i> <a href="#">গোপনীয়তা নীতি</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">{{__('generic.terms_and_conditions')}}</a></li>
+                        <li><i class="fa  fa-angle-right"></i> <a href="#">{{__('generic.privacy_policy')}}</a></li>
                     </ul>
                     </p>
 
@@ -110,14 +109,14 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12" style="width: auto">
                 <div class="float-left">
-                    <h3>পরিকল্পনা ও বাস্তবায়নে</h3>
+                    <h3>{{__('generic.planning_and_implementation')}}</h3>
                     <a href="#" target="_blank">
                         <img src="{{asset('/assets/logo/planner-logo.png')}}" alt="A2i Logo"></a>
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12" style="width: auto">
                 <div class="float-right">
-                    <h3> কারিগরি সহায়তায়</h3>
+                    <h3> {{__('generic.technical_assistance')}}</h3>
                     <a href="http://softbdltd.com/" target="_blank">
                         <img src="{{asset('/assets/logo/softbd-logo.png')}}" alt="SoftBD Logo"
                              class="img-responsive soft-bd">

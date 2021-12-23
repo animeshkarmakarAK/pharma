@@ -6,7 +6,7 @@
 @extends($layout)
 
 @section('title')
-    ভিডিও সমূহ
+{{__('generic.videos')}}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header p-5">
-                        <h2 class="text-center text-dark font-weight-bold">ভিডিও সমূহ</h2>
+                        <h2 class="text-center text-dark font-weight-bold">{{__('generic.videos')}}</h2>
                     </div>
                     <div class="card-background-white px-5 py-4">
                         <div class="row mb-3">

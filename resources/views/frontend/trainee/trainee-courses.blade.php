@@ -5,7 +5,7 @@
 @extends($layout)
 
 @section('title')
-    আমার কোর্স সমূহ
+{{__('generic.my_courses')}}
 @endsection
 
 @section('content')
@@ -76,7 +76,7 @@
                 <div class="card bg-white">
                     <div
                         class="card-header custom-bg-gradient-info">
-                        <div class="card-title float-left font-weight-bold text-primary">আমার কোর্স সমূহ</div>
+                        <div class="card-title float-left font-weight-bold text-primary">{{__('generic.my_courses')}}</div>
                         <div class="trainee-access-key float-right d-inline-flex">
                             <p class="label-text font-weight-bold">&nbsp;</p>
                             <div class="font-weight-bold">
