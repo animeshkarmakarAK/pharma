@@ -8,7 +8,7 @@
 @extends($layout)
 
 @section('title')
-    প্রথম পাতা
+{{__('generic.first_page')}}
 @endsection
 
 @section('content')
@@ -158,7 +158,7 @@
 
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <h2 class="section-heading section-heading-home pb-3">কোর্স সমূহ</h2>
+                    <h2 class="section-heading section-heading-home pb-3">{{__('generic.courses')}}</h2>
                     <p class="text-center pb-2">
                         {{ !empty($currentInstitute->title)? $currentInstitute->title:'' }}
                         এ নিম্ন বিষয়ে প্রশিক্ষণ প্রদান করা হয়

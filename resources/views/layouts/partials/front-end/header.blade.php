@@ -35,8 +35,7 @@
                 <!-- Left menu item empty -->
                 <li class="nav-item {{ request()->is('/') ? 'active-menu' : '' }}">
                     <a href="{{ route('frontend.main', ['instituteSlug' => $currentInstitute->slug ?? '']) }}"
-                       class="btn ">প্রথম
-                        পাতা</a>
+                       class="btn ">{{__('generic.first_page')}}</a>
                 </li>
                 @if(!$currentInstitute)
                     <li class="nav-item {{ request()->is('institute-list*') ? 'active-menu' : '' }}">
@@ -46,27 +45,24 @@
 
                 <li class="nav-item {{ request()->is('course-management/courses-search*') ? 'active-menu' : '' }}">
                     <a href="{{ route('frontend.course_search', ['instituteSlug' => $currentInstitute->slug ?? '']) }}"
-                       class="btn ">কোর্স
-                        সমূহ</a>
+                       class="btn ">{{__('generic.courses')}}</a>
                 </li>
 
                 @if($currentInstitute && $currentInstitute->slug)
                     <li class="nav-item {{ request()->is('course-management/yearly-training-calendar*') || request()->is('course-management/fiscal-year*') ? 'active-menu' : '' }}">
                         <a href="{{ route('frontend.fiscal-year', $currentInstitute->slug ?? '') }}" class="btn ">
-                            প্রশিক্ষণ বর্ষপঞ্জি
+                        {{__('generic.calendar')}}
                         </a>
                     </li>
                 @endif
 
 
                 <li class="nav-item {{ request()->is('course-management/skill-videos*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('frontend.skill_videos', $currentInstitute->slug ?? '') }}" class="btn ">ভিডিও
-                        সমূহ</a>
+                    <a href="{{ route('frontend.skill_videos', $currentInstitute->slug ?? '') }}" class="btn ">{{__('generic.videos')}}</a>
                 </li>
 
                 <li class="nav-item {{ request()->is('course-management/general-ask-page*') ? 'active-menu' : '' }}">
-                    <a href="{{ route('frontend.general-ask-page', $currentInstitute->slug ?? '') }}" class="btn">সাধারণ
-                        জিজ্ঞাসা</a>
+                    <a href="{{ route('frontend.general-ask-page', $currentInstitute->slug ?? '') }}" class="btn">{{__('generic.faq')}}</a>
                 </li>
 
                 @if($currentInstitute && $currentInstitute->slug)
@@ -85,7 +81,7 @@
                         <a class="btn"
                            href="{{ route('frontend.trainee-registrations.index') }}"
                            id="bd-versions" aria-haspopup="true">
-                            <i class="fa fa-file"> </i>&nbsp;প্রশিক্ষণার্থী নিবন্ধন
+                            <i class="fa fa-file"> </i>&nbsp; {{__('generic.trainee_registration')}}
                         </a>
                     </li>
 
@@ -93,14 +89,14 @@
                         <a class="btn"
                            href="{{ route('frontend.ssp-registration') }}"
                            id="bd-versions" aria-haspopup="true">
-                            <i class="fa fa-file"> </i>&nbsp;এসএসপি নিবন্ধন
+                            <i class="fa fa-file"> </i>&nbsp; {{__('generic.ssc_registration')}}
                         </a>
                     </li>
 {{--                    <li class="nav-item">--}}
 {{--                        <a class="btn"--}}
 {{--                           href="{{ route('frontend.trainee.login-form') }}"--}}
 {{--                           id="bd-versions" aria-haspopup="true">--}}
-{{--                            <i class="fa fa-file"> </i>&nbsp; ফি জমা--}}
+{{--                            <i class="fa fa-file"> </i>&nbsp; {{__('generic.fee_deposit')}}--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
                 @endif
@@ -110,13 +106,13 @@
                         <a class="btn"
                            href="{{ route('frontend.trainee.login-form') }}"
                            id="bd-versions">
-                            <i class="far fa-user"></i>&nbsp; প্রশিক্ষণার্থী লগইন
+                            <i class="far fa-user"></i>&nbsp; {{__('generic.trainee_login')}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="btn" href="{{ route('admin.login-form') }}"
                            id="bd-versions">
-                            <i class="far fa-user"></i>&nbsp; লগইন
+                            <i class="far fa-user"></i>&nbsp; {{__('generic.login')}}
                         </a>
                     </li>
                 @endif
@@ -125,23 +121,23 @@
                     <li class="nav-item dropdown">
                         <a class="nav-item nav-link mr-md-2 text-white" href="{{ route('admin.dashboard') }}"
                            id="bd-versions">
-                            <i class="fas fa-clipboard-list"></i>&nbsp; ড্যাশবোর্ড
+                            <i class="fas fa-clipboard-list"></i>&nbsp; {{__('generic.dashboard')}}
                         </a>
                     </li>
                 @elseauth('trainee')
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle btn" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            প্রোফাইল
+                            {{__('generic.profile')}}
                         </a>
                         <div class="dropdown-menu menu-bg-color" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
                                href="{{ route('frontend.trainee') }}">
-                                <i class="fas fa-clipboard-list"></i>&nbsp; আমার প্রোফাইল
+                                <i class="fas fa-clipboard-list"></i>&nbsp; {{__('generic.my_profile')}}
                             </a>
                             <a class="dropdown-item"
                                href="{{ route('frontend.trainee-enrolled-courses') }}">
-                                <i class="fas fa-clipboard-list"></i> &nbsp; আমার কোর্স সমূহ
+                                <i class="fas fa-clipboard-list"></i> &nbsp; {{__('generic.my_courses')}}
                             </a>
                         </div>
                     </li>
@@ -150,7 +146,7 @@
                         <a class="btn" href="#"
                            onclick="document.getElementById('trainee-logout').submit()"
                            id="bd-versions">
-                            <i class="fas fa-lock-open"></i>&nbsp; লগআউট
+                            <i class="fas fa-lock-open"></i>&nbsp; {{__('generic.logout')}}
                         </a>
                         <form id="trainee-logout" style="display: none" method="post"
                               action="{{route('frontend.trainee.logout-submit')}}">

@@ -25,7 +25,7 @@
                             alt="Institute Logo" data-extra-logo="">
                     </a>
                     <h4 class="pt-4 pb-4"
-                        style="color: #636f41">{{ $currentInstitute ? $currentInstitute->title .' প্রশিক্ষণ/সার্টিফিকেশন সিস্টেম' : 'ডিপিজি প্রশিক্ষণ/সার্টিফিকেশন সিস্টেম' }}
+                        style="color: #636f41">{{ $currentInstitute ?  $currentInstitute->title . __('generic.training_certificate_system') : __('generic.dpg_training_system') }}
                     </h4>
                 </div>
                 <div class="col-sm-4 mx-auto">
@@ -37,7 +37,7 @@
                             <div class="input-icon">
                                 <i class="fa fa-user"></i>
                                 <input class="form-control custom_input_field" type="text" autocomplete="off"
-                                       placeholder="ই-মেইল" name="email">
+                                       placeholder="{{__('generic.email')}}" name="email">
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,20 +45,21 @@
                             <div class="input-icon">
                                 <i class="fa fa-lock"></i>
                                 <input class="form-control custom_input_field" type="password" autocomplete="off"
-                                       placeholder="পাসওয়ার্ড" name="password">
+                                       placeholder="{{__('generic.password')}}" name="password">
                             </div>
                         </div>
                         <div class="form-actions">
 
-                            <button type="submit" class="btn btn-primary btn-block submit_btn">প্রবেশ</button>
+                            <button type="submit"
+                                    class="btn btn-primary btn-block submit_btn">{{__('generic.entry')}}</button>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
-                                <h4>হেল্প ডেস্ক {{--<i class="fa fa-question"></i> --}}</h4>
+                                <h4>{{__('generic.help_desk')}} {{--<i class="fa fa-question"></i> --}}</h4>
                                 <p><i class="fa fa-phone"></i>
-                                    <a href="tel:{{!empty($currentInstitute->primary_phone) ? $currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}">
-                                        {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}
+                                    <a href="tel:{{!empty($currentInstitute->primary_phone) ? $currentInstitute->primary_phone:'+88-02-8870680'}}">
+                                        {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+88-02-8870680'}}
                                     </a>
                                 </p>
                                 <p><i class="fa fa-envelope"></i>
@@ -68,16 +69,18 @@
                                 </p>
                             </div>
                             <div class="col-md-6 col-sm-5 support pt-4">
-                                <h4>কারিগরি সহায়তায়</h4>
+                                <h4>{{__('generic.technical_assistance')}}</h4>
                                 <p>
-                                    <a class="tech_support" href="http://www.softbdltd.com" target="_blank" style="height: 35px">
+                                    <a class="tech_support" href="http://www.softbdltd.com" target="_blank"
+                                       style="height: 35px">
                                         <img src="https://softbdltd.com/images/logo.png" style="height: 100%">
                                     </a>
                                 </p>
                             </div>
                             <div class="col-md-12">
-                                <h4 class="text-center pt-3"><a href="#" target="_blank" style="color: #693391;">ব্যবহারকারী
-                                        নির্দেশিকা</a></h4>
+                                <h4 class="text-center pt-3"><a href="#" target="_blank"
+                                                                style="color: #693391;">{{__('generic.user_guide')}}</a>
+                                </h4>
                             </div>
                         </div>
 

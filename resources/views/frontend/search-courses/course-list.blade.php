@@ -9,7 +9,7 @@
 @extends($layout)
 
 @section('title')
-    কোর্স সমূহ
+{{__('generic.courses')}}
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header p-5">
-                        <h2 class="card-header-title text-center text-dark font-weight-bold">কোর্স সমূহ</h2>
+                        <h2 class="card-header-title text-center text-dark font-weight-bold">{{__('generic.courses')}}</h2>
                     </div>
                     <div class="card-background-white px-5 py-4">
                         <div class="row mb-3">

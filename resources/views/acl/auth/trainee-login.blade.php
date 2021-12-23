@@ -1,7 +1,7 @@
 @extends('master::layouts.front-end')
 
 @section('title')
-    ইয়ুথ লগইন
+    {{__('generic.youth_login')}}
 @endsection
 
 @section('header', '')
@@ -20,7 +20,7 @@
                             alt="Institute Logo" data-extra-logo="">
                     </a>
                     <h4 class="pt-4 pb-4"
-                        style="color: #636f41">{{ $currentInstitute ? $currentInstitute->title .' প্রশিক্ষণ/সার্টিফিকেশন সিস্টেম' : 'ডিপিজি প্রশিক্ষণ/সার্টিফিকেশন সিস্টেম' }}
+                        style="color: #636f41">{{ $currentInstitute ? $currentInstitute->title . __('generic.training_certificate_system') : __('generic.dpg_training_system') }}
                     </h4>
                 </div>
                 <div class="col-sm-4 mx-auto">
@@ -47,25 +47,25 @@
                                        type="password" autocomplete="off"
                                        name="password"
                                        id="password"
-                                       placeholder="আপনার পাসওয়ার্ড লিখুন">
+                                       placeholder="{{__('generic.write_your_password')}}">
                             </div>
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-block submit_btn">প্রবেশ</button>
+                            <button type="submit" class="btn btn-primary btn-block submit_btn">{{__('generic.enter')}}</button>
                         </div>
 
                         <div class="row">
                             <div class="col-12 mt-2">
-                                পাসওয়ার্ড ভুলে গিয়েছেন? <a href="{{route('frontend.trainee.password-reset')}}">পুনরুদ্ধার করুন</a>
+                                {{__('generic.forget_password')}} <a href="{{route('frontend.trainee.password-reset')}}">{{__('generic.restore')}}</a>
                             </div>
                         </div>
                         <div class="row pl-3">
                             <div class="col-md-6 col-sm-5 help-desk pt-4">
-                                <h4> হেল্প ডেস্ক</h4>
+                                <h4>{{__('generic.help_desk')}}</h4>
                                 <p><i class="fa fa-phone"></i>
-                                    <a href="tel:{{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}">
-                                        {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+৮৮-০২-৮৮৭০৬৮০'}}
+                                    <a href="tel:{{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+88-02-8870680'}}">
+                                        {{!empty($currentInstitute->primary_phone)?$currentInstitute->primary_phone:'+88-02-8870680'}}
                                     </a>
                                 </p>
                                 <p><i class="fa fa-envelope"></i>
@@ -75,7 +75,7 @@
                                 </p>
                             </div>
                             <div class="col-md-6 col-sm-5 support pt-4">
-                                <h4>কারিগরি সহায়তায়</h4>
+                                <h4>{{__('generic.technical_assistance')}}</h4>
                                 <p>
                                     <a class="tech_support" href="http://www.softbdltd.com" target="_blank">
                                         <img src="https://softbdltd.com/images/logo.png" height="35px" width="135px">
@@ -83,8 +83,7 @@
                                 </p>
                             </div>
                             <div class="col-md-12">
-                                <h4 class="text-center pt-3"><a href="#" target="_blank" style="color: #693391;">ব্যবহারকারী
-                                        নির্দেশিকা</a></h4>
+                                <h4 class="text-center pt-3"><a href="#" target="_blank" style="color: #693391;">{{__('generic.user_guide')}}</a></h4>
                             </div>
                         </div>
 

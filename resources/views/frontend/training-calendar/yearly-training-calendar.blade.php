@@ -5,7 +5,7 @@
 @extends($layout)
 
 @section('title')
-    প্রশিক্ষণ বর্ষপঞ্জি
+    {{__('generic.calendar')}}
 @endsection
 
 @section('content')
