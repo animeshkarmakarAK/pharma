@@ -37,7 +37,7 @@ class InstitutePolicy extends BasePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission('create_institute');
+        return !$user->isInstituteUser() && $user->hasPermission('create_institute');
     }
 
     /**
@@ -61,7 +61,7 @@ class InstitutePolicy extends BasePolicy
      */
     public function delete(User $user, Institute $institute)
     {
-        return $user->hasPermission('delete_institute');
+        return !$user->isInstituteUser() &&$user->hasPermission('delete_institute');
     }
 
     /**
@@ -73,7 +73,7 @@ class InstitutePolicy extends BasePolicy
      */
     public function restore(User $user, Institute $institute)
     {
-        return $user->hasPermission('restore_institute');
+        return !$user->isInstituteUser() && $user->hasPermission('restore_institute');
     }
 
     /**
@@ -85,6 +85,6 @@ class InstitutePolicy extends BasePolicy
      */
     public function forceDelete(User $user, Institute $institute)
     {
-        return $user->hasPermission('force_delete_institute');
+        return !$user->isInstituteUser() && $user->hasPermission('force_delete_institute');
     }
 }

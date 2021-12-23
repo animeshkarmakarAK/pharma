@@ -112,7 +112,6 @@ class BatchController extends Controller
     {
         $validateData = $this->batchService->validator($request, $batch->id)->validate();
 
-
         try {
             $this->batchService->updateBatch($batch, $validateData);
         } catch (\Throwable $exception) {

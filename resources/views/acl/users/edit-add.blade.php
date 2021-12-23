@@ -218,8 +218,33 @@
                                        placeholder="{{ __($edit ? 'Retype New Password' : 'Retype Password') }}">
                             </div>
                         </div>
-
                     @endif
+
+                    @if($edit)
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="row_status">{{ __('generic.row_status') }}</label>
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="row_status_active"
+                                           name="row_status"
+                                           value="{{ \App\Models\BaseModel::ROW_STATUS_ACTIVE }}"
+                                        {{ ($edit && $user->row_status == \App\Models\BaseModel::ROW_STATUS_ACTIVE) || old('row_status') == \App\Models\BaseModel::ROW_STATUS_ACTIVE ? 'checked' : '' }}>
+                                    <label for="row_status_active"
+                                           class="custom-control-label">{{ __('admin.status.active') }}</label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="row_status_inactive"
+                                           name="row_status"
+                                           value="{{ \App\Models\BaseModel::ROW_STATUS_INACTIVE }}"
+                                        {{ ($edit && $user->row_status == \App\Models\BaseModel::ROW_STATUS_INACTIVE) || old('row_status') == \App\Models\BaseModel::ROW_STATUS_INACTIVE ? 'checked' : '' }}>
+                                    <label for="row_status_inactive"
+                                           class="custom-control-label">{{ __('admin.status.inactive') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-sm-12 text-right">
                         <button type="submit" class="btn btn-success j8">{{$edit ? 'Update' : 'Create'}}</button>
                     </div>

@@ -83,7 +83,7 @@
                                             data-filters="{{json_encode(['institute_id' => $authUser->institute_id])}}"
                                             @endif
                                             @if($edit)
-                                            data-preselected-option="{{json_encode(['text' =>  optional($batch->branches)->title, 'id' =>  optional($batch->branches)->id])}}"
+                                            data-preselected-option="{{json_encode(['text' =>  optional($batch->branch)->title, 'id' =>  optional($batch->branch)->id])}}"
                                             @endif
                                             data-placeholder="{{__('Select Training Center')}}"
                                     >

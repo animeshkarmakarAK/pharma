@@ -28,11 +28,15 @@ use App\Traits\ScopeAclTrait;
  * @property Carbon end_date
  * @property Carbon start_time
  * @property Carbon end_time
- *@method static \Illuminate\Database\Eloquent\Builder|Institute acl()
- * @method static Builder|Institute active()
- * @method static Builder|Institute newModelQuery()
- * @method static Builder|Institute newQuery()
- * @method static Builder|Institute query()
+ * @property-read Course course
+ * @property-read Institute institute
+ * @property-read Branch branch
+ * @property-read TrainingCenter trainingCenter
+ *@method static \Illuminate\Database\Eloquent\Builder|Batch acl()
+ * @method static Builder|Batch active()
+ * @method static Builder|Batch newModelQuery()
+ * @method static Builder|Batch newQuery()
+ * @method static Builder|Batch query()
  */
 
 class Batch extends Model
@@ -53,6 +57,11 @@ class Batch extends Model
     public function institute(): BelongsTo
     {
         return $this->belongsTo(Institute::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function trainingCenter(): BelongsTo

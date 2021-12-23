@@ -4,16 +4,11 @@ namespace App\Services;
 
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
-use App\Helpers\Classes\FileHandler;
-use App\Models\Course;
-use Illuminate\Validation\Rules\RequiredIf;
 use App\Models\Batch;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Programme;
-use App\Models\PublishCourse;
 use Yajra\DataTables\Facades\DataTables;
 
 class BatchService
@@ -42,6 +37,7 @@ class BatchService
             'code' => 'required|string|max: 191|unique:batches,code,' . $id,
             'institute_id' => 'required|int|exists:institutes,id',
             'course_id' => 'required|int|exists:courses,id',
+            'branch_id' => 'nullable|int|exists:branches,id',
             'training_center_id' => 'required|int|exists:training_centers,id',
             'application_start_date' => [
                 'required'
@@ -64,7 +60,7 @@ class BatchService
     {
         $authUser = AuthHelper::getAuthUser();
         /** @var Builder|Batch $batches */
-        $batches = Batch::select(
+        $batches = Batch::acl()->select(
             [
                 'batches.id as id',
                 'batches.title',

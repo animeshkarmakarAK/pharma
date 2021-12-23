@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -31,11 +31,11 @@ class InstituteService
         $userData = [];
         $data = Arr::only($data, ['title', 'contact_person_email', 'contact_person_password']);
 
-        $userData['title'] = $data['title'];
+        $userData['name'] = $data['title'];
         $userData['email'] = $data['contact_person_email'];
         $userData['institute_id'] = $institute->id;
         $userData['user_type_id'] = User::USER_TYPE_INSTITUTE_USER_CODE;
-        $userData['password'] = Hash::make($data['contact_person_password']);
+        $userData['password'] = $data['contact_person_password'];
         $userData['row_status'] = User::ROW_STATUS_INACTIVE;
 
         $authUser = AuthHelper::getAuthUser();
@@ -43,7 +43,7 @@ class InstituteService
             $userData['row_status'] = User::ROW_STATUS_ACTIVE;
         }
 
-        User::create($userData);
+        (new UserService())->createUser($userData);
 
         return $institute;
     }
@@ -76,7 +76,7 @@ class InstituteService
                 'required', 'string',
             ],
             'contact_person_email' => [
-                'required', 'string', 'email',
+                'required', 'email', !$id ? Rule::unique('users', 'email') : 'string',
             ],
             'contact_person_address' => [
                 'nullable', 'string',

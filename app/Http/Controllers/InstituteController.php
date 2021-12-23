@@ -183,7 +183,7 @@ class InstituteController extends Controller
             return back()->with([
                 'message' => __('generic.something_wrong_try_again'),
                 'alert-type' => 'error'
-            ]);
+            ])->withInput();
         }
 
         return redirect()->route('admin.login-form')->with([

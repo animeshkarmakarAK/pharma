@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Helpers\Classes\AuthHelper;
 use App\Helpers\Classes\DatatableHelper;
 use App\Helpers\Classes\FileHandler;
+use App\Models\BaseModel;
 use App\Models\Permission;
 use App\Models\User;
 use App\Models\UserType;
@@ -15,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -31,7 +33,13 @@ class UserService
 
         $userType = UserType::findOrFail($data['user_type_id']);
         $data['role_id'] = $userType->default_role_id;
-        $data = $this->setACLData($data);
+
+        /** @var User $authUser */
+        $authUser = AuthHelper::getAuthUser();
+
+        if ($authUser) {
+            $data = $this->setACLData($data);
+        }
 
         return User::create($data);
     }
@@ -47,7 +55,8 @@ class UserService
             'email' => [
                 'bail',
                 'required',
-                'email'
+                'email',
+                Rule::unique('users')->ignore($id),
             ],
             'user_type_id' => [
                 'bail',
@@ -64,7 +73,8 @@ class UserService
                 new RequiredIf(!$id),
                 'confirmed'
             ],
-            'profile_pic' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000'
+            'profile_pic' => 'nullable|mimes:jpeg,jpg,png,gif|max:10000',
+            'row_status' => [Rule::requiredIf($id), Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE, BaseModel::ROW_STATUS_DELETED])],
         ];
 
         if (AuthHelper::getAuthUser()->id == $id && !empty($request->input('password'))) {
@@ -106,7 +116,9 @@ class UserService
             $data['role_id'] = $userType->default_role_id;
         }
 
-        $data = $this->setACLData($data);
+        if ($authUser) {
+            $data = $this->setACLData($data);
+        }
 
         $user->update($data);
         return $user;
